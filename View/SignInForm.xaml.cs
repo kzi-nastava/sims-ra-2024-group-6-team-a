@@ -55,9 +55,8 @@ namespace BookingApp.View
 
 
                         case Enums.UserType.Owner:
-                            //replace with owner window
-                            CommentsOverview commentsOverview = new CommentsOverview(user);
-                            commentsOverview.Show();
+                            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(user);
+                            accommodationViewMenu.Show();
                             Close();
                             break;
                         case Enums.UserType.Guest:
