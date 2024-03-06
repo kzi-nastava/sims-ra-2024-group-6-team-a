@@ -21,5 +21,12 @@ namespace BookingApp.Resources
             Guide,
             Guest
         }
+
+        public enum AccommodationType
+        {
+            Apartment,
+            House,
+            Cottage
+        }
     }
 }
