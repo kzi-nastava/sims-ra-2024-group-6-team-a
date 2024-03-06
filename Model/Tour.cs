@@ -12,7 +12,7 @@ namespace BookingApp.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Location Location { get; set; }
+        public int LocationId { get; set; }
         public string Description { get; set; }
         public string Language { get; set; }
         public int Capacity {  get; set; }
@@ -24,11 +24,11 @@ namespace BookingApp.Model
 
         public Tour() { Images = new List<Image>(); }
 
-        public Tour(int id, string name, Location location, string description, string language, int capacity, List<Checkpoint> checkpoints, double duration,List <TourSchedule> tourSchedules, List <Image> images)
+        public Tour(int id, string name, int location, string description, string language, int capacity, List<Checkpoint> checkpoints, double duration,List <TourSchedule> tourSchedules, List <Image> images)
         {
             Id = id;
             Name = name;
-            Location = location;
+            LocationId = location;
             Description = description;
             Language = language;
             Capacity = capacity;
