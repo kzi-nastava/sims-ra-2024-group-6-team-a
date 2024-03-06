@@ -40,7 +40,7 @@ namespace BookingApp.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, Description , Language , Capacity.ToString() , Duration.ToString()};
+            string[] csvValues = { Id.ToString(), Name,LocationId.ToString(), Description , Language , Capacity.ToString() , Duration.ToString()};
             return csvValues;
         }
 
@@ -48,10 +48,11 @@ namespace BookingApp.Model
         {
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
-            Description =  values[2];
-            Language = values[3];
-            Capacity = Convert.ToInt32(values[4]);
-            Duration = Convert.ToDouble(values[5]);
+            LocationId = Convert.ToInt32(values[2]);
+            Description =  values[3];
+            Language = values[4];
+            Capacity = Convert.ToInt32(values[5]);
+            Duration = Convert.ToDouble(values[6]);
         }
 
     }
