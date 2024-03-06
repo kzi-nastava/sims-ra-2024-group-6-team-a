@@ -3,6 +3,7 @@ using BookingApp.Repository;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using BookingApp.Resources;
 
 namespace BookingApp.View
 {
@@ -47,12 +48,30 @@ namespace BookingApp.View
             User user = _repository.GetByUsername(Username);
             if (user != null)
             {
-                if(user.Password == txtPassword.Password)
+                if (user.Password == txtPassword.Password)
                 {
-                    CommentsOverview commentsOverview = new CommentsOverview(user);
-                    commentsOverview.Show();
-                    Close();
-                } 
+                    switch (user.Type)
+                    {
+
+
+                        case Enums.UserType.Owner:
+                            //replace with owner window
+                            CommentsOverview commentsOverview = new CommentsOverview(user);
+                            commentsOverview.Show();
+                            Close();
+                            break;
+                        case Enums.UserType.Guest:
+                            //replace with guest
+                            break;
+                        case Enums.UserType.Tourist:
+                            //replace with tourist
+                            break;
+                        case Enums.UserType.Guide:
+                            //replace with guide 
+                            break;
+                    }
+                    
+                }
                 else
                 {
                     MessageBox.Show("Wrong password!");
