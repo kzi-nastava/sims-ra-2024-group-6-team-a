@@ -1,4 +1,5 @@
 ﻿using BookingApp.Model;
+using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,13 @@ namespace BookingApp.Repository
         private readonly Serializer<Accommodation> _serializer;
 
         private List<Accommodation> _accommodations;
+        public Subject subject;
 
         public AccommodationRepository()
         {
             _serializer = new Serializer<Accommodation>();
             _accommodations = _serializer.FromCSV(FilePath);
+            subject = new Subject();
         }
 
         public List<Accommodation> GetAll()
@@ -34,6 +37,7 @@ namespace BookingApp.Repository
             _accommodations = _serializer.FromCSV(FilePath);
             _accommodations.Add(accommodation);
             _serializer.ToCSV(FilePath, _accommodations);
+            subject.NotifyObservers();
             return accommodation;
 
         }
@@ -56,7 +60,9 @@ namespace BookingApp.Repository
             {
                 _accommodations.Remove(found);
             }
+
             _serializer.ToCSV(FilePath, _accommodations);
+            subject.NotifyObservers();
         }
 
         public List<Accommodation> GetByUser(User user)

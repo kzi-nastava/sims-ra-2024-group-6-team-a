@@ -28,12 +28,11 @@ namespace BookingApp.View
         public User LoggedUser {  get; set; }
        
         private readonly TourRepository _repository;
-        private Location
 
 
 
 
-        public GuideViewMenu(User user; )
+        public GuideViewMenu(User user)
         {
             InitializeComponent();
 

@@ -26,14 +26,14 @@ namespace BookingApp.Model
 
         }
 
-        public Accommodation(string name,Enums.AccommodationType type,int maxGuests,int minReservationDays,int cancelationDays,int publicId,int ownerId)
+        public Accommodation(string name,Enums.AccommodationType type,int maxGuests,int minReservationDays,int cancelationDays,int locationId,int ownerId)
         {
             Name = name;
             Type = type;    
             MaxGuests = maxGuests;
             MinReservationDays = minReservationDays;
             CancelationDays = cancelationDays;
-            LocationId = LocationId;
+            LocationId = locationId;
             OwnerId = ownerId;
 
         }
