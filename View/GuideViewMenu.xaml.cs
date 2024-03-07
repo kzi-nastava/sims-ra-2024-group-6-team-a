@@ -31,7 +31,6 @@ namespace BookingApp.View
 
 
 
-
         public GuideViewMenu(User user)
         {
             InitializeComponent();
