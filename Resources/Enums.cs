@@ -28,5 +28,11 @@ namespace BookingApp.Resources
             House,
             Cottage
         }
+        public enum ReservationStatus
+        {
+            Active,
+            Canceled
+            
+        }
     }
 }
