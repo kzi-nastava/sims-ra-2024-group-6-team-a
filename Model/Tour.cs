@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Xaml.Schema;
-
+using BookingApp.Serializer;
 namespace BookingApp.Model
 {
-    public class Tour
+    public class Tour : ISerializable
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -20,15 +20,20 @@ namespace BookingApp.Model
         public double Duration { get; set; }
         public List<TourSchedule> TourSchedules { get; set; }
         public List<Image> Images { get; set; }
+        public int GuideId { get; set; }
 
 
-        public Tour() { Images = new List<Image>(); }
+        public Tour()
+        { 
+            Images = new List<Image>(); 
+            TourSchedules = new List<TourSchedule>();
+        }
 
-        public Tour(int id, string name, int location, string description, string language, int capacity, List<Checkpoint> checkpoints, double duration,List <TourSchedule> tourSchedules, List <Image> images)
+        public Tour(int id, string name, int locationId, string description, string language, int capacity, List<Checkpoint> checkpoints, double duration,List <TourSchedule> tourSchedules, List <Image> images, int guideId)
         {
             Id = id;
             Name = name;
-            LocationId = location;
+            LocationId = locationId;
             Description = description;
             Language = language;
             Capacity = capacity;
@@ -36,11 +41,12 @@ namespace BookingApp.Model
             Duration = duration;
             TourSchedules = tourSchedules;
             Images = images;
+            GuideId = guideId;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name,LocationId.ToString(), Description , Language , Capacity.ToString() , Duration.ToString()};
+            string[] csvValues = { Id.ToString(), Name,LocationId.ToString(), Description , Language , Capacity.ToString() , Duration.ToString(), GuideId.ToString()};
             return csvValues;
         }
 
@@ -53,6 +59,7 @@ namespace BookingApp.Model
             Language = values[4];
             Capacity = Convert.ToInt32(values[5]);
             Duration = Convert.ToDouble(values[6]);
+            GuideId = Convert.ToInt32(values[7]);
         }
 
     }
