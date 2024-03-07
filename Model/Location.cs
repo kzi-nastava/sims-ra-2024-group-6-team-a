@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Resources;
+using BookingApp.Serializer;
 
 namespace BookingApp.Model
 {
-    public class Location
+    public class Location : ISerializable
     {
         public int Id { get; set; }
         public string State {  get; set; }

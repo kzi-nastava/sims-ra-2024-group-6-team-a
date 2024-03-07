@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.Repository;
+using BookingApp.DTOs;
 
 namespace BookingApp.View
 {
@@ -22,21 +23,29 @@ namespace BookingApp.View
     /// </summary>
     public partial class AccommodationViewMenu : Window
     {
-        public static ObservableCollection<Accommodation> Accommodations { get; set; }
-        public Accommodation SelectedAccommodation { get; set; }
+        public static ObservableCollection<AccommodationOwnerDTO> Accommodations { get; set; }
+        public AccommodationOwnerDTO SelectedAccommodation { get; set; }
         public User User { get; set; }
         private AccommodationRepository _repository;
+        private LocationRepository _locationRepository;
 
-        public AccommodationViewMenu(User user)
+        public AccommodationViewMenu(User user,LocationRepository _locRepository)
         {
             InitializeComponent();
 
             DataContext = this;
+            _locationRepository = _locRepository;
 
             Title = user.Username + "'s accommodations";
             User = user;
             _repository = new AccommodationRepository();
-            Accommodations = new ObservableCollection<Accommodation>(_repository.GetByUser(user));
+            Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
+
+            foreach(Accommodation a in  _repository.GetByUser(User))
+            {
+                Accommodations.Add(new AccommodationOwnerDTO(a,_locationRepository.GetByAccommodation(a)));
+            }
+
         }
     }
 }

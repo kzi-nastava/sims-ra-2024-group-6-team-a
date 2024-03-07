@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen">
+        Title="{Binding Title}" Height="608" Width="960" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="760"/>
+            <ColumnDefinition Width="900"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -22,12 +22,15 @@
             <DataGrid ItemsSource="{Binding Accommodations}"
               SelectedItem="{Binding Path=SelectedAccommodation}"
               IsReadOnly="True" SelectionMode="Single" 
-          AutoGenerateColumns="False" Height="325" HeadersVisibility="Column" FontSize="13">
+          AutoGenerateColumns="False" Height="501" HeadersVisibility="Column" FontSize="13">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="200"/>
-                    <DataGridTextColumn Header="Maximum Guests" Binding="{Binding MaxGuests}" Width="*"/>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="100"/>
+                    <DataGridTextColumn Header="Max Guests" Binding="{Binding MaxGuests}" Width="100"/>
                     <DataGridTextColumn Header="Minimum Reservation Days" Binding="{Binding MinReservationDays}" Width="*"/>
                     <DataGridTextColumn Header="Cancelation Days" Binding="{Binding CancelationDays}" Width="*"/>
+                    <DataGridTextColumn Header="City" Binding="{Binding City}" Width="*"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding State}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

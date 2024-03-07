@@ -14,6 +14,7 @@ namespace BookingApp.View
     {
 
         private readonly UserRepository _repository;
+        private readonly LocationRepository _locationRepository;
 
         private string _username;
         public string Username
@@ -41,6 +42,7 @@ namespace BookingApp.View
             InitializeComponent();
             DataContext = this;
             _repository = new UserRepository();
+            _locationRepository = new LocationRepository();
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
@@ -55,7 +57,7 @@ namespace BookingApp.View
 
 
                         case Enums.UserType.Owner:
-                            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(user);
+                            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(user,_locationRepository);
                             accommodationViewMenu.Show();
                             Close();
                             break;
