@@ -23,6 +23,12 @@ namespace BookingApp.Model
             City = city;
         }
 
+        public Location(string state, string city)
+        {
+            State = state;
+            City = city;
+        }
+
         public string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), State, City };

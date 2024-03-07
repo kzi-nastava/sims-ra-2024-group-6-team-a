@@ -18,6 +18,17 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
+            <Button Click="RegisterAccommodation">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Resources/Images/add.png" Width="20" Height="25"/>
+                    <TextBlock Text="Register" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                </StackPanel>
+            </Button>
+            <Separator/>
+
+        </ToolBar>
+
         <StackPanel Grid.Row="2" Grid.Column="1">
             <DataGrid ItemsSource="{Binding Accommodations}"
               SelectedItem="{Binding Path=SelectedAccommodation}"

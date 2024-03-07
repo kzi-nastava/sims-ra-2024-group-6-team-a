@@ -15,13 +15,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.Repository;
 using BookingApp.DTOs;
+using BookingApp.Observer;
 
 namespace BookingApp.View
 {
     /// <summary>
     /// Interaction logic for AccommodationViewMenu.xaml
     /// </summary>
-    public partial class AccommodationViewMenu : Window
+    public partial class AccommodationViewMenu : Window, IObserver
     {
         public static ObservableCollection<AccommodationOwnerDTO> Accommodations { get; set; }
         public AccommodationOwnerDTO SelectedAccommodation { get; set; }
@@ -36,16 +37,29 @@ namespace BookingApp.View
             DataContext = this;
             _locationRepository = _locRepository;
 
-            Title = user.Username + "'s accommodations";
+            Title = user.Username + "'s accommodations"; // ime prozora ce biti ime vlasnika
             User = user;
-            _repository = new AccommodationRepository();
+            _repository = new AccommodationRepository(); 
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
+            Update(); //ovo se runna posle svake promene i na startu,da bi prikazalo sve najnovije promene realtime,kao sto je dodavanje i sl.
 
-            foreach(Accommodation a in  _repository.GetByUser(User))
+
+        }
+
+        private void RegisterAccommodation(object sender, RoutedEventArgs e) //poziva konstruktor dodavanja novog smestaja
+        {
+            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_repository,_locationRepository,User.Id);
+            registerAccommodationMenu.ShowDialog();
+            Update();
+        }
+
+        public void Update()
+        {
+            Accommodations.Clear(); //moramo da ocistimo listu dto prvo,inace se duplira
+            foreach (Accommodation a in _repository.GetByUser(User))
             {
-                Accommodations.Add(new AccommodationOwnerDTO(a,_locationRepository.GetByAccommodation(a)));
+                Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a)));
             }
-
         }
     }
 }
