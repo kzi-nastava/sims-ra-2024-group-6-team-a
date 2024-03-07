@@ -1,0 +1,38 @@
+﻿<Window x:Class="BookingApp.View.AccommodationViewMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="608" Width="960" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="900"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <DataGrid ItemsSource="{Binding Accommodations}"
+              SelectedItem="{Binding Path=SelectedAccommodation}"
+              IsReadOnly="True" SelectionMode="Single" 
+          AutoGenerateColumns="False" Height="501" HeadersVisibility="Column" FontSize="13">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="200"/>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="100"/>
+                    <DataGridTextColumn Header="Max Guests" Binding="{Binding MaxGuests}" Width="100"/>
+                    <DataGridTextColumn Header="Minimum Reservation Days" Binding="{Binding MinReservationDays}" Width="*"/>
+                    <DataGridTextColumn Header="Cancelation Days" Binding="{Binding CancelationDays}" Width="*"/>
+                    <DataGridTextColumn Header="City" Binding="{Binding City}" Width="*"/>
+                    <DataGridTextColumn Header="State" Binding="{Binding State}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>

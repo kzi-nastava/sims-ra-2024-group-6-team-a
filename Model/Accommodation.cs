@@ -12,6 +12,7 @@ namespace BookingApp.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int OwnerId { get; set; }
         public int LocationId { get; set; }
         public Enums.AccommodationType Type { get; set; }
 
@@ -25,7 +26,7 @@ namespace BookingApp.Model
 
         }
 
-        public Accommodation(string name,Enums.AccommodationType type,int maxGuests,int minReservationDays,int cancelationDays,int publicId)
+        public Accommodation(string name,Enums.AccommodationType type,int maxGuests,int minReservationDays,int cancelationDays,int publicId,int ownerId)
         {
             Name = name;
             Type = type;    
@@ -33,12 +34,13 @@ namespace BookingApp.Model
             MinReservationDays = minReservationDays;
             CancelationDays = cancelationDays;
             LocationId = LocationId;
+            OwnerId = ownerId;
 
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, Type.ToString(), MaxGuests.ToString(), MinReservationDays.ToString(), CancelationDays.ToString(),LocationId.ToString() };
+            string[] csvValues = { Id.ToString(), Name, Type.ToString(), MaxGuests.ToString(), MinReservationDays.ToString(), CancelationDays.ToString(),LocationId.ToString(),OwnerId.ToString()};
             return csvValues;
         }
 
@@ -51,7 +53,7 @@ namespace BookingApp.Model
             MinReservationDays= Convert.ToInt32(values[4]);
             CancelationDays= Convert.ToInt32(values[5]);
             LocationId = Convert.ToInt32(values[6]);
-
+            OwnerId = Convert.ToInt32(values[7]);
         }
 
 
