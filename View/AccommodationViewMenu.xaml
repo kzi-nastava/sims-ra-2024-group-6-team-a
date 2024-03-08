@@ -22,7 +22,7 @@
             <Button Click="RegisterAccommodation">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/add.png" Width="20" Height="25"/>
-                    <TextBlock Text="Register" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0"><Underline>R</Underline>egister</TextBlock>
                 </StackPanel>
             </Button>
             <Separator/>
@@ -31,7 +31,10 @@
 
 
         <TabControl Grid.Row="2" Grid.Column="1">
-            <TabItem Header="Accommodations">
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock><Underline>A</Underline>ccommodations</TextBlock>
+                </TabItem.Header>
                 <Grid>
             <ListBox KeyDown="DetailedView" SelectedItem="{Binding SelectedAccommodation}" ItemsSource="{Binding Accommodations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ListBox.ItemTemplate>
@@ -83,6 +86,11 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock><Underline>E</Underline>xtra</TextBlock>
+                </TabItem.Header>
             </TabItem>
         </TabControl>
     </Grid>
