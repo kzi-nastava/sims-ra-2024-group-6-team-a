@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using BookingApp.Repository;
 using BookingApp.DTOs;
 using BookingApp.Observer;
+using BookingApp.Resources;
 
 namespace BookingApp.View
 {
@@ -29,13 +30,15 @@ namespace BookingApp.View
         public User User { get; set; }
         private AccommodationRepository _repository;
         private LocationRepository _locationRepository;
+        private ImageRepository _imageRepository;
 
-        public AccommodationViewMenu(User user,LocationRepository _locRepository)
+        public AccommodationViewMenu(User user,LocationRepository _locationRepository,ImageRepository _imageRepository)
         {
             InitializeComponent();
 
             DataContext = this;
-            _locationRepository = _locRepository;
+            this._locationRepository = _locationRepository;
+            this._imageRepository = _imageRepository;
 
             Title = user.Username + "'s accommodations"; // ime prozora ce biti ime vlasnika
             User = user;
@@ -58,8 +61,18 @@ namespace BookingApp.View
             Accommodations.Clear(); //moramo da ocistimo listu dto prvo,inace se duplira
             foreach (Accommodation a in _repository.GetByUser(User))
             {
-                Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a)));
+                Model.Image image = new Model.Image();
+                foreach(Model.Image i in _imageRepository.GetByEntity(a.Id,Enums.ImageType.Accommodation))
+                {
+                    image = i;
+                    break;
+                }
+
+                Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a),image.Path));  
             }
+
+
+            AccommodationsList.ItemsSource = Accommodations;
         }
     }
 }
