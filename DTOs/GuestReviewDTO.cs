@@ -102,13 +102,33 @@ namespace BookingApp.DTOs
             }
         }
 
-        public GuestReviewDTO(AccommodationReservation reservation,User user,int cleanlinessGrade,int respectGrade,string comment)
+        public String image;
+
+        public String Image
         {
-            reservationId = reservation.Id;
-            guestId = reservation.GuestId;
+            get
+            {
+                return image;
+            }
+
+            set
+            {
+                if (value != image)
+                {
+                    image = value;
+                    OnPropertyChanged("image");
+                }
+            }
+        }
+
+        public GuestReviewDTO(int reservationId,int userId,int cleanlinessGrade,int respectGrade,string comment)
+        {
+            reservationId = reservationId;
+            guestId = userId;
             this.cleanlinessGrade = cleanlinessGrade;
             this.respectGrade = respectGrade;
             this.comment = comment;
+            image = "\\Resources\\Images\\blank-profile.jpg";
         }
 
     }

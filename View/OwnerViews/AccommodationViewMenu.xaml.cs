@@ -26,25 +26,37 @@ namespace BookingApp.View
     public partial class AccommodationViewMenu : Window, IObserver
     {
         public static ObservableCollection<AccommodationOwnerDTO> Accommodations { get; set; }
+        public static ObservableCollection<GuestReviewDTO> GuestReviews { get; set; }
+
+
         public AccommodationOwnerDTO SelectedAccommodation { get; set; }
+        public GuestReviewDTO SelectedGuestReview { get; set; }
+
+
         public User User { get; set; }
         private AccommodationRepository _repository;
         private LocationRepository _locationRepository;
         private ImageRepository _imageRepository;
         
+        
 
         public AccommodationViewMenu(User user,LocationRepository _locationRepository,ImageRepository _imageRepository)
         {
             InitializeComponent();
-
             DataContext = this;
+
+
             this._locationRepository = _locationRepository;
             this._imageRepository = _imageRepository;
+            _repository = new AccommodationRepository();
 
             Title = user.Username + "'s accommodations"; // ime prozora ce biti ime vlasnika
             User = user;
-            _repository = new AccommodationRepository(); 
+            
+
+
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
+            GuestReviews = new ObservableCollection<GuestReviewDTO>();
             Update(); //ovo se runna posle svake promene i na startu,da bi prikazalo sve najnovije promene realtime,kao sto je dodavanje i sl.
 
 
@@ -62,6 +74,8 @@ namespace BookingApp.View
         public void Update()
         {
             Accommodations.Clear(); //moramo da ocistimo listu dto prvo,inace se duplira
+            GuestReviews.Clear();
+
             foreach (Accommodation a in _repository.GetByUser(User))
             {
 
@@ -74,7 +88,9 @@ namespace BookingApp.View
                 Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a),image.Path));  
             }
 
-
+            
+            
+            GuestReviews.Add(new GuestReviewDTO(1,1, 1, 1, "sadas"));
 
             
         }

@@ -16,6 +16,7 @@ namespace BookingApp.View
         private readonly UserRepository _repository;
         private readonly LocationRepository _locationRepository;
         private readonly ImageRepository _imageRepository;
+        private readonly AccommodationReservationRepository _accommodationReservationRepository;
         //private readonly TourRepository _tourRepository;
 
         private string _username;
@@ -46,9 +47,10 @@ namespace BookingApp.View
             _repository = new UserRepository();
             _locationRepository = new LocationRepository();
             _imageRepository = new ImageRepository();
+            _accommodationReservationRepository = new AccommodationReservationRepository();
             //_tourRepository = new TourRepository();
         }
-
+        
         private void SignIn(object sender, RoutedEventArgs e)
         {
             User user = _repository.GetByUsername(Username);
