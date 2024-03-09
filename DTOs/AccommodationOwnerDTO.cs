@@ -188,7 +188,18 @@ namespace BookingApp.DTOs
             this.image = image;
 
         }
+        public AccommodationOwnerDTO(Accommodation accommodation, Location location)
+        {
+            Id = accommodation.Id;
+            name = accommodation.Name;
+            type = accommodation.Type;
+            maxGuests = accommodation.MaxGuests;
+            minReservationDays = accommodation.MinReservationDays;
+            cancelationDays = accommodation.CancelationDays;
+            city = location.City;
+            state = location.State;
 
+        }
 
     }
 }

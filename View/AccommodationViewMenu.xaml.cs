@@ -31,6 +31,7 @@ namespace BookingApp.View
         private AccommodationRepository _repository;
         private LocationRepository _locationRepository;
         private ImageRepository _imageRepository;
+        
 
         public AccommodationViewMenu(User user,LocationRepository _locationRepository,ImageRepository _imageRepository)
         {
@@ -51,10 +52,12 @@ namespace BookingApp.View
 
         private void RegisterAccommodation(object sender, RoutedEventArgs e) //poziva konstruktor dodavanja novog smestaja
         {
-            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_repository,_locationRepository,User.Id);
+            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_repository,_locationRepository,_imageRepository,User.Id);
             registerAccommodationMenu.ShowDialog();
             Update();
         }
+
+        
 
         public void Update()
         {
@@ -72,7 +75,27 @@ namespace BookingApp.View
             }
 
 
-            AccommodationsList.ItemsSource = Accommodations;
+
+            
+        }
+
+
+
+        private void DetailedView(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                List<Model.Image> images = new List<Model.Image>();
+                foreach(Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
+                {
+                    images.Add(i);
+                }
+
+               
+                AccommodationImagesMenu accommodationImagesMenu = new AccommodationImagesMenu(images);
+                accommodationImagesMenu.ShowDialog();
+
+            }
         }
     }
 }

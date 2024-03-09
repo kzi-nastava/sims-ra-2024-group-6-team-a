@@ -15,12 +15,14 @@ namespace BookingApp.Repository
         private const string FilePath = "../../../Resources/Data/accommodations.csv";
 
         private readonly Serializer<Accommodation> _serializer;
+        private readonly List<IObserver> _observers;
 
         private List<Accommodation> _accommodations;
         public Subject subject;
 
         public AccommodationRepository()
         {
+            _observers = new List<IObserver>();
             _serializer = new Serializer<Accommodation>();
             _accommodations = _serializer.FromCSV(FilePath);
             subject = new Subject();
@@ -71,6 +73,21 @@ namespace BookingApp.Repository
             return _accommodations.FindAll(c => c.OwnerId == user.Id);
         }
 
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
 
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
     }
 }
