@@ -64,7 +64,9 @@ namespace BookingApp.View
                             Close();
                             break;
                         case Enums.UserType.Guest:
-                            //replace with guest
+                            AccommodationReservationViewMenu accommodationReservationViewMenu = new AccommodationReservationViewMenu(_locationRepository);
+                            accommodationReservationViewMenu.Show();
+                            Close(); 
                             break;
                         case Enums.UserType.Tourist:
                             //replace with tourist
