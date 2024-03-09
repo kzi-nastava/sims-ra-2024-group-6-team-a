@@ -69,5 +69,11 @@ namespace BookingApp.Repository
 
             return false;
         }
+
+        public GuestReview Get(int reservationId) 
+        {
+            _reviews = _serializer.FromCSV(FilePath);
+            return _reviews.Find(r => r.ReservationId == reservationId);
+        }
     }
 }

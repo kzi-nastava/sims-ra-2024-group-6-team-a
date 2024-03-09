@@ -39,6 +39,7 @@ namespace BookingApp.View
         private ImageRepository _imageRepository;
         private AccommodationReservationRepository _reservationRepository;
         private UserRepository _userRepository;
+        private GuestReviewRepository _guestReviewRepository;
         
 
         public AccommodationViewMenu(User user,LocationRepository _locationRepository,ImageRepository _imageRepository,AccommodationReservationRepository _reservationRepository,UserRepository _userRepository)
@@ -52,6 +53,7 @@ namespace BookingApp.View
             this._reservationRepository = _reservationRepository;
             this._userRepository = _userRepository;
             _repository = new AccommodationRepository();
+            _guestReviewRepository = new GuestReviewRepository();
 
             Title = user.Username + "'s accommodations"; // ime prozora ce biti ime vlasnika
             User = user;
@@ -86,10 +88,20 @@ namespace BookingApp.View
                     if (r.CheckOutDate < DateOnly.FromDateTime(DateTime.Today))
                     {
                         //add the reservation to be reviewed only if todays date is past the checkout day,eg. the guest has already left the accommodation
-                        GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), 0, 0, "",r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy")));
+                        if (_guestReviewRepository.DoesGradeExist(r.Id))
+                        {
+                            //if grade does exists add a new one to the repo and save it,and show that one as a observable dto list
+                            GuestReview g = _guestReviewRepository.Get(r.Id);
+                            GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), g.CleanlinessGrade, g.RespectGrade, g.Comment, r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy")));
+                        }
+                        else
+                        {
+                            //if it doesnt,no need to save it,just show a blank dto
+                            GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), 0, 0, "", r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy")));
+                        }
+
                     }
                 }
-
                 Model.Image image = new Model.Image();
                 foreach(Model.Image i in _imageRepository.GetByEntity(a.Id,Enums.ImageType.Accommodation))
                 {
