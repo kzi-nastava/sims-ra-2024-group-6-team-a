@@ -27,43 +27,106 @@ namespace BookingApp.View
     public partial class TouristViewMenu : Window, IObserver
     {
 
-        public static ObservableCollection<TourGuideDTO> Tours {  get; set; }
-        public TourGuideDTO SelectedTour { get; set; }
-        public User User { get; set; }
+        public static ObservableCollection<TourTouristDTO> Tours {  get; set; }
+        public TourTouristDTO SelectedTour { get; set; }
+
+        public string NameSearch { get; set; }
+        public string CitySearch { get; set; }
+        public string StateSearch { get; set; }
+
+        public string LanguageSearch { get; set; }
+        public string CapacitySearch { get; set; }
+        public string DurationSearch { get; set; }
+
+
         private LocationRepository _locationRepository;
-        private TourRepository _tourRepository;
+        private TourRepository _repository;
         private ImageRepository _imageRepository;
 
-        public TouristViewMenu(User user, LocationRepository _locationRepository, ImageRepository _imageRepository)
+        public TouristViewMenu( LocationRepository _locationRepository, ImageRepository _imageRepository)
         {
             InitializeComponent();
             DataContext = this;
+
             this._locationRepository = _locationRepository;
-            this._imageRepository = _imageRepository;
-            User = user;
+            this._imageRepository = _imageRepository; // will be used later on for more complex GUI 
             
-            _tourRepository = new TourRepository();
-            Tours = new ObservableCollection<TourGuideDTO>();
+            _repository = new TourRepository();
+            _repository.Subscribe(this);
+            
+            Tours = new ObservableCollection<TourTouristDTO>();
             Update();
         }
 
         public void Update()
         {
             Tours.Clear();
-            foreach(Tour t in _tourRepository.GetByUser(User)) 
+            foreach(Tour tour in _repository.GetAll()) 
             {
-                Model.Image image = new Model.Image();
-                foreach (Model.Image i in _imageRepository.GetByEntity(t.Id, Enums.ImageType.Tour))
-                {
-                    image = i;
-                    break;
-                }
-                Tours.Add(new TourGuideDTO(t, _locationRepository.GetById(t.LocationId), image.Path));
+               
+                Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId)));
             }
 
-            TourList.ItemsSource = Tours;
+            
         }
 
-       
+        private void TextboxCity_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CitySearch = TextboxCity.Text;
+
+        }
+
+        private void TextboxName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            NameSearch = TextboxName.Text;
+        }
+
+        private void TextboxState_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            StateSearch = TextboxState.Text;
+        }
+
+        private void TextboxDuration_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            DurationSearch= TextboxDuration.Text;
+        }
+
+        private void TextboxLanguage_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            LanguageSearch = TextboxLanguage.Text;
+        }
+
+        private void TextboxCapacity_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CapacitySearch = TextboxCapacity.Text;
+        }
+
+        public void Search_Click(object sender, RoutedEventArgs e)
+        {
+            Tours.Clear();
+
+
+            foreach (Tour tour in _repository.GetAll())
+            {
+                if (CheckSearchConditions(tour))
+                {
+                    Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId)));
+                }
+            }
+        }
+
+        public bool CheckSearchConditions(Tour tour)
+        {
+            bool ContainsName, ContainsState, ContainsCity, ContainsDuration, ContainsLanguage, CapacityIsLower;
+
+            ContainsName = string.IsNullOrEmpty(NameSearch) ? true : tour.Name.ToLower().Contains(NameSearch.ToLower());
+            ContainsCity = string.IsNullOrEmpty(CitySearch) ? true : _locationRepository.GetById(tour.LocationId).City.ToLower().Contains(CitySearch.ToLower());
+            ContainsState = string.IsNullOrEmpty(StateSearch) ? true : _locationRepository.GetById(tour.LocationId).State.ToLower().Contains(StateSearch.ToLower());
+            ContainsLanguage = string.IsNullOrEmpty(LanguageSearch) ? true : tour.Language.ToString().ToLower().Contains(LanguageSearch.ToLower());
+            CapacityIsLower = string.IsNullOrEmpty(CapacitySearch) ? true : Convert.ToInt32(CapacitySearch) <= tour.Capacity;
+            ContainsDuration = string.IsNullOrEmpty(DurationSearch) ? true : Convert.ToDouble(DurationSearch) == tour.Duration;
+
+            return ContainsName && ContainsState && ContainsCity && ContainsDuration && CapacityIsLower && ContainsLanguage;
+        }
     }
 }
