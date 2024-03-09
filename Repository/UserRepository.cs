@@ -2,6 +2,7 @@
 using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 
 namespace BookingApp.Repository
 {
@@ -23,6 +24,12 @@ namespace BookingApp.Repository
         {
             _users = _serializer.FromCSV(FilePath);
             return _users.FirstOrDefault(u => u.Username == username);
+        }
+
+        public string GetUsername(int id) 
+        {
+            _users = _serializer.FromCSV(FilePath);
+            return _users.Find(u => u.Id == id).Username;
         }
     }
 }

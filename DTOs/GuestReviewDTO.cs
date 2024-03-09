@@ -19,35 +19,35 @@ namespace BookingApp.DTOs
             }
         }
 
-        public int guestId;
+        public string guestName;
 
-        public int GuestId
+        public string GuestName
         {
             get
-            { return guestId; }
+            { return guestName; }
 
             set
             {
-                if(value !=  guestId) 
+                if(value !=  guestName) 
                 {
-                    guestId = value;
-                    OnPropertyChanged("GuestId");
+                    guestName = value;
+                    OnPropertyChanged("GuestName");
                 }
             }
         }
 
-        public int reservationId;
+        public string accommodationName;
 
-        public int ReservationId
+        public string AccommodationName
         {
-            get { return reservationId; }
+            get { return accommodationName; }
 
             set
             {
-                if(value != reservationId) 
+                if(value != accommodationName) 
                 {
-                    reservationId = value;
-                    OnPropertyChanged("ReservationId");
+                    accommodationName = value;
+                    OnPropertyChanged("accommodationName");
                 }
             }
         }
@@ -86,6 +86,22 @@ namespace BookingApp.DTOs
             }
         }
 
+        public string date;
+
+        public string Date
+        {
+            get { return date; }
+
+            set
+            {
+                if (date != value)
+                {
+                    date = value;
+                    OnPropertyChanged("Date");
+                }
+            }
+        }
+
         public string comment;
 
         public string Comment
@@ -116,19 +132,20 @@ namespace BookingApp.DTOs
                 if (value != image)
                 {
                     image = value;
-                    OnPropertyChanged("image");
+                    OnPropertyChanged("Image");
                 }
             }
         }
 
-        public GuestReviewDTO(int reservationId,int userId,int cleanlinessGrade,int respectGrade,string comment)
+        public GuestReviewDTO(string accommodationName, string userName,int cleanlinessGrade,int respectGrade,string comment,string date)
         {
-            reservationId = reservationId;
-            guestId = userId;
+            this.accommodationName = accommodationName;
+            guestName = userName;
             this.cleanlinessGrade = cleanlinessGrade;
             this.respectGrade = respectGrade;
             this.comment = comment;
             image = "\\Resources\\Images\\blank-profile.jpg";
+            this.date = date;
         }
 
     }

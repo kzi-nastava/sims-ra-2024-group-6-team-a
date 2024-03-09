@@ -37,10 +37,11 @@ namespace BookingApp.View
         private AccommodationRepository _repository;
         private LocationRepository _locationRepository;
         private ImageRepository _imageRepository;
-        
+        private AccommodationReservationRepository _reservationRepository;
+        private UserRepository _userRepository;
         
 
-        public AccommodationViewMenu(User user,LocationRepository _locationRepository,ImageRepository _imageRepository)
+        public AccommodationViewMenu(User user,LocationRepository _locationRepository,ImageRepository _imageRepository,AccommodationReservationRepository _reservationRepository,UserRepository _userRepository)
         {
             InitializeComponent();
             DataContext = this;
@@ -48,6 +49,8 @@ namespace BookingApp.View
 
             this._locationRepository = _locationRepository;
             this._imageRepository = _imageRepository;
+            this._reservationRepository = _reservationRepository;
+            this._userRepository = _userRepository;
             _repository = new AccommodationRepository();
 
             Title = user.Username + "'s accommodations"; // ime prozora ce biti ime vlasnika
@@ -78,6 +81,14 @@ namespace BookingApp.View
 
             foreach (Accommodation a in _repository.GetByUser(User))
             {
+                foreach (AccommodationReservation r in _reservationRepository.GetByAccommodation(a))
+                {
+                    if (r.CheckOutDate < DateOnly.FromDateTime(DateTime.Today))
+                    {
+                        //add the reservation to be reviewed only if todays date is past the checkout day,eg. the guest has already left the accommodation
+                        GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), 0, 0, "",r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy")));
+                    }
+                }
 
                 Model.Image image = new Model.Image();
                 foreach(Model.Image i in _imageRepository.GetByEntity(a.Id,Enums.ImageType.Accommodation))
@@ -90,7 +101,8 @@ namespace BookingApp.View
 
             
             
-            GuestReviews.Add(new GuestReviewDTO(1,1, 1, 1, "sadas"));
+            
+            
 
             
         }
