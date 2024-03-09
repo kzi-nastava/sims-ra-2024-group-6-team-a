@@ -43,7 +43,7 @@ namespace BookingApp.View
 
             foreach(Accommodation a in  _repository.GetByUser(User))
             {
-                Accommodations.Add(new AccommodationOwnerDTO(a,_locationRepository.GetByAccommodation(a)));
+                Accommodations.Add(new AccommodationOwnerDTO(a,_locationRepository.GetById(a.LocationId)));
             }
 
         }

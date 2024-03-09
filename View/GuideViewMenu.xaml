@@ -18,48 +18,41 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="15"/>
         </Grid.RowDefinitions>
-
         <StackPanel Grid.Row="2" Grid.Column="1">
-            <DataGrid ItemsSource="{Binding Comments}"
-                  SelectedItem="{Binding Path=SelectedComment}"
+            <DataGrid ItemsSource="{Binding Tours}"
+                  SelectedItem="{Binding Path=SelectedTour}"
                   IsReadOnly="True" SelectionMode="Single" 
               AutoGenerateColumns="False" Height="521" HeadersVisibility="Column" FontSize="13">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Creation time" Binding="{Binding CreationTime}" Width="200"/>
-                    <DataGridTextColumn Header="Text" Binding="{Binding Text}" Width="*"/>
+                    <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="*"/>
+                    <DataGridTextColumn Header="Jezik" Binding="{Binding Language}" Width="*"/>
+                    <DataGridTextColumn Header="Kapacitet" Binding="{Binding Capacity}" Width="*"/>
+                    <DataGridTextColumn Header="Trajanje" Binding="{Binding Duration}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
 
         <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
-            <Button Click="ShowCreateCommentForm">
+            <Button Click="ShowCreateTourForm">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/add.png" Width="20" Height="25"/>
-                    <TextBlock Text="Create" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <TextBlock Text="New Tour" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
-            <Button Click="ShowViewCommentForm">
+            <Button >
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Images/view.png" Width="20" Height="25"/>
-                    <TextBlock Text="View" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <TextBlock Text="Details" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
-            <Button Click="ShowUpdateCommentForm">
+            <Button >
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../Resources/Images/edit.png" Width="20" Height="25"/>
-                    <TextBlock Text="Update" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
-                </StackPanel>
-            </Button>
-            <Separator/>
-            <Button Click="Delete">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="../Resources/Images/delete.png" Width="20" Height="25"/>
-                    <TextBlock Name="DeleteTxtBlock" Text="Delete" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <Image Source="../Resources/Images/checkpoint.png" Width="20" Height="25"/>
+                    <TextBlock Name="DeleteTxtBlock" Text="Checkpoints" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
         </ToolBar>
-
     </Grid>
 </Window>
