@@ -64,13 +64,13 @@ namespace BookingApp.View
             Accommodations.Clear(); //moramo da ocistimo listu dto prvo,inace se duplira
             foreach (Accommodation a in _repository.GetByUser(User))
             {
+
                 Model.Image image = new Model.Image();
                 foreach(Model.Image i in _imageRepository.GetByEntity(a.Id,Enums.ImageType.Accommodation))
                 {
                     image = i;
                     break;
                 }
-
                 Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a),image.Path));  
             }
 

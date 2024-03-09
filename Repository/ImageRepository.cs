@@ -1,4 +1,4 @@
-﻿using BookingApp.Model;
+using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Resources;
 using BookingApp.Serializer;
@@ -19,6 +19,7 @@ namespace BookingApp.Repository
         private List<Image> _images;
         public Subject subject;
 
+
         public ImageRepository()
         {
             _serializer = new Serializer<Image>();
@@ -31,6 +32,7 @@ namespace BookingApp.Repository
             return _serializer.FromCSV(FilePath);
         }
 
+
         public Image Save(Image Image)
         {
             Image.Id = NextId();
@@ -39,7 +41,6 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _images);
             subject.NotifyObservers();
             return Image;
-
         }
 
         public int NextId()
@@ -49,7 +50,19 @@ namespace BookingApp.Repository
             {
                 return 1;
             }
-            return _images.Max(c => c.Id) + 1;
+            return _images.Max(x => x.Id) + 1;
+        }
+
+       
+        public Image Update(Image image)
+        {
+            _images = _serializer.FromCSV(FilePath);
+            Image current =  _images.Find(x => x.Id == image.Id);
+            int index = _images.IndexOf(current);
+            _images.Remove(current);
+            _images.Insert(index, image);
+            _serializer.ToCSV(FilePath, _images);
+            return image;
         }
 
         public void Delete(Image Image)

@@ -30,15 +30,15 @@ namespace BookingApp.Repository
             return _serializer.FromCSV(FilePath);
         }
 
-        public Location Save(Location Location)
+        public Location Save(Location location)
         {
-            Location.Id = NextId();
+            location.Id = NextId();
             _locations = _serializer.FromCSV(FilePath);
-            _locations.Add(Location);
+            _locations.Add(location);
             _serializer.ToCSV(FilePath, _locations);
+
             subject.NotifyObservers();
             return Location;
-
         }
 
         public int NextId()
@@ -51,10 +51,10 @@ namespace BookingApp.Repository
             return _locations.Max(c => c.Id) + 1;
         }
 
-        public void Delete(Location Location)
+        public void Delete(Location location)
         {
             _locations = _serializer.FromCSV(FilePath);
-            Location found = _locations.Find(c => c.Id == Location.Id);
+            Location found = _locations.Find(c => c.Id == location.Id);
             if (found != null)
             {
                 _locations.Remove(found);
@@ -62,6 +62,7 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _locations);
             subject.NotifyObservers();
         }
+
 
         public Location GetById(int id) 
         {
