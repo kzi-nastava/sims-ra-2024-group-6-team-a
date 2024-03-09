@@ -125,16 +125,25 @@ namespace BookingApp.View
         {
             if(e.Key == Key.Enter)
             {
-                List<Model.Image> images = new List<Model.Image>();
-                foreach(Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
+                if (Tabs.SelectedItem == AccommodationsTab)
                 {
-                    images.Add(i);
+                    List<Model.Image> images = new List<Model.Image>();
+                    foreach (Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
+                    {
+                        images.Add(i);
+                    }
+
+
+                    AccommodationImagesMenu accommodationImagesMenu = new AccommodationImagesMenu(images);
+                    accommodationImagesMenu.ShowDialog();
+
                 }
-
-               
-                AccommodationImagesMenu accommodationImagesMenu = new AccommodationImagesMenu(images);
-                accommodationImagesMenu.ShowDialog();
-
+                else if(Tabs.SelectedItem == ReviewsTab)
+                {
+                    ReviewGuest reviewGuest = new ReviewGuest();
+                    reviewGuest.ShowDialog();
+                    
+                }
             }
         }
     }

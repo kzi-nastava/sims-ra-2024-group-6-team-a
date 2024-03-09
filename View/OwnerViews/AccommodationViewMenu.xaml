@@ -30,8 +30,8 @@
         </ToolBar>
 
 
-        <TabControl Grid.Row="2" Grid.Column="1">
-            <TabItem>
+        <TabControl Grid.Row="2" Grid.Column="1" x:Name="Tabs">
+            <TabItem x:Name="AccommodationsTab">
                 <TabItem.Header>
                     <TextBlock><Underline>A</Underline>ccommodations</TextBlock>
                 </TabItem.Header>
@@ -87,7 +87,7 @@
             </ListBox>
         </Grid>
             </TabItem>
-            <TabItem>
+            <TabItem x:Name="ReviewsTab">
                 <TabItem.Header>
                     <TextBlock><Underline>G</Underline>uest review</TextBlock>
                 </TabItem.Header>
@@ -124,7 +124,7 @@
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                                            <TextBlock Margin="2,2,2,2">Your ratings:</TextBlock>
+                                            <TextBlock Margin="2,2,2,2" Foreground="Blue" >Your ratings:</TextBlock>
                                             <Rectangle Width="1" Height="20" Fill="LightBlue" Margin="2,0" />
                                             <TextBlock Margin="2,2,2,2">Cleanliness:</TextBlock>
                                             <TextBlock Text="{Binding CleanlinessGrade}" Margin="2,2,2,2"></TextBlock>
