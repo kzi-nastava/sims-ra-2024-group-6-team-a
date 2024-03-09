@@ -63,11 +63,15 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
         }
 
-        public Location GetByAccommodation(Accommodation accommodation)
+        public Location GetById(int id) 
         {
            
-            return _locations.Find(c => c.Id == accommodation.LocationId);
+            return _locations.Find(c => c.Id == id);
         }
 
+        public Location GetByAccommodation(Accommodation accommodation)
+        {
+            return _locations.Find(c => c.Id == accommodation.LocationId);
+        }
     }
 }

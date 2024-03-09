@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using BookingApp.Observer;
 
 namespace BookingApp.Repository
 {
@@ -17,11 +18,14 @@ namespace BookingApp.Repository
         private readonly Serializer <Tour> _serializer;
 
         private List <Tour> _tours;
+        public Subject subject;
+
 
         public TourRepository()
         {
             _serializer = new Serializer<Tour>();
             _tours = _serializer.FromCSV(FilePath);
+            subject = new Subject();
         }
 
         public List<Tour>GetAll()
@@ -35,6 +39,8 @@ namespace BookingApp.Repository
             _tours = _serializer.FromCSV(FilePath);
             _tours.Add(tour);
             _serializer.ToCSV(FilePath, _tours);
+            subject.NotifyObservers();
+
             return tour;
         }
 
@@ -54,6 +60,7 @@ namespace BookingApp.Repository
             Tour found = _tours.Find(x => x.Id == tour.Id);
             _tours.Remove(found);
             _serializer.ToCSV(FilePath,_tours);
+            subject.NotifyObservers();
         }
 
         public Tour Update(Tour tour)
@@ -64,6 +71,8 @@ namespace BookingApp.Repository
             _tours.Remove(current);
             _tours.Insert(index, tour);
             _serializer.ToCSV(FilePath, _tours);
+            subject.NotifyObservers();
+
             return tour;
         }
 

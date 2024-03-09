@@ -148,13 +148,32 @@ namespace BookingApp.DTOs
                 if (value != state)
                 {
                     state = value;
-                    OnPropertyChanged("state");
+                    OnPropertyChanged("State");
                 }
 
             }
         }
 
-        public TourGuideDTO(Tour tour, Location location)
+        public String image;
+
+        public String Image
+        {
+            get
+            {
+                return image;
+            }
+
+            set
+            {
+                if (value != image)
+                {
+                    image = value;
+                    OnPropertyChanged("image");
+                }
+            }
+        }
+
+        public TourGuideDTO(Tour tour, Location location, String image)
         {
             Id = tour.Id;
             name = tour.Name;
@@ -164,6 +183,7 @@ namespace BookingApp.DTOs
             duration = tour.Duration;
             city = location.City;
             state = location.State;
+            this.image = image;
 
         }
     }
