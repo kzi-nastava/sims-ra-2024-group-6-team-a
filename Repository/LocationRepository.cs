@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Model;
 using BookingApp.Serializer;
+using BookingApp.Observer;
 
 namespace BookingApp.Repository
 {
@@ -15,11 +16,13 @@ namespace BookingApp.Repository
         private readonly Serializer<Location> _serializer;
 
         private List<Location> _locations;
+        public Subject subject;
 
         public LocationRepository()
         {
             _serializer = new Serializer<Location>();
             _locations = _serializer.FromCSV(FilePath);
+            subject = new Subject();
         }
 
         public List<Location> GetAll()
@@ -33,8 +36,9 @@ namespace BookingApp.Repository
             _locations = _serializer.FromCSV(FilePath);
             _locations.Add(location);
             _serializer.ToCSV(FilePath, _locations);
-            return location;
 
+            subject.NotifyObservers();
+            return Location;
         }
 
         public int NextId()
@@ -56,13 +60,19 @@ namespace BookingApp.Repository
                 _locations.Remove(found);
             }
             _serializer.ToCSV(FilePath, _locations);
+            subject.NotifyObservers();
         }
 
-        public Location GetById(int locationId)
+
+        public Location GetById(int id) 
         {
            
-            return _locations.Find(c => c.Id == locationId);
+            return _locations.Find(c => c.Id == id);
         }
 
+        public Location GetByAccommodation(Accommodation accommodation)
+        {
+            return _locations.Find(c => c.Id == accommodation.LocationId);
+        }
     }
 }

@@ -1,0 +1,50 @@
+﻿<Window x:Class="BookingApp.View.RegisterAccommodationMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View"
+        mc:Ignorable="d"
+        Title="RegisterAccommodationMenu" Height="350" Width="600" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Name:</Label>
+        <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Type:</Label>
+        <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Maximum Guests</Label>
+        <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Minimum Reservation:</Label>
+        <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Cancelation Days:</Label>
+        <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">City:</Label>
+        <Label Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">State:</Label>
+        <TextBlock x:Name="ImageCountText" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue"></TextBlock>
+       
+        <TextBox x:Name="Name" Grid.Row="0" Grid.Column="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center" Orientation="Horizontal" VerticalAlignment="Center">
+            <RadioButton x:Name="apt" GroupName="type" FontSize="18" VerticalContentAlignment="Center" Margin="5,5,5,5">Apartment</RadioButton>
+            <RadioButton x:Name="house"  GroupName="type" FontSize="18" VerticalContentAlignment="Center" Margin="5,5,5,5">House</RadioButton>
+            <RadioButton x:Name="cottage"  GroupName="type" FontSize="18" VerticalContentAlignment="Center" Margin="5,5,5,5">Cottage</RadioButton>
+        </StackPanel>
+        <TextBox x:Name="MaxGuests"    Grid.Row="2" Grid.Column="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <TextBox x:Name ="MinReservation" Grid.Row="3" Grid.Column="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <TextBox x:Name ="CancelDays" Grid.Row="4" Grid.Column="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <TextBox x:Name ="City" Grid.Row="5" Grid.Column="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <TextBox x:Name ="State" Grid.Row="6" Grid.Column="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="AddImageClick"  Background="CornflowerBlue" Width="200">Add Images</Button>
+        <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="RegisterClick"  Background="CornflowerBlue" Width="115">Register</Button>
+    </Grid>
+
+</Window>

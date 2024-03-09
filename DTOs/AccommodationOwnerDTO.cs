@@ -155,8 +155,27 @@ namespace BookingApp.DTOs
             }
         }
 
+        public String image;
 
-        public AccommodationOwnerDTO(Accommodation accommodation,Location location)
+        public String Image
+        {
+            get
+            {
+                return image;
+            }
+
+            set
+            {
+                if(value != image)
+                {
+                    image = value;
+                    OnPropertyChanged("image");
+                }
+            }
+        }
+
+
+        public AccommodationOwnerDTO(Accommodation accommodation,Location location,String image)
         {
             Id = accommodation.Id;
             name = accommodation.Name;
@@ -166,9 +185,21 @@ namespace BookingApp.DTOs
             cancelationDays=accommodation.CancelationDays;
             city = location.City;
             state = location.State;
+            this.image = image;
 
         }
+        public AccommodationOwnerDTO(Accommodation accommodation, Location location)
+        {
+            Id = accommodation.Id;
+            name = accommodation.Name;
+            type = accommodation.Type;
+            maxGuests = accommodation.MaxGuests;
+            minReservationDays = accommodation.MinReservationDays;
+            cancelationDays = accommodation.CancelationDays;
+            city = location.City;
+            state = location.State;
 
+        }
 
     }
 }

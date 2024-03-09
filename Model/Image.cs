@@ -26,6 +26,15 @@ namespace BookingApp.Model
             this.Type = type;
         }
 
+        public Image(string path, int entityId,Enums.ImageType type)
+        {
+            this.Path = path;
+            this.EntityId = entityId;
+            this.Type = type;
+
+        }
+
+
         public string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), Path.ToString(), EntityId.ToString(), Type.ToString() };

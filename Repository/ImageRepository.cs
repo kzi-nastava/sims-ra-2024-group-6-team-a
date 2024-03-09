@@ -1,4 +1,6 @@
-﻿using BookingApp.Model;
+using BookingApp.Model;
+using BookingApp.Observer;
+using BookingApp.Resources;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -15,11 +17,14 @@ namespace BookingApp.Repository
         private readonly Serializer<Image> _serializer;
 
         private List<Image> _images;
+        public Subject subject;
+
 
         public ImageRepository()
         {
             _serializer = new Serializer<Image>();
             _images = _serializer.FromCSV(FilePath);
+            subject = new Subject();
         }
 
         public List<Image> GetAll()
@@ -27,13 +32,15 @@ namespace BookingApp.Repository
             return _serializer.FromCSV(FilePath);
         }
 
-        public Image Save(Image image)
+
+        public Image Save(Image Image)
         {
-            image.Id = NextId();
+            Image.Id = NextId();
             _images = _serializer.FromCSV(FilePath);
-            _images.Add(image);
+            _images.Add(Image);
             _serializer.ToCSV(FilePath, _images);
-            return image;
+            subject.NotifyObservers();
+            return Image;
         }
 
         public int NextId()
@@ -46,14 +53,7 @@ namespace BookingApp.Repository
             return _images.Max(x => x.Id) + 1;
         }
 
-        public void Delete(Tour tour)
-        {
-            _images = _serializer.FromCSV(FilePath);
-            Image found = _images.Find(x => x.Id == tour.Id);
-            _images.Remove(found);
-            _serializer.ToCSV(FilePath, _images);
-        }
-
+       
         public Image Update(Image image)
         {
             _images = _serializer.FromCSV(FilePath);
@@ -63,6 +63,25 @@ namespace BookingApp.Repository
             _images.Insert(index, image);
             _serializer.ToCSV(FilePath, _images);
             return image;
+        }
+
+        public void Delete(Image Image)
+        {
+            _images = _serializer.FromCSV(FilePath);
+            Image found = _images.Find(c => c.Id == Image.Id);
+            if (found != null)
+            {
+                _images.Remove(found);
+            }
+
+            _serializer.ToCSV(FilePath, _images);
+            subject.NotifyObservers();
+        }
+
+        public List<Image> GetByEntity(int id,Enums.ImageType type)
+        {
+            _images = _serializer.FromCSV(FilePath);
+            return _images.FindAll(c => c.EntityId == id && c.Type == type);
         }
 
     }

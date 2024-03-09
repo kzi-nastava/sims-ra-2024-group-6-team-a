@@ -15,6 +15,8 @@ namespace BookingApp.View
 
         private readonly UserRepository _repository;
         private readonly LocationRepository _locationRepository;
+        private readonly ImageRepository _imageRepository;
+        //private readonly TourRepository _tourRepository;
 
         private string _username;
         public string Username
@@ -43,6 +45,8 @@ namespace BookingApp.View
             DataContext = this;
             _repository = new UserRepository();
             _locationRepository = new LocationRepository();
+            _imageRepository = new ImageRepository();
+            //_tourRepository = new TourRepository();
         }
 
         private void SignIn(object sender, RoutedEventArgs e)
@@ -57,15 +61,19 @@ namespace BookingApp.View
 
 
                         case Enums.UserType.Owner:
-                            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(user,_locationRepository);
+                            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(user,_locationRepository,_imageRepository);
                             accommodationViewMenu.Show();
                             Close();
                             break;
                         case Enums.UserType.Guest:
-                            //replace with guest
+                            AccommodationReservationViewMenu accommodationReservationViewMenu = new AccommodationReservationViewMenu(_locationRepository);
+                            accommodationReservationViewMenu.Show();
+                            Close(); 
                             break;
                         case Enums.UserType.Tourist:
-                            //replace with tourist
+                            TouristViewMenu touristViewMenu = new TouristViewMenu(user, _locationRepository, _imageRepository);
+                            touristViewMenu.Show();
+                            Close();
                             break;
                         case Enums.UserType.Guide:
                             //replace with guide 
