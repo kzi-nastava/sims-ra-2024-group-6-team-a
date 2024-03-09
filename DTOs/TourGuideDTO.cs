@@ -186,5 +186,17 @@ namespace BookingApp.DTOs
             this.image = image;
 
         }
+        public TourGuideDTO(Tour tour, Location location)
+        {
+            Id = tour.Id;
+            name = tour.Name;
+            description = tour.Description;
+            language = tour.Language;
+            capacity = tour.Capacity;
+            duration = tour.Duration;
+            city = location.City;
+            state = location.State;
+
+        }
     }
 }

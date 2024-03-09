@@ -38,7 +38,7 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _locations);
 
             subject.NotifyObservers();
-            return Location;
+            return location;
         }
 
         public int NextId()
