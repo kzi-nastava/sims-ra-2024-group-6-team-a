@@ -29,7 +29,7 @@ namespace BookingApp.Model
             TourSchedules = new List<TourSchedule>();
         }
 
-        public Tour(int id, string name, int locationId, string description, string language, int capacity, List<Checkpoint> checkpoints, double duration,List <TourSchedule> tourSchedules, List <Image> images, int guideId)
+        public Tour(int id, string name, int locationId, string description, string language, int capacity, List<Checkpoint> checkpoints, double duration,List <TourSchedule> tourSchedules,  int guideId)
         {
             Id = id;
             Name = name;
@@ -40,7 +40,7 @@ namespace BookingApp.Model
             Checkpoints = checkpoints;
             Duration = duration;
             TourSchedules = tourSchedules;
-            Images = images;
+            //Images = images;
             GuideId = guideId;
         }
 
