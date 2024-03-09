@@ -72,7 +72,7 @@ namespace BookingApp.View
                             Close(); 
                             break;
                         case Enums.UserType.Tourist:
-                            TouristViewMenu touristViewMenu = new TouristViewMenu(user, _locationRepository, _imageRepository);
+                            TouristViewMenu touristViewMenu = new TouristViewMenu( _locationRepository, _imageRepository);
                             touristViewMenu.Show();
                             Close();
                             break;
