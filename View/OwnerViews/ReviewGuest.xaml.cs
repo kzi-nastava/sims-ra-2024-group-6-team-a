@@ -34,12 +34,20 @@ namespace BookingApp.View
 
             this._guestReviewRepository = _guestReviewRepository;
             this.reservationId = reservationId;
+            CommentBox.MaxLength = 60;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _guestReviewRepository.Save(new Model.GuestReview(reservationId,CleanGradeCombo.SelectedIndex+1,RespectGradeCombo.SelectedIndex+1,CommentBox.Text));
-            Close();
+            if (CleanGradeCombo.SelectedItem != null && RespectGradeCombo != null)
+            {
+                _guestReviewRepository.Save(new Model.GuestReview(reservationId, CleanGradeCombo.SelectedIndex + 1, RespectGradeCombo.SelectedIndex + 1, CommentBox.Text));
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Must fill all fields.","Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 

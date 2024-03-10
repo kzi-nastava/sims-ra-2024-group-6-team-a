@@ -126,17 +126,20 @@ namespace BookingApp.View
 
             if (e.Key == Key.Enter)
             {
-                if (Tabs.SelectedItem == AccommodationsTab && SelectedAccommodation != null)
+                if (Tabs.SelectedItem == AccommodationsTab)
                 {
-                    List<Model.Image> images = new List<Model.Image>();
-                    foreach (Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
+                    if (SelectedAccommodation != null)
                     {
-                        images.Add(i);
+                        List<Model.Image> images = new List<Model.Image>();
+                        foreach (Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
+                        {
+                            images.Add(i);
+                        }
+
+
+                        AccommodationImagesMenu accommodationImagesMenu = new AccommodationImagesMenu(images);
+                        accommodationImagesMenu.ShowDialog();
                     }
-
-
-                    AccommodationImagesMenu accommodationImagesMenu = new AccommodationImagesMenu(images);
-                    accommodationImagesMenu.ShowDialog();
 
                 }
                 else if (Tabs.SelectedItem == ReviewsTab && SelectedGuestReview != null)
@@ -153,7 +156,7 @@ namespace BookingApp.View
         }
 
 
-        //this allows the user to do everything using keyboard buttons
+        //this allows the user to do everything using keyboard buttons,in window or tabs
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Escape) 
@@ -169,19 +172,32 @@ namespace BookingApp.View
             else if(e.Key == Key.A)
             {
                 Tabs.SelectedItem = AccommodationsTab;
-                if (Accommodations.First() != null)
+                if(SelectedAccommodation == null)
                 {
-                    SelectedAccommodation = Accommodations.First(); //doesnt work
+                    SelectedGuestReview = null;
+                    SelectedAccommodation = Accommodations.First();
+                    AccommodationsList.SelectedIndex = 0;
+                    AccommodationsList.UpdateLayout();
+                    AccommodationsList.Focus();
+
                 }
+
             }
             else if(e.Key == Key.G)
             {
                 Tabs.SelectedItem = ReviewsTab;
-                if (GuestReviews.First() != null)
+                if(SelectedGuestReview == null)
                 {
+                    SelectedAccommodation = null;
                     SelectedGuestReview = GuestReviews.First();
+                    ReviewsList.SelectedIndex = 0;
+                    ReviewsList.UpdateLayout();
+                    ReviewsList.Focus();
                 }
+
             }
         }
+
+
     }
 }
