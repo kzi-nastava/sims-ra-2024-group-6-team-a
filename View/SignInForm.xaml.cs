@@ -67,7 +67,7 @@ namespace BookingApp.View
                             Close();
                             break;
                         case Enums.UserType.Guest:
-                            AccommodationReservationViewMenu accommodationReservationViewMenu = new AccommodationReservationViewMenu(_locationRepository);
+                            AccommodationReservationViewMenu accommodationReservationViewMenu = new AccommodationReservationViewMenu(_locationRepository, _imageRepository);
                             accommodationReservationViewMenu.Show();
                             Close(); 
                             break;
