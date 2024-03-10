@@ -5,35 +5,213 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="{Binding Title}"  Height="608" Width="960" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <DataGrid ItemsSource="{Binding Path=Accommodations, UpdateSourceTrigger=PropertyChanged}"
-              SelectedItem="{Binding Path=SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
-              Margin="45,100,45,121" IsReadOnly="True" SelectionMode="Single " 
-          AutoGenerateColumns="False" HeadersVisibility="Column" FontSize="13">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="150"></DataGridTextColumn>
-                <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="100"></DataGridTextColumn>
-                <DataGridTextColumn Header="Max Guests" Binding="{Binding MaxGuests}" Width="100"></DataGridTextColumn>
-                <DataGridTextColumn Header="Minimum Reservation Days" Binding="{Binding MinReservationDays}" Width="180"></DataGridTextColumn>
-                <DataGridTextColumn Header="Cancelation Days" Binding="{Binding CancelationDays}" Width="140"></DataGridTextColumn>
-                <DataGridTextColumn Header="State" Binding="{Binding State}" Width="90"></DataGridTextColumn>
-                <DataGridTextColumn Header="City" Binding="{Binding City}" Width="*"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Label Content="Name:" HorizontalAlignment="Left" Margin="25,20,0,0" VerticalAlignment="Top"/>
-        <Label Content="Type:" HorizontalAlignment="Left" Margin="185,20,0,0" VerticalAlignment="Top"/>
-        <Label Content="Number of guest:" HorizontalAlignment="Left" Margin="320,20,0,0" VerticalAlignment="Top"/>
-        <Label Content="Number of days:" HorizontalAlignment="Left" Margin="440,20,0,0" VerticalAlignment="Top"/>
-        <Label Content="State:" HorizontalAlignment="Left" Margin="565,20,0,0" VerticalAlignment="Top"/>
-        <Label Content="City:" HorizontalAlignment="Left" Margin="733,20,0,0" VerticalAlignment="Top"/>
+        Title="{Binding Title}" Background="Transparent"
+        Height="730" Width="410" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen">
+    <Border CornerRadius="50">
+        <!--<Border.Background>
+            <ImageBrush ImageSource="/Images/bg.jpg"/>
+        </Border.Background>-->
 
-        <TextBox Name="TextboxName" TextChanged="TextboxName_TextChanged" HorizontalAlignment="Left" Margin="25,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Height="20"/>
-        <TextBox Name="TextboxType" TextChanged="TextboxType_TextChanged" HorizontalAlignment="Left" Margin="185,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110" Height="20"/>
-        <TextBox Name="TextboxGuests" TextChanged="TextboxGuests_TextChanged" HorizontalAlignment="Left" Margin="350,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="20"/>
-        <TextBox Name="TextboxDays" TextChanged="TextboxDays_TextChanged" HorizontalAlignment="Left" Margin="460,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="20"/>
-        <TextBox Name="TextboxState" TextChanged="TextboxState_TextChanged" HorizontalAlignment="Left" Margin="565,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110" Height="20"/>
-        <TextBox Name="TextboxCity" TextChanged="TextboxCity_TextChanged" HorizontalAlignment="Left" Margin="699,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110" Height="20"/>
-        <Button Content="Search" Click="Search_Click" HorizontalAlignment="Left" Margin="850,45,0,0" VerticalAlignment="Top" Width="60" Height="20"/>
-    </Grid>
+        <Border CornerRadius="50"
+                Background="LightSteelBlue"
+                BorderBrush="MediumSlateBlue"
+                BorderThickness="5"
+                Opacity="0.9">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="21"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid Margin="0,0,0,0" Grid.RowSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Name:"
+                       Foreground="Black"
+                       FontSize="16"
+                        HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                       FontWeight="ExtraLight"
+                       Width="66"
+                       Height="35" 
+                       Margin="46,62,0,0"/>
+
+                    <TextBox
+                           Width="99"
+                           Height="30"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                           Background="white"
+                           Margin="100,64,0,0"
+                           Opacity="0.7"
+                           BorderBrush="Black"
+                           BorderThickness="3"
+                           Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="Type:"
+                       Foreground="Black"
+                       FontSize="16"
+                HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                       FontWeight="ExtraLight"
+                       Width="58"
+                       Height="35" 
+                       Margin="292,61,0,0" Grid.ColumnSpan="2"/>
+
+                    <TextBox
+                           Width="50"
+                           Height="30"
+                  HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                           Background="white"
+                           Opacity="0.7"
+                           Margin="23,61,0,0"
+                           BorderBrush="Black"
+                           BorderThickness="3"
+                           Text="{Binding SearchType, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="3"/>
+                    <Label Content="City:"
+                       Foreground="Black"
+                       FontSize="16"
+                    HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                       FontWeight="ExtraLight"
+                       Width="38"
+                       Height="35" 
+                       Margin="58,96,0,0"/>
+
+                    <TextBox
+                           Width="97"
+                           Height="30"
+                  HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                           Background="white"
+                           Opacity="0.7"
+                           Margin="101,97,0,0"
+                           BorderBrush="Black"
+                           BorderThickness="3"
+                           Text="{Binding SearchLocation, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Label Content="State:"
+                       Foreground="Black"
+                       FontSize="16"
+                    HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                       FontWeight="ExtraLight"
+                     Width="53"
+                       Height="35" 
+                     Margin="52,125,0,0"/>
+
+                    <TextBox
+                           Width="97"
+                           Height="30"
+                  HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                           Background="white"
+                           Opacity="0.7"
+                           Margin="101,130,0,0"
+                           BorderBrush="Black"
+                           BorderThickness="3"
+                           Text="{Binding  SearchState, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+                    <Label Content="Number of Guests:"
+                       Foreground="Black"
+                     HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                       FontSize="16"
+                       FontWeight="ExtraLight"
+                       Width="140"
+                       Height="36" 
+                    Margin="203,94,0,0" Grid.ColumnSpan="2"/>
+                    <TextBox
+                           Width="50"
+                           Height="30"
+                           Background="white"
+                           Opacity="0.7"
+                  HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                       Margin="23,96,0,0"
+                           BorderBrush="Black"
+                           BorderThickness="3"
+                           
+                           Text="{Binding SearchGuestNumber, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="3"/>
+                    <Label Content="Number of days:"
+                       Foreground="Black"
+                       FontSize="16"
+                HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                       FontWeight="ExtraLight"
+                       Width="133"
+                       Height="34" 
+                    Margin="217,130,0,0" Grid.ColumnSpan="2"/>
+
+                    <TextBox
+                           Width="50"
+                           Height="30"
+                  HorizontalAlignment="Left"
+                         VerticalAlignment="Top"
+                           Background="white"
+                           Opacity="0.7"
+                         Margin="23,130,0,0"
+                           BorderBrush="Black"
+                           BorderThickness="3"
+                           Text="{Binding SearchDaysNumber, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="3"/>
+
+                </Grid>
+
+                <Button Content="Home" Margin="0,578,0,53" HorizontalAlignment="Left" Width="69" Grid.Row="1" >
+                    <!--<Image Source ="../Resources/Images/home.png" Width="30" Height="35"/>-->
+                </Button>
+                <Button Content="Accommodations" Margin="69,578,0,53" HorizontalAlignment="Left"  Width="69" Grid.Row="1"/>
+                <Button Content="Reservation" Margin="205,578,0,53" HorizontalAlignment="Left"  Width="69" Grid.Row="1"/>
+                <Button Content="Forum" Margin="138,578,0,53" HorizontalAlignment="Left"  Width="69" Grid.Row="1"/>
+                <Button Content="Stats" Margin="273,578,0,53" HorizontalAlignment="Left"  Width="69" Grid.Row="1"/>
+                <Button Content="Log out" Margin="329,578,0,53" HorizontalAlignment="Left"  Width="69" Grid.Row="1"/>
+                <ListView Grid.Row="1"
+                          Background="FloralWhite"
+                          Opacity="1"
+                          Margin="0,145,0,100"
+                          BorderBrush="Black"
+                          BorderThickness="3"
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          ItemsSource="{Binding filteredData}"
+                          SelectedItem="SelectedAccommodation"
+                          SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source= "{Binding Image}" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="9,0,0,0"/>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0,0,0">
+                                    <TextBlock Foreground="black" Text="{Binding Name}" FontSize="24" FontWeight="Bold"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                                        <Image Source="../Resources/Images/location-ping.png" Width="18" Height="18"></Image>
+                                        <TextBlock Text="{Binding City}" >,</TextBlock>
+                                        <TextBlock Text="{Binding State}"  ></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                                        <TextBlock>•</TextBlock>
+                                        <TextBlock Text="{Binding Type}"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+                                        <TextBlock>•Maximum guests:</TextBlock>
+                                        <TextBlock Foreground="black" Text="{Binding MaxGuests}" FontSize="12"  Margin="0,0,0,0" ></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
+                                        <TextBlock>•Minimal days:</TextBlock>
+                                        <TextBlock Foreground="black" Text="{Binding MinReservationDays}" FontSize="12"   Margin="0,0,0,0" TextWrapping="Wrap"></TextBlock>
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+    </Border>
 </Window>
