@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="ReviewGuest" Height="450" Width="500">
+        Title="ReviewGuest" Height="350" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -23,7 +23,9 @@
         <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Cleanliness:</Label>
         <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Respectfulness:</Label>
         <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Bonus Comment:</Label>
-        <TextBox TextWrapping="Wrap" x:Name ="State" Grid.Row="2" Grid.Column="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Height="133"></TextBox>
+        <ComboBox Grid.Row="0" Grid.Column="1" Width="80" Height="20" x:Name="CleanGradeCombo"></ComboBox>
+        <ComboBox Grid.Row="1" Grid.Column="1" Width="80" Height="20" x:Name="RespectGradeCombo"></ComboBox>
+        <TextBox TextWrapping="Wrap" x:Name ="CommentBox" Grid.Row="2" Grid.Column="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Height="133"></TextBox>
         <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click"  Background="CornflowerBlue" Width="115">Register</Button>
     </Grid>
 </Window>

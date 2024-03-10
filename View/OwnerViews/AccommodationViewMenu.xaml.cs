@@ -92,12 +92,12 @@ namespace BookingApp.View
                         {
                             //if grade does exists add a new one to the repo and save it,and show that one as a observable dto list
                             GuestReview g = _guestReviewRepository.Get(r.Id);
-                            GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), g.CleanlinessGrade, g.RespectGrade, g.Comment, r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy")));
+                            GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), g.CleanlinessGrade, g.RespectGrade, g.Comment, r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy"), r.Id));
                         }
                         else
                         {
                             //if it doesnt,no need to save it,just show a blank dto
-                            GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), 0, 0, "", r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy")));
+                            GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), 0, 0, "", r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy"), r.Id));
                         }
 
                     }
@@ -123,9 +123,10 @@ namespace BookingApp.View
 
         private void DetailedView(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+
+            if (e.Key == Key.Enter)
             {
-                if (Tabs.SelectedItem == AccommodationsTab)
+                if (Tabs.SelectedItem == AccommodationsTab && SelectedAccommodation != null)
                 {
                     List<Model.Image> images = new List<Model.Image>();
                     foreach (Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
@@ -138,11 +139,47 @@ namespace BookingApp.View
                     accommodationImagesMenu.ShowDialog();
 
                 }
-                else if(Tabs.SelectedItem == ReviewsTab)
+                else if (Tabs.SelectedItem == ReviewsTab && SelectedGuestReview != null)
                 {
-                    ReviewGuest reviewGuest = new ReviewGuest();
-                    reviewGuest.ShowDialog();
-                    
+                    if (SelectedGuestReview.respectGrade == 0)
+                    {
+                        ReviewGuest reviewGuest = new ReviewGuest(_guestReviewRepository, SelectedGuestReview.ReservationId);
+                        reviewGuest.ShowDialog();
+                    }
+                }
+            }
+
+            Update();
+        }
+
+
+        //this allows the user to do everything using keyboard buttons
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape) 
+            {
+                Close();
+            }
+            else if(e.Key == Key.R) 
+            {
+                RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_repository, _locationRepository, _imageRepository, User.Id);
+                registerAccommodationMenu.ShowDialog();
+                Update();
+            }
+            else if(e.Key == Key.A)
+            {
+                Tabs.SelectedItem = AccommodationsTab;
+                if (Accommodations.First() != null)
+                {
+                    SelectedAccommodation = Accommodations.First(); //doesnt work
+                }
+            }
+            else if(e.Key == Key.G)
+            {
+                Tabs.SelectedItem = ReviewsTab;
+                if (GuestReviews.First() != null)
+                {
+                    SelectedGuestReview = GuestReviews.First();
                 }
             }
         }

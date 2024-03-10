@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +20,26 @@ namespace BookingApp.View
     /// </summary>
     public partial class ReviewGuest : Window
     {
-        public ReviewGuest()
+        private GuestReviewRepository _guestReviewRepository;
+        private int reservationId;
+        public ReviewGuest(GuestReviewRepository _guestReviewRepository,int reservationId)
         {
+            DataContext = this;
             InitializeComponent();
+            for(int i = 1;i < 6;i++)
+            {
+                CleanGradeCombo.Items.Add(i);
+                RespectGradeCombo.Items.Add(i);
+            }
+
+            this._guestReviewRepository = _guestReviewRepository;
+            this.reservationId = reservationId;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            _guestReviewRepository.Save(new Model.GuestReview(reservationId,CleanGradeCombo.SelectedIndex+1,RespectGradeCombo.SelectedIndex+1,CommentBox.Text));
+            Close();
         }
     }
 
