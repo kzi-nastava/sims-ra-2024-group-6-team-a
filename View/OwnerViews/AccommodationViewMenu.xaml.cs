@@ -39,6 +39,7 @@ namespace BookingApp.View
         private ImageRepository _imageRepository;
         private AccommodationReservationRepository _reservationRepository;
         private UserRepository _userRepository;
+        private GuestReviewRepository _guestReviewRepository;
         
 
         public AccommodationViewMenu(User user,LocationRepository _locationRepository,ImageRepository _imageRepository,AccommodationReservationRepository _reservationRepository,UserRepository _userRepository)
@@ -52,6 +53,7 @@ namespace BookingApp.View
             this._reservationRepository = _reservationRepository;
             this._userRepository = _userRepository;
             _repository = new AccommodationRepository();
+            _guestReviewRepository = new GuestReviewRepository();
 
             Title = user.Username + "'s accommodations"; // ime prozora ce biti ime vlasnika
             User = user;
@@ -86,10 +88,20 @@ namespace BookingApp.View
                     if (r.CheckOutDate < DateOnly.FromDateTime(DateTime.Today))
                     {
                         //add the reservation to be reviewed only if todays date is past the checkout day,eg. the guest has already left the accommodation
-                        GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), 0, 0, "",r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy")));
+                        if (_guestReviewRepository.DoesGradeExist(r.Id))
+                        {
+                            //if grade does exists add a new one to the repo and save it,and show that one as a observable dto list
+                            GuestReview g = _guestReviewRepository.Get(r.Id);
+                            GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), g.CleanlinessGrade, g.RespectGrade, g.Comment, r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy"), r.Id));
+                        }
+                        else
+                        {
+                            //if it doesnt,no need to save it,just show a blank dto
+                            GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), 0, 0, "", r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy"), r.Id));
+                        }
+
                     }
                 }
-
                 Model.Image image = new Model.Image();
                 foreach(Model.Image i in _imageRepository.GetByEntity(a.Id,Enums.ImageType.Accommodation))
                 {
@@ -111,19 +123,81 @@ namespace BookingApp.View
 
         private void DetailedView(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+
+            if (e.Key == Key.Enter)
             {
-                List<Model.Image> images = new List<Model.Image>();
-                foreach(Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
+                if (Tabs.SelectedItem == AccommodationsTab)
                 {
-                    images.Add(i);
+                    if (SelectedAccommodation != null)
+                    {
+                        List<Model.Image> images = new List<Model.Image>();
+                        foreach (Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
+                        {
+                            images.Add(i);
+                        }
+
+
+                        AccommodationImagesMenu accommodationImagesMenu = new AccommodationImagesMenu(images);
+                        accommodationImagesMenu.ShowDialog();
+                    }
+
+                }
+                else if (Tabs.SelectedItem == ReviewsTab && SelectedGuestReview != null)
+                {
+                    if (SelectedGuestReview.respectGrade == 0)
+                    {
+                        ReviewGuest reviewGuest = new ReviewGuest(_guestReviewRepository, SelectedGuestReview.ReservationId);
+                        reviewGuest.ShowDialog();
+                    }
+                }
+            }
+
+            Update();
+        }
+
+
+        //this allows the user to do everything using keyboard buttons,in window or tabs
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape) 
+            {
+                Close();
+            }
+            else if(e.Key == Key.R) 
+            {
+                RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_repository, _locationRepository, _imageRepository, User.Id);
+                registerAccommodationMenu.ShowDialog();
+                Update();
+            }
+            else if(e.Key == Key.A)
+            {
+                Tabs.SelectedItem = AccommodationsTab;
+                if(SelectedAccommodation == null)
+                {
+                    SelectedGuestReview = null;
+                    SelectedAccommodation = Accommodations.First();
+                    AccommodationsList.SelectedIndex = 0;
+                    AccommodationsList.UpdateLayout();
+                    AccommodationsList.Focus();
+
                 }
 
-               
-                AccommodationImagesMenu accommodationImagesMenu = new AccommodationImagesMenu(images);
-                accommodationImagesMenu.ShowDialog();
+            }
+            else if(e.Key == Key.G)
+            {
+                Tabs.SelectedItem = ReviewsTab;
+                if(SelectedGuestReview == null)
+                {
+                    SelectedAccommodation = null;
+                    SelectedGuestReview = GuestReviews.First();
+                    ReviewsList.SelectedIndex = 0;
+                    ReviewsList.UpdateLayout();
+                    ReviewsList.Focus();
+                }
 
             }
         }
+
+
     }
 }
