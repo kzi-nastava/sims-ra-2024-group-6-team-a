@@ -16,6 +16,7 @@ namespace BookingApp.Repository
         private const string FilePath = "../../../Resources/Data/tours.csv";
 
         private readonly Serializer <Tour> _serializer;
+        private readonly List<IObserver> _observers;
 
         private List <Tour> _tours;
         public Subject subject;
@@ -23,6 +24,7 @@ namespace BookingApp.Repository
 
         public TourRepository()
         {
+            _observers = new List<IObserver>();
             _serializer = new Serializer<Tour>();
             _tours = _serializer.FromCSV(FilePath);
             subject = new Subject();
@@ -82,6 +84,22 @@ namespace BookingApp.Repository
             return _tours.FindAll(x => x.GuideId == user.Id);
         }
 
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+        public void NotifyObservers()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update();
+            }
+        }
 
     }
 }

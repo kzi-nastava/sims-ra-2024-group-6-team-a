@@ -16,6 +16,7 @@ namespace BookingApp.View
         private readonly UserRepository _repository;
         private readonly LocationRepository _locationRepository;
         private readonly ImageRepository _imageRepository;
+        private readonly AccommodationReservationRepository _accommodationReservationRepository;
         //private readonly TourRepository _tourRepository;
 
         private string _username;
@@ -46,9 +47,10 @@ namespace BookingApp.View
             _repository = new UserRepository();
             _locationRepository = new LocationRepository();
             _imageRepository = new ImageRepository();
+            _accommodationReservationRepository = new AccommodationReservationRepository();
             //_tourRepository = new TourRepository();
         }
-
+        
         private void SignIn(object sender, RoutedEventArgs e)
         {
             User user = _repository.GetByUsername(Username);
@@ -59,19 +61,18 @@ namespace BookingApp.View
                     switch (user.Type)
                     {
 
-
                         case Enums.UserType.Owner:
-                            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(user,_locationRepository,_imageRepository);
+                            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(user,_locationRepository,_imageRepository,_accommodationReservationRepository,_repository);
                             accommodationViewMenu.Show();
                             Close();
                             break;
                         case Enums.UserType.Guest:
-                            AccommodationReservationViewMenu accommodationReservationViewMenu = new AccommodationReservationViewMenu(_locationRepository);
+                            AccommodationReservationViewMenu accommodationReservationViewMenu = new AccommodationReservationViewMenu(_locationRepository, _imageRepository);
                             accommodationReservationViewMenu.Show();
                             Close(); 
                             break;
                         case Enums.UserType.Tourist:
-                            TouristViewMenu touristViewMenu = new TouristViewMenu(user, _locationRepository, _imageRepository);
+                            TouristViewMenu touristViewMenu = new TouristViewMenu( _locationRepository, _imageRepository);
                             touristViewMenu.Show();
                             Close();
                             break;
