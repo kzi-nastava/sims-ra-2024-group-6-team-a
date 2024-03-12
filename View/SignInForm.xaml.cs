@@ -77,7 +77,7 @@ namespace BookingApp.View
                             break;
                         case Enums.UserType.Guide:
                             //replace with guide 
-                            GuideViewMenu guideViewMenu = new GuideViewMenu(user,_locationRepository);
+                            GuideViewMenu guideViewMenu = new GuideViewMenu(user,_locationRepository,_imageRepository);
                             guideViewMenu.Show();
                             Close();
                             break;
