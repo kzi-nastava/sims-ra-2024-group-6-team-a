@@ -85,40 +85,46 @@ namespace BookingApp.View
             {
                 foreach (AccommodationReservation r in _reservationRepository.GetByAccommodation(a))
                 {
-                    if (r.CheckOutDate < DateOnly.FromDateTime(DateTime.Today))
-                    {
-                        //add the reservation to be reviewed only if todays date is past the checkout day,eg. the guest has already left the accommodation
-                        if (_guestReviewRepository.DoesGradeExist(r.Id))
-                        {
-                            //if grade does exists add a new one to the repo and save it,and show that one as a observable dto list
-                            GuestReview g = _guestReviewRepository.Get(r.Id);
-                            GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), g.CleanlinessGrade, g.RespectGrade, g.Comment, r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy"), r.Id));
-                        }
-                        else
-                        {
-                            //if it doesnt,no need to save it,just show a blank dto
-                            GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), 0, 0, "", r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy"), r.Id));
-                        }
+                    CheckAndAddGuestReview(a, r);  
+                }
+                
+                string imagePath = AddMainAccommodationImage(a);
 
-                    }
-                }
-                Model.Image image = new Model.Image();
-                foreach(Model.Image i in _imageRepository.GetByEntity(a.Id,Enums.ImageType.Accommodation))
-                {
-                    image = i;
-                    break;
-                }
-                Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a),image.Path));  
+                Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a),imagePath));  
             }
-
-            
-            
-            
-            
-
             
         }
 
+        public void CheckAndAddGuestReview(Accommodation a,AccommodationReservation r)
+        {
+            if (r.CheckOutDate < DateOnly.FromDateTime(DateTime.Today))
+            {
+                //add the reservation to be reviewed only if todays date is past the checkout day,eg. the guest has already left the accommodation
+                if (_guestReviewRepository.DoesGradeExist(r.Id))
+                {
+                    //if grade does exists add a new one to the repo and save it,and show that one as a observable dto list
+                    GuestReview g = _guestReviewRepository.Get(r.Id);
+                    GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), g.CleanlinessGrade, g.RespectGrade, g.Comment, r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy"), r.Id));
+                }
+                else
+                {
+                    //if it doesnt,no need to save it,just show a blank dto
+                    GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), 0, 0, "", r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy"), r.Id));
+                }
+
+            }
+        }
+
+        public string AddMainAccommodationImage(Accommodation a)
+        {
+            Model.Image image = new Model.Image();
+            foreach (Model.Image i in _imageRepository.GetByEntity(a.Id, Enums.ImageType.Accommodation))
+            {
+                image = i;
+                return image.Path;
+            }
+            return null;
+        }
 
 
         private void DetailedView(object sender, KeyEventArgs e)
@@ -126,34 +132,45 @@ namespace BookingApp.View
 
             if (e.Key == Key.Enter)
             {
-                if (Tabs.SelectedItem == AccommodationsTab)
+                if (Tabs.SelectedItem == AccommodationsTab && SelectedAccommodation != null)
                 {
-                    if (SelectedAccommodation != null)
-                    {
-                        List<Model.Image> images = new List<Model.Image>();
-                        foreach (Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
-                        {
-                            images.Add(i);
-                        }
-
-
-                        AccommodationImagesMenu accommodationImagesMenu = new AccommodationImagesMenu(images);
-                        accommodationImagesMenu.ShowDialog();
-                    }
-
+                    DetailedAccommodationView();
                 }
                 else if (Tabs.SelectedItem == ReviewsTab && SelectedGuestReview != null)
                 {
-                    if (SelectedGuestReview.respectGrade == 0)
-                    {
-                        ReviewGuest reviewGuest = new ReviewGuest(_guestReviewRepository, SelectedGuestReview.ReservationId);
-                        reviewGuest.ShowDialog();
-                    }
+                    GradeEmptyReview();
                 }
             }
 
             Update();
         }
+
+
+        private void DetailedAccommodationView()
+        {
+            //basically get all the images of selected accommodation and add them to the detailed window
+            List<Model.Image> images = new List<Model.Image>();
+            foreach (Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
+            {
+                images.Add(i);
+            }
+
+
+            AccommodationImagesMenu accommodationImagesMenu = new AccommodationImagesMenu(images);
+            accommodationImagesMenu.ShowDialog();
+
+        }
+
+        private void GradeEmptyReview()
+        {
+            //grade an empty non reviewed guest
+            if (SelectedGuestReview.respectGrade == 0)
+            {
+                ReviewGuest reviewGuest = new ReviewGuest(_guestReviewRepository, SelectedGuestReview.ReservationId);
+                reviewGuest.ShowDialog();
+            }
+        }
+
 
 
         //this allows the user to do everything using keyboard buttons,in window or tabs
