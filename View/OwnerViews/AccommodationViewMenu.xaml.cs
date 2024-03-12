@@ -40,6 +40,7 @@ namespace BookingApp.View
         private AccommodationReservationRepository _reservationRepository;
         private UserRepository _userRepository;
         private GuestReviewRepository _guestReviewRepository;
+        bool existsNotReviewed = false;
         
 
         public AccommodationViewMenu(User user,LocationRepository _locationRepository,ImageRepository _imageRepository,AccommodationReservationRepository _reservationRepository,UserRepository _userRepository)
@@ -48,12 +49,8 @@ namespace BookingApp.View
             DataContext = this;
 
 
-            this._locationRepository = _locationRepository;
-            this._imageRepository = _imageRepository;
-            this._reservationRepository = _reservationRepository;
-            this._userRepository = _userRepository;
-            _repository = new AccommodationRepository();
-            _guestReviewRepository = new GuestReviewRepository();
+            InitiliazeRepositories(_locationRepository,  _imageRepository, _reservationRepository, _userRepository);
+           
 
             Title = user.Username + "'s accommodations"; // ime prozora ce biti ime vlasnika
             User = user;
@@ -62,9 +59,25 @@ namespace BookingApp.View
 
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
             GuestReviews = new ObservableCollection<GuestReviewDTO>();
+
             Update(); //ovo se runna posle svake promene i na startu,da bi prikazalo sve najnovije promene realtime,kao sto je dodavanje i sl.
+            GuestsNotReviewedNotification();
 
 
+
+        }
+
+
+  
+
+        public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository)
+        {
+            this._locationRepository = _locationRepository;
+            this._imageRepository = _imageRepository;
+            this._reservationRepository = _reservationRepository;
+            this._userRepository = _userRepository;
+            _repository = new AccommodationRepository();
+            _guestReviewRepository = new GuestReviewRepository();
         }
 
         private void RegisterAccommodation(object sender, RoutedEventArgs e) //poziva konstruktor dodavanja novog smestaja
@@ -78,7 +91,7 @@ namespace BookingApp.View
 
         public void Update()
         {
-            Accommodations.Clear(); //moramo da ocistimo listu dto prvo,inace se duplira
+            Accommodations.Clear(); //we must clear so it doesnt duplicate
             GuestReviews.Clear();
 
             foreach (Accommodation a in _repository.GetByUser(User))
@@ -92,7 +105,9 @@ namespace BookingApp.View
 
                 Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a),imagePath));  
             }
+
             
+
         }
 
         public void CheckAndAddGuestReview(Accommodation a,AccommodationReservation r)
@@ -110,8 +125,17 @@ namespace BookingApp.View
                 {
                     //if it doesnt,no need to save it,just show a blank dto
                     GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), 0, 0, "", r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy"), r.Id));
+                    existsNotReviewed = true;
                 }
 
+            }
+        }
+
+        private void GuestsNotReviewedNotification()
+        {
+            if(existsNotReviewed)
+            {
+                MessageBox.Show("You have unreviewed guests!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

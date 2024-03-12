@@ -62,14 +62,17 @@ namespace BookingApp.View
 
             Location location = new Location(State.Text,City.Text);
             location = locationRepository.Save(location);
+            //we could add a check if location exists
+
             accommodation = new Accommodation(Name.Text,type,int.Parse(MaxGuests.Text),int.Parse(MinReservation.Text),int.Parse(CancelDays.Text),location.Id,userId);
             int accommodationId = accommodationRepository.Save(accommodation).Id;
+
+            //save the images only if the accommodation is registered
             foreach (String relativePath in _imageRelativePath)
             {
                 imageRepository.Save(new Model.Image(relativePath,accommodationId, Enums.ImageType.Accommodation));
             }
             Close();
-
 
 
         }
@@ -84,6 +87,7 @@ namespace BookingApp.View
         {
             List<String> _imagePath = new List<String>();
             _imageRelativePath.Clear();
+            //so it doesnt duplicate
             
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Images|*.jpg;*.jpeg;*.png;*.gif|All Files|*.*";
@@ -106,13 +110,19 @@ namespace BookingApp.View
                 ImageCountText.Text = "Added " + _imagePath.Count + " images";
             }
 
+            ConvertImagePath(_imagePath);
+
+               
+        }
+
+        private void ConvertImagePath(List<String> _imagePath)
+        {
             foreach (String imgPath in _imagePath)
             {
                 int relativePathStartIndex = imgPath.IndexOf("\\Resources");
                 String relativePath = imgPath.Substring(relativePathStartIndex);
                 _imageRelativePath.Add(relativePath);
             }
-               
         }
     }
 }

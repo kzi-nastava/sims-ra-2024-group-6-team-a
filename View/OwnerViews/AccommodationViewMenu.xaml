@@ -40,7 +40,7 @@
             <ListBox x:Name="AccommodationsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedAccommodation}" ItemsSource="{Binding Accommodations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Margin="3" CornerRadius="5" BorderBrush="LightBlue" BorderThickness="2" MinWidth="825">
+                        <Border  CornerRadius="5" BorderBrush="DeepSkyBlue" BorderThickness="2" MinWidth="825">
                             <Grid>
 
                                 <Grid.ColumnDefinitions>
@@ -56,8 +56,11 @@
                                     <RowDefinition Height="20"></RowDefinition>
                                 </Grid.RowDefinitions>
 
-                                <Image Source="{Binding Image}" Grid.RowSpan ="4" Grid.Column="0" MinWidth="125" MinHeight="120"/>
-                                <Label Grid.Row="0" Grid.Column="1" Content="{Binding Name}" FontSize="18"></Label>
+                                <Border  Grid.RowSpan ="4" Grid.Column="0" CornerRadius="1" BorderBrush="LightBlue" BorderThickness="4">
+                                            <Image Source="{Binding Image}"  Stretch="Fill"/>
+                                 </Border>
+                                
+                                 <Label Grid.Row="0" Grid.Column="1" Content="{Binding Name}" FontSize="18" FontWeight="ExtraBold" Foreground="DarkSlateBlue"></Label>
                                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                                     <Image Source="/Resources/Images/location-ping.png"></Image>
                                     <TextBlock Text="{Binding City}" Margin="2,2,2,2">,</TextBlock>
@@ -65,16 +68,16 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
 
-                                    <TextBlock Text="{Binding Type}" Margin="5,2,2,2"></TextBlock>
+                                    <TextBlock Text="{Binding Type}" Margin="5,2,2,2" Foreground="Salmon"></TextBlock>
 
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
                                     <TextBlock Margin="2,2,2,2">Maximum number of guests:</TextBlock>
                                     <TextBlock Text="{Binding MaxGuests}" Margin="2,2,2,2"></TextBlock>
-                                    <Rectangle Width="1" Height="20" Fill="LightBlue" Margin="2,0" />
+                                    <Rectangle Width="1" Height="20" Fill="DeepSkyBlue" Margin="2,0" />
                                     <TextBlock Margin="2,2,2,2">Minimum reservation days:</TextBlock>
                                     <TextBlock Text="{Binding MinReservationDays}" Margin="2,2,2,2"></TextBlock>
-                                    <Rectangle Width="1" Height="20" Fill="LightBlue" Margin="2,0"/>
+                                    <Rectangle Width="1" Height="20" Fill="DeepSkyBlue" Margin="2,0"/>
                                     <TextBlock Margin="2,2,2,2">Cancelation days:</TextBlock>
                                     <TextBlock Text="{Binding CancelationDays}" Margin="2,2,2,2"></TextBlock>
           
@@ -96,7 +99,7 @@
                         <ListBox x:Name="ReviewsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedGuestReview}" ItemsSource="{Binding GuestReviews}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Margin="3" CornerRadius="5" BorderBrush="LightBlue" BorderThickness="2" MinWidth="825">
+                                    <Border  CornerRadius="5" BorderBrush="DeepSkyBlue" BorderThickness="4" MinWidth="825">
                                         <Grid>
 
                                             <Grid.ColumnDefinitions>
@@ -112,8 +115,10 @@
                                                 <RowDefinition Height="20"></RowDefinition>
                                             </Grid.RowDefinitions>
 
-                                            <Image Source="{Binding Image}" Grid.RowSpan ="4" Grid.Column="0" MinWidth="125" MinHeight="120"/>
-                                            <Label Grid.Row="0" Grid.Column="1" Content="{Binding GuestName}" FontSize="18"></Label>
+                                        <Border  Grid.RowSpan ="4" Grid.Column="0" CornerRadius="1" BorderBrush="DarkTurquoise" BorderThickness="4">
+                                            <Image Source="{Binding Image}"  Stretch="Fill"/>
+                                        </Border>
+                                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding GuestName}" FontSize="18"></Label>
 
                                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                                             <Image Source="/Resources/Images/location-ping.png"></Image>
@@ -126,13 +131,13 @@
 
                                         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
                                             <TextBlock Margin="2,2,2,2" Foreground="Blue" >Your ratings:</TextBlock>
-                                            <Rectangle Width="1" Height="20" Fill="LightBlue" Margin="2,0" />
+                                            <Rectangle Width="1" Height="20" Fill="DeepSkyBlue" Margin="2,0" />
                                             <TextBlock Margin="2,2,2,2">Cleanliness:</TextBlock>
                                             <TextBlock Text="{Binding CleanlinessGrade}" Margin="2,2,2,2"></TextBlock>
-                                            <Rectangle Width="1" Height="20" Fill="LightBlue" Margin="2,0" />
+                                            <Rectangle Width="1" Height="20" Fill="DeepSkyBlue" Margin="2,0" />
                                             <TextBlock Margin="2,2,2,2">Respectfulness:</TextBlock>
                                             <TextBlock Text="{Binding RespectGrade}" Margin="2,2,2,2"></TextBlock>
-                                            <Rectangle Width="1" Height="20" Fill="LightBlue" Margin="2,0"/>
+                                            <Rectangle Width="1" Height="20" Fill="DeepSkyBlue" Margin="2,0"/>
                                             <TextBlock Margin="2,2,2,2">Comment:</TextBlock>
                                             <TextBlock Text="{Binding Comment}" Margin="2,2,2,2"></TextBlock>
 
