@@ -47,12 +47,11 @@
         <TextBox x:Name="txtTourCheckpoints" Grid.Column="1" Grid.Row="7" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Checkpoints, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="187" Margin="61,10,0,0" RenderTransformOrigin="0.361,0.435"></TextBox>
         <Button Click="AddCheckPointClick" Content="+"   Grid.Column="1" Grid.Row="7" Margin="260,10,60,16"/>
         <TextBox x:Name="txtImageNumber" IsReadOnly="True" BorderThickness="0" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Images, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="153" Margin="76,0,0,0"></TextBox>
-        <DatePicker x:Name="datePicker" Grid.Row="9" Margin="71,17,245,22" Grid.Column="1"/>
-        <TextBox x:Name="txtTourScheduleDate" Text="{Binding ElementName=datePicker, Path=SelectedDate, StringFormat={}{0:dd.MM.yyyy}}" Grid.Column="1" Grid.Row="9" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Height="39" Width="73" Margin="114,10,0,0"></TextBox>
-        <Button Click ="SelectImagesClick"  Grid.Column="1" Content="Button" HorizontalAlignment="Left" Margin="260,0,0,0" Grid.Row="8" VerticalAlignment="Center" Height="36" Width="30"/>
+        <DatePicker x:Name="datePicker" Grid.Row="9" Margin="64,12,164,15" Grid.Column="1"/>
+        <Button Click ="SelectImagesClick"  Grid.Column="1" Content="Dodaj" HorizontalAlignment="Left" Margin="219,0,0,0" Grid.Row="8" VerticalAlignment="Center" Height="36" Width="56"/>
         <Button Grid.Column="1" Click="SaveTourClick" Content="Button" HorizontalAlignment="Left" Margin="112,37,0,0" Grid.Row="10" VerticalAlignment="Top"/>
         <TextBox x:Name="txtTourScheduleTime" Grid.Column="1" Grid.Row="9" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Schedules, UpdateSourceTrigger=PropertyChanged}" Height="39" Width="82" Margin="192,10,0,0"/>
-        <Button Click ="SelectDatesClick"  Grid.Column="1" Content="Button" HorizontalAlignment="Left" Margin="285,11,0,0" Grid.Row="9" VerticalAlignment="Top" Height="36" Width="30"/>
+        <Button Click ="SelectDatesClick"  Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="285,11,0,0" Grid.Row="9" VerticalAlignment="Top" Height="36" Width="30"/>
 
     </Grid>
 </Window>
