@@ -169,13 +169,14 @@ namespace BookingApp.View
         {
             
             SelectedLocation = _locationRepository.Save(SelectedLocation);
+            SelectedTour.LocationId = SelectedLocation.Id;
             SelectedTour.GuideId = LoggedUser.Id;
             SelectedTour = _tourRepository.Save(SelectedTour);
 
 
             SaveCheckpoints(CheckPoints);
             SaveImages(_imageRelativePath);
-            SaveTourDates(TourSchedules);
+            SaveTourDates(TourSchedules);   
             Close();
         }
 
