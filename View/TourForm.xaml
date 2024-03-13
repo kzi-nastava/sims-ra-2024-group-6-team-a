@@ -46,22 +46,30 @@
         <TextBox x:Name="txtTourDuration" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedTour.Duration, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="166"></TextBox>
         <TextBox x:Name="txtTourLanguage" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path =SelectedTour.Language, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="166"/>
         <TextBox x:Name="txtTourCapacity" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedTour.Capacity, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="194"></TextBox>
-        <TextBox x:Name="txtTourCheckpoints" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Checkpoints, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="170" RenderTransformOrigin="0.361,0.435"/>
-        <Button Click="AddCheckPointClick" Content="+"   Grid.Column="1" Grid.Row="3" Margin="175,14,54,15" RenderTransformOrigin="-1.2,0.566"/>
-        <TextBox x:Name="txtImageNumber" IsReadOnly="True" BorderThickness="0" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Images, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="126" Margin="142,0,0,0" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txtTourCheckpoints" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Checkpoint, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="170" RenderTransformOrigin="0.361,0.435"/>
+        <Button Click="AddCheckPointClick" Content="+"   Grid.Column="1" Grid.Row="3" Margin="175,14,54,13" RenderTransformOrigin="-1.2,0.566"/>
+        <TextBox x:Name="txtImageNumber" IsReadOnly="True" BorderThickness="0" Grid.Column="3" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Images, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="126" Margin="87,10,0,0"/>
         <DatePicker x:Name="datePicker" Grid.Row="5" Margin="40,10,24,9" Grid.Column="1" RenderTransformOrigin="1.781,1.147"/>
-        <Button Click ="SelectImagesClick"  Grid.Column="3" Content="Dodaj" HorizontalAlignment="Left" Margin="125,14,0,0" Grid.Row="3" VerticalAlignment="Top" Height="36" Width="41"/>
+        <Button Click ="SelectImagesClick"  Grid.Column="2" Content="Dodaj" HorizontalAlignment="Left" Margin="142,10,0,0" Grid.Row="3" VerticalAlignment="Top" Height="36" Width="41" Grid.ColumnSpan="2"/>
         <Button Grid.Column="1" Click="SaveTourClick" Content="Button" HorizontalAlignment="Center" Grid.Row="9" VerticalAlignment="Center" Height="20" Width="40"/>
         <TextBox x:Name="txtTourScheduleTime" Grid.Column="2" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Schedules, UpdateSourceTrigger=PropertyChanged}" Height="39" Width="82" Margin="0,8,0,0"/>
         <Button Click ="SelectDatesClick"  Grid.Column="2" Content="+" HorizontalAlignment="Left" Margin="128,0,0,0" Grid.Row="5" VerticalAlignment="Center" Height="36" Width="30" RenderTransformOrigin="-0.567,0.594" Grid.ColumnSpan="2"/>
-        <DataGrid  Grid.Row="4" ItemsSource="{Binding Images}" Margin="20,0,10,10" Grid.ColumnSpan="2"/>
-        <ListBox Grid.Row="4" SelectedItem="SelectedImageUrl" ItemsSource="{Binding Images}" Grid.Column="2"  Margin="36,0,-47,10" Grid.ColumnSpan="2">
+        <ListBox  Grid.Row="4" SelectedItem="{Binding SelectedCheckpoint, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding CheckpointsCollection}" Margin="20,0,10,10" Grid.ColumnSpan="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <ListBox Grid.Row="4" SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}" Grid.Column="2"  Margin="36,0,-47,10" Grid.ColumnSpan="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Column="1" Content="-" HorizontalAlignment="Left" Margin="207,0,0,0" Grid.Row="3" VerticalAlignment="Center" Height="35" Width="27" Click="CheckpointRemoveClick"/>
+        <Button Grid.Column="3" Click="ImageRemoveClick" Content="Ukloni" HorizontalAlignment="Left" Margin="40,10,0,0" Grid.Row="3" VerticalAlignment="Top" Height="36" Width="42"/>
 
     </Grid>
 </Window>

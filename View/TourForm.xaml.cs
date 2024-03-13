@@ -21,6 +21,7 @@ using BookingApp.Resources;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using BookingApp.Observer;
+using System.Xml.Linq;
 
 namespace BookingApp.View
 {
@@ -41,6 +42,8 @@ namespace BookingApp.View
         public Location SelectedLocation {  get; set; }
         public String SelectedImageUrl {  get; set; }
 
+        public String SelectedCheckpoint {  get; set; }
+
         public List <String> CheckPoints { get; set; }
 
         public List <DateTime> TourSchedules { get; set; }
@@ -49,7 +52,9 @@ namespace BookingApp.View
 
         List<String> _imageRelativePath = new List<String>();
 
-        public static ObservableCollection<String> Images {  get;  set; }
+        public static ObservableCollection<String> ImagesCollection {  get;  set; }
+
+        public static ObservableCollection<String> CheckpointsCollection {  get; set; }
 
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -57,7 +62,29 @@ namespace BookingApp.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-      
+
+        private string checkpoint;
+        public string Checkpoint
+        {
+            get
+            {
+                return checkpoint;
+            }
+            set
+            {
+                if (value != checkpoint)
+                {
+                    checkpoint = value;
+                    OnPropertyChanged("Checkpoint");
+
+                }
+
+            }
+        }
+
+
+
+
         public TourForm(User user, TourRepository tourRepository, LocationRepository locationRepository, ImageRepository imageRepository, CheckpointRepository checkpointRepository, TourScheduleRepository tourScheduleRepository)
         {
             InitializeComponent();
@@ -73,8 +100,9 @@ namespace BookingApp.View
             SelectedLocation = new Location();
             SelectedTour = new Tour();
             CheckPoints = new List<String>();
+            CheckpointsCollection = new ObservableCollection<string>();
             TourSchedules = new List<DateTime>();
-            Images = new ObservableCollection<string>();
+            ImagesCollection = new ObservableCollection<string>();
         }
        
 
@@ -82,7 +110,8 @@ namespace BookingApp.View
         private void AddCheckPointClick(object sender, EventArgs e)
         {
 
-            CheckPoints.Add(txtTourCheckpoints.Text);
+            CheckPoints.Add(checkpoint);
+            CheckpointsCollection.Add(checkpoint);
             txtTourCheckpoints.Clear();
         }
 
@@ -121,7 +150,7 @@ namespace BookingApp.View
                 int relativePathStartIndex = imgPath.IndexOf("\\Resources");
                 String relativePath = imgPath.Substring(relativePathStartIndex);
                 _imageRelativePath.Add(relativePath);
-                Images.Add(relativePath);
+                ImagesCollection.Add(relativePath);
             }
         }
 
@@ -174,6 +203,19 @@ namespace BookingApp.View
             }
         }
 
+        private void CheckpointRemoveClick(object sender, EventArgs e)
+        {
+            string checkpoint = SelectedCheckpoint;
+            CheckpointsCollection.Remove(checkpoint);
+            CheckPoints.Remove(checkpoint);
+        }
+
+        private void ImageRemoveClick(object sender, EventArgs e)
+        {
+            string imageUrl = SelectedImageUrl;
+            _imageRelativePath.Remove(imageUrl);
+            ImagesCollection.Remove(imageUrl);
+        }
 
     }
 }
