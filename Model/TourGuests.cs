@@ -10,9 +10,9 @@ namespace BookingApp.Model
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Age { get; set; }
+        public int Age { get; set; }
         public TourGuests() { }
-        public TourGuests(string name, string surname, string age)
+        public TourGuests(string name, string surname, int age)
         {
             Name = name;
             Surname = surname;

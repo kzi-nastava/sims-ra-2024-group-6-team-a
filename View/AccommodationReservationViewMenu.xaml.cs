@@ -2,9 +2,11 @@
 using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
+using BookingApp.Resources;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,102 +24,160 @@ namespace BookingApp.View
     /// <summary>
     /// Interaction logic for AccommodationReservationViewMenu.xaml
     /// </summary>
-    public partial class AccommodationReservationViewMenu : Window, IObserver
+    public partial class AccommodationReservationViewMenu : Window, IObserver, INotifyPropertyChanged
     {
         private AccommodationRepository _repository;
         private LocationRepository _locationRepository;
+        private ImageRepository _imageRepository;
 
         public static ObservableCollection<AccommodationOwnerDTO> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
-        public string NameSearch { get; set; }
-        public string CitySearch { get; set; }
-        public string StateSearch { get; set; }
-       // public string LocationSearch { get; set; }
-        public string TypeSearch { get; set; }
-        public string GuestsNumberSearch { get; set; }
-        public string DaysNumberSearch { get; set; }
-        public AccommodationReservationViewMenu(LocationRepository locationRepository)
+        private string searchLocation;
+        private string searchType;
+        private string searchName;
+        private string searchState;
+        private string searchGuestNumber;
+        private string searchDaysNumber;
+        public AccommodationReservationViewMenu(LocationRepository locationRepository, ImageRepository imageRepository)
         {
             InitializeComponent();
             DataContext = this;
+            this._locationRepository = locationRepository;
+            this._imageRepository = imageRepository;
 
+         
             Title = "Accommodation registration";
             _repository = new AccommodationRepository();
-            _repository.Subscribe(this);
-
-            _locationRepository = locationRepository;
-
+            _repository.Subscribe(this);       
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
             Update();
         }
-        public void TextboxName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            NameSearch = TextboxName.Text;
-        }
-
-        public void TextboxCity_TextChanged(object sender, TextChangedEventArgs e)
-        {
-           CitySearch = TextboxCity.Text;
-        }
-
-        public void TextboxState_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            StateSearch = TextboxState.Text;
-        }
-      
-
-        public void TextboxType_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TypeSearch = TextboxType.Text;
-        }
-
-        public void TextboxGuests_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            GuestsNumberSearch = TextboxGuests.Text;
-        }
-
-        public void TextboxDays_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            DaysNumberSearch = TextboxDays.Text;
-        }
-
-        public void Search_Click(object sender, RoutedEventArgs e)
-        {
-            Accommodations.Clear();
-
-
-            foreach (Accommodation accommodation in _repository.GetAll())
-            {
-                if (CheckSearchConditions(accommodation))
-                {
-                    Accommodations.Add(new AccommodationOwnerDTO(accommodation, _locationRepository.GetByAccommodation(accommodation)));
-                }
-            }
-        }
-
-        public bool CheckSearchConditions(Accommodation accommodation)
-        {
-            bool ContainsName, ContainsState, ContainsCity, ContainsType, GuestsNumberIsLower, DaysNumberIsGreater;
-
-            ContainsName = string.IsNullOrEmpty(NameSearch) ? true : accommodation.Name.ToLower().Contains(NameSearch.ToLower());
-            ContainsCity = string.IsNullOrEmpty(CitySearch) ? true : _locationRepository.GetByAccommodation(accommodation).City.ToLower().Contains(CitySearch.ToLower());
-            ContainsState = string.IsNullOrEmpty(StateSearch) ? true : _locationRepository.GetByAccommodation(accommodation).State.ToLower().Contains(StateSearch.ToLower());
-            ContainsType = string.IsNullOrEmpty(TypeSearch) ? true : accommodation.Type.ToString().ToLower().Contains(TypeSearch.ToLower());
-            GuestsNumberIsLower = string.IsNullOrEmpty(GuestsNumberSearch) ? true : Convert.ToInt32(GuestsNumberSearch) <= accommodation.MaxGuests;
-            DaysNumberIsGreater = string.IsNullOrEmpty(DaysNumberSearch) ? true : Convert.ToInt32(DaysNumberSearch) >= accommodation.MinReservationDays;
-            
-            return ContainsName && ContainsState && ContainsCity && ContainsType && GuestsNumberIsLower && DaysNumberIsGreater;
-        }
+       
         public void Update()
         {
             Accommodations.Clear();
             foreach (Accommodation accommodation in _repository.GetAll())
             {
-                //Accommodations.Add(accommodation);
-
-                Accommodations.Add(new AccommodationOwnerDTO(accommodation, _locationRepository.GetByAccommodation(accommodation)));
+                Model.Image image = new Model.Image();
+                foreach (Model.Image i in _imageRepository.GetByEntity(accommodation.Id, Enums.ImageType.Accommodation))
+                {
+                    image = i;
+                    break;
+                }
+                Accommodations.Add(new AccommodationOwnerDTO(accommodation, _locationRepository.GetByAccommodation(accommodation), image.Path));
             }
         }
 
+        public string SearchLocation
+        {
+            get { return searchLocation; }
+            set
+            {
+                searchLocation = value;
+                OnPropertyChanged(nameof(filteredData));
+            }
+        }
+        public string SearchState
+        {
+            get { return searchState; }
+            set
+            {
+                searchState = value;
+                OnPropertyChanged(nameof(filteredData));
+            }
+        }
+        
+
+        public string SearchName
+        {
+            get { return searchName; }
+            set
+            {
+                searchName = value;
+                OnPropertyChanged(nameof(filteredData));
+            }
+        }
+        public string SearchType
+        {
+            get { return searchType; }
+            set
+            {
+                searchType = value;
+                OnPropertyChanged(nameof(filteredData));
+            }
+        }
+        public string SearchGuestNumber
+        {
+            get { return searchGuestNumber; }
+            set
+            {
+                searchGuestNumber = value;
+                OnPropertyChanged(nameof(filteredData));
+            }
+        }
+        public string SearchDaysNumber
+        {
+            get { return searchDaysNumber; }
+            set
+            {
+                searchDaysNumber = value;
+                OnPropertyChanged(nameof(filteredData));
+            }
+        }
+
+        public ObservableCollection<AccommodationOwnerDTO> filteredData
+        {
+            get
+            {
+                ObservableCollection<AccommodationOwnerDTO>  result = Accommodations;
+
+                if (!string.IsNullOrEmpty(searchLocation))
+                {
+                    result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.city.ToLower().Contains(searchLocation)));
+                }
+                if (!string.IsNullOrEmpty(searchState))
+                {
+                    result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.State.ToLower().Contains(searchState)));
+                }
+
+                if (!string.IsNullOrEmpty(searchType))
+                {
+                    result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.Type.ToString().ToLower().Contains(searchType)));
+                }
+
+                if (!string.IsNullOrEmpty(searchName))
+                {
+                    result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.Name.ToLower().Contains(searchName)));
+                }
+
+                if (!string.IsNullOrEmpty(searchGuestNumber))
+                {
+                    int a;
+                    bool number = int.TryParse(searchGuestNumber,out a);
+                    if(number)
+                    result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.MaxGuests >= Convert.ToInt32(searchGuestNumber)));
+                }
+                if(!string.IsNullOrEmpty(searchDaysNumber))
+                {
+                    int a;
+                    bool number = int.TryParse(searchDaysNumber, out a);
+                    if (number)
+                        result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.MinReservationDays <= Convert.ToInt32(searchDaysNumber)));
+                }
+
+                return result;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void Button_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

@@ -1,0 +1,151 @@
+﻿<Window x:Class="BookingApp.View.AccommodationViewMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="608" Width="960" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen"
+        KeyDown="Window_KeyDown">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="900"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
+            <Button Click="RegisterAccommodation">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Images/add.png" Width="20" Height="25"/>
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0"><Underline>R</Underline>egister</TextBlock>
+                </StackPanel>
+            </Button>
+            <Separator/>
+
+        </ToolBar>
+
+
+        <TabControl Grid.Row="2" Grid.Column="1" x:Name="Tabs">
+            <TabItem x:Name="AccommodationsTab">
+                <TabItem.Header>
+                    <TextBlock><Underline>A</Underline>ccommodations</TextBlock>
+                </TabItem.Header>
+                <Grid>
+            <ListBox x:Name="AccommodationsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedAccommodation}" ItemsSource="{Binding Accommodations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="3" CornerRadius="5" BorderBrush="LightBlue" BorderThickness="2" MinWidth="825">
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="125" />
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"></RowDefinition>
+                                    <RowDefinition Height="25"></RowDefinition>
+                                    <RowDefinition Height="25"></RowDefinition>
+                                    <RowDefinition Height="20"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Image Source="{Binding Image}" Grid.RowSpan ="4" Grid.Column="0" MinWidth="125" MinHeight="120"/>
+                                <Label Grid.Row="0" Grid.Column="1" Content="{Binding Name}" FontSize="18"></Label>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                                    <Image Source="/Resources/Images/location-ping.png"></Image>
+                                    <TextBlock Text="{Binding City}" Margin="2,2,2,2">,</TextBlock>
+                                    <TextBlock Text="{Binding State}" Margin="0,2,2,2"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+
+                                    <TextBlock Text="{Binding Type}" Margin="5,2,2,2"></TextBlock>
+
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+                                    <TextBlock Margin="2,2,2,2">Maximum number of guests:</TextBlock>
+                                    <TextBlock Text="{Binding MaxGuests}" Margin="2,2,2,2"></TextBlock>
+                                    <Rectangle Width="1" Height="20" Fill="LightBlue" Margin="2,0" />
+                                    <TextBlock Margin="2,2,2,2">Minimum reservation days:</TextBlock>
+                                    <TextBlock Text="{Binding MinReservationDays}" Margin="2,2,2,2"></TextBlock>
+                                    <Rectangle Width="1" Height="20" Fill="LightBlue" Margin="2,0"/>
+                                    <TextBlock Margin="2,2,2,2">Cancelation days:</TextBlock>
+                                    <TextBlock Text="{Binding CancelationDays}" Margin="2,2,2,2"></TextBlock>
+          
+
+                                </StackPanel>
+
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+            </TabItem>
+            <TabItem x:Name="ReviewsTab">
+                <TabItem.Header>
+                    <TextBlock><Underline>G</Underline>uest review</TextBlock>
+                </TabItem.Header>
+                    <Grid>
+                        <ListBox x:Name="ReviewsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedGuestReview}" ItemsSource="{Binding GuestReviews}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="3" CornerRadius="5" BorderBrush="LightBlue" BorderThickness="2" MinWidth="825">
+                                        <Grid>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="125" />
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="50"></RowDefinition>
+                                                <RowDefinition Height="25"></RowDefinition>
+                                                <RowDefinition Height="25"></RowDefinition>
+                                                <RowDefinition Height="20"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Image Source="{Binding Image}" Grid.RowSpan ="4" Grid.Column="0" MinWidth="125" MinHeight="120"/>
+                                            <Label Grid.Row="0" Grid.Column="1" Content="{Binding GuestName}" FontSize="18"></Label>
+
+                                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                                            <Image Source="/Resources/Images/location-ping.png"></Image>
+                                            <TextBlock Text="{Binding AccommodationName}" Margin="2,2,2,2"></TextBlock>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                                            <TextBlock Text="{Binding Date}" Margin="5,2,2,2"></TextBlock>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+                                            <TextBlock Margin="2,2,2,2" Foreground="Blue" >Your ratings:</TextBlock>
+                                            <Rectangle Width="1" Height="20" Fill="LightBlue" Margin="2,0" />
+                                            <TextBlock Margin="2,2,2,2">Cleanliness:</TextBlock>
+                                            <TextBlock Text="{Binding CleanlinessGrade}" Margin="2,2,2,2"></TextBlock>
+                                            <Rectangle Width="1" Height="20" Fill="LightBlue" Margin="2,0" />
+                                            <TextBlock Margin="2,2,2,2">Respectfulness:</TextBlock>
+                                            <TextBlock Text="{Binding RespectGrade}" Margin="2,2,2,2"></TextBlock>
+                                            <Rectangle Width="1" Height="20" Fill="LightBlue" Margin="2,0"/>
+                                            <TextBlock Margin="2,2,2,2">Comment:</TextBlock>
+                                            <TextBlock Text="{Binding Comment}" Margin="2,2,2,2"></TextBlock>
+
+
+                                        </StackPanel>
+                                    </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+    
+</Window>

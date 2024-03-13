@@ -173,7 +173,7 @@ namespace BookingApp.DTOs
             }
         }
 
-        public TourGuideDTO(Tour tour, Location location, String image)
+       /* public TourGuideDTO(Tour tour, Location location, String image)
         {
             Id = tour.Id;
             name = tour.Name;
@@ -184,7 +184,8 @@ namespace BookingApp.DTOs
             city = location.City;
             state = location.State;
             this.image = image;
-        }
+
+        }*/
         public TourGuideDTO(Tour tour, Location location)
         {
             Id = tour.Id;
@@ -197,5 +198,6 @@ namespace BookingApp.DTOs
             //state = location.State;
 
         }
+
     }
 }
