@@ -31,5 +31,11 @@ namespace BookingApp.Repository
             _users = _serializer.FromCSV(FilePath);
             return _users.Find(u => u.Id == id).Username;
         }
+
+        public int GetIdByUsername(string username)
+        {
+            _users = _serializer.FromCSV(FilePath);
+            return _users.Find(u => u.Username == username).Id;
+        }
     }
 }

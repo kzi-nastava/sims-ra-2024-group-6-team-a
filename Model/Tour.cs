@@ -19,6 +19,7 @@ namespace BookingApp.Model
         public List<Checkpoint> Checkpoints { get; set; }
         public double Duration { get; set; }
         public List<TourSchedule> TourSchedules { get; set; }
+
         public List<Image> Images { get; set; }
         public int GuideId { get; set; }
 
