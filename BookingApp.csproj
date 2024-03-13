@@ -87,4 +87,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="C1.WPF.DateTimeEditors" Version="8.0.20233.731" />
+  </ItemGroup>
+
 </Project>
