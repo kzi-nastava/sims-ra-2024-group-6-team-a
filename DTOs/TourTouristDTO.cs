@@ -1,10 +1,12 @@
 ﻿using BookingApp.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace BookingApp.DTOs
 {
@@ -19,8 +21,21 @@ namespace BookingApp.DTOs
                     PropertyChanged(this, new PropertyChangedEventArgs(name));
                 }
             }
+        private ObservableCollection<DateTime> tourSchedules;
 
-            public int Id { get; set; }
+        public ObservableCollection<DateTime> TourSchedules
+        {
+            get { return tourSchedules; }
+            set
+            {
+                if (value != tourSchedules)
+                {
+                    tourSchedules = value;
+                    OnPropertyChanged("TourSchedules");
+                }
+            }
+        }
+        public int Id { get; set; }
 
             public string name;
             public string Name
@@ -174,7 +189,25 @@ namespace BookingApp.DTOs
                 }
             }
 
-            public TourTouristDTO(Tour tour, Location location, String image)
+        public DateTime start;
+        public DateTime Start
+        {
+            get
+            {
+                return start;
+            }
+
+            set
+            {
+                if(value != start)
+                {
+                    start = value;
+                    OnPropertyChanged("Start");
+                }
+            }
+        }
+
+            public TourTouristDTO(Tour tour)
             {
                 Id = tour.Id;
                 name = tour.Name;
@@ -182,22 +215,24 @@ namespace BookingApp.DTOs
                 language = tour.Language;
                 capacity = tour.Capacity;
                 duration = tour.Duration;
-                city = location.City;
-                state = location.State;
-                this.image = image;
+               
 
             }
-            public TourTouristDTO(Tour tour, Location location)
-            {
-                name = tour.Name;
-                language = tour.Language;
-                capacity = tour.Capacity;
-                duration = tour.Duration;
-                city = location.City;
-                state = location.State;
-
-            }
+        public TourTouristDTO(Tour tour, Location location, TourSchedule tourSchedule)
+        {
+            Id = tour.Id;
+            name = tour.Name;
+            description = tour.Description;
+            language = tour.Language;
+            capacity = tour.Capacity;
+            duration = tour.Duration;
+            city = location.City;
+            state = location.State;
+            start = tourSchedule.Start;
+            
 
         }
+
+    }
     }
 

@@ -84,6 +84,15 @@ namespace BookingApp.Repository
             return _tours.FindAll(x => x.GuideId == user.Id);
         }
 
+        public Tour GetById(int id)
+        {
+            return  _tours.Find(c => c.Id == id);
+        }
+
+        
+
+       
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
