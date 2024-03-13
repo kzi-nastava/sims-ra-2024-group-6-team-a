@@ -5,53 +5,71 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="TourForm" Height="700" Width="500">
+        Title="TourForm" Height="700" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="256"></ColumnDefinition>
+            <ColumnDefinition Width="148"></ColumnDefinition>
+            <ColumnDefinition Width="166"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="62*"></RowDefinition>
+            <RowDefinition Height="62*"></RowDefinition>
+            <RowDefinition Height="62*"/>
+            <RowDefinition Height="62*"></RowDefinition>
+            <RowDefinition Height="107*"></RowDefinition>
+            <RowDefinition Height="58*"></RowDefinition>
+            <RowDefinition Height="21*"></RowDefinition>
+            <RowDefinition Height="62*"></RowDefinition>
+            <RowDefinition Height="62*"></RowDefinition>
+            <RowDefinition Height="62*"></RowDefinition>
+            <RowDefinition Height="62*"></RowDefinition>
 
         </Grid.RowDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0">Name</Label>
-        <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0">City</Label>
-        <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0">State</Label>
-        <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0">Description</Label>
-        <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Left" Width="133" FontSize="20" Margin="31,0,0,0">Duration</Label>
-        <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0">Language</Label>
-        <Label Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0">Capacity</Label>
-        <Label Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0">Checkpoints</Label>
-        <Label Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0">Images</Label>
-        <Label Grid.Column="0" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Left" Width="199" FontSize="20" Margin="10,0,0,0" Content="Start date and time" Grid.ColumnSpan="2"/>
+        <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0" Height="36">Name</Label>
+        <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0" Height="37">City</Label>
+        <Label Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" FontSize="20" Height="37">State</Label>
+        <Label Grid.Row="7" VerticalAlignment="Top" HorizontalAlignment="Center" Width="110" FontSize="20" Margin="0,15,0,0" Height="37">Description</Label>
+        <Label Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="133" FontSize="20" Margin="31,0,0,0" Height="37" Grid.ColumnSpan="2">Duration</Label>
+        <Label Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" FontSize="20" Height="36">Language</Label>
+        <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0" Height="37">Capacity</Label>
+        <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0" Height="37">Checkpoints</Label>
+        <Label Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" FontSize="20" Height="37">Images</Label>
+        <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Width="199" FontSize="20" Margin="10,0,0,0" Content="Start date and time" Grid.ColumnSpan="2" Height="37"/>
 
-        <TextBox x:Name="txtTourName" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Name, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="228"/>
-        <TextBox x:Name="txtTourCity" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = City, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="228"></TextBox>
-        <TextBox x:Name="txtTourState" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = State, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="228"></TextBox>
-        <TextBox x:Name="txtTourDescription" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Description, UpdateSourceTrigger=PropertyChanged}" Height="52" Width="228"></TextBox>
-        <TextBox x:Name="txtTourDuration" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Duration, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="228"></TextBox>
-        <TextBox x:Name="txtTourLanguage" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Languages, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="228"></TextBox>
-        <TextBox x:Name="txtTourCapacity" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Capacity, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="229"></TextBox>
-        <TextBox x:Name="txtTourCheckpoints" Grid.Column="1" Grid.Row="7" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Checkpoints, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="187" Margin="61,10,0,0" RenderTransformOrigin="0.361,0.435"></TextBox>
-        <Button Click="AddCheckPointClick" Content="+"   Grid.Column="1" Grid.Row="7" Margin="260,10,60,16"/>
-        <TextBox x:Name="txtImageNumber" IsReadOnly="True" BorderThickness="0" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Images, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="153" Margin="76,0,0,0"></TextBox>
-        <DatePicker x:Name="datePicker" Grid.Row="9" Margin="64,12,164,15" Grid.Column="1"/>
-        <Button Click ="SelectImagesClick"  Grid.Column="1" Content="Dodaj" HorizontalAlignment="Left" Margin="219,0,0,0" Grid.Row="8" VerticalAlignment="Center" Height="36" Width="56"/>
-        <Button Grid.Column="1" Click="SaveTourClick" Content="Button" HorizontalAlignment="Left" Margin="112,37,0,0" Grid.Row="10" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtTourScheduleTime" Grid.Column="1" Grid.Row="9" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Schedules, UpdateSourceTrigger=PropertyChanged}" Height="39" Width="82" Margin="192,10,0,0"/>
-        <Button Click ="SelectDatesClick"  Grid.Column="1" Content="+" HorizontalAlignment="Left" Margin="285,11,0,0" Grid.Row="9" VerticalAlignment="Top" Height="36" Width="30"/>
+        <TextBox x:Name="txtTourName" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedTour.Name, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="194"/>
+        <TextBox x:Name="txtTourCity" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedLocation.City, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="194"></TextBox>
+        <TextBox x:Name="txtTourState" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedLocation.State, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="166"></TextBox>
+        <TextBox x:Name="txtTourDescription" Grid.Column="1" Grid.Row="7" VerticalAlignment="Top" TextAlignment="Left" HorizontalAlignment="Left"  VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedTour.Description, UpdateSourceTrigger=PropertyChanged}" Height="112" Width="269" Margin="0,13,0,0" Grid.ColumnSpan="2" Grid.RowSpan="3"></TextBox>
+        <TextBox x:Name="txtTourDuration" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedTour.Duration, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="166"></TextBox>
+        <TextBox x:Name="txtTourLanguage" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path =SelectedTour.Language, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="166"/>
+        <TextBox x:Name="txtTourCapacity" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedTour.Capacity, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="194"></TextBox>
+        <TextBox x:Name="txtTourCheckpoints" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Checkpoint, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="170" RenderTransformOrigin="0.361,0.435"/>
+        <Button Click="AddCheckPointClick" Content="+"   Grid.Column="1" Grid.Row="3" Margin="175,14,54,13" RenderTransformOrigin="-1.2,0.566"/>
+        <TextBox x:Name="txtImageNumber" IsReadOnly="True" BorderThickness="0" Grid.Column="3" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Images, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="126" Margin="87,10,0,0"/>
+        <DatePicker x:Name="datePicker" Grid.Row="5" Margin="40,10,24,9" Grid.Column="1" RenderTransformOrigin="1.781,1.147"/>
+        <Button Click ="SelectImagesClick"  Grid.Column="2" Content="Dodaj" HorizontalAlignment="Left" Margin="142,10,0,0" Grid.Row="3" VerticalAlignment="Top" Height="36" Width="41" Grid.ColumnSpan="2"/>
+        <Button Grid.Column="1" Click="SaveTourClick" Content="Button" HorizontalAlignment="Center" Grid.Row="9" VerticalAlignment="Center" Height="20" Width="40"/>
+        <TextBox x:Name="txtTourScheduleTime" Grid.Column="2" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Schedules, UpdateSourceTrigger=PropertyChanged}" Height="39" Width="82" Margin="0,8,0,0"/>
+        <Button Click ="SelectDatesClick"  Grid.Column="2" Content="+" HorizontalAlignment="Left" Margin="128,0,0,0" Grid.Row="5" VerticalAlignment="Center" Height="36" Width="30" RenderTransformOrigin="-0.567,0.594" Grid.ColumnSpan="2"/>
+        <ListBox  Grid.Row="4" SelectedItem="{Binding SelectedCheckpoint, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding CheckpointsCollection}" Margin="20,0,10,10" Grid.ColumnSpan="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox Grid.Row="4" SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}" Grid.Column="2"  Margin="36,0,-47,10" Grid.ColumnSpan="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Column="1" Content="-" HorizontalAlignment="Left" Margin="207,0,0,0" Grid.Row="3" VerticalAlignment="Center" Height="35" Width="27" Click="CheckpointRemoveClick"/>
+        <Button Grid.Column="3" Click="ImageRemoveClick" Content="Ukloni" HorizontalAlignment="Left" Margin="40,10,0,0" Grid.Row="3" VerticalAlignment="Top" Height="36" Width="42"/>
 
     </Grid>
 </Window>
