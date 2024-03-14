@@ -3,20 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using BookingApp.Repository;
 using BookingApp.DTOs;
 using BookingApp.Observer;
 using BookingApp.Resources;
+
 
 namespace BookingApp.View
 {
@@ -56,19 +50,15 @@ namespace BookingApp.View
             User = user;
             
 
-
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
             GuestReviews = new ObservableCollection<GuestReviewDTO>();
 
-            Update(); //ovo se runna posle svake promene i na startu,da bi prikazalo sve najnovije promene realtime,kao sto je dodavanje i sl.
+            Update();
             GuestsNotReviewedNotification();
 
 
 
         }
-
-
-  
 
         public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository)
         {
@@ -98,7 +88,7 @@ namespace BookingApp.View
             {
                 foreach (AccommodationReservation r in _reservationRepository.GetByAccommodation(a))
                 {
-                    CheckAndAddGuestReview(a, r);  
+                    CheckGuestReview(a, r);  
                 }
                 
                 string imagePath = AddMainAccommodationImage(a);
@@ -110,26 +100,31 @@ namespace BookingApp.View
 
         }
 
-        public void CheckAndAddGuestReview(Accommodation a,AccommodationReservation r)
+        //check to see if the review exists and the guest left the premises
+        public void CheckGuestReview(Accommodation accommodation,AccommodationReservation reservation)
         {
-            if (r.CheckOutDate < DateOnly.FromDateTime(DateTime.Today))
+            if (reservation.CheckOutDate < DateOnly.FromDateTime(DateTime.Today))
             {
-                //add the reservation to be reviewed only if todays date is past the checkout day,eg. the guest has already left the accommodation
-                if (_guestReviewRepository.DoesGradeExist(r.Id))
+                GuestReview review = _guestReviewRepository.Get(reservation.Id);
+
+                if (review == null)
                 {
-                    //if grade does exists add a new one to the repo and save it,and show that one as a observable dto list
-                    GuestReview g = _guestReviewRepository.Get(r.Id);
-                    GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), g.CleanlinessGrade, g.RespectGrade, g.Comment, r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy"), r.Id));
+                    AddGuestReview(accommodation, reservation);
                 }
                 else
                 {
-                    //if it doesnt,no need to save it,just show a blank dto
-                    GuestReviews.Add(new GuestReviewDTO(a.Name, _userRepository.GetUsername(r.GuestId), 0, 0, "", r.CheckInDate.ToString("dd.MM.yyyy") + " - " + r.CheckOutDate.ToString("dd.MM.yyyy"), r.Id));
-                    existsNotReviewed = true;
+                    AddGuestReview(accommodation, reservation, review.CleanlinessGrade, review.RespectGrade, review.Comment);
                 }
 
             }
         }
+
+        public void AddGuestReview(Accommodation accommodation, AccommodationReservation reservation, int cleanlinessGrade = 0,int respectGrade = 0,string comment = "")
+        {
+            string GuestOccupationPeriod = reservation.CheckInDate.ToString("dd.MM.yyyy") + " - " + reservation.CheckOutDate.ToString("dd.MM.yyyy");
+            GuestReviews.Add(new GuestReviewDTO(accommodation.Name, _userRepository.GetUsername(reservation.GuestId) , cleanlinessGrade, respectGrade, comment, GuestOccupationPeriod, reservation.Id));
+        }
+    
 
         private void GuestsNotReviewedNotification()
         {
@@ -172,7 +167,7 @@ namespace BookingApp.View
 
         private void DetailedAccommodationView()
         {
-            //basically get all the images of selected accommodation and add them to the detailed window
+
             List<Model.Image> images = new List<Model.Image>();
             foreach (Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
             {
@@ -187,7 +182,7 @@ namespace BookingApp.View
 
         private void GradeEmptyReview()
         {
-            //grade an empty non reviewed guest
+            
             if (SelectedGuestReview.respectGrade == 0)
             {
                 ReviewGuest reviewGuest = new ReviewGuest(_guestReviewRepository, SelectedGuestReview.ReservationId);
@@ -206,37 +201,48 @@ namespace BookingApp.View
             }
             else if(e.Key == Key.R) 
             {
-                RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_repository, _locationRepository, _imageRepository, User.Id);
-                registerAccommodationMenu.ShowDialog();
-                Update();
+                RegisterAccommodation(sender,e);
             }
             else if(e.Key == Key.A)
             {
                 Tabs.SelectedItem = AccommodationsTab;
-                if(SelectedAccommodation == null)
-                {
-                    SelectedGuestReview = null;
-                    SelectedAccommodation = Accommodations.First();
-                    AccommodationsList.SelectedIndex = 0;
-                    AccommodationsList.UpdateLayout();
-                    AccommodationsList.Focus();
 
-                }
+                SelectFirstAccommodation();
 
             }
             else if(e.Key == Key.G)
             {
                 Tabs.SelectedItem = ReviewsTab;
-                if(SelectedGuestReview == null)
-                {
-                    SelectedAccommodation = null;
-                    SelectedGuestReview = GuestReviews.First();
-                    ReviewsList.SelectedIndex = 0;
-                    ReviewsList.UpdateLayout();
-                    ReviewsList.Focus();
-                }
+
+                SelectFirstReview();
 
             }
+        }
+
+        private void SelectFirstAccommodation()
+        {
+            if (SelectedAccommodation == null)
+            {
+                SelectedGuestReview = null;
+                SelectedAccommodation = Accommodations.First();
+                AccommodationsList.SelectedIndex = 0;
+                AccommodationsList.UpdateLayout();
+                AccommodationsList.Focus();
+
+            }
+        }
+
+        private void SelectFirstReview()
+        {
+            if (SelectedGuestReview == null)
+            {
+                SelectedAccommodation = null;
+                SelectedGuestReview = GuestReviews.First();
+                ReviewsList.SelectedIndex = 0;
+                ReviewsList.UpdateLayout();
+                ReviewsList.Focus();
+            }
+
         }
 
 
