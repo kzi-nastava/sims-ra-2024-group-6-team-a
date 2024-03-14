@@ -18,20 +18,21 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="15"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <DataGrid ItemsSource="{Binding Tours}"
-                  SelectedItem="{Binding Path=SelectedTour}"
-                  IsReadOnly="True" SelectionMode="Single" 
-              AutoGenerateColumns="False" Height="521" HeadersVisibility="Column" FontSize="13">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="*"/>
-                    <DataGridTextColumn Header="Jezik" Binding="{Binding Language}" Width="*"/>
-                    <DataGridTextColumn Header="Kapacitet" Binding="{Binding Capacity}" Width="*"/>
-                    <DataGridTextColumn Header="Trajanje" Binding="{Binding Duration}" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
 
+        <ItemsControl ItemsSource ="{Binding Tours}"  Grid.Column="1" Grid.Row="2">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
         <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
             <Button Click="ShowCreateTourForm">
                 <StackPanel Orientation="Horizontal">
