@@ -17,6 +17,9 @@ namespace BookingApp.View
         private readonly LocationRepository _locationRepository;
         private readonly ImageRepository _imageRepository;
         private readonly AccommodationReservationRepository _accommodationReservationRepository;
+        private readonly TourScheduleRepository _tourScheduleRepository;
+        private readonly TourReservationRepository _tourReservationRepository;
+        private readonly UserRepository _userRepository;
         //private readonly TourRepository _tourRepository;
 
         private string _username;
@@ -48,6 +51,9 @@ namespace BookingApp.View
             _locationRepository = new LocationRepository();
             _imageRepository = new ImageRepository();
             _accommodationReservationRepository = new AccommodationReservationRepository();
+            _tourScheduleRepository = new TourScheduleRepository();
+            _tourReservationRepository = new TourReservationRepository();
+            _userRepository = new UserRepository();
             //_tourRepository = new TourRepository();
         }
         
@@ -72,13 +78,13 @@ namespace BookingApp.View
                             Close(); 
                             break;
                         case Enums.UserType.Tourist:
-                            TouristViewMenu touristViewMenu = new TouristViewMenu( _locationRepository, _imageRepository);
+                            TouristViewMenu touristViewMenu = new TouristViewMenu(user, _locationRepository, _imageRepository, _tourScheduleRepository,_tourReservationRepository, _userRepository);
                             touristViewMenu.Show();
                             Close();
                             break;
                         case Enums.UserType.Guide:
                             //replace with guide 
-                            GuideViewMenu guideViewMenu = new GuideViewMenu(user,_locationRepository);
+                            GuideViewMenu guideViewMenu = new GuideViewMenu(user,_locationRepository,_imageRepository);
                             guideViewMenu.Show();
                             Close();
                             break;

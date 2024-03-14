@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Resources;
 using BookingApp.Serializer;
+
 namespace BookingApp.Model
 {
     public class TourSchedule : ISerializable

@@ -19,6 +19,24 @@ namespace BookingApp.DTOs
             }
         }
 
+        public int reservationId;
+
+        public int ReservationId
+        {
+            get { return reservationId; }
+
+            set
+            {
+                if (reservationId != value)
+                {
+                    reservationId = value;
+                    OnPropertyChanged("reservationId");
+
+                }
+            }
+        }
+
+
         public string guestName;
 
         public string GuestName
@@ -137,7 +155,7 @@ namespace BookingApp.DTOs
             }
         }
 
-        public GuestReviewDTO(string accommodationName, string userName,int cleanlinessGrade,int respectGrade,string comment,string date)
+        public GuestReviewDTO(string accommodationName, string userName,int cleanlinessGrade,int respectGrade,string comment,string date,int reservationId)
         {
             this.accommodationName = accommodationName;
             guestName = userName;
@@ -146,6 +164,7 @@ namespace BookingApp.DTOs
             this.comment = comment;
             image = "\\Resources\\Images\\blank-profile.jpg";
             this.date = date;
+            this.reservationId = reservationId;
         }
 
     }

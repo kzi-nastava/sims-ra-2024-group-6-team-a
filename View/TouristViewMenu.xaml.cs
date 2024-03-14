@@ -29,6 +29,8 @@ namespace BookingApp.View
 
         public static ObservableCollection<TourTouristDTO> Tours {  get; set; }
         public TourTouristDTO SelectedTour { get; set; }
+        public TourReservationDTO SelectedReservation { get; set; }
+        public User LoggedUser { get; set; }
 
         public string NameSearch { get; set; }
         public string CitySearch { get; set; }
@@ -42,15 +44,22 @@ namespace BookingApp.View
         private LocationRepository _locationRepository;
         private TourRepository _repository;
         private ImageRepository _imageRepository;
+        private TourScheduleRepository _tourScheduleRepository;
+        private TourReservationRepository _tourReservationRepository;
+        private UserRepository _userRepository;
 
-        public TouristViewMenu( LocationRepository _locationRepository, ImageRepository _imageRepository)
+        public TouristViewMenu(User user,  LocationRepository _locationRepository, ImageRepository _imageRepository, TourScheduleRepository _tourScheduleRepository, TourReservationRepository tourReservationRepository, UserRepository userRepository)
         {
             InitializeComponent();
             DataContext = this;
 
             this._locationRepository = _locationRepository;
             this._imageRepository = _imageRepository; // will be used later on for more complex GUI 
+            this._tourScheduleRepository = _tourScheduleRepository;
+            this._tourReservationRepository = tourReservationRepository;
+            this._userRepository = userRepository;
             
+            LoggedUser  = user;
             _repository = new TourRepository();
             _repository.Subscribe(this);
             
@@ -64,7 +73,7 @@ namespace BookingApp.View
             foreach(Tour tour in _repository.GetAll()) 
             {
                
-                Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId)));
+                Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId), _tourScheduleRepository.GetByTour(tour) ));
             }
 
             
@@ -110,7 +119,7 @@ namespace BookingApp.View
             {
                 if (CheckSearchConditions(tour))
                 {
-                    Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId)));
+                    Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId), _tourScheduleRepository.GetByTour(tour)));
                 }
             }
         }
@@ -127,6 +136,18 @@ namespace BookingApp.View
             ContainsDuration = string.IsNullOrEmpty(DurationSearch) ? true : Convert.ToDouble(DurationSearch) == tour.Duration;
 
             return ContainsName && ContainsState && ContainsCity && ContainsDuration && CapacityIsLower && ContainsLanguage;
+        }
+
+        private void Reservation_Click(object sender, RoutedEventArgs e)
+        {
+            TourTouristDTO selectedTour = (TourTouristDTO)tourDataGrid.SelectedItem;
+            
+            if (selectedTour != null)
+            {
+                TourReservationForm form = new TourReservationForm(LoggedUser,selectedTour, _tourReservationRepository, _tourScheduleRepository);
+                form.ShowDialog();
+                
+            }
         }
     }
 }

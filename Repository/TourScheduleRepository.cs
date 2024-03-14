@@ -1,10 +1,11 @@
-﻿using BookingApp.Model;
-using BookingApp.Serializer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.Model;
+using BookingApp.Serializer;
+using BookingApp.Observer;
 
 namespace BookingApp.Repository
 {
@@ -12,13 +13,18 @@ namespace BookingApp.Repository
     {
 
         private const string FilePath = "../../../Resources/Data/tourschedules.csv";
+
         private readonly Serializer <TourSchedule> _serializer;
+
         private List<TourSchedule> _tourSchedules;
+
+        public Subject subject;
 
         public TourScheduleRepository()
         {
             _serializer = new Serializer<TourSchedule>();
             _tourSchedules = _serializer.FromCSV(FilePath);
+            subject = new Subject();
         }
 
         public List<TourSchedule>GetAll()
@@ -32,6 +38,8 @@ namespace BookingApp.Repository
             _tourSchedules = _serializer.FromCSV(FilePath);
             _tourSchedules.Add(schedule);
             _serializer.ToCSV(FilePath,_tourSchedules);
+
+            subject.NotifyObservers();
             return schedule;
         }
 
@@ -51,6 +59,7 @@ namespace BookingApp.Repository
             TourSchedule found = _tourSchedules.Find(x => x.Id == schedule.Id);
             _tourSchedules.Remove(found);
             _serializer.ToCSV(FilePath, _tourSchedules);
+            subject.NotifyObservers();
         }
 
         public TourSchedule Update(TourSchedule schedule)
@@ -61,7 +70,13 @@ namespace BookingApp.Repository
             _tourSchedules.Remove(current);
             _tourSchedules.Insert(index, schedule);
             _serializer.ToCSV(FilePath, _tourSchedules);
+            subject.NotifyObservers();
             return schedule;
+        }
+
+        public TourSchedule GetByTour(Tour tour) //termini ture na osnovu Id ture
+        {
+            return _tourSchedules.Find(c => c.TourId == tour.Id);
         }
     }
 }
