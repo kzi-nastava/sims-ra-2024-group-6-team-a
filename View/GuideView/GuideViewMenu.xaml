@@ -4,12 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
+        xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
+
         mc:Ignorable="d"
-        Title="Guide" Height="608" Width="800">
+        Title="Guide" WindowState="Maximized" d:DesignHeight="1080" d:DesignWidth="1920" >
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="760"/>
+            <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -18,43 +19,44 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="15"/>
         </Grid.RowDefinitions>
+        <Rectangle Grid.Row="0" Grid.RowSpan="4"  Fill="LightGray" />
 
-        <ItemsControl ItemsSource ="{Binding Tours}"  Grid.Column="1" Grid.Row="2">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
-            <Button Click="ShowCreateTourForm">
+        <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto" >
+            <ItemsControl ItemsSource ="{Binding TodaysTours}" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <components:TourCard/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+        <StackPanel VerticalAlignment="Center" Grid.Row="1" Grid.RowSpan="2"   Grid.Column="0">
+            <Button BorderThickness="0"  Click="ShowCreateTourForm">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../Resources/Images/add.png" Width="20" Height="25"/>
+                    <Image Source="/Resources/Images/add.png" Width="20" Height="25"/>
                     <TextBlock Text="New Tour" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
-            <Button >
+            <Button BorderThickness="0" >
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../Resources/Images/view.png" Width="20" Height="25"/>
+                    <Image Source="/Resources/Images/view.png" Width="20" Height="25"/>
                     <TextBlock Text="Details" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
-            <Button >
+            <Button BorderThickness="0" >
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../Resources/Images/checkpoint.png" Width="20" Height="25"/>
+                    <Image Source="/Resources/Images/checkpoint.png" Width="20" Height="25"/>
                     <TextBlock Name="DeleteTxtBlock" Text="Checkpoints" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
-        </ToolBar>
+        </StackPanel>
 
     </Grid>
 </Window>

@@ -41,12 +41,9 @@ namespace BookingApp.View
         public Tour SelectedTour {  get; set; }
         public Location SelectedLocation {  get; set; }
         public String SelectedImageUrl {  get; set; }
-
         public String SelectedCheckpoint {  get; set; }
 
-        public List <String> CheckPoints { get; set; }
-
-        public List <DateTime> TourSchedules { get; set; }
+        public DateTime SelectedTourDate {  get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -56,6 +53,7 @@ namespace BookingApp.View
 
         public static ObservableCollection<String> CheckpointsCollection {  get; set; }
 
+        public static ObservableCollection<DateTime> TourDatesCollection {  get; set; } 
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -99,10 +97,10 @@ namespace BookingApp.View
 
             SelectedLocation = new Location();
             SelectedTour = new Tour();
-            CheckPoints = new List<String>();
+            SelectedTourDate = new DateTime();
             CheckpointsCollection = new ObservableCollection<string>();
-            TourSchedules = new List<DateTime>();
             ImagesCollection = new ObservableCollection<string>();
+            TourDatesCollection = new ObservableCollection<DateTime>();
         }
        
 
@@ -110,7 +108,6 @@ namespace BookingApp.View
         private void AddCheckPointClick(object sender, EventArgs e)
         {
 
-            CheckPoints.Add(checkpoint);
             CheckpointsCollection.Add(checkpoint);
             txtTourCheckpoints.Clear();
         }
@@ -149,7 +146,6 @@ namespace BookingApp.View
             {
                 int relativePathStartIndex = imgPath.IndexOf("\\Resources");
                 String relativePath = imgPath.Substring(relativePathStartIndex);
-                _imageRelativePath.Add(relativePath);
                 ImagesCollection.Add(relativePath);
             }
         }
@@ -159,10 +155,17 @@ namespace BookingApp.View
             DateTime time;
 
             DateTime.TryParse(datePicker.SelectedDate.Value.Date.ToShortDateString()+ " " + txtTourScheduleTime.Text, out time);
-            TourSchedules.Add(time);
+            TourDatesCollection.Add(time);
             datePicker.SelectedDate = null;
             txtTourScheduleTime.Clear();
         }
+
+        private void RemoveDateClick(object sender, RoutedEventArgs e)
+        {
+            DateTime SelectedDate = SelectedTourDate;
+            TourDatesCollection.Remove(SelectedDate);
+        }
+
 
 
         private void SaveTourClick(object sender, RoutedEventArgs e)
@@ -174,31 +177,31 @@ namespace BookingApp.View
             SelectedTour = _tourRepository.Save(SelectedTour);
 
 
-            SaveCheckpoints(CheckPoints);
-            SaveImages(_imageRelativePath);
-            SaveTourDates(TourSchedules);   
+            SaveCheckpoints(CheckpointsCollection.ToList());
+            SaveImages(ImagesCollection.ToList());
+            SaveTourDates(TourDatesCollection.ToList());   
             Close();
         }
 
-        private void SaveCheckpoints(List<String> CheckPoints)
+        private void SaveCheckpoints(List<String>checkpoints)
         {
-            foreach (string checkPoint in CheckPoints)
+            foreach (string checkpoint in checkpoints)
             {
-                _checkRepository.Save(new Checkpoint(checkPoint, SelectedTour.Id));
+                _checkRepository.Save(new Checkpoint(checkpoint, SelectedTour.Id));
             }
         }
 
-        private void SaveImages(List<String> Images) 
+        private void SaveImages(List<String>images) 
         {
-            foreach (string relativePath in _imageRelativePath)
+            foreach (string relativePath in images)
             {
                 _imageRepository.Save(new Model.Image(relativePath, SelectedTour.Id, Enums.ImageType.Tour));
             }
         }
 
-        private void SaveTourDates(List<DateTime> TourDates)
+        private void SaveTourDates(List<DateTime>dates)
         {
-            foreach (DateTime date in TourSchedules)
+            foreach (DateTime date in dates)
             {
                 _tourScheduleRepository.Save(new TourSchedule(date, SelectedTour.Id, SelectedTour.Capacity));
             }
@@ -208,13 +211,11 @@ namespace BookingApp.View
         {
             string checkpoint = SelectedCheckpoint;
             CheckpointsCollection.Remove(checkpoint);
-            CheckPoints.Remove(checkpoint);
         }
 
         private void ImageRemoveClick(object sender, EventArgs e)
         {
             string imageUrl = SelectedImageUrl;
-            _imageRelativePath.Remove(imageUrl);
             ImagesCollection.Remove(imageUrl);
         }
 

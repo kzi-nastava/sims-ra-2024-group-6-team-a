@@ -1,16 +1,13 @@
-﻿using BookingApp.Model;
-using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingApp.DTOs
 {
-    public class TourGuideDTO : INotifyPropertyChanged
+    public class LiveTrackingDTO : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
@@ -20,17 +17,16 @@ namespace BookingApp.DTOs
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-
-        public int Id { get; set; }
-
-        public string name; 
+        
+        public int Id {  get; set; }
+        public string name;
         public string Name
         {
             get
             {
                 return name;
             }
-            set 
+            set
             {
                 if (value != name)
                 {
@@ -41,9 +37,9 @@ namespace BookingApp.DTOs
 
             }
         }
-        
+
         public string description;
-        public string Description 
+        public string Description
         {
             get
             {
@@ -79,7 +75,7 @@ namespace BookingApp.DTOs
             }
         }
 
-       
+
         public int capacity;
         public int Capacity
         {
@@ -99,7 +95,7 @@ namespace BookingApp.DTOs
 
         }
 
-       
+
         public double duration;
         public double Duration
         {
@@ -117,7 +113,7 @@ namespace BookingApp.DTOs
                 }
             }
         }
-       
+
         public string city;
         public string City
         {
@@ -155,61 +151,19 @@ namespace BookingApp.DTOs
 
             }
         }
-
-        public String image;
-
-        public String Image
-        {
-            get
-            {
-                return image;
-            }
-
-            set
-            {
-                if (value != image)
-                {
-                    image = value;
-                    OnPropertyChanged("Image");
-                }
-            }
-        }
-
-        private DateTime tourStart;
         
-        public DateTime TourStart
-        {
-            get
-            {
-                return tourStart;
-            }
 
-            set
-            {
-                if (value != tourStart)
-                {
-                    tourStart = value;
-                    OnPropertyChanged("TourStart");
 
-                }
-            }
-        }
-               
-        public TourGuideDTO(Tour tour, Location location, string imagePath,DateTime dateTime)
-        {
-                        Id = tour.Id;
-                        name = tour.Name;
-                        description = tour.Description;
-                        language = tour.Language;
-                        capacity = tour.Capacity;
-                        duration = tour.Duration;
-                        city = location.City;
-                        state = location.State;
-                        image = imagePath;
-                        tourStart = dateTime;
-            
-        }
-       
+
+
+
 
     }
+
+
+
+
+
+
+
 }
