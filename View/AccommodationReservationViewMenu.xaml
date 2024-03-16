@@ -7,187 +7,113 @@
         mc:Ignorable="d"
         Title="{Binding Title}" Background="Transparent"
         Height="730" Width="410" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen">
-    <Border CornerRadius="50">
-        <!--<Border.Background>
-            <ImageBrush ImageSource="/Images/bg.jpg"/>
-        </Border.Background>-->
-
-        <Border CornerRadius="50"
+    <Border CornerRadius="40"
                 Background="LightSteelBlue"
                 BorderBrush="MediumSlateBlue"
                 BorderThickness="5"
                 Opacity="0.9">
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="21"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+        <Grid >
 
-                <Grid Margin="0,0,0,0" Grid.RowSpan="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="25"/>
-                        <ColumnDefinition Width="25"/>
-                        <ColumnDefinition Width="25"/>
-                    </Grid.ColumnDefinitions>
 
-                    <Label Content="Name:"
-                       Foreground="Black"
-                       FontSize="16"
-                        HorizontalAlignment="Left"
-                         VerticalAlignment="Top"
-                       FontWeight="ExtraLight"
-                       Width="66"
-                       Height="35" 
-                       Margin="46,62,0,0"/>
+            <Grid Margin="0,10,0,610" >
+                <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="30" FontWeight="Bold" FontFamily="SimHei" Width="268" Height="41" Margin="0,0,0,0" >TRAVEL AGENCY</TextBlock>
+                <Image Source ="../Resources/Images/pupin4.jpg" Width="60" VerticalAlignment="Top"  Margin="313,14,27,0" Height="46" RenderTransformOrigin="0.517,1.175"/>
 
-                    <TextBox
-                           Width="99"
+            </Grid>
+
+
+            <Grid Margin="0,74,0,80" >
+                <Frame x:Name="MainView" NavigationUIVisibility="Hidden" Grid.ZIndex="1"></Frame>
+                <TextBox  GotFocus="TextBox_GotFocusName" LostFocus="TextBox_LostFocusName" 
+                           Width="100"
                            Height="30"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Top"
                            Background="white"
-                           Margin="100,64,0,0"
+                           Margin="8,15,0,0"
                            Opacity="0.7"
                            BorderBrush="Black"
                            BorderThickness="3"
                            Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Label Content="Type:"
-                       Foreground="Black"
-                       FontSize="16"
-                HorizontalAlignment="Left"
-                         VerticalAlignment="Top"
-                       FontWeight="ExtraLight"
-                       Width="58"
-                       Height="35" 
-                       Margin="292,61,0,0" Grid.ColumnSpan="2"/>
 
-                    <TextBox
-                           Width="50"
+                <TextBox  GotFocus="TextBox_GotFocusType" LostFocus="TextBox_LostFocusType"
+                           Width="100"
                            Height="30"
                   HorizontalAlignment="Left"
                          VerticalAlignment="Top"
                            Background="white"
                            Opacity="0.7"
-                           Margin="23,61,0,0"
+                           Margin="8,48,0,0"
                            BorderBrush="Black"
                            BorderThickness="3"
-                           Text="{Binding SearchType, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="3"/>
-                    <Label Content="City:"
-                       Foreground="Black"
-                       FontSize="16"
-                    HorizontalAlignment="Left"
-                         VerticalAlignment="Top"
-                       FontWeight="ExtraLight"
-                       Width="38"
-                       Height="35" 
-                       Margin="58,96,0,0"/>
+                           Text="{Binding SearchType, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <TextBox
-                           Width="97"
+                <TextBox  GotFocus="TextBox_GotFocusCity" LostFocus="TextBox_LostFocusCity"
+                           Width="100"
                            Height="30"
                   HorizontalAlignment="Left"
                          VerticalAlignment="Top"
                            Background="white"
                            Opacity="0.7"
-                           Margin="101,97,0,0"
+                           Margin="119,15,0,0"
                            BorderBrush="Black"
                            BorderThickness="3"
                            Text="{Binding SearchLocation, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <Label Content="State:"
-                       Foreground="Black"
-                       FontSize="16"
-                    HorizontalAlignment="Left"
-                         VerticalAlignment="Top"
-                       FontWeight="ExtraLight"
-                     Width="53"
-                       Height="35" 
-                     Margin="52,125,0,0"/>
-
-                    <TextBox
-                           Width="97"
+                <TextBox  GotFocus="TextBox_GotFocusState" LostFocus="TextBox_LostFocusState"
+                           Width="100"
                            Height="30"
                   HorizontalAlignment="Left"
                          VerticalAlignment="Top"
                            Background="white"
                            Opacity="0.7"
-                           Margin="101,130,0,0"
+                           Margin="119,48,0,0"
                            BorderBrush="Black"
                            BorderThickness="3"
                            Text="{Binding  SearchState, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-                    <Label Content="Number of Guests:"
-                       Foreground="Black"
-                     HorizontalAlignment="Left"
-                         VerticalAlignment="Top"
-                       FontSize="16"
-                       FontWeight="ExtraLight"
-                       Width="140"
-                       Height="36" 
-                    Margin="203,94,0,0" Grid.ColumnSpan="2"/>
-                    <TextBox
-                           Width="50"
+                <TextBox GotFocus="TextBox_GotFocusGuest" LostFocus="TextBox_LostFocusGuest"
+                           Width="150"
                            Height="30"
                            Background="white"
                            Opacity="0.7"
                   HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                       Margin="23,96,0,0"
+                       Margin="226,15,0,0"
                            BorderBrush="Black"
                            BorderThickness="3"
                            
-                           Text="{Binding SearchGuestNumber, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="3"/>
-                    <Label Content="Number of days:"
-                       Foreground="Black"
-                       FontSize="16"
-                HorizontalAlignment="Left"
-                         VerticalAlignment="Top"
-                       FontWeight="ExtraLight"
-                       Width="133"
-                       Height="34" 
-                    Margin="217,130,0,0" Grid.ColumnSpan="2"/>
+                           Text="{Binding SearchGuestNumber, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <TextBox
-                           Width="50"
+                <TextBox  GotFocus="TextBox_GotFocusDays" LostFocus="TextBox_LostFocusDays"
+                           Width="150"
                            Height="30"
                   HorizontalAlignment="Left"
                          VerticalAlignment="Top"
                            Background="white"
                            Opacity="0.7"
-                         Margin="23,130,0,0"
+                         Margin="226,48,0,0"
                            BorderBrush="Black"
                            BorderThickness="3"
-                           Text="{Binding SearchDaysNumber, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="3"/>
+                           Text="{Binding SearchDaysNumber, UpdateSourceTrigger=PropertyChanged}" />
 
-                </Grid>
-
-                <Button Content="Home" Margin="0,578,0,53" HorizontalAlignment="Left" Width="69" Grid.Row="1" >
-                    <!--<Image Source ="../Resources/Images/home.png" Width="30" Height="35"/>-->
-                </Button>
-                <Button Content="Accommodations" Margin="69,578,0,53" HorizontalAlignment="Left"  Width="69" Grid.Row="1"/>
-                <Button Content="Reservation" Margin="205,578,0,53" HorizontalAlignment="Left"  Width="69" Grid.Row="1"/>
-                <Button Content="Forum" Margin="138,578,0,53" HorizontalAlignment="Left"  Width="69" Grid.Row="1"/>
-                <Button Content="Stats" Margin="273,578,0,53" HorizontalAlignment="Left"  Width="69" Grid.Row="1"/>
-                <Button Content="Log out" Margin="329,578,0,53" HorizontalAlignment="Left"  Width="69" Grid.Row="1"/>
-                <ListView Grid.Row="1"
-                          Background="FloralWhite"
-                          Opacity="1"
-                          Margin="0,145,0,100"
+                <ListView
                           BorderBrush="Black"
                           BorderThickness="3"
                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                           ItemsSource="{Binding filteredData}"
-                          SelectedItem="SelectedAccommodation"
-                          SelectionMode="Single">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
+                          SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
+                          SelectionMode="Single" 
+                          Name="ListAccommodations" Width="NaN" Height="NaN" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,80,0,-33" >
+                    <ListView.ItemTemplate >
+                        <DataTemplate  >
                             <StackPanel Orientation="Horizontal">
-                                <Image Source= "{Binding Image}" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="9,0,0,0"/>
-                                <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0,0,0">
-                                    <TextBlock Foreground="black" Text="{Binding Name}" FontSize="24" FontWeight="Bold"/>
+                                <Image Source= "{Binding Image}" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,0">
+                                    <TextBlock Foreground="black" Text="{Binding Name}" FontSize="24" FontWeight="Bold" Width="180"/>
                                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                                         <Image Source="../Resources/Images/location-ping.png" Width="18" Height="18"></Image>
                                         <TextBlock Text="{Binding City}" >,</TextBlock>
@@ -195,23 +121,50 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
                                         <TextBlock>•</TextBlock>
-                                        <TextBlock Text="{Binding Type}"></TextBlock>
+                                        <TextBlock Text="{Binding Type}" ></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
                                         <TextBlock>•Maximum guests:</TextBlock>
-                                        <TextBlock Foreground="black" Text="{Binding MaxGuests}" FontSize="12"  Margin="0,0,0,0" ></TextBlock>
+                                        <TextBlock Foreground="FloralWhite">_</TextBlock>
+                                        <TextBlock Foreground="black" Text="{Binding MaxGuests}" FontWeight="Bold" FontSize="12"  Margin="0,0,0,0" ></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
                                         <TextBlock>•Minimal days:</TextBlock>
-                                        <TextBlock Foreground="black" Text="{Binding MinReservationDays}" FontSize="12"   Margin="0,0,0,0" TextWrapping="Wrap"></TextBlock>
+                                        <TextBlock Foreground="FloralWhite">_</TextBlock>
+
+                                        <TextBlock Foreground="black" Text="{Binding MinReservationDays}" FontSize="12" FontWeight="Bold"  Margin="0,0,0,0" TextWrapping="Wrap"></TextBlock>
                                     </StackPanel>
 
                                 </StackPanel>
+                                <Button Width="43" Height="43"  Cursor="Hand" BorderBrush="Transparent" Click="Button_ClickMakeReservation" >
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Grid>
+                                                <Ellipse Stroke="Black" StrokeThickness="4"/>
+                                                <Image Source ="../Resources/Images/add.png" Width="40" Height="40"/>
+
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
                             </StackPanel>
+
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
-        </Border>
+            <Grid Margin="0,583,0,40">
+                <Button  Margin="0,0,0,0" HorizontalAlignment="Left" Width="69" Click="Button_ClickHomePage" >
+                    <Image Source ="../Resources/Images/checkpoint.png" Width="30" Height="35"/>
+                </Button>
+                <Button Content="Accommodations" Margin="69,0,0,0" HorizontalAlignment="Left"  Width="69" />
+                <Button  Content="My res"  Margin="200,0,0,0" HorizontalAlignment="Left"  Width="68" Click="Button_ClickMyReservation" />
+                <Button Content="Forum" Margin="138,0,0,0" HorizontalAlignment="Left"  Width="62"/>
+                <Button Content="Help" Margin="268,0,0,0" HorizontalAlignment="Left"  Width="59" />
+                <Button Content="Log out" Margin="327,0,0,0" HorizontalAlignment="Left"  Width="73" />
+            </Grid>
+        </Grid>
+
     </Border>
 </Window>

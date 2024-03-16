@@ -27,12 +27,33 @@
 
         <StackPanel Margin="0,10" Orientation="Horizontal">
         <Label Grid.Column="0" HorizontalAlignment="Left" Width="268" FontSize="20" Margin="30,10,0,0">Number of interested people:</Label>
-        <TextBox x:Name="txtGuestNumber" TextChanged="NumberOfGuestsTextBox_TextChanged"  Margin="31,10,0,0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Text="{Binding Path=TourReservationDTO.GuestNumber, UpdateSourceTrigger=PropertyChanged}" Height="45" Width="228"/>
+        <TextBox x:Name="txtGuestNumber"  Margin="31,10,0,0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Text="{Binding Path=TourReservationDTO.GuestNumber, UpdateSourceTrigger=PropertyChanged}" Height="45" Width="228"/>
         </StackPanel>
+
+        <StackPanel Margin="0,10" Orientation="Horizontal" >
+        <Label Grid.Column="0" HorizontalAlignment="Left" Width="268" FontSize="20" Margin="30,10,0,0">Tourist's info:</Label>
+        <Label Content="Name:" Margin="5"/>
+        <TextBox x:Name="NameTextBox" Width="100" Margin="5"/>
     
-        <StackPanel x:Name="GuestNamesPanel" Orientation="Vertical" Margin="31,10,0,0"/>
+        <Label Content="Surname:" Margin="5"/>
+        <TextBox x:Name="SurnameTextBox" Width="100" Margin="5"/>
+    
+        <Label Content="Age:" Margin="5"/>
+        <TextBox x:Name="AgeTextBox" Width="40" Margin="5"/>
+    
+        <Button Content=" Add " Click="AddTouristInfoClick" Margin="5"/>
+            <Button Content="Delete" Click="DeleteTouristInfoClick" Margin="5"/>
 
+        </StackPanel>
 
+        <DataGrid x:Name="TouristsDataGrid" CanUserAddRows="False" AutoGenerateColumns="False" Margin="5" Width="300" ItemsSource="{Binding tourGuests, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="120"/>
+                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="120"/>
+                <DataGridTextColumn Header="Age" Binding="{Binding Age}" Width="60"/>
+            </DataGrid.Columns>
+        </DataGrid>
+       
         <Button Width="228" Height="37" Content="Save reservation" Click="SaveReservationClick" Margin="65,10,0,0" Grid.Column="1"/>
     </StackPanel>
 

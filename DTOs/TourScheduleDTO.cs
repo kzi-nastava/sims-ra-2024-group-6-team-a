@@ -18,10 +18,28 @@ namespace BookingApp.DTOs
         {
             Id = tourSchedule.Id;
             Start = tourSchedule.Start;
+            CurrentGuestNumber = tourSchedule.CurrentGuestNumber;
+            TourId = tourSchedule.TourId;
         }
 
         public string TourScheduleDisplay => $"{Start}";
 
+        private int _tourId;
+        public int TourId
+        {
+            get
+            {
+                return _tourId;
+            }
+            set
+            {
+                if ( _tourId != value )
+                {
+                    _tourId = value;
+                    OnPropertyChanged("TourId");
+                }
+            }
+        }
         private int _id;
         public int Id
         {
@@ -58,6 +76,23 @@ namespace BookingApp.DTOs
                 }
             }
 
+        }
+
+        private int _currentGuestNumber;
+        public int CurrentGuestNumber
+        {
+            get
+            {
+                return _currentGuestNumber;
+            }
+            set
+            {
+                if (value != _currentGuestNumber)
+                {
+                    _currentGuestNumber = value;
+                    OnPropertyChanged("CurrentGuestNumber");
+                }
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

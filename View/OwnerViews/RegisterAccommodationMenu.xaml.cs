@@ -37,41 +37,66 @@ namespace BookingApp.View
         {
             InitializeComponent();
             DataContext = this;
+
             this.locationRepository = locationRepository;
             this.accommodationRepository = accommodationRepository;
             this.imageRepository = imageRepository;
+
             apt.IsChecked = true;
             this.userId = userId; 
         }
 
+        
+
         private void RegisterClick(object sender, RoutedEventArgs e)
         {
-            Enums.AccommodationType type;
-            if(apt.IsChecked == true)
-            {
-                type = Enums.AccommodationType.Apartment;
-            }
-            else if(cottage.IsChecked == true)
-            {
-                type = Enums.AccommodationType.Cottage; 
+            int guestsParsed;
+            int reservationParsed;
+            int cancelParsed;
+
+            if (State.Text != "" && City.Text != "" && Name.Text != "" && int.TryParse(MaxGuests.Text,out guestsParsed) && int.TryParse(MinReservation.Text,out reservationParsed) && int.TryParse(CancelDays.Text,out cancelParsed))
+             {
+                Enums.AccommodationType type = GetType();
+
+                Location location = new Location(State.Text, City.Text);
+                location = locationRepository.Save(location);
+                //we could add a check if location exists
+
+
+                accommodation = new Accommodation(Name.Text, type, int.Parse(MaxGuests.Text), int.Parse(MinReservation.Text), int.Parse(CancelDays.Text), location.Id, userId);
+                SaveImages(accommodationRepository.Save(accommodation).Id);
+
+                Close();
             }
             else
             {
-                type = Enums.AccommodationType.House;
+                MessageBox.Show("Please enter every field correctly.","Information Missing",MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            Location location = new Location(State.Text,City.Text);
-            location = locationRepository.Save(location);
-            accommodation = new Accommodation(Name.Text,type,int.Parse(MaxGuests.Text),int.Parse(MinReservation.Text),int.Parse(CancelDays.Text),location.Id,userId);
-            int accommodationId = accommodationRepository.Save(accommodation).Id;
+        }
+
+        private void SaveImages(int accommodationId)
+        {
             foreach (String relativePath in _imageRelativePath)
             {
-                imageRepository.Save(new Model.Image(relativePath,accommodationId, Enums.ImageType.Accommodation));
+                imageRepository.Save(new Model.Image(relativePath, accommodationId, Enums.ImageType.Accommodation));
             }
-            Close();
+        }
 
-
-
+        private Enums.AccommodationType GetType()
+        {
+            if (apt.IsChecked == true)
+            {
+                return Enums.AccommodationType.Apartment;
+            }
+            else if (cottage.IsChecked == true)
+            {
+                return Enums.AccommodationType.Cottage;
+            }
+            else
+            {
+                return Enums.AccommodationType.House;
+            }
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -84,6 +109,7 @@ namespace BookingApp.View
         {
             List<String> _imagePath = new List<String>();
             _imageRelativePath.Clear();
+            //so it doesnt duplicate
             
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Images|*.jpg;*.jpeg;*.png;*.gif|All Files|*.*";
@@ -106,13 +132,19 @@ namespace BookingApp.View
                 ImageCountText.Text = "Added " + _imagePath.Count + " images";
             }
 
+            ConvertImagePath(_imagePath);
+
+               
+        }
+
+        private void ConvertImagePath(List<String> _imagePath)
+        {
             foreach (String imgPath in _imagePath)
             {
                 int relativePathStartIndex = imgPath.IndexOf("\\Resources");
                 String relativePath = imgPath.Substring(relativePathStartIndex);
                 _imageRelativePath.Add(relativePath);
             }
-               
         }
     }
 }

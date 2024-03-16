@@ -26,18 +26,26 @@ namespace BookingApp.View
         {
             DataContext = this;
             InitializeComponent();
-            for(int i = 1;i < 6;i++)
-            {
-                CleanGradeCombo.Items.Add(i);
-                RespectGradeCombo.Items.Add(i);
-            }
+
+            InitializeComboBoxes();
 
             this._guestReviewRepository = _guestReviewRepository;
             this.reservationId = reservationId;
             CommentBox.MaxLength = 60;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void InitializeComboBoxes()
+        {
+            for (int i = 1; i < 6; i++)
+            {
+                CleanGradeCombo.Items.Add(i);
+                RespectGradeCombo.Items.Add(i);
+            }
+
+        }
+
+
+        private void SaveGrade(object sender, RoutedEventArgs e)
         {
             if (CleanGradeCombo.SelectedItem != null && RespectGradeCombo != null)
             {
