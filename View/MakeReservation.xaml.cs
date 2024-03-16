@@ -31,7 +31,7 @@ namespace BookingApp.View
     {
         private ImageRepository _imageRepository;
         private AccommodationReservationRepository _accommodationReservationRepository;
-
+        public List<Model.Image> ListImages { get; set; }
         private int _accommodationId;
 
         private string _accommodationName;
@@ -199,15 +199,43 @@ namespace BookingApp.View
                 }
             }
         }
+        private string _imageAccommodation;
+        public string ImageAccommodation
+        {
+            get => _imageAccommodation;
+            set
+            {
+                if (value != _imageAccommodation)
+                {
+                    _imageAccommodation = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _currentImageIndex = 0;
+        public int CurrentImageIndex
+        {
+            get => _currentImageIndex;
+            set
+            {
+                _currentImageIndex = value;
+                OnPropertyChanged(nameof(CurrentImage));
+            }
+        }
+        public Model.Image CurrentImage => ListImages[CurrentImageIndex];
+
+       
+
         public ObservableCollection<DateRanges> AvailableDates { get; set; }
         public DateRanges SelectedDates;
 
         private AccommodationReservationRepository _reservationRepository;
 
-        public MakeReservation(AccommodationOwnerDTO SelectedAccommodation)
+        public MakeReservation(AccommodationOwnerDTO SelectedAccommodation )
         {
             InitializeComponent();
             DataContext = this;
+            ImageRepository _imageRepository = new ImageRepository();
 
             _accommodationId = SelectedAccommodation.Id;
             AccommodationName = SelectedAccommodation.Name;
@@ -217,10 +245,15 @@ namespace BookingApp.View
             CancelationDays = SelectedAccommodation.CancelationDays.ToString();
             MaxGuests = SelectedAccommodation.MaxGuests.ToString();
             MinDays = SelectedAccommodation.MinReservationDays.ToString();
+            List<Model.Image> lista = new List<Model.Image>(); 
+            foreach (Model.Image image in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
+            {
+                lista.Add(image);
 
-            _accommodationReservationRepository= new AccommodationReservationRepository();
-           // _accommodationReservationRepository.Subscribe(this);
+            }
+            ListImages = lista;
 
+            _accommodationReservationRepository = new AccommodationReservationRepository();
             AvailableDates = new ObservableCollection<DateRanges>();
 
         }
@@ -244,7 +277,7 @@ namespace BookingApp.View
                 }
             }
             else {
-                MessageBox.Show("The fields are not filled in correctly!");
+                MessageBox.Show("The fields are not filled in correctly!", "WRONG FORMAT ", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
         private void Reserve_Click(object sender, RoutedEventArgs e)
@@ -254,28 +287,48 @@ namespace BookingApp.View
             {
                 AccommodationReservation accommodationReservation= new AccommodationReservation(_accommodationId, 3, SelectedDates.CheckIn, SelectedDates.CheckOut, Convert.ToInt32(GuestNumber), Enums.ReservationStatus.Active);
                 _accommodationReservationRepository.Save(accommodationReservation);
-                MessageBox.Show("Successful booking!");
+                MessageBox.Show("Successful booking!", "WELL DONE", MessageBoxButton.OK);
+
                 MakeReservationView.Content = new MyReservation();
 
             }
-            else MessageBox.Show("you must select date ranges!");
+
+            else MessageBox.Show("You must select date ranges!", "Select date", MessageBoxButton.OK, MessageBoxImage.Warning);
 
         }
+        private void Next_Image_click(object sender, RoutedEventArgs e)
+        {
+                if (CurrentImageIndex < ListImages.Count - 1)
+                    CurrentImageIndex++;
+        }
+        private void Previous_Image_click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentImageIndex > 0)
+                CurrentImageIndex--;
+        }
+
 
         private void FirstDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateTime? selectedDate = DatePickerStartDate.SelectedDate;
 
-            if (selectedDate.HasValue)
+            if (selectedDate.HasValue )
             {
-                DatePickerEndDate.DisplayDateStart = selectedDate.Value;
+                DatePickerEndDate.DisplayDateStart = selectedDate.Value.AddDays(Convert.ToInt32(DaysNumber));
                 DatePickerEndDate.IsEnabled = true;
 
             }
-
-         
         }
-      
+        private void TextboxDaysNumber_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(TextboxDaysNumber.Text) && int.TryParse(TextboxDaysNumber.Text, out _))
+            {
+                    DatePickerStartDate.IsEnabled = true;
+            }
+            else
+                DatePickerStartDate.IsEnabled = false;
+        }
+
         private Regex _NumberRegex = new Regex("[1-9]+");
 
         public string Error => null;
@@ -291,11 +344,11 @@ namespace BookingApp.View
 
                     Match match = _NumberRegex.Match(DaysNumber);
                     if (!match.Success)
-                        return "Number!!!";
+                        return "Must be number!";
 
                     if (Convert.ToInt32(DaysNumber) < Convert.ToInt32(MinDays))
                     {
-                        return "Mora biti veci od min dozvoljenog broja dana";
+                        return "Must be a larger number!";
                     }
                 }
                 else if (columnName == "GuestNumber")
@@ -305,11 +358,11 @@ namespace BookingApp.View
 
                     Match match = _NumberRegex.Match(GuestNumber);
                     if (!match.Success)
-                        return "Broj gostiju je prirodan broj";
+                        return "Must be number!";
 
                     if (Convert.ToInt32(GuestNumber) > Convert.ToInt32(MaxGuests))
                     {
-                        return "Mora biti manji od maks dozvoljenog broja gostiju";
+                        return "Must be a lower number!";
                     }
                 }
                 return null;

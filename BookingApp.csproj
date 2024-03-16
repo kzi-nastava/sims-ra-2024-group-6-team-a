@@ -25,6 +25,7 @@
     <None Remove="Resources\Images\pupin3.jpg" />
     <None Remove="Resources\Images\pupin4.jpg" />
     <None Remove="Resources\Images\pupin5.jpg" />
+    <None Remove="Resources\Images\rarrow.png" />
     <None Remove="Resources\Images\sheraton1.jpg" />
     <None Remove="Resources\Images\terme1.jpg" />
     <None Remove="Resources\Images\terme2.jpg" />
@@ -76,6 +77,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\pupin5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\rarrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\sheraton1.jpg">
