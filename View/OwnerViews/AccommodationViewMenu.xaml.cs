@@ -110,6 +110,7 @@ namespace BookingApp.View
                 if (review == null)
                 {
                     AddGuestReview(accommodation, reservation);
+                    existsNotReviewed = true;
                 }
                 else
                 {
