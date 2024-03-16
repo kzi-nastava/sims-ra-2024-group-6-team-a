@@ -156,7 +156,7 @@
             </Grid>
             <Grid Margin="0,583,0,40">
                 <Button  Margin="0,0,0,0" HorizontalAlignment="Left" Width="69" Click="Button_ClickHomePage" >
-                    <Image Source ="../Resources/Images/checkpoint.png" Width="30" Height="35"/>
+                    <Image Source ="../Resources/Images/home.png" Width="30" Height="35"/>
                 </Button>
                 <Button Content="Accommodations" Margin="69,0,0,0" HorizontalAlignment="Left"  Width="69" />
                 <Button  Content="My res"  Margin="200,0,0,0" HorizontalAlignment="Left"  Width="68" Click="Button_ClickMyReservation" />
