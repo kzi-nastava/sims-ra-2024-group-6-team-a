@@ -108,8 +108,12 @@ namespace BookingApp.DTOs
             this.reservationId = reservationId;
         }
 
-    }
+        public TourGuestDTO()
+        {
 
+        }
+    }
+   
     
 
 }

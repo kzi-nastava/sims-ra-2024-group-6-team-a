@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using BookingApp.Observer;
+using BookingApp.DTOs;
 
 namespace BookingApp.Repository
 {
@@ -89,7 +90,35 @@ namespace BookingApp.Repository
             return  _tours.Find(c => c.Id == id);
         }
 
-        
+        public List<Tour> GetOtherToursOnSameLocation(TourScheduleDTO schedule) //vraca ostale ture na istoj lokaciji
+        {
+            TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
+            LocationRepository locationRepository = new LocationRepository();
+            List<Tour> tours = new List<Tour>();
+            Tour currentTour = GetById(schedule.TourId);
+            
+
+            foreach(Tour tour in GetAll())
+            {
+                if (locationRepository.GetById(tour.LocationId).City == locationRepository.GetById(currentTour.LocationId).City)
+                {
+                   /* foreach(var scheduleTour in  tourScheduleRepository.GetAll().Where(s => (s.TourId == tour.Id)))
+                    {
+                        if(scheduleTour.Id == schedule.Id)
+                        {
+                            tour.TourSchedules.Remove(tourScheduleRepository.GetById(schedule.Id));
+                        }
+                    }*/
+                   if(tour.Id == schedule.TourId)
+                    {
+                        continue;
+                    }
+                        
+                    tours.Add(tour);
+                }
+            }
+            return tours;
+        }
 
        
 

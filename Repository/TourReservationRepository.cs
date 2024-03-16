@@ -74,16 +74,15 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return reservation;
         }
-        //funkcija koja vraca broj ljudi koji su rezervisali tu odredjenu turu, koristi se kasnije
-        public int FindAssignedPeopleNumber(int tourId, int tourDateTimeId)
+        //funkcija koja vraca broj ljudi koji su rezervisali tu odredjenu turu za odredjeni termin, koristi se kasnije
+        public int FindAssignedPeopleNumber(int currentTourScheduleId)
         {
             int peopleNumber = 0;
 
-            TourRepository tourRepository = new TourRepository();
 
             foreach (TourReservation tourReservation in GetAll())
             {
-                if (tourId == tourReservation.TourId && tourDateTimeId == tourReservation.ReservedTourTime)
+                if (tourReservation.ReservedTourTime == currentTourScheduleId)
                 {
                     peopleNumber += tourReservation.TourGuests.Count;
                 }
@@ -94,33 +93,38 @@ namespace BookingApp.Repository
         //pravim bool funkciju koja za izabranu turu provjerava da li je POTPUNO bukirana
         //ako je tura potpuno popunjena sistem ce ponuditi druge ture na istoj lokaciji
 
-        bool IsFullyBooked(int tourId, int tourDateTime)
+        public bool IsFullyBooked(int currentTourScheduleId)
         {
-            TourRepository tourRepository = new TourRepository();
-            int peopleNumber = FindAssignedPeopleNumber(tourId, tourDateTime);
+            TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
 
-            if (tourRepository.GetById(tourId).Capacity == peopleNumber)
+            int peopleNumber = FindAssignedPeopleNumber(currentTourScheduleId);
+
+            if (tourScheduleRepository.GetById(currentTourScheduleId).CurrentGuestNumber <= 0)
                 return true;
             return false;
         }
 
-        //vraca broj preostalih mjesta onda kada korisniku treba ispisati koliko mjesta je ostalo
-        public int GetAvailableGuestNumber(int tourId, int tourDateTime)
+        //vraca broj preostalih mjesta za zadati termin ture
+       /* public int GetAvailableGuestNumber(int currentTourScheduleId)
         {
-            int bookedPlaces = FindAssignedPeopleNumber(tourId, tourDateTime);
+            int bookedPlaces = FindAssignedPeopleNumber(currentTourScheduleId);
+
             TourRepository tourRepository = new TourRepository();
-            if (!IsFullyBooked(tourId, tourDateTime))
+            TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
+
+            if (!IsFullyBooked(currentTourScheduleId))
             {
-                int leftPlaces = tourRepository.GetById(tourId).Capacity - bookedPlaces;
+                int leftPlaces = tourRepository.GetById().Capacity - ;
                 return leftPlaces;
             }
             return 0;
 
-        }
+        }*/
 
         public void MakeReservation(TourScheduleDTO tourScheduleDTO, TourReservationDTO tourReservationDTO, TourTouristDTO tourTouristDTO, User LoggedUser, List<TourGuestDTO> guests)
         {
             TourGuestRepository tourGuestRepository = new TourGuestRepository();
+            TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
             TourReservation reservation = new TourReservation();
 
             Tour tour = new Tour();
@@ -130,6 +134,17 @@ namespace BookingApp.Repository
             reservation.ReservedTourTime = tourScheduleDTO.Id;
             reservation.TourId = tourTouristDTO.Id;
             reservation.TouristId = LoggedUser.Id;
+
+
+            foreach(TourSchedule tourSchedule in tourScheduleRepository.GetAll()) 
+            {
+                if( tourSchedule.Id == reservation.ReservedTourTime)
+                {
+                    tourSchedule.CurrentGuestNumber -= reservation.GuestNumber;
+                    tourScheduleRepository.Update(tourSchedule);
+                }
+            }
+            
 
             Save(reservation);
 
