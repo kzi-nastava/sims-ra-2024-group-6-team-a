@@ -1,7 +1,4 @@
-﻿using BookingApp.DTOs;
-using BookingApp.Model;
-using BookingApp.View.GuideView.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,25 +13,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.View.GuideView.Components
+namespace BookingApp.View.GuideView.Pages
 {
     /// <summary>
-    /// Interaction logic for TourCard.xaml
+    /// Interaction logic for LiveTour.xaml
     /// </summary>
-    public partial class TourCard : UserControl
+    public partial class LiveTour : Page
     {
 
 
 
-        public TourCard()
+
+
+        public LiveTour(int tourScheduleId)
         {
             InitializeComponent();
+        
         }
 
-        private void BeginTourMouseDown(object sender, MouseEventArgs e)
-        {
-            (Window.GetWindow(this) as GuideViewMenu).mainFrame.Content = new LiveTour(Convert.ToInt32(textBoxId.Text));
-        }
+
 
     }
 }

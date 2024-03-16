@@ -4,6 +4,8 @@ using BookingApp.Observer;
 using BookingApp.Repository;
 using BookingApp.Resources;
 using BookingApp.View.GuideView;
+using BookingApp.View.GuideView.Components;
+using BookingApp.View.GuideView.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,11 +26,13 @@ namespace BookingApp.View
     /// <summary>
     /// Interaction logic for GuideViewMenu.xaml
     /// </summary>
-    public partial class GuideViewMenu : Window, IObserver
+    public partial class GuideViewMenu : Window
     {
         public static ObservableCollection<TourGuideDTO> TodaysTours { get; set; }
         public TourGuideDTO SelectedTour { get; set; }
         public User LoggedUser { get; set; }
+
+        public Frame mainFrame;
        
         
         private  TourRepository _tourRepository;
@@ -37,64 +41,51 @@ namespace BookingApp.View
         private  CheckpointRepository _checkRepository;
         private  TourScheduleRepository _tourScheduleRepository;
 
+        public LiveToursPage liveToursPage;
+        public TourCreationPage tourCreationPage;
+
         public GuideViewMenu(User user,LocationRepository locationRepository,ImageRepository imageRepository)
         {
             InitializeComponent();
             DataContext = this;
-           
+
             _locationRepository = locationRepository;
             _imageRepository = imageRepository;
             _tourRepository = new TourRepository();
             _checkRepository = new CheckpointRepository();
             _tourScheduleRepository = new TourScheduleRepository();
 
+            mainFrame = MainFrame;
+            
             LoggedUser = user;
-            TodaysTours = new ObservableCollection<TourGuideDTO>();
+            tourCreationPage = new TourCreationPage(LoggedUser, _tourRepository, _locationRepository, _imageRepository, _checkRepository, _tourScheduleRepository);
+            liveToursPage = new LiveToursPage(mainFrame,tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
 
-
-            Update();
         }
-       
-        public void Update()
+
+
+        //public void LiveTourPage(string parameter) 
+        //{
+        //    int tourScheduleId = Convert.ToInt32(parameter);
+        //    LiveTour liveTourPage = new LiveTour(tourScheduleId);
+        //    MainFrame.Content = liveTourPage;
+        //}
+
+
+
+
+        private void ShowCreateTourForm(object sender, EventArgs e)
         {
-            TodaysTours.Clear();
-            foreach(TourSchedule tourSchedule in  _tourScheduleRepository.GetAll())
-            {
-                if(tourSchedule.Start.Date != System.DateTime.Now.Date)
-                {
-                    continue;
-                }
-                Tour tour = _tourRepository.GetById(tourSchedule.TourId);
-                if (tour.GuideId != LoggedUser.Id)
-                    continue;
-                Location location = _locationRepository.GetById(tour.LocationId);
-
-                Model.Image image = new Model.Image();
-                DateTime dateTime = tourSchedule.Start;
-               
-                foreach (Model.Image i in _imageRepository.GetByEntity(tour.Id, Enums.ImageType.Tour))
-                {
-                    image = i;
-                    break;
-                }
-                TodaysTours.Add(new TourGuideDTO(tour, location, image.Path,dateTime));
-            }
+            MainFrame.Content = tourCreationPage;
         }
 
-         private void ShowCreateTourForm(object sender, EventArgs e)
+        private void LiveToursPageClick(object sender, RoutedEventArgs e)
         {
-            TourForm createTourForm = new TourForm(LoggedUser,_tourRepository,_locationRepository,_imageRepository,_checkRepository,_tourScheduleRepository);
-            createTourForm.ShowDialog();
-            Update();
+            MainFrame.Content = liveToursPage;
         }
 
+        
 
-        private void BeginTourMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            TourLiveTracking tourLiveTracking = new TourLiveTracking();
-            tourLiveTracking.ShowDialog();
-            Update();
 
-        }
     }
 }

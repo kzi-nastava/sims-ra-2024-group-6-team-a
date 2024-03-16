@@ -24,6 +24,7 @@
     <None Remove="Resources\Images\kanta.png" />
     <None Remove="Resources\Images\language.png" />
     <None Remove="Resources\Images\languages.png" />
+    <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\location-ping.png" />
     <None Remove="Resources\Images\location.png" />
     <None Remove="Resources\Images\play.png" />
@@ -86,6 +87,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\languages.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\live.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\location.png">

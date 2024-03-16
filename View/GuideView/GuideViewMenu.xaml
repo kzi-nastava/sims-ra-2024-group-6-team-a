@@ -5,37 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
-
-        mc:Ignorable="d"
+  
+         mc:Ignorable="d"
         Title="Guide" WindowState="Maximized" d:DesignHeight="1080" d:DesignWidth="1920" >
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.15*"/>
+            <ColumnDefinition Width="0.8*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="15"/>
-        </Grid.RowDefinitions>
-        <Rectangle Grid.Row="0" Grid.RowSpan="4"  Fill="LightGray" />
-
-        <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto" >
-            <ItemsControl ItemsSource ="{Binding TodaysTours}" >
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <components:TourCard/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
-        <StackPanel VerticalAlignment="Center" Grid.Row="1" Grid.RowSpan="2"   Grid.Column="0">
+        <Rectangle Grid.Column="0"  Fill="LightGray" />
+        <Frame Grid.Column="1" x:Name="MainFrame" NavigationUIVisibility="Hidden" />
+        <StackPanel VerticalAlignment="Center" Grid.Column="0">
+            <Button BorderThickness="0" Click="LiveToursPageClick" Margin="0 0 0 5" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Images/live.png" Width="20" Height="25"/>
+                    <TextBlock Text="Live Tours" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                </StackPanel>
+            </Button>
             <Button BorderThickness="0"  Click="ShowCreateTourForm">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/add.png" Width="20" Height="25"/>
@@ -53,10 +39,9 @@
             <Button BorderThickness="0" >
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/checkpoint.png" Width="20" Height="25"/>
-                    <TextBlock Name="DeleteTxtBlock" Text="Checkpoints" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <TextBlock x:Name="DeleteTxtBlock" Text="Checkpoints" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
         </StackPanel>
-
     </Grid>
 </Window>

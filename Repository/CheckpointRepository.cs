@@ -1,4 +1,5 @@
 ﻿using BookingApp.Model;
+using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,13 @@ namespace BookingApp.Repository
 
         private List<Checkpoint> _checkpoints;
 
+        public Subject subject;
 
         public CheckpointRepository()
         {
             _serializer = new Serializer<Checkpoint>();
             _checkpoints = new List<Checkpoint>();
+            subject = new Subject();
         }
         public List<Checkpoint> GetAll()
         {
@@ -32,7 +35,7 @@ namespace BookingApp.Repository
             _checkpoints = _serializer.FromCSV(FilePath);
             _checkpoints.Add(checkpoint);
             _serializer.ToCSV(FilePath, _checkpoints);
-         
+            subject.NotifyObservers();
             return checkpoint;
         }
 
@@ -55,6 +58,7 @@ namespace BookingApp.Repository
                 _checkpoints.Remove(found);
             }
             _serializer.ToCSV(FilePath, _checkpoints);
+            subject.NotifyObservers();
         }
 
 

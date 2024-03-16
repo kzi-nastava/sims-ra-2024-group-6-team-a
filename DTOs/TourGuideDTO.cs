@@ -194,22 +194,42 @@ namespace BookingApp.DTOs
                 }
             }
         }
-               
-        public TourGuideDTO(Tour tour, Location location, string imagePath,DateTime dateTime)
-        {
-                        Id = tour.Id;
-                        name = tour.Name;
-                        description = tour.Description;
-                        language = tour.Language;
-                        capacity = tour.Capacity;
-                        duration = tour.Duration;
-                        city = location.City;
-                        state = location.State;
-                        image = imagePath;
-                        tourStart = dateTime;
-            
-        }
-       
 
+        private int tourScheduleId;
+
+        public int TourScheduleId
+        {
+            get
+            {
+                return tourScheduleId;
+            }
+
+            set
+            {
+                if (value != tourScheduleId)
+                {
+                    tourScheduleId = value;
+                    OnPropertyChanged("TourScheduleId");
+
+                }
+            }
+
+        }
+
+
+        public TourGuideDTO(Tour tour, Location location, string imagePath, DateTime dateTime, int tourSchedId)
+        {
+            Id = tour.Id;
+            name = tour.Name;
+            description = tour.Description;
+            language = tour.Language;
+            capacity = tour.Capacity;
+            duration = tour.Duration;
+            city = location.City;
+            state = location.State;
+            image = imagePath;
+            tourStart = dateTime;
+            tourScheduleId = tourSchedId;
+        }
     }
 }
