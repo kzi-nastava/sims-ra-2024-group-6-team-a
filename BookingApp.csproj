@@ -10,6 +10,8 @@
   <ItemGroup>
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\blank-profile.jpg" />
+    <None Remove="Resources\Images\calendar.png" />
+    <None Remove="Resources\Images\capacity.png" />
     <None Remove="Resources\Images\checkpoint.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\edit.png" />
@@ -19,8 +21,15 @@
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\horizonti1.jpg" />
     <None Remove="Resources\Images\horizonti2.jpg" />
+    <None Remove="Resources\Images\hourglass.png" />
     <None Remove="Resources\Images\Iraq.jpg" />
+    <None Remove="Resources\Images\kanta.png" />
+    <None Remove="Resources\Images\language.png" />
+    <None Remove="Resources\Images\languages.png" />
+    <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\location-ping.png" />
+    <None Remove="Resources\Images\location.png" />
+    <None Remove="Resources\Images\play.png" />
     <None Remove="Resources\Images\pupin1.png" />
     <None Remove="Resources\Images\pupin2.jpg" />
     <None Remove="Resources\Images\pupin3.jpg" />
@@ -38,6 +47,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\blank-profile.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\calendar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\capacity.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\checkpoint.png">
@@ -67,7 +82,28 @@
     <Content Include="Resources\Images\horizonti2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\hourglass.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\Iraq.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\kanta.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\language.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\languages.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\live.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\location.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\play.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\pupin1.png">

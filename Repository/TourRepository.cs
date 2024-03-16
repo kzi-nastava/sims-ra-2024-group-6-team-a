@@ -29,6 +29,7 @@ namespace BookingApp.Repository
             _serializer = new Serializer<Tour>();
             _tours = _serializer.FromCSV(FilePath);
             subject = new Subject();
+
         }
 
         public List<Tour>GetAll()
