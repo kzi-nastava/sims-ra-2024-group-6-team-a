@@ -4,6 +4,7 @@ using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace BookingApp.View
 {
@@ -37,6 +39,7 @@ namespace BookingApp.View
         private UserRepository _userRepository;
 
         public ObservableCollection<TourScheduleDTO> tourSchedules { get; set; }
+        public ObservableCollection<TourGuestDTO> tourGuests { get; set; }
 
         public TourReservationForm(User user, TourTouristDTO selectedTour, TourReservationRepository _tourReservationRepository, TourScheduleRepository _tourScheduleRepository)
         {
@@ -49,6 +52,7 @@ namespace BookingApp.View
            // this._userRepository = _userRepository;
 
             tourSchedules = new ObservableCollection<TourScheduleDTO>();
+            tourGuests = new ObservableCollection<TourGuestDTO>();
 
             foreach(var tourSchedule in _tourScheduleRepository.GetAll())
             {
@@ -62,6 +66,7 @@ namespace BookingApp.View
 
             TourTouristDTO = selectedTour;
             TourReservationDTO = new TourReservationDTO();
+            //TourGuestDTO = new TourGuestDTO();
 
 
         }
@@ -70,43 +75,94 @@ namespace BookingApp.View
         {
             List<TourGuestDTO> guestList = new List<TourGuestDTO>();
 
-            for(int i = 0; i < int.Parse(txtGuestNumber.Text); i++)
+            int numberOfInterestedPeople;
+            if (!int.TryParse(txtGuestNumber.Text, out numberOfInterestedPeople))
             {
-                WrapPanel wrapPanel = (WrapPanel)GuestNamesPanel.Children[i];
-                TourGuestDTO guestDTO  = new TourGuestDTO(((TextBox)wrapPanel.Children[0]).Text, ((TextBox)wrapPanel.Children[1]).Text, Convert.ToInt32(((TextBox)wrapPanel.Children[2]).Text));
-                guestList.Add(guestDTO);
+                MessageBox.Show("Please enter a valid number.");
+                return;
             }
-            _tourReservationRepository.MakeReservation(TourSchedule, TourReservationDTO, TourTouristDTO, LoggedUser, guestList);
+
+            if (TouristsDataGrid.Items.Count != numberOfInterestedPeople)
+            {
+                MessageBox.Show("Please enter tourist information for all the people as specified in the 'Number of interested people' field.");
+                return;
+            }
+
+            if (!_tourReservationRepository.IsFullyBooked(TourSchedule.Id)) //nije u potpunosti popunjena
+            {
+                if(TourSchedule.CurrentGuestNumber >= TourReservationDTO.GuestNumber) //moguca rezervacija
+                {
+                    _tourReservationRepository.MakeReservation(TourSchedule, TourReservationDTO, TourTouristDTO, LoggedUser, tourGuests.ToList());
+                    return;
+                }
+
+                string message = "Not enough places left. There are " + TourSchedule.CurrentGuestNumber + " places left. If you want to cancle the reservation press yes. If you want to change people number press no.";
+                MessageBoxResult result = MessageBox.Show(message, "Error", MessageBoxButton.YesNo);
+
+                // Handle the button clicks
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Exit the reservation form
+                    Close();
+                }
+                else
+                {
+                    // Close the message box
+                    return;
+                }
+
+            }
+            else
+            {
+                SameLocationToursWindow sameLocationTours = new SameLocationToursWindow(TourSchedule, LoggedUser);
+                sameLocationTours.ShowDialog();
+
+            }
+
+
             Close();
 
         }
 
-        private void NumberOfGuestsTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void AddTouristInfoClick(object sender, RoutedEventArgs e)
         {
-            int numberOfGuests;
-            if (int.TryParse(txtGuestNumber.Text, out numberOfGuests))
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text) ||
+                string.IsNullOrWhiteSpace(SurnameTextBox.Text) ||
+                string.IsNullOrWhiteSpace(AgeTextBox.Text))
             {
-                GuestNamesPanel.Children.Clear(); // Clear existing textboxes
-                
-                for (int i = 0; i < numberOfGuests; i++)
-                {
-                    WrapPanel wrapPanel = new WrapPanel();
-                    for (int j = 0; j < 3; j++)
-                    {
-                        TextBox guestNameTextBox = new TextBox();
-                        guestNameTextBox.Name = "guestNameTextBox" + i;
-                        guestNameTextBox.Margin = new Thickness(0, 5, 0, 0); // Add some margin between textboxes
-                        guestNameTextBox.HorizontalAlignment = HorizontalAlignment.Right;
-                        guestNameTextBox.VerticalAlignment = VerticalAlignment.Center;
-                        guestNameTextBox.Width = 200; // Set textbox width as needed
-                        guestNameTextBox.Text = "Guest " + (i + 1) + " name"; // Set default text if needed
-                        wrapPanel.Children.Add(guestNameTextBox);
-                    }
-                    GuestNamesPanel.Children.Add(wrapPanel);
-                }
+                MessageBox.Show("Please fill in all fields before adding.");
+                return;
             }
+
+            int age;
+            if (!int.TryParse(AgeTextBox.Text, out age))
+            {
+                MessageBox.Show("Please enter a valid integer for Age.");
+                AgeTextBox.BorderBrush = Brushes.Red; 
+                return;
+            }
+
+            AgeTextBox.BorderBrush = SystemColors.ControlDarkBrush;
+            tourGuests.Add(new TourGuestDTO(NameTextBox.Text, SurnameTextBox.Text, Convert.ToInt32(AgeTextBox.Text)));
+            
+            NameTextBox.Text = "";
+            SurnameTextBox.Text = "";
+            AgeTextBox.Text = "";
         }
+
+        private void DeleteTouristInfoClick(object sender, RoutedEventArgs e)
+        {
+            if (TouristsDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a row to delete.");
+                return;
+            }
+            //TouristsDataGrid.Items.Remove(TouristsDataGrid.SelectedItem);
+        }
+
     }
+
+
 
 }
 
