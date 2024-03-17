@@ -68,6 +68,22 @@ namespace BookingApp.Repository
             return _checkpoints.Find(c => c.Id == checkpointId);
         }
 
+        public List<Checkpoint> GetAllByTourId(int tourId)
+        {
+           List <Checkpoint> checkpoints = new List <Checkpoint>();
+            _checkpoints = _serializer.FromCSV(FilePath);
+
+            foreach (Checkpoint checkpoint in _checkpoints)
+            {
+                if(checkpoint.TourId == tourId)
+                {
+                    checkpoints.Add(checkpoint);
+                }
+            }
+
+            return checkpoints;
+        }
+
 
     }
 }

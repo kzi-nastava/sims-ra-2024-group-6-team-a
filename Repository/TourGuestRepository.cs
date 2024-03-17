@@ -18,6 +18,8 @@ namespace BookingApp.Repository
         private readonly Serializer<TourGuests> _serializer;
         private readonly List<IObserver> _observers;
 
+        private readonly TourReservationRepository _tourReservationRepository;
+
         private List<TourGuests> _guests;
         public Subject subject;
 
@@ -28,6 +30,8 @@ namespace BookingApp.Repository
             _serializer = new Serializer<TourGuests>();
             _guests = _serializer.FromCSV(FilePath);
             subject = new Subject();
+            _tourReservationRepository = new TourReservationRepository();
+
         }
 
         public List<TourGuests> GetAll()
@@ -78,6 +82,24 @@ namespace BookingApp.Repository
             return guest;
         }
 
+        public List <TourGuests> GetAllByTourId(int tourScheduleId)
+        {
+            _guests = _serializer.FromCSV(FilePath);
+            List<TourGuests> guests = new List <TourGuests>();
+            List <TourReservation> tourReservations = new List <TourReservation>();
+            tourReservations = _tourReservationRepository.GetAllByTourScheduleId(tourScheduleId);
+            foreach(TourReservation reservation in tourReservations)
+            {
+                foreach(TourGuests tourGuest in _guests)
+                {
+                    if(reservation.Id == tourGuest.ReservationId)
+                    {
+                        guests.Add(tourGuest);
+                    }
+                }
+            }
+            return guests;
+        }
 
 
 
