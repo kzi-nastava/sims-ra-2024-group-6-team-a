@@ -17,8 +17,8 @@
                 <RowDefinition Height="*"/>
 
             </Grid.RowDefinitions>
-            <StackPanel Width="100" Grid.Column="1" Grid.Row="0">
-                <TextBlock TextWrapping="Wrap" FontSize="15" FontWeight="Bold" Text="{Binding Name}"/>
+            <StackPanel Grid.Column="1" Grid.Row="0" Margin="49,0,0,94" Grid.RowSpan="2">
+                <TextBlock TextWrapping="Wrap" FontSize="15" FontWeight="Bold" Text="{Binding Name}" Width="175"/>
             </StackPanel>
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.ColumnDefinitions>

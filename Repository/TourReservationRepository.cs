@@ -63,6 +63,21 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
         }
 
+        public List <TourReservation> GetAllByTourScheduleId(int tourScheduleId)
+        {
+            _tourReservations = _serializer.FromCSV(FilePath);
+
+            List<TourReservation> tourReservations = new List <TourReservation>();
+            foreach(TourReservation tourReservation in _tourReservations)
+            {
+                if(tourReservation.ReservedTourTime == tourScheduleId)
+                {
+                    tourReservations.Add(tourReservation);
+                }
+            }
+            return tourReservations;
+        }
+
         public TourReservation Update(TourReservation reservation)
         {
             _tourReservations = _serializer.FromCSV(FilePath);
@@ -155,6 +170,7 @@ namespace BookingApp.Repository
                 newGuest.Surname = guest.Surname;
                 newGuest.Age = guest.Age;
                 newGuest.ReservationId = reservation.Id;
+                newGuest.IsSelected = false;
                 tourGuestRepository.Save(newGuest);
             }
         }

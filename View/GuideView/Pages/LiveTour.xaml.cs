@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BookingApp.Model;
+using BookingApp.Repository;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,16 +25,79 @@ namespace BookingApp.View.GuideView.Pages
     {
 
 
+        public static ObservableCollection<Checkpoint> Checkpoints {  get; set; }
+
+        public static ObservableCollection<TourGuests> TourGuests { get; set; }
+
+        private TourScheduleRepository _tourScheduleRepository;
+        private TourGuestRepository _tourGuestRepository;
+        private TourRepository _tourRepository;
+        private LocationRepository _locationRepository;
+        private CheckpointRepository _checkpointRepository;
 
 
+        public Tour SelectedTour {  get; set; }
+        public TourSchedule SelectedTourSchedule { get; set; }
+        public Location SelectedLocation {  get; set; }
 
         public LiveTour(int tourScheduleId)
         {
             InitializeComponent();
-        
+            DataContext = this;
+
+            _tourScheduleRepository = new TourScheduleRepository();
+            _tourGuestRepository = new TourGuestRepository();
+            _tourRepository = new TourRepository();
+            _locationRepository = new LocationRepository();
+            _checkpointRepository = new CheckpointRepository();
+
+            Checkpoints = new ObservableCollection<Checkpoint>();
+            TourGuests = new ObservableCollection<TourGuests>();
+              
+            SelectedTourSchedule = _tourScheduleRepository.GetById(tourScheduleId);
+            SelectedTour = _tourRepository.GetById(SelectedTourSchedule.TourId);
+            SelectedLocation = _locationRepository.GetById(SelectedTour.LocationId);
+            Update();
         }
 
+        public void Update()
+        {
+            Checkpoints.Clear();
+            foreach(Checkpoint checkPoint in _checkpointRepository.GetAllByTourId(SelectedTour.Id))
+            {
+               Checkpoints.Add(checkPoint);
+            }
+            TourGuests.Clear();
+            foreach (TourGuests tourGuest in _tourGuestRepository.GetAllByTourId(SelectedTourSchedule.Id))
+            {
+                
+                TourGuests.Add(tourGuest);
+            }
 
+        }
+
+        private void CheckpointCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            Checkpoint selectedCheckpoint = (sender as CheckBox).DataContext as Checkpoint;
+
+            List<int> selectedTouristIds = new List<int>();
+            List<TourGuests> touristsToRemove = new List<TourGuests>();
+
+            foreach (var tourist in TourGuests)
+            {
+                if (tourist.IsSelected)
+                {
+                    selectedTouristIds.Add(tourist.Id); 
+                    touristsToRemove.Add(tourist);
+                }
+            }
+
+            foreach (var touristToRemove in touristsToRemove)
+            {
+                TourGuests.Remove(touristToRemove);
+            }
+           
+        }
 
     }
 }

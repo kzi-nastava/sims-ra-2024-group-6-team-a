@@ -195,7 +195,7 @@ namespace BookingApp.View.GuideView.Pages
         {
             foreach (string checkpoint in checkpoints)
             {
-                _checkRepository.Save(new Checkpoint(checkpoint, SelectedTour.Id));
+                _checkRepository.Save(new Checkpoint(checkpoint, SelectedTour.Id,false));
             }
         }
 
