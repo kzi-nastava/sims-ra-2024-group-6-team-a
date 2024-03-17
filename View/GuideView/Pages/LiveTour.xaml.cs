@@ -40,7 +40,6 @@ namespace BookingApp.View.GuideView.Pages
         public TourSchedule SelectedTourSchedule { get; set; }
         public Location SelectedLocation {  get; set; }
 
-
         public LiveTour(int tourScheduleId)
         {
             InitializeComponent();
@@ -71,12 +70,34 @@ namespace BookingApp.View.GuideView.Pages
             TourGuests.Clear();
             foreach (TourGuests tourGuest in _tourGuestRepository.GetAllByTourId(SelectedTourSchedule.Id))
             {
+                
                 TourGuests.Add(tourGuest);
             }
 
         }
 
-       
+        private void CheckpointCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            Checkpoint selectedCheckpoint = (sender as CheckBox).DataContext as Checkpoint;
+
+            List<int> selectedTouristIds = new List<int>();
+            List<TourGuests> touristsToRemove = new List<TourGuests>();
+
+            foreach (var tourist in TourGuests)
+            {
+                if (tourist.IsSelected)
+                {
+                    selectedTouristIds.Add(tourist.Id); 
+                    touristsToRemove.Add(tourist);
+                }
+            }
+
+            foreach (var touristToRemove in touristsToRemove)
+            {
+                TourGuests.Remove(touristToRemove);
+            }
+           
+        }
 
     }
 }

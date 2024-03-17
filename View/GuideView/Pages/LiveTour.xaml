@@ -31,10 +31,10 @@
             <TextBlock VerticalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="Language" FontSize="25"  />
             <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" HorizontalAlignment="Center" TextAlignment="Right"  FontSize="25" FontWeight="Bold" Text="{Binding SelectedTour.Language}"/>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,0,0,26" Width="289">
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,0,0,26" Width="401">
             <Image Margin="120 0 0 0" Height="50" Width="43" Source="\Resources\Images\hourglass.png"/>
             <TextBlock VerticalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="Duration" FontSize="25"  />
-            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" HorizontalAlignment="Center" TextAlignment="Right"  FontSize="25" FontWeight="Bold" Text="{Binding SelectedTour.Duration}"/>
+            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" TextAlignment="Left"  FontSize="25" FontWeight="Bold" Text="{Binding SelectedTour.Duration}" Width="96"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="0,0,0,40">
             <Image Margin="120 0 0 0" Height="50" Width="43" Source="\Resources\Images\location.png"/>
@@ -61,13 +61,18 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="*"></DataGridTextColumn>
-                <DataGridCheckBoxColumn Header="Status" Width="50" ></DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Header="Status" Width="50" Binding="{Binding IsSelected}" />
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid  CanUserAddRows="False"  ItemsSource="{Binding Checkpoints}" AutoGenerateColumns="False" Width="500"  x:Name="CheckpointsDataGrid" Grid.Row="4" Margin="0,0,0,17"  HorizontalAlignment="Center" Grid.RowSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Checkpoint" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                 <DataGridCheckBoxColumn Header="Status">
+                    <DataGridCheckBoxColumn.ElementStyle>
+                        <Style TargetType="CheckBox">
+                            <EventSetter Event="Checked" Handler="CheckpointCheckBox_Checked"/>
+                        </Style>
+                    </DataGridCheckBoxColumn.ElementStyle>
                 </DataGridCheckBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
