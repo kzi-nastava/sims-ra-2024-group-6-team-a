@@ -143,7 +143,7 @@ namespace BookingApp.View
             }
 
             AgeTextBox.BorderBrush = SystemColors.ControlDarkBrush;
-            tourGuests.Add(new TourGuestDTO(NameTextBox.Text, SurnameTextBox.Text, Convert.ToInt32(AgeTextBox.Text)));
+            tourGuests.Add(new TourGuestDTO(NameTextBox.Text, SurnameTextBox.Text, Convert.ToInt32(AgeTextBox.Text),0));
             
             NameTextBox.Text = "";
             SurnameTextBox.Text = "";

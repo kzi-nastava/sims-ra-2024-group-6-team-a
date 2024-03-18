@@ -34,5 +34,11 @@ namespace BookingApp.Resources
             Canceled
             
         }
+        public enum TourActivity
+        {
+            Ready,
+            Ongoing,
+            Finished
+        }
     }
 }

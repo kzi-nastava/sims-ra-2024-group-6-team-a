@@ -1,4 +1,5 @@
 ﻿using BookingApp.Model;
+using BookingApp.Observer;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.Observer;
 
 namespace BookingApp.View.GuideView.Pages
 {
@@ -57,47 +59,71 @@ namespace BookingApp.View.GuideView.Pages
             SelectedTourSchedule = _tourScheduleRepository.GetById(tourScheduleId);
             SelectedTour = _tourRepository.GetById(SelectedTourSchedule.TourId);
             SelectedLocation = _locationRepository.GetById(SelectedTour.LocationId);
-            Update();
+
+            UpdateCheckpoints();
+            UpdateGuests();
+
         }
 
-        public void Update()
+       
+        
+        public void UpdateCheckpoints()
         {
             Checkpoints.Clear();
-            foreach(Checkpoint checkPoint in _checkpointRepository.GetAllByTourId(SelectedTour.Id))
+            foreach(Checkpoint checkpoint in _checkpointRepository.GetAllByTourId(SelectedTour.Id))
             {
-               Checkpoints.Add(checkPoint);
+             
+                Checkpoints.Add(checkpoint);
             }
+            Checkpoints.ElementAt(0).IsActive = true;            
+        }
+
+        public void UpdateGuests()
+        {
             TourGuests.Clear();
             foreach (TourGuests tourGuest in _tourGuestRepository.GetAllByTourId(SelectedTourSchedule.Id))
             {
-                
+
                 TourGuests.Add(tourGuest);
             }
-
         }
+
 
         private void CheckpointCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             Checkpoint selectedCheckpoint = (sender as CheckBox).DataContext as Checkpoint;
+            CheckBox checkbox = sender as CheckBox;
 
-            List<int> selectedTouristIds = new List<int>();
-            List<TourGuests> touristsToRemove = new List<TourGuests>();
-
+            if (checkbox != null && checkbox.IsChecked == true)
+            {
+                checkbox.IsEnabled = false;
+                e.Handled = true;
+            }
+            selectedCheckpoint.IsActive = true;
+            _checkpointRepository.Update(selectedCheckpoint);
+            
             foreach (var tourist in TourGuests)
             {
                 if (tourist.IsSelected)
                 {
-                    selectedTouristIds.Add(tourist.Id); 
-                    touristsToRemove.Add(tourist);
+                    tourist.CheckpointId = selectedCheckpoint.Id;
+                    _tourGuestRepository.Update(tourist);
                 }
             }
-
-            foreach (var touristToRemove in touristsToRemove)
+            UpdateGuests();
+        }
+        
+        private void IsCheckboxChecked(CheckBox checkbox,RoutedEventArgs e)
+        {
+            if (checkbox != null && checkbox.IsChecked == true)
             {
-                TourGuests.Remove(touristToRemove);
+                checkbox.IsEnabled = false;
+                e.Handled = true;
             }
-           
         }
 
+       
+
+    
     }
 }

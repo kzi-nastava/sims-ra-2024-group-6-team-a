@@ -123,38 +123,33 @@ namespace BookingApp.View.GuideView.Pages
         private void SelectImagesClick(object sender, RoutedEventArgs e)
         {
             List<String> _imagePath = new List<String>();
-            // _imageRelativePath.Clear();
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Images|*.jpg;*.jpeg;*.png;*.gif|All Files|*.*";
             openFileDialog.Multiselect = true;
+
 
             if (openFileDialog.ShowDialog() == true)
             {
                 foreach (string imagePath in openFileDialog.FileNames)
                 {
                     _imagePath.Add(imagePath);
-
-
                 }
             }
+            TransformToRelativePath(_imagePath);
+        }
 
-            if (_imagePath.Count == 1)
-            {
-                txtImageNumber.Text = "Attached " + _imagePath.Count + " image";
-            }
-            else
-            {
-                txtImageNumber.Text = "Attached " + _imagePath.Count + " images";
-            }
-
-            foreach (String imgPath in _imagePath)
+       
+        private void TransformToRelativePath(List<String> imagePath)
+        {
+            foreach (String imgPath in imagePath)
             {
                 int relativePathStartIndex = imgPath.IndexOf("\\Resources");
                 String relativePath = imgPath.Substring(relativePathStartIndex);
                 ImagesCollection.Add(relativePath);
             }
         }
+
+
 
         private void SelectDatesClick(object sender, RoutedEventArgs e)
         {
@@ -211,7 +206,7 @@ namespace BookingApp.View.GuideView.Pages
         {
             foreach (DateTime date in dates)
             {
-                _tourScheduleRepository.Save(new TourSchedule(date, SelectedTour.Id, SelectedTour.Capacity));
+                _tourScheduleRepository.Save(new TourSchedule(date, SelectedTour.Id, SelectedTour.Capacity,Enums.TourActivity.Ready));
             }
         }
 

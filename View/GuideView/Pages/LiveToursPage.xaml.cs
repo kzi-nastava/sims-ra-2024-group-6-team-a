@@ -24,7 +24,7 @@ namespace BookingApp.View.GuideView.Pages
     /// <summary>
     /// Interaction logic for LiveToursPage.xaml
     /// </summary>
-    public partial class LiveToursPage : Page, IObserver
+    public partial class LiveToursPage : Page
     {
         public static ObservableCollection<TourGuideDTO> TodaysTours { get; set; }
         public TourGuideDTO SelectedTour { get; set; }
@@ -77,6 +77,7 @@ namespace BookingApp.View.GuideView.Pages
                 {
                     continue;
                 }
+                
                 Tour tour = _tourRepository.GetById(tourSchedule.TourId);
                 if (tour.GuideId != LoggedUser.Id)
                     continue;

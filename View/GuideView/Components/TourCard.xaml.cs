@@ -1,5 +1,7 @@
 ﻿using BookingApp.DTOs;
 using BookingApp.Model;
+using BookingApp.Repository;
+using BookingApp.Resources;
 using BookingApp.View.GuideView.Pages;
 using System;
 using System.Collections.Generic;
@@ -24,16 +26,23 @@ namespace BookingApp.View.GuideView.Components
     public partial class TourCard : UserControl
     {
 
+        TourScheduleRepository tourScheduleRepository;
 
 
         public TourCard()
         {
             InitializeComponent();
+            tourScheduleRepository = new TourScheduleRepository();
         }
 
         private void BeginTourMouseDown(object sender, MouseEventArgs e)
         {
+
+            TourSchedule tourSchedule = tourScheduleRepository.GetById(Convert.ToInt32(textBoxId.Text));
+            tourSchedule.TourActivity = Enums.TourActivity.Ongoing;
+            tourScheduleRepository.Update(tourSchedule);
             (Window.GetWindow(this) as GuideViewMenu).mainFrame.Content = new LiveTour(Convert.ToInt32(textBoxId.Text));
+
         }
 
     }

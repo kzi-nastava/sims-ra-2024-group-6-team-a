@@ -44,6 +44,8 @@ namespace BookingApp.View
         public LiveToursPage liveToursPage;
         public TourCreationPage tourCreationPage;
 
+
+
         public GuideViewMenu(User user,LocationRepository locationRepository,ImageRepository imageRepository)
         {
             InitializeComponent();
@@ -60,18 +62,8 @@ namespace BookingApp.View
             LoggedUser = user;
             tourCreationPage = new TourCreationPage(LoggedUser, _tourRepository, _locationRepository, _imageRepository, _checkRepository, _tourScheduleRepository);
             liveToursPage = new LiveToursPage(mainFrame,tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
-
+            
         }
-
-
-        //public void LiveTourPage(string parameter) 
-        //{
-        //    int tourScheduleId = Convert.ToInt32(parameter);
-        //    LiveTour liveTourPage = new LiveTour(tourScheduleId);
-        //    MainFrame.Content = liveTourPage;
-        //}
-
-
 
 
         private void ShowCreateTourForm(object sender, EventArgs e)
@@ -81,11 +73,17 @@ namespace BookingApp.View
 
         private void LiveToursPageClick(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = liveToursPage;
+            List<Tour> tours = _tourRepository.GetByUser(LoggedUser);
+            int tourScheduleId = _tourScheduleRepository.FindOngoingTour(tours);
+
+            if (tourScheduleId != 0 )
+            {
+                MainFrame.Content = new LiveTour(tourScheduleId);
+            }
+            else
+            {
+                MainFrame.Content = liveToursPage;
+            }
         }
-
-        
-
-
     }
 }

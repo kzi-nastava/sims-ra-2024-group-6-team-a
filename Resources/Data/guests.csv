@@ -1,17 +1,18 @@
-1|Nikolina |Rogan|21|5|false
-2|Marko|Markovic|56|1|false
-3|Darko|Darkic|7|1|false
-4|mila|mila|45|2|false
-5|lila|lila|7|2|false
-6|Test|Test|16|3|false
-7|Stefan|Trkulja|1|3|false
-8|Joca|Joca|12|3|false
-9|Stefan|Trkulja|17|4|false
-10|Test|Test|16|5|false
-11|Stefan|Trkulja|15|6|false
-12|Aleksandra|Trkulja|15|6|false
-13|Borislav|Trkulja|15|6|false
-14|Jovan|Trkulja|15|6|false
-15|Gala|Ilegala|16|7|false
-16|Miha|Destrukcija|16|7|false
-17|Sone|Guster|15|7|false
+1|Nikolina |Rogan|21|5|False|0
+2|Marko|Markovic|56|1|False|0
+3|Darko|Darkic|7|1|False|0
+4|mila|mila|45|2|False|0
+5|lila|lila|7|2|False|0
+6|Test|Test|16|3|False|0
+7|Stefan|Trkulja|1|3|False|0
+8|Joca|Joca|12|3|False|0
+9|Stefan|Trkulja|17|4|False|0
+10|Test|Test|16|5|False|0
+11|Stefan|Trkulja|15|6|False|0
+12|Aleksandra|Trkulja|15|6|False|0
+13|Borislav|Trkulja|15|6|False|0
+14|Jovan|Trkulja|15|6|False|0
+15|Gala|Ilegala|16|7|False|0
+16|Miha|Destrukcija|16|7|False|0
+17|Sone|Guster|15|7|False|0
+18|Stefan|Trkulja|23|8|True|1

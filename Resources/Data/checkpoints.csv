@@ -1,18 +1,7 @@
-1|Vukov Spomenik|1|false
-2|Slavija|1|false
-3|Kalemegdan|1|false
-4|Mileticev spomenik|2|false
-5|Kej|2|false
-6|Strand|2|false
-7|Tvrdos|3|false
-8|Duzi|3|false
-9|Zavala|3|false
-10|Platani|4|false
-11|Crkvina|4|false
-12|Grad Sunca|4|false
-13|Bulevar|5|false
-14|Bagos|6|false
-15|Veternik|6|false
-16|Testiranje tabele|7|false
-17|Da li radi|7|false
-18|Da ili ne|7|false
+1|Checkpoint1|1|True
+2|Checkpoint2|1|False
+3|Checkpoint3|1|False
+4|Checkpoint4|1|True
+5|Checkpoint5|1|False
+6|Checkpoint6|1|False
+7|Checkpoint7|1|False
