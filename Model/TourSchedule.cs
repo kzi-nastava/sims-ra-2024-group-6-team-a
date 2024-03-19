@@ -35,7 +35,7 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            
+            Start = DateTime.Parse(values[1]);
             TourId = Convert.ToInt32(values[2]);
             CurrentFreeSpace = Convert.ToInt32(values[3]);
         }
