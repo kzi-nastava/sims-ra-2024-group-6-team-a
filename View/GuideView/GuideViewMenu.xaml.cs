@@ -19,6 +19,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.View
@@ -44,8 +45,6 @@ namespace BookingApp.View
         public LiveToursPage liveToursPage;
         public TourCreationPage tourCreationPage;
 
-
-
         public GuideViewMenu(User user,LocationRepository locationRepository,ImageRepository imageRepository)
         {
             InitializeComponent();
@@ -58,17 +57,22 @@ namespace BookingApp.View
             _tourScheduleRepository = new TourScheduleRepository();
 
             mainFrame = MainFrame;
-            
             LoggedUser = user;
+
             tourCreationPage = new TourCreationPage(LoggedUser, _tourRepository, _locationRepository, _imageRepository, _checkRepository, _tourScheduleRepository);
             liveToursPage = new LiveToursPage(mainFrame,tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
-            
         }
-
+           
+            
 
         private void ShowCreateTourForm(object sender, EventArgs e)
         {
             MainFrame.Content = tourCreationPage;
+        }
+
+        private void LiveToursPageEvent(object sender, EventArgs e)
+        {
+            liveToursPage.Update();
         }
 
         private void LiveToursPageClick(object sender, RoutedEventArgs e)
@@ -78,7 +82,9 @@ namespace BookingApp.View
 
             if (tourScheduleId != 0 )
             {
-                MainFrame.Content = new LiveTour(tourScheduleId);
+                LiveTour liveTour = new LiveTour(tourScheduleId);
+                MainFrame.Content = liveTour;
+                liveTour.TourEndedMainWindow += LiveToursPageEvent;
             }
             else
             {

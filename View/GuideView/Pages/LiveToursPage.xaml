@@ -14,7 +14,7 @@
             <ItemsControl ItemsSource ="{Binding TodaysTours}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <components:TourCard/>
+                        <components:TourCard  x:Name="card" TourEndedCard="TourEndedEventHandler" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>

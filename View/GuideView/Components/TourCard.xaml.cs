@@ -26,23 +26,30 @@ namespace BookingApp.View.GuideView.Components
     public partial class TourCard : UserControl
     {
 
-        TourScheduleRepository tourScheduleRepository;
-
+        TourScheduleRepository _tourScheduleRepository;
+        public event EventHandler TourEndedCard;
 
         public TourCard()
         {
             InitializeComponent();
-            tourScheduleRepository = new TourScheduleRepository();
+            _tourScheduleRepository = new TourScheduleRepository();
         }
 
         private void BeginTourMouseDown(object sender, MouseEventArgs e)
         {
 
-            TourSchedule tourSchedule = tourScheduleRepository.GetById(Convert.ToInt32(textBoxId.Text));
+            TourSchedule tourSchedule = _tourScheduleRepository.GetById(Convert.ToInt32(textBoxId.Text));
             tourSchedule.TourActivity = Enums.TourActivity.Ongoing;
-            tourScheduleRepository.Update(tourSchedule);
-            (Window.GetWindow(this) as GuideViewMenu).mainFrame.Content = new LiveTour(Convert.ToInt32(textBoxId.Text));
+            _tourScheduleRepository.Update(tourSchedule);
+            LiveTour l = new LiveTour(Convert.ToInt32(textBoxId.Text));
+            l.TourEnded += HandleTourEndedEvent;
+            (Window.GetWindow(this) as GuideViewMenu).mainFrame.Content = l;
 
+        }
+
+         public void HandleTourEndedEvent(object sender, EventArgs e)
+        {
+            TourEndedCard?.Invoke(this, e);
         }
 
     }

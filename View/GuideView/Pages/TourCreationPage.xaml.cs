@@ -167,11 +167,32 @@ namespace BookingApp.View.GuideView.Pages
             TourDatesCollection.Remove(SelectedDate);
         }
 
+        bool IsDataValid()
+        {
+            return !string.IsNullOrEmpty(txtTourName.Text)
+                && !string.IsNullOrEmpty(txtTourLanguage.Text)
+                && !string.IsNullOrEmpty(txtTourCity.Text)
+                && !string.IsNullOrEmpty(txtTourState.Text)
+                && !string.IsNullOrEmpty(txtTourCapacity.Text)
+                && !string.IsNullOrEmpty(txtTourDescription.Text)
+                && !string.IsNullOrEmpty(txtTourDescription.Text)
+                && CheckpointsCollection.Count >= 2
+                && ImagesCollection.Count >= 1
+                && TourDatesCollection.Count >= 1;
+
+
+        }
+
 
 
         private void SaveTourClick(object sender, RoutedEventArgs e)
         {
-
+            if (!IsDataValid())
+            {
+                return;
+            }
+           
+            
             SelectedLocation = _locationRepository.Save(SelectedLocation);
             SelectedTour.LocationId = SelectedLocation.Id;
             SelectedTour.GuideId = LoggedUser.Id;
@@ -183,7 +204,7 @@ namespace BookingApp.View.GuideView.Pages
             SaveTourDates(TourDatesCollection.ToList());
             OnSomethingHappened(EventArgs.Empty);
 
-
+            MessageBox.Show("Tour Added");
         }
 
         private void SaveCheckpoints(List<String> checkpoints)

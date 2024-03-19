@@ -71,5 +71,6 @@
                 </DataGridCheckBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Button Content="Zavrsi turu" HorizontalAlignment="Left" Margin="360,84,0,0" Grid.Row="5" Click="TourEndedNotificationClick" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="80"/>
     </Grid>
 </Page>

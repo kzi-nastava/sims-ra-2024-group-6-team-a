@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.Observer;
+using BookingApp.Resources;
 
 namespace BookingApp.View.GuideView.Pages
 {
@@ -27,7 +28,7 @@ namespace BookingApp.View.GuideView.Pages
     {
 
 
-        public static ObservableCollection<Checkpoint> Checkpoints {  get; set; }
+        public static ObservableCollection<Checkpoint> Checkpoints { get; set; }
 
         public static ObservableCollection<TourGuests> TourGuests { get; set; }
 
@@ -38,9 +39,12 @@ namespace BookingApp.View.GuideView.Pages
         private CheckpointRepository _checkpointRepository;
 
 
-        public Tour SelectedTour {  get; set; }
+        public Tour SelectedTour { get; set; }
         public TourSchedule SelectedTourSchedule { get; set; }
-        public Location SelectedLocation {  get; set; }
+        public Location SelectedLocation { get; set; }
+
+        public event EventHandler TourEnded;
+        public event EventHandler TourEndedMainWindow;
 
         public LiveTour(int tourScheduleId)
         {
@@ -55,7 +59,7 @@ namespace BookingApp.View.GuideView.Pages
 
             Checkpoints = new ObservableCollection<Checkpoint>();
             TourGuests = new ObservableCollection<TourGuests>();
-              
+
             SelectedTourSchedule = _tourScheduleRepository.GetById(tourScheduleId);
             SelectedTour = _tourRepository.GetById(SelectedTourSchedule.TourId);
             SelectedLocation = _locationRepository.GetById(SelectedTour.LocationId);
@@ -65,17 +69,15 @@ namespace BookingApp.View.GuideView.Pages
 
         }
 
-       
-        
         public void UpdateCheckpoints()
         {
             Checkpoints.Clear();
-            foreach(Checkpoint checkpoint in _checkpointRepository.GetAllByTourId(SelectedTour.Id))
+            foreach (Checkpoint checkpoint in _checkpointRepository.GetAllByTourId(SelectedTour.Id))
             {
-             
+
                 Checkpoints.Add(checkpoint);
             }
-            Checkpoints.ElementAt(0).IsActive = true;            
+            Checkpoints.ElementAt(0).IsActive = true;
         }
 
         public void UpdateGuests()
@@ -94,14 +96,14 @@ namespace BookingApp.View.GuideView.Pages
             Checkpoint selectedCheckpoint = (sender as CheckBox).DataContext as Checkpoint;
             CheckBox checkbox = sender as CheckBox;
 
-            if (checkbox != null && checkbox.IsChecked == true)
-            {
-                checkbox.IsEnabled = false;
-                e.Handled = true;
-            }
+
+            IsCheckboxChecked(checkbox, e);
+
             selectedCheckpoint.IsActive = true;
             _checkpointRepository.Update(selectedCheckpoint);
-            
+
+            HasTourEnded(selectedCheckpoint,sender,e);
+
             foreach (var tourist in TourGuests)
             {
                 if (tourist.IsSelected)
@@ -112,8 +114,8 @@ namespace BookingApp.View.GuideView.Pages
             }
             UpdateGuests();
         }
-        
-        private void IsCheckboxChecked(CheckBox checkbox,RoutedEventArgs e)
+
+        private void IsCheckboxChecked(CheckBox checkbox, RoutedEventArgs e)
         {
             if (checkbox != null && checkbox.IsChecked == true)
             {
@@ -122,8 +124,42 @@ namespace BookingApp.View.GuideView.Pages
             }
         }
 
-       
+        private void HasTourEnded(Checkpoint selectedCheckpoint,object sender,RoutedEventArgs e)
+        {
+            if (Checkpoints.Last() == selectedCheckpoint)
+            {
+                TourEndedNotificationClick(sender, e);
+            }
+        }
 
-    
+      
+
+        private void TourEndedNotificationClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Tour ended.", "Tour Status", MessageBoxButton.OK, MessageBoxImage.Information);
+            SelectedTourSchedule.TourActivity = Enums.TourActivity.Finished;
+            _tourScheduleRepository.Update(SelectedTourSchedule);
+            RaiseTourEndedEvent(sender, e);
+            RaiseTourEndedEventMain(sender, e);
+            if (NavigationService != null && NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
+        }
+
+        private void RaiseTourEndedEventMain(object sender, EventArgs e)
+        {
+            TourEndedMainWindow?.Invoke(this, EventArgs.Empty);
+        }
+
+
+        private void RaiseTourEndedEvent(object sender, EventArgs e)
+        {
+
+            TourEnded?.Invoke(this, EventArgs.Empty);
+
+        }
+
+
     }
 }

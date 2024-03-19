@@ -36,7 +36,7 @@ namespace BookingApp.View.GuideView.Pages
         private ImageRepository _imageRepository;
         private TourScheduleRepository _tourScheduleRepository;
         private TourRepository _tourRepository;
-
+        private LiveTour liveTour;
 
 
         public LiveToursPage(Frame mainFrame,TourCreationPage tourCreationPage,User user, LocationRepository locationRepository, ImageRepository imageRepository, TourScheduleRepository tourScheduleRepository, TourRepository tourRepository)
@@ -54,14 +54,13 @@ namespace BookingApp.View.GuideView.Pages
 
             this.mainFrame = mainFrame;
 
-
             tourCreationPage.SomethingHappened += tourCreationPage_SomethingHappened;
             
             Update();
 
         }
         
-       
+         
 
         private void tourCreationPage_SomethingHappened(object sender, EventArgs e)
         {
@@ -73,7 +72,7 @@ namespace BookingApp.View.GuideView.Pages
             TodaysTours.Clear();
             foreach (TourSchedule tourSchedule in _tourScheduleRepository.GetAll())
             {
-                if (tourSchedule.Start.Date != System.DateTime.Now.Date)
+                if (tourSchedule.Start.Date != System.DateTime.Now.Date || tourSchedule.TourActivity == Enums.TourActivity.Finished)
                 {
                     continue;
                 }
@@ -86,7 +85,7 @@ namespace BookingApp.View.GuideView.Pages
                 Model.Image image = new Model.Image();
                 DateTime dateTime = tourSchedule.Start;
                 int tourScheduleId = tourSchedule.Id;
-
+               
                 foreach (Model.Image i in _imageRepository.GetByEntity(tour.Id, Enums.ImageType.Tour))
                 {
                     image = i;
@@ -96,8 +95,9 @@ namespace BookingApp.View.GuideView.Pages
             }
         }
 
-      
-
-
+        private void TourEndedEventHandler(object sender, EventArgs e)
+        {
+            Update();
+        }
     }
 }
