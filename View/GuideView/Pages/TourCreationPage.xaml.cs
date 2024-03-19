@@ -44,8 +44,6 @@ namespace BookingApp.View.GuideView.Pages
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        List<String> _imageRelativePath = new List<String>();
-
         public static ObservableCollection<String> ImagesCollection { get; set; }
         public static ObservableCollection<String> CheckpointsCollection { get; set; }
         public static ObservableCollection<DateTime> TourDatesCollection { get; set; }
@@ -75,7 +73,7 @@ namespace BookingApp.View.GuideView.Pages
             InitializeComponent();
             DataContext = this;
             LoggedUser = user;
-
+            datePicker.DisplayDateStart = DateTime.Now;
             _tourRepository = tourRepository;
             _locationRepository = locationRepository;
             _imageRepository = imageRepository;
