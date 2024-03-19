@@ -78,7 +78,7 @@ namespace BookingApp.View
        
         private void LiveToursPageClick(object sender, RoutedEventArgs e)
         {
-            List<Tour> tours = _tourRepository.GetByUser(LoggedUser);
+            List<Tour> tours = _tourRepository.GetAllByUser(LoggedUser);
             int tourScheduleId = _tourScheduleRepository.FindOngoingTour(tours);
 
             if (tourScheduleId != 0 )

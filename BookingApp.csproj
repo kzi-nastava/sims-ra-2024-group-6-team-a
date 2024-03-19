@@ -9,13 +9,17 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\barcelona.jpg" />
+    <None Remove="Resources\Images\begec.jpg" />
     <None Remove="Resources\Images\blank-profile.jpg" />
+    <None Remove="Resources\Images\budapest.jpg" />
     <None Remove="Resources\Images\calendar.png" />
     <None Remove="Resources\Images\capacity.png" />
     <None Remove="Resources\Images\checkpoint.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\description.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\futog.jpg" />
     <None Remove="Resources\Images\group.png" />
     <None Remove="Resources\Images\habbo1.jpg" />
     <None Remove="Resources\Images\habbo2.jpg" />
@@ -30,6 +34,10 @@
     <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\location-ping.png" />
     <None Remove="Resources\Images\location.png" />
+    <None Remove="Resources\Images\ns.jpg" />
+    <None Remove="Resources\Images\palermo-test.jpg" />
+    <None Remove="Resources\Images\palermo.jpeg" />
+    <None Remove="Resources\Images\palermo.jpg" />
     <None Remove="Resources\Images\play.png" />
     <None Remove="Resources\Images\pupin1.png" />
     <None Remove="Resources\Images\pupin2.jpg" />
@@ -41,6 +49,8 @@
     <None Remove="Resources\Images\terme1.jpg" />
     <None Remove="Resources\Images\terme2.jpg" />
     <None Remove="Resources\Images\terme3.jpg" />
+    <None Remove="Resources\Images\turkey.jpg" />
+    <None Remove="Resources\Images\turkey2.jpg" />
     <None Remove="Resources\Images\view.png" />
   </ItemGroup>
 
@@ -48,7 +58,16 @@
     <Content Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\barcelona.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\begec.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\blank-profile.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\budapest.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\calendar.png">
@@ -67,6 +86,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\futog.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\group.png">
@@ -108,6 +130,12 @@
     <Content Include="Resources\Images\location.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\ns.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\palermo-test.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\play.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -136,6 +164,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\terme3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\turkey.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\turkey2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\view.png">

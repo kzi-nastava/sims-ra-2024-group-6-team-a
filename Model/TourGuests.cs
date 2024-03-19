@@ -48,7 +48,7 @@ namespace BookingApp.Model
             Surname = guest.Surname;
             Age = guest.Age;
             ReservationId = reservationId;
-            IsSelected = false; 
+            IsPresent = false; 
         }
 
         public string[] ToCSV()
