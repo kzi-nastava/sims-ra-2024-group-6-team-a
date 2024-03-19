@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Xaml.Schema;
+using BookingApp.DTOs;
 using BookingApp.Serializer;
 
 namespace BookingApp.Model
@@ -26,9 +27,8 @@ namespace BookingApp.Model
             Age = age;
             ReservationId = reservationId;
         }
-        public TourGuests(int id, string name, string surname, int age, int reservationId, bool isSelected)
+        public TourGuests(string name, string surname, int age, int reservationId, bool isSelected)
         {
-            Id = id;
             Name = name;
             Surname = surname;
             Age = age;
@@ -36,6 +36,14 @@ namespace BookingApp.Model
             IsSelected = isSelected;
         }
 
+        public TourGuests(TourGuestDTO guest, int reservationId)
+        {
+            Name = guest.Name;
+            Surname = guest.Surname;
+            Age = guest.Age;
+            ReservationId = reservationId;
+            IsSelected = false; 
+        }
 
         public string[] ToCSV()
         {

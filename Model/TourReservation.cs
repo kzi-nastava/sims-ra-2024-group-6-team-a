@@ -19,24 +19,32 @@ namespace BookingApp.Model
 
         public List<TourGuests> TourGuests {  get; set; } //List of guests that will be assigned to a tour by 'main' tourist
 
-        public int ReservedTourTime { get; set; }
+        public int TourRealisationId { get; set; }
         public TourReservation() 
         {
             TourGuests = new List<TourGuests>();
         }
 
-        public TourReservation(int id, int touristId, int tourId, int reservedTourTime, int guestNumber)
+        public TourReservation(int id, int touristId, int tourId, int tourRealisationId, int guestNumber)
         {
             Id = id;
             TouristId = touristId;
             TourId = tourId;
-            ReservedTourTime = reservedTourTime;
+            TourRealisationId = tourRealisationId;
             GuestNumber = guestNumber;
+        }
+
+        public TourReservation(int guestNumber, int tourRealisationId, int tourId, int loggedUserId)
+        {
+            GuestNumber = guestNumber;
+            TourRealisationId = tourRealisationId;
+            TourId = tourId;
+            TouristId = loggedUserId;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), TouristId.ToString(), TourId.ToString(), ReservedTourTime.ToString(), GuestNumber.ToString() };
+            string[] csvValues = { Id.ToString(), TouristId.ToString(), TourId.ToString(), TourRealisationId.ToString(), GuestNumber.ToString() };
             return csvValues;
         }
 
@@ -45,7 +53,7 @@ namespace BookingApp.Model
             Id = Convert.ToInt32(values[0]);
             TouristId = Convert.ToInt32(values[1]);
             TourId = Convert.ToInt32(values[2]);
-            ReservedTourTime = Convert.ToInt32(values[3]);
+            TourRealisationId = Convert.ToInt32(values[3]);
             GuestNumber = Convert.ToInt32(values[4]);
 
         }

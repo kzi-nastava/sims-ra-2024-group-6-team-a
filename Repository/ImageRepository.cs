@@ -78,7 +78,7 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
         }
 
-        public List<Image> GetByEntity(int id,Enums.ImageType type)
+        public List<Image> GetByEntity(int id, Enums.ImageType type)
         {
             _images = _serializer.FromCSV(FilePath);
             return _images.FindAll(c => c.EntityId == id && c.Type == type);

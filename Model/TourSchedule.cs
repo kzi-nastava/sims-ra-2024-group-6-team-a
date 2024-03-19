@@ -13,22 +13,22 @@ namespace BookingApp.Model
         public int Id { get; set; }
         public DateTime Start {  get; set; }
 
-        public int CurrentGuestNumber { get; set; }
+        public int CurrentFreeSpace { get; set; }
 
         public int TourId { get; set; }
 
         public TourSchedule() { }
 
-        public TourSchedule(DateTime start, int tourId, int currentGuestNumber)
+        public TourSchedule(DateTime start, int tourId, int currentFreeSpace)
         {
             Start = start;
             TourId = tourId;
-            CurrentGuestNumber = currentGuestNumber;
+            CurrentFreeSpace = currentFreeSpace;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Start.ToString(), TourId.ToString() , CurrentGuestNumber.ToString()};
+            string[] csvValues = { Id.ToString(), Start.ToString(), TourId.ToString() , CurrentFreeSpace.ToString()};
             return csvValues;
         }
 
@@ -37,7 +37,7 @@ namespace BookingApp.Model
             Id = Convert.ToInt32(values[0]);
             
             TourId = Convert.ToInt32(values[2]);
-            CurrentGuestNumber = Convert.ToInt32(values[3]);
+            CurrentFreeSpace = Convert.ToInt32(values[3]);
         }
 
     }

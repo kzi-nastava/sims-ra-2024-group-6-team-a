@@ -25,18 +25,19 @@ namespace BookingApp.DTOs
 
         public int Id { get; set; }
 
-        public string username;
+        private string _username;
+
         public string Username
         {
             get
             {
-                return username;
+                return _username;
             }
             set
             {
-                if (value != username)
+                if (value != _username)
                 {
-                    username = value;
+                    _username = value;
                     OnPropertyChanged("Username");
 
                 }
