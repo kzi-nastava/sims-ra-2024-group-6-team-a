@@ -21,7 +21,7 @@
         
         <StackPanel Margin="0,10" Orientation="Horizontal">
             <Label Grid.Column="0" HorizontalAlignment="Left" Width="300" FontSize="20" Margin="31,10,0,0">Date and time:</Label>
-            <ComboBox x:Name="ComboBox" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="228" Height="37" ItemsSource="{Binding tourSchedules}" SelectedItem="{Binding TourSchedule, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="TourScheduleDisplay"/>
+            <ComboBox x:Name="ComboBox" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="228" Height="37" ItemsSource="{Binding TourSchedules}" SelectedItem="{Binding TourSchedule, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="TourScheduleDisplay"/>
 
         </StackPanel>
 
@@ -46,7 +46,7 @@
 
         </StackPanel>
 
-        <DataGrid x:Name="TouristsDataGrid" CanUserAddRows="False" AutoGenerateColumns="False" Margin="5" Width="300" ItemsSource="{Binding tourGuests, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+        <DataGrid x:Name="TouristsDataGrid" CanUserAddRows="False" AutoGenerateColumns="False" Margin="5" Width="300" ItemsSource="{Binding TourGuests, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="120"/>
                 <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="120"/>

@@ -64,8 +64,8 @@ namespace BookingApp.View
             }
         }
 
-        public ObservableCollection<TourScheduleDTO> tourSchedules { get; set; }
-        public ObservableCollection<TourGuestDTO> tourGuests { get; set; }
+        public ObservableCollection<TourScheduleDTO> TourSchedules { get; set; }
+        public ObservableCollection<TourGuestDTO> TourGuests { get; set; }
 
         public TourReservationForm(User user, TourTouristDTO selectedTour, TourReservationRepository tourReservationRepository, TourScheduleRepository tourScheduleRepository)
         {
@@ -76,14 +76,14 @@ namespace BookingApp.View
             this._tourReservationRepository = tourReservationRepository;
             this._tourScheduleRepository = tourScheduleRepository;
 
-            tourSchedules = new ObservableCollection<TourScheduleDTO>();
-            tourGuests = new ObservableCollection<TourGuestDTO>();
+            TourSchedules = new ObservableCollection<TourScheduleDTO>();
+            TourGuests = new ObservableCollection<TourGuestDTO>();
 
             foreach(var tourSchedule in _tourScheduleRepository.GetAll())
             {
                 if(tourSchedule.TourId == selectedTour.Id)
                 {
-                    tourSchedules.Add(new TourScheduleDTO(tourSchedule));
+                    TourSchedules.Add(new TourScheduleDTO(tourSchedule));
                 }
             }
 
@@ -135,7 +135,7 @@ namespace BookingApp.View
 
                 if(TourSchedule.CurrentFreeSpace >= GuestNumber)
                 { 
-                    _tourReservationRepository.MakeReservation(TourSchedule, LoggedUser, tourGuests.ToList());
+                    _tourReservationRepository.MakeReservation(TourSchedule, LoggedUser, TourGuests.ToList());
                     this.Close(); 
                     return;
                 }
@@ -159,8 +159,8 @@ namespace BookingApp.View
             if (!IsAgeFormatOK())
                 return;
 
+            TourGuests.Add(new TourGuestDTO(NameTextBox.Text, SurnameTextBox.Text, Convert.ToInt32(AgeTextBox.Text)));
 
-            tourGuests.Add(new TourGuestDTO(NameTextBox.Text, SurnameTextBox.Text, Convert.ToInt32(AgeTextBox.Text)));
             ClearInputFields();
         }
         private bool IsAgeFormatOK()
@@ -187,7 +187,8 @@ namespace BookingApp.View
                 MessageBox.Show("Please select a row to delete.");
                 return;
             }
-           //DODATI IMPLEMENTACIJU 
+            TourGuests.Remove((TourGuestDTO)TouristsDataGrid.SelectedItem);
+           
         }
 
     }

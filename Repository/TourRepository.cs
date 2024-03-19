@@ -94,7 +94,7 @@ namespace BookingApp.Repository
             return  _tours.Find(c => c.Id == id);
         }
 
-        public List<Tour> GetSameLocationTours(TourScheduleDTO schedule) //PROMIJENITI AKO BUDE TOUR REALISATION
+        public List<Tour> GetSameLocationTours(TourScheduleDTO schedule) 
         {
             return GetAll().Where(t => HasSameLocation(t, schedule)).ToList();
         }

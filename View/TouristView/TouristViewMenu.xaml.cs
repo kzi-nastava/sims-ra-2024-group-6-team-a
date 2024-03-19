@@ -54,7 +54,7 @@ namespace BookingApp.View
             DataContext = this;
 
             this._locationRepository = locationRepository;
-            this._imageRepository = imageRepository; // will be used later on for more complex GUI 
+            this._imageRepository = imageRepository;
             this._tourScheduleRepository = tourScheduleRepository;
             this._tourReservationRepository = tourReservationRepository;
             this._userRepository = userRepository;
@@ -159,6 +159,16 @@ namespace BookingApp.View
                 form.ShowDialog();
                 
             }
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            TextboxName.Text = "";
+            TextboxState.Text = "";
+            TextboxCity.Text = "";
+            TextboxDuration.Text = "";
+            TextboxCapacity.Text = "";
+            TextboxLanguage.Text = "";
         }
     }
 }
