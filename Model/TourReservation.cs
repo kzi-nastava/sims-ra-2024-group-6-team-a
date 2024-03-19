@@ -11,13 +11,13 @@ namespace BookingApp.Model
     {
         public int Id { get; set; }
 
-        public int TouristId { get; set; } //Id turiste koji pravi rezervaciju ture
+        public int TouristId { get; set; }
 
         public int TourId { get; set; } 
         
         public int GuestNumber { get; set; }
 
-        public List<TourGuests> TourGuests {  get; set; } //List of guests that will be assigned to a tour by 'main' tourist
+        public List<TourGuests> TourGuests {  get; set; } 
 
         public int TourRealisationId { get; set; }
         public TourReservation() 

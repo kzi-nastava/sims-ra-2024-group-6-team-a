@@ -98,8 +98,6 @@ namespace BookingApp.Repository
         {
             TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
 
-            //int peopleNumber = FindAssignedPeopleNumber(currentTourRealisationId);
-
             int currentGuestNumber = tourScheduleRepository.GetById(currentTourRealisationId).CurrentFreeSpace;
             return currentGuestNumber <= 0;
         }
