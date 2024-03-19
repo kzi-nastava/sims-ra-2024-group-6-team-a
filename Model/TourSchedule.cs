@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,7 +46,7 @@ namespace BookingApp.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            
+            Start = DateTime.Parse(values[1]);
             TourId = Convert.ToInt32(values[2]);
             CurrentFreeSpace = Convert.ToInt32(values[3]);
             TourActivity = (Enums.TourActivity)Enum.Parse(typeof(Enums.TourActivity), values[4]);
