@@ -14,7 +14,7 @@ namespace BookingApp.Model
         public int Id { get; set; } //id slike
         public string Path { get; set; } //relativni put (url) do slike
         public int EntityId { get; set; } // id smestaja ili ture
-        public Enums.ImageType Type { get; set; } //
+        public Enums.ImageType Type { get; set; }
 
 
         public Image() { }

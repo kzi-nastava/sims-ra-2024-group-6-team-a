@@ -74,7 +74,12 @@ namespace BookingApp.Repository
             return schedule;
         }
 
-        public TourSchedule GetByTour(Tour tour) //termini ture na osnovu Id ture
+        public List<TourSchedule> GetAllByTourId(int tourId)
+        {
+            return _tourSchedules.Where(c => c.TourId == tourId).ToList();
+        }
+
+        public TourSchedule GetByTour(Tour tour)
         {
             return _tourSchedules.Find(c => c.TourId == tour.Id);
         }
