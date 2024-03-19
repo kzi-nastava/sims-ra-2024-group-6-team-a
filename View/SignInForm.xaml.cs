@@ -68,25 +68,16 @@ namespace BookingApp.View
                     {
 
                         case Enums.UserType.Owner:
-                            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(user,_locationRepository,_imageRepository,_accommodationReservationRepository,_repository);
-                            accommodationViewMenu.Show();
-                            Close();
+                            InitiateAccommodationView(user);
                             break;
                         case Enums.UserType.Guest:
-                            AccommodationReservationViewMenu accommodationReservationViewMenu = new AccommodationReservationViewMenu(_locationRepository, _imageRepository);
-                            accommodationReservationViewMenu.Show();
-                            Close(); 
+                            InitiateGuestView(user);
                             break;
                         case Enums.UserType.Tourist:
-                            TouristViewMenu touristViewMenu = new TouristViewMenu(user, _locationRepository, _imageRepository, _tourScheduleRepository,_tourReservationRepository, _userRepository);
-                            touristViewMenu.Show();
-                            Close();
+                            InitiateTouristView(user);
                             break;
                         case Enums.UserType.Guide:
-                            //replace with guide 
-                            GuideViewMenu guideViewMenu = new GuideViewMenu(user,_locationRepository,_imageRepository);
-                            guideViewMenu.Show();
-                            Close();
+                            InitiateGuideView(user);
                             break;
                     }
                     
@@ -101,6 +92,34 @@ namespace BookingApp.View
                 MessageBox.Show("Wrong username!");
             }
             
+        }
+
+        private void InitiateAccommodationView(User user)
+        {
+            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(user, _locationRepository, _imageRepository, _accommodationReservationRepository, _repository);
+            accommodationViewMenu.Show();
+            Close();
+        }
+
+        private void InitiateGuestView(User user)
+        {
+            AccommodationReservationViewMenu accommodationReservationViewMenu = new AccommodationReservationViewMenu(_locationRepository, _imageRepository);
+            accommodationReservationViewMenu.Show();
+            Close();
+        }
+
+        private void InitiateTouristView(User user) 
+        {
+            TouristViewMenu touristViewMenu = new TouristViewMenu(user, _locationRepository, _imageRepository, _tourScheduleRepository, _tourReservationRepository, _userRepository);
+            touristViewMenu.Show();
+            Close();
+        }
+
+        private void InitiateGuideView(User user) 
+        {
+            GuideViewMenu guideViewMenu = new GuideViewMenu(user, _locationRepository, _imageRepository);
+            guideViewMenu.Show();
+            Close();
         }
     }
 }

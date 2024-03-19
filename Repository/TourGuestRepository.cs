@@ -78,21 +78,21 @@ namespace BookingApp.Repository
             _guests.Insert(index, guest);
             _serializer.ToCSV(FilePath, _guests);
             subject.NotifyObservers();
-
             return guest;
         }
 
-        public List <TourGuests> GetAllByTourId(int tourScheduleId)
+        public List <TourGuests> GetAllByTourId(int tourRealisationId)
         {
             _guests = _serializer.FromCSV(FilePath);
             List<TourGuests> guests = new List <TourGuests>();
-            List <TourReservation> tourReservations = new List <TourReservation>();
-            tourReservations = _tourReservationRepository.GetAllByTourScheduleId(tourScheduleId);
-            foreach(TourReservation reservation in tourReservations)
+            List <TourReservation> reservations = new List <TourReservation>();
+
+            reservations = _tourReservationRepository.GetAllByRealisationId(tourRealisationId);
+            foreach(TourReservation reservation in reservations)
             {
                 foreach(TourGuests tourGuest in _guests)
                 {
-                    if(reservation.Id == tourGuest.ReservationId)
+                    if(reservation.Id == tourGuest.ReservationId && tourGuest.IsPresent == false)
                     {
                         guests.Add(tourGuest);
                     }
@@ -101,24 +101,6 @@ namespace BookingApp.Repository
             return guests;
         }
 
-
-
-        public void Subscribe(IObserver observer)
-        {
-            _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
-        }
-        public void NotifyObservers()
-        {
-            foreach (var observer in _observers)
-            {
-                observer.Update();
-            }
-        }
 
     }
 }

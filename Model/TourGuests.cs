@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Xaml.Schema;
+using BookingApp.DTOs;
 using BookingApp.Serializer;
 
 namespace BookingApp.Model
@@ -16,7 +17,10 @@ namespace BookingApp.Model
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Age { get; set; }
-        public bool IsSelected { get; set; }
+        public bool IsPresent { get; set; }
+
+        public int CheckpointId {  get; set; }
+
         public TourGuests() { }
         public TourGuests(int id,string name, string surname, int age, int reservationId)
         {
@@ -26,20 +30,30 @@ namespace BookingApp.Model
             Age = age;
             ReservationId = reservationId;
         }
-        public TourGuests(int id, string name, string surname, int age, int reservationId, bool isSelected)
+       
+       public TourGuests(int id, string name, string surname, int age, int reservationId, bool isPresent,int checkpointId)
+       
         {
-            Id = id;
             Name = name;
             Surname = surname;
             Age = age;
             ReservationId = reservationId;
-            IsSelected = isSelected;
+            IsPresent = isPresent;
+            CheckpointId = checkpointId;
         }
 
+        public TourGuests(TourGuestDTO guest, int reservationId)
+        {
+            Name = guest.Name;
+            Surname = guest.Surname;
+            Age = guest.Age;
+            ReservationId = reservationId;
+            IsSelected = false; 
+        }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, Surname, Age.ToString(), ReservationId.ToString(), IsSelected .ToString()};
+            string[] csvValues = { Id.ToString(), Name, Surname, Age.ToString(), ReservationId.ToString(), IsPresent.ToString(), CheckpointId .ToString()};
             return csvValues;
         }
 
@@ -50,7 +64,8 @@ namespace BookingApp.Model
             Surname = values[2];
             Age = Convert.ToInt32(values[3]);
             ReservationId = Convert.ToInt32(values[4]);
-            IsSelected = bool.Parse(values[5]); 
+            IsPresent = bool.Parse(values[5]);
+            CheckpointId = Convert.ToInt32(values[6]);
 
         }
     }

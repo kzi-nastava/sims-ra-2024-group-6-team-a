@@ -35,7 +35,6 @@ namespace BookingApp.Repository
             _checkpoints = _serializer.FromCSV(FilePath);
             _checkpoints.Add(checkpoint);
             _serializer.ToCSV(FilePath, _checkpoints);
-            subject.NotifyObservers();
             return checkpoint;
         }
 
@@ -58,9 +57,19 @@ namespace BookingApp.Repository
                 _checkpoints.Remove(found);
             }
             _serializer.ToCSV(FilePath, _checkpoints);
-            subject.NotifyObservers();
         }
 
+        public Checkpoint Update(Checkpoint checkpoint)
+        {
+            _checkpoints = _serializer.FromCSV(FilePath);
+            Checkpoint current = _checkpoints.Find(x => x.Id == checkpoint.Id);
+            int index = _checkpoints.IndexOf(current);
+            _checkpoints.Remove(current);
+            _checkpoints.Insert(index, checkpoint);
+            _serializer.ToCSV(FilePath, _checkpoints);
+
+            return checkpoint;
+        }
 
         public Checkpoint GetById(int checkpointId)
         {

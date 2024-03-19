@@ -22,35 +22,35 @@ namespace BookingApp.DTOs
 
         public int Id { get; set; }
 
-        public int reservedTourTime;
-        public int ReservedTourTime
+        private int _tourRealisationId;
+        public int TourRealisationId
         {
             get
             {
-                return reservedTourTime;
+                return _tourRealisationId;
             }
             set
             {
-                if(value != reservedTourTime)
+                if(value != _tourRealisationId)
                 {
-                    reservedTourTime = value;
-                    OnPropertyChanged("ReservedTourTime");
+                    _tourRealisationId = value;
+                    OnPropertyChanged("TourRealisationId");
                 }
             }
         }
 
-        public int guestNumber;
+        private int _guestNumber;
         public int GuestNumber
         {
             get
             {
-                return guestNumber;
+                return _guestNumber;
             }
             set
             {
-                if (value != guestNumber)
+                if (value != _guestNumber)
                 {
-                    guestNumber = value;
+                    _guestNumber = value;
                     OnPropertyChanged("GuestNumber");
 
                 }

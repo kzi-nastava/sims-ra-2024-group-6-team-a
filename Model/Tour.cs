@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Xaml.Schema;
+using BookingApp.Repository;
 using BookingApp.Serializer;
 namespace BookingApp.Model
 {
@@ -28,21 +29,7 @@ namespace BookingApp.Model
         { 
             Images = new List<Image>(); 
             TourSchedules = new List<TourSchedule>();
-        }
-
-        public Tour(int id, string name, int locationId, string description, string language, int capacity, List<Checkpoint> checkpoints, double duration,List <TourSchedule> tourSchedules,  int guideId)
-        {
-            Id = id;
-            Name = name;
-            LocationId = locationId;
-            Description = description;
-            Language = language;
-            Capacity = capacity;
-            Checkpoints = checkpoints;
-            Duration = duration;
-            TourSchedules = tourSchedules;
-            //Images = images;
-            GuideId = guideId;
+            
         }
 
         public string[] ToCSV()

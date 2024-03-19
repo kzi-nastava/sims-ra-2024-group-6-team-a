@@ -19,6 +19,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.View
@@ -56,36 +57,40 @@ namespace BookingApp.View
             _tourScheduleRepository = new TourScheduleRepository();
 
             mainFrame = MainFrame;
-            
             LoggedUser = user;
+
             tourCreationPage = new TourCreationPage(LoggedUser, _tourRepository, _locationRepository, _imageRepository, _checkRepository, _tourScheduleRepository);
             liveToursPage = new LiveToursPage(mainFrame,tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
-
         }
-
-
-        //public void LiveTourPage(string parameter) 
-        //{
-        //    int tourScheduleId = Convert.ToInt32(parameter);
-        //    LiveTour liveTourPage = new LiveTour(tourScheduleId);
-        //    MainFrame.Content = liveTourPage;
-        //}
-
-
-
+           
+            
 
         private void ShowCreateTourForm(object sender, EventArgs e)
         {
             MainFrame.Content = tourCreationPage;
         }
 
-        private void LiveToursPageClick(object sender, RoutedEventArgs e)
+        private void LiveToursPageEvent(object sender, EventArgs e)
         {
-            MainFrame.Content = liveToursPage;
+            liveToursPage.Update();
         }
 
-        
+       
+        private void LiveToursPageClick(object sender, RoutedEventArgs e)
+        {
+            List<Tour> tours = _tourRepository.GetByUser(LoggedUser);
+            int tourScheduleId = _tourScheduleRepository.FindOngoingTour(tours);
 
-
+            if (tourScheduleId != 0 )
+            {
+                LiveTour liveTour = new LiveTour(tourScheduleId);
+                MainFrame.Content = liveTour;
+                liveTour.TourEndedMainWindow += LiveToursPageEvent;
+            }
+            else
+            {
+                MainFrame.Content = liveToursPage;
+            }
+        }
     }
 }

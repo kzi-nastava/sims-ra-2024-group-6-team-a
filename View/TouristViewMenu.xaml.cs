@@ -48,14 +48,14 @@ namespace BookingApp.View
         private TourReservationRepository _tourReservationRepository;
         private UserRepository _userRepository;
 
-        public TouristViewMenu(User user,  LocationRepository _locationRepository, ImageRepository _imageRepository, TourScheduleRepository _tourScheduleRepository, TourReservationRepository tourReservationRepository, UserRepository userRepository)
+        public TouristViewMenu(User user,  LocationRepository locationRepository, ImageRepository imageRepository, TourScheduleRepository tourScheduleRepository, TourReservationRepository tourReservationRepository, UserRepository userRepository)
         {
             InitializeComponent();
             DataContext = this;
 
-            this._locationRepository = _locationRepository;
-            this._imageRepository = _imageRepository; // will be used later on for more complex GUI 
-            this._tourScheduleRepository = _tourScheduleRepository;
+            this._locationRepository = locationRepository;
+            this._imageRepository = imageRepository; // will be used later on for more complex GUI 
+            this._tourScheduleRepository = tourScheduleRepository;
             this._tourReservationRepository = tourReservationRepository;
             this._userRepository = userRepository;
             
@@ -114,7 +114,6 @@ namespace BookingApp.View
         {
             Tours.Clear();
 
-
             foreach (Tour tour in _repository.GetAll())
             {
                 if (CheckSearchConditions(tour))
@@ -126,18 +125,30 @@ namespace BookingApp.View
 
         public bool CheckSearchConditions(Tour tour)
         {
-            bool ContainsName, ContainsState, ContainsCity, ContainsDuration, ContainsLanguage, CapacityIsLower;
+            bool containsName = IsStringMatch(tour.Name, NameSearch);
+            bool containsCity = IsStringMatch(_locationRepository.GetById(tour.LocationId).City, CitySearch);
+            bool containsState = IsStringMatch(_locationRepository.GetById(tour.LocationId).State, StateSearch);
+            bool containsLanguage = IsStringMatch(tour.Language.ToString(), LanguageSearch);
+            bool capacityIsLower = IsCapacityLower(tour.Capacity, CapacitySearch);
+            bool containsDuration = IsDurationMatch(tour.Duration, DurationSearch);
 
-            ContainsName = string.IsNullOrEmpty(NameSearch) ? true : tour.Name.ToLower().Contains(NameSearch.ToLower());
-            ContainsCity = string.IsNullOrEmpty(CitySearch) ? true : _locationRepository.GetById(tour.LocationId).City.ToLower().Contains(CitySearch.ToLower());
-            ContainsState = string.IsNullOrEmpty(StateSearch) ? true : _locationRepository.GetById(tour.LocationId).State.ToLower().Contains(StateSearch.ToLower());
-            ContainsLanguage = string.IsNullOrEmpty(LanguageSearch) ? true : tour.Language.ToString().ToLower().Contains(LanguageSearch.ToLower());
-            CapacityIsLower = string.IsNullOrEmpty(CapacitySearch) ? true : Convert.ToInt32(CapacitySearch) <= tour.Capacity;
-            ContainsDuration = string.IsNullOrEmpty(DurationSearch) ? true : Convert.ToDouble(DurationSearch) == tour.Duration;
-
-            return ContainsName && ContainsState && ContainsCity && ContainsDuration && CapacityIsLower && ContainsLanguage;
+            return containsName && containsState && containsCity && containsDuration && capacityIsLower && containsLanguage;
         }
 
+        private bool IsStringMatch(string target, string search)
+        {
+            return string.IsNullOrEmpty(search) || target.ToLower().Contains(search.ToLower());
+        }
+
+        private bool IsCapacityLower(int capacity, string search)
+        {
+            return string.IsNullOrEmpty(search) || Convert.ToInt32(search) <= capacity;
+        }
+
+        private bool IsDurationMatch(double duration, string search)
+        {
+            return string.IsNullOrEmpty(search) || Convert.ToDouble(search) == duration;
+        }
         private void Reservation_Click(object sender, RoutedEventArgs e)
         {
             TourTouristDTO selectedTour = (TourTouristDTO)tourDataGrid.SelectedItem;

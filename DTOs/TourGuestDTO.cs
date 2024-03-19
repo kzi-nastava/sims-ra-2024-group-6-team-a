@@ -23,59 +23,60 @@ namespace BookingApp.DTOs
 
         public int Id { get; set; }
 
-        public string name;
+        private string _name;
         public string Name
         {
             get
             {
-                return name;
+                return _name;
             }
             set
             {
-                if(name != value)
+                if(_name != value)
                 {
-                    name = value;
+                    _name = value;
                     OnPropertyChanged("Name");
 
                 }
             }
         }
-        public string surname;
+        private string _surname;
         public string Surname
         {
             get
             {
-                return surname;
+                return _surname;
             }
             set
             {
-                if (surname != value)
+                if (_surname != value)
                 {
-                    surname = value;
+                    _surname = value;
                     OnPropertyChanged("Surname");
 
                 }
             }
         }
-        public int age;
+        private int _age;
         public int Age
         {
             get
             {
-                return age;
+                return _age;
             }
             set
             {
-                if (age != value)
+                if (_age != value)
                 {
-                    age = value;
+                    _age = value;
                     OnPropertyChanged("Age");
 
                 }
             }
         }
 
-        public int reservationId;
+
+        private int reservationId;
         public int ReservationId
         {
             get
@@ -94,18 +95,21 @@ namespace BookingApp.DTOs
         }
         public TourGuestDTO(string name, string surname, int age, int reservationId)
         {
-            this.name = name;
-            this.surname = surname;
-            this.age = age;
-            this.reservationId = reservationId;
+            Name = name;
+            Surname = surname;
+            Age = age;
+            ReservationId = reservationId;
         }
+
+       
+
 
         public TourGuestDTO(string name, string surname, int age)
         {
-            this.name = name;
-            this.surname = surname;
-            this.age = age;
-            this.reservationId = reservationId;
+            this.Name = name;
+            this.Surname = surname;
+            this.Age = age;
+            this.ReservationId = reservationId;
         }
 
         public TourGuestDTO()
