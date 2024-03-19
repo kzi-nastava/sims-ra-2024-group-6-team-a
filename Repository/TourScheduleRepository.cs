@@ -74,6 +74,24 @@ namespace BookingApp.Repository
             return schedule;
         }
 
+        public int FindOngoingTour(List<Tour> tours) 
+        {
+            _tourSchedules = _serializer.FromCSV(FilePath);
+            int id = 0;
+           
+           foreach(Tour tour in tours) 
+            { 
+                foreach(TourSchedule tourSchedule in _tourSchedules)
+                {
+                    if(tourSchedule.TourId == tour.Id && tourSchedule.TourActivity == Resources.Enums.TourActivity.Ongoing)
+                    {
+                            return tourSchedule.Id;
+                    }
+                }
+            }
+            return id;
+        }
+
         public List<TourSchedule> GetAllByTourId(int tourId)
         {
             return _tourSchedules.Where(c => c.TourId == tourId).ToList();

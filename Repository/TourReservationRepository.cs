@@ -133,9 +133,8 @@ namespace BookingApp.Repository
             UpdateCurrentGuestNumber(tourScheduleDTO.Id, reservation.GuestNumber, tourScheduleRepository);
             Save(reservation);
 
+
             SaveTourGuests(reservation.Id, guests, tourGuestRepository);
         }
-
-
     }
 }

@@ -17,6 +17,8 @@ namespace BookingApp.Model
 
         public int TourId { get; set; }
 
+        public Enums.TourActivity TourActivity { get; set; }
+
         public TourSchedule() { }
 
         public TourSchedule(DateTime start, int tourId, int currentFreeSpace)
@@ -25,10 +27,18 @@ namespace BookingApp.Model
             TourId = tourId;
             CurrentFreeSpace = currentFreeSpace;
         }
+        public TourSchedule(DateTime start, int tourId, int currentFreeSpace, Enums.TourActivity tourActivity)
+        {
+            Start = start;
+            TourId = tourId;
+            CurrentFreeSpace = currentFreeSpace;
+            TourActivity = tourActivity;
+        }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Start.ToString(), TourId.ToString() , CurrentFreeSpace.ToString()};
+            string[] csvValues = { Id.ToString(), Start.ToString(), TourId.ToString() , CurrentFreeSpace.ToString(), TourActivity.ToString()};
+
             return csvValues;
         }
 
@@ -38,7 +48,7 @@ namespace BookingApp.Model
             
             TourId = Convert.ToInt32(values[2]);
             CurrentFreeSpace = Convert.ToInt32(values[3]);
+            TourActivity = (Enums.TourActivity)Enum.Parse(typeof(Enums.TourActivity), values[4]);
         }
-
     }
 }
