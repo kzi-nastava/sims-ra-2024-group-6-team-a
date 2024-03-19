@@ -27,7 +27,6 @@ namespace BookingApp.View.GuideView.Pages
     public partial class LiveToursPage : Page
     {
         public static ObservableCollection<TourGuideDTO> TodaysTours { get; set; }
-        public TourGuideDTO SelectedTour { get; set; }
         public User LoggedUser { get; set; }
 
         public Frame mainFrame;
@@ -60,8 +59,6 @@ namespace BookingApp.View.GuideView.Pages
 
         }
         
-         
-
         private void tourCreationPage_SomethingHappened(object sender, EventArgs e)
         {
             Update();
@@ -72,28 +69,38 @@ namespace BookingApp.View.GuideView.Pages
             TodaysTours.Clear();
             foreach (TourSchedule tourSchedule in _tourScheduleRepository.GetAll())
             {
-                if (tourSchedule.Start.Date != System.DateTime.Now.Date || tourSchedule.TourActivity == Enums.TourActivity.Finished)
-                {
-                    continue;
-                }
-                
                 Tour tour = _tourRepository.GetById(tourSchedule.TourId);
-                if (tour.GuideId != LoggedUser.Id)
+                if (!CheckUpdateConditions(tourSchedule, tour))
                     continue;
+                 
                 Location location = _locationRepository.GetById(tour.LocationId);
-
-                Model.Image image = new Model.Image();
-                DateTime dateTime = tourSchedule.Start;
-                int tourScheduleId = tourSchedule.Id;
                
-                foreach (Model.Image i in _imageRepository.GetByEntity(tour.Id, Enums.ImageType.Tour))
-                {
-                    image = i;
-                    break;
-                }
-                TodaysTours.Add(new TourGuideDTO(tour, location, image.Path, dateTime, tourScheduleId));
+                DateTime dateTime = tourSchedule.Start;
+                
+                Model.Image image = GetFirstTourImage(tour.Id);
+                
+                TodaysTours.Add(new TourGuideDTO(tour, location, image.Path, dateTime, tourSchedule.Id));
             }
         }
+
+
+        
+        private bool CheckUpdateConditions(TourSchedule tourSchedule, Tour tour)
+        {
+            if(tourSchedule.Start.Date != System.DateTime.Now.Date || tourSchedule.TourActivity == Enums.TourActivity.Finished || tour.GuideId != LoggedUser.Id)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private Model.Image GetFirstTourImage(int tourId)
+        {
+            return _imageRepository.GetByEntity(tourId, Enums.ImageType.Tour).First();
+        }
+
+
 
         private void TourEndedEventHandler(object sender, EventArgs e)
         {

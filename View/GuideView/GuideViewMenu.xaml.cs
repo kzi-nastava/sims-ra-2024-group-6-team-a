@@ -75,6 +75,7 @@ namespace BookingApp.View
             liveToursPage.Update();
         }
 
+       
         private void LiveToursPageClick(object sender, RoutedEventArgs e)
         {
             List<Tour> tours = _tourRepository.GetByUser(LoggedUser);

@@ -56,13 +56,13 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="*"></DataGridTextColumn>
-                <DataGridCheckBoxColumn Header="Status" Width="50" Binding="{Binding IsSelected}" />
+                <DataGridCheckBoxColumn Header="Status" Width="50" Binding="{Binding IsPresent}" />
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid  CanUserAddRows="False"  ItemsSource="{Binding Checkpoints}" AutoGenerateColumns="False" Width="500"  x:Name="CheckpointsDataGrid" Grid.Row="4" Margin="0,0,0,17"  HorizontalAlignment="Center">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Checkpoint" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
-                <DataGridCheckBoxColumn  Header="Status" Binding ="{Binding IsActive}">
+                <DataGridCheckBoxColumn  Header="Status" Binding ="{Binding IsReached}">
                     <DataGridCheckBoxColumn.ElementStyle>
                         <Style TargetType="CheckBox">
                             <EventSetter Event="Checked"  Handler="CheckpointCheckBox_Checked"/>

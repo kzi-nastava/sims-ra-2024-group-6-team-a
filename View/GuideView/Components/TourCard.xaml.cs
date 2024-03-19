@@ -35,6 +35,8 @@ namespace BookingApp.View.GuideView.Components
             _tourScheduleRepository = new TourScheduleRepository();
         }
 
+
+
         private void BeginTourMouseDown(object sender, MouseEventArgs e)
         {
 

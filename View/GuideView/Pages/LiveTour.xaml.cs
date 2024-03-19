@@ -77,7 +77,7 @@ namespace BookingApp.View.GuideView.Pages
 
                 Checkpoints.Add(checkpoint);
             }
-            Checkpoints.ElementAt(0).IsActive = true;
+            Checkpoints.ElementAt(0).IsReached = true;
         }
 
         public void UpdateGuests()
@@ -97,25 +97,39 @@ namespace BookingApp.View.GuideView.Pages
             CheckBox checkbox = sender as CheckBox;
 
 
-            IsCheckboxChecked(checkbox, e);
+            DisableCheckbox(checkbox, e);
 
-            selectedCheckpoint.IsActive = true;
-            _checkpointRepository.Update(selectedCheckpoint);
+            MarkCheckpointReached(selectedCheckpoint);
 
             HasTourEnded(selectedCheckpoint,sender,e);
 
+            UpdateTourGuests(selectedCheckpoint);
+        }
+
+        private void MarkCheckpointReached(Checkpoint checkpoint)
+        {
+            checkpoint.IsReached = true;
+            _checkpointRepository.Update(checkpoint);
+        }
+
+
+
+        private void UpdateTourGuests(Checkpoint selectedCheckpoint)
+        {
             foreach (var tourist in TourGuests)
             {
-                if (tourist.IsSelected)
+                if (tourist.IsPresent)
                 {
                     tourist.CheckpointId = selectedCheckpoint.Id;
                     _tourGuestRepository.Update(tourist);
                 }
             }
-            UpdateGuests();
+                        UpdateGuests();
+
         }
 
-        private void IsCheckboxChecked(CheckBox checkbox, RoutedEventArgs e)
+
+        private void DisableCheckbox(CheckBox checkbox, RoutedEventArgs e)
         {
             if (checkbox != null && checkbox.IsChecked == true)
             {
@@ -139,27 +153,40 @@ namespace BookingApp.View.GuideView.Pages
             MessageBox.Show("Tour ended.", "Tour Status", MessageBoxButton.OK, MessageBoxImage.Information);
             SelectedTourSchedule.TourActivity = Enums.TourActivity.Finished;
             _tourScheduleRepository.Update(SelectedTourSchedule);
-            RaiseTourEndedEvent(sender, e);
-            RaiseTourEndedEventMain(sender, e);
-            if (NavigationService != null && NavigationService.CanGoBack)
-            {
-                NavigationService.GoBack();
-            }
+
+
+            RaiseTourEndedEvents();
+            GoBackIfPossible();
         }
 
-        private void RaiseTourEndedEventMain(object sender, EventArgs e)
+        private void RaiseTourEndedEvents()
+        {
+            RaiseTourEndedEvent();
+            RaiseTourEndedEventMain();
+        }
+
+
+        
+        private void RaiseTourEndedEventMain()
         {
             TourEndedMainWindow?.Invoke(this, EventArgs.Empty);
         }
 
 
-        private void RaiseTourEndedEvent(object sender, EventArgs e)
+        private void RaiseTourEndedEvent()
         {
 
             TourEnded?.Invoke(this, EventArgs.Empty);
 
         }
 
+        private void GoBackIfPossible()
+        {
+            if (NavigationService != null && NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
+        }
 
     }
 }

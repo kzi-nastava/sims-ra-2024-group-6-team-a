@@ -23,70 +23,70 @@ namespace BookingApp.DTOs
 
         public int Id { get; set; }
 
-        public string name;
+        private string _name;
         public string Name
         {
             get
             {
-                return name;
+                return _name;
             }
             set
             {
-                if(name != value)
+                if(_name != value)
                 {
-                    name = value;
+                    _name = value;
                     OnPropertyChanged("Name");
 
                 }
             }
         }
-        public string surname;
+        private string _surname;
         public string Surname
         {
             get
             {
-                return surname;
+                return _surname;
             }
             set
             {
-                if (surname != value)
+                if (_surname != value)
                 {
-                    surname = value;
+                    _surname = value;
                     OnPropertyChanged("Surname");
 
                 }
             }
         }
-        public int age;
+        private int _age;
         public int Age
         {
             get
             {
-                return age;
+                return _age;
             }
             set
             {
-                if (age != value)
+                if (_age != value)
                 {
-                    age = value;
+                    _age = value;
                     OnPropertyChanged("Age");
 
                 }
             }
         }
 
-        public int reservationId;
+        private int _reservationId;
         public int ReservationId
         {
             get
             {
-                return reservationId;
+                return _reservationId;
             }
             set
             {
-                if (reservationId != value)
+                if (_reservationId != value)
                 {
-                    reservationId = value;
+                    _reservationId = value;
                     OnPropertyChanged("ReservationId");
 
                 }
@@ -94,19 +94,19 @@ namespace BookingApp.DTOs
         }
         public TourGuestDTO(string name, string surname, int age, int reservationId)
         {
-            this.name = name;
-            this.surname = surname;
-            this.age = age;
-            this.reservationId = reservationId;
+            _name = name;
+            _surname = surname;
+            _age = age;
+            _reservationId = reservationId;
         }
 
-        public TourGuestDTO(string name, string surname, int age)
-        {
-            this.name = name;
-            this.surname = surname;
-            this.age = age;
-            this.reservationId = reservationId;
-        }
+        //public TourGuestDTO(string name, string surname, int age)
+        //{
+        //    _name = name;
+        //    _surname = surname;
+        //    _age = age;
+        //    _reservationId = reservationId;
+        //}
 
         public TourGuestDTO()
         {

@@ -23,37 +23,37 @@ namespace BookingApp.DTOs
 
         public int Id { get; set; }
 
-        public string name; 
+        private string _name; 
         public string Name
         {
             get
             {
-                return name;
+                return _name;
             }
             set 
             {
-                if (value != name)
+                if (value != _name)
                 {
-                    name = value;
+                    _name = value;
                     OnPropertyChanged("Name");
 
                 }
 
             }
         }
-        
-        public string description;
+
+        private string _description;
         public string Description 
         {
             get
             {
-                return description;
+                return _description;
             }
             set
             {
-                if (value != description)
+                if (value != _description)
                 {
-                    description = value;
+                    _description = value;
                     OnPropertyChanged("Description");
 
                 }
@@ -61,37 +61,37 @@ namespace BookingApp.DTOs
             }
         }
 
-        public string language;
+        private string _language;
         public string Language
         {
             get
             {
-                return language;
+                return _language;
             }
             set
             {
-                if (value != language)
+                if (value != _language)
                 {
-                    language = value;
+                    _language = value;
                     OnPropertyChanged("Language");
 
                 }
             }
         }
 
-       
-        public int capacity;
+
+        private int _capacity;
         public int Capacity
         {
             get
             {
-                return capacity;
+                return _capacity;
             }
             set
             {
-                if (value != capacity)
+                if (value != _capacity)
                 {
-                    capacity = value;
+                    _capacity = value;
                     OnPropertyChanged("Capacity");
 
                 }
@@ -99,116 +99,116 @@ namespace BookingApp.DTOs
 
         }
 
-       
-        public double duration;
+
+        private double _duration;
         public double Duration
         {
             get
             {
-                return duration;
+                return _duration;
             }
             set
             {
-                if (value != duration)
+                if (value != _duration)
                 {
-                    duration = value;
+                    _duration = value;
                     OnPropertyChanged("Duration");
 
                 }
             }
         }
-       
-        public string city;
+
+        private string _city;
         public string City
         {
             get
             {
-                return city;
+                return _city;
             }
 
             set
             {
-                if (value != city)
+                if (value != _city)
                 {
-                    city = value;
+                    _city = value;
                     OnPropertyChanged("City");
                 }
 
             }
         }
-        public string state;
+        private string _state;
 
         public string State
         {
             get
             {
-                return state;
+                return _state;
             }
 
             set
             {
-                if (value != state)
+                if (value != _state)
                 {
-                    state = value;
+                    _state = value;
                     OnPropertyChanged("State");
                 }
 
             }
         }
 
-        public String image;
+        private String _image;
 
         public String Image
         {
             get
             {
-                return image;
+                return _image;
             }
 
             set
             {
-                if (value != image)
+                if (value != _image)
                 {
-                    image = value;
+                    _image = value;
                     OnPropertyChanged("Image");
                 }
             }
         }
 
-        private DateTime tourStart;
+        private DateTime _tourStart;
         
         public DateTime TourStart
         {
             get
             {
-                return tourStart;
+                return _tourStart;
             }
 
             set
             {
-                if (value != tourStart)
+                if (value != _tourStart)
                 {
-                    tourStart = value;
+                    _tourStart = value;
                     OnPropertyChanged("TourStart");
 
                 }
             }
         }
 
-        private int tourScheduleId;
+        private int _tourScheduleId;
 
         public int TourScheduleId
         {
             get
             {
-                return tourScheduleId;
+                return _tourScheduleId;
             }
 
             set
             {
-                if (value != tourScheduleId)
+                if (value != _tourScheduleId)
                 {
-                    tourScheduleId = value;
+                    _tourScheduleId = value;
                     OnPropertyChanged("TourScheduleId");
 
                 }
@@ -217,19 +217,19 @@ namespace BookingApp.DTOs
         }
 
 
-        public TourGuideDTO(Tour tour, Location location, string imagePath, DateTime dateTime, int tourSchedId)
+        public TourGuideDTO(Tour tour, Location location, string imagePath, DateTime tourStart, int tourScheduleId)
         {
             Id = tour.Id;
-            name = tour.Name;
-            description = tour.Description;
-            language = tour.Language;
-            capacity = tour.Capacity;
-            duration = tour.Duration;
-            city = location.City;
-            state = location.State;
-            image = imagePath;
-            tourStart = dateTime;
-            tourScheduleId = tourSchedId;
+            Name = tour.Name;
+            Description = tour.Description;
+            Language = tour.Language;
+            Capacity = tour.Capacity;
+            Duration = tour.Duration;
+            City = location.City;
+            State = location.State;
+            Image = imagePath;
+            TourStart = tourStart;
+            TourScheduleId = tourScheduleId;
         }
     }
 }

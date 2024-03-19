@@ -170,7 +170,7 @@ namespace BookingApp.Repository
                 newGuest.Surname = guest.Surname;
                 newGuest.Age = guest.Age;
                 newGuest.ReservationId = reservation.Id;
-                newGuest.IsSelected = false;
+                newGuest.IsPresent = false;
                 tourGuestRepository.Save(newGuest);
             }
         }

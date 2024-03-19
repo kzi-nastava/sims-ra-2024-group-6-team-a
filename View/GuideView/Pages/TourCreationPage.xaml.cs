@@ -47,25 +47,10 @@ namespace BookingApp.View.GuideView.Pages
         List<String> _imageRelativePath = new List<String>();
 
         public static ObservableCollection<String> ImagesCollection { get; set; }
-
         public static ObservableCollection<String> CheckpointsCollection { get; set; }
-
         public static ObservableCollection<DateTime> TourDatesCollection { get; set; }
-
-
+        
         public event EventHandler SomethingHappened;
-
-
-        protected virtual void OnSomethingHappened(EventArgs e)
-        {
-            SomethingHappened?.Invoke(this, e);
-        }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
 
         private string checkpoint;
         public string Checkpoint
@@ -80,13 +65,9 @@ namespace BookingApp.View.GuideView.Pages
                 {
                     checkpoint = value;
                     OnPropertyChanged("Checkpoint");
-
                 }
-
             }
         }
-
-
 
 
         public TourCreationPage(User user, TourRepository tourRepository, LocationRepository locationRepository, ImageRepository imageRepository, CheckpointRepository checkpointRepository, TourScheduleRepository tourScheduleRepository)
@@ -109,7 +90,15 @@ namespace BookingApp.View.GuideView.Pages
             TourDatesCollection = new ObservableCollection<DateTime>();
         }
 
+        protected virtual void OnSomethingHappened(EventArgs e)
+        {
+            SomethingHappened?.Invoke(this, e);
+        }
 
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         private void AddCheckPointClick(object sender, EventArgs e)
         {
@@ -122,39 +111,24 @@ namespace BookingApp.View.GuideView.Pages
 
         private void SelectImagesClick(object sender, RoutedEventArgs e)
         {
-            List<String> _imagePath = new List<String>();
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Images|*.jpg;*.jpeg;*.png;*.gif|All Files|*.*";
             openFileDialog.Multiselect = true;
-
 
             if (openFileDialog.ShowDialog() == true)
             {
                 foreach (string imagePath in openFileDialog.FileNames)
                 {
-                    _imagePath.Add(imagePath);
+                    int relativePathStartIndex = imagePath.IndexOf("\\Resources");
+                    String relativePath = imagePath.Substring(relativePathStartIndex);
+                    ImagesCollection.Add(relativePath);
                 }
             }
-            TransformToRelativePath(_imagePath);
         }
-
-       
-        private void TransformToRelativePath(List<String> imagePath)
-        {
-            foreach (String imgPath in imagePath)
-            {
-                int relativePathStartIndex = imgPath.IndexOf("\\Resources");
-                String relativePath = imgPath.Substring(relativePathStartIndex);
-                ImagesCollection.Add(relativePath);
-            }
-        }
-
-
 
         private void SelectDatesClick(object sender, RoutedEventArgs e)
         {
             DateTime time;
-
             DateTime.TryParse(datePicker.SelectedDate.Value.Date.ToShortDateString() + " " + txtTourScheduleTime.Text, out time);
             TourDatesCollection.Add(time);
             datePicker.SelectedDate = null;
