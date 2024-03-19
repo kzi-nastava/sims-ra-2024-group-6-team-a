@@ -13,21 +13,21 @@ namespace BookingApp.Model
         public string Name { get; set; }
         public int TourId { get; set; }
         
-        public bool IsActive {  get; set; }
+        public bool IsReached {  get; set; }
 
 
         public Checkpoint() { }
 
-        public Checkpoint(string name, int tourId, bool isActive)
+        public Checkpoint(string name, int tourId, bool isReached)
         {
             Name = name;
             TourId = tourId;
-            IsActive = isActive;
+            IsReached = isReached;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, TourId.ToString(), IsActive.ToString() };
+            string[] csvValues = { Id.ToString(), Name, TourId.ToString(), IsReached.ToString() };
             return csvValues;
         }
 
@@ -36,7 +36,7 @@ namespace BookingApp.Model
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
             TourId = Convert.ToInt32(values[2]);
-            IsActive = bool.Parse(values[3]);
+            IsReached = bool.Parse(values[3]);
         }
 
     }

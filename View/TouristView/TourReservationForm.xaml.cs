@@ -160,6 +160,7 @@ namespace BookingApp.View
                 return;
 
             TourGuests.Add(new TourGuestDTO(NameTextBox.Text, SurnameTextBox.Text, Convert.ToInt32(AgeTextBox.Text)));
+
             ClearInputFields();
         }
         private bool IsAgeFormatOK()
@@ -171,7 +172,8 @@ namespace BookingApp.View
             }
             return true;
         }
-        private void ClearInputFields()
+      
+      private void ClearInputFields()
         {
             NameTextBox.Text = "";
             SurnameTextBox.Text = "";

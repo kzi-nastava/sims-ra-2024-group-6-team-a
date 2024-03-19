@@ -75,6 +75,7 @@ namespace BookingApp.DTOs
             }
         }
 
+
         private int reservationId;
         public int ReservationId
         {
@@ -92,6 +93,16 @@ namespace BookingApp.DTOs
                 }
             }
         }
+        public TourGuestDTO(string name, string surname, int age, int reservationId)
+        {
+            Name = name;
+            Surname = surname;
+            Age = age;
+            ReservationId = reservationId;
+        }
+
+       
+
 
         public TourGuestDTO(string name, string surname, int age)
         {

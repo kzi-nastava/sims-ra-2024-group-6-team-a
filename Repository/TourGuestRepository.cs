@@ -78,7 +78,6 @@ namespace BookingApp.Repository
             _guests.Insert(index, guest);
             _serializer.ToCSV(FilePath, _guests);
             subject.NotifyObservers();
-
             return guest;
         }
 
@@ -93,7 +92,7 @@ namespace BookingApp.Repository
             {
                 foreach(TourGuests tourGuest in _guests)
                 {
-                    if(reservation.Id == tourGuest.ReservationId)
+                    if(reservation.Id == tourGuest.ReservationId && tourGuest.IsPresent == false)
                     {
                         guests.Add(tourGuest);
                     }
