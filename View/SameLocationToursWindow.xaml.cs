@@ -30,7 +30,7 @@ namespace BookingApp.View
         public User LoggedUser { get; set; }
 
         private LocationRepository _locationRepository;
-        private TourRepository _repository;
+        private TourRepository _tourRepository;
         private TourScheduleRepository _scheduleRepository;
         private TourReservationRepository _tourReservationRepository;
         
@@ -39,11 +39,11 @@ namespace BookingApp.View
             InitializeComponent();
             DataContext = this;
 
-            _repository = new TourRepository();
+            _tourRepository = new TourRepository();
             _scheduleRepository = new TourScheduleRepository();
             _locationRepository = new LocationRepository();
             _tourReservationRepository = new TourReservationRepository();
-            _repository.Subscribe(this);
+            _tourRepository.Subscribe(this);
             LoggedUser = user;
 
             Tours = new ObservableCollection<TourTouristDTO>();
@@ -55,7 +55,7 @@ namespace BookingApp.View
         public void Update()
         {
             Tours.Clear();
-            foreach(Tour tour in _repository.GetOtherToursOnSameLocation(TourScheduleDTO))
+            foreach(Tour tour in _tourRepository.GetSameLocationTours(TourScheduleDTO))
             {
                 Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId), _scheduleRepository.GetByTour(tour)));
             }

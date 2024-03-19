@@ -22,22 +22,14 @@
         <Frame x:Name="MakeReservationView" NavigationUIVisibility="Hidden" Grid.ZIndex="1"></Frame>
 
 
-        <Label Content="{Binding Path=AccommodationName}"   Height="61" Margin="0,10,0,0" FontSize="35" Foreground="Black" FontFamily="Bahnschrift" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
-            <ListView x:Name="ImageList" 
-                              ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                              ScrollViewer.PanningMode="HorizontalOnly"
-                              Background="Aquamarine"
-                              Margin="10,76,10,320">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" Height="198"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <Image Source= "{Binding Image}" Width="370" Height="114" Margin="0,0,0,0"/>
-
-            </ListView>
-
+        <Label Content="{Binding Path=AccommodationName}"   Height="60" Margin="0,0,0,0" FontSize="35" FontWeight="DemiBold"   Background="DarkCyan" Foreground="Black" FontFamily="arial" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
+        <Image Source= "{Binding CurrentImage.Path}" Width="300" Height="160" Margin="0,0,0,270"/>
+        <Button Height="40" Width="22" Margin="270,0,10,263" Background="DarkCyan" BorderBrush="DarkCyan" Click="Next_Image_click">
+            <Image Source ="../Resources/Images/rarrow.png" Width="20" Height="35"/>
+        </Button>
+        <Button Height="40" Width="22" Margin="10,0,270,263" Background="DarkCyan" BorderBrush="DarkCyan" Click="Previous_Image_click">
+            <Image Source ="../Resources/Images/checkpoint.png" Width="20" Height="35"/>
+        </Button>
 
 
         <Label Margin="0,259,300,0" FontSize="15" FontFamily="Bahnschrift" Foreground="Black" Content="State:"></Label>
@@ -56,18 +48,19 @@
         <Label Margin="152,252,40,0" FontSize="15" FontFamily="Bahnschrift" Foreground="Black" Content="Number of days to cancel:"></Label>
         <Label Margin="342,252,10,0" FontSize="15" FontFamily="Bahnschrift" Foreground="Black" Content="{Binding CancelationDays}"/>
 
-                <Label FontSize="14" FontFamily="Bahnschrift" Foreground="Black" Content="Pocetni datum pretrage: " Margin="0,289,200,0" ></Label>
+        <Label FontSize="13" FontFamily="Bahnschrift" Foreground="Black" Content="Start date of the search:" Margin="0,289,200,0" ></Label>
                 <DatePicker
                     Width="150"
                     SelectedDate="{Binding SelectedDate}"
                     DisplayDateStart="{x:Static sys:DateTime.Today}"
+                     IsEnabled="False"
                     Margin="0,309,230,194" 
                     x:Name="DatePickerStartDate"
                     SelectedDateChanged="FirstDatePicker_SelectedDateChanged"/>
                 <Label x:Name="ValidateFirst" Margin="10,340,248,0" Foreground="Red" FontSize="9" FontFamily="Bahnschrift" />
 
 
-                <Label Margin="0,340,180,0" FontSize="14" FontFamily="Bahnschrift" Foreground="Black" Content="Krajnji datum pretrage:"></Label>
+        <Label Margin="0,340,180,0" FontSize="13" FontFamily="Bahnschrift" Foreground="Black" Content="End date of the search:"></Label>
                 <DatePicker
                     Width="150"
                     SelectedDate="{Binding SelectedDate}"
@@ -76,17 +69,17 @@
                     x:Name="DatePickerEndDate"/>
 
 
-                <Label x:Name="ValidateLast" Margin="12,400,248,0" Foreground="Red" FontSize="9" FontFamily="Bahnschrift" />
-        <Label FontSize="14" FontFamily="Bahnschrift" Foreground="Black" Content="Broj dana:" Margin="165,309,31,0"></Label>
+        <Label FontSize="13" FontFamily="Bahnschrift" Foreground="Black" Content="Number of days:" Margin="165,292,31,0"></Label>
 
                 <TextBox Name="TextboxDaysNumber"
-                                         Margin="110,315,0,0" Height="16" Width="20" VerticalAlignment="Top"
+                                        TextChanged="TextboxDaysNumber_TextChanged"
+                                         Margin="20,315,0,0" Height="16" Width="65" VerticalAlignment="Top"
                                          Background="BlanchedAlmond"
                                          Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                                          Text="{Binding DaysNumber, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
                 </TextBox>
-        <Label FontSize="14" FontFamily="Bahnschrift" Foreground="Black" Content="Broj gostiju:" Margin="165,361,0,0"></Label>
-        <TextBox x:Name="TextboxGuestNumber" Margin="132,220,0,0" Width="20"  Height="16" Background="BlanchedAlmond"
+        <Label FontSize="12" FontFamily="Bahnschrift" Foreground="Black" Content="Number of guests:" Margin="165,345,0,0"></Label>
+        <TextBox x:Name="TextboxGuestNumber" Margin="20,216,0,0" Width="65"  Height="16" Background="BlanchedAlmond"
                                          Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
                                          Text="{Binding GuestNumber, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                 <Button Margin="290,166,2,0"   Height="60" Width="90" FontFamily="Bahnschrift" Foreground="Black"
@@ -99,7 +92,7 @@
                         </Style>
                     </Button.Resources>
                 </Button>
-        <DataGrid x:Name="DatesTable" ItemsSource="{Binding AvailableDates, UpdateSourceTrigger=PropertyChanged}" Margin="10,400,180,30" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
+        <DataGrid x:Name="DatesTable" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding AvailableDates, UpdateSourceTrigger=PropertyChanged}" Margin="0,390,185,20" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Start date" Binding="{Binding CheckIn}"  Width="100"></DataGridTextColumn>
                 <DataGridTextColumn Header="End date"  Binding="{Binding CheckOut}" Width="100"></DataGridTextColumn>

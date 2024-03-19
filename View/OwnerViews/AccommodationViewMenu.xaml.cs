@@ -100,19 +100,22 @@ namespace BookingApp.View
 
         }
 
-        //check to see if the review exists and the guest left the premises
+        //check to see if the review exists and the guest left the premises,adds empty reviews if only less than 5 days passed,and all filled reviews
         public void CheckGuestReview(Accommodation accommodation,AccommodationReservation reservation)
         {
-            if (reservation.CheckOutDate < DateOnly.FromDateTime(DateTime.Today))
+            DateTime GuestCheckout = reservation.CheckOutDate.ToDateTime(TimeOnly.MinValue);
+            double DaysPassedForReview = (DateTime.Today - GuestCheckout).TotalDays;
+
+            if (DaysPassedForReview >= 0)
             {
                 GuestReview review = _guestReviewRepository.Get(reservation.Id);
 
-                if (review == null)
+                if (review == null && DaysPassedForReview < 5)
                 {
                     AddGuestReview(accommodation, reservation);
                     existsNotReviewed = true;
                 }
-                else
+                else if(review != null)
                 {
                     AddGuestReview(accommodation, reservation, review.CleanlinessGrade, review.RespectGrade, review.Comment);
                 }
@@ -152,17 +155,22 @@ namespace BookingApp.View
 
             if (e.Key == Key.Enter)
             {
-                if (Tabs.SelectedItem == AccommodationsTab && SelectedAccommodation != null)
-                {
-                    DetailedAccommodationView();
-                }
-                else if (Tabs.SelectedItem == ReviewsTab && SelectedGuestReview != null)
-                {
-                    GradeEmptyReview();
-                }
+                EnterDetailedView();
             }
 
             Update();
+        }
+
+        public void EnterDetailedView()
+        {
+            if (Tabs.SelectedItem == AccommodationsTab && SelectedAccommodation != null)
+            {
+                DetailedAccommodationView();
+            }
+            else if (Tabs.SelectedItem == ReviewsTab && SelectedGuestReview != null)
+            {
+                GradeEmptyReview();
+            }
         }
 
 

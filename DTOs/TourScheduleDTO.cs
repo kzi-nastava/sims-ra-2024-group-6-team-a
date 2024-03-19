@@ -18,7 +18,7 @@ namespace BookingApp.DTOs
         {
             Id = tourSchedule.Id;
             Start = tourSchedule.Start;
-            CurrentGuestNumber = tourSchedule.CurrentGuestNumber;
+            CurrentFreeSpace = tourSchedule.CurrentFreeSpace;
             TourId = tourSchedule.TourId;
         }
 
@@ -78,19 +78,19 @@ namespace BookingApp.DTOs
 
         }
 
-        private int _currentGuestNumber;
-        public int CurrentGuestNumber
+        private int _currentFreeSpace;
+        public int CurrentFreeSpace
         {
             get
             {
-                return _currentGuestNumber;
+                return _currentFreeSpace;
             }
             set
             {
-                if (value != _currentGuestNumber)
+                if (value != _currentFreeSpace)
                 {
-                    _currentGuestNumber = value;
-                    OnPropertyChanged("CurrentGuestNumber");
+                    _currentFreeSpace = value;
+                    OnPropertyChanged("CurrentFreeSpace");
                 }
             }
         }

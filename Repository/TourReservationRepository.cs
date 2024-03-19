@@ -63,19 +63,10 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
         }
 
-        public List <TourReservation> GetAllByTourScheduleId(int tourScheduleId)
+        public List <TourReservation> GetAllByRealisationId(int tourRealisationId)
         {
             _tourReservations = _serializer.FromCSV(FilePath);
-
-            List<TourReservation> tourReservations = new List <TourReservation>();
-            foreach(TourReservation tourReservation in _tourReservations)
-            {
-                if(tourReservation.ReservedTourTime == tourScheduleId)
-                {
-                    tourReservations.Add(tourReservation);
-                }
-            }
-            return tourReservations;
+            return _tourReservations.Where(t => t.TourRealisationId == tourRealisationId).ToList();
         }
 
         public TourReservation Update(TourReservation reservation)
@@ -89,15 +80,13 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return reservation;
         }
-        //funkcija koja vraca broj ljudi koji su rezervisali tu odredjenu turu za odredjeni termin, koristi se kasnije
-        public int FindAssignedPeopleNumber(int currentTourScheduleId)
+        public int FindAssignedPeopleNumber(int currentTourRealisationId)
         {
             int peopleNumber = 0;
 
-
             foreach (TourReservation tourReservation in GetAll())
             {
-                if (tourReservation.ReservedTourTime == currentTourScheduleId)
+                if (tourReservation.TourRealisationId == currentTourRealisationId)
                 {
                     peopleNumber += tourReservation.TourGuests.Count;
                 }
@@ -105,76 +94,47 @@ namespace BookingApp.Repository
 
             return peopleNumber;
         }
-        //pravim bool funkciju koja za izabranu turu provjerava da li je POTPUNO bukirana
-        //ako je tura potpuno popunjena sistem ce ponuditi druge ture na istoj lokaciji
-
-        public bool IsFullyBooked(int currentTourScheduleId)
+        public bool IsFullyBooked(int currentTourRealisationId)
         {
             TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
 
-            int peopleNumber = FindAssignedPeopleNumber(currentTourScheduleId);
+            //int peopleNumber = FindAssignedPeopleNumber(currentTourRealisationId);
 
-            if (tourScheduleRepository.GetById(currentTourScheduleId).CurrentGuestNumber <= 0)
-                return true;
-            return false;
+            int currentGuestNumber = tourScheduleRepository.GetById(currentTourRealisationId).CurrentFreeSpace;
+            return currentGuestNumber <= 0;
         }
-
-        //vraca broj preostalih mjesta za zadati termin ture
-       /* public int GetAvailableGuestNumber(int currentTourScheduleId)
+        private void UpdateCurrentGuestNumber(int tourRealisationId, int guestNumber, TourScheduleRepository tourScheduleRepository)
         {
-            int bookedPlaces = FindAssignedPeopleNumber(currentTourScheduleId);
-
-            TourRepository tourRepository = new TourRepository();
-            TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
-
-            if (!IsFullyBooked(currentTourScheduleId))
+            foreach (TourSchedule tourSchedule in tourScheduleRepository.GetAll())
             {
-                int leftPlaces = tourRepository.GetById().Capacity - ;
-                return leftPlaces;
-            }
-            return 0;
-
-        }*/
-
-        public void MakeReservation(TourScheduleDTO tourScheduleDTO, TourReservationDTO tourReservationDTO, TourTouristDTO tourTouristDTO, User LoggedUser, List<TourGuestDTO> guests)
-        {
-            TourGuestRepository tourGuestRepository = new TourGuestRepository();
-            TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
-            TourReservation reservation = new TourReservation();
-
-            Tour tour = new Tour();
-
-
-            reservation.GuestNumber = tourReservationDTO.GuestNumber;
-            reservation.ReservedTourTime = tourScheduleDTO.Id;
-            reservation.TourId = tourTouristDTO.Id;
-            reservation.TouristId = LoggedUser.Id;
-
-
-            foreach(TourSchedule tourSchedule in tourScheduleRepository.GetAll()) 
-            {
-                if( tourSchedule.Id == reservation.ReservedTourTime)
+                if (tourSchedule.Id == tourRealisationId)
                 {
-                    tourSchedule.CurrentGuestNumber -= reservation.GuestNumber;
+                    tourSchedule.CurrentFreeSpace -= guestNumber;
                     tourScheduleRepository.Update(tourSchedule);
                 }
             }
-            
-
-            Save(reservation);
-
+        }
+        private void SaveTourGuests(int reservationId, List<TourGuestDTO> guests, TourGuestRepository tourGuestRepository)
+        {
             foreach (TourGuestDTO guest in guests)
             {
-                TourGuests newGuest = new TourGuests();
-                newGuest.Name = guest.Name;
-                newGuest.Surname = guest.Surname;
-                newGuest.Age = guest.Age;
-                newGuest.ReservationId = reservation.Id;
-                newGuest.IsPresent = false;
+                TourGuests newGuest = new TourGuests(guest, reservationId);
                 tourGuestRepository.Save(newGuest);
             }
         }
 
+        public void MakeReservation(TourScheduleDTO tourScheduleDTO, User loggedUser, List<TourGuestDTO> guests)
+        {
+            TourGuestRepository tourGuestRepository = new TourGuestRepository();
+            TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
 
+            TourReservation reservation = new TourReservation(guests.Count(), tourScheduleDTO.Id, tourScheduleDTO.TourId, loggedUser.Id);
+
+            UpdateCurrentGuestNumber(tourScheduleDTO.Id, reservation.GuestNumber, tourScheduleRepository);
+            Save(reservation);
+
+
+            SaveTourGuests(reservation.Id, guests, tourGuestRepository);
+        }
     }
 }

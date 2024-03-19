@@ -75,18 +75,19 @@ namespace BookingApp.DTOs
             }
         }
 
-        private int _reservationId;
+
+        private int reservationId;
         public int ReservationId
         {
             get
             {
-                return _reservationId;
+                return reservationId;
             }
             set
             {
-                if (_reservationId != value)
+                if (reservationId != value)
                 {
-                    _reservationId = value;
+                    reservationId = value;
                     OnPropertyChanged("ReservationId");
 
                 }
@@ -94,19 +95,22 @@ namespace BookingApp.DTOs
         }
         public TourGuestDTO(string name, string surname, int age, int reservationId)
         {
-            _name = name;
-            _surname = surname;
-            _age = age;
-            _reservationId = reservationId;
+            Name = name;
+            Surname = surname;
+            Age = age;
+            ReservationId = reservationId;
         }
 
-        //public TourGuestDTO(string name, string surname, int age)
-        //{
-        //    _name = name;
-        //    _surname = surname;
-        //    _age = age;
-        //    _reservationId = reservationId;
-        //}
+       
+
+
+        public TourGuestDTO(string name, string surname, int age)
+        {
+            this.Name = name;
+            this.Surname = surname;
+            this.Age = age;
+            this.ReservationId = reservationId;
+        }
 
         public TourGuestDTO()
         {

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.Repository
 {
@@ -18,7 +19,7 @@ namespace BookingApp.Repository
 
         private List<AccommodationReservation> _accommodationReservations;
         private List<DateRanges> _availableDates;
-        private List<DateRanges> _unavailableDates;
+        private List<DateRanges> _bookedDates;
         private List<DateRanges> _candidatesForDeletion;
         private DateOnly _firstDate;
         private DateOnly _lastDate;
@@ -30,7 +31,7 @@ namespace BookingApp.Repository
             _serializer = new Serializer<AccommodationReservation>();
             _accommodationReservations = _serializer.FromCSV(FilePath);
             _availableDates = new List<DateRanges>();
-            _unavailableDates = new List<DateRanges>();
+            _bookedDates = new List<DateRanges>();
             _candidatesForDeletion = new List<DateRanges>();
             _firstDate = new DateOnly();
             _lastDate = new DateOnly();
@@ -85,7 +86,12 @@ namespace BookingApp.Repository
         public List<DateRanges> GetAvailableDates(DateOnly firstDate, DateOnly lastDate, int daysNumber, int accommodationId)
         {
             _availableDates.Clear();
+            if (lastDate < firstDate.AddDays(daysNumber))
+            {
+                MessageBox.Show("EROR 404", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                return _availableDates;
 
+            }
             _firstDate = firstDate;
             _lastDate = lastDate;
 
@@ -93,49 +99,47 @@ namespace BookingApp.Repository
             GetBookedDates(accommodationId);
 
             bool isFirstBoundaryCase, isInRangeCase, isLastBoundaryCase;
-            foreach (DateRanges unavailableDate in _unavailableDates)
+            foreach (DateRanges bookedDate in _bookedDates)
             {
-                // Date range for search: 15.03-22.03, checkIn = 14.03, checkOut = 17.03
-                isFirstBoundaryCase = !IsInRange(unavailableDate.CheckIn, _firstDate, _lastDate) && IsInRange(unavailableDate.CheckOut, _firstDate, _lastDate);
-
-                // Date range for search: 15.03-22.03, checkIn = 15.03, checkOut = 17.03
-                isInRangeCase = IsInRange(unavailableDate.CheckIn, _firstDate, _lastDate) && IsInRange(unavailableDate.CheckOut, _firstDate, _lastDate);
-
-                // Date range for search: 15.03-22.03, checkIn = 20.03, checkOut = 25.03
-                isLastBoundaryCase = IsInRange(unavailableDate.CheckIn, _firstDate, _lastDate) && !IsInRange(unavailableDate.CheckOut, _firstDate, _lastDate);
+                isFirstBoundaryCase = !IsInRange(bookedDate.CheckIn, _firstDate, _lastDate) && IsInRange(bookedDate.CheckOut, _firstDate, _lastDate);
+                isInRangeCase = IsInRange(bookedDate.CheckIn, _firstDate, _lastDate) && IsInRange(bookedDate.CheckOut, _firstDate, _lastDate);
+                isLastBoundaryCase = IsInRange(bookedDate.CheckIn, _firstDate, _lastDate) && !IsInRange(bookedDate.CheckOut, _firstDate, _lastDate);
 
                 if (isFirstBoundaryCase)
                 {
-                    RemoveStartBorderCase(unavailableDate);
+                    RemoveStartBorderCase(bookedDate);
                 }
                 else if (isInRangeCase)
                 {
-                    RemoveInRangeCase(unavailableDate);
+                    RemoveInRangeCase(bookedDate);
                 }
                 else if (isLastBoundaryCase)
                 {
-                    RemoveEndBorderCase(unavailableDate);
+                    RemoveEndBorderCase(bookedDate);
                 }
             }
-            
-
+            if (_availableDates.Count == 0)
+            {
+                MessageBox.Show("There are no available dates in the given period, but here are 3 suggested dates!", "Suggested dates", MessageBoxButton.OK);
+                FindSuggestedDates(daysNumber);
+            }
             return _availableDates;
         }
-        public void RemoveStartBorderCase(DateRanges unavailableDate)
+        public void RemoveStartBorderCase(DateRanges bookedDate)
         {
             _availableDates = _availableDates
-            .Where(availableDate => unavailableDate.CheckOut <= availableDate.CheckIn)
+            .Where(availableDate => bookedDate.CheckOut <= availableDate.CheckIn)
             .ToList();
         }
-        public void RemoveInRangeCase(DateRanges unavailableDate)
+        public void RemoveInRangeCase(DateRanges bookedDate)
         {
             _availableDates = _availableDates
-         .Where(availableDate => !(unavailableDate.CheckOut > availableDate.CheckIn && unavailableDate.CheckIn < availableDate.CheckOut))
+         .Where(availableDate => !(bookedDate.CheckOut > availableDate.CheckIn && bookedDate.CheckIn < availableDate.CheckOut))
          .ToList();
         }
-        public void RemoveEndBorderCase(DateRanges unavailableDate)
+        public void RemoveEndBorderCase(DateRanges bookedDate)
         {
-            _availableDates.RemoveAll(availableDate => unavailableDate.CheckIn < availableDate.CheckOut);
+            _availableDates.RemoveAll(availableDate => bookedDate.CheckIn < availableDate.CheckOut);
 
         }
         public bool IsInRange(DateOnly date, DateOnly startDate, DateOnly endDate)
@@ -147,7 +151,7 @@ namespace BookingApp.Repository
             DateOnly startDate = _firstDate;
             DateOnly endDate = _firstDate.AddDays(daysNumber);
 
-            while (endDate < _lastDate)
+            while (endDate <= _lastDate)
             {
                 _availableDates.Add(new DateRanges(startDate, endDate));
                 startDate = startDate.AddDays(1);
@@ -160,19 +164,58 @@ namespace BookingApp.Repository
             {
                 if (reservation.AccommodationId == accommodationId)
                 {
-                    if (IsUnavailable(reservation.CheckInDate, reservation.CheckOutDate))
+                    if (IsBooked(reservation.CheckInDate, reservation.CheckOutDate))
                     {
-                        _unavailableDates.Add(new DateRanges(reservation.CheckInDate, reservation.CheckOutDate));
+                        _bookedDates.Add(new DateRanges(reservation.CheckInDate, reservation.CheckOutDate));
                     }
                 }
             }
         }
-        public bool IsUnavailable(DateOnly checkIn, DateOnly checkOut)
+        public bool IsBooked(DateOnly checkIn, DateOnly checkOut)
         {
             if (checkOut<= _firstDate || checkIn>= _lastDate) return false;
 
             return true;
 
+        }
+
+        public void FindSuggestedDates(int daysNumber)
+        {
+            DateOnly startDateBefore = _firstDate.AddDays(-1);
+            DateOnly endDateBefore = startDateBefore.AddDays(daysNumber);
+
+            DateOnly endDateAfter = _lastDate.AddDays(1);
+            DateOnly startDateAfter = endDateAfter.AddDays(-daysNumber);
+
+            while (_availableDates.Count != 3)
+            {
+                if (IsSuggestedDateAvailable(startDateBefore, endDateBefore))
+                {
+                    _availableDates.Add(new DateRanges(startDateBefore, endDateBefore));
+                }
+                startDateBefore = startDateBefore.AddDays(-1);
+                endDateBefore = endDateBefore.AddDays(-1);
+
+                if (IsSuggestedDateAvailable(startDateAfter, endDateAfter))
+                {
+                    _availableDates.Add(new DateRanges(startDateAfter, endDateAfter));
+                }
+                startDateAfter = startDateAfter.AddDays(1);
+                endDateAfter = endDateAfter.AddDays(1);
+            }
+        }
+
+        public bool IsSuggestedDateAvailable(DateOnly checkIn, DateOnly checkOut)
+        {
+            bool checkInIsInRange, checkOutIsInRange, containsBookedDates;
+            foreach (DateRanges bookedDate in _bookedDates)
+            {
+                checkInIsInRange = bookedDate.CheckIn >= checkIn && bookedDate.CheckIn < checkOut;
+                checkOutIsInRange = bookedDate.CheckOut > checkIn && bookedDate.CheckOut <= checkOut;
+                containsBookedDates = checkIn > bookedDate.CheckIn && checkOut < bookedDate.CheckOut;
+                if (checkInIsInRange || checkOutIsInRange || containsBookedDates)   return false;
+            }
+            return true;
         }
         public void Subscribe(IObserver observer)
         {

@@ -18,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BookingApp.View
 {
@@ -297,14 +298,12 @@ namespace BookingApp.View
 
         private void Button_ClickMakeReservation(object sender, RoutedEventArgs e)
         {
-            AccommodationOwnerDTO accommodation = ((Button)sender).DataContext as AccommodationOwnerDTO;
-            MainView.Content = new MakeReservation(accommodation);
+            AccommodationOwnerDTO accommodationDTO = ((Button)sender).DataContext as AccommodationOwnerDTO;
+            MainView.Content = new MakeReservation(accommodationDTO);
         }
 
         private void Button_ClickHomePage(object sender, RoutedEventArgs e)
         {
-            //MainView.Content = new AccommodationReservationViewMenu(_locationRepository, _imageRepository);
-
             AccommodationReservationViewMenu accommodationReservationViewMenu = new AccommodationReservationViewMenu(_locationRepository, _imageRepository);
             accommodationReservationViewMenu.Show();
         }

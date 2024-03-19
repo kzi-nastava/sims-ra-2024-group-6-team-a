@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using BookingApp.Observer;
 using BookingApp.DTOs;
+using System.CodeDom;
 
 namespace BookingApp.Repository
 {
@@ -20,6 +21,7 @@ namespace BookingApp.Repository
         private readonly List<IObserver> _observers;
 
         private List <Tour> _tours;
+
         public Subject subject;
 
 
@@ -34,7 +36,8 @@ namespace BookingApp.Repository
 
         public List<Tour>GetAll()
         {
-            return _serializer.FromCSV(FilePath);
+            _tours = _serializer.FromCSV(FilePath);
+            return _tours;
         }
 
         public Tour Save(Tour tour)
@@ -80,7 +83,7 @@ namespace BookingApp.Repository
             return tour;
         }
 
-        public List<Tour> GetByUser(User user)
+        public List<Tour> GetAllByUser(User user)
         {
             _tours = _serializer.FromCSV(FilePath);
             return _tours.FindAll(x => x.GuideId == user.Id);
@@ -91,53 +94,24 @@ namespace BookingApp.Repository
             return  _tours.Find(c => c.Id == id);
         }
 
-        public List<Tour> GetOtherToursOnSameLocation(TourScheduleDTO schedule) //vraca ostale ture na istoj lokaciji
+        public List<Tour> GetSameLocationTours(TourScheduleDTO schedule) //PROMIJENITI AKO BUDE TOUR REALISATION
         {
-            TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
-            LocationRepository locationRepository = new LocationRepository();
-            List<Tour> tours = new List<Tour>();
-            Tour currentTour = GetById(schedule.TourId);
-            
-
-            foreach(Tour tour in GetAll())
-            {
-                if (locationRepository.GetById(tour.LocationId).City == locationRepository.GetById(currentTour.LocationId).City)
-                {
-                   /* foreach(var scheduleTour in  tourScheduleRepository.GetAll().Where(s => (s.TourId == tour.Id)))
-                    {
-                        if(scheduleTour.Id == schedule.Id)
-                        {
-                            tour.TourSchedules.Remove(tourScheduleRepository.GetById(schedule.Id));
-                        }
-                    }*/
-                   if(tour.Id == schedule.TourId)
-                    {
-                        continue;
-                    }
-                        
-                    tours.Add(tour);
-                }
-            }
-            return tours;
+            return GetAll().Where(t => HasSameLocation(t, schedule)).ToList();
         }
 
-       
+        private bool HasSameLocation(Tour tour, TourScheduleDTO schedule)
+        {
+            LocationRepository locationRepository = new LocationRepository();
+            Tour currentTour = GetById(schedule.TourId);
+            string currentTourCity = locationRepository.GetById(currentTour.LocationId).City;
+            string otherTourCity = locationRepository.GetById(tour.LocationId).City;
+
+            return otherTourCity == currentTourCity && tour.Id != schedule.TourId;
+        }
 
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
-        }
-        public void NotifyObservers()
-        {
-            foreach (var observer in _observers)
-            {
-                observer.Update();
-            }
         }
 
     }
