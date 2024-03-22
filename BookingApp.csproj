@@ -35,6 +35,7 @@
     <None Remove="Resources\Images\location-ping.png" />
     <None Remove="Resources\Images\location.png" />
     <None Remove="Resources\Images\ns.jpg" />
+    <None Remove="Resources\Images\owner-info.png" />
     <None Remove="Resources\Images\palermo-test.jpg" />
     <None Remove="Resources\Images\palermo.jpeg" />
     <None Remove="Resources\Images\palermo.jpg" />
@@ -45,6 +46,7 @@
     <None Remove="Resources\Images\pupin4.jpg" />
     <None Remove="Resources\Images\pupin5.jpg" />
     <None Remove="Resources\Images\rarrow.png" />
+    <None Remove="Resources\Images\right-arrow.png" />
     <None Remove="Resources\Images\sheraton1.jpg" />
     <None Remove="Resources\Images\terme1.jpg" />
     <None Remove="Resources\Images\terme2.jpg" />
@@ -133,6 +135,9 @@
     <Content Include="Resources\Images\ns.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\owner-info.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\palermo-test.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -152,6 +157,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\rarrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\right-arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\sheraton1.jpg">

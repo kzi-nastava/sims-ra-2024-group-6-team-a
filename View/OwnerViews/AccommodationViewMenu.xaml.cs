@@ -21,10 +21,12 @@ namespace BookingApp.View
     {
         public static ObservableCollection<AccommodationOwnerDTO> Accommodations { get; set; }
         public static ObservableCollection<GuestReviewDTO> GuestReviews { get; set; }
+        public static ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
 
 
         public AccommodationOwnerDTO SelectedAccommodation { get; set; }
         public GuestReviewDTO SelectedGuestReview { get; set; }
+        public ReservationOwnerDTO SelectedReservation { get; set; }
 
 
         public User User { get; set; }
@@ -52,6 +54,7 @@ namespace BookingApp.View
 
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
             GuestReviews = new ObservableCollection<GuestReviewDTO>();
+            Reservations = new ObservableCollection<ReservationOwnerDTO>();
 
             Update();
             GuestsNotReviewedNotification();
@@ -83,11 +86,13 @@ namespace BookingApp.View
         {
             Accommodations.Clear(); //we must clear so it doesnt duplicate
             GuestReviews.Clear();
+            Reservations.Clear();
 
             foreach (Accommodation a in _repository.GetByUser(User))
             {
                 foreach (AccommodationReservation r in _reservationRepository.GetByAccommodation(a))
                 {
+                    AddReservations(r,a);
                     CheckGuestReview(a, r);  
                 }
                 
@@ -98,6 +103,19 @@ namespace BookingApp.View
 
             
 
+        }
+
+        public void AddReservations(AccommodationReservation reservation,Accommodation accommodation)
+        {
+            if(reservation.CheckOutDate > DateOnly.FromDateTime(DateTime.Now))
+            {
+                String userName = _userRepository.GetUsername(reservation.GuestId);
+                String imagePath = AddMainAccommodationImage(accommodation);
+
+                ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, accommodation.Name, _locationRepository.GetByAccommodation(accommodation), imagePath);
+
+                Reservations.Add(newReservation);
+            }
         }
 
         //check to see if the review exists and the guest left the premises,adds empty reviews if only less than 5 days passed,and all filled reviews
@@ -208,7 +226,7 @@ namespace BookingApp.View
             {
                 Close();
             }
-            else if(e.Key == Key.R) 
+            else if(e.Key == Key.F1) 
             {
                 RegisterAccommodation(sender,e);
             }
@@ -226,6 +244,12 @@ namespace BookingApp.View
                 SelectFirstReview();
 
             }
+            else if(e.Key == Key.R) 
+            {
+                Tabs.SelectedItem = ReservationsTab;
+
+                SelectFirstReservation();
+            }
         }
 
         private void SelectFirstAccommodation()
@@ -233,6 +257,7 @@ namespace BookingApp.View
             if (SelectedAccommodation == null)
             {
                 SelectedGuestReview = null;
+                SelectedReservation = null;
                 SelectedAccommodation = Accommodations.First();
                 AccommodationsList.SelectedIndex = 0;
                 AccommodationsList.UpdateLayout();
@@ -246,6 +271,7 @@ namespace BookingApp.View
             if (SelectedGuestReview == null)
             {
                 SelectedAccommodation = null;
+                SelectedReservation = null;
                 SelectedGuestReview = GuestReviews.First();
                 ReviewsList.SelectedIndex = 0;
                 ReviewsList.UpdateLayout();
@@ -254,6 +280,24 @@ namespace BookingApp.View
 
         }
 
+        private void SelectFirstReservation()
+        {
+            if (SelectedReservation == null)
+            {
+                SelectedGuestReview = null;
+                SelectedAccommodation = null;
+                SelectedReservation = Reservations.First();
+                ReservationsList.SelectedIndex = 0;
+                ReservationsList.UpdateLayout();
+                ReservationsList.Focus();
+
+            }
+        }
+
+        private void OwnerInfo(object sender, RoutedEventArgs e)
+        {
+
+        }
 
     }
 }
