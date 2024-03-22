@@ -22,11 +22,14 @@ namespace BookingApp.View
         public static ObservableCollection<AccommodationOwnerDTO> Accommodations { get; set; }
         public static ObservableCollection<GuestReviewDTO> GuestReviews { get; set; }
         public static ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
+        public static ObservableCollection<ReservationChangeDTO> ReservationChanges { get; set; }
+
 
 
         public AccommodationOwnerDTO SelectedAccommodation { get; set; }
         public GuestReviewDTO SelectedGuestReview { get; set; }
         public ReservationOwnerDTO SelectedReservation { get; set; }
+        public ReservationChangeDTO SelectedChange { get; set; }
 
 
         public User User { get; set; }
@@ -55,6 +58,7 @@ namespace BookingApp.View
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
             GuestReviews = new ObservableCollection<GuestReviewDTO>();
             Reservations = new ObservableCollection<ReservationOwnerDTO>();
+            ReservationChanges = new ObservableCollection<ReservationChangeDTO>();
 
             Update();
             GuestsNotReviewedNotification();
@@ -87,16 +91,19 @@ namespace BookingApp.View
             Accommodations.Clear(); //we must clear so it doesnt duplicate
             GuestReviews.Clear();
             Reservations.Clear();
+            ReservationChanges.Clear();
 
             foreach (Accommodation a in _repository.GetByUser(User))
             {
                 foreach (AccommodationReservation r in _reservationRepository.GetByAccommodation(a))
                 {
-                    AddReservations(r,a);
-                    CheckGuestReview(a, r);  
+                    CheckReservationStatus(r, a);
+                    CheckGuestReview(a, r);
                 }
                 
                 string imagePath = AddMainAccommodationImage(a);
+
+
 
                 Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a),imagePath));  
             }
@@ -104,6 +111,26 @@ namespace BookingApp.View
             
 
         }
+
+
+        public void CheckReservationStatus(AccommodationReservation reservation,Accommodation accommodation)
+        {
+            if (reservation.Status != Enums.ReservationStatus.Changed)
+                AddReservations(reservation, accommodation);
+            else
+                AddChangedReservations(reservation,accommodation);
+        }
+
+        public void AddChangedReservations(AccommodationReservation reservation, Accommodation accommodation)
+        {
+            String userName = _userRepository.GetUsername(reservation.GuestId);
+
+            ReservationChangeDTO newChange = new ReservationChangeDTO(userName, accommodation.Name, reservation.CheckInDate.ToString(), reservation.CheckInDate.ToString(), "Yes");
+
+            ReservationChanges.Add(newChange);
+           
+        }
+
 
         public void AddReservations(AccommodationReservation reservation,Accommodation accommodation)
         {

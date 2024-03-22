@@ -44,13 +44,12 @@
                     <TextBlock><Underline>A</Underline>ccommodations</TextBlock>
                 </TabItem.Header>
                 <Grid>
-                    <ListBox Background="Bisque" x:Name="AccommodationsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedAccommodation}" ItemsSource="{Binding Accommodations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ListBox x:Name="AccommodationsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedAccommodation}" ItemsSource="{Binding Accommodations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  MinWidth="825" Margin="0,0,0,-4">
-                            <Grid Background="Bisque">
-
-                                <Grid.ColumnDefinitions>
+                              <Grid>
+                                        <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="125" />
                                     <ColumnDefinition Width="475" />
                                     <ColumnDefinition Width="250" />
@@ -164,11 +163,11 @@
                     <TextBlock><Underline>R</Underline>eservations</TextBlock>
                 </TabItem.Header>
                 <Grid>
-                    <ListBox Background="Bisque" x:Name="ReservationsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedReservation}" ItemsSource="{Binding Reservations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ListBox  x:Name="ReservationsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedReservation}" ItemsSource="{Binding Reservations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  MinWidth="825" Margin="0,0,0,-4">
-                                    <Grid Background="Bisque">
+                                    <Grid>
 
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="125" />
@@ -208,6 +207,15 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
+            </TabItem>
+            <TabItem x:Name="ReservationChangesTab">
+                <TabItem.Header>
+                    <TextBlock>Reservation <Underline>c</Underline>hanges</TextBlock>
+                </TabItem.Header>
+
+                <DataGrid x:Name="ReservationChangesGrid" ItemsSource="{Binding ReservationChanges}">
+                    
+                </DataGrid>
             </TabItem>
         </TabControl>
     </Grid>

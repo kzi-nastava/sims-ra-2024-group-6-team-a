@@ -21,6 +21,7 @@ namespace BookingApp.Model
         public int CancelationDays { get; set; }
         List<Image> Images { get; set; }
 
+
         public Accommodation()
         {
 
@@ -40,7 +41,8 @@ namespace BookingApp.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, Type.ToString(), MaxGuests.ToString(), MinReservationDays.ToString(), CancelationDays.ToString(),LocationId.ToString(),OwnerId.ToString()};
+
+            string[] csvValues = { Id.ToString(), Name, Type.ToString(), MaxGuests.ToString(), MinReservationDays.ToString(), CancelationDays.ToString(), LocationId.ToString(), OwnerId.ToString() };
             return csvValues;
         }
 
@@ -54,6 +56,7 @@ namespace BookingApp.Model
             CancelationDays= Convert.ToInt32(values[5]);
             LocationId = Convert.ToInt32(values[6]);
             OwnerId = Convert.ToInt32(values[7]);
+ 
         }
 
 

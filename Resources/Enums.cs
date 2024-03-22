@@ -31,7 +31,8 @@ namespace BookingApp.Resources
         public enum ReservationStatus
         {
             Active,
-            Canceled
+            Canceled,
+            Changed
             
         }
         public enum TourActivity

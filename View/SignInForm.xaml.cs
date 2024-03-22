@@ -20,6 +20,7 @@ namespace BookingApp.View
         private readonly TourScheduleRepository _tourScheduleRepository;
         private readonly TourReservationRepository _tourReservationRepository;
         private readonly UserRepository _userRepository;
+        private readonly ReservationChangeRepository _reservationChangeRepository;
         //private readonly TourRepository _tourRepository;
 
         private string _username;
