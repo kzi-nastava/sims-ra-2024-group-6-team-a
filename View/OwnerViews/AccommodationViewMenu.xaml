@@ -19,16 +19,39 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
-            <Button Click="RegisterAccommodation">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Resources/Images/add.png" Width="20" Height="25"/>
-                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0"><Underline>R</Underline>egister</TextBlock>
-                </StackPanel>
-            </Button>
-            <Separator/>
 
-        </ToolBar>
+            <ToolBar Grid.Row="0" Grid.ColumnSpan="3"> 
+                <Button Click="RegisterAccommodation">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Images/add.png" Width="20" Height="25"/>
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">Register(F1)</TextBlock>
+                    <Separator/>
+                </StackPanel>
+                </Button>
+
+                <Button Click="OwnerInfo">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Images/owner-info.png" Width="20" Height="25"/>
+                        <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">My Info(F2)</TextBlock>
+                    <Separator/>
+                </StackPanel>
+                
+            </Button>
+   
+      
+                <Button Click="SelectedDetailed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Images/more.png" Width="20" Height="25"/>
+                    <TextBlock FontSize="14"  VerticalAlignment="Center" Margin="5,0,0,0">Selected details(ENTER)</TextBlock>
+
+                    </StackPanel>
+                </Button>
+                
+            </ToolBar>
+            
+
+
+        
 
 
         <TabControl Grid.Row="2" Grid.Column="1" x:Name="Tabs">
@@ -37,13 +60,16 @@
                     <TextBlock><Underline>A</Underline>ccommodations</TextBlock>
                 </TabItem.Header>
                 <Grid>
-                    <ListBox Background="Bisque" x:Name="AccommodationsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedAccommodation}" ItemsSource="{Binding Accommodations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  MinWidth="825" Margin="0,0,0,-4">
-                            <Grid Background="Bisque">
-
-                                <Grid.ColumnDefinitions>
+                
+                    <ListBox x:Name="AccommodationsList" KeyDown="DetailedView"  SelectedItem="{Binding SelectedAccommodation}" ItemsSource="{Binding Accommodations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        
+                            <ListBox.ItemTemplate>
+                            
+                                <DataTemplate>
+                                   
+                        <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  MinWidth="800" Margin="0,0,0,-4">
+                              <Grid>
+                                        <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="125" />
                                     <ColumnDefinition Width="475" />
                                     <ColumnDefinition Width="250" />
@@ -88,8 +114,11 @@
 
                             </Grid>
                         </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+                            
+                            </DataTemplate>
+                            
+                        </ListBox.ItemTemplate>
+                        
             </ListBox>
         </Grid>
             </TabItem>
@@ -151,6 +180,72 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </Grid>
+            </TabItem>
+            <TabItem x:Name="ReservationsTab">
+                <TabItem.Header>
+                    <TextBlock><Underline>R</Underline>eservations</TextBlock>
+                </TabItem.Header>
+                <Grid>
+                    <ListBox  x:Name="ReservationsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedReservation}" ItemsSource="{Binding Reservations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  MinWidth="825" Margin="0,0,0,-4">
+                                    <Grid>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="125" />
+                                            <ColumnDefinition Width="475" />
+                                            <ColumnDefinition Width="250" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"></RowDefinition>
+                                            <RowDefinition Height="50"></RowDefinition>
+                                            <RowDefinition Height="40"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <Border  Grid.RowSpan ="3" Grid.Column="0" CornerRadius="1" BorderBrush="LightBlue" BorderThickness="4">
+                                            <Image Source="{Binding Image}"  Stretch="Fill"/>
+                                        </Border>
+
+                                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,0,2,2">
+                                            <TextBlock Text="{Binding CheckIn,StringFormat='dd MMMM,yyyy'}" Margin="2,7,2,2" FontSize="28"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                            <Image Source="/Resources/Images/right-arrow.png" Margin="6,1,6,5" Width="25" Height="25" VerticalAlignment="Bottom"></Image>
+                                            <TextBlock Text="{Binding CheckOut,StringFormat='dd MMMM,yyyy'}" Margin="0,7,2,2" FontSize="28"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                        </StackPanel>
+
+                                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding GuestName}" FontSize="22" FontWeight="ExtraBold" FontStyle="Italic" Foreground="DarkSlateBlue"></Label>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="2,0,2,2">
+                                            <TextBlock Text="{Binding AccommodationName}" Margin="2,2,2,7" FontSize="24" FontWeight="Bold" Foreground="SlateBlue" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                            <Rectangle Width="3" Height="40" Fill="DeepSkyBlue" Margin="3,0,3,-2" VerticalAlignment="Bottom"/>
+                                            <TextBlock Text="{Binding City}" Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right">,</TextBlock>
+                                            <TextBlock Text="{Binding State}" Margin="0,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right" ></TextBlock>
+                                            <Image Source="/Resources/Images/location-ping.png" HorizontalAlignment="Right" Width="25" Height="25" VerticalAlignment="Top"></Image>
+                                        </StackPanel>
+                                        
+
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="ReservationChangesTab" Keyboard.KeyDown="DetailedView">
+                <TabItem.Header>
+                    <TextBlock>Reservation <Underline>c</Underline>hanges</TextBlock>
+                </TabItem.Header>
+
+                <DataGrid x:Name="ReservationChangesGrid" 
+                        ItemsSource="{Binding ReservationChanges}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible" IsReadOnly="True" SelectedItem="{Binding SelectedChange}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="To"  Binding="{Binding NewDate}" Width="250" />
+                        <DataGridTextColumn Header="From"  Binding="{Binding OldDate}" Width="250" />
+                        <DataGridTextColumn Header="Accommodation"  Binding="{Binding AccommodationName}" Width="*" />
+                        <DataGridTextColumn Header="Guest"  Binding="{Binding GuestName}" Width="*" />
+                        <DataGridTextColumn Header="Already booked"  Binding="{Binding BookedStatus}" Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
         </TabControl>
     </Grid>
