@@ -55,6 +55,7 @@ namespace BookingApp.View
             _tourScheduleRepository = new TourScheduleRepository();
             _tourReservationRepository = new TourReservationRepository();
             _userRepository = new UserRepository();
+            _reservationChangeRepository = new ReservationChangeRepository();
             //_tourRepository = new TourRepository();
         }
         
@@ -97,7 +98,7 @@ namespace BookingApp.View
 
         private void InitiateAccommodationView(User user)
         {
-            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(user, _locationRepository, _imageRepository, _accommodationReservationRepository, _repository);
+            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(user, _locationRepository, _imageRepository, _accommodationReservationRepository, _repository,_reservationChangeRepository);
             accommodationViewMenu.Show();
             Close();
         }

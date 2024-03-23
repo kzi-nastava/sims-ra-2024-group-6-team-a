@@ -213,8 +213,15 @@
                     <TextBlock>Reservation <Underline>c</Underline>hanges</TextBlock>
                 </TabItem.Header>
 
-                <DataGrid x:Name="ReservationChangesGrid" ItemsSource="{Binding ReservationChanges}">
-                    
+                <DataGrid x:Name="ReservationChangesGrid" 
+                        ItemsSource="{Binding ReservationChanges}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="To"  Binding="{Binding NewDate}" Width="250" />
+                        <DataGridTextColumn Header="From"  Binding="{Binding OldDate}" Width="250" />
+                        <DataGridTextColumn Header="Accommodation"  Binding="{Binding AccommodationName}" Width="*" />
+                        <DataGridTextColumn Header="Guest"  Binding="{Binding GuestName}" Width="*" />
+                        <DataGridTextColumn Header="Already booked"  Binding="{Binding BookedStatus}" Width="*" />
+                    </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
         </TabControl>

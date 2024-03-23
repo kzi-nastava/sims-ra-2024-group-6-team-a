@@ -39,16 +39,17 @@ namespace BookingApp.View
         private AccommodationReservationRepository _reservationRepository;
         private UserRepository _userRepository;
         private GuestReviewRepository _guestReviewRepository;
+        private ReservationChangeRepository _reservationChangeRepository;
         bool existsNotReviewed = false;
         
 
-        public AccommodationViewMenu(User user,LocationRepository _locationRepository,ImageRepository _imageRepository,AccommodationReservationRepository _reservationRepository,UserRepository _userRepository)
+        public AccommodationViewMenu(User user,LocationRepository _locationRepository,ImageRepository _imageRepository,AccommodationReservationRepository _reservationRepository,UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository)
         {
             InitializeComponent();
             DataContext = this;
 
 
-            InitiliazeRepositories(_locationRepository,  _imageRepository, _reservationRepository, _userRepository);
+            InitiliazeRepositories(_locationRepository,  _imageRepository, _reservationRepository, _userRepository,_reservationChangeRepository);
            
 
             Title = user.Username + "'s accommodations"; // ime prozora ce biti ime vlasnika
@@ -67,12 +68,13 @@ namespace BookingApp.View
 
         }
 
-        public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository)
+        public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository)
         {
             this._locationRepository = _locationRepository;
             this._imageRepository = _imageRepository;
             this._reservationRepository = _reservationRepository;
             this._userRepository = _userRepository;
+            this._reservationChangeRepository = _reservationChangeRepository;
             _repository = new AccommodationRepository();
             _guestReviewRepository = new GuestReviewRepository();
         }
@@ -118,14 +120,48 @@ namespace BookingApp.View
             if (reservation.Status != Enums.ReservationStatus.Changed)
                 AddReservations(reservation, accommodation);
             else
-                AddChangedReservations(reservation,accommodation);
+            {
+                AccommodationReservation newReservation = _reservationChangeRepository.Get(reservation.Id);
+
+                AddChangedReservations(newReservation, reservation, accommodation);
+            }
         }
 
-        public void AddChangedReservations(AccommodationReservation reservation, Accommodation accommodation)
+        public bool CheckIfAlreadyBooked(AccommodationReservation newReservation,Accommodation accommodation)
         {
-            String userName = _userRepository.GetUsername(reservation.GuestId);
+            foreach(AccommodationReservation reservation in _reservationRepository.GetAll())
+            { 
+                if(reservation.AccommodationId == accommodation.Id && newReservation.Id != reservation.Id && DoesDateInterfere(reservation,newReservation))
+                {
+                    return true;
+                }
+            }
 
-            ReservationChangeDTO newChange = new ReservationChangeDTO(userName, accommodation.Name, reservation.CheckInDate.ToString(), reservation.CheckInDate.ToString(), "Yes");
+            return false;
+        }
+
+        public bool DoesDateInterfere(AccommodationReservation oldR,AccommodationReservation newR)
+        {
+            if (newR.CheckInDate < oldR.CheckInDate && newR.CheckOutDate < oldR.CheckInDate)
+                return false;
+
+            if (newR.CheckInDate > oldR.CheckOutDate && newR.CheckOutDate > oldR.CheckOutDate)
+                return false;
+
+            return true;
+        }
+
+        public void AddChangedReservations(AccommodationReservation newReservation,AccommodationReservation oldReservation, Accommodation accommodation)
+        {
+            String userName = _userRepository.GetUsername(oldReservation.GuestId);
+            String oldDate = oldReservation.CheckInDate.ToString("dd MMMM yyyy") + "   ->   " + oldReservation.CheckOutDate.ToString("dd MMMM yyyy");
+            String newDate = newReservation.CheckInDate.ToString("dd MMMM yyyy") + "   ->   " + newReservation.CheckOutDate.ToString("dd MMMM yyyy");
+            String bookedStatus = "No";
+            if (CheckIfAlreadyBooked(newReservation, accommodation))
+                bookedStatus = "Yes";
+
+
+            ReservationChangeDTO newChange = new ReservationChangeDTO(userName, accommodation.Name,oldDate,newDate,bookedStatus);
 
             ReservationChanges.Add(newChange);
            
@@ -277,6 +313,12 @@ namespace BookingApp.View
 
                 SelectFirstReservation();
             }
+            else if(e.Key == Key.C)
+            {
+                Tabs.SelectedItem = ReservationChangesTab;
+
+                SelectFirstResChange();
+            }
         }
 
         private void SelectFirstAccommodation()
@@ -285,6 +327,7 @@ namespace BookingApp.View
             {
                 SelectedGuestReview = null;
                 SelectedReservation = null;
+                SelectedChange = null;
                 SelectedAccommodation = Accommodations.First();
                 AccommodationsList.SelectedIndex = 0;
                 AccommodationsList.UpdateLayout();
@@ -299,6 +342,7 @@ namespace BookingApp.View
             {
                 SelectedAccommodation = null;
                 SelectedReservation = null;
+                SelectedChange = null;
                 SelectedGuestReview = GuestReviews.First();
                 ReviewsList.SelectedIndex = 0;
                 ReviewsList.UpdateLayout();
@@ -313,6 +357,7 @@ namespace BookingApp.View
             {
                 SelectedGuestReview = null;
                 SelectedAccommodation = null;
+                SelectedChange = null;
                 SelectedReservation = Reservations.First();
                 ReservationsList.SelectedIndex = 0;
                 ReservationsList.UpdateLayout();
@@ -320,6 +365,24 @@ namespace BookingApp.View
 
             }
         }
+
+
+        private void SelectFirstResChange()
+        {
+            if (SelectedChange == null)
+            {
+                SelectedGuestReview = null;
+                SelectedAccommodation = null;
+                SelectedReservation = null;
+                SelectedChange = ReservationChanges.First();
+                ReservationChangesGrid.SelectedIndex = 0;
+                ReservationChangesGrid.UpdateLayout();
+                ReservationChangesGrid.Focus();
+
+            }
+        }
+
+
 
         private void OwnerInfo(object sender, RoutedEventArgs e)
         {
