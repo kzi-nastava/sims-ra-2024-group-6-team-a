@@ -18,6 +18,11 @@ namespace BookingApp.Model
         public double AverageGrade { get; set; }
         public int Ranking { get; set; }
 
+        public Owner()
+        {
+
+        }
+
 
         public string[] ToCSV()
         {

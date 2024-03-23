@@ -29,7 +29,7 @@
                 </StackPanel>
                 </Button>
 
-                <Button Click="OwnerInfo">
+                <Button Click="EnterOwnerInfo">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Images/owner-info.png" Width="20" Height="25"/>
                         <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">My Info(F2)</TextBlock>

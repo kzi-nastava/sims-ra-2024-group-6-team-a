@@ -31,6 +31,8 @@ namespace BookingApp.View
         public ReservationOwnerDTO SelectedReservation { get; set; }
         public ReservationChangeDTO SelectedChange { get; set; }
 
+        public OwnerInfoDTO OwnerInfo { get; set; }
+
 
         public Owner Owner { get; set; }
         private AccommodationRepository _repository;
@@ -62,7 +64,7 @@ namespace BookingApp.View
             GuestReviews = new ObservableCollection<GuestReviewDTO>();
             Reservations = new ObservableCollection<ReservationOwnerDTO>();
             ReservationChanges = new ObservableCollection<ReservationChangeDTO>();
-
+            OwnerInfo = new OwnerInfoDTO(owner);
             
 
             Update();
@@ -412,8 +414,10 @@ namespace BookingApp.View
 
 
 
-        private void OwnerInfo(object sender, RoutedEventArgs e)
+        private void EnterOwnerInfo(object sender, RoutedEventArgs e)
         {
+            OwnerInfo ownerInfo = new OwnerInfo(OwnerInfo);
+            ownerInfo.ShowDialog();
 
         }
 
