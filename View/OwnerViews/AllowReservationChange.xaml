@@ -1,0 +1,71 @@
+﻿<Window x:Class="BookingApp.View.AllowReservationChange"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View"
+        mc:Ignorable="d"
+        Title="AllowReservationChange" Height="350" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom">Guest Name :</TextBlock>
+
+                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding GuestName}" VerticalAlignment="Bottom"></TextBlock>
+                </StackPanel>
+
+                <Rectangle HorizontalAlignment="Stretch" Fill="Blue" Height="4"/>
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom">Accommodation :</TextBlock>
+                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding AccommodationName}" VerticalAlignment="Bottom"></TextBlock>
+                </StackPanel>
+                 <Rectangle HorizontalAlignment="Stretch" Fill="Blue" Height="4"/>
+
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom">Old period:</TextBlock>
+                    <TextBlock Margin="5,2,5,6"  FontSize="12" Text="{Binding OldDate}" VerticalAlignment="Bottom"></TextBlock>
+                </StackPanel>
+            <Rectangle HorizontalAlignment="Stretch" Fill="Blue" Height="4"/>
+
+            
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom">New period:</TextBlock>
+                <TextBlock Margin="5,2,5,6"  FontSize="12" Text="{Binding NewDate}" VerticalAlignment="Bottom"></TextBlock>
+                </StackPanel>
+
+
+            <Rectangle HorizontalAlignment="Stretch" Fill="Blue" Height="4"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom">Already Booked:</TextBlock>
+                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding BookedStatus}" VerticalAlignment="Bottom"></TextBlock>
+                </StackPanel>
+
+            <Rectangle HorizontalAlignment="Stretch" Fill="Blue" Height="4"/>
+
+            <TextBlock Margin="3,30,3,10" HorizontalAlignment="center" FontWeight="Bold" FontSize="25">Allow the reservation change?</TextBlock>
+
+            <StackPanel Orientation="Horizontal" Margin="3,10,3,10" HorizontalAlignment="center">
+                <Button Background="Bisque" Click="YesClick">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Images/yes.png" Width="40" Height="40"></Image>
+                        <TextBlock FontSize="25" Margin="12,3,12,3">Yes</TextBlock>
+                    </StackPanel>
+
+                </Button>
+                <Button Background="Bisque" Click="NoClick">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Images/no.png" Width="40" Height="40"></Image>
+                        <TextBlock FontSize="25" Margin="12,3,12,3">No</TextBlock>
+                    </StackPanel>
+                    
+                </Button>
+            </StackPanel>
+            
+
+
+        </StackPanel>
+
+    </Grid>
+</Window>

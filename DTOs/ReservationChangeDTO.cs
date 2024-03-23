@@ -18,6 +18,8 @@ namespace BookingApp.DTOs
             }
         }
 
+        public int ReservationID { get; set; }
+
         private string guestName;
         public string GuestName
         {
@@ -101,8 +103,9 @@ namespace BookingApp.DTOs
             }
         }
 
-        public ReservationChangeDTO(string guestName, string accommodationName, string oldDate,  string newDate,  string bookedStatus)
+        public ReservationChangeDTO(int id,string guestName, string accommodationName, string oldDate,  string newDate,  string bookedStatus)
         {
+            ReservationID = id;
             GuestName = guestName;
             AccommodationName = accommodationName;
             OldDate = oldDate;

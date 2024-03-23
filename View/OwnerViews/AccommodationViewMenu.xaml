@@ -19,23 +19,39 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
-            <Button Click="RegisterAccommodation">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Resources/Images/add.png" Width="20" Height="25"/>
+
+            <ToolBar Grid.Row="0" Grid.ColumnSpan="3"> 
+                <Button Click="RegisterAccommodation">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Images/add.png" Width="20" Height="25"/>
                     <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">Register(F1)</TextBlock>
+                    <Separator/>
                 </StackPanel>
-            </Button>
+                </Button>
 
-            <Button Click="OwnerInfo">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Resources/Images/owner-info.png" Width="20" Height="25"/>
-                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">My Info(F2)</TextBlock>
+                <Button Click="OwnerInfo">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Images/owner-info.png" Width="20" Height="25"/>
+                        <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">My Info(F2)</TextBlock>
+                    <Separator/>
                 </StackPanel>
+                
             </Button>
-            <Separator/>
+   
+      
+                <Button Click="SelectedDetailed">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Images/more.png" Width="20" Height="25"/>
+                    <TextBlock FontSize="14"  VerticalAlignment="Center" Margin="5,0,0,0">Selected details(ENTER)</TextBlock>
 
-        </ToolBar>
+                    </StackPanel>
+                </Button>
+                
+            </ToolBar>
+            
+
+
+        
 
 
         <TabControl Grid.Row="2" Grid.Column="1" x:Name="Tabs">
@@ -44,10 +60,14 @@
                     <TextBlock><Underline>A</Underline>ccommodations</TextBlock>
                 </TabItem.Header>
                 <Grid>
-                    <ListBox x:Name="AccommodationsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedAccommodation}" ItemsSource="{Binding Accommodations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  MinWidth="825" Margin="0,0,0,-4">
+                
+                    <ListBox x:Name="AccommodationsList" KeyDown="DetailedView"  SelectedItem="{Binding SelectedAccommodation}" ItemsSource="{Binding Accommodations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        
+                            <ListBox.ItemTemplate>
+                            
+                                <DataTemplate>
+                                   
+                        <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  MinWidth="800" Margin="0,0,0,-4">
                               <Grid>
                                         <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="125" />
@@ -94,8 +114,11 @@
 
                             </Grid>
                         </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+                            
+                            </DataTemplate>
+                            
+                        </ListBox.ItemTemplate>
+                        
             </ListBox>
         </Grid>
             </TabItem>
@@ -208,13 +231,13 @@
                     </ListBox>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="ReservationChangesTab">
+            <TabItem x:Name="ReservationChangesTab" Keyboard.KeyDown="DetailedView">
                 <TabItem.Header>
                     <TextBlock>Reservation <Underline>c</Underline>hanges</TextBlock>
                 </TabItem.Header>
 
                 <DataGrid x:Name="ReservationChangesGrid" 
-                        ItemsSource="{Binding ReservationChanges}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible" IsReadOnly="True">
+                        ItemsSource="{Binding ReservationChanges}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible" IsReadOnly="True" SelectedItem="{Binding SelectedChange}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="To"  Binding="{Binding NewDate}" Width="250" />
                         <DataGridTextColumn Header="From"  Binding="{Binding OldDate}" Width="250" />
