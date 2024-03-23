@@ -32,7 +32,7 @@ namespace BookingApp.View
         public ReservationChangeDTO SelectedChange { get; set; }
 
 
-        public User User { get; set; }
+        public Owner Owner { get; set; }
         private AccommodationRepository _repository;
         private LocationRepository _locationRepository;
         private ImageRepository _imageRepository;
@@ -40,21 +40,22 @@ namespace BookingApp.View
         private UserRepository _userRepository;
         private GuestReviewRepository _guestReviewRepository;
         private ReservationChangeRepository _reservationChangeRepository;
+        private OwnerRepository _ownerRepository;
         bool existsNotReviewed = false;
 
         
 
-        public AccommodationViewMenu(User user, LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository)
+        public AccommodationViewMenu(Owner owner, LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository,OwnerRepository _ownerRepository)
         {
             InitializeComponent();
             DataContext = this;
 
 
-            InitiliazeRepositories(_locationRepository, _imageRepository, _reservationRepository, _userRepository, _reservationChangeRepository);
+            InitiliazeRepositories(_locationRepository, _imageRepository, _reservationRepository, _userRepository, _reservationChangeRepository,_ownerRepository);
 
 
-            Title = user.Username + "'s accommodations"; // ime prozora ce biti ime vlasnika
-            User = user;
+            Title = owner.Name + " " + owner.Surname + "'s accommodations"; // ime prozora ce biti ime vlasnika
+            Owner = owner;
 
 
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
@@ -71,20 +72,21 @@ namespace BookingApp.View
 
         }
 
-        public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository)
+        public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository)
         {
             this._locationRepository = _locationRepository;
             this._imageRepository = _imageRepository;
             this._reservationRepository = _reservationRepository;
             this._userRepository = _userRepository;
             this._reservationChangeRepository = _reservationChangeRepository;
+            this._ownerRepository = _ownerRepository;
             _repository = new AccommodationRepository();
             _guestReviewRepository = new GuestReviewRepository();
         }
 
         private void RegisterAccommodation(object sender, RoutedEventArgs e) //poziva konstruktor dodavanja novog smestaja
         {
-            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_repository, _locationRepository, _imageRepository, User.Id);
+            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_repository, _locationRepository, _imageRepository, Owner.Id);
             registerAccommodationMenu.ShowDialog();
             Update();
         }
@@ -98,7 +100,7 @@ namespace BookingApp.View
             Reservations.Clear();
             ReservationChanges.Clear();
 
-            foreach (Accommodation a in _repository.GetByUser(User))
+            foreach (Accommodation a in _repository.GetByOwnerId(Owner.Id))
             {
                 foreach (AccommodationReservation r in _reservationRepository.GetByAccommodation(a))
                 {

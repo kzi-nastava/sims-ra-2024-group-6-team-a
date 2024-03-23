@@ -53,5 +53,16 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _owners);
         }
 
+        public Owner Update(Owner owner)
+        {
+            _owners = _serializer.FromCSV(FilePath);
+            Owner current = _owners.Find(c => c.Id == owner.Id);
+            int index = _owners.IndexOf(current);
+            _owners.Remove(current);
+            _owners.Insert(index, owner);       
+            _serializer.ToCSV(FilePath, _owners);
+            return owner;
+        }
+
     }
 }

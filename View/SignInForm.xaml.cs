@@ -21,6 +21,7 @@ namespace BookingApp.View
         private readonly TourReservationRepository _tourReservationRepository;
         private readonly UserRepository _userRepository;
         private readonly ReservationChangeRepository _reservationChangeRepository;
+        private readonly OwnerRepository _ownerRepository;
         //private readonly TourRepository _tourRepository;
 
         private string _username;
@@ -56,6 +57,7 @@ namespace BookingApp.View
             _tourReservationRepository = new TourReservationRepository();
             _userRepository = new UserRepository();
             _reservationChangeRepository = new ReservationChangeRepository();
+            _ownerRepository = new OwnerRepository();
             //_tourRepository = new TourRepository();
         }
         
@@ -70,7 +72,8 @@ namespace BookingApp.View
                     {
 
                         case Enums.UserType.Owner:
-                            InitiateAccommodationView(user);
+                            Owner owner = _ownerRepository.GetAll().Find(o => o.Id == user.Id);
+                            InitiateAccommodationView(owner);
                             break;
                         case Enums.UserType.Guest:
                             InitiateGuestView(user);
@@ -96,9 +99,9 @@ namespace BookingApp.View
             
         }
 
-        private void InitiateAccommodationView(User user)
+        private void InitiateAccommodationView(Owner owner)
         {
-            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(user, _locationRepository, _imageRepository, _accommodationReservationRepository, _repository,_reservationChangeRepository);
+            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(owner, _locationRepository, _imageRepository, _accommodationReservationRepository, _repository,_reservationChangeRepository,_ownerRepository);
             accommodationViewMenu.Show();
             Close();
         }
