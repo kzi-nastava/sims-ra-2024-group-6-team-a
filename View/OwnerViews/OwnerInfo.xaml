@@ -5,25 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="OwnerInfo" Height="500" Width="600" WindowStartupLocation="CenterScreen">
+        Title="OwnerInfo" Height="600" Width="700" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="400"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="250"></RowDefinition>
-            <RowDefinition Height="250"></RowDefinition>
+            <RowDefinition Height="300"></RowDefinition>
+            <RowDefinition Height="300"></RowDefinition>
         </Grid.RowDefinitions>
-
-        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical">
+        <Border BorderBrush="DarkBlue" BorderThickness="2">
+            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <TextBlock>Name:</TextBlock>
-                <TextBlock Text="{Binding Name}"></TextBlock>
+                <TextBlock Foreground="Blue" FontSize="20">Name: </TextBlock>
+                    <TextBlock Text="{Binding Name}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
             </StackPanel>
 
+            <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
 
-        </StackPanel>
+            
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Foreground="Blue" FontSize="20">Surname: </TextBlock>
+                    <TextBlock Text="{Binding Surname}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
+                </StackPanel>
+
+                <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="Blue" FontSize="20">Reservations: </TextBlock>
+                    <TextBlock Text="{Binding Reservations}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
+            </StackPanel>
+
+            <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="Blue" FontSize="20">Accommodation count:</TextBlock>
+                <TextBlock Text="{Binding Accommodations}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
+            </StackPanel>
+
+                <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Foreground="Blue" FontSize="20">Average Grade:</TextBlock>
+                    <TextBlock Text="{Binding Grade}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
+                </StackPanel>
+
+                <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Foreground="Blue" FontSize="20">Status:</TextBlock>
+                    <TextBlock Text="{Binding Status}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
+                </StackPanel>
+
+                <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Foreground="Blue" FontSize="20">Ranking:</TextBlock>
+                    <TextBlock Text="{Binding Ranking}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
+                </StackPanel>
+
+                <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
+
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

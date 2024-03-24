@@ -42,7 +42,7 @@
                 <Button Click="SelectedDetailed">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Images/more.png" Width="20" Height="25"/>
-                    <TextBlock FontSize="14"  VerticalAlignment="Center" Margin="5,0,0,0">Selected details(ENTER)</TextBlock>
+                    <TextBlock FontSize="14"  VerticalAlignment="Center" Margin="5,0,0,0">Selected details(F3)</TextBlock>
 
                     </StackPanel>
                 </Button>

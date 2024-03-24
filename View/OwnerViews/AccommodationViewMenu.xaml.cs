@@ -64,7 +64,7 @@ namespace BookingApp.View
             GuestReviews = new ObservableCollection<GuestReviewDTO>();
             Reservations = new ObservableCollection<ReservationOwnerDTO>();
             ReservationChanges = new ObservableCollection<ReservationChangeDTO>();
-            OwnerInfo = new OwnerInfoDTO(owner);
+            
             
 
             Update();
@@ -320,6 +320,14 @@ namespace BookingApp.View
             {
                 RegisterAccommodation(sender,e);
             }
+            else if(e.Key == Key.F2)
+            {
+                EnterOwnerInfo(sender,e);
+            }
+            else if (e.Key == Key.F3)
+            {
+                SelectedDetailed(sender,e);
+            }
             else if(e.Key == Key.A)
             {
                 Tabs.SelectedItem = AccommodationsTab;
@@ -416,9 +424,60 @@ namespace BookingApp.View
 
         private void EnterOwnerInfo(object sender, RoutedEventArgs e)
         {
+            UpdateOwner();
+            OwnerInfo = new OwnerInfoDTO(Owner,GetTotalReservationCount(),GetTotalAccommodationCount());
             OwnerInfo ownerInfo = new OwnerInfo(OwnerInfo);
             ownerInfo.ShowDialog();
 
+        }
+
+        private void UpdateOwner()
+        {
+            
+            UpdateOwnerStatus();
+        }
+
+        private void UpdateOwnerStatus()
+        {
+            //dodati i proveru da postoji 50 ocena,iz csv
+            if(!Owner.IsSuper && Owner.AverageGrade > 4.5)
+            {
+                Owner.IsSuper = true;
+                _ownerRepository.Update(Owner);
+            }
+            else if(Owner.IsSuper && Owner.AverageGrade <  4.5)
+            {
+                 Owner.IsSuper= false;
+                _ownerRepository.Update(Owner);
+            }
+        }
+
+        public int GetTotalReservationCount()
+        {
+            int total = 0;
+            foreach(AccommodationReservation reservation in _reservationRepository.GetAll())
+            {
+                Accommodation temp = _repository.GetByReservationId(reservation.AccommodationId);
+                if(temp.OwnerId == Owner.Id)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public int GetTotalAccommodationCount()
+        {
+            int total = 0;
+            foreach(Accommodation accommodation in _repository.GetAll())
+            {
+                if(accommodation.OwnerId == Owner.Id)
+                {
+                    total++;
+                }
+            }
+            return total;
         }
 
         private void SelectedDetailed(object sender, RoutedEventArgs e)
