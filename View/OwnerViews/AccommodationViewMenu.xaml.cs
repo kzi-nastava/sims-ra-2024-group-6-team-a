@@ -280,9 +280,25 @@ namespace BookingApp.View
                 images.Add(i);
             }
 
+            ObservableCollection<ReservationOwnerDTO> ReservationsForAccommodation = new ObservableCollection<ReservationOwnerDTO>();
 
-            AccommodationImagesMenu accommodationImagesMenu = new AccommodationImagesMenu(images);
-            accommodationImagesMenu.ShowDialog();
+            foreach(AccommodationReservation reservation in _reservationRepository.GetAll())
+            {
+                if (reservation.CheckOutDate > DateOnly.FromDateTime(DateTime.Now) && reservation.AccommodationId == SelectedAccommodation.Id)
+                {
+                    Accommodation accommodation = _repository.GetByReservationId(SelectedAccommodation.Id);
+                    String userName = _userRepository.GetUsername(reservation.GuestId);
+                    String imagePath = AddMainAccommodationImage(accommodation);
+                    Location location = _locationRepository.GetByAccommodation(accommodation);
+
+                    ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, SelectedAccommodation.Name, location, imagePath);
+
+                    ReservationsForAccommodation.Add(newReservation);
+                }
+            }
+
+            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(images,ReservationsForAccommodation);
+            AccommodationDetailedMenu.ShowDialog();
 
         }
 

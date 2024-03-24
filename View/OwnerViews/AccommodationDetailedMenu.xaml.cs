@@ -18,19 +18,22 @@ using BookingApp.Observer;
 namespace BookingApp.View
 {
     /// <summary>
-    /// Interaction logic for AccommodationImagesMenu.xaml
+    /// Interaction logic for AccommodationDetailedMenu.xaml
     /// </summary>
-    public partial class AccommodationImagesMenu : Window,IObserver
+    public partial class AccommodationDetailedMenu : Window,IObserver
     {
         public static ObservableCollection<ImageDTO> Images { get; set; }
+        public  ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
         public static List<Model.Image> imageModels {  get; set; }
-        public AccommodationImagesMenu(List<Model.Image> images)
+        public AccommodationDetailedMenu(List<Model.Image> images,ObservableCollection<ReservationOwnerDTO> Reservations)
         {
             
             InitializeComponent();
             DataContext = this;
             Images = new ObservableCollection<ImageDTO>();
+            
             imageModels = images;
+            this.Reservations = Reservations;
 
             Update();
 
