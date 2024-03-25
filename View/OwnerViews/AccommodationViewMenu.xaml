@@ -208,7 +208,7 @@
                                             <Image Source="{Binding Image}"  Stretch="Fill"/>
                                         </Border>
 
-                                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,0,2,2">
+                                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,0,2,2" Background="{Binding ReservationStatus}">
                                             <TextBlock Text="{Binding CheckIn,StringFormat='dd MMMM,yyyy'}" Margin="2,7,2,2" FontSize="28"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
                                             <Image Source="/Resources/Images/right-arrow.png" Margin="6,1,6,5" Width="25" Height="25" VerticalAlignment="Bottom"></Image>
                                             <TextBlock Text="{Binding CheckOut,StringFormat='dd MMMM,yyyy'}" Margin="0,7,2,2" FontSize="28"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>

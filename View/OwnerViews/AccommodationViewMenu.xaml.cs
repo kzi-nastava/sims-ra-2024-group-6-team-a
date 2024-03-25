@@ -124,9 +124,9 @@ namespace BookingApp.View
 
         public void CheckReservationStatus(AccommodationReservation reservation, Accommodation accommodation)
         {
-            if (reservation.Status == Enums.ReservationStatus.Active)
+            if (reservation.Status != Enums.ReservationStatus.Changed)
                 AddReservations(reservation, accommodation);
-            else if (reservation.Status == Enums.ReservationStatus.Changed)
+            else
             {
                 AccommodationReservation newReservation = _reservationChangeRepository.Get(reservation.Id);
 
@@ -177,15 +177,13 @@ namespace BookingApp.View
 
         public void AddReservations(AccommodationReservation reservation, Accommodation accommodation)
         {
-            if (reservation.CheckOutDate > DateOnly.FromDateTime(DateTime.Now))
-            {
+
                 String userName = _userRepository.GetUsername(reservation.GuestId);
                 String imagePath = AddMainAccommodationImage(accommodation);
 
                 ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, accommodation.Name, _locationRepository.GetByAccommodation(accommodation), imagePath);
 
                 Reservations.Add(newReservation);
-            }
         }
 
         //check to see if the review exists and the guest left the premises,adds empty reviews if only less than 5 days passed,and all filled reviews
@@ -274,17 +272,30 @@ namespace BookingApp.View
         private void DetailedAccommodationView()
         {
 
+            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(GetImagesForAccommodaton(),GetReservationsForAccommodation(),SelectedAccommodation.Name);
+            AccommodationDetailedMenu.ShowDialog();
+
+        }
+
+        private List<Model.Image> GetImagesForAccommodaton()
+        {
             List<Model.Image> images = new List<Model.Image>();
             foreach (Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
             {
                 images.Add(i);
             }
 
+            return images;
+        }
+
+
+        private ObservableCollection<ReservationOwnerDTO> GetReservationsForAccommodation()
+        {
             ObservableCollection<ReservationOwnerDTO> ReservationsForAccommodation = new ObservableCollection<ReservationOwnerDTO>();
 
-            foreach(AccommodationReservation reservation in _reservationRepository.GetAll())
+            foreach (AccommodationReservation reservation in _reservationRepository.GetAll())
             {
-                if (reservation.CheckOutDate > DateOnly.FromDateTime(DateTime.Now) && reservation.AccommodationId == SelectedAccommodation.Id)
+                if (reservation.AccommodationId == SelectedAccommodation.Id && reservation.Status != Enums.ReservationStatus.Changed)
                 {
                     Accommodation accommodation = _repository.GetByReservationId(SelectedAccommodation.Id);
                     String userName = _userRepository.GetUsername(reservation.GuestId);
@@ -297,9 +308,7 @@ namespace BookingApp.View
                 }
             }
 
-            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(images,ReservationsForAccommodation);
-            AccommodationDetailedMenu.ShowDialog();
-
+            return ReservationsForAccommodation;
         }
 
         private void GradeEmptyReview()

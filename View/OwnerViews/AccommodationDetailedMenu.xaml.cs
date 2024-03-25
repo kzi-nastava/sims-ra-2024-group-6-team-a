@@ -25,7 +25,7 @@ namespace BookingApp.View
         public static ObservableCollection<ImageDTO> Images { get; set; }
         public  ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
         public static List<Model.Image> imageModels {  get; set; }
-        public AccommodationDetailedMenu(List<Model.Image> images,ObservableCollection<ReservationOwnerDTO> Reservations)
+        public AccommodationDetailedMenu(List<Model.Image> images,ObservableCollection<ReservationOwnerDTO> Reservations,String accommodationName)
         {
             
             InitializeComponent();
@@ -34,6 +34,7 @@ namespace BookingApp.View
             
             imageModels = images;
             this.Reservations = Reservations;
+            Title = accommodationName;
 
             Update();
 
@@ -52,6 +53,12 @@ namespace BookingApp.View
  
         }
 
-
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Close();
+            }
+        }
     }
 }
