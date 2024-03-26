@@ -25,6 +25,9 @@ namespace BookingApp.View
         public static ObservableCollection<ImageDTO> Images { get; set; }
         public  ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
         public static List<Model.Image> imageModels {  get; set; }
+
+
+        public ReservationOwnerDTO SelectedReservation { get; set; }
         public AccommodationDetailedMenu(List<Model.Image> images,ObservableCollection<ReservationOwnerDTO> Reservations,String accommodationName)
         {
             
@@ -59,6 +62,42 @@ namespace BookingApp.View
             {
                 Close();
             }
+            else if (e.Key == Key.R)
+            {
+                Tabs.SelectedItem = ReservationsTab;
+
+                SelectFirstReservation();
+            }
+            else if(e.Key == Key.S)
+            {
+                Tabs.SelectedItem = StatisticsTab;
+            }
+            else if (e.Key == Key.I)
+            {
+                Tabs.SelectedItem = ImagesTab;
+            }
+            else if (e.Key == Key.N)
+            {
+                Tabs.SelectedItem = RenovationsTab;
+            }
+            else if (e.Key == Key.B)
+            {
+                Tabs.SelectedItem = BlogsTab;
+            }
         }
+
+        private void SelectFirstReservation()
+        {
+            if (SelectedReservation == null)
+            {
+                SelectedReservation = Reservations.First();
+                ReservationsList.SelectedIndex = 0;
+                ReservationsList.UpdateLayout();
+                ReservationsList.Focus();
+
+            }
+        }
+
+
     }
 }

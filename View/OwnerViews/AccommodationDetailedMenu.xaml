@@ -17,18 +17,19 @@
         </Grid.ColumnDefinitions>
 
 
-        <TabControl  Grid.Row="1" Grid.Column="0">
+        <TabControl  Grid.Row="1" Grid.Column="0" x:Name="Tabs">
 
             <TabItem x:Name="ReservationsTab">
                 <TabItem.Header>
                     <TextBlock><Underline>R</Underline>eservations</TextBlock>
                 </TabItem.Header>
                 <Grid>
-                    <ListBox  x:Name="ReservationsList" SelectedItem="{Binding SelectedReservation}" ItemsSource="{Binding Reservations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ListBox  x:Name="ReservationsList" SelectedItem="{Binding SelectedReservation}" ItemsSource="{Binding Reservations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible" >
                         <ListBox.ItemTemplate>
+
                             <DataTemplate>
                                 <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  Width="725" Margin="0,0,0,-4">
-                                    <Grid>
+                                    <Grid Background="{Binding ReservationStatus}">
                                          
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="125" />
@@ -44,7 +45,7 @@
                                             <Image Source="{Binding Image}"  Stretch="Fill"/>
                                         </Border>
 
-                                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,0,2,2"  Background="{Binding ReservationStatus}">
+                                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,0,2,2">
                                             <TextBlock Text="{Binding CheckIn,StringFormat='dd MMMM,yyyy'}" Margin="2,7,2,2" FontSize="28"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
                                             <Image Source="/Resources/Images/right-arrow.png" Margin="6,1,6,5" Width="25" Height="25" VerticalAlignment="Bottom"></Image>
                                             <TextBlock Text="{Binding CheckOut,StringFormat='dd MMMM,yyyy'}" Margin="0,7,2,2" FontSize="28"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
@@ -59,16 +60,16 @@
                     </ListBox>
                 </Grid>
             </TabItem>
-            
-            
-            <TabItem>
+
+
+            <TabItem x:Name="StatisticsTab">
                 <TabItem.Header>
                     <TextBlock><Underline>S</Underline>tatistics</TextBlock>
                 </TabItem.Header>
             </TabItem>
 
 
-            <TabItem >
+            <TabItem x:Name="ImagesTab">
                 <TabItem.Header>
                     <TextBlock><Underline>I</Underline>mages</TextBlock>
                 </TabItem.Header>
@@ -81,14 +82,14 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </TabItem>
-            
-            <TabItem>
+
+            <TabItem x:Name="RenovationsTab">
                 <TabItem.Header>
                     <TextBlock>Re<Underline>n</Underline>ovations</TextBlock>
                 </TabItem.Header>
             </TabItem>
-            
-            <TabItem>
+
+            <TabItem x:Name="BlogsTab">
                 <TabItem.Header>
                     <TextBlock><Underline>B</Underline>logs</TextBlock>
                 </TabItem.Header>

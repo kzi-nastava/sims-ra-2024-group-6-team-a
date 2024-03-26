@@ -180,11 +180,11 @@ namespace BookingApp.DTOs
 
 
             if (reservation.Status == Enums.ReservationStatus.Active && reservation.CheckOutDate >= DateOnly.FromDateTime(DateTime.Now))
-                ReservationStatus = "PaleGreen";
+                ReservationStatus = "#64d9a8";
             else if (reservation.Status == Enums.ReservationStatus.Active && reservation.CheckOutDate < DateOnly.FromDateTime(DateTime.Now))
-                ReservationStatus = "LightSteelBlue";
+                ReservationStatus = "#b8d1ce";
             else
-                ReservationStatus = "Tomato";
+                ReservationStatus = "#e6a8b4";
 
         }
     }
