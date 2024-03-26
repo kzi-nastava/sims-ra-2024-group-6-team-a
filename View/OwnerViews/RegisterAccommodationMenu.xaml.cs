@@ -56,17 +56,22 @@ namespace BookingApp.View
 
             if (State.Text != "" && City.Text != "" && Name.Text != "" && int.TryParse(MaxGuests.Text,out guestsParsed) && int.TryParse(MinReservation.Text,out reservationParsed) && int.TryParse(CancelDays.Text,out cancelParsed))
              {
-                Enums.AccommodationType type = GetType();
+                if (MessageBox.Show("Confirm registration?", "Register", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
 
-                Location location = new Location(State.Text, City.Text);
-                location = locationRepository.Save(location);
-                //we could add a check if location exists
+                    Enums.AccommodationType type = GetType();
+
+                    Location location = new Location(State.Text, City.Text);
+                    location = locationRepository.Save(location);
+                    //we could add a check if location exists
 
 
-                accommodation = new Accommodation(Name.Text, type, int.Parse(MaxGuests.Text), int.Parse(MinReservation.Text), int.Parse(CancelDays.Text), location.Id, userId);
-                SaveImages(accommodationRepository.Save(accommodation).Id);
+                    accommodation = new Accommodation(Name.Text, type, int.Parse(MaxGuests.Text), int.Parse(MinReservation.Text), int.Parse(CancelDays.Text), location.Id, userId);
+                    SaveImages(accommodationRepository.Save(accommodation).Id);
 
-                Close();
+                    Close();
+                }
+
             }
             else
             {

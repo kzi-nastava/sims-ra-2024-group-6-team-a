@@ -67,10 +67,16 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
         }
 
-        public List<Accommodation> GetByUser(User user)
+        public List<Accommodation> GetByOwnerId(int id)
         {
             _accommodations = _serializer.FromCSV(FilePath);
-            return _accommodations.FindAll(c => c.OwnerId == user.Id);
+            return _accommodations.FindAll(c => c.OwnerId == id);
+        }
+
+        public Accommodation GetByReservationId(int id)
+        {
+            _accommodations = _serializer.FromCSV(FilePath);
+            return _accommodations.Find(c => c.Id == id);
         }
 
         public void Subscribe(IObserver observer)

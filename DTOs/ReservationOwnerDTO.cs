@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -149,6 +150,22 @@ namespace BookingApp.DTOs
             }
         }
 
+        public String reservationStatus;
+
+        public String ReservationStatus
+        {
+            get { return reservationStatus; }
+
+            set
+            {
+                if (value != reservationStatus)
+                {
+                    reservationStatus = value;
+                    OnPropertyChanged("reservationStatus");
+                }
+            }
+        }
+
 
         public ReservationOwnerDTO(string guestName,AccommodationReservation reservation,string accommodationName,Location location,String image)
         {
@@ -160,6 +177,14 @@ namespace BookingApp.DTOs
             this.city = location.City;
             this.state = location.State;
             this.image = image;
+
+
+            if (reservation.Status == Enums.ReservationStatus.Active && reservation.CheckOutDate >= DateOnly.FromDateTime(DateTime.Now))
+                ReservationStatus = "#64d9a8";
+            else if (reservation.Status == Enums.ReservationStatus.Active && reservation.CheckOutDate < DateOnly.FromDateTime(DateTime.Now))
+                ReservationStatus = "#b8d1ce";
+            else
+                ReservationStatus = "#e6a8b4";
 
         }
     }

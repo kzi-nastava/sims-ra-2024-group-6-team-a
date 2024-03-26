@@ -31,8 +31,10 @@ namespace BookingApp.View
         public ReservationOwnerDTO SelectedReservation { get; set; }
         public ReservationChangeDTO SelectedChange { get; set; }
 
+        public OwnerInfoDTO OwnerInfo { get; set; }
 
-        public User User { get; set; }
+
+        public Owner Owner { get; set; }
         private AccommodationRepository _repository;
         private LocationRepository _locationRepository;
         private ImageRepository _imageRepository;
@@ -40,28 +42,29 @@ namespace BookingApp.View
         private UserRepository _userRepository;
         private GuestReviewRepository _guestReviewRepository;
         private ReservationChangeRepository _reservationChangeRepository;
+        private OwnerRepository _ownerRepository;
         bool existsNotReviewed = false;
 
         
 
-        public AccommodationViewMenu(User user, LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository)
+        public AccommodationViewMenu(Owner owner, LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository,OwnerRepository _ownerRepository)
         {
             InitializeComponent();
             DataContext = this;
 
 
-            InitiliazeRepositories(_locationRepository, _imageRepository, _reservationRepository, _userRepository, _reservationChangeRepository);
+            InitiliazeRepositories(_locationRepository, _imageRepository, _reservationRepository, _userRepository, _reservationChangeRepository,_ownerRepository);
 
 
-            Title = user.Username + "'s accommodations"; // ime prozora ce biti ime vlasnika
-            User = user;
+            Title = owner.Name + " " + owner.Surname + "'s accommodations"; // ime prozora ce biti ime vlasnika
+            Owner = owner;
 
 
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
             GuestReviews = new ObservableCollection<GuestReviewDTO>();
             Reservations = new ObservableCollection<ReservationOwnerDTO>();
             ReservationChanges = new ObservableCollection<ReservationChangeDTO>();
-
+            
             
 
             Update();
@@ -71,20 +74,21 @@ namespace BookingApp.View
 
         }
 
-        public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository)
+        public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository)
         {
             this._locationRepository = _locationRepository;
             this._imageRepository = _imageRepository;
             this._reservationRepository = _reservationRepository;
             this._userRepository = _userRepository;
             this._reservationChangeRepository = _reservationChangeRepository;
+            this._ownerRepository = _ownerRepository;
             _repository = new AccommodationRepository();
             _guestReviewRepository = new GuestReviewRepository();
         }
 
         private void RegisterAccommodation(object sender, RoutedEventArgs e) //poziva konstruktor dodavanja novog smestaja
         {
-            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_repository, _locationRepository, _imageRepository, User.Id);
+            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_repository, _locationRepository, _imageRepository, Owner.Id);
             registerAccommodationMenu.ShowDialog();
             Update();
         }
@@ -98,7 +102,7 @@ namespace BookingApp.View
             Reservations.Clear();
             ReservationChanges.Clear();
 
-            foreach (Accommodation a in _repository.GetByUser(User))
+            foreach (Accommodation a in _repository.GetByOwnerId(Owner.Id))
             {
                 foreach (AccommodationReservation r in _reservationRepository.GetByAccommodation(a))
                 {
@@ -120,9 +124,9 @@ namespace BookingApp.View
 
         public void CheckReservationStatus(AccommodationReservation reservation, Accommodation accommodation)
         {
-            if (reservation.Status == Enums.ReservationStatus.Active)
+            if (reservation.Status != Enums.ReservationStatus.Changed)
                 AddReservations(reservation, accommodation);
-            else if (reservation.Status == Enums.ReservationStatus.Changed)
+            else
             {
                 AccommodationReservation newReservation = _reservationChangeRepository.Get(reservation.Id);
 
@@ -173,15 +177,13 @@ namespace BookingApp.View
 
         public void AddReservations(AccommodationReservation reservation, Accommodation accommodation)
         {
-            if (reservation.CheckOutDate > DateOnly.FromDateTime(DateTime.Now))
-            {
+
                 String userName = _userRepository.GetUsername(reservation.GuestId);
                 String imagePath = AddMainAccommodationImage(accommodation);
 
                 ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, accommodation.Name, _locationRepository.GetByAccommodation(accommodation), imagePath);
 
                 Reservations.Add(newReservation);
-            }
         }
 
         //check to see if the review exists and the guest left the premises,adds empty reviews if only less than 5 days passed,and all filled reviews
@@ -270,16 +272,43 @@ namespace BookingApp.View
         private void DetailedAccommodationView()
         {
 
+            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(GetImagesForAccommodaton(),GetReservationsForAccommodation(),SelectedAccommodation.Name);
+            AccommodationDetailedMenu.ShowDialog();
+
+        }
+
+        private List<Model.Image> GetImagesForAccommodaton()
+        {
             List<Model.Image> images = new List<Model.Image>();
             foreach (Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
             {
                 images.Add(i);
             }
 
+            return images;
+        }
 
-            AccommodationImagesMenu accommodationImagesMenu = new AccommodationImagesMenu(images);
-            accommodationImagesMenu.ShowDialog();
 
+        private ObservableCollection<ReservationOwnerDTO> GetReservationsForAccommodation()
+        {
+            ObservableCollection<ReservationOwnerDTO> ReservationsForAccommodation = new ObservableCollection<ReservationOwnerDTO>();
+
+            foreach (AccommodationReservation reservation in _reservationRepository.GetAll())
+            {
+                if (reservation.AccommodationId == SelectedAccommodation.Id && reservation.Status != Enums.ReservationStatus.Changed)
+                {
+                    Accommodation accommodation = _repository.GetByReservationId(SelectedAccommodation.Id);
+                    String userName = _userRepository.GetUsername(reservation.GuestId);
+                    String imagePath = AddMainAccommodationImage(accommodation);
+                    Location location = _locationRepository.GetByAccommodation(accommodation);
+
+                    ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, SelectedAccommodation.Name, location, imagePath);
+
+                    ReservationsForAccommodation.Add(newReservation);
+                }
+            }
+
+            return ReservationsForAccommodation;
         }
 
         private void GradeEmptyReview()
@@ -315,6 +344,14 @@ namespace BookingApp.View
             else if(e.Key == Key.F1) 
             {
                 RegisterAccommodation(sender,e);
+            }
+            else if(e.Key == Key.F2)
+            {
+                EnterOwnerInfo(sender,e);
+            }
+            else if (e.Key == Key.F3)
+            {
+                SelectedDetailed(sender,e);
             }
             else if(e.Key == Key.A)
             {
@@ -410,9 +447,62 @@ namespace BookingApp.View
 
 
 
-        private void OwnerInfo(object sender, RoutedEventArgs e)
+        private void EnterOwnerInfo(object sender, RoutedEventArgs e)
         {
+            UpdateOwner();
+            OwnerInfo = new OwnerInfoDTO(Owner,GetTotalReservationCount(),GetTotalAccommodationCount());
+            OwnerInfo ownerInfo = new OwnerInfo(OwnerInfo);
+            ownerInfo.ShowDialog();
 
+        }
+
+        private void UpdateOwner()
+        {
+            
+            UpdateOwnerStatus();
+        }
+
+        private void UpdateOwnerStatus()
+        {
+            //dodati i proveru da postoji 50 ocena,iz csv
+            if(!Owner.IsSuper && Owner.AverageGrade > 4.5)
+            {
+                Owner.IsSuper = true;
+                _ownerRepository.Update(Owner);
+            }
+            else if(Owner.IsSuper && Owner.AverageGrade <  4.5)
+            {
+                 Owner.IsSuper= false;
+                _ownerRepository.Update(Owner);
+            }
+        }
+
+        public int GetTotalReservationCount()
+        {
+            int total = 0;
+            foreach(AccommodationReservation reservation in _reservationRepository.GetAll())
+            {
+                Accommodation temp = _repository.GetByReservationId(reservation.AccommodationId);
+                if(temp.OwnerId == Owner.Id)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public int GetTotalAccommodationCount()
+        {
+            int total = 0;
+            foreach(Accommodation accommodation in _repository.GetAll())
+            {
+                if(accommodation.OwnerId == Owner.Id)
+                {
+                    total++;
+                }
+            }
+            return total;
         }
 
         private void SelectedDetailed(object sender, RoutedEventArgs e)
