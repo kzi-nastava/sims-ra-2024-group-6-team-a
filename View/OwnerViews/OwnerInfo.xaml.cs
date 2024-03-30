@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Observer;
+using BookingApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,24 +21,18 @@ namespace BookingApp.View
     /// <summary>
     /// Interaction logic for OwnerInfo.xaml
     /// </summary>
-    public partial class OwnerInfo : Window, IObserver
+    public partial class OwnerInfo : Window
     {
-        public OwnerInfoDTO ownerInfoDTO;
-        
-        public int AccommodationNumber;
+        public OwnerInfoVM ViewModel {  get; set; }
         public OwnerInfo(OwnerInfoDTO ownerInfoDTO)
         {
-            this.ownerInfoDTO = ownerInfoDTO;
+            ViewModel = new OwnerInfoVM(ownerInfoDTO);
             
             InitializeComponent();
-            Update();
-            DataContext = this.ownerInfoDTO;
+
+            DataContext = ViewModel;
         }
 
-        public void Update()
-        {
-            
-            
-        }
+
     }
 }

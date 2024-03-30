@@ -14,47 +14,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.DTOs;
 using BookingApp.Observer;
+using BookingApp.ViewModels;
 
 namespace BookingApp.View
 {
     /// <summary>
     /// Interaction logic for AccommodationDetailedMenu.xaml
     /// </summary>
-    public partial class AccommodationDetailedMenu : Window,IObserver
+    public partial class AccommodationDetailedMenu : Window
     {
-        public static ObservableCollection<ImageDTO> Images { get; set; }
-        public  ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
-        public static List<Model.Image> imageModels {  get; set; }
-
-
-        public ReservationOwnerDTO SelectedReservation { get; set; }
+        AccommodationDetailedVM ViewModel {  get; set; }
         public AccommodationDetailedMenu(List<Model.Image> images,ObservableCollection<ReservationOwnerDTO> Reservations,String accommodationName)
         {
-            
+            ViewModel = new AccommodationDetailedVM(images, Reservations) { };
             InitializeComponent();
-            DataContext = this;
-            Images = new ObservableCollection<ImageDTO>();
-            
-            imageModels = images;
-            this.Reservations = Reservations;
+            DataContext = ViewModel;
+
             Title = accommodationName;
 
-            Update();
-
-       
         }
 
-        public void Update()
-        {
-            Images.Clear();
-
-            foreach(Model.Image i in imageModels)
-            {
-                Images.Add(new ImageDTO(i));
-            }
-
- 
-        }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -66,7 +45,7 @@ namespace BookingApp.View
             {
                 Tabs.SelectedItem = ReservationsTab;
 
-                SelectFirstReservation();
+                ViewModel.SelectFirstReservation(ReservationsList);
             }
             else if(e.Key == Key.S)
             {
@@ -83,18 +62,6 @@ namespace BookingApp.View
             else if (e.Key == Key.B)
             {
                 Tabs.SelectedItem = BlogsTab;
-            }
-        }
-
-        private void SelectFirstReservation()
-        {
-            if (SelectedReservation == null)
-            {
-                SelectedReservation = Reservations.First();
-                ReservationsList.SelectedIndex = 0;
-                ReservationsList.UpdateLayout();
-                ReservationsList.Focus();
-
             }
         }
 
