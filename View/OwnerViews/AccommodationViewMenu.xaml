@@ -23,20 +23,20 @@
             <ToolBar Grid.Row="0" Grid.ColumnSpan="3"> 
                 <Button Click="RegisterAccommodation">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Resources/Images/add.png" Width="20" Height="25"/>
-                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">Register(F1)</TextBlock>
-                    <Separator/>
-                </StackPanel>
+                            <Image Source="/Resources/Images/add.png" Width="20" Height="25"/>
+                            <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">Register(F1)</TextBlock>
+                            <Separator/>
+                    </StackPanel>
                 </Button>
 
                 <Button Click="EnterOwnerInfo">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Images/owner-info.png" Width="20" Height="25"/>
                         <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">My Info(F2)</TextBlock>
-                    <Separator/>
-                </StackPanel>
+                        <Separator/>
+                     </StackPanel>
                 
-            </Button>
+                </Button>
    
       
                 <Button Click="SelectedDetailed">

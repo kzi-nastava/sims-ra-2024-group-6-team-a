@@ -16,6 +16,7 @@
     <None Remove="Resources\Images\calendar.png" />
     <None Remove="Resources\Images\capacity.png" />
     <None Remove="Resources\Images\checkpoint.png" />
+    <None Remove="Resources\Images\close-acc.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\description.png" />
     <None Remove="Resources\Images\edit.png" />
@@ -48,6 +49,7 @@
     <None Remove="Resources\Images\pupin4.jpg" />
     <None Remove="Resources\Images\pupin5.jpg" />
     <None Remove="Resources\Images\rarrow.png" />
+    <None Remove="Resources\Images\renovation.png" />
     <None Remove="Resources\Images\right-arrow.png" />
     <None Remove="Resources\Images\sheraton1.jpg" />
     <None Remove="Resources\Images\terme1.jpg" />
@@ -82,6 +84,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\checkpoint.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\close-acc.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\delete.png">
@@ -166,6 +171,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\rarrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\renovation.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\right-arrow.png">

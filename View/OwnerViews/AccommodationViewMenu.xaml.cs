@@ -280,6 +280,7 @@ namespace BookingApp.View
         private List<Model.Image> GetImagesForAccommodaton()
         {
             List<Model.Image> images = new List<Model.Image>();
+
             foreach (Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
             {
                 images.Add(i);

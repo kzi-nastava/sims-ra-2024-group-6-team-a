@@ -33,9 +33,18 @@ namespace BookingApp.ViewModels
         {
             Images.Clear();
 
-            foreach (Model.Image i in imageModels)
+
+            for(int i = 0;i < imageModels.Count;i = i +2)
             {
-                Images.Add(new ImageDTO(i));
+                 ImageDTO image = new ImageDTO(imageModels[i]);
+                image.LeftPath = imageModels[i].Path;
+                if(i+1 < imageModels.Count) 
+                {
+                    image.RightPath = imageModels[i + 1].Path;
+                }
+                
+
+                Images.Add(image);
             }
 
 
@@ -52,5 +61,7 @@ namespace BookingApp.ViewModels
 
             }
         }
+
+
     }
 }

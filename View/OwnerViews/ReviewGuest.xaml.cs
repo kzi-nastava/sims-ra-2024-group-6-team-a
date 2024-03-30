@@ -47,14 +47,26 @@ namespace BookingApp.View
 
         private void SaveGrade(object sender, RoutedEventArgs e)
         {
-            if (CleanGradeCombo.SelectedItem != null && RespectGradeCombo != null)
+            if (CleanGradeCombo.SelectedItem != null && RespectGradeCombo.SelectedItem != null)
             {
-                _guestReviewRepository.Save(new Model.GuestReview(reservationId, CleanGradeCombo.SelectedIndex + 1, RespectGradeCombo.SelectedIndex + 1, CommentBox.Text));
-                Close();
+                if (MessageBox.Show("Confirm review?", "Grade the guest", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    _guestReviewRepository.Save(new Model.GuestReview(reservationId, CleanGradeCombo.SelectedIndex + 1, RespectGradeCombo.SelectedIndex + 1, CommentBox.Text));
+                    Close();
+                }
+
             }
             else
             {
                 MessageBox.Show("Must fill all fields.","Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Close();
             }
         }
     }
