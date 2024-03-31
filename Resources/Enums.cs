@@ -35,6 +35,14 @@ namespace BookingApp.Resources
             Changed
             
         }
+
+        public enum ReservationChangeStatus
+        {
+            Pending,
+            Rejected,
+            Accepted
+
+        }
         public enum TourActivity
         {
             Ready,

@@ -12,6 +12,7 @@ namespace BookingApp.Model
     {
       
         public int ReservationId { get; set; }
+        public int AccommodationId { get; set; }
 
         public DateOnly OldCheckIn {  get; set; }
         public DateOnly OldCheckOut { get; set; }
@@ -26,9 +27,10 @@ namespace BookingApp.Model
 
         }
 
-        public ReservationChanges(int reservationId, DateOnly oldCheckIn, DateOnly oldCheckOut, DateOnly newCheckIn, DateOnly newCheckOut, string comment, Enums.ReservationChangeStatus status)
+        public ReservationChanges(int reservationId,int accommodationId, DateOnly oldCheckIn, DateOnly oldCheckOut, DateOnly newCheckIn, DateOnly newCheckOut, string comment, Enums.ReservationChangeStatus status)
         {
             ReservationId = reservationId;
+            AccommodationId = accommodationId;
             OldCheckIn = oldCheckIn;
             OldCheckOut = oldCheckOut;
             NewCheckIn = newCheckIn;
@@ -39,20 +41,21 @@ namespace BookingApp.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { ReservationId.ToString(),  OldCheckIn.ToString("dd.MM.yyyy"),OldCheckOut.ToString("dd.MM.yyyy"), NewCheckIn.ToString("dd.MM.yyyy"), NewCheckOut.ToString("dd.MM.yyyy") , Status.ToString(),Comment };
+            string[] csvValues = { ReservationId.ToString(),AccommodationId.ToString(),  OldCheckIn.ToString("dd.MM.yyyy"),OldCheckOut.ToString("dd.MM.yyyy"), NewCheckIn.ToString("dd.MM.yyyy"), NewCheckOut.ToString("dd.MM.yyyy") , Status.ToString(),Comment };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
             ReservationId = Convert.ToInt32(values[0]);
-            OldCheckIn = DateOnly.ParseExact(values[1], "dd.MM.yyyy");
-            OldCheckOut = DateOnly.ParseExact(values[2], "dd.MM.yyyy");
-            NewCheckIn = DateOnly.ParseExact(values[3], "dd.MM.yyyy");
-            NewCheckOut = DateOnly.ParseExact(values[4], "dd.MM.yyyy");
+            AccommodationId = Convert.ToInt32(values[1]);
+            OldCheckIn = DateOnly.ParseExact(values[2], "dd.MM.yyyy");
+            OldCheckOut = DateOnly.ParseExact(values[3], "dd.MM.yyyy");
+            NewCheckIn = DateOnly.ParseExact(values[4], "dd.MM.yyyy");
+            NewCheckOut = DateOnly.ParseExact(values[5], "dd.MM.yyyy");
             
-            Status = (Enums.ReservationChangeStatus)Enum.Parse(typeof(Enums.ReservationChangeStatus), values[5]);
-            Comment = values[6];
+            Status = (Enums.ReservationChangeStatus)Enum.Parse(typeof(Enums.ReservationChangeStatus), values[6]);
+            Comment = values[7];
 
         }
     }

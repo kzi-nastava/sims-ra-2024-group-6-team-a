@@ -38,35 +38,14 @@ namespace BookingApp.View
 
         private void YesClick(object sender, RoutedEventArgs e)
         {
-            AccommodationReservation newRes = _changesRepository.GetAll().Find(c => c.Id == reservation.ReservationID);
-            AccommodationReservation oldRes = _reservationRepository.GetAll().Find(c => c.Id == reservation.ReservationID);
 
-            _changesRepository.Delete(newRes);
-            _reservationRepository.Delete(oldRes);
-
-            newRes.Status = BookingApp.Resources.Enums.ReservationStatus.Active;
-
-            _reservationRepository.Save(newRes);
-
-            Close();
             
             
         }
 
         private void NoClick(object sender, RoutedEventArgs e)
         {
-            AccommodationReservation newRes = _changesRepository.GetAll().Find(c => c.Id == reservation.ReservationID);
-            AccommodationReservation oldRes = _reservationRepository.GetAll().Find(c => c.Id == reservation.ReservationID);
-
-            _changesRepository.Delete(newRes);
-
-            _reservationRepository.Delete(oldRes);
-
-            newRes.Status = BookingApp.Resources.Enums.ReservationStatus.Canceled;
-
-            _reservationRepository.Save(newRes);
-
-            Close();
+            
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
