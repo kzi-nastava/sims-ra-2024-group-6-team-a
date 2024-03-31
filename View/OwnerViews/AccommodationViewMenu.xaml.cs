@@ -157,7 +157,7 @@ namespace BookingApp.View
         {
             foreach(ReservationChanges reservationChange in _reservationChangeRepository.GetAll())
             {
-                if(reservationChange.AccommodationId == accommodation.Id)
+                if(reservationChange.AccommodationId == accommodation.Id && reservationChange.Status == Enums.ReservationChangeStatus.Pending)
                 {
                     
                     String userName = _userRepository.GetUsername(_reservationRepository.GetAll().Find(r => r.Id == reservationChange.ReservationId).GuestId);

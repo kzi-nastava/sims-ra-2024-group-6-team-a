@@ -38,14 +38,37 @@ namespace BookingApp.View
 
         private void YesClick(object sender, RoutedEventArgs e)
         {
+            if(MessageBox.Show("Allow the reservation change","Are you sure?",MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                ReservationChanges newRes = _changesRepository.GetAll().Find(c => c.ReservationId == reservation.ReservationID);
+                AccommodationReservation oldRes = _reservationRepository.GetAll().Find(c => c.Id == reservation.ReservationID);
 
-            
-            
+                newRes.Comment = CommentBox.Text;
+                newRes.Status = BookingApp.Resources.Enums.ReservationChangeStatus.Accepted;
+                oldRes.CheckInDate = newRes.NewCheckIn;
+                oldRes.CheckOutDate = newRes.NewCheckOut;
+
+                _reservationRepository.Update(oldRes);
+                _changesRepository.Update(newRes);
+
+                Close();
+            }
+
         }
 
         private void NoClick(object sender, RoutedEventArgs e)
         {
-            
+            if (MessageBox.Show("Reject the reservation change", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                ReservationChanges newRes = _changesRepository.GetAll().Find(c => c.ReservationId == reservation.ReservationID);
+
+                newRes.Comment = CommentBox.Text;
+                newRes.Status = BookingApp.Resources.Enums.ReservationChangeStatus.Rejected;
+
+                _changesRepository.Update(newRes);
+
+                Close();
+            }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

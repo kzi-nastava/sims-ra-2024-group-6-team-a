@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
@@ -64,6 +65,17 @@ namespace BookingApp.Repository
 
             _serializer.ToCSV(FilePath, _changes);
             subject.NotifyObservers();
+        }
+
+        public ReservationChanges Update(ReservationChanges ReservationChanges)
+        {
+            _changes = _serializer.FromCSV(FilePath);
+            ReservationChanges current = _changes.Find(c => c.ReservationId == ReservationChanges.ReservationId);
+            int index = _changes.IndexOf(current);
+            _changes.Remove(current);
+            _changes.Insert(index, ReservationChanges);       // keep ascending order of ids in file 
+            _serializer.ToCSV(FilePath, _changes);
+            return ReservationChanges;
         }
 
         public ReservationChanges Get(int id)

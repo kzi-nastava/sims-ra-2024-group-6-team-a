@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="AllowReservationChange" Height="350" Width="400" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+        Title="AllowReservationChange" Height="500" Width="400" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
     <Grid>
         <StackPanel Orientation="Vertical">
 
@@ -44,8 +44,16 @@
 
             <Rectangle HorizontalAlignment="Stretch" Fill="Blue" Height="4"/>
 
+            <TextBlock Margin="5,10,5,10"  FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center">Additional comment</TextBlock>
+
+            <TextBox Height="100" x:Name="CommentBox" Margin="2,2,2,2" FontSize="16" TextWrapping="Wrap">
+                
+            </TextBox>
+            
             <TextBlock Margin="3,30,3,10" HorizontalAlignment="center" FontWeight="Bold" FontSize="25">Allow the reservation change?</TextBlock>
 
+            
+            
             <StackPanel Orientation="Horizontal" Margin="3,10,3,10" HorizontalAlignment="center">
                 <Button Background="Bisque" Click="YesClick">
                     <StackPanel Orientation="Horizontal">
