@@ -38,35 +38,37 @@ namespace BookingApp.View
 
         private void YesClick(object sender, RoutedEventArgs e)
         {
-            AccommodationReservation newRes = _changesRepository.GetAll().Find(c => c.Id == reservation.ReservationID);
-            AccommodationReservation oldRes = _reservationRepository.GetAll().Find(c => c.Id == reservation.ReservationID);
+            if(MessageBox.Show("Allow the reservation change","Are you sure?",MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                ReservationChanges newRes = _changesRepository.GetAll().Find(c => c.ReservationId == reservation.ReservationID);
+                AccommodationReservation oldRes = _reservationRepository.GetAll().Find(c => c.Id == reservation.ReservationID);
 
-            _changesRepository.Delete(newRes);
-            _reservationRepository.Delete(oldRes);
+                newRes.Comment = CommentBox.Text;
+                newRes.Status = BookingApp.Resources.Enums.ReservationChangeStatus.Accepted;
+                oldRes.CheckInDate = newRes.NewCheckIn;
+                oldRes.CheckOutDate = newRes.NewCheckOut;
 
-            newRes.Status = BookingApp.Resources.Enums.ReservationStatus.Active;
+                _reservationRepository.Update(oldRes);
+                _changesRepository.Update(newRes);
 
-            _reservationRepository.Save(newRes);
+                Close();
+            }
 
-            Close();
-            
-            
         }
 
         private void NoClick(object sender, RoutedEventArgs e)
         {
-            AccommodationReservation newRes = _changesRepository.GetAll().Find(c => c.Id == reservation.ReservationID);
-            AccommodationReservation oldRes = _reservationRepository.GetAll().Find(c => c.Id == reservation.ReservationID);
+            if (MessageBox.Show("Reject the reservation change", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                ReservationChanges newRes = _changesRepository.GetAll().Find(c => c.ReservationId == reservation.ReservationID);
 
-            _changesRepository.Delete(newRes);
+                newRes.Comment = CommentBox.Text;
+                newRes.Status = BookingApp.Resources.Enums.ReservationChangeStatus.Rejected;
 
-            _reservationRepository.Delete(oldRes);
+                _changesRepository.Update(newRes);
 
-            newRes.Status = BookingApp.Resources.Enums.ReservationStatus.Canceled;
-
-            _reservationRepository.Save(newRes);
-
-            Close();
+                Close();
+            }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

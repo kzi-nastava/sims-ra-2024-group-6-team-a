@@ -112,33 +112,28 @@ namespace BookingApp.View
 
                 string imagePath = AddMainAccommodationImage(a);
 
-
+                AddChangedReservations(a);
 
                 Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a), imagePath));
             }
 
-
+            
 
         }
 
 
         public void CheckReservationStatus(AccommodationReservation reservation, Accommodation accommodation)
         {
-            if (reservation.Status != Enums.ReservationStatus.Changed)
+            
                 AddReservations(reservation, accommodation);
-            else
-            {
-                AccommodationReservation newReservation = _reservationChangeRepository.Get(reservation.Id);
-
-                AddChangedReservations(newReservation, reservation, accommodation);
-            }
+     
         }
 
-        public bool CheckIfAlreadyBooked(AccommodationReservation newReservation, Accommodation accommodation)
+        public bool CheckIfAlreadyBooked(ReservationChanges reservationChange, Accommodation accommodation)
         {
             foreach (AccommodationReservation reservation in _reservationRepository.GetAll())
             {
-                if (reservation.AccommodationId == accommodation.Id && newReservation.Id != reservation.Id && DoesDateInterfere(reservation, newReservation))
+                if (reservation.AccommodationId == accommodation.Id && reservationChange.ReservationId != reservation.Id && DoesDateInterfere(reservation,reservationChange))
                 {
                     return true;
                 }
@@ -147,30 +142,39 @@ namespace BookingApp.View
             return false;
         }
 
-        public bool DoesDateInterfere(AccommodationReservation oldR, AccommodationReservation newR)
+        public bool DoesDateInterfere(AccommodationReservation oldR, ReservationChanges reservationChange)
         {
-            if (newR.CheckInDate < oldR.CheckInDate && newR.CheckOutDate < oldR.CheckInDate)
+            if (reservationChange.NewCheckIn < oldR.CheckInDate && reservationChange.NewCheckOut < oldR.CheckInDate)
                 return false;
 
-            if (newR.CheckInDate > oldR.CheckOutDate && newR.CheckOutDate > oldR.CheckOutDate)
+            if (reservationChange.NewCheckIn > oldR.CheckOutDate && reservationChange.NewCheckOut > oldR.CheckOutDate)
                 return false;
 
             return true;
         }
 
-        public void AddChangedReservations(AccommodationReservation newReservation, AccommodationReservation oldReservation, Accommodation accommodation)
+        public void AddChangedReservations(Accommodation accommodation)
         {
-            String userName = _userRepository.GetUsername(oldReservation.GuestId);
-            String oldDate = oldReservation.CheckInDate.ToString("dd MMMM yyyy") + "   ->   " + oldReservation.CheckOutDate.ToString("dd MMMM yyyy");
-            String newDate = newReservation.CheckInDate.ToString("dd MMMM yyyy") + "   ->   " + newReservation.CheckOutDate.ToString("dd MMMM yyyy");
-            String bookedStatus = "No";
-            if (CheckIfAlreadyBooked(newReservation, accommodation))
-                bookedStatus = "Yes";
+            foreach(ReservationChanges reservationChange in _reservationChangeRepository.GetAll())
+            {
+                if(reservationChange.AccommodationId == accommodation.Id && reservationChange.Status == Enums.ReservationChangeStatus.Pending)
+                {
+                    
+                    String userName = _userRepository.GetUsername(_reservationRepository.GetAll().Find(r => r.Id == reservationChange.ReservationId).GuestId);
+                    String oldDate = reservationChange.OldCheckIn.ToString("dd MMMM yyyy") + "   ->   " + reservationChange.OldCheckOut.ToString("dd MMMM yyyy");
+                    String newDate = reservationChange.NewCheckIn.ToString("dd MMMM yyyy") + "   ->   " + reservationChange.NewCheckOut.ToString("dd MMMM yyyy");
+                    String bookedStatus = "No";
+                    if (CheckIfAlreadyBooked(reservationChange, accommodation))
+                        bookedStatus = "Yes";
 
 
-            ReservationChangeDTO newChange = new ReservationChangeDTO(newReservation.Id,userName, accommodation.Name, oldDate, newDate, bookedStatus);
+                    ReservationChangeDTO newChange = new ReservationChangeDTO(reservationChange.ReservationId, userName, accommodation.Name, oldDate, newDate, bookedStatus);
 
-            ReservationChanges.Add(newChange);
+                    ReservationChanges.Add(newChange);
+                }
+
+            }
+  
 
         }
 
@@ -280,6 +284,7 @@ namespace BookingApp.View
         private List<Model.Image> GetImagesForAccommodaton()
         {
             List<Model.Image> images = new List<Model.Image>();
+
             foreach (Model.Image i in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
             {
                 images.Add(i);

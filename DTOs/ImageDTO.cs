@@ -21,17 +21,32 @@ namespace BookingApp.DTOs
 
         public int Id { get; set; }
 
-        public string path;
+        public string leftPath;
 
-        public string Path
+        public string LeftPath
         {
-            get { return path; }
+            get { return leftPath; }
             set
             {
-                if (value != path)
+                if (value != leftPath)
                 {
-                    path = value;
-                    OnPropertyChanged("Path");
+                    leftPath = value;
+                    OnPropertyChanged("LeftPath");
+                }
+            }
+        }
+
+        public string rightPath;
+
+        public string RightPath
+        {
+            get { return rightPath; }
+            set
+            {
+                if (value != rightPath)
+                {
+                    rightPath = value;
+                    OnPropertyChanged("RightPath");
                 }
             }
         }
@@ -39,7 +54,7 @@ namespace BookingApp.DTOs
         public ImageDTO(Model.Image image)
         {
             Id = image.Id;
-            path = image.Path;
+            
         }
     }
 

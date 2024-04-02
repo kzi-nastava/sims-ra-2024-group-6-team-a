@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
@@ -261,5 +262,15 @@ namespace BookingApp.Repository
             _observers.Add(observer);
         }
 
+        public AccommodationReservation Update(AccommodationReservation AccommodationReservation)
+        {
+            _accommodationReservations = _serializer.FromCSV(FilePath);
+            AccommodationReservation current = _accommodationReservations.Find(c => c.Id == AccommodationReservation.Id);
+            int index = _accommodationReservations.IndexOf(current);
+            _accommodationReservations.Remove(current);
+            _accommodationReservations.Insert(index, AccommodationReservation);       // keep ascending order of ids in file 
+            _serializer.ToCSV(FilePath, _accommodationReservations);
+            return AccommodationReservation;
+        }
     }
 }

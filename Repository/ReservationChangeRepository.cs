@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
@@ -13,33 +14,33 @@ namespace BookingApp.Repository
     {
         private const string FilePath = "../../../Resources/Data/reservation_changes.csv";
 
-        private readonly Serializer<AccommodationReservation> _serializer;
+        private readonly Serializer<ReservationChanges> _serializer;
         
 
-        private List<AccommodationReservation> _changes;
+        private List<ReservationChanges> _changes;
         public Subject subject;
 
         public ReservationChangeRepository()
         {
             
-            _serializer = new Serializer<AccommodationReservation>();
+            _serializer = new Serializer<ReservationChanges>();
             _changes= _serializer.FromCSV(FilePath);
             subject = new Subject();
         }
 
-        public List<AccommodationReservation> GetAll()
+        public List<ReservationChanges> GetAll()
         {
             return _serializer.FromCSV(FilePath);
         }
 
-        public AccommodationReservation Save(AccommodationReservation AccommodationReservation)
+        public ReservationChanges Save(ReservationChanges ReservationChanges)
         {
-            AccommodationReservation.Id = NextId();
+            ReservationChanges.ReservationId = NextId();
             _changes = _serializer.FromCSV(FilePath);
-            _changes.Add(AccommodationReservation);
+            _changes.Add(ReservationChanges);
             _serializer.ToCSV(FilePath, _changes);
             subject.NotifyObservers();
-            return AccommodationReservation;
+            return ReservationChanges;
 
         }
 
@@ -50,13 +51,13 @@ namespace BookingApp.Repository
             {
                 return 1;
             }
-            return _changes.Max(c => c.Id) + 1;
+            return _changes.Max(c => c.ReservationId) + 1;
         }
 
-        public void Delete(AccommodationReservation AccommodationReservation)
+        public void Delete(ReservationChanges ReservationChanges)
         {
             _changes= _serializer.FromCSV(FilePath);
-            AccommodationReservation found = _changes.Find(c => c.Id == AccommodationReservation.Id);
+            ReservationChanges found = _changes.Find(c => c.ReservationId == ReservationChanges.ReservationId);
             if (found != null)
             {
                 _changes.Remove(found);
@@ -66,10 +67,21 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
         }
 
-        public AccommodationReservation Get(int id)
+        public ReservationChanges Update(ReservationChanges ReservationChanges)
         {
             _changes = _serializer.FromCSV(FilePath);
-            return _changes.Find(c => c.Id == id);
+            ReservationChanges current = _changes.Find(c => c.ReservationId == ReservationChanges.ReservationId);
+            int index = _changes.IndexOf(current);
+            _changes.Remove(current);
+            _changes.Insert(index, ReservationChanges);       // keep ascending order of ids in file 
+            _serializer.ToCSV(FilePath, _changes);
+            return ReservationChanges;
+        }
+
+        public ReservationChanges Get(int id)
+        {
+            _changes = _serializer.FromCSV(FilePath);
+            return _changes.Find(c => c.ReservationId == id);
         }
 
     }

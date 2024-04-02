@@ -17,6 +17,27 @@
         </Grid.ColumnDefinitions>
 
 
+
+        <ToolBar Grid.Row="0" Grid.ColumnSpan="1">
+            <Button Click="Button_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Images/renovation.png" Width="32" Height="32"/>
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">Schedule Renovation</TextBlock>
+                    <Separator/>
+                </StackPanel>
+            </Button>
+
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Images/close-acc.png" Width="32" Height="32"/>
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">Close Accommodation</TextBlock>
+                    <Separator/>
+                </StackPanel>
+
+            </Button>
+
+        </ToolBar>
+
         <TabControl  Grid.Row="1" Grid.Column="0" x:Name="Tabs">
 
             <TabItem x:Name="ReservationsTab">
@@ -77,7 +98,14 @@
 
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Image Margin="3" Source="{Binding Path}" Width="500" Height="700"/>
+
+                            <StackPanel MaxHeight="500" MaxWidth="740" Orientation="Horizontal">
+                                <Image Margin="3" Source="{Binding LeftPath}" MinWidth="370" MaxWidth="370" Height="250"/>
+                                <Image Margin="3" Source="{Binding RightPath}" MinWidth="370" MaxWidth="370" Height="250"/>
+                            </StackPanel>
+                                
+
+                            
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
