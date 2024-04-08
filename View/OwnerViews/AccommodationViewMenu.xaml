@@ -61,7 +61,7 @@
                 </TabItem.Header>
                 <Grid>
                 
-                    <ListBox x:Name="AccommodationsList" KeyDown="DetailedView"  SelectedItem="{Binding SelectedAccommodation}" ItemsSource="{Binding Accommodations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ListBox x:Name="AccommodationsList" KeyDown="DetailedView"  SelectedItem="{Binding SelectedAccommodation}" ItemsSource="{Binding Accommodations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
                         
                             <ListBox.ItemTemplate>
                             
@@ -127,7 +127,7 @@
                     <TextBlock><Underline>G</Underline>uest review</TextBlock>
                 </TabItem.Header>
                     <Grid>
-                        <ListBox x:Name="ReviewsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedGuestReview}" ItemsSource="{Binding GuestReviews}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        <ListBox x:Name="ReviewsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedGuestReview}" ItemsSource="{Binding GuestReviews}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Border  CornerRadius="5" BorderBrush="DeepSkyBlue" BorderThickness="4" MinWidth="825">
@@ -186,7 +186,7 @@
                     <TextBlock><Underline>R</Underline>eservations</TextBlock>
                 </TabItem.Header>
                 <Grid>
-                    <ListBox  x:Name="ReservationsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedReservation}" ItemsSource="{Binding Reservations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ListBox  x:Name="ReservationsList" KeyDown="DetailedView" SelectedItem="{Binding SelectedReservation}" ItemsSource="{Binding Reservations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  MinWidth="825" Margin="0,0,0,-4">

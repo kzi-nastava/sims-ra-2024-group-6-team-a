@@ -5,20 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="" Height="600" Width="800" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+        Title="" Height="900" Width="1600" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="800"></ColumnDefinition>
+            <ColumnDefinition Width="800"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
 
 
-        <ToolBar Grid.Row="0" Grid.ColumnSpan="1">
+        <ToolBar Grid.Row="0" Grid.ColumnSpan="2">
             <Button Click="Button_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/renovation.png" Width="32" Height="32"/>
@@ -38,18 +40,18 @@
 
         </ToolBar>
 
-        <TabControl  Grid.Row="1" Grid.Column="0" x:Name="Tabs">
+        <TabControl  Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" x:Name="Tabs">
 
             <TabItem x:Name="ReservationsTab">
                 <TabItem.Header>
                     <TextBlock><Underline>R</Underline>eservations</TextBlock>
                 </TabItem.Header>
                 <Grid>
-                    <ListBox  x:Name="ReservationsList" SelectedItem="{Binding SelectedReservation}" ItemsSource="{Binding Reservations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="True" MaxHeight="600" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                    <ListBox  x:Name="ReservationsList" SelectedItem="{Binding SelectedReservation}" ItemsSource="{Binding Reservations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" MaxHeight="800" ScrollViewer.VerticalScrollBarVisibility="Visible" >
                         <ListBox.ItemTemplate>
 
                             <DataTemplate>
-                                <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  Width="725" Margin="0,0,0,-4">
+                                <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  Width="750" Margin="0,0,0,-4">
                                     <Grid Background="{Binding ReservationStatus}">
                                          
                                         <Grid.ColumnDefinitions>
@@ -90,26 +92,7 @@
             </TabItem>
 
 
-            <TabItem x:Name="ImagesTab">
-                <TabItem.Header>
-                    <TextBlock><Underline>I</Underline>mages</TextBlock>
-                </TabItem.Header>
-                <ListBox ItemsSource="{Binding Images}">
-
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-
-                            <StackPanel MaxHeight="500" MaxWidth="740" Orientation="Horizontal">
-                                <Image Margin="3" Source="{Binding LeftPath}" MinWidth="370" MaxWidth="370" Height="250"/>
-                                <Image Margin="3" Source="{Binding RightPath}" MinWidth="370" MaxWidth="370" Height="250"/>
-                            </StackPanel>
-                                
-
-                            
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </TabItem>
+  
 
             <TabItem x:Name="RenovationsTab">
                 <TabItem.Header>
@@ -124,7 +107,48 @@
             </TabItem>
             
         </TabControl>
-    
-        
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
+            <TextBlock Text="{Binding Accommodation.Name}" FontSize="24" FontWeight="ExtraBold" FontStyle="Italic" Foreground="DarkSlateBlue" Margin="10,2,2,2"></TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,2,2,2">
+                <TextBlock Text="{Binding Accommodation.City}"  FontSize="20"  Foreground="SlateBlue"></TextBlock>
+                <TextBlock FontSize="20"  Foreground="SlateBlue">  ,  </TextBlock>
+                <TextBlock Text="{Binding Accommodation.State}"  FontSize="20"  Foreground="SlateBlue"></TextBlock>
+                <Image Source="/Resources/Images/location-ping.png"  Width="30" Height="30" ></Image>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10,2,2,2">
+
+                <TextBlock Text="{Binding Accommodation.Type}" 
+                          Foreground="DarkBlue" FontSize="24"></TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="10,2,2,2">
+
+                <TextBlock Foreground="DarkBlue" FontSize="24" Text="Guest rating: "></TextBlock>
+                <TextBlock Foreground="{Binding RatingColor}" Text="{Binding GuestRating}" FontSize="24"></TextBlock>
+            </StackPanel>
+
+
+        </StackPanel>
+
+
+        <ListBox ItemsSource="{Binding Images}" Grid.Column="1" Grid.Row="2" ScrollViewer.CanContentScroll="False" Background="NavajoWhite">
+            
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+
+                    <StackPanel MaxHeight="500" MaxWidth="740" Orientation="Horizontal">
+                        <Image Margin="3" Source="{Binding LeftPath}" MinWidth="370" MaxWidth="370" Height="250"/>
+                        <Image Margin="3" Source="{Binding RightPath}" MinWidth="370" MaxWidth="370" Height="250"/>
+                    </StackPanel>
+
+                
+
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
     </Grid>
 </Window>
