@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using BookingApp.Resources;
+using BookingApp.View.GuestViews;
 
 namespace BookingApp.View
 {
@@ -21,6 +22,7 @@ namespace BookingApp.View
         private readonly TourReservationRepository _tourReservationRepository;
         private readonly UserRepository _userRepository;
         private readonly ReservationChangeRepository _reservationChangeRepository;
+        private readonly GuestRepository _guestRepository;
         private readonly OwnerRepository _ownerRepository;
         //private readonly TourRepository _tourRepository;
 
@@ -58,9 +60,10 @@ namespace BookingApp.View
             _userRepository = new UserRepository();
             _reservationChangeRepository = new ReservationChangeRepository();
             _ownerRepository = new OwnerRepository();
+            _guestRepository = new GuestRepository();
             //_tourRepository = new TourRepository();
         }
-        
+
         private void SignIn(object sender, RoutedEventArgs e)
         {
             User user = _repository.GetByUsername(Username);
@@ -76,7 +79,8 @@ namespace BookingApp.View
                             InitiateAccommodationView(owner);
                             break;
                         case Enums.UserType.Guest:
-                            InitiateGuestView(user);
+                            Guest guest = _guestRepository.GetAll().Find(o => o.UserId == user.Id);
+                            InitiateGuestView(guest);
                             break;
                         case Enums.UserType.Tourist:
                             InitiateTouristView(user);
@@ -106,11 +110,14 @@ namespace BookingApp.View
             Close();
         }
 
-        private void InitiateGuestView(User user)
+        private void InitiateGuestView(Guest guest)
         {
-            AccommodationReservationViewMenu accommodationReservationViewMenu = new AccommodationReservationViewMenu(_locationRepository, _imageRepository);
-            accommodationReservationViewMenu.Show();
-            Close();
+            if (guest != null)
+            {
+                GuestStartView guest1StartView = new GuestStartView(guest);
+                guest1StartView.Show();
+                Close();
+            }
         }
 
         private void InitiateTouristView(User user) 
