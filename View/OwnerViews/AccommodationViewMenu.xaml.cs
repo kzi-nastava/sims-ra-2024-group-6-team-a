@@ -194,5 +194,33 @@ namespace BookingApp.View
                 EnterDetailedView();
         }
 
+        private void SelectAccommodations(object sender, RoutedEventArgs e)
+        {
+            Tabs.SelectedItem = AccommodationsTab;
+
+            SelectFirstAccommodation();
+        }
+
+        private void SelectReservations(object sender, RoutedEventArgs e)
+        {
+            Tabs.SelectedItem = ReservationsTab;
+
+            SelectFirstReservation();
+        }
+
+        private void SelectReviews(object sender, RoutedEventArgs e)
+        {
+
+            Tabs.SelectedItem = ReviewsTab;
+
+            SelectFirstReview();
+        }
+
+        private void SelectChanges(object sender, RoutedEventArgs e)
+        {
+            Tabs.SelectedItem = ReservationChangesTab;
+
+            SelectFirstResChange();
+        }
     }
 }

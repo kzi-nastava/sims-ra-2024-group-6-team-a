@@ -132,16 +132,25 @@
         </StackPanel>
 
 
-        <ListBox ItemsSource="{Binding Images}" Grid.Column="1" Grid.Row="2" ScrollViewer.CanContentScroll="False" Background="NavajoWhite">
+        <ListBox ItemsSource="{Binding Images}" Grid.Column="1" Grid.Row="2" ScrollViewer.CanContentScroll="False" MaxWidth="740">
             
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
 
-                    <StackPanel MaxHeight="500" MaxWidth="740" Orientation="Horizontal">
-                        <Image Margin="3" Source="{Binding LeftPath}" MinWidth="370" MaxWidth="370" Height="250"/>
-                        <Image Margin="3" Source="{Binding RightPath}" MinWidth="370" MaxWidth="370" Height="250"/>
-                    </StackPanel>
+                    <Grid Margin="-2,-2,-2,-2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                            <ColumnDefinition Width="350"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="300"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        
+                        <Image Grid.Column="0" Grid.Row="0" Margin="-3" Source="{Binding LeftPath}" Stretch="Fill"/>
+                        <Image Grid.Column="1" Grid.Row="0" Margin="-3" Source="{Binding RightPath}" Stretch="fill"/>
+                    </Grid>
 
                 
 
