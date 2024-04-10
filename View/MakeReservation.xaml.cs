@@ -285,8 +285,8 @@ namespace BookingApp.View
             SelectedDates = (DateRanges)DatesTable.SelectedItem;
             if (IsValid && SelectedDates != null)
             {
-                AccommodationReservation accommodationReservation= new AccommodationReservation(_accommodationId, 3, SelectedDates.CheckIn, SelectedDates.CheckOut, Convert.ToInt32(GuestNumber), Enums.ReservationStatus.Active);
-                _accommodationReservationRepository.Save(accommodationReservation);
+                //AccommodationReservation accommodationReservation= new AccommodationReservation(_accommodationId, 3, SelectedDates.CheckIn, SelectedDates.CheckOut, Convert.ToInt32(GuestNumber), Enums.ReservationStatus.Active);
+              //  _accommodationReservationRepository.Save(accommodationReservation);
                 MessageBox.Show("Successful booking!", "WELL DONE", MessageBoxButton.OK);
 
                 MakeReservationView.Content = new MyReservation();
