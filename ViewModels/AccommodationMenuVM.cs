@@ -274,6 +274,12 @@ namespace BookingApp.ViewModels
             }
         }
 
+        public void ShowGuestsReview()
+        {
+            GuestsReviewOfAccommodation guestsReview = new GuestsReviewOfAccommodation(SelectedGuestReview);
+            guestsReview.ShowDialog();
+        }
+
         public void AllowReservationChange()
         {
             AllowReservationChange allowReservationChange = new AllowReservationChange(SelectedChange, _reservationRepository, _reservationChangeRepository);

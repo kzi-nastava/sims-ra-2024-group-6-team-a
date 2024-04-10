@@ -54,7 +54,10 @@ namespace BookingApp.View
             }
             else if (Tabs.SelectedItem == ReviewsTab && vm.SelectedGuestReview != null)
             {
-                vm.GradeEmptyReview();
+                if (vm.SelectedGuestReview.RespectGrade == 0 && vm.SelectedGuestReview.CleanlinessGrade == 0)
+                    vm.GradeEmptyReview();
+                else
+                    vm.ShowGuestsReview();
             }
             else if (Tabs.SelectedItem == ReservationChangesTab && vm.SelectedChange != null)
             {
