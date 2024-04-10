@@ -20,14 +20,19 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public ReservationGuestDTO Reservation { get; set; }
         public Guest Guest { get; set; }
         public int _reservationId { get; set; }
+        public int _minNumberOfDays { get; set; }
         public NavigationService NavService { get; set; }
         public ReservationSeeMoreView ReservationView { get; set; }
         private ImageRepository _imageRepository;
         private AccommodationReservationRepository _accommodationReservationRepository;
         private AccommodationRepository _accommodationRepository;
         private AccommodationReservationRepository _reservationRepository;
+        private ReservationChangeRepository _reservationChangeRepository;
         public List<Model.Image> ListImages { get; set; }
         public RelayCommand CancelReservationCommand { get; set; }
+        public RelayCommand MoveReservationComand { get; set; }
+        public RelayCommand SendRequestCommand { get; set; }
+        public RelayCommand FirstDateCommand { get; set; }
         public RelayCommand NextImageCommand { get; set; }
         public RelayCommand PreviousImageCommand { get; set; }
 
@@ -39,6 +44,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
             NavService = navigation;
             ImageRepository _imageRepository = new ImageRepository();
             _reservationId = SelectedReservation.Id;
+            _minNumberOfDays = SelectedReservation.MinNumberOfDays;
             AccommodationName = SelectedReservation.AccommodationName;
             State = SelectedReservation.State;
             City = SelectedReservation.City;
@@ -53,13 +59,17 @@ namespace BookingApp.ViewModels.GuestsViewModel
             ListImages = lista;
             _accommodationReservationRepository = new AccommodationReservationRepository();
             _accommodationRepository = new AccommodationRepository();
+            _reservationChangeRepository = new ReservationChangeRepository();
 
             NextImageCommand = new RelayCommand(Execute_NextImageCommand);
             PreviousImageCommand = new RelayCommand(Execute_PreviousImageCommand);
             CancelReservationCommand = new RelayCommand(Execute_CancelReservationCommand);
+            MoveReservationComand = new RelayCommand(Execute_MoveReservationComand);
+            SendRequestCommand = new RelayCommand(Execute_SendRequestCommand);
+            FirstDateCommand = new RelayCommand(Execute_FirstDateCommand);
 
-            //AvaibleDatesVisibility = Visibility.Collapsed;
-
+            RequestToMoveVisibility = Visibility.Visible;
+            ReservationsDataVisibility = Visibility.Collapsed;
 
         }
         public bool CanCancelReservation()
@@ -74,7 +84,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
 
         public void Execute_CancelReservationCommand(object obj)
         {
-            MessageBox.Show(_reservationId.ToString());
             AccommodationReservation canceledReservationa = _accommodationReservationRepository.GetByReservationId(_reservationId);
             if (CanCancelReservation())
             {
@@ -82,9 +91,8 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 switch (odgovor)
                 {
                     case MessageBoxResult.Yes:
-                        _accommodationReservationRepository.Delete(canceledReservationa);
                         canceledReservationa.Status = Enums.ReservationStatus.Canceled;
-                        _accommodationReservationRepository.ChangeReservationStatus(canceledReservationa);
+                        _accommodationReservationRepository.Update(canceledReservationa);
                         NavService.Navigate(new GuestMyReservationsView(Guest, NavService));
                         break;
                     default:
@@ -93,7 +101,41 @@ namespace BookingApp.ViewModels.GuestsViewModel
             }
             else MessageBox.Show("eror 404");
         }
+        public void Execute_MoveReservationComand(object obj)
+        {
+            RequestToMoveVisibility = Visibility.Collapsed;
+            ReservationsDataVisibility = Visibility.Visible;
 
+        }
+        public void Execute_FirstDateCommand(object obj)
+        {
+            ReservationView.LastDatePicker.IsEnabled = true;
+            DateTime? firstDatePicekr = ReservationView.FirstDatePicker.SelectedDate;
+            if (firstDatePicekr.HasValue) ReservationView.LastDatePicker.DisplayDateStart = firstDatePicekr.Value.AddDays(Convert.ToInt32(_minNumberOfDays));
+        }
+        public void Execute_SendRequestCommand(object obj)
+        {
+            if (ReservationView.FirstDatePicker.SelectedDate.HasValue && ReservationView.LastDatePicker.SelectedDate.HasValue) { 
+                MessageBoxResult odgovor = MessageBox.Show("Are you sure to move the reservation?", "Move reservation", MessageBoxButton.YesNo);
+                switch (odgovor)
+                {
+                    case MessageBoxResult.Yes:
+                        AccommodationReservation movedReservation = _accommodationReservationRepository.GetByReservationId(_reservationId);
+                        movedReservation.Status = Enums.ReservationStatus.Changed;
+                        _accommodationReservationRepository.Update(movedReservation);
+                        DateOnly firstDate = DateOnly.FromDateTime((DateTime)ReservationView.FirstDatePicker.SelectedDate);
+                        DateOnly lastDate = DateOnly.FromDateTime((DateTime)ReservationView.LastDatePicker.SelectedDate);
+                        ReservationChanges changedReservation = new ReservationChanges(Reservation.Id, Reservation.AccommodationId, Reservation.CheckIn, Reservation.CheckOut, firstDate, lastDate, "", Enums.ReservationChangeStatus.Pending);
+                        _reservationChangeRepository.Save(changedReservation);
+                        MessageBox.Show("Moved reservation sent!");
+                        NavService.Navigate(new GuestMyReservationsView(Guest, NavService));
+                        break;
+                    default:
+                        break;
+                }
+            } else MessageBox.Show("The dates are not filled in correctly!", "WRONG FORMAT ", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+        }
         public void Execute_NextImageCommand(object obj)
         {
             if (CurrentImageIndex < ListImages.Count - 1)
@@ -187,8 +229,35 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 }
             }
         }
+        private Visibility requestToMoveVisibility;
 
+        public Visibility RequestToMoveVisibility
+        {
+            get { return requestToMoveVisibility; }
+            set
+            {
+                if (requestToMoveVisibility != value)
+                {
+                    requestToMoveVisibility = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
+        private Visibility reservationsDataVisibility;
+
+        public Visibility ReservationsDataVisibility
+        {
+            get { return reservationsDataVisibility; }
+            set
+            {
+                if (reservationsDataVisibility != value)
+                {
+                    reservationsDataVisibility = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

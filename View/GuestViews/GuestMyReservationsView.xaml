@@ -35,7 +35,7 @@
 
         <Grid  Grid.Row="1">
 
-            <Button  Content="My request" FontSize="16" FontWeight="Bold" Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,250,0" Cursor="Hand" Background="LightBlue" BorderBrush="DarkBlue" BorderThickness="2" />
+            <Button  Content="My request" FontSize="16" FontWeight="Bold" Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,250,0" Cursor="Hand" Background="LightBlue" BorderBrush="DarkBlue" BorderThickness="2"  Command="{Binding MyRequestCommand}" />
             <Button  Width="200" Height="35" BorderBrush="Black" BorderThickness="2.3"  Margin="130,0,0,0" >
                 <StackPanel Orientation="Horizontal" >
                     <Image Source ="/Resources/Images/home.png" Width="30" Height="30" />
