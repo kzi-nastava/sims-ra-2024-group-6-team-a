@@ -10,47 +10,47 @@
         <StackPanel Orientation="Vertical">
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom">Guest Name :</TextBlock>
+                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom" Foreground="DarkBlue">Guest Name :</TextBlock>
 
-                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding GuestName}" VerticalAlignment="Bottom"></TextBlock>
+                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding GuestName}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
                 </StackPanel>
 
-                <Rectangle HorizontalAlignment="Stretch" Fill="Blue" Height="4"/>
+                
                 <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom">Accommodation :</TextBlock>
-                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding AccommodationName}" VerticalAlignment="Bottom"></TextBlock>
+                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom" Foreground="DarkBlue">Accommodation :</TextBlock>
+                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding AccommodationName}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
                 </StackPanel>
-                 <Rectangle HorizontalAlignment="Stretch" Fill="Blue" Height="4"/>
+                 
 
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom">Old period:</TextBlock>
-                    <TextBlock Margin="5,2,5,6"  FontSize="12" Text="{Binding OldDate}" VerticalAlignment="Bottom"></TextBlock>
+                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom" Foreground="DarkBlue">Old period:</TextBlock>
+                <TextBlock Margin="5,2,5,6"  FontSize="12" Text="{Binding OldDate}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
                 </StackPanel>
-            <Rectangle HorizontalAlignment="Stretch" Fill="Blue" Height="4"/>
+           
 
             
                 <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom">New period:</TextBlock>
-                <TextBlock Margin="5,2,5,6"  FontSize="12" Text="{Binding NewDate}" VerticalAlignment="Bottom"></TextBlock>
+                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom" Foreground="DarkBlue">New period:</TextBlock>
+                <TextBlock Margin="5,2,5,6"  FontSize="12" Text="{Binding NewDate}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
                 </StackPanel>
 
 
-            <Rectangle HorizontalAlignment="Stretch" Fill="Blue" Height="4"/>
+            
             <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom">Already Booked:</TextBlock>
-                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding BookedStatus}" VerticalAlignment="Bottom"></TextBlock>
+                <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom" Foreground="DarkBlue">Already Booked:</TextBlock>
+                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding BookedStatus}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
                 </StackPanel>
 
             <Rectangle HorizontalAlignment="Stretch" Fill="Blue" Height="4"/>
 
-            <TextBlock Margin="5,10,5,10"  FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center">Additional comment</TextBlock>
+            <TextBlock Margin="5,10,5,10"  FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="DarkBlue">Additional comment</TextBlock>
 
             <TextBox Height="100" x:Name="CommentBox" Margin="2,2,2,2" FontSize="16" TextWrapping="Wrap">
                 
             </TextBox>
-            
-            <TextBlock Margin="3,30,3,10" HorizontalAlignment="center" FontWeight="Bold" FontSize="25">Allow the reservation change?</TextBlock>
+
+            <TextBlock Margin="3,30,3,10" HorizontalAlignment="center" FontWeight="Bold" FontSize="25" Foreground="DarkBlue">Allow the reservation change?</TextBlock>
 
             
             
@@ -58,14 +58,14 @@
                 <Button Background="Bisque" Click="YesClick">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Images/yes.png" Width="40" Height="40"></Image>
-                        <TextBlock FontSize="25" Margin="12,3,12,3">Yes</TextBlock>
+                        <TextBlock FontSize="25" Margin="12,3,12,3" Foreground="DarkBlue">Yes</TextBlock>
                     </StackPanel>
 
                 </Button>
                 <Button Background="Bisque" Click="NoClick">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Images/no.png" Width="40" Height="40"></Image>
-                        <TextBlock FontSize="25" Margin="12,3,12,3">No</TextBlock>
+                        <TextBlock FontSize="25" Margin="12,3,12,3" Foreground="DarkBlue">No</TextBlock>
                     </StackPanel>
                     
                 </Button>

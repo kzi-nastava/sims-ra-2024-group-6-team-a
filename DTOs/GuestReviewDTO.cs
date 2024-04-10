@@ -155,6 +155,21 @@ namespace BookingApp.DTOs
             }
         }
 
+        public String info;
+
+        public String Info
+        {
+            get { return info; }
+
+            set
+            {
+                if(info != value)
+                {
+                    info = value;
+                }
+            }
+        }
+
         public GuestReviewDTO(string accommodationName, string userName,int cleanlinessGrade,int respectGrade,string comment,string date,int reservationId)
         {
             this.accommodationName = accommodationName;
@@ -165,6 +180,12 @@ namespace BookingApp.DTOs
             image = "\\Resources\\Images\\blank-profile.jpg";
             this.date = date;
             this.reservationId = reservationId;
+            if (this.cleanlinessGrade == 0 && this.respectGrade == 0)
+            {
+                info = "Click \"Enter\" to review guest.";
+            }
+            else
+                info = "Click \"Enter\" to see guest's feedback.";
         }
 
     }
