@@ -6,10 +6,14 @@ using BookingApp.Resources;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
+using System.Windows;
+
 
 namespace BookingApp.ViewModels.GuestsViewModel
 {
@@ -20,11 +24,12 @@ namespace BookingApp.ViewModels.GuestsViewModel
         private ImageRepository _imageRepository;
         public static ObservableCollection<ImageDTO> Images { get; set; }
         public ObservableCollection<ReservationGuestDTO> Reservations { get; set; }
-        public static List<Model.Image> imageModels { get; set; }
-        public AccommodationReservation SelectedReservation { get; set; }
+        //public static List<Model.Image> imageModels { get; set; }
+        //public AccommodationReservation SelectedReservation { get; set; }
         public Guest Guest { get; set; }
         public NavigationService NavService { get; set; }
         public RelayCommand SeeMoreCommand { get; set; }
+        public RelayCommand MyRequestCommand { get; set; }
 
         private AccommodationReservationRepository accommodationReservationRepository;
 
@@ -39,6 +44,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
 
 
             SeeMoreCommand = new RelayCommand(Execute_SeeMoreCommand);
+            MyRequestCommand = new RelayCommand(Execute_MyRequestCommand);
             NavService = navigation;
             Update();
         }
@@ -55,8 +61,13 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 }
                 Accommodation accommodation = _accommodationRepository.GetByReservationId(reservation.AccommodationId);
                 Location location = _locationRepository.GetByAccommodation(accommodation);
-                Reservations.Add(new ReservationGuestDTO(Guest.Name, reservation, accommodation, location, image.Path));
+                Reservations.Add(new ReservationGuestDTO(Guest, reservation, accommodation, location, image.Path));
             }
+        }
+        private void Execute_MyRequestCommand(object obj)
+        {
+            NavService.Navigate(new GuestMyRequestView(Guest, NavService));
+
         }
         private void Execute_SeeMoreCommand(object obj)
         {

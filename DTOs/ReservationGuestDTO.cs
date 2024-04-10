@@ -14,24 +14,6 @@ namespace BookingApp.DTOs
         public int Id { get; set; }
         public int AccommodationId { get; set; }
 
-        private string ownerName;
-        public string OwnerName
-        {
-            get
-            {
-                return ownerName;
-            }
-
-            set
-            {
-                if (value != ownerName)
-                {
-                    ownerName = value;
-                    OnPropertyChanged("OwnerName");
-                }
-            }
-        }
-
         private string accommodationName;
         public string AccommodationName
         {
@@ -160,6 +142,26 @@ namespace BookingApp.DTOs
             }
         }
 
+        public int minNumberOfDays;
+
+        public int MinNumberOfDays
+        {
+            get
+            {
+                return minNumberOfDays;
+            }
+
+            set
+            {
+                if (value != minNumberOfDays)
+                {
+                    minNumberOfDays = value;
+                    OnPropertyChanged("minNumberOfDays");
+                }
+
+            }
+        }
+
         public String image;
 
         public String Image
@@ -211,9 +213,9 @@ namespace BookingApp.DTOs
                 }
             }
         }
-        public ReservationGuestDTO(string ownerName, AccommodationReservation reservation, Accommodation accommodation, Location location, String image)
+        public ReservationGuestDTO(Guest guest, AccommodationReservation reservation, Accommodation accommodation, Location location, String image)
         {
-            this.ownerName = ownerName;
+            //dodaj i za guest
             this.checkIn = reservation.CheckInDate;
             this.checkOut = reservation.CheckOutDate;
             this.Id = reservation.Id;
@@ -222,6 +224,7 @@ namespace BookingApp.DTOs
             this.accommodationName = accommodation.Name;
             this.type = accommodation.Type;
             this.CancelationDays = accommodation.CancelationDays;
+            this.MinNumberOfDays = accommodation.MinReservationDays;
             this.city = location.City;
             this.state = location.State;
             this.reservationStatus = reservation.Status;
