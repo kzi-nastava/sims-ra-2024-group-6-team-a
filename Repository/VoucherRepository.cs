@@ -17,13 +17,15 @@ namespace BookingApp.Repository
         private readonly Serializer<Voucher> _serializer;
         private List<Voucher> _vouchers;
         public Subject subject;
-    
+        
+        public TourReservationRepository _tourReservationRepository;
         
         public VoucherRepository()
         {
             _serializer = new Serializer<Voucher>();
             _vouchers = _serializer.FromCSV(FilePath);
             subject = new Subject();
+            _tourReservationRepository = new TourReservationRepository();
         }
 
         public List <Voucher> GetAll()
@@ -53,13 +55,16 @@ namespace BookingApp.Repository
 
         public void SaveAllGuests(List<TourGuests> guests)
         {
+
             foreach(TourGuests tourGuest in guests)
             {
+                TourReservation tourReservation = _tourReservationRepository.GetById(tourGuest.ReservationId);
                 Voucher voucher = new Voucher();
                 voucher.TouristName = tourGuest.Name;
                 voucher.TouristSurname = tourGuest.Surname;
                 voucher.TouristBirth = tourGuest.Age;
                 voucher.IssuingDate = DateTime.Now;
+                voucher.UserId = tourReservation.TouristId;
                 Save(voucher);
             }
         }

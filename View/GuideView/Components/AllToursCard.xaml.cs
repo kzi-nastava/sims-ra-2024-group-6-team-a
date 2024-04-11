@@ -52,11 +52,17 @@ namespace BookingApp.View.GuideView.Components
             {
                 if (result == MessageBoxResult.Yes)
                 {
-                    // Code to cancel the tour
                     if (guests.Count != 0)
                     {
                         _voucherRepository.SaveAllGuests(guests);
-                        _tourReservationRepository.Delete(_tourReservationRepository.GetById(tourSchedule.TourId));
+                        
+                        foreach (TourReservation tourReservation in _tourReservationRepository.GetAll())
+                        {
+                            if (tourReservation.TourRealisationId == tourSchedule.Id)
+                                _tourReservationRepository.Delete(tourReservation);
+                        
+                        }
+
                     }
 
                     foreach (TourGuests guest in guests)
