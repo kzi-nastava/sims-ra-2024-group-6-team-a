@@ -134,5 +134,10 @@ namespace BookingApp.Repository
 
             SaveTourGuests(reservation.Id, guests, tourGuestRepository);
         }
+
+        public TourReservation GetById(int id)
+        {
+            return _tourReservations.Find(c => c.Id == id);
+        }
     }
 }

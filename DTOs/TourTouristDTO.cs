@@ -203,8 +203,7 @@ namespace BookingApp.DTOs
             Duration = tour.Duration;
             City = location.City;
             State = location.State;
-            Start = tourSchedule.Start;
-            
+            Start = tourSchedule.Start;   
         }
 
     }
