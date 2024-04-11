@@ -41,9 +41,11 @@ namespace BookingApp.View
         private  ImageRepository _imageRepository;
         private  CheckpointRepository _checkRepository;
         private  TourScheduleRepository _tourScheduleRepository;
+        private TourGuestRepository _tourGuestRepository;
 
         public LiveToursPage liveToursPage;
         public TourCreationPage tourCreationPage;
+        public TourStatisticsPage tourStatisticsPage;
 
         public GuideViewMenu(User user,LocationRepository locationRepository,ImageRepository imageRepository)
         {
@@ -55,12 +57,13 @@ namespace BookingApp.View
             _tourRepository = new TourRepository();
             _checkRepository = new CheckpointRepository();
             _tourScheduleRepository = new TourScheduleRepository();
-
+            _tourGuestRepository = new TourGuestRepository();
             mainFrame = MainFrame;
             LoggedUser = user;
 
             tourCreationPage = new TourCreationPage(LoggedUser, _tourRepository, _locationRepository, _imageRepository, _checkRepository, _tourScheduleRepository);
             liveToursPage = new LiveToursPage(mainFrame,tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
+            tourStatisticsPage = new TourStatisticsPage(LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository, _tourGuestRepository);
         }
            
             
@@ -73,6 +76,11 @@ namespace BookingApp.View
         private void LiveToursPageEvent(object sender, EventArgs e)
         {
             liveToursPage.Update();
+        }
+
+        private void TourStatisticsPageClick(object sender, EventArgs e)
+        {
+            MainFrame.Content = tourStatisticsPage;
         }
 
        
