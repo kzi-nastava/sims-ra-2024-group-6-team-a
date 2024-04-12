@@ -11,7 +11,7 @@ namespace BookingApp.Repository
 {
     public class GuestRepository
     {
-        private const string FilePath = "../../../Resources/Data/guests.csv";
+        private const string FilePath = "../../../Resources/Data/accommodation_guests.csv";
 
         private readonly Serializer<Guest> _serializer;
         private readonly List<IObserver> _observers;
@@ -72,5 +72,7 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return guest;
         }
+
+       
     }
 }
