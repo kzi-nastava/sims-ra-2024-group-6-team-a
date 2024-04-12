@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
@@ -10,7 +11,7 @@ using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
-    public class ReservationChangeRepository
+    public class ReservationChangeRepository : IReservationChangeRepository
     {
         private const string FilePath = "../../../Resources/Data/reservation_changes.csv";
 
