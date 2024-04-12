@@ -15,19 +15,22 @@ namespace BookingApp.Model
         
         public bool IsReached {  get; set; }
 
+        public int TourScheduleId {  get; set; }
+
 
         public Checkpoint() { }
 
-        public Checkpoint(string name, int tourId, bool isReached)
+        public Checkpoint(string name, int tourId, bool isReached, int tourScheduleId)
         {
             Name = name;
             TourId = tourId;
             IsReached = isReached;
+            TourScheduleId = tourScheduleId;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, TourId.ToString(), IsReached.ToString() };
+            string[] csvValues = { Id.ToString(), Name, TourId.ToString(), IsReached.ToString(), TourScheduleId.ToString() };
             return csvValues;
         }
 
@@ -37,6 +40,7 @@ namespace BookingApp.Model
             Name = values[1];
             TourId = Convert.ToInt32(values[2]);
             IsReached = bool.Parse(values[3]);
+            TourScheduleId = Convert.ToInt32(values[4]);
         }
 
     }

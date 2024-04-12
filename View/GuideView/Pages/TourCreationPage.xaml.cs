@@ -171,21 +171,21 @@ namespace BookingApp.View.GuideView.Pages
             SelectedTour = _tourRepository.Save(SelectedTour);
 
 
-            SaveCheckpoints(CheckpointsCollection.ToList());
+            //SaveCheckpoints(CheckpointsCollection.ToList());
             SaveImages(ImagesCollection.ToList());
-            SaveTourDates(TourDatesCollection.ToList());
+            SaveTourDatesAndCheckpoints(TourDatesCollection.ToList(), CheckpointsCollection.ToList());
             OnSomethingHappened(EventArgs.Empty);
 
             MessageBox.Show("Tour Added");
         }
 
-        private void SaveCheckpoints(List<String> checkpoints)
-        {
-            foreach (string checkpoint in checkpoints)
-            {
-                _checkRepository.Save(new Checkpoint(checkpoint, SelectedTour.Id,false));
-            }
-        }
+        //private void SaveCheckpoints(List<String> checkpoints)
+        //{
+        //    foreach (string checkpoint in checkpoints)
+        //    {
+        //        _checkRepository.Save(new Checkpoint(checkpoint, SelectedTour.Id,false));
+        //    }
+        //}
 
         private void SaveImages(List<String> images)
         {
@@ -195,11 +195,15 @@ namespace BookingApp.View.GuideView.Pages
             }
         }
 
-        private void SaveTourDates(List<DateTime> dates)
+        private void SaveTourDatesAndCheckpoints(List<DateTime> dates, List <String> checkpoints)
         {
             foreach (DateTime date in dates)
             {
-                _tourScheduleRepository.Save(new TourSchedule(date, SelectedTour.Id, SelectedTour.Capacity,Enums.TourActivity.Ready));
+               TourSchedule tourSchedule = _tourScheduleRepository.Save(new TourSchedule(date, SelectedTour.Id, SelectedTour.Capacity,Enums.TourActivity.Ready));
+                foreach(string checkpoint in checkpoints)
+                {
+                    _checkRepository.Save(new Checkpoint(checkpoint, SelectedTour.Id,false,tourSchedule.Id));
+                }
             }
         }
 

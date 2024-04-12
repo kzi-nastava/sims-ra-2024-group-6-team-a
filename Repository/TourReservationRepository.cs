@@ -63,7 +63,7 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
         }
 
-        public List <TourReservation> GetAllByRealisationId(int tourRealisationId)
+        public List<TourReservation> GetAllByRealisationId(int tourRealisationId)
         {
             _tourReservations = _serializer.FromCSV(FilePath);
             return _tourReservations.Where(t => t.TourRealisationId == tourRealisationId).ToList();
@@ -140,11 +140,12 @@ namespace BookingApp.Repository
         {
             _tourReservations = _serializer.FromCSV(FilePath);
             return _tourReservations.FindAll(x => x.TouristId == user.Id);
-
+        }
         public TourReservation GetById(int id)
         {
             return _tourReservations.Find(c => c.Id == id);
 
         }
+
     }
 }
