@@ -1,0 +1,22 @@
+﻿<Window x:Class="BookingApp.View.TouristView.FinishedTours"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.TouristView"
+        mc:Ignorable="d"
+        Title="FinishedTours" Height="450" Width="800">
+    <Grid>
+        <TextBlock Margin="45" FontSize="15">Finished tours you ready for rating:</TextBlock>
+        <Button Height="25" Width="55" Margin="450,0,0,325" Click="RateTour_Click">Rate tour</Button>
+        <DataGrid x:Name="tourDataGrid" ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
+  SelectedItem="{Binding Path=SelectedTourSchedule, UpdateSourceTrigger=PropertyChanged}"
+  Margin="45,80,45,121" IsReadOnly="True" SelectionMode="Single " Width="250"
+  AutoGenerateColumns="False" HeadersVisibility="Column" FontSize="13">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="Name" Binding="{Binding TourName}" Width="127"></DataGridTextColumn>
+                <DataGridTextColumn  Header="Start date" Binding="{Binding Start}" Width="120"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

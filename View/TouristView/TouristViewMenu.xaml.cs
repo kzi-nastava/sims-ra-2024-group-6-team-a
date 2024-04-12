@@ -184,5 +184,11 @@ namespace BookingApp.View
             Inbox inbox = new Inbox();
             inbox.ShowDialog();
         }
+
+        private void TourRating_Click(object sender, RoutedEventArgs e)
+        {
+            FinishedTours finishedTours = new FinishedTours(LoggedUser);
+            finishedTours.ShowDialog();
+        }
     }
 }

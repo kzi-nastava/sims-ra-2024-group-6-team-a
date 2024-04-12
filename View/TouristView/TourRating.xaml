@@ -1,0 +1,43 @@
+﻿<Window x:Class="BookingApp.View.TouristView.TourRating"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.TouristView"
+        mc:Ignorable="d"
+        Title="TourRating" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Margin="15,15,15,15" Height="45">Guide's knowledge:</TextBlock>
+        <TextBox Grid.Row="0" Grid.Column="1" Width="35" Height="25" Text="{Binding TourReviewDTO.GuideKnowledgeGrade, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBlock Grid.Row="1" Grid.Column="0" Margin="15,15,15,15" >Guide's spoken language:</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" Width="35" Height="25" Text="{Binding TourReviewDTO.GuideLanguageGrade, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBlock Grid.Row="2" Grid.Column="0" Margin="15,15,15,15">Tour's attractions:</TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="1" Width="35" Height="25"  Text="{Binding TourReviewDTO.TourAttractionsGrade, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBlock Grid.Row="3" Grid.Column="0" Margin="15,15,15,15" >Your impression:</TextBlock>
+        <TextBox Grid.Row="3" Grid.Column="1" Width="320" Height="80" Text="{Binding TourReviewDTO.Impression, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBlock Grid.Row="4" Grid.Column="0" Margin="15,15,15,15">Add photos:</TextBlock>
+        <ListBox Grid.Row="4" Grid.Column="1" Width="280" Margin="-25,0,15,15" SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Column="1" Grid.Row="4" Width="25" Height="25" Margin="0,15,-290,0" Click="SelectImage_Click">Add</Button>
+        <Button Grid.Column="1" Grid.Row="4" Width="35" Height="25" Margin="0,15,-360,0" Click="RemoveImage_Click">Delete</Button>
+        <Button Grid.Column="0" Grid.Row="5" Width="55" Height="25" Click="CancelRate_Click">Cancel</Button>
+        <Button Grid.Column="1" Grid.Row="5" Width="55" Height="25" Click="SaveRate_Click">Confirm</Button>
+    </Grid>
+</Window>

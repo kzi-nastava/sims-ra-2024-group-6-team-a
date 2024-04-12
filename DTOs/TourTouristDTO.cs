@@ -206,6 +206,7 @@ namespace BookingApp.DTOs
             Start = tourSchedule.Start;   
         }
 
+
     }
     }
 
