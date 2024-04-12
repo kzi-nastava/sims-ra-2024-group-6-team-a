@@ -11,7 +11,8 @@ namespace BookingApp.Resources
        public enum ImageType
         {
             Accommodation,
-            Tour
+            Tour,
+            OwnersReviews 
         }
 
         public enum UserType
