@@ -52,11 +52,11 @@
 
             </TextBlock>
         </StackPanel>
-        <DataGrid  CanUserAddRows="False" AutoGenerateColumns="False" Grid.Row="4" ItemsSource="{Binding TourGuests}" Margin="0,0,72,17"  HorizontalAlignment="Right" Width="500" Grid.ColumnSpan="2" >
+        <DataGrid  x:Name="TourGuestsDataGrid" CanUserAddRows="False" AutoGenerateColumns="False" Grid.Row="4" ItemsSource="{Binding TourGuests}" Margin="0,0,72,17"  HorizontalAlignment="Right" Width="500" Grid.ColumnSpan="2" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="*"></DataGridTextColumn>
-                <DataGridCheckBoxColumn Header="Status" Width="50" Binding="{Binding IsPresent}" />
+                <DataGridCheckBoxColumn Header="Status" Width="50" Binding="{Binding IsPresent}"/>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid  CanUserAddRows="False"  ItemsSource="{Binding Checkpoints}" AutoGenerateColumns="False" Width="500"  x:Name="CheckpointsDataGrid" Grid.Row="4" Margin="0,0,0,17"  HorizontalAlignment="Center">

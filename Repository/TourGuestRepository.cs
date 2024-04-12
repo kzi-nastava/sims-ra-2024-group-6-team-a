@@ -102,6 +102,20 @@ namespace BookingApp.Repository
         }
 
 
+        public string TourAttendanceNotification()
+        {
+            string response = "Na turi su se pojavili:";
+            foreach(TourGuests guest in GetAll())
+            {
+                if (guest.IsPresent == true)
+                {
+                    response += guest.Name + guest.Surname + guest.CheckpointId; 
+                }
+            }
+            return response;
+        }
+
+
     }
 }
 

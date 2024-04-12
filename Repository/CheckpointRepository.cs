@@ -93,6 +93,24 @@ namespace BookingApp.Repository
             return checkpoints;
         }
 
+        public List<Checkpoint> GetFinishedCheckpoints(Tour tour)
+        {
+            List<Checkpoint> checkpoints = new List<Checkpoint>();
+
+            foreach(Checkpoint checkpoint in GetAll())
+            {
+                if(checkpoint.TourId == tour.Id)
+                {
+                    if (checkpoint.IsReached == true)
+                    {
+                        checkpoints.Add(checkpoint);
+                    }
+                }
+               
+            }
+            return checkpoints;
+        }
+
 
     }
 }

@@ -134,5 +134,11 @@ namespace BookingApp.Repository
 
             SaveTourGuests(reservation.Id, guests, tourGuestRepository);
         }
+
+        public List<TourReservation> GetAllByUser(User user)  //pronasla sam sve rezervacije nekog turiste
+        {
+            _tourReservations = _serializer.FromCSV(FilePath);
+            return _tourReservations.FindAll(x => x.TouristId == user.Id);
+        }
     }
 }

@@ -22,3 +22,19 @@
 22|Begec|8|False
 23|Futog|8|False
 24|Novi Sad|8|False
+25|prvi|9|True
+26|drugi|9|False
+27|treci|9|False
+28|prvi|10|True
+29|drugi|10|True
+30|treci|10|True
+31|kl|11|True
+32|gf|11|True
+33|ds|11|True
+34|s|12|True
+35|a|12|True
+36|d|12|False
+37|f|12|False
+38|a|13|True
+39|aaaaaa|13|True
+40|aaaaa|13|False
