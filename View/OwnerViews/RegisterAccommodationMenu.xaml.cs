@@ -46,11 +46,11 @@ namespace BookingApp.View
             int reservationParsed;
             int cancelParsed;
 
-            if (State.Text != "" && City.Text != "" && Name.Text != "" && int.TryParse(MaxGuests.Text,out guestsParsed) && int.TryParse(MinReservation.Text,out reservationParsed) && int.TryParse(CancelDays.Text,out cancelParsed))
+            if (LocationCombo.SelectedItem != null &&  Name.Text != "" && int.TryParse(MaxGuests.Text,out guestsParsed) && int.TryParse(MinReservation.Text,out reservationParsed) && int.TryParse(CancelDays.Text,out cancelParsed))
              {
                 if (MessageBox.Show("Confirm registration?", "Register", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    registerAccommodationVM.Register(apt.IsChecked, cottage.IsChecked,State.Text,City.Text,Name.Text,MaxGuests.Text, MinReservation.Text,CancelDays.Text);
+                    registerAccommodationVM.Register(apt.IsChecked, cottage.IsChecked,LocationCombo.SelectedIndex+1,Name.Text,MaxGuests.Text, MinReservation.Text,CancelDays.Text);
 
                     Close();
                 }

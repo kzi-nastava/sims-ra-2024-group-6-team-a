@@ -23,6 +23,7 @@ namespace BookingApp.ViewModels
         public LocationRepository locationRepository;
         public ImageRepository imageRepository;
         public List<String> _imageRelativePath = new List<String>();
+        public List<String> locations {  get; set; }
         public int userId;
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -30,10 +31,21 @@ namespace BookingApp.ViewModels
 
         public RegisterAccommodationVM(AccommodationRepository accommodationRepository, LocationRepository locationRepository, ImageRepository imageRepository, int userId)
         {
+
             this.locationRepository = locationRepository;
             this.accommodationRepository = accommodationRepository;
             this.imageRepository = imageRepository;
             this.userId = userId;
+            this.locations = new List<String>();
+            AddLocations();
+        }
+
+        private void AddLocations()
+        {
+            foreach (Location location in this.locationRepository.GetAll()) 
+            {
+                locations.Add(location.City + " , " + location.State);
+            }
         }
 
         private void SaveImages(int accommodationId)
@@ -55,15 +67,16 @@ namespace BookingApp.ViewModels
         }
 
 
+       
 
-        public void Register(bool? aptChecked, bool? cottageChecked,string state,string city,string name,string maxguests,string minres,string canceldays)
+
+        public void Register(bool? aptChecked, bool? cottageChecked,int locationId,string name,string maxguests,string minres,string canceldays)
         {
+
 
             Enums.AccommodationType type = GetType(aptChecked,cottageChecked);
 
-            Location location = new Location(state, city);
-            location = locationRepository.Save(location);
-            //we could add a check if location exists
+            Location location = locationRepository.GetById(locationId);
 
 
             accommodation = new Accommodation(name, type, int.Parse(maxguests), int.Parse(minres), int.Parse(canceldays), location.Id, userId);

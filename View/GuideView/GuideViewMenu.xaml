@@ -29,17 +29,17 @@
                 </StackPanel>
             </Button>
             <Separator/>
-            <Button BorderThickness="0" >
+            <Button Click="AllToursPageClick" BorderThickness="0" >
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/view.png" Width="20" Height="25"/>
-                    <TextBlock Text="Details" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <TextBlock Text="All Tours" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
             <Separator/>
-            <Button BorderThickness="0" >
+            <Button BorderThickness="0" Click="StatisticsClick" >
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/checkpoint.png" Width="20" Height="25"/>
-                    <TextBlock x:Name="DeleteTxtBlock" Text="Checkpoints" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <TextBlock x:Name="DeleteTxtBlock" Text="Statistics" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
         </StackPanel>
