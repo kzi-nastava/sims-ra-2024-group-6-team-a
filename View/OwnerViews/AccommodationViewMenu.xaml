@@ -108,8 +108,8 @@
                               <Grid>
                                         <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="175" />
-                                    <ColumnDefinition Width="475" />
-                                    <ColumnDefinition Width="235" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="400" />
                                 </Grid.ColumnDefinitions>
 
                                 <Grid.RowDefinitions>

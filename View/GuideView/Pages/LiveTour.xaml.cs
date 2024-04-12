@@ -72,7 +72,7 @@ namespace BookingApp.View.GuideView.Pages
         public void UpdateCheckpoints()
         {
             Checkpoints.Clear();
-            foreach (Checkpoint checkpoint in _checkpointRepository.GetAllByTourId(SelectedTour.Id))
+            foreach (Checkpoint checkpoint in _checkpointRepository.GetAllByTourScheduleId(SelectedTourSchedule.Id))
             {
 
                 Checkpoints.Add(checkpoint);

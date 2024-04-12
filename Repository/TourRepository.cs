@@ -10,6 +10,8 @@ using System.Xml.Linq;
 using BookingApp.Observer;
 using BookingApp.DTOs;
 using System.CodeDom;
+using System.Windows.Input;
+using BookingApp.View.TouristView;
 
 namespace BookingApp.Repository
 {
@@ -83,6 +85,41 @@ namespace BookingApp.Repository
             return tour;
         }
 
+        public List<TourSchedule> GetOngoingToursByUser(User user)
+        {   
+            TourReservationRepository reservationRepository = new TourReservationRepository();
+            TourScheduleRepository scheduleRepository = new TourScheduleRepository();
+            List<TourSchedule> tours = new List<TourSchedule>();
+
+            foreach(TourReservation reservation in reservationRepository.GetAllByUser(user))
+            {
+                TourSchedule tourSchedule = scheduleRepository.GetById(reservation.TourRealisationId);
+                if (tourSchedule.TourActivity == Resources.Enums.TourActivity.Ongoing)
+                {
+                    tours.Add(tourSchedule);
+                }
+                
+            }
+            return tours;
+
+
+
+           /* foreach(Tour tour in GetAll())
+            {
+                foreach(TourReservation reservation in reservationRepository.GetAll())
+                {
+                    if (tour.Id == reservation.TourId && reservation.TouristId == user.Id && schedule.TourId == tour.Id && schedule.Activity.Equals("Ongoing"))
+                    {
+                        tours.Add(tour);
+                    }
+                }
+            }
+
+            return tours;*/
+        }
+
+       
+
         public List<Tour> GetAllByUser(User user)
         {
             _tours = _serializer.FromCSV(FilePath);
@@ -114,5 +151,9 @@ namespace BookingApp.Repository
             _observers.Add(observer);
         }
 
+        internal void Subscribe(ActiveTours activeTours)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

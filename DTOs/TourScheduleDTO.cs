@@ -1,4 +1,6 @@
 ﻿using BookingApp.Model;
+using BookingApp.Repository;
+using BookingApp.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +13,7 @@ namespace BookingApp.DTOs
 {
     public class TourScheduleDTO : INotifyPropertyChanged
     {
-
+        private readonly TourRepository _tourRepository = new TourRepository();
         public TourScheduleDTO() { }
 
         public TourScheduleDTO(TourSchedule tourSchedule)
@@ -20,9 +22,27 @@ namespace BookingApp.DTOs
             Start = tourSchedule.Start;
             CurrentFreeSpace = tourSchedule.CurrentFreeSpace;
             TourId = tourSchedule.TourId;
+            TourName = _tourRepository.GetById(TourId).Name;
         }
 
         public string TourScheduleDisplay => $"{Start}";
+
+        private string _tourName;
+        public string TourName
+        {
+            get
+            {
+                return _tourName;
+            }
+            set
+            {
+                if (_tourName != value)
+                {
+                    _tourName = value;
+                    OnPropertyChanged("TourName");
+                }
+            }
+        }
 
         private int _tourId;
         public int TourId
@@ -57,6 +77,24 @@ namespace BookingApp.DTOs
                 }
             }
 
+        }
+
+        private Enums.TourActivity _activity;
+        public Enums.TourActivity Activity
+        {
+            get
+            {
+                return _activity;
+            }
+            set
+            {
+                if (value != _activity)
+                {
+                    _activity = value;
+                    OnPropertyChanged("Activity");
+
+                }
+            }
         }
 
         private DateTime _start;

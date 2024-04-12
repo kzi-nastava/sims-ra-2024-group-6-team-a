@@ -7,8 +7,13 @@
         mc:Ignorable="d"
         Title="Tours View" Height="450" Width="800">
     <Grid>
-        
-            <DataGrid x:Name="tourDataGrid" ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
+        <Grid>
+        <Menu >
+            <MenuItem Header="My Active Tours" Click="MyActiveTours_Click"/>
+            <MenuItem Header="Inbox" Click="Inbox_Click"/>
+            </Menu>
+        </Grid>
+    <DataGrid x:Name="tourDataGrid" ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
           SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}"
           Margin="45,100,45,121" IsReadOnly="True" SelectionMode="Single " 
       AutoGenerateColumns="False" HeadersVisibility="Column" FontSize="13">
