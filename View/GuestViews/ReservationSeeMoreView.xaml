@@ -7,179 +7,200 @@
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:local="clr-namespace:BookingApp.View.GuestViews"
       mc:Ignorable="d" 
-     d:DesignHeight="540" d:DesignWidth="410"
+     d:DesignHeight="1540" d:DesignWidth="410"
       Title="ReservationSeeMoreView">
 
-    <Grid  Background="Wheat">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="90"/>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="180"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Grid>
 
-        <Grid  Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" >
-                <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
-                    <Image Source ="/Resources/Images/home.png" Width="70" Height="50"/>
+
+        <Grid  Background="Wheat" Visibility="{Binding SeeMoreVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="180"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid  Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" >
+                    <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
+                        <Image Source ="/Resources/Images/home.png" Width="70" Height="50"/>
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="1" >
+                    <TextBlock FontSize="37" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" >My reservations</TextBlock>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1" >
+                <Label Content="{Binding AccommodationName}"   Height="60" Width="auto" FontSize="35" FontWeight="DemiBold"   Background="Transparent" Foreground="Black" FontFamily="arial" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
+            </Grid>
+            <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
+
+            <Grid Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Image Source= "{Binding CurrentImage.Path}" VerticalAlignment="Top" Width="330" Height="180" Margin="0,-24,0,0" />
+                <Button Height="40" Width="22" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Transparent"  Command="{Binding NextImageCommand}">
+                    <Image Source ="/Resources/Images/rarrow.png" Width="20" Height="35"/>
+                </Button>
+                <Button Height="40" Width="22" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"  Command="{Binding PreviousImageCommand}">
+                    <Image Source ="/Resources/Images/checkpoint.png" Width="20" Height="35"/>
                 </Button>
             </Grid>
-            <Grid Grid.Column="1" >
-                <TextBlock FontSize="37" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" >My reservations</TextBlock>
+            <Grid Grid.Row="3" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="34"/>
+                    <RowDefinition Height="33"/>
+                    <RowDefinition Height="33"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="65"/>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Label FontSize="15"  FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Center" Content="State:"></Label>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"   HorizontalAlignment="left"  Content="{Binding State}" Margin="-20,0,0,0" />
+                    </Grid>
+
+                    <Grid Grid.Column="2">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="left" Visibility="{Binding RequestToMoveVisibility}"  Content="Check in date: " ></Label>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="left" Visibility="{Binding ReservationsDataVisibility}" Content="Old check in date: " ></Label>
+                    </Grid>
+
+                    <Grid Grid.Column="3">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Reservation.CheckIn}" Visibility="{Binding RequestToMoveVisibility}" Margin="-80,0,0,0" Width="90"/>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Reservation.CheckIn}" Visibility="{Binding ReservationsDataVisibility}" Margin="-55,0,0,0" Width="90"/>
+                    </Grid>
+
+                </Grid>
+                <Grid Grid.Row="1" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="65"/>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Label FontSize="15"  FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Center" Content="City:"></Label>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  Content="{Binding City}"  Margin="-20,0,0,0" />
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Visibility="{Binding RequestToMoveVisibility}" Content="Check out date: "></Label>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="left" Visibility="{Binding ReservationsDataVisibility}" Content="Old check out date: " ></Label>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Reservation.CheckOut}"  Visibility="{Binding RequestToMoveVisibility}" Margin="-80,0,0,0" Width="90"/>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Reservation.CheckOut}" Visibility="{Binding ReservationsDataVisibility}" Margin="-55,0,0,0" Width="90"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="65"/>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Label FontSize="15"  FontFamily="Bahnschrift" Foreground="Black" HorizontalAlignment="Center" Content="Type:"></Label>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  Content="{Binding Type}" Margin="-20,0,0,0" />
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Visibility="{Binding RequestToMoveVisibility}" Content="Days of cancelation: "  ></Label>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Visibility="{Binding ReservationsDataVisibility}" Content="Minimal number of days: "  ></Label>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding CancelationDays}" Visibility="{Binding RequestToMoveVisibility}" Margin="-40,0,0,0" Width="33"/>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Reservation.MinNumberOfDays}" Visibility="{Binding ReservationsDataVisibility}" Margin="-20,0,0,0" Width="33"/>
+                    </Grid>
+                </Grid>
+                <Separator  VerticalAlignment="Bottom" Height="2" Background="Black" Grid.Row="2"></Separator>
             </Grid>
-        </Grid>
-
-        <Grid Grid.Row="1" >
-            <Label Content="{Binding AccommodationName}"   Height="60" Width="auto" FontSize="35" FontWeight="DemiBold"   Background="Transparent" Foreground="Black" FontFamily="arial" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
-        </Grid>
-        <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
-
-        <Grid Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Image Source= "{Binding CurrentImage.Path}" VerticalAlignment="Top" Width="330" Height="180" Margin="0,-24,0,0" />
-            <Button Height="40" Width="22" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Transparent"  Command="{Binding NextImageCommand}">
-                <Image Source ="/Resources/Images/rarrow.png" Width="20" Height="35"/>
-            </Button>
-            <Button Height="40" Width="22" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"  Command="{Binding PreviousImageCommand}">
-                <Image Source ="/Resources/Images/checkpoint.png" Width="20" Height="35"/>
-            </Button>
-        </Grid>
-        <Grid Grid.Row="3" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="34"/>
-                <RowDefinition Height="33"/>
-                <RowDefinition Height="33"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" >
+            <Grid Grid.Row="4" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="80"/>
-                    <ColumnDefinition Width="65"/>
-                    <ColumnDefinition Width="190"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Label FontSize="15"  FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Center" Content="State:"></Label>
+                <Grid Grid.Row="0" Grid.Column="0">
+                    <Label FontSize="15" Margin="12,0,0,0" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="New check in date:"></Label>
                 </Grid>
-
-                <Grid Grid.Column="1">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"   HorizontalAlignment="left"  Content="{Binding State}" Margin="-20,0,0,0" />
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Label FontSize="15" Width="165" Margin="15,0,0,0" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="  New check out date:"></Label>
                 </Grid>
-
-                <Grid Grid.Column="2">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="left" Visibility="{Binding RequestToMoveVisibility}"  Content="Check in date: " ></Label>
-                </Grid>
-                <Grid Grid.Column="2">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="left" Visibility="{Binding ReservationsDataVisibility}" Content="Old check in date: " ></Label>
-                </Grid>
-
-                <Grid Grid.Column="3">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Reservation.CheckIn}" Visibility="{Binding RequestToMoveVisibility}" Margin="-80,0,0,0" Width="90"/>
-                </Grid>
-                <Grid Grid.Column="3">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Reservation.CheckIn}" Visibility="{Binding ReservationsDataVisibility}" Margin="-55,0,0,0" Width="90"/>
-                </Grid>
-
-            </Grid>
-            <Grid Grid.Row="1" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="80"/>
-                    <ColumnDefinition Width="65"/>
-                    <ColumnDefinition Width="190"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Label FontSize="15"  FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Center" Content="City:"></Label>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  Content="{Binding City}"  Margin="-20,0,0,0" />
-                </Grid>
-                <Grid Grid.Column="2">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Visibility="{Binding RequestToMoveVisibility}" Content="Check out date: "></Label>
-                </Grid>
-                <Grid Grid.Column="2">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="left" Visibility="{Binding ReservationsDataVisibility}" Content="Old check out date: " ></Label>
-                </Grid>
-                <Grid Grid.Column="3">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Reservation.CheckOut}"  Visibility="{Binding RequestToMoveVisibility}" Margin="-80,0,0,0" Width="90"/>
-                </Grid>
-                <Grid Grid.Column="3">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Reservation.CheckOut}" Visibility="{Binding ReservationsDataVisibility}" Margin="-55,0,0,0" Width="90"/>
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="2" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="80"/>
-                    <ColumnDefinition Width="65"/>
-                    <ColumnDefinition Width="190"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Label FontSize="15"  FontFamily="Bahnschrift" Foreground="Black" HorizontalAlignment="Center" Content="Type:"></Label>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  Content="{Binding Type}" Margin="-20,0,0,0" />
-                </Grid>
-                <Grid Grid.Column="2">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Visibility="{Binding RequestToMoveVisibility}" Content="Days of cancelation: "  ></Label>
-                </Grid>
-                <Grid Grid.Column="2">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Visibility="{Binding ReservationsDataVisibility}" Content="Minimal number of days: "  ></Label>
-                </Grid>
-                <Grid Grid.Column="3">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding CancelationDays}" Visibility="{Binding RequestToMoveVisibility}" Margin="-40,0,0,0" Width="33"/>
-                </Grid>
-                <Grid Grid.Column="3">
-                    <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Reservation.MinNumberOfDays}" Visibility="{Binding ReservationsDataVisibility}" Margin="-20,0,0,0" Width="33"/>
-                </Grid>
-            </Grid>
-            <Separator  VerticalAlignment="Bottom" Height="2" Background="Black" Grid.Row="2"></Separator>
-        </Grid>
-        <Grid Grid.Row="4" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Row="0" Grid.Column="0">
-                <Label FontSize="15" Margin="12,0,0,0" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="New check in date:"></Label>
-            </Grid>
-            <Grid Grid.Row="0" Grid.Column="1">
-                <Label FontSize="15" Width="165" Margin="15,0,0,0" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="  New check out date:"></Label>
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="0">
-                <DatePicker
+                <Grid Grid.Row="1" Grid.Column="0">
+                    <DatePicker
                     Width="130"
                     Margin="20,0,0,0"
                     DisplayDateStart="{x:Static sys:DateTime.Today}"
                     Height="25"
                     x:Name="FirstDatePicker"
                     VerticalAlignment="Top">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectedDateChanged">
-                            <i:InvokeCommandAction Command="{Binding FirstDateCommand}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </DatePicker>
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="1">
-                <DatePicker
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectedDateChanged">
+                                <i:InvokeCommandAction Command="{Binding FirstDateCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </DatePicker>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <DatePicker
                     Margin="15,0,0,0"
                     Width="130"
                     Height="25"
                     IsEnabled="False"
                     VerticalAlignment="Top"
                     x:Name="LastDatePicker"/>
+                </Grid>
+                <Grid Grid.Column="2" Grid.RowSpan="2">
+                    <Button x:Name="btnNewCheckOut"  Cursor="Hand"  Content="  Send&#x0a;request" FontWeight="DemiBold" FontSize="17" Command="{Binding SendRequestCommand}" Width="80" Height="50">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
             </Grid>
-            <Grid Grid.Column="2" Grid.RowSpan="2">
-                <Button x:Name="btnNewCheckOut"  Cursor="Hand"  Content="  Send&#x0a;request" FontWeight="DemiBold" FontSize="17" Command="{Binding SendRequestCommand}" Width="80" Height="50">
+
+            <Grid Grid.Row="4" Background="Wheat" Visibility="{Binding RequestToMoveVisibility}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="115"/>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="138"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnFindDates" Grid.Column="0"  Cursor="Hand"  Content="    Cancel&#x0a;reservation" FontWeight="DemiBold" FontSize="17" Command="{Binding CancelReservationCommand}" Width="100" Height="60">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Background="{TemplateBinding Background}">
@@ -187,43 +208,494 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
-                </Button>            
+                </Button>
+                <Button  Grid.Column="1" Content="      Request to&#x0a;move reservation" Cursor="Hand"  FontWeight="DemiBold" FontSize="16" Command="{Binding MoveReservationComand}" Width="135" Height="60">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button  Grid.Column="2" Content="Rate owner and&#x0a;accommodation" Cursor="Hand"  FontWeight="DemiBold" FontSize="16" Command="{Binding RatePageCommand}" Width="130" Height="60">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </Grid>
         </Grid>
-        
-        <Grid Grid.Row="4" Background="Wheat" Visibility="{Binding RequestToMoveVisibility}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="115"/>
-                <ColumnDefinition Width="140"/>
-                <ColumnDefinition Width="138"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="btnFindDates" Grid.Column="0"  Cursor="Hand"  Content="    Cancel&#x0a;reservation" FontWeight="DemiBold" FontSize="17" Command="{Binding CancelReservationCommand}" Width="100" Height="60">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <Grid  Background="Wheat" Margin="0,0,0,0" Visibility="{Binding RateAccommodationVisibility}" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid  Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" >
+                    <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
+                        <Image Source ="/Resources/Images/home.png" Width="70" Height="50"/>
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="1" >
+                    <TextBlock FontSize="37" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" >My reservations</TextBlock>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" >
+                <Label Content="Ratings"   Height="65" Width="auto" FontSize="39" FontWeight="DemiBold"   Background="Transparent" Foreground="Black" FontFamily="arial" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Label>
+                <Border BorderThickness="0, 1, 0, 2" BorderBrush="Black"></Border>
+            </Grid>
+
+            <ScrollViewer HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
+                <Grid Grid.Row="2" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="80"/>
+                    </Grid.RowDefinitions>
+
+
+                    <Grid Grid.Row="0" >
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Accommodation - " Height="50" Width="auto" FontSize="20" FontWeight="SemiBold"  Background="Transparent" Foreground="Black" FontFamily="arial" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                            <Label Content="{Binding AccommodationName}"   Height="50" Width="auto" FontSize="22" FontWeight="DemiBold"   Background="Transparent" Foreground="Black" FontFamily="arial" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1" Margin="-4,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Cleanliness : " Height="50" Width="auto" FontSize="18" FontWeight="Medium" Margin="0,0,0,0" Background="Transparent" Foreground="Black" FontFamily="arial" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                            <Slider x:Name="CleanlinessSlider" Grid.Column="2" Minimum="1" Maximum="5" TickPlacement="BottomRight"  IsSnapToTickEnabled="True" TickFrequency="1" Value="{Binding Path=OwnerAccommodationGrade.Cleanliness, UpdateSourceTrigger=PropertyChanged}"  Height="38" Width="200" Margin="0,0,50,0"  VerticalAlignment="Top">
+                                <Slider.Style>
+                                    <Style TargetType="Slider">
+                                        <Style.Triggers>
+                                            <!-- DataTrigger za vrednost 5 (zelena boja) -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CleanlinessSlider}" Value="5">
+                                                <Setter Property="Background" Value="Green" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CleanlinessSlider}" Value="4">
+                                                <Setter Property="Background" Value="YellowGreen" />
+                                            </DataTrigger>
+                                            <!-- DataTrigger za vrednost 3 (žuta boja) -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CleanlinessSlider}" Value="3">
+                                                <Setter Property="Background" Value="Yellow" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CleanlinessSlider}" Value="2">
+                                                <Setter Property="Background" Value="OrangeRed" />
+                                            </DataTrigger>
+                                            <!-- DataTrigger za vrednost 1 (crvena boja) -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CleanlinessSlider}" Value="1">
+                                                <Setter Property="Background" Value="Red" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Slider.Style>
+                            </Slider>
+                            <Image Source ="/Resources/Images/home.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <!-- Početno sakrij sliku -->
+                                        <Style.Triggers>
+                                            <!-- DataTrigger za prikaz slike kada je vrednost slajdera 5 -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CleanlinessSlider}" Value="5">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <!-- Prikazuje sliku kada je vrednost 5 -->
+                                            </DataTrigger>
+                                            <!-- Dodajte slične DataTrigger-e za ostale vrednosti (3, 1) ako je potrebno -->
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Image Source ="/Resources/Images/more.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <!-- Početno sakrij sliku -->
+                                        <Style.Triggers>
+                                            <!-- DataTrigger za prikaz slike kada je vrednost slajdera 5 -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CleanlinessSlider}" Value="4">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <!-- Prikazuje sliku kada je vrednost 5 -->
+                                            </DataTrigger>
+                                            <!-- Dodajte slične DataTrigger-e za ostale vrednosti (3, 1) ako je potrebno -->
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Image Source ="/Resources/Images/rarrow.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <!-- Početno sakrij sliku -->
+                                        <Style.Triggers>
+                                            <!-- DataTrigger za prikaz slike kada je vrednost slajdera 5 -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CleanlinessSlider}" Value="3">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <!-- Prikazuje sliku kada je vrednost 5 -->
+                                            </DataTrigger>
+                                            <!-- Dodajte slične DataTrigger-e za ostale vrednosti (3, 1) ako je potrebno -->
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Image Source ="/Resources/Images/live.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <!-- Početno sakrij sliku -->
+                                        <Style.Triggers>
+                                            <!-- DataTrigger za prikaz slike kada je vrednost slajdera 5 -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CleanlinessSlider}" Value="2">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <!-- Prikazuje sliku kada je vrednost 5 -->
+                                            </DataTrigger>
+                                            <!-- Dodajte slične DataTrigger-e za ostale vrednosti (3, 1) ako je potrebno -->
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Image Source ="/Resources/Images/add.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <!-- Početno sakrij sliku -->
+                                        <Style.Triggers>
+                                            <!-- DataTrigger za prikaz slike kada je vrednost slajdera 5 -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CleanlinessSlider}" Value="1">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <!-- Prikazuje sliku kada je vrednost 5 -->
+                                            </DataTrigger>
+                                            <!-- Dodajte slične DataTrigger-e za ostale vrednosti (3, 1) ako je potrebno -->
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </StackPanel>
+                        <TextBox Grid.Column="1" IsReadOnly="True" FontSize="20" Width="16" HorizontalAlignment="Center" VerticalAlignment="Top" Text="{Binding ElementName=CleanlinessSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Height="30"/>
+                    </Grid>
+                    <Grid Grid.Row="2" >
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Owner - " Height="50" Width="auto" FontSize="20" FontWeight="SemiBold"  Background="Transparent" Foreground="Black" FontFamily="arial" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                            <Label Content="{Binding OwnerName}"   Height="50" Width="auto" FontSize="22" FontWeight="DemiBold"   Background="Transparent" Foreground="Black" FontFamily="arial" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="3"  Margin="-4,0,0,0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Correctness : " Height="50" Width="auto" FontSize="18" FontWeight="Medium"  Background="Transparent" Foreground="Black" FontFamily="arial" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                        <TextBox Grid.Column="1" IsReadOnly="True" FontSize="20" Width="16" HorizontalAlignment="Center" VerticalAlignment="Top" Text="{Binding ElementName=CorrectnessSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Height="30"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                            <Slider x:Name="CorrectnessSlider" Grid.Column="2" Minimum="1" Maximum="5" TickPlacement="BottomRight" IsSnapToTickEnabled="True"   TickFrequency="1" Value="{Binding Path=OwnerAccommodationGrade.Cleanliness, UpdateSourceTrigger=PropertyChanged}"  Height="38" Width="200" Margin="0,0,0,0"  VerticalAlignment="Top">
+                                <Slider.Style>
+                                    <Style TargetType="Slider">
+                                        <Style.Triggers>
+                                            <!-- DataTrigger za vrednost 5 (zelena boja) -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CorrectnessSlider}" Value="5">
+                                                <Setter Property="Background" Value="Green" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CorrectnessSlider}" Value="4">
+                                                <Setter Property="Background" Value="YellowGreen" />
+                                            </DataTrigger>
+                                            <!-- DataTrigger za vrednost 3 (žuta boja) -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CorrectnessSlider}" Value="3">
+                                                <Setter Property="Background" Value="Yellow" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CorrectnessSlider}" Value="2">
+                                                <Setter Property="Background" Value="OrangeRed" />
+                                            </DataTrigger>
+                                            <!-- DataTrigger za vrednost 1 (crvena boja) -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CorrectnessSlider}" Value="1">
+                                                <Setter Property="Background" Value="red" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Slider.Style>
+                            </Slider>
+                            <Image Source ="/Resources/Images/home.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <!-- Početno sakrij sliku -->
+                                        <Style.Triggers>
+                                            <!-- DataTrigger za prikaz slike kada je vrednost slajdera 5 -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CorrectnessSlider}" Value="5">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <!-- Prikazuje sliku kada je vrednost 5 -->
+                                            </DataTrigger>
+                                            <!-- Dodajte slične DataTrigger-e za ostale vrednosti (3, 1) ako je potrebno -->
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Image Source ="/Resources/Images/more.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <!-- Početno sakrij sliku -->
+                                        <Style.Triggers>
+                                            <!-- DataTrigger za prikaz slike kada je vrednost slajdera 5 -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CorrectnessSlider}" Value="4">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <!-- Prikazuje sliku kada je vrednost 5 -->
+                                            </DataTrigger>
+                                            <!-- Dodajte slične DataTrigger-e za ostale vrednosti (3, 1) ako je potrebno -->
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Image Source ="/Resources/Images/rarrow.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <!-- Početno sakrij sliku -->
+                                        <Style.Triggers>
+                                            <!-- DataTrigger za prikaz slike kada je vrednost slajdera 5 -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CorrectnessSlider}" Value="3">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <!-- Prikazuje sliku kada je vrednost 5 -->
+                                            </DataTrigger>
+                                            <!-- Dodajte slične DataTrigger-e za ostale vrednosti (3, 1) ako je potrebno -->
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Image Source ="/Resources/Images/live.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <!-- Početno sakrij sliku -->
+                                        <Style.Triggers>
+                                            <!-- DataTrigger za prikaz slike kada je vrednost slajdera 5 -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CorrectnessSlider}" Value="2">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <!-- Prikazuje sliku kada je vrednost 5 -->
+                                            </DataTrigger>
+                                            <!-- Dodajte slične DataTrigger-e za ostale vrednosti (3, 1) ako je potrebno -->
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Image Source ="/Resources/Images/add.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <!-- Početno sakrij sliku -->
+                                        <Style.Triggers>
+                                            <!-- DataTrigger za prikaz slike kada je vrednost slajdera 5 -->
+                                            <DataTrigger Binding="{Binding Path=Value, ElementName=CorrectnessSlider}" Value="1">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <!-- Prikazuje sliku kada je vrednost 5 -->
+                                            </DataTrigger>
+                                            <!-- Dodajte slične DataTrigger-e za ostale vrednosti (3, 1) ako je potrebno -->
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="4" >
+                        <Label  Content="  Additonal comment : " Height="40" Width="auto" FontSize="18" FontWeight="Medium"  Background="Transparent" Foreground="Black" FontFamily="arial" VerticalAlignment="Top" Margin="0,10,0,0"></Label>
+                    </Grid>
+                    <Grid Grid.Row="5" Margin="-10,0,0,0" >
+                        <Border  HorizontalAlignment="Center" BorderThickness="2" Background="White" BorderBrush="Black">
+                            <TextBox x:Name="AdditionalComment" Background="White" FontSize="13" Width="350" Height="90" TextWrapping="Wrap" Text="{Binding Rating.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="TextBox">
+                                                    <Grid>
+                                                        <ScrollViewer x:Name="PART_ContentHost" Margin="0" />
+                                                        <TextBlock x:Name="PlaceholderText" Text="Add comment here..."
+                                       Foreground="Gray" Margin="5,0,0,0"
+                                       Visibility="Collapsed"/>
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="Text" Value="">
+                                                            <Setter TargetName="PlaceholderText" Property="Visibility" Value="Visible"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
                         </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button  Grid.Column="1" Content="      Request to&#x0a;move reservation" Cursor="Hand"  FontWeight="DemiBold" FontSize="16" Command="{Binding MoveReservationComand}" Width="135" Height="60">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="6">
+                        <TextBlock x:Name="ImageCountText" Text="{Binding NumberOfPhoto}" Height="50" Width="150"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Margin="14,0,0,0"></TextBlock>
+
+                        <Button VerticalAlignment="Center" HorizontalAlignment="Right" Content="Add Images &#x0a;  (optional)" Margin="0,0,20,0" Command="{Binding AddPhotoComand}"  Background="Cornsilk" Width="68" Height="40"></Button>
+                        <Border BorderThickness="0, 0, 0, 2" BorderBrush="Black" VerticalAlignment="Bottom"></Border>
+                    </Grid>
+
+                    <Grid Grid.Row="7">
+                        <Label Content="Recommendation for renovation&#x0a;                    (optional)"   Height="65" Width="auto" FontSize="23" FontWeight="DemiBold"   Background="Transparent" Foreground="Black" FontFamily="arial" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                    </Grid>
+                    <Grid Grid.Row="8">
+                        <Label  Content=" Urgency of renovation: "  Height="40" Width="auto" FontSize="20" FontWeight="SemiBold"  Background="Transparent" Foreground="Black" FontFamily="arial" VerticalAlignment="Top" Margin="0,10,0,0"></Label>
+                    </Grid>
+                    <Grid Grid.Row="9">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="300"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" >
+                            <Image Source ="/Resources/Images/home.png" Width="55" Height="35"/>
+                        </Grid>
+                        <RadioButton MaxWidth="285"  GroupName="Urgency" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5, 0, 0" FontSize="15" IsChecked="{Binding RenovationRecommendation.UrgencyLevel}">
+                            <TextBox x:Name="MyTextBox2"  Background="White" FontSize="13" Width="272" Height="35" TextWrapping="Wrap" Text=" 1 - bilo bi lepo renovirati neke sitnice, ali sve&#x0a;      funkcioniše kako treba i bez toga"/>
+                        </RadioButton>
+                    </Grid>
+                    <Grid Grid.Row="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="300"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" >
+                            <Image Source ="/Resources/Images/home.png" Width="55" Height="35"/>
+                        </Grid>
+                        <RadioButton MaxWidth="285" GroupName="Urgency" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5, 0, 0" FontSize="15" IsChecked="{Binding RenovationRecommendation.UrgencyLevel}">
+                            <TextBox x:Name="MyTextBox3"  Background="White" FontSize="13" Width="272" Height="35" TextWrapping="Wrap" Text=" 1 - bilo bi lepo renovirati neke sitnice, ali sve&#x0a;      funkcioniše kako treba i bez toga"/>
+                        </RadioButton>
+
+                    </Grid>
+                    <Grid Grid.Row="11">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="300"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" >
+                            <Image Source ="/Resources/Images/home.png" Width="55" Height="35"/>
+                        </Grid>
+                        <RadioButton MaxWidth="285" GroupName="Urgency"  Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5, 0, 0" FontSize="15" IsChecked="{Binding RenovationRecommendation.UrgencyLevel}">
+                            <TextBox x:Name="MyTextBox4"  Background="White" FontSize="13" Width="272" Height="35" TextWrapping="Wrap" Text=" 1 - bilo bi lepo renovirati neke sitnice, ali sve&#x0a;      funkcioniše kako treba i bez toga"/>
+                        </RadioButton>
+                    </Grid>
+                    <Grid Grid.Row="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="300"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" >
+                            <Image Source ="/Resources/Images/home.png" Width="55" Height="35"/>
+                        </Grid>
+                        <RadioButton MaxWidth="285" GroupName="Urgency"  Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5, 0, 0" FontSize="15" IsChecked="{Binding RenovationRecommendation.UrgencyLevel}">
+                            <TextBox x:Name="MyTextBox5"  Background="White" FontSize="13" Width="272" Height="35" TextWrapping="Wrap" Text=" 1 - bilo bi lepo renovirati neke sitnice, ali sve&#x0a;      funkcioniše kako treba i bez toga"/>
+                        </RadioButton>
+
+                    </Grid>
+                    <Grid Grid.Row="13">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="300"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" >
+                            <Image Source ="/Resources/Images/home.png" Width="55" Height="35"/>
+                        </Grid>
+                        <RadioButton MaxWidth="285" GroupName="Urgency"  Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5, 0, 0" FontSize="15" IsChecked="{Binding RenovationRecommendation.UrgencyLevel}">
+                            <TextBox x:Name="MyTextBox6"  Background="White" FontSize="13" Width="272" Height="35" TextWrapping="Wrap" Text=" 1 - bilo bi lepo renovirati neke sitnice, ali sve&#x0a;      funkcioniše kako treba i bez toga"/>
+                        </RadioButton>
+
+                    </Grid>
+                    <Grid Grid.Row="14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="300"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" >
+                            <Image Source ="/Resources/Images/home.png" Width="55" Height="35"/>
+                        </Grid>
+                        <RadioButton MaxWidth="285" GroupName="Urgency" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5, 0, 0" FontSize="15" IsChecked="{Binding RenovationRecommendation.UrgencyLevel}">
+                            <TextBox x:Name="MyTextBox7"  Background="White" FontSize="13" Width="272" Height="35" TextWrapping="Wrap" Text=" 1 - bilo bi lepo renovirati neke sitnice, ali sve&#x0a;      funkcioniše kako treba i bez toga"/>
+                        </RadioButton>
+                    </Grid>
+
+                    <Grid Grid.Row="15"  Margin=" 0,0,0,0" >
+                        <Label  Content="  Information about the state of accommodation: " Height="40" Width="auto" FontSize="17" FontWeight="Medium"  Background="Transparent" Foreground="Black" FontFamily="arial" VerticalAlignment="Top" Margin="0,18,0,0"></Label>
+                    </Grid>
+                    <Grid Grid.Row="16" Margin=" -10,0,0,0" >
+                        <Border  HorizontalAlignment="Center" BorderThickness="2" Margin="10" Background="White" VerticalAlignment="Bottom" BorderBrush="Black" >
+                            <TextBox x:Name="MyTextBox8" Background="White" FontSize="13" Width="350" Height="90" TextWrapping="Wrap" Text="{Binding Rating.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="TextBox">
+                                                    <Grid>
+                                                        <ScrollViewer x:Name="PART_ContentHost" Margin="0" />
+                                                        <TextBlock x:Name="PlaceholderText" Text="Add comment here..."
+                                       Foreground="Gray" Margin="5,0,0,0"
+                                       Visibility="Collapsed"/>
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="Text" Value="">
+                                                            <Setter TargetName="PlaceholderText" Property="Visibility" Value="Visible"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
                         </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button  Grid.Column="2" Content="Rate owner and&#x0a;accommodation" Cursor="Hand"  FontWeight="DemiBold" FontSize="16" Command="{Binding FindDateCommand}" Width="130" Height="60">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+                    </Grid>
+
+                    <Grid Grid.Row="17">
+
+                        <Button  HorizontalAlignment="Center" VerticalAlignment="Center" Width="220" Height="30" Background="#cccccc" BorderThickness="2" Cursor="Hand"
+                            Command="{Binding SendReviewCommand}">
+                            <Button.Content>
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="35"></ColumnDefinition>
+                                        <ColumnDefinition Width="180"></ColumnDefinition>
+                                        <ColumnDefinition Width="20"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source ="/Resources/Images/home.png" Width="30" Height="30"/>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold" Margin="5, 0, 0, 0">Send a ratings and reviews</TextBlock>
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+
+                </Grid>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>

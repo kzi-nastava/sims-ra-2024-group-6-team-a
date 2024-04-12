@@ -40,7 +40,11 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return Owner;
         }
-
+        public Owner GetByOwnersId(int id)
+        {
+            _owners = _serializer.FromCSV(FilePath);
+            return _owners.Find(c => c.Id == id);
+        }
         public int NextId()
         {
             _owners = _serializer.FromCSV(FilePath);
