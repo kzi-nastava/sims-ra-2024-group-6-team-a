@@ -60,7 +60,7 @@
                 <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Foreground="Blue" FontSize="20">Ranking:</TextBlock>
+                    <TextBlock Foreground="Blue" FontSize="20">Review count:</TextBlock>
                     <TextBlock Text="{Binding Ranking}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
                 </StackPanel>
 

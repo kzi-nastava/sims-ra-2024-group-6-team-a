@@ -40,11 +40,15 @@ namespace BookingApp.ViewModels
         private ReservationChangeRepository _reservationChangeRepository;
         private OwnerRepository _ownerRepository;
         private GuestRepository _guestRepository;
+        private OwnerReviewRepository _ownerReviewRepository;
+
+
         bool existsNotReviewed = false;
 
-        public AccommodationMenuVM(Owner owner, LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository,GuestRepository _guestRepository)
+        public AccommodationMenuVM(Owner owner, LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository,
+            UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository,GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
         {
-            InitiliazeRepositories(_locationRepository, _imageRepository, _reservationRepository, _userRepository, _reservationChangeRepository, _ownerRepository, _guestRepository);
+            InitiliazeRepositories(_locationRepository, _imageRepository, _reservationRepository, _userRepository, _reservationChangeRepository, _ownerRepository, _guestRepository,_ownerReviewRepository);
 
             Owner = owner;
 
@@ -60,7 +64,8 @@ namespace BookingApp.ViewModels
         }
 
 
-        public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository, GuestRepository _guestRepository)
+        public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, 
+            UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository, GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
         {
             this._locationRepository = _locationRepository;
             this._imageRepository = _imageRepository;
@@ -69,6 +74,7 @@ namespace BookingApp.ViewModels
             this._reservationChangeRepository = _reservationChangeRepository;
             this._ownerRepository = _ownerRepository;
             this._guestRepository = _guestRepository;
+            this._ownerReviewRepository = _ownerReviewRepository;
             _repository = new AccommodationRepository();
             _guestReviewRepository = new GuestReviewRepository();
         }
@@ -93,6 +99,7 @@ namespace BookingApp.ViewModels
                 {
                     CheckReservationStatus(r, a);
                     CheckGuestReview(a, r);
+                    UpdateOwner(r);
                 }
 
                 string imagePath = AddMainAccommodationImage(a);
@@ -102,7 +109,7 @@ namespace BookingApp.ViewModels
                 Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a), imagePath));
             }
 
-
+            UpdateOwnerStatus();
 
         }
 
@@ -227,7 +234,7 @@ namespace BookingApp.ViewModels
         public void DetailedAccommodationView()
         {
 
-            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(GetImagesForAccommodaton(), GetReservationsForAccommodation(), SelectedAccommodation);
+            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(GetImagesForAccommodaton(), GetReservationsForAccommodation(), SelectedAccommodation,_ownerReviewRepository);
             AccommodationDetailedMenu.ShowDialog();
 
         }
@@ -276,10 +283,22 @@ namespace BookingApp.ViewModels
             }
         }
 
+        public OwnerReview FindLinkedReview(GuestReviewDTO review)
+        {
+            return _ownerReviewRepository.Get(review.reservationId);
+        }
+
         public void ShowGuestsReview()
         {
-            GuestsReviewOfAccommodation guestsReview = new GuestsReviewOfAccommodation(SelectedGuestReview);
-            guestsReview.ShowDialog();
+            OwnerReview ownerReview = FindLinkedReview(SelectedGuestReview);
+            if (ownerReview != null)
+            {
+                GuestsReviewOfAccommodation guestsReview = new GuestsReviewOfAccommodation(SelectedGuestReview, FindLinkedReview(SelectedGuestReview));
+                guestsReview.ShowDialog();
+            }
+            else
+                MessageBox.Show("This guest hasn't reviewed your accommodation yet.", "Notice", MessageBoxButton.OK, MessageBoxImage.Information);
+
         }
 
         public void AllowReservationChange()
@@ -293,23 +312,32 @@ namespace BookingApp.ViewModels
 
         public void EnterOwnerInfo()
         {
-            UpdateOwner();
+            Math.Round(Owner.AverageGrade, 3);   
             OwnerInfo = new OwnerInfoDTO(Owner, GetTotalReservationCount(), GetTotalAccommodationCount());
             OwnerInfo ownerInfo = new OwnerInfo(OwnerInfo);
             ownerInfo.ShowDialog();
 
         }
 
-        private void UpdateOwner()
+        private void UpdateOwner(AccommodationReservation reservation)
         {
-
-            UpdateOwnerStatus();
+            foreach(OwnerReview review in _ownerReviewRepository.GetAll()) 
+            {
+                if(reservation.Id == review.ReservationId)
+                {
+                    Owner.GradeCount++;
+                    Owner.AverageGrade = Owner.AverageGrade + ((review.Correctness + review.Cleanliness) / 2.0);
+                }
+            }
         }
 
         private void UpdateOwnerStatus()
         {
-            //dodati i proveru da postoji 50 ocena,iz csv
-            if (!Owner.IsSuper && Owner.AverageGrade > 4.5)
+            Owner.AverageGrade = Owner.AverageGrade / Owner.GradeCount;
+
+            Owner.AverageGrade = Math.Round(Owner.AverageGrade, 3);
+            
+            if (!Owner.IsSuper && Owner.GradeCount >= 50 &&  Owner.AverageGrade > 4.5)
             {
                 Owner.IsSuper = true;
                 _ownerRepository.Update(Owner);
