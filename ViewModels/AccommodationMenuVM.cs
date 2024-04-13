@@ -44,6 +44,7 @@ namespace BookingApp.ViewModels
 
 
         bool existsNotReviewed = false;
+        bool existsCanceled = false;
 
         public AccommodationMenuVM(Owner owner, LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository,
             UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository,GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
@@ -60,9 +61,25 @@ namespace BookingApp.ViewModels
 
             
             Update();
-            GuestsNotReviewedNotification();
+            EntryNotification();
+ 
         }
 
+        public void EntryNotification() 
+        {
+            if(existsCanceled && existsNotReviewed)
+            {
+                MessageBox.Show("You have cancelled reservations and unreviewed guests!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (existsNotReviewed)
+            {
+                MessageBox.Show("You have unreviewed guests!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (existsCanceled)
+            {
+                MessageBox.Show("You have cancelled reservations!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
 
         public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, 
             UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository, GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
@@ -97,6 +114,11 @@ namespace BookingApp.ViewModels
             {
                 foreach (AccommodationReservation r in _reservationRepository.GetByAccommodation(a))
                 {
+                    if (r.Status == Enums.ReservationStatus.Canceled)
+                    {
+                        existsCanceled = true;
+ 
+                    }
                     CheckReservationStatus(r, a);
                     CheckGuestReview(a, r);
                     UpdateOwner(r);
@@ -223,13 +245,7 @@ namespace BookingApp.ViewModels
             return null;
         }
 
-        private void GuestsNotReviewedNotification()
-        {
-            if (existsNotReviewed)
-            {
-                MessageBox.Show("You have unreviewed guests!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
+
 
         public void DetailedAccommodationView()
         {

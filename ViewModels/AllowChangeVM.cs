@@ -32,6 +32,7 @@ namespace BookingApp.ViewModels
             newRes.Status = BookingApp.Resources.Enums.ReservationChangeStatus.Accepted;
             oldRes.CheckInDate = newRes.NewCheckIn;
             oldRes.CheckOutDate = newRes.NewCheckOut;
+            oldRes.Status = BookingApp.Resources.Enums.ReservationStatus.Active;
 
             _reservationRepository.Update(oldRes);
             _changesRepository.Update(newRes);
@@ -41,9 +42,11 @@ namespace BookingApp.ViewModels
         public void NoToChange(string commentBox) 
         {
             ReservationChanges newRes = _changesRepository.GetAll().Find(c => c.ReservationId == reservation.ReservationID);
+            AccommodationReservation oldRes = _reservationRepository.GetAll().Find(c => c.Id == reservation.ReservationID);
 
             newRes.Comment = commentBox;
             newRes.Status = BookingApp.Resources.Enums.ReservationChangeStatus.Rejected;
+            oldRes.Status = BookingApp.Resources.Enums.ReservationStatus.Active;
 
             _changesRepository.Update(newRes);
         }
