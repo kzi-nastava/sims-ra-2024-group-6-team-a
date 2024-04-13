@@ -73,6 +73,13 @@ namespace BookingApp.Repository
             return guest;
         }
 
-       
+        public string GetFullname(int id)
+        {
+            _guests = _serializer.FromCSV(FilePath);
+            Guest guest = _guests.Find(u => u.Id == id);
+            return guest.Name + " " + guest.Surname;
+        }
+
+
     }
 }

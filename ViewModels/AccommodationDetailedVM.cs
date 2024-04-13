@@ -1,5 +1,7 @@
 ﻿using BookingApp.DTOs;
+using BookingApp.Model;
 using BookingApp.Observer;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +18,7 @@ namespace BookingApp.ViewModels
 
         public static ObservableCollection<ImageDTO> Images { get; set; }
         public ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
+        public OwnerReviewRepository _reviews {  get; set; }
         private double ratingNum;
 
         public String guestRating;
@@ -51,14 +54,14 @@ namespace BookingApp.ViewModels
 
         public ReservationOwnerDTO SelectedReservation { get; set; }
 
-        public AccommodationDetailedVM(List<Model.Image> images, ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation) 
+        public AccommodationDetailedVM(List<Model.Image> images, ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation,OwnerReviewRepository _reviews) 
         {
             Images = new ObservableCollection<ImageDTO>();
 
             imageModels = images;
             this.Reservations = Reservations;
             this.Accommodation = accommodation;
-            this.ratingNum = 1.75; 
+            this._reviews = _reviews;
             
 
             Update();
@@ -86,8 +89,28 @@ namespace BookingApp.ViewModels
 
         }
 
+        public void CalculateRating()
+        {
+            double sum = 0;
+            double count = 0;
+            foreach(OwnerReview review in _reviews.GetAll())
+            {
+                foreach(ReservationOwnerDTO reservation in Reservations)
+                {
+                    if(reservation.Id == review.ReservationId)
+                    {
+                        sum = sum + ((review.Correctness + review.Cleanliness) / 2);
+                        count++;
+                    }
+                }
+            }
+
+            ratingNum = sum / count;
+        }
+
         public void GetRatingAndColor()
         {
+            CalculateRating();
             if (ratingNum >= 0.5 && ratingNum < 1)
             {
                 GuestRating = "Very Poor";

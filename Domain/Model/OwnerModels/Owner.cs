@@ -14,10 +14,10 @@ namespace BookingApp.Model
         public string Name {  get; set; }
         public string Surname { get; set; }
 
+        
         public bool IsSuper {  get; set; }
         public double AverageGrade { get; set; }
-        public int Ranking { get; set; }
-
+        public int GradeCount { get; set; }
         public Owner()
         {
 
@@ -29,7 +29,7 @@ namespace BookingApp.Model
             String super = "Super";
             if (!IsSuper)
                 super = "NotSuper";
-            string[] csvValues = {Id.ToString(),Name,Surname,super,AverageGrade.ToString(),Ranking.ToString()};
+            string[] csvValues = {Id.ToString(),Name,Surname,super,AverageGrade.ToString(),GradeCount.ToString()};
             return csvValues;
         }
 
@@ -45,7 +45,7 @@ namespace BookingApp.Model
                 IsSuper = false;
 
             AverageGrade = Convert.ToDouble(csvValues[4]);
-            Ranking = Convert.ToInt32(csvValues[5]);
+            GradeCount = Convert.ToInt32(csvValues[5]);
         }
     }
 }

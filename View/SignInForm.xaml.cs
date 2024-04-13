@@ -24,6 +24,7 @@ namespace BookingApp.View
         private readonly ReservationChangeRepository _reservationChangeRepository;
         private readonly GuestRepository _guestRepository;
         private readonly OwnerRepository _ownerRepository;
+        private readonly OwnerReviewRepository _ownerReviewRepository;
         //private readonly TourRepository _tourRepository;
 
         private string _username;
@@ -61,6 +62,7 @@ namespace BookingApp.View
             _reservationChangeRepository = new ReservationChangeRepository();
             _ownerRepository = new OwnerRepository();
             _guestRepository = new GuestRepository();
+            _ownerReviewRepository = new OwnerReviewRepository();
             //_tourRepository = new TourRepository();
         }
 
@@ -105,7 +107,7 @@ namespace BookingApp.View
 
         private void InitiateAccommodationView(Owner owner)
         {
-            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(owner, _locationRepository, _imageRepository, _accommodationReservationRepository, _repository,_reservationChangeRepository,_ownerRepository);
+            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(owner, _locationRepository, _imageRepository, _accommodationReservationRepository, _repository,_reservationChangeRepository,_ownerRepository,_guestRepository,_ownerReviewRepository);
             accommodationViewMenu.Show();
             Close();
         }

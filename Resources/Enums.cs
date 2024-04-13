@@ -37,7 +37,8 @@ namespace BookingApp.Resources
         {
             Active,
             Canceled,
-            Changed
+            Changed,
+            CanceledApproved
             
         }
 

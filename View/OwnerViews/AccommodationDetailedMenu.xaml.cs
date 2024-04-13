@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookingApp.DTOs;
 using BookingApp.Observer;
+using BookingApp.Repository;
 using BookingApp.ViewModels;
 
 namespace BookingApp.View
@@ -24,9 +25,9 @@ namespace BookingApp.View
     public partial class AccommodationDetailedMenu : Window
     {
         AccommodationDetailedVM ViewModel {  get; set; }
-        public AccommodationDetailedMenu(List<Model.Image> images,ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation)
+        public AccommodationDetailedMenu(List<Model.Image> images,ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation,OwnerReviewRepository _reviews)
         {
-            ViewModel = new AccommodationDetailedVM(images, Reservations,accommodation) { };
+            ViewModel = new AccommodationDetailedVM(images, Reservations,accommodation,_reviews) { };
             InitializeComponent();
             DataContext = ViewModel;
 
