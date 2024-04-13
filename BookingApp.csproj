@@ -10,17 +10,23 @@
   <ItemGroup>
     <None Remove="Resources\Images\accommodations.png" />
     <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\approved.png" />
     <None Remove="Resources\Images\barcelona.jpg" />
     <None Remove="Resources\Images\begec.jpg" />
     <None Remove="Resources\Images\blank-profile.jpg" />
     <None Remove="Resources\Images\budapest.jpg" />
     <None Remove="Resources\Images\calendar.png" />
+    <None Remove="Resources\Images\calendarr.png" />
     <None Remove="Resources\Images\capacity.png" />
+    <None Remove="Resources\Images\cetrii.png" />
     <None Remove="Resources\Images\checkpoint.png" />
     <None Remove="Resources\Images\close-acc.png" />
+    <None Remove="Resources\Images\commentt.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\description.png" />
+    <None Remove="Resources\Images\dva.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\forum.png" />
     <None Remove="Resources\Images\futog.jpg" />
     <None Remove="Resources\Images\group.png" />
     <None Remove="Resources\Images\guestreview.png" />
@@ -39,20 +45,31 @@
     <None Remove="Resources\Images\horizonti9.jpg" />
     <None Remove="Resources\Images\hourglass.png" />
     <None Remove="Resources\Images\Iraq.jpg" />
+    <None Remove="Resources\Images\jedan.png" />
     <None Remove="Resources\Images\kanta.png" />
     <None Remove="Resources\Images\language.png" />
     <None Remove="Resources\Images\languages.png" />
+    <None Remove="Resources\Images\larroww.png" />
     <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\location-ping.png" />
     <None Remove="Resources\Images\location.png" />
+    <None Remove="Resources\Images\locationpin.png" />
+    <None Remove="Resources\Images\lupa.png" />
+    <None Remove="Resources\Images\menu.png" />
     <None Remove="Resources\Images\more.png" />
     <None Remove="Resources\Images\no.png" />
     <None Remove="Resources\Images\ns.jpg" />
+    <None Remove="Resources\Images\nula.png" />
+    <None Remove="Resources\Images\onHold.png" />
     <None Remove="Resources\Images\owner-info.png" />
     <None Remove="Resources\Images\palermo-test.jpg" />
     <None Remove="Resources\Images\palermo.jpeg" />
     <None Remove="Resources\Images\palermo.jpg" />
+    <None Remove="Resources\Images\pdfFile.png" />
+    <None Remove="Resources\Images\people.png" />
+    <None Remove="Resources\Images\pet.png" />
     <None Remove="Resources\Images\play.png" />
+    <None Remove="Resources\Images\profile.png" />
     <None Remove="Resources\Images\pupin1.png" />
     <None Remove="Resources\Images\pupin2.jpg" />
     <None Remove="Resources\Images\pupin3.jpg" />
@@ -60,11 +77,14 @@
     <None Remove="Resources\Images\pupin5.jpg" />
     <None Remove="Resources\Images\rarrow.png" />
     <None Remove="Resources\Images\register.png" />
+    <None Remove="Resources\Images\rejected.png" />
     <None Remove="Resources\Images\renovation.png" />
     <None Remove="Resources\Images\reservationchange.png" />
     <None Remove="Resources\Images\reservations.png" />
     <None Remove="Resources\Images\right-arrow.png" />
+    <None Remove="Resources\Images\send.png" />
     <None Remove="Resources\Images\sheraton1.jpg" />
+    <None Remove="Resources\Images\suitcase.png" />
     <None Remove="Resources\Images\terme1.jpg" />
     <None Remove="Resources\Images\terme2.jpg" />
     <None Remove="Resources\Images\terme3.jpg" />
@@ -82,6 +102,9 @@
 
   <ItemGroup>
     <Content Include="Resources\Images\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\approved.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\barcelona.jpg">
@@ -102,10 +125,61 @@
     <Content Include="Resources\Images\accommodations.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\calendarr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\cetrii.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\commentt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\dva.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\forum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\guestreview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\jedan.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\larroww.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\locationpin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\lupa.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\menu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\nula.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\onHold.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\pdfFile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\people.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\pet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\profile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\register.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\rejected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\reservationchange.png">
@@ -237,7 +311,13 @@
     <Content Include="Resources\Images\right-arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\send.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\sheraton1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\suitcase.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\terme1.jpg">

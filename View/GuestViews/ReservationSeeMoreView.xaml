@@ -29,7 +29,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" >
                     <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
-                        <Image Source ="/Resources/Images/home.png" Width="70" Height="50"/>
+                        <Image Source ="/Resources/Images/menu.png" Width="70" Height="50"/>
                     </Button>
                 </Grid>
                 <Grid Grid.Column="1" >
@@ -48,7 +48,7 @@
                     <Image Source ="/Resources/Images/rarrow.png" Width="20" Height="35"/>
                 </Button>
                 <Button Height="40" Width="22" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"  Command="{Binding PreviousImageCommand}">
-                    <Image Source ="/Resources/Images/checkpoint.png" Width="20" Height="35"/>
+                    <Image Source ="/Resources/Images/larroww.png" Width="20" Height="35"/>
                 </Button>
             </Grid>
             <Grid Grid.Row="3" >
@@ -200,7 +200,7 @@
                     <ColumnDefinition Width="140"/>
                     <ColumnDefinition Width="138"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnFindDates" Grid.Column="0"  Cursor="Hand"  Content="    Cancel&#x0a;reservation" FontWeight="DemiBold" FontSize="17" Command="{Binding CancelReservationCommand}" Width="100" Height="60">
+                <Button x:Name="cancelReservationbtn" Grid.Column="0"  Cursor="Hand"  Content="    Cancel&#x0a;reservation" FontWeight="DemiBold" FontSize="17" Command="{Binding CancelReservationCommand}" Width="100" Height="60">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Background="{TemplateBinding Background}">
@@ -244,7 +244,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" >
                     <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
-                        <Image Source ="/Resources/Images/home.png" Width="70" Height="50"/>
+                        <Image Source ="/Resources/Images/menu.png" Width="70" Height="50"/>
                     </Button>
                 </Grid>
                 <Grid Grid.Column="1" >
@@ -265,7 +265,7 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="100"/>
-                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="120"/>
                         <RowDefinition Height="80"/>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="40"/>
@@ -320,7 +320,7 @@
                                     </Style>
                                 </Slider.Style>
                             </Slider>
-                            <Image Source ="/Resources/Images/home.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
+                            <Image Source ="/Resources/Images/nula.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -336,7 +336,7 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                            <Image Source ="/Resources/Images/more.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
+                            <Image Source ="/Resources/Images/jedan.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -352,7 +352,7 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                            <Image Source ="/Resources/Images/rarrow.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
+                            <Image Source ="/Resources/Images/dva.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -368,7 +368,7 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                            <Image Source ="/Resources/Images/live.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
+                            <Image Source ="/Resources/Images/cetrii.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -384,7 +384,7 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                            <Image Source ="/Resources/Images/add.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
+                            <Image Source ="/Resources/Images/pet.png" VerticalAlignment="Top" Margin="-58,0,0,0" Width="40" Height="40">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -444,7 +444,7 @@
                                     </Style>
                                 </Slider.Style>
                             </Slider>
-                            <Image Source ="/Resources/Images/home.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
+                            <Image Source ="/Resources/Images/nula.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -460,7 +460,7 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                            <Image Source ="/Resources/Images/more.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
+                            <Image Source ="/Resources/Images/jedan.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -476,7 +476,7 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                            <Image Source ="/Resources/Images/rarrow.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
+                            <Image Source ="/Resources/Images/dva.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -492,7 +492,7 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                            <Image Source ="/Resources/Images/live.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
+                            <Image Source ="/Resources/Images/cetrii.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -508,7 +508,7 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                            <Image Source ="/Resources/Images/add.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
+                            <Image Source ="/Resources/Images/pet.png" VerticalAlignment="Top" Margin="0,0,0,0" Width="40" Height="40">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -557,9 +557,53 @@
                         </Border>
                     </Grid>
                     <Grid Grid.Row="6">
-                        <TextBlock x:Name="ImageCountText" Text="{Binding NumberOfPhoto}" Height="50" Width="150"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Margin="14,0,0,0"></TextBlock>
+                        <TextBlock x:Name="ImageCountText" Text="{Binding NumberOfPhoto}" Height="24" Width="132"  VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Margin="242,85,0,0"></TextBlock>
+                        <TextBlock x:Name="AddPhoto" Text="Add photos" Height="24" Width="102"  VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Margin="262,85,0,0" Visibility="{Binding HasntPhotoVisibility}"></TextBlock>
+                        <Label  Content="  Photos of accommodation : " Height="40" Width="auto" FontSize="18" FontWeight="Medium"  Background="Transparent" Foreground="Black" FontFamily="arial" VerticalAlignment="Top" Margin="2,18,-2,0"></Label>
 
-                        <Button VerticalAlignment="Center" HorizontalAlignment="Right" Content="Add Images &#x0a;  (optional)" Margin="0,0,20,0" Command="{Binding AddPhotoComand}"  Background="Cornsilk" Width="68" Height="40"></Button>
+                        <ListBox SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Width="220" Margin="13,46,153,10" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <Button Width="43" Height="43"  Visibility="{Binding HasPhotoVisibility}" Margin="256,35,88,30" Cursor="Hand" BorderBrush="Transparent" Command="{Binding AddPhotoComand}"  >
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Ellipse Stroke="Black" StrokeThickness="4"/>
+                                        <Image Source ="/Resources/Images/add.png" Width="40" Height="40"/>
+
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button Width="43" Height="43" ToolTip="ADD PHOTO" Visibility="{Binding HasntPhotoVisibility}" Margin="286,35,58,30" Cursor="Hand" BorderBrush="Transparent" Command="{Binding AddPhotoComand}"  >
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Ellipse Stroke="Black" StrokeThickness="4"/>
+                                        <Image Source ="/Resources/Images/add.png" Width="40" Height="40"/>
+
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button Width="43" Height="43" Margin="318,35,26,30"  Visibility="{Binding HasPhotoVisibility}" Cursor="Hand" BorderBrush="Transparent" Command="{Binding RemovePhotoComand}"  >
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Ellipse Stroke="Black" StrokeThickness="4"/>
+                                        <Image Source ="/Resources/Images/delete.png" Width="40" Height="40"/>
+
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                         <Border BorderThickness="0, 0, 0, 2" BorderBrush="Black" VerticalAlignment="Bottom"></Border>
                     </Grid>
 
@@ -575,7 +619,7 @@
                             <ColumnDefinition Width="300"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" >
-                            <Image Source ="/Resources/Images/home.png" Width="55" Height="35"/>
+                            <Image Source ="/Resources/Images/nula.png" Width="60" Height="45"/>
                         </Grid>
                         <RadioButton MaxWidth="285"  GroupName="Urgency" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5, 0, 0" FontSize="15" IsChecked="{Binding RenovationRecommendation.UrgencyLevel}">
                             <TextBox x:Name="MyTextBox2"  Background="White" FontSize="13" Width="272" Height="35" TextWrapping="Wrap" Text=" 1 - bilo bi lepo renovirati neke sitnice, ali sve&#x0a;      funkcioniše kako treba i bez toga"/>
@@ -587,7 +631,7 @@
                             <ColumnDefinition Width="300"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" >
-                            <Image Source ="/Resources/Images/home.png" Width="55" Height="35"/>
+                            <Image Source ="/Resources/Images/jedan.png" Width="55" Height="35"/>
                         </Grid>
                         <RadioButton MaxWidth="285" GroupName="Urgency" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5, 0, 0" FontSize="15" IsChecked="{Binding RenovationRecommendation.UrgencyLevel}">
                             <TextBox x:Name="MyTextBox3"  Background="White" FontSize="13" Width="272" Height="35" TextWrapping="Wrap" Text=" 1 - bilo bi lepo renovirati neke sitnice, ali sve&#x0a;      funkcioniše kako treba i bez toga"/>
@@ -600,7 +644,7 @@
                             <ColumnDefinition Width="300"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" >
-                            <Image Source ="/Resources/Images/home.png" Width="55" Height="35"/>
+                            <Image Source ="/Resources/Images/dva.png" Width="55" Height="35"/>
                         </Grid>
                         <RadioButton MaxWidth="285" GroupName="Urgency"  Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5, 0, 0" FontSize="15" IsChecked="{Binding RenovationRecommendation.UrgencyLevel}">
                             <TextBox x:Name="MyTextBox4"  Background="White" FontSize="13" Width="272" Height="35" TextWrapping="Wrap" Text=" 1 - bilo bi lepo renovirati neke sitnice, ali sve&#x0a;      funkcioniše kako treba i bez toga"/>
@@ -612,7 +656,7 @@
                             <ColumnDefinition Width="300"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" >
-                            <Image Source ="/Resources/Images/home.png" Width="55" Height="35"/>
+                            <Image Source ="/Resources/Images/tri.png" Width="55" Height="35"/>
                         </Grid>
                         <RadioButton MaxWidth="285" GroupName="Urgency"  Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5, 0, 0" FontSize="15" IsChecked="{Binding RenovationRecommendation.UrgencyLevel}">
                             <TextBox x:Name="MyTextBox5"  Background="White" FontSize="13" Width="272" Height="35" TextWrapping="Wrap" Text=" 1 - bilo bi lepo renovirati neke sitnice, ali sve&#x0a;      funkcioniše kako treba i bez toga"/>
@@ -625,7 +669,7 @@
                             <ColumnDefinition Width="300"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" >
-                            <Image Source ="/Resources/Images/home.png" Width="55" Height="35"/>
+                            <Image Source ="/Resources/Images/cetrii.png" Width="55" Height="35"/>
                         </Grid>
                         <RadioButton MaxWidth="285" GroupName="Urgency"  Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5, 0, 0" FontSize="15" IsChecked="{Binding RenovationRecommendation.UrgencyLevel}">
                             <TextBox x:Name="MyTextBox6"  Background="White" FontSize="13" Width="272" Height="35" TextWrapping="Wrap" Text=" 1 - bilo bi lepo renovirati neke sitnice, ali sve&#x0a;      funkcioniše kako treba i bez toga"/>
@@ -638,7 +682,7 @@
                             <ColumnDefinition Width="300"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" >
-                            <Image Source ="/Resources/Images/home.png" Width="55" Height="35"/>
+                            <Image Source ="/Resources/Images/pet.png" Width="55" Height="35"/>
                         </Grid>
                         <RadioButton MaxWidth="285" GroupName="Urgency" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 5, 0, 0" FontSize="15" IsChecked="{Binding RenovationRecommendation.UrgencyLevel}">
                             <TextBox x:Name="MyTextBox7"  Background="White" FontSize="13" Width="272" Height="35" TextWrapping="Wrap" Text=" 1 - bilo bi lepo renovirati neke sitnice, ali sve&#x0a;      funkcioniše kako treba i bez toga"/>
@@ -687,7 +731,7 @@
                                         <ColumnDefinition Width="180"></ColumnDefinition>
                                         <ColumnDefinition Width="20"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Image Source ="/Resources/Images/home.png" Width="30" Height="30"/>
+                                    <Image Source ="/Resources/Images/send.png" Width="35" Height="30" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold" Margin="5, 0, 0, 0">Send a ratings and reviews</TextBlock>
                                 </Grid>
                             </Button.Content>

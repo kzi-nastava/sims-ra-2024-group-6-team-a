@@ -19,57 +19,55 @@ using System.Windows.Shapes;
 namespace BookingApp.View.TouristView
 {
     /// <summary>
-    /// Interaction logic for ActiveTours.xaml
+    /// Interaction logic for FinishedTours.xaml
     /// </summary>
-    public partial class ActiveTours : Window
+    public partial class FinishedTours : Window
     {
-        public static ObservableCollection<TourScheduleDTO> Tours { get; set; }
-        public TourScheduleDTO SelectedTourSchedule { get; set; }
-        public TourTouristDTO SelectedTour { get; set; }
+        public static ObservableCollection<TourScheduleDTO> Tours {  get; set; }
         public User LoggedUser { get; set; }
 
-        private LocationRepository _locationRepository;
         private TourRepository _tourRepository;
         private TourScheduleRepository _scheduleRepository;
-        private TourReservationRepository _tourReservationRepository;
-        public ActiveTours(TourScheduleDTO tourSchedule, User user)
+        private LocationRepository _locationRepository;
+        private ImageRepository _imageRepository;
+        private TourReviewRepository _reviewRepository;
+
+        public TourScheduleDTO SelectedTourSchedule { get; set; }
+        public FinishedTours(User user)
         {
             InitializeComponent();
             DataContext = this;
 
+            LoggedUser = user;
             _tourRepository = new TourRepository();
             _scheduleRepository = new TourScheduleRepository();
             _locationRepository = new LocationRepository();
-            _tourReservationRepository = new TourReservationRepository();
-            LoggedUser = user;
-
+            _imageRepository = new ImageRepository();
+            _reviewRepository = new TourReviewRepository();
             Tours = new ObservableCollection<TourScheduleDTO>();
-            SelectedTourSchedule = tourSchedule;
 
             Update();
         }
 
-        private void Update() //prodji kroz sve aktivne ture mog usera i dodaj ih u kolekciju
+        private void Update()
         {
             Tours.Clear();
-            foreach(TourSchedule tour in _tourRepository.GetOngoingToursByUser(LoggedUser))
+            foreach (TourSchedule tour in _tourRepository.GetAllFinishedTours(LoggedUser))
             {
                 Tours.Add(new TourScheduleDTO(tour));
             }
 
         }
 
-        private void Button_Click(object sender, EventArgs e)
+        private void RateTour_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedTourSchedule != null)
+            if(SelectedTourSchedule != null)
             {
-                KeypointsTracking keypointsTracking = new KeypointsTracking(SelectedTourSchedule.Id);
-                keypointsTracking.ShowDialog();
-
+                TourRating rating = new TourRating(SelectedTourSchedule, _imageRepository, LoggedUser);
+                rating.ShowDialog();
             }
            
         }
 
-        //zelim da prikazem ture koje je rezervisao ulogovani korisnik a da su one ONGOING 
     }
 }

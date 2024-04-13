@@ -21,7 +21,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" >
                 <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
-                    <Image Source ="/Resources/Images/home.png" Width="70" Height="50"/>
+                    <Image Source ="/Resources/Images/menu.png" Width="70" Height="50"/>
                 </Button>
             </Grid>
             <Grid Grid.Column="1" >
@@ -42,13 +42,13 @@
             </Grid>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Transparent" FontWeight="SemiBold" >___</TextBlock>
-                <Image Source ="/Resources/Images/home.png" Width="25" Height="25" />
+                <Image Source ="/Resources/Images/approved.png" Width="25" Height="25" />
                 <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" FontStyle="Italic" >-approved</TextBlock>
                 <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Transparent" FontWeight="SemiBold" >___</TextBlock>
-                <Image Source ="/Resources/Images/more.png" Width="25" Height="25" />
+                <Image Source ="/Resources/Images/rejected.png" Width="25" Height="25" />
                 <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" FontStyle="Italic" >-rejected</TextBlock>
                 <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Transparent" FontWeight="SemiBold" >___</TextBlock>
-                <Image Source ="/Resources/Images/rarrow.png" Width="25" Height="25" />
+                <Image Source ="/Resources/Images/onHold.png" Width="25" Height="25" />
                 <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" FontStyle="Italic" >-on hold</TextBlock>
             </StackPanel>
         </Grid>
@@ -66,29 +66,29 @@
                           Width="NaN" Height="NaN" d:ItemsSource="{d:SampleData ItemCount=3}" >
                 <ListView.ItemTemplate >
                     <DataTemplate  >
-                        <StackPanel Orientation="Horizontal" Background="Silver" Margin="0,0,0,2" Width="375">
+                        <StackPanel Orientation="Horizontal" Background="Silver" Margin="0,0,0,2" Width="375" Height="110">
                             <Image Source= "{Binding Image}" Width="100" Height="100" HorizontalAlignment="Left" Stretch="Fill"  VerticalAlignment="Center" />
 
-                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0">
-                                <TextBlock Foreground="black" Text="{Binding AccommodationName}" FontSize="24" FontWeight="Bold" Width="180" Margin="0,-15,0,0"/>
-                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                                    <Image Source="/Resources/Images/location-ping.png" Width="18" Height="18"></Image>
-                                    <TextBlock Text="{Binding OldCheckIn}" TextDecorations="Strikethrough" Foreground="Gray" ></TextBlock>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0" Height="100">
+                                <TextBlock Foreground="black" Text="{Binding AccommodationName}" FontSize="24" FontWeight="Bold" Width="180" Margin="0,-5,0,0"/>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,3,3,0">
+                                    <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
+                                    <TextBlock Margin="5,0,0,0" Text="{Binding OldCheckIn}" TextDecorations="Strikethrough" Foreground="Gray" ></TextBlock>
                                     <TextBlock Text=" - " TextDecorations="Strikethrough"  Foreground="Gray"></TextBlock>
                                     <TextBlock Text="{Binding OldCheckOut}" TextDecorations="Strikethrough"  Foreground="Gray"  ></TextBlock>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-                                    <Image Source="/Resources/Images/location-ping.png" Width="18" Height="18"></Image>
-                                    <TextBlock Text="{Binding NewCheckIn}" FontWeight="SemiBold" ></TextBlock>
+                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1"  Margin="0,5,0,0">
+                                    <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
+                                    <TextBlock  Margin="5,0,0,0" Text="{Binding NewCheckIn}" FontWeight="SemiBold" ></TextBlock>
                                     <TextBlock Text=" - "  FontWeight="SemiBold"></TextBlock>
                                     <TextBlock Text="{Binding NewCheckOut}"  FontWeight="SemiBold" ></TextBlock>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                                    <Image Source="/Resources/Images/location-ping.png" Width="18" Height="18"></Image>
-                                    <TextBlock Foreground="black" Text="{Binding Comment}"  TextWrapping="Wrap"   FontSize="12"  MaxWidth="150" MaxHeight="29"></TextBlock>
+                                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1"  Margin="0,5,0,0">
+                                    <Image Source="/Resources/Images/commentt.png" Width="18" Height="18"></Image>
+                                    <TextBlock  Margin="5,0,0,0" Foreground="black" Text="{Binding Comment}"  TextWrapping="Wrap"   FontSize="12"  MaxWidth="150" MaxHeight="29"></TextBlock>
                                 </StackPanel>
                             </StackPanel>
-                            <Image Source="/Resources/Images/home.png" Width="45" Height="45"  Margin="26,0,0,53">
+                            <Image Source="/Resources/Images/approved.png" Width="45" Height="45"  Margin="26,0,0,53">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -100,7 +100,7 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                            <Image Source="/Resources/Images/more.png" Width="45" Height="45"  Margin="26,0,0,53">
+                            <Image Source="/Resources/Images/rejected.png" Width="45" Height="45"  Margin="26,0,0,53">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -112,7 +112,7 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                            <Image Source="/Resources/Images/rarrow.png" Width="45" Height="45"  Margin="26,0,0,53">
+                            <Image Source="/Resources/Images/onHold.png" Width="45" Height="45"  Margin="26,0,0,53">
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Visibility" Value="Collapsed" />
