@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace BookingApp.View.GuideView.Pages
     /// <summary>
     /// Interaction logic for LiveToursPage.xaml
     /// </summary>
-    public partial class LiveToursPage : Page
+    public partial class LiveToursPage : Page 
     {
         public static ObservableCollection<TourGuideDTO> TodaysTours { get; set; }
         public User LoggedUser { get; set; }
