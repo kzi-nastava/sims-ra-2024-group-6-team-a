@@ -75,6 +75,24 @@ namespace BookingApp.DTOs
             }
         }
 
+        private int _userType;
+        public int UserType
+        {
+            get
+            {
+                return _userType;
+            }
+            set
+            {
+                if (_userType != value)
+                {
+                    _userType = value;
+                    OnPropertyChanged("UserType");
+
+                }
+            }
+        }
+
 
         private int reservationId;
         public int ReservationId
@@ -110,6 +128,17 @@ namespace BookingApp.DTOs
             this.Surname = surname;
             this.Age = age;
             this.ReservationId = reservationId;
+            
+        }
+
+        public TourGuestDTO(string name,  int age, string surname, int userType)
+        {
+            this.Name = name;
+            this.Surname = surname;
+            this.Age = age;
+            this.ReservationId = reservationId;
+            UserType = userType;
+
         }
 
         public TourGuestDTO()

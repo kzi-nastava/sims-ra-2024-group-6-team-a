@@ -63,8 +63,8 @@ namespace BookingApp.Repository
                 voucher.TouristName = tourGuest.Name;
                 voucher.TouristSurname = tourGuest.Surname;
                 voucher.TouristBirth = tourGuest.Age;
-                voucher.IssuingDate = DateTime.Now;
-                voucher.UserId = tourReservation.TouristId;
+                voucher.IssuingDate = DateTime.Now.AddYears(1);
+                voucher.UserId = tourGuest.UserTypeId;
                 Save(voucher);
             }
         }
@@ -78,6 +78,20 @@ namespace BookingApp.Repository
                 return 1;
             }
             return _vouchers.Max(x => x.Id) + 1;
+        }
+
+        public List<Voucher> GetAllByUser(User user)
+        {
+            List<Voucher> vouchers = new List<Voucher>();
+
+            foreach(Voucher voucher in GetAll())
+            {
+                if(voucher.UserId == user.Id && voucher.IssuingDate > DateTime.Now)
+                {
+                    vouchers.Add(voucher);
+                }
+            }
+            return vouchers;
         }
 
     }

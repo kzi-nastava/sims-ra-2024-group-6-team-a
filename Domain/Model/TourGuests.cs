@@ -21,17 +21,20 @@ namespace BookingApp.Model
 
         public int CheckpointId {  get; set; }
 
+        public int UserTypeId { get; set; }
+
         public TourGuests() { }
-        public TourGuests(int id,string name, string surname, int age, int reservationId)
+        public TourGuests(int id,string name, string surname, int age, int reservationId, int userType)
         {
             Id = id;
             Name = name;
             Surname = surname;
             Age = age;
             ReservationId = reservationId;
+            UserTypeId = userType;
         }
        
-       public TourGuests(int id, string name, string surname, int age, int reservationId, bool isPresent,int checkpointId)
+       public TourGuests(int id, string name, string surname, int age, int reservationId, bool isPresent,int checkpointId, int userType)
        
         {
             Name = name;
@@ -40,6 +43,7 @@ namespace BookingApp.Model
             ReservationId = reservationId;
             IsPresent = isPresent;
             CheckpointId = checkpointId;
+            UserTypeId = userType;
         }
 
         public TourGuests(TourGuestDTO guest, int reservationId)
@@ -48,12 +52,13 @@ namespace BookingApp.Model
             Surname = guest.Surname;
             Age = guest.Age;
             ReservationId = reservationId;
-            IsPresent = false; 
+            IsPresent = false;
+            UserTypeId = guest.UserType;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name, Surname, Age.ToString(), ReservationId.ToString(), IsPresent.ToString(), CheckpointId .ToString()};
+            string[] csvValues = { Id.ToString(), Name, Surname, Age.ToString(), ReservationId.ToString(), IsPresent.ToString(), CheckpointId .ToString(), UserTypeId.ToString()};
             return csvValues;
         }
 
@@ -66,6 +71,7 @@ namespace BookingApp.Model
             ReservationId = Convert.ToInt32(values[4]);
             IsPresent = bool.Parse(values[5]);
             CheckpointId = Convert.ToInt32(values[6]);
+            UserTypeId = Convert.ToInt32(values[7]);
 
         }
     }
