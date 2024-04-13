@@ -141,13 +141,16 @@ namespace BookingApp.Repository
             _tourReservations = _serializer.FromCSV(FilePath);
             return _tourReservations.FindAll(x => x.TouristId == user.Id);
 
+
            
         }
+
 
         public TourReservation GetById(int id)
         {
             return _tourReservations.Find(c => c.Id == id);
 
         }
+
     }
 }

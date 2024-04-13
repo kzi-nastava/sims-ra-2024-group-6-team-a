@@ -92,7 +92,7 @@ namespace BookingApp.Repository
             {
                 foreach(TourGuests tourGuest in _guests)
                 {
-                    if(reservation.Id == tourGuest.ReservationId && tourGuest.IsPresent == false)
+                    if(reservation.Id == tourGuest.ReservationId)
                     {
                         guests.Add(tourGuest);
                     }

@@ -12,7 +12,11 @@ namespace BookingApp.Resources
         {
             Accommodation,
             Tour,
-            TourReview
+
+            TourReview,
+
+            OwnersReviews 
+
         }
 
         public enum UserType
