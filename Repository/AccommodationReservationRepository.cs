@@ -3,11 +3,13 @@ using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
+using static BookingApp.Resources.Enums;
 
 namespace BookingApp.Repository
 {
@@ -64,6 +66,7 @@ namespace BookingApp.Repository
             return _accommodationReservations.Max(c => c.Id) + 1;
         }
 
+
         public void Delete(AccommodationReservation AccommodationReservation)
         {
             _accommodationReservations = _serializer.FromCSV(FilePath);
@@ -77,17 +80,62 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
         }
 
+        public AccommodationReservation ChangeReservationStatus(AccommodationReservation AccommodationReservation)
+        {
+            _accommodationReservations = _serializer.FromCSV(FilePath);
+            _accommodationReservations.Add(AccommodationReservation);
+            _serializer.ToCSV(FilePath, _accommodationReservations);
+            subject.NotifyObservers();
+            return AccommodationReservation;
+
+        }
+
+        //public AccommodationReservation UpdateReservation(AccommodationReservation reservation)
+        //{
+        //    AccommodationReservation oldReservation = GetByReservationId(reservation.Id);
+        //    if (oldReservation == null) return null;
+        //    oldReservation.Status = reservation.Status;
+
+
+        //    string serializedObjects = _serializer.ToCSV(FilePath, _accommodationReservations);
+
+        //    using (StreamWriter streamWriter = new StreamWriter(_fileName))
+        //    {
+        //        streamWriter.Write(serializedObjects);
+        //    }
+        //    subject.NotifyObservers();
+
+        //    return oldReservation;
+        //}
+
         public List<AccommodationReservation> GetByAccommodation(Accommodation accommodation)
         {
             _accommodationReservations = _serializer.FromCSV(FilePath);
             return _accommodationReservations.FindAll(c => c.AccommodationId == accommodation.Id);
         }
+        public AccommodationReservation GetByReservationId(int id)
+        {
+            _accommodationReservations = _serializer.FromCSV(FilePath);
+            return _accommodationReservations.Find(c => c.Id == id);
+        }
+        public List<AccommodationReservation> GetActiveReservationsByGuest(int guestId)
+        {
+            List<AccommodationReservation> guestReservations = new List<AccommodationReservation>();
+            foreach (AccommodationReservation reservation in _accommodationReservations)
+            {
+                if (reservation.GuestId == guestId && reservation.Status == ReservationStatus.Active)
+                {
+                    guestReservations.Add(reservation);
+                }
+            }
+            return guestReservations;
+        }
+
         public List<DateRanges> GetAvailableDates(DateOnly firstDate, DateOnly lastDate, int daysNumber, int accommodationId)
         {
             _availableDates.Clear();
             _firstDate = firstDate;
             _lastDate = lastDate;
-            if(IsValidDate(daysNumber)) return _availableDates;
             GetAllDates(daysNumber);
             GetBookedDates(accommodationId);
             foreach (DateRanges bookedDate in _bookedDates)
@@ -105,25 +153,16 @@ namespace BookingApp.Repository
                 FindSuggestedDates(daysNumber);
             }
         }
-        public bool IsValidDate(int daysNumber)
-        {
-            if (_lastDate < _firstDate.AddDays(daysNumber))
-            {
-                MessageBox.Show("The end date must be greater than the start date by a minimum number of days", "Date entry error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return true;
-            }
-            else
-                return false;
-        }
+
         public void FindRangeCase(DateRanges bookedDate)
         {
-            if (IsStartBorderCase(bookedDate, _firstDate, _lastDate)) 
+            if (IsStartBorderCase(bookedDate, _firstDate, _lastDate))
                 RemoveStartBorderCase(bookedDate);
-            if (IsEndBorderCase(bookedDate, _firstDate, _lastDate)) 
+            if (IsEndBorderCase(bookedDate, _firstDate, _lastDate))
                 RemoveEndBorderCase(bookedDate);
-            if (IsInRangeCase(bookedDate, _firstDate, _lastDate)) 
+            if (IsInRangeCase(bookedDate, _firstDate, _lastDate))
                 RemoveInRangeCase(bookedDate);
-            if (IsSubsetRangeCase(bookedDate, _firstDate, _lastDate)) 
+            if (IsSubsetRangeCase(bookedDate, _firstDate, _lastDate))
                 RemoveInSubsetCase(bookedDate);
         }
 
@@ -159,11 +198,11 @@ namespace BookingApp.Repository
         }
         public bool IsEndBorderCase(DateRanges bookedDateRange, DateOnly startDate, DateOnly endDate)
         {
-            return bookedDateRange.CheckIn < endDate &&  bookedDateRange.CheckOut > endDate &&  bookedDateRange.CheckIn > startDate ;
+            return bookedDateRange.CheckIn < endDate && bookedDateRange.CheckOut > endDate && bookedDateRange.CheckIn > startDate;
         }
         public bool IsStartBorderCase(DateRanges bookedDateRange, DateOnly startDate, DateOnly endDate)
         {
-            return bookedDateRange.CheckOut > startDate &&  bookedDateRange.CheckIn < startDate && bookedDateRange.CheckOut <= endDate ;
+            return bookedDateRange.CheckOut > startDate && bookedDateRange.CheckIn < startDate && bookedDateRange.CheckOut <= endDate;
         }
         public bool IsSubsetRangeCase(DateRanges bookedDateRange, DateOnly startDate, DateOnly endDate)
         {
@@ -194,7 +233,7 @@ namespace BookingApp.Repository
         }
         public bool IsBooked(DateOnly checkIn, DateOnly checkOut)
         {
-            if (checkOut<= _firstDate || checkIn>= _lastDate) return false;
+            if (checkOut <= _firstDate || checkIn >= _lastDate) return false;
 
             return true;
 
@@ -230,12 +269,12 @@ namespace BookingApp.Repository
                 checkInIsInRange = IsCheckInInRange(bookedDate, startDate, endDate);
                 checkOutIsInRange = IsCheckOutInRange(bookedDate, startDate, endDate);
                 containsBookedDates = DoesContainsBookedDates(bookedDate, startDate, endDate);
-                if (DiscardSuggestedDate(checkInIsInRange, checkOutIsInRange, containsBookedDates))  
+                if (DiscardSuggestedDate(checkInIsInRange, checkOutIsInRange, containsBookedDates))
                     return false;
             }
             return true;
         }
-        
+
         public bool IsCheckInInRange(DateRanges bookedDate, DateOnly startDate, DateOnly endDate)
         {
             return bookedDate.CheckIn >= startDate && bookedDate.CheckIn < endDate;
@@ -254,14 +293,10 @@ namespace BookingApp.Repository
             if (checkInIsInRange || checkOutIsInRange || containsBookedDates)
             {
                 return true;
-            }else
+            }
+            else
                 return false;
         }
-        public void Subscribe(IObserver observer)
-        {
-            _observers.Add(observer);
-        }
-
         public AccommodationReservation Update(AccommodationReservation AccommodationReservation)
         {
             _accommodationReservations = _serializer.FromCSV(FilePath);
@@ -272,5 +307,10 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _accommodationReservations);
             return AccommodationReservation;
         }
+        public void Subscribe(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
     }
 }

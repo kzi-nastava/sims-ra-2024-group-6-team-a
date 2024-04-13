@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
@@ -10,7 +11,7 @@ using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
-    public class ReservationChangeRepository
+    public class ReservationChangeRepository : IReservationChangeRepository
     {
         private const string FilePath = "../../../Resources/Data/reservation_changes.csv";
 
@@ -35,7 +36,7 @@ namespace BookingApp.Repository
 
         public ReservationChanges Save(ReservationChanges ReservationChanges)
         {
-            ReservationChanges.ReservationId = NextId();
+            //ReservationChanges.ReservationId = NextId();          OVO DAJE NOVI ID A TEBI TREBA ID OD RESERVACIJE
             _changes = _serializer.FromCSV(FilePath);
             _changes.Add(ReservationChanges);
             _serializer.ToCSV(FilePath, _changes);
@@ -66,6 +67,21 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _changes);
             subject.NotifyObservers();
         }
+        public List<ReservationChanges> GetAllByGuest(int guestId)
+        {
+            List<ReservationChanges> reservationsChanges = new List<ReservationChanges>();
+            _changes = _serializer.FromCSV(FilePath);
+            foreach (ReservationChanges change in _changes)
+            {
+                //if (change.ReservationId.GuestId == guestId)
+                //{
+                    reservationsChanges.Add(change);
+                //}
+            }
+            return reservationsChanges;
+        }
+
+
 
         public ReservationChanges Update(ReservationChanges ReservationChanges)
         {

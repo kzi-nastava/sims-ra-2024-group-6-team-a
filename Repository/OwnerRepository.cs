@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Observer;
+using BookingApp.RepositoryInterfaces;
 using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Xml.Linq;
 
 namespace BookingApp.Repository
 {
-    public class OwnerRepository
+    public class OwnerRepository : IOwnerRepository
     {
         private const string FilePath = "../../../Resources/Data/owners.csv";
 
@@ -40,7 +41,11 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return Owner;
         }
-
+        public Owner GetByOwnersId(int id)
+        {
+            _owners = _serializer.FromCSV(FilePath);
+            return _owners.Find(c => c.Id == id);
+        }
         public int NextId()
         {
             _owners = _serializer.FromCSV(FilePath);

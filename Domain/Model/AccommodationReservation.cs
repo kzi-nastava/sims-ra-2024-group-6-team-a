@@ -13,6 +13,7 @@ namespace BookingApp.Model
     {
         public int Id { get; set; }
         public int AccommodationId { get; set; }
+        public Accommodation Accommodation { get; set; }
         public int GuestId { get; set; }
         public DateOnly CheckInDate { get; set; }
         public DateOnly CheckOutDate { get; set; }
@@ -21,10 +22,8 @@ namespace BookingApp.Model
 
         public AccommodationReservation()
         {
-
         }
-
-        public AccommodationReservation(int accommodationId, int guestId, DateOnly checkInDate, DateOnly checkOutDate, int guestNumber, Enums.ReservationStatus status)
+        public AccommodationReservation(int accommodationId, int guestId, DateOnly checkInDate, DateOnly checkOutDate, int guestNumber, Enums.ReservationStatus status, Accommodation accommodation)
         {
             AccommodationId = accommodationId;
             GuestId = guestId;
@@ -32,6 +31,8 @@ namespace BookingApp.Model
             CheckOutDate = checkOutDate;
             GuestNumber = guestNumber;
             Status = status;
+            Accommodation = accommodation;
+
         }
 
         public string[] ToCSV()

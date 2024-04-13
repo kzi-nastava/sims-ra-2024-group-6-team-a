@@ -97,11 +97,15 @@ namespace BookingApp.Repository
             return _tourSchedules.Where(c => c.TourId == tourId).ToList();
         }
 
+
         public TourSchedule GetByTour(Tour tour)
         {
             return _tourSchedules.Find(c => c.TourId == tour.Id);
         }
-
+        public TourSchedule GetByTourId(int tourId)
+        {
+            return _tourSchedules.Find(c => c.TourId == tourId);
+        }
         public TourSchedule GetById(int id)
         {
             return _tourSchedules.Find(c => c.Id == id);

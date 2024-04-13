@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\accommodations.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\barcelona.jpg" />
     <None Remove="Resources\Images\begec.jpg" />
@@ -22,11 +23,20 @@
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\futog.jpg" />
     <None Remove="Resources\Images\group.png" />
+    <None Remove="Resources\Images\guestreview.png" />
     <None Remove="Resources\Images\habbo1.jpg" />
     <None Remove="Resources\Images\habbo2.jpg" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\horizonti1.jpg" />
+    <None Remove="Resources\Images\horizonti10.jpg" />
     <None Remove="Resources\Images\horizonti2.jpg" />
+    <None Remove="Resources\Images\horizonti3.jpg" />
+    <None Remove="Resources\Images\horizonti4.jpg" />
+    <None Remove="Resources\Images\horizonti5.jpg" />
+    <None Remove="Resources\Images\horizonti6.jpg" />
+    <None Remove="Resources\Images\horizonti7.jpg" />
+    <None Remove="Resources\Images\horizonti8.jpeg" />
+    <None Remove="Resources\Images\horizonti9.jpg" />
     <None Remove="Resources\Images\hourglass.png" />
     <None Remove="Resources\Images\Iraq.jpg" />
     <None Remove="Resources\Images\kanta.png" />
@@ -49,7 +59,10 @@
     <None Remove="Resources\Images\pupin4.jpg" />
     <None Remove="Resources\Images\pupin5.jpg" />
     <None Remove="Resources\Images\rarrow.png" />
+    <None Remove="Resources\Images\register.png" />
     <None Remove="Resources\Images\renovation.png" />
+    <None Remove="Resources\Images\reservationchange.png" />
+    <None Remove="Resources\Images\reservations.png" />
     <None Remove="Resources\Images\right-arrow.png" />
     <None Remove="Resources\Images\sheraton1.jpg" />
     <None Remove="Resources\Images\terme1.jpg" />
@@ -60,6 +73,11 @@
     <None Remove="Resources\Images\turkey2.jpg" />
     <None Remove="Resources\Images\view.png" />
     <None Remove="Resources\Images\yes.png" />
+    <None Remove="Resources\Images\zaomboid1.png" />
+    <None Remove="Resources\Images\zomboid1 %286%29.png" />
+    <None Remove="Resources\Images\zomboid1 %287%29.png" />
+    <None Remove="Resources\Images\zomboid2.png" />
+    <None Remove="Resources\Images\zomboid3.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,6 +97,21 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\calendar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\accommodations.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\guestreview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\register.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\reservationchange.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\reservations.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\capacity.png">
@@ -117,7 +150,31 @@
     <Content Include="Resources\Images\horizonti1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\horizonti10.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\horizonti2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\horizonti3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\horizonti4.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\horizonti5.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\horizonti6.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\horizonti7.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\horizonti8.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\horizonti9.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\hourglass.png">
@@ -219,10 +276,26 @@
     <Content Include="Resources\Images\yes.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\zaomboid1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\zomboid1 (6).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\zomboid1 (7).png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\zomboid2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\zomboid3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
   </ItemGroup>
 
 </Project>

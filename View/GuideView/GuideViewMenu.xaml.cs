@@ -46,6 +46,7 @@ namespace BookingApp.View
         public LiveToursPage liveToursPage;
         public TourCreationPage tourCreationPage;
         public TourStatisticsPage tourStatisticsPage;
+        public AllToursPage allToursPage;
 
         public GuideViewMenu(User user,LocationRepository locationRepository,ImageRepository imageRepository)
         {
@@ -64,6 +65,7 @@ namespace BookingApp.View
             tourStatisticsPage = new TourStatisticsPage(LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository, _tourGuestRepository);
             tourCreationPage = new TourCreationPage(LoggedUser, _tourRepository, _locationRepository, _imageRepository, _checkRepository, _tourScheduleRepository);
             liveToursPage = new LiveToursPage(mainFrame,tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
+            allToursPage = new AllToursPage(mainFrame, tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
         }
            
             
@@ -99,6 +101,18 @@ namespace BookingApp.View
             {
                 MainFrame.Content = liveToursPage;
             }
+        }
+
+        private void StatisticsClick(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+
+
+        private void AllToursPageClick(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = allToursPage;
         }
     }
 }

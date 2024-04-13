@@ -24,13 +24,13 @@ namespace BookingApp.View
     public partial class AccommodationDetailedMenu : Window
     {
         AccommodationDetailedVM ViewModel {  get; set; }
-        public AccommodationDetailedMenu(List<Model.Image> images,ObservableCollection<ReservationOwnerDTO> Reservations,String accommodationName)
+        public AccommodationDetailedMenu(List<Model.Image> images,ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation)
         {
-            ViewModel = new AccommodationDetailedVM(images, Reservations) { };
+            ViewModel = new AccommodationDetailedVM(images, Reservations,accommodation) { };
             InitializeComponent();
             DataContext = ViewModel;
 
-            Title = accommodationName;
+            Title = accommodation.Name;
 
         }
 
@@ -50,10 +50,6 @@ namespace BookingApp.View
             else if(e.Key == Key.S)
             {
                 Tabs.SelectedItem = StatisticsTab;
-            }
-            else if (e.Key == Key.I)
-            {
-                Tabs.SelectedItem = ImagesTab;
             }
             else if (e.Key == Key.N)
             {

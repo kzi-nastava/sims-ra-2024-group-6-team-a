@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using BookingApp.View.TouristView;
 
 namespace BookingApp.View
 {
@@ -30,6 +31,7 @@ namespace BookingApp.View
         public static ObservableCollection<TourTouristDTO> Tours {  get; set; }
         public TourTouristDTO SelectedTour { get; set; }
         public TourReservationDTO SelectedReservation { get; set; }
+        public TourScheduleDTO TourSchedule { get; set; }
         public User LoggedUser { get; set; }
 
         public string NameSearch { get; set; }
@@ -169,6 +171,18 @@ namespace BookingApp.View
             TextboxDuration.Text = "";
             TextboxCapacity.Text = "";
             TextboxLanguage.Text = "";
+        }
+
+        private void MyActiveTours_Click(object sender, RoutedEventArgs e)
+        {
+            ActiveTours activeTours = new ActiveTours(TourSchedule, LoggedUser);
+            activeTours.ShowDialog();
+        }
+
+        private void Inbox_Click(object sender, RoutedEventArgs e)
+        {
+            Inbox inbox = new Inbox();
+            inbox.ShowDialog();
         }
     }
 }

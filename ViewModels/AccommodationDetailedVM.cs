@@ -3,6 +3,7 @@ using BookingApp.Observer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,18 +13,52 @@ namespace BookingApp.ViewModels
 {
     public class AccommodationDetailedVM : IObserver
     {
+
         public static ObservableCollection<ImageDTO> Images { get; set; }
         public ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
+        private double ratingNum;
+
+        public String guestRating;
+        public String GuestRating
+        {
+            get { return guestRating; }
+
+            set
+            {
+                if(guestRating != value) 
+                {
+                guestRating = value;
+                }
+            }
+        }
+        public String ratingColor;
+        public String RatingColor
+        {
+            get { return ratingColor; }
+
+            set
+            {
+                if (guestRating != value)
+                {
+                    ratingColor = value;
+                }
+            }
+        }
+
+
+        public AccommodationOwnerDTO Accommodation { get; set; }
         public static List<Model.Image> imageModels { get; set; }
 
         public ReservationOwnerDTO SelectedReservation { get; set; }
 
-        public AccommodationDetailedVM(List<Model.Image> images, ObservableCollection<ReservationOwnerDTO> Reservations) 
+        public AccommodationDetailedVM(List<Model.Image> images, ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation) 
         {
             Images = new ObservableCollection<ImageDTO>();
 
             imageModels = images;
             this.Reservations = Reservations;
+            this.Accommodation = accommodation;
+            this.ratingNum = 1.75; 
             
 
             Update();
@@ -31,6 +66,7 @@ namespace BookingApp.ViewModels
 
         public void Update()
         {
+            GetRatingAndColor();
             Images.Clear();
 
 
@@ -47,6 +83,56 @@ namespace BookingApp.ViewModels
                 Images.Add(image);
             }
 
+
+        }
+
+        public void GetRatingAndColor()
+        {
+            if (ratingNum >= 0.5 && ratingNum < 1)
+            {
+                GuestRating = "Very Poor";
+                RatingColor = "#FF6347";
+            }
+            else if (ratingNum >= 1 && ratingNum < 1.5)
+            {
+                GuestRating = "Poor";
+                RatingColor = "#FF6347";
+            }
+            else if (ratingNum >= 1.5 && ratingNum < 2)
+            {
+                GuestRating = "Fair";
+                RatingColor = "#FFA500";
+            }
+            else if (ratingNum >= 2 && ratingNum < 2.5)
+            {
+                GuestRating = "Average";
+                RatingColor = "#FFA500";
+            }
+            else if (ratingNum >= 2.5 && ratingNum < 3)
+            {
+                GuestRating = "Decent";
+                RatingColor = "#FFD700";
+            }
+            else if (ratingNum >= 3 && ratingNum < 3.5)
+            {
+                GuestRating = "Good";
+                RatingColor = "#FFFF00";
+            }
+            else if (ratingNum >= 3.5 && ratingNum < 4)
+            {
+                GuestRating = "Very Good";
+                RatingColor = "#9ACD32";
+            }
+            else if (ratingNum >= 4 && ratingNum < 4.5)
+            {
+                GuestRating = "Great";
+                RatingColor = "#00FF00";
+            }
+            else if (ratingNum >= 4.5 && ratingNum <= 5)
+            {
+                GuestRating = "Excellent";
+                RatingColor = "#6495ED";
+            }
 
         }
 

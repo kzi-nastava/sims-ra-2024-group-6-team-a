@@ -1,5 +1,6 @@
 using BookingApp.Model;
 using BookingApp.Observer;
+using BookingApp.RepositoryInterfaces;
 using BookingApp.Resources;
 using BookingApp.Serializer;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class ImageRepository
+    public class ImageRepository : IImageRepository
     {
         private const string FilePath = "../../../Resources/Data/images.csv";
 
