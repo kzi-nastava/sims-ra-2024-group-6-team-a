@@ -39,11 +39,12 @@ namespace BookingApp.ViewModels
         private GuestReviewRepository _guestReviewRepository;
         private ReservationChangeRepository _reservationChangeRepository;
         private OwnerRepository _ownerRepository;
+        private GuestRepository _guestRepository;
         bool existsNotReviewed = false;
 
-        public AccommodationMenuVM(Owner owner, LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository)
+        public AccommodationMenuVM(Owner owner, LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository,GuestRepository _guestRepository)
         {
-            InitiliazeRepositories(_locationRepository, _imageRepository, _reservationRepository, _userRepository, _reservationChangeRepository, _ownerRepository);
+            InitiliazeRepositories(_locationRepository, _imageRepository, _reservationRepository, _userRepository, _reservationChangeRepository, _ownerRepository, _guestRepository);
 
             Owner = owner;
 
@@ -59,7 +60,7 @@ namespace BookingApp.ViewModels
         }
 
 
-        public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository)
+        public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository, GuestRepository _guestRepository)
         {
             this._locationRepository = _locationRepository;
             this._imageRepository = _imageRepository;
@@ -67,6 +68,7 @@ namespace BookingApp.ViewModels
             this._userRepository = _userRepository;
             this._reservationChangeRepository = _reservationChangeRepository;
             this._ownerRepository = _ownerRepository;
+            this._guestRepository = _guestRepository;
             _repository = new AccommodationRepository();
             _guestReviewRepository = new GuestReviewRepository();
         }
@@ -142,7 +144,7 @@ namespace BookingApp.ViewModels
                 if (reservationChange.AccommodationId == accommodation.Id && reservationChange.Status == Enums.ReservationChangeStatus.Pending)
                 {
 
-                    String userName = _userRepository.GetUsername(_reservationRepository.GetAll().Find(r => r.Id == reservationChange.ReservationId).GuestId);
+                    String userName = _guestRepository.GetFullname(_reservationRepository.GetAll().Find(r => r.Id == reservationChange.ReservationId).GuestId);
                     String oldDate = reservationChange.OldCheckIn.ToString("dd MMMM yyyy") + "   ->   " + reservationChange.OldCheckOut.ToString("dd MMMM yyyy");
                     String newDate = reservationChange.NewCheckIn.ToString("dd MMMM yyyy") + "   ->   " + reservationChange.NewCheckOut.ToString("dd MMMM yyyy");
                     String bookedStatus = "No";
@@ -164,7 +166,7 @@ namespace BookingApp.ViewModels
         public void AddReservations(AccommodationReservation reservation, Accommodation accommodation)
         {
 
-            String userName = _userRepository.GetUsername(reservation.GuestId);
+            String userName = _guestRepository.GetFullname(reservation.GuestId);
             String imagePath = AddMainAccommodationImage(accommodation);
 
             ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, accommodation.Name, _locationRepository.GetByAccommodation(accommodation), imagePath);
@@ -197,7 +199,7 @@ namespace BookingApp.ViewModels
         public void AddGuestReview(Accommodation accommodation, AccommodationReservation reservation, int cleanlinessGrade = 0, int respectGrade = 0, string comment = "")
         {
             string GuestOccupationPeriod = reservation.CheckInDate.ToString("dd.MM.yyyy") + " - " + reservation.CheckOutDate.ToString("dd.MM.yyyy");
-            GuestReviews.Add(new GuestReviewDTO(accommodation.Name, _userRepository.GetUsername(reservation.GuestId), cleanlinessGrade, respectGrade, comment, GuestOccupationPeriod, reservation.Id));
+            GuestReviews.Add(new GuestReviewDTO(accommodation.Name, _guestRepository.GetFullname(reservation.GuestId), cleanlinessGrade, respectGrade, comment, GuestOccupationPeriod, reservation.Id));
         }
 
 
@@ -239,7 +241,7 @@ namespace BookingApp.ViewModels
                 if (reservation.AccommodationId == SelectedAccommodation.Id && reservation.Status != Enums.ReservationStatus.Changed)
                 {
                     Accommodation accommodation = _repository.GetByReservationId(SelectedAccommodation.Id);
-                    String userName = _userRepository.GetUsername(reservation.GuestId);
+                    String userName = _guestRepository.GetFullname(reservation.GuestId);
                     String imagePath = AddMainAccommodationImage(accommodation);
                     Location location = _locationRepository.GetByAccommodation(accommodation);
 

@@ -105,7 +105,7 @@ namespace BookingApp.View
 
         private void InitiateAccommodationView(Owner owner)
         {
-            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(owner, _locationRepository, _imageRepository, _accommodationReservationRepository, _repository,_reservationChangeRepository,_ownerRepository);
+            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(owner, _locationRepository, _imageRepository, _accommodationReservationRepository, _repository,_reservationChangeRepository,_ownerRepository,_guestRepository);
             accommodationViewMenu.Show();
             Close();
         }
