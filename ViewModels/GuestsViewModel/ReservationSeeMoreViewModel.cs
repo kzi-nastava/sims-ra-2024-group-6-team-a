@@ -13,11 +13,14 @@ using System.Threading.Tasks;
 using System.Windows.Navigation;
 using System.Windows;
 using Microsoft.Win32;
+using System.Collections.ObjectModel;
 
 namespace BookingApp.ViewModels.GuestsViewModel
 {
     public class ReservationSeeMoreViewModel : INotifyPropertyChanged
     {
+        public String SelectedImageUrl { get; set; }
+        public static ObservableCollection<String> ImagesCollection { get; set; }
         public ReservationGuestDTO Reservation { get; set; }
         public Guest Guest { get; set; }
         public int _reservationId { get; set; }
@@ -27,7 +30,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
 
         public ReservationSeeMoreView ReservationView { get; set; }
         private ImageRepository _imageRepository;
-        public List<String> _imageRelativePath = new List<String>();
         private AccommodationReservationRepository _accommodationReservationRepository;
         private AccommodationRepository _accommodationRepository;
         private OwnerRepository _ownerRepository;
@@ -43,6 +45,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public RelayCommand PreviousImageCommand { get; set; }
         public RelayCommand SendReviewCommand { get; set; }
         public RelayCommand AddPhotoComand { get; set; }
+        public RelayCommand RemovePhotoComand { get; set; }
 
         public ReservationSeeMoreViewModel(Guest guest, ReservationGuestDTO SelectedReservation, ReservationSeeMoreView reservationView, NavigationService navigation)
         {
@@ -52,12 +55,11 @@ namespace BookingApp.ViewModels.GuestsViewModel
             _ownerRepository = new OwnerRepository();
             _imageRepository = new ImageRepository();
             _ownerReviewRepository = new OwnerReviewRepository();
-
             Guest = guest;
             Reservation = SelectedReservation;
             ReservationView = reservationView;
             NavService = navigation;
-
+            ImagesCollection = new ObservableCollection<string>();
             _reservationId = SelectedReservation.Id;
             _minNumberOfDays = SelectedReservation.MinNumberOfDays;
             AccommodationName = SelectedReservation.AccommodationName;
@@ -83,11 +85,14 @@ namespace BookingApp.ViewModels.GuestsViewModel
             FirstDateCommand = new RelayCommand(Execute_FirstDateCommand);
             SendReviewCommand = new RelayCommand(Execute_SendReviewCommand);
             AddPhotoComand = new RelayCommand(Execute_AddPhotoCommand);
+            RemovePhotoComand = new RelayCommand(Execute_RemovePhotoComand);
 
             RequestToMoveVisibility = Visibility.Visible;
             SeeMoreVisibility = Visibility.Visible;
             ReservationsDataVisibility = Visibility.Collapsed;
             RateAccommodationVisibility = Visibility.Collapsed;
+            HasntPhotoVisibility = Visibility.Visible;
+            HasPhotoVisibility = Visibility.Collapsed;
 
         }
         public bool CanCancelReservation()
@@ -98,6 +103,23 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 return true;
             }
             return false;
+        }
+        public bool CanRateOwnerAccommodation()
+        {
+            if (DateOnly.FromDateTime(DateTime.Today) <= Reservation.CheckOut.AddDays(5)  && DateOnly.FromDateTime(DateTime.Today) >= Reservation.CheckOut)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool CanChangeReservation()
+        {
+            if (DateOnly.FromDateTime(DateTime.Today) >= Reservation.CheckIn)
+            {
+                return false;
+            }
+            return true;
         }
 
         public void Execute_CancelReservationCommand(object obj)
@@ -117,7 +139,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
                         break;
                 }
             }
-            else MessageBox.Show("eror 404");
+            else MessageBox.Show("Reservation at "+ AccommodationName + " can be canceled " + CancelationDays + " days before start reservation", "Cancellation of this reservation is disabled ", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         public void Execute_SendReviewCommand(object obj)
         {
@@ -144,14 +166,34 @@ namespace BookingApp.ViewModels.GuestsViewModel
         }
         public void Execute_RatePageCommand(object obj)
         {
-            RateAccommodationVisibility = Visibility.Visible;
-            SeeMoreVisibility = Visibility.Collapsed;
+            if (CanRateOwnerAccommodation())
+            {
+                RateAccommodationVisibility = Visibility.Visible;
+                SeeMoreVisibility = Visibility.Collapsed;
+            }
+            else MessageBox.Show("The guest can rate the " + AccommodationName + " and its owner "+ OwnerName+" after stay, but no later than 5 days after the stay", "Rate of this reservation is disabled ", MessageBoxButton.OK, MessageBoxImage.Error);
+
         }
 
+        public void Execute_RemovePhotoComand(object obj)
+        {
+            if (SelectedImageUrl != null)
+            {
+                ImagesCollection.Remove(SelectedImageUrl);
+                CheckPhotoNumber();
+                if (ImagesCollection.Count == 0)  NumberOfPhoto = "";
+                else  NumberOfPhoto = "Added " + ImagesCollection.Count + " images";
+            }
+            else MessageBox.Show("You must select a photo!", "WRONG FORMAT ", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        }
         public void Execute_MoveReservationComand(object obj)
         {
-            RequestToMoveVisibility = Visibility.Collapsed;
-            ReservationsDataVisibility = Visibility.Visible;
+            if (CanChangeReservation())
+            {
+                RequestToMoveVisibility = Visibility.Collapsed;
+                ReservationsDataVisibility = Visibility.Visible;
+            }
+            else MessageBox.Show("You cannot change the date of the reservation because it has already start or it has been done!", "Can't change dates of reservation", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public void Execute_FirstDateCommand(object obj)
@@ -333,6 +375,38 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 }
             }
         }
+
+
+        private Visibility hasntPhotoVisibiliti;
+
+        public Visibility HasntPhotoVisibility
+        {
+            get { return hasntPhotoVisibiliti; }
+            set
+            {
+                if (hasntPhotoVisibiliti != value)
+                {
+                    hasntPhotoVisibiliti = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+        private Visibility hasPhotoVisibiliti;
+
+        public Visibility HasPhotoVisibility
+        {
+            get { return hasPhotoVisibiliti; }
+            set
+            {
+                if (hasPhotoVisibiliti != value)
+                {
+                    hasPhotoVisibiliti = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private Visibility rateAccommodationVisibility;
 
         public Visibility RateAccommodationVisibility
@@ -373,48 +447,43 @@ namespace BookingApp.ViewModels.GuestsViewModel
         }
         private void SaveImages(int reservationId)
         {
-            foreach (String relativePath in _imageRelativePath)
+            foreach (String relativePath in ImagesCollection)
             {
                 _imageRepository.Save(new Model.Image(relativePath, reservationId, Enums.ImageType.OwnersReviews)); 
             }
         }
-
-        public void ConvertImagePath(List<String> _imagePath)
+        private void CheckPhotoNumber()
         {
-            foreach (String imgPath in _imagePath)
+            if (ImagesCollection.Count == 0)
             {
-                int relativePathStartIndex = imgPath.IndexOf("\\Resources");
-                String relativePath = imgPath.Substring(relativePathStartIndex);
-                _imageRelativePath.Add(relativePath);
+                HasntPhotoVisibility = Visibility.Visible;
+                HasPhotoVisibility = Visibility.Collapsed;
+            }
+            else 
+            {
+                HasntPhotoVisibility = Visibility.Collapsed;
+                HasPhotoVisibility = Visibility.Visible;
             }
         }
+
         public void Execute_AddPhotoCommand(object obj)
         {
-            _imageRelativePath.Clear();
-            //so it doesnt duplicate
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Images|*.jpg;*.jpeg;*.png;*.gif|All Files|*.*";
             openFileDialog.Multiselect = true;
-
             if (openFileDialog.ShowDialog() == true)
             {
                 foreach (String imgPath in openFileDialog.FileNames)
                 {
-                    _imagePath.Add(imgPath);
+                    int relativePathStartIndex = imgPath.IndexOf("\\Resources");
+                    String relativePath = imgPath.Substring(relativePathStartIndex);
+                    ImagesCollection.Add(relativePath);
                 }
             }
+            CheckPhotoNumber();
 
-            if (_imagePath.Count == 1)
-            {
-                NumberOfPhoto = "Added 1 image";
-            }
-            else
-            {
-                NumberOfPhoto = "Added " + _imagePath.Count + " images";
-            }
-
-            ConvertImagePath(_imagePath);
+            if (ImagesCollection.Count == 1)   NumberOfPhoto = "Added 1 image";
+            if (ImagesCollection.Count != 0) NumberOfPhoto = "Added " + ImagesCollection.Count + " images";
         }
        
         public event PropertyChangedEventHandler? PropertyChanged;

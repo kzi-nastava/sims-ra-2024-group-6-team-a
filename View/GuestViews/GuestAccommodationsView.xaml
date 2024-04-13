@@ -75,7 +75,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" >
                 <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
-                    <Image Source ="/Resources/Images/home.png" Width="70" Height="50"/>
+                    <Image Source ="/Resources/Images/menu.png" Width="70" Height="50"/>
                 </Button>
             </Grid>
             <Grid Grid.Column="1" >
@@ -117,7 +117,7 @@
 
                 </Button.Resources>
                 <StackPanel Orientation="Horizontal">
-                    <Image Source ="/Resources/Images/home.png" Width="35" Height="35" />
+                    <Image Source ="/Resources/Images/lupa.png" Width="35" Height="35" />
                     <Button Width="100" Content="Search" Command="{Binding SearchCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" BorderBrush="Transparent" FontSize="23" FontWeight="DemiBold" FontStyle="Italic">
 
                         <Button.ContextMenu>
@@ -193,7 +193,7 @@
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0">
                                 <TextBlock Foreground="black" Text="{Binding Name}" FontSize="24" FontWeight="Bold" Width="180"/>
                                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                                    <Image Source="/Resources/Images/location-ping.png" Width="18" Height="18"></Image>
+                                    <Image Source="/Resources/Images/locationpin.png" Width="18" Height="18"></Image>
                                     <TextBlock Text="{Binding City}" >,</TextBlock>
                                     <TextBlock Text="{Binding State}"  ></TextBlock>
                                 </StackPanel>
