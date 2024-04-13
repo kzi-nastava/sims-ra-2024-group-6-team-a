@@ -12,6 +12,7 @@
             <MenuItem Header="My Active Tours" Click="MyActiveTours_Click"/>
             <MenuItem Header="Inbox" Click="Inbox_Click"/>
             <MenuItem Header="Rate tour" Click="TourRating_Click"/>
+            <MenuItem Header="Vouchers" Click="Vouchers_Click"/>
             </Menu>
         </Grid>
     <DataGrid x:Name="tourDataGrid" ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"

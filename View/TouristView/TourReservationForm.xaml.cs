@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.TouristView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -49,10 +50,12 @@ namespace BookingApp.View
         public TourTouristDTO TourTouristDTO { get; set; }
         public User LoggedUser { get; set; }
         public TourScheduleDTO TourSchedule { get; set; }
+        public VouchersDTO Voucher { get; set; }
 
         private TourReservationRepository _tourReservationRepository;
         private TourScheduleRepository _tourScheduleRepository;
         private UserRepository _userRepository;
+        private VoucherRepository _voucherRepository;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -75,6 +78,7 @@ namespace BookingApp.View
 
             this._tourReservationRepository = tourReservationRepository;
             this._tourScheduleRepository = tourScheduleRepository;
+            _voucherRepository = new VoucherRepository();
 
             TourSchedules = new ObservableCollection<TourScheduleDTO>();
             TourGuests = new ObservableCollection<TourGuestDTO>();
@@ -122,6 +126,7 @@ namespace BookingApp.View
 
         private void SaveReservationClick(object sender, RoutedEventArgs e)
         {
+            Voucher voucher = new Voucher();
             if (!IsReservationValid())
                 return;
 
@@ -136,6 +141,12 @@ namespace BookingApp.View
                 if(TourSchedule.CurrentFreeSpace >= GuestNumber)
                 { 
                     _tourReservationRepository.MakeReservation(TourSchedule, LoggedUser, TourGuests.ToList());
+                    if (Voucher != null)
+                    {
+                        voucher.Id = Voucher.Id;
+                        _voucherRepository.Delete(voucher);
+                    }
+                    
                     this.Close(); 
                     return;
                 }
@@ -146,6 +157,20 @@ namespace BookingApp.View
         {
             return !string.IsNullOrWhiteSpace(txtGuestNumber.Text) &&
                    ComboBox.SelectedIndex >= 0;
+        }
+
+        private void AddPersonalInfoClick(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(PersonalNameTextBox.Text) || string.IsNullOrWhiteSpace(PersonalSurnameTextBox.Text) || string.IsNullOrWhiteSpace(PersonalAgeTextBox.Text))
+            {
+                MessageBox.Show("Please fill in all fields before adding.");
+                return;
+            }
+
+
+            TourGuests.Add(new TourGuestDTO(PersonalNameTextBox.Text,  Convert.ToInt32(PersonalAgeTextBox.Text), PersonalSurnameTextBox.Text, LoggedUser.Id));
+
+            ClearInputFields();
         }
 
         private void AddTouristInfoClick(object sender, RoutedEventArgs e)
@@ -159,7 +184,7 @@ namespace BookingApp.View
             if (!IsAgeFormatOK())
                 return;
 
-            TourGuests.Add(new TourGuestDTO(NameTextBox.Text, SurnameTextBox.Text, Convert.ToInt32(AgeTextBox.Text)));
+            TourGuests.Add(new TourGuestDTO(NameTextBox.Text, Convert.ToInt32(AgeTextBox.Text), SurnameTextBox.Text, - 1));
 
             ClearInputFields();
         }
@@ -189,6 +214,23 @@ namespace BookingApp.View
             }
             TourGuests.Remove((TourGuestDTO)TouristsDataGrid.SelectedItem);
            
+        }
+
+        private void DeletePesronalInfoClick(object sender, RoutedEventArgs e)
+        {
+            if (TouristsDataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a row to delete.");
+                return;
+            }
+            TourGuests.Remove((TourGuestDTO)TouristsDataGrid.SelectedItem);
+
+        }
+
+        private void UseVoucherClick(object sender, RoutedEventArgs e)
+        {
+            VoucherUsage voucherUsage = new VoucherUsage(LoggedUser, this);
+            voucherUsage.ShowDialog();
         }
 
     }
