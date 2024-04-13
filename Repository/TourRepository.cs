@@ -146,6 +146,30 @@ namespace BookingApp.Repository
             return otherTourCity == currentTourCity && tour.Id != schedule.TourId;
         }
 
+        public List<TourSchedule> GetAllFinishedTours(User user)
+        {
+            TourScheduleRepository scheduleRepository = new TourScheduleRepository();
+            TourReservationRepository reservationRepository = new TourReservationRepository();
+
+            List<TourSchedule> tours = new List<TourSchedule>();
+
+            foreach(TourSchedule schedule in scheduleRepository.GetAll())
+            {
+                if (schedule.TourActivity == Resources.Enums.TourActivity.Finished)
+                {
+                    foreach(TourReservation reservation in reservationRepository.GetAll())
+                    {
+                        if(reservation.TourRealisationId == schedule.Id && reservation.TouristId == user.Id)
+                        {
+                            tours.Add(schedule);
+                        }
+                    }
+                    
+                }
+            }
+            return tours;
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
