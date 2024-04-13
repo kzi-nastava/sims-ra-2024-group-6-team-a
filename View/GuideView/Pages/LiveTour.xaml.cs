@@ -85,7 +85,7 @@ namespace BookingApp.View.GuideView.Pages
             TourGuests.Clear();
             foreach (TourGuests tourGuest in _tourGuestRepository.GetAllByTourId(SelectedTourSchedule.Id))
             {
-
+                if(tourGuest.IsPresent == false)
                 TourGuests.Add(tourGuest);
             }
         }
