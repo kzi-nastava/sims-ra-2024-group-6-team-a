@@ -51,7 +51,7 @@ namespace BookingApp.View.TouristView
         {
             Checkpoints.Clear();
 
-            foreach (Checkpoint checkpoint in _checkpointRepository.GetFinishedCheckpoints(SelectedTour))
+            foreach (Checkpoint checkpoint in _checkpointRepository.GetFinishedCheckpoints(SelectedTourSchedule))
             {
 
                 Checkpoints.Add(checkpoint);
