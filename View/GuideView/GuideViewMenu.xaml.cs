@@ -68,10 +68,18 @@ namespace BookingApp.View
             tourStatisticsPage = new TourStatisticsPage(LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository, _tourGuestRepository);
             tourCreationPage = new TourCreationPage(LoggedUser, _tourRepository, _locationRepository, _imageRepository, _checkRepository, _tourScheduleRepository);
             liveToursPage = new LiveToursPage(mainFrame,tourStatisticsPage, tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
+            liveToursPage.MainRefresher += UpdateWindows;
             allToursPage = new AllToursPage(mainFrame, tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
             tourReviewPage = new TourReviewsPage(mainFrame, tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository,_tourReviewRepository);
         }
 
+
+
+        private void UpdateWindows()
+        {
+            tourReviewPage.Update();
+            tourStatisticsPage.Update();
+        }
 
 
         private void ShowCreateTourForm(object sender, EventArgs e)

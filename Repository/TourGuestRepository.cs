@@ -115,7 +115,6 @@ namespace BookingApp.Repository
             return response;
         }
 
-
     }
 }
 
