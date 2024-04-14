@@ -24,27 +24,20 @@ namespace BookingApp.ViewModels.GuestsViewModel
         private LocationRepository _locationRepository;
         private ImageRepository _imageRepository;
         public ObservableCollection<AccommodationOwnerDTO> Accommodations { get; set; }
-        public AccommodationOwnerDTO SelectedAccommodation { get; set; }
         public Guest Guest { get; set; }
         public NavigationService NavService { get; set; }
-
-
         public GuestAccommodationsViewModel(Guest guest, NavigationService navigation)
         {
             Guest = guest;
             NavService = navigation;
-
             SearchCommand = new RelayCommand(Execute_SearchCommand);
             SearchResetCommand = new RelayCommand(Execute_SearchResetCommand);
             ReserveCommand = new RelayCommand(Execute_ReserveCommand);
-
             _locationRepository = new LocationRepository();
             _imageRepository = new ImageRepository();
             _repository = new AccommodationRepository();
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
-
             Update();
-
         }
         public void Update()
         {
@@ -63,16 +56,12 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public RelayCommand SearchCommand { get; set; }
         public RelayCommand SearchResetCommand { get; set; }
         public RelayCommand ReserveCommand { get; set; }
-
-
-
         private string searchCity;
         private string searchType;
         private string searchName;
         private string searchState;
         private string searchGuestNumber;
         private string searchDaysNumber;
-
         public string SearchCity
         {
             get { return searchCity; }
@@ -91,8 +80,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 OnPropertyChanged(nameof(filteredData));
             }
         }
-
-
         public string SearchName
         {
             get { return searchName; }
@@ -134,45 +121,21 @@ namespace BookingApp.ViewModels.GuestsViewModel
             get
             {
                 ObservableCollection<AccommodationOwnerDTO> result = Accommodations;
-
                 if (!string.IsNullOrEmpty(searchCity))
-                {
                     result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.city.ToLower().Contains(searchCity.ToLower())));
-                }
                 if (!string.IsNullOrEmpty(searchState))
-                {
                     result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.State.ToLower().Contains(searchState.ToLower())));
-                }
-
-                if (!string.IsNullOrEmpty(searchType) && searchType != "Search type...")
-                {
+                if (!string.IsNullOrEmpty(searchType))
                     result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.Type.ToString().ToLower().Contains(searchType.ToLower())));
-                }
-
-                if (!string.IsNullOrEmpty(searchName) && searchName != "Search name...")
-                {
+                if (!string.IsNullOrEmpty(searchName))
                     result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.Name.ToLower().Contains(searchName.ToLower())));
-                }
-
-                if (!string.IsNullOrEmpty(searchGuestNumber) && searchGuestNumber != "Search number of guest...")
-                {
-                    int a;
-                    bool number = int.TryParse(searchGuestNumber, out a);
-                    if (number)
+                if (!string.IsNullOrEmpty(searchGuestNumber))
                         result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.MaxGuests >= Convert.ToInt32(searchGuestNumber.ToLower())));
-                }
-                if (!string.IsNullOrEmpty(searchDaysNumber) && searchDaysNumber != "Search number of days...")
-                {
-                    int a;
-                    bool number = int.TryParse(searchDaysNumber, out a);
-                    if (number)
+                if (!string.IsNullOrEmpty(searchDaysNumber))
                         result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.MinReservationDays <= Convert.ToInt32(searchDaysNumber.ToLower())));
-                }
-
                 return result;
             }
         }
-
         public void Execute_SearchCommand(object obj)
         {
             if (obj is Button button)
@@ -181,7 +144,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 button.ContextMenu.IsOpen = true;
             }
         }
-
         public void Execute_ReserveCommand(object obj)
         {
             AccommodationOwnerDTO accommodationDTO = obj as AccommodationOwnerDTO;
@@ -195,7 +157,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
             SearchType = null;
             SearchGuestNumber = null;
             SearchDaysNumber = null;
-
             OnPropertyChanged(nameof(SearchName));
             OnPropertyChanged(nameof(SearchState));
             OnPropertyChanged(nameof(SearchCity));
@@ -203,7 +164,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
             OnPropertyChanged(nameof(SearchGuestNumber));
             OnPropertyChanged(nameof(SearchDaysNumber));
         }
-
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName = null)
         {

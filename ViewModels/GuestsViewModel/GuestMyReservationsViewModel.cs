@@ -22,17 +22,12 @@ namespace BookingApp.ViewModels.GuestsViewModel
         private AccommodationRepository _accommodationRepository;
         private LocationRepository _locationRepository;
         private ImageRepository _imageRepository;
-        public static ObservableCollection<ImageDTO> Images { get; set; }
         public ObservableCollection<ReservationGuestDTO> Reservations { get; set; }
-        //public static List<Model.Image> imageModels { get; set; }
-        //public AccommodationReservation SelectedReservation { get; set; }
         public Guest Guest { get; set; }
         public NavigationService NavService { get; set; }
         public RelayCommand SeeMoreCommand { get; set; }
         public RelayCommand MyRequestCommand { get; set; }
-
         private AccommodationReservationRepository accommodationReservationRepository;
-
         public GuestMyReservationsViewModel(Guest guest, NavigationService navigation)
         {
             Guest = guest;
@@ -41,8 +36,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
             _imageRepository = new ImageRepository();
             _accommodationRepository = new AccommodationRepository();
             Reservations = new ObservableCollection<ReservationGuestDTO>();
-
-
             SeeMoreCommand = new RelayCommand(Execute_SeeMoreCommand);
             MyRequestCommand = new RelayCommand(Execute_MyRequestCommand);
             NavService = navigation;
@@ -67,7 +60,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
         private void Execute_MyRequestCommand(object obj)
         {
             NavService.Navigate(new GuestMyRequestView(Guest, NavService));
-
         }
         private void Execute_SeeMoreCommand(object obj)
         {

@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Model;
 using BookingApp.Observer;
+using BookingApp.Resources;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,14 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _changes);
             subject.NotifyObservers();
             return ReservationChanges;
-
+        }
+        public int GetNumberOfNotifications(int reservationId)
+        {
+            int numberOfNotifications = 0;
+            foreach (ReservationChanges change in GetAll())
+                if (change.ReservationId == reservationId && (change.Status == Enums.ReservationChangeStatus.Rejected || change.Status == Enums.ReservationChangeStatus.Accepted))
+                    numberOfNotifications++;
+            return numberOfNotifications;
         }
 
         public int NextId()

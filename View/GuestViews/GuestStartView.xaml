@@ -65,7 +65,7 @@
                 </Grid>
                 <Grid Grid.Column="3" >
 
-                    <Button HorizontalAlignment="Center" Width="101" Cursor="Hand" Click="HomePage" Height="80" VerticalAlignment="Top" >
+                    <Button HorizontalAlignment="Center" Width="101" Cursor="Hand" Click="ProfilePage" Height="80" VerticalAlignment="Top" >
                         <StackPanel>
                             <Image Source ="/Resources/Images/profile.png" Width="45" Height="45"/>
                             <TextBlock FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="Black" >Profile</TextBlock>
