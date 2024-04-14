@@ -181,7 +181,7 @@ namespace BookingApp.View
 
         private void Inbox_Click(object sender, RoutedEventArgs e)
         {
-            Inbox inbox = new Inbox();
+            Inbox inbox = new Inbox(LoggedUser);
             inbox.ShowDialog();
         }
 

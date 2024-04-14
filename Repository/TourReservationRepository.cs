@@ -80,20 +80,6 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return reservation;
         }
-        public int FindAssignedPeopleNumber(int currentTourRealisationId)
-        {
-            int peopleNumber = 0;
-
-            foreach (TourReservation tourReservation in GetAll())
-            {
-                if (tourReservation.TourRealisationId == currentTourRealisationId)
-                {
-                    peopleNumber += tourReservation.TourGuests.Count;
-                }
-            }
-
-            return peopleNumber;
-        }
         public bool IsFullyBooked(int currentTourRealisationId)
         {
             TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
@@ -140,9 +126,7 @@ namespace BookingApp.Repository
         {
             _tourReservations = _serializer.FromCSV(FilePath);
             return _tourReservations.FindAll(x => x.TouristId == user.Id);
-
-
-           
+  
         }
 
 
@@ -150,6 +134,11 @@ namespace BookingApp.Repository
         {
             return _tourReservations.Find(c => c.Id == id);
 
+        }
+
+        public TourReservation GetBySchedule(int schdeuleId)
+        {
+            return _tourReservations.Find(c => c.TourRealisationId == schdeuleId);
         }
 
     }

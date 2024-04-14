@@ -7,6 +7,27 @@
         mc:Ignorable="d"
         Title="Inbox" Height="450" Width="800">
     <Grid>
-        
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <ItemsControl ItemsSource="{Binding FinishedTours}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="5" Padding="10">
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold"> Pojavili su se sljedeci turisti:</TextBlock>
+                                    <DataGrid ItemsSource="{Binding TourGuests}" AutoGenerateColumns="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Name" Binding="{Binding TourGuestDTO.Name}"/>
+                                            <DataGridTextColumn Header="Surname" Binding="{Binding TourGuestDTO.Surname}"/>
+                                            <DataGridTextColumn Header="CheckpointId" Binding="{Binding TourGuestDTO.CheckpointId}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
