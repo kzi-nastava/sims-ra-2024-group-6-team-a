@@ -46,7 +46,9 @@ namespace BookingApp.Resources
         {
             Pending,
             Rejected,
-            Accepted
+            Accepted,
+            AcceptedSeen,
+            RejectedSeen
 
         }
         public enum TourActivity
