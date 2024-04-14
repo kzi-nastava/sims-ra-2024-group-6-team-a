@@ -139,10 +139,11 @@ namespace BookingApp.View.GuideView.Pages
         //and take the tour schedule, for each tour we count the number of children/adults/elderly, we also need to make a function for dates Combobox because of distinct value
         public void Update()
         {
+            datesBox.Items.Clear();
             FinishedTours.Clear();
             List<int> dates = new List<int>();
 
-            foreach (Tour tour in _tourRepository.GetAll())
+            foreach (Tour tour in _tourRepository.GetAllByUser(LoggedUser))
             {
                 Location location = _locationRepository.GetById(tour.LocationId);
                 Model.Image image = GetFirstTourImage(tour.Id);
@@ -159,6 +160,7 @@ namespace BookingApp.View.GuideView.Pages
                     FinishedTours.Add(new TourStatisticsDTO(tour.Name, schedule.Start, tour.Language, image.Path, location, touristCount, childrenCount, adultCount, elderlyCount));
                     dates.Add(schedule.Start.Year);
                 }
+                
             }
 
             AddDatesToComboBox(dates);

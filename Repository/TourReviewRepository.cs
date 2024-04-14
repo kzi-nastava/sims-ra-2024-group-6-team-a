@@ -89,5 +89,11 @@ namespace BookingApp.Repository
             TourReview tourReview = new TourReview(tourReviewDTO.ScheduleId, tourReviewDTO.GuideKnowledgeGrade, tourReviewDTO.GuideLanguageGrade, tourReviewDTO.TourAttractionsGrade, tourReviewDTO.Impression, tourReviewDTO.TouristId);
             Save(tourReview);
         }
+
+        public List <TourReview> GetAllReviewsByScheduleId(int tourScheduleId)
+        {
+            return _reviews.Where(c => c.ScheduleId == tourScheduleId).ToList();
+
+        }
     }
 }
