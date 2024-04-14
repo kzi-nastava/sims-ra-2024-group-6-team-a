@@ -81,7 +81,7 @@
                             </Grid>
 
                             <Grid Grid.Column="1">
-                                <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  Content="{Binding State}"/>
+                                <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  Content="{Binding Accommodation.State}"/>
                             </Grid>
 
                             <Grid Grid.Column="2">
@@ -89,7 +89,7 @@
                             </Grid>
 
                             <Grid Grid.Column="3">
-                                <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding MaxGuests}" Margin="-20,0,0,0" Width="33"/>
+                                <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Accommodation.MaxGuests}" Margin="-20,0,0,0" Width="33"/>
                             </Grid>
 
                         </Grid>
@@ -104,13 +104,13 @@
                                 <Label FontSize="15"  FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Center" Content="City:"></Label>
                             </Grid>
                             <Grid Grid.Column="1">
-                                <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  Content="{Binding City}"/>
+                                <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  Content="{Binding Accommodation.City}"/>
                             </Grid>
                             <Grid Grid.Column="2">
                                 <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="Minimal number of days: " Margin="-13,0,0,0"></Label>
                             </Grid>
                             <Grid Grid.Column="3">
-                                <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding MinDays}" Margin="-30,0,0,0" Width="33"/>
+                                <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Accommodation.MinReservationDays}" Margin="-30,0,0,0" Width="33"/>
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="2" >
@@ -124,13 +124,13 @@
                                 <Label FontSize="15"  FontFamily="Bahnschrift" Foreground="Black" HorizontalAlignment="Center" Content="Type:"></Label>
                             </Grid>
                             <Grid Grid.Column="1">
-                                <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  Content="{Binding Type}"/>
+                                <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  Content="{Binding Accommodation.Type}"/>
                             </Grid>
                             <Grid Grid.Column="2">
                                 <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="Days of cancelation: " Margin="-13,0,0,0" ></Label>
                             </Grid>
                             <Grid Grid.Column="3">
-                                <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding CancelationDays}" Margin="-30,0,0,0" Width="33"/>
+                                <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Accommodation.CancelationDays}" Margin="-30,0,0,0" Width="33" Height="33" VerticalAlignment="Bottom"/>
                             </Grid>
                         </Grid>
                         <Separator  VerticalAlignment="Bottom" Height="2" Background="Black" Grid.Row="2"></Separator>
@@ -191,13 +191,13 @@
                             <Grid Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="Number of guests:" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Center"   FontSize="15"/>
-                                    <xctk:IntegerUpDown Maximum="{Binding MaxGuests}" Minimum="1" x:Name="DaysNumber" Text="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
+                                    <xctk:IntegerUpDown Maximum="{Binding Accommodation.MaxGuests}" Minimum="1" x:Name="DaysNumber" Text="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}" Width="50"/>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="Number of days:" VerticalAlignment="Center"  HorizontalAlignment="Center"   FontSize="15"/>
-                                    <xctk:IntegerUpDown Minimum="{Binding MinDays}" x:Name="GuestNumber" Text="{Binding DaysNumber, UpdateSourceTrigger=PropertyChanged}" Width="50" />
+                                    <xctk:IntegerUpDown Minimum="{Binding Accommodation.MinReservationDays}" x:Name="GuestNumber" Text="{Binding DaysNumber, UpdateSourceTrigger=PropertyChanged}" Width="50" />
                                 </StackPanel>
                             </Grid>
                         </Grid>

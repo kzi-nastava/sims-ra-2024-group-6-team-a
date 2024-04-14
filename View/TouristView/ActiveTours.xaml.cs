@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using System;
@@ -29,18 +30,18 @@ namespace BookingApp.View.TouristView
         public User LoggedUser { get; set; }
 
         private LocationRepository _locationRepository;
-        private TourRepository _tourRepository;
-        private TourScheduleRepository _scheduleRepository;
-        private TourReservationRepository _tourReservationRepository;
+        private TourService _tourService;
+        private TourScheduleService _schdeuleService;
+        private TourReservationService _reservationService;
         public ActiveTours(TourScheduleDTO tourSchedule, User user)
         {
             InitializeComponent();
             DataContext = this;
 
-            _tourRepository = new TourRepository();
-            _scheduleRepository = new TourScheduleRepository();
+            _tourService = new TourService();
+            _schdeuleService = new TourScheduleService();
             _locationRepository = new LocationRepository();
-            _tourReservationRepository = new TourReservationRepository();
+            _reservationService = new TourReservationService();
             LoggedUser = user;
 
             Tours = new ObservableCollection<TourScheduleDTO>();
@@ -52,7 +53,7 @@ namespace BookingApp.View.TouristView
         private void Update() //prodji kroz sve aktivne ture mog usera i dodaj ih u kolekciju
         {
             Tours.Clear();
-            foreach(TourSchedule tour in _tourRepository.GetOngoingToursByUser(LoggedUser))
+            foreach(TourSchedule tour in _schdeuleService.GetOngoingSchedulesByUser(LoggedUser))
             {
                 Tours.Add(new TourScheduleDTO(tour));
             }

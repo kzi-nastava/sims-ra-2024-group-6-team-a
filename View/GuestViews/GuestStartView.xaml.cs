@@ -36,5 +36,9 @@ namespace BookingApp.View.GuestViews
         {
             SelectedTab.Content = new GuestMyReservationsView(guest, SelectedTab.NavigationService);
         }
+        private void ProfilePage(object sender, RoutedEventArgs e)
+        {
+            SelectedTab.Content = new GuestProfilView(guest, SelectedTab.NavigationService);
+        }
     }
 }

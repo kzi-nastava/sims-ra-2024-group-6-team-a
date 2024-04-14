@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using BookingApp.Model;
 using BookingApp.Serializer;
 using BookingApp.Observer;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repository
 {
-    public class TourScheduleRepository
+    public class TourScheduleRepository : ITourScheduleRepository
     {
 
         private const string FilePath = "../../../Resources/Data/tourschedules.csv";
@@ -92,6 +93,8 @@ namespace BookingApp.Repository
             return id;
         }
 
+        //KAD SE PREBACE OVE FUNKCIJE U SERVISE ZAKOMENTARISATI IH OVDJE ########## OSIM AKO SE NE POZIVAJU U SERVISU!!!!!!!!
+
         public List<TourSchedule> GetAllByTourId(int tourId)
         {
             return _tourSchedules.Where(c => c.TourId == tourId).ToList();
@@ -101,10 +104,6 @@ namespace BookingApp.Repository
         public TourSchedule GetByTour(Tour tour)
         {
             return _tourSchedules.Find(c => c.TourId == tour.Id);
-        }
-        public TourSchedule GetByTourId(int tourId)
-        {
-            return _tourSchedules.Find(c => c.TourId == tourId);
         }
         public TourSchedule GetById(int id)
         {

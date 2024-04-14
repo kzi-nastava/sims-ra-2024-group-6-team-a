@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class CheckpointRepository
+    public class CheckpointRepository : ICheckpointRepository
     {
         private const string FilePath = "../../../Resources/Data/checkpoints.csv";
 
@@ -80,9 +81,9 @@ namespace BookingApp.Repository
         public List<Checkpoint> GetAllByTourScheduleId(int tourScheduleId)
         {
            List <Checkpoint> checkpoints = new List <Checkpoint>();
-            _checkpoints = _serializer.FromCSV(FilePath);
+           
 
-            foreach (Checkpoint checkpoint in _checkpoints)
+            foreach (Checkpoint checkpoint in GetAll())
             {
                 if(checkpoint.TourScheduleId == tourScheduleId)
                 {
@@ -90,19 +91,6 @@ namespace BookingApp.Repository
                 }
             }
 
-            return checkpoints;
-        }
-
-        public List<Checkpoint> GetFinishedCheckpoints(TourSchedule schedule)
-        {
-            List<Checkpoint> checkpoints = new List<Checkpoint>();
-
-            foreach(Checkpoint checkpoint in GetAllByTourScheduleId(schedule.Id))
-            {
-                    if (checkpoint.IsReached == true)
-                        checkpoints.Add(checkpoint);
-
-            }
             return checkpoints;
         }
 

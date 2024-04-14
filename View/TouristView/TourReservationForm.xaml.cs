@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.View.TouristView;
@@ -52,10 +53,11 @@ namespace BookingApp.View
         public TourScheduleDTO TourSchedule { get; set; }
         public VouchersDTO Voucher { get; set; }
 
-        private TourReservationRepository _tourReservationRepository;
-        private TourScheduleRepository _tourScheduleRepository;
+        private TourReservationService _reservationService;
+        private TourScheduleService _scheduleService;
         private UserRepository _userRepository;
-        private VoucherRepository _voucherRepository;
+
+        private VoucherService _voucherService;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -70,20 +72,20 @@ namespace BookingApp.View
         public ObservableCollection<TourScheduleDTO> TourSchedules { get; set; }
         public ObservableCollection<TourGuestDTO> TourGuests { get; set; }
 
-        public TourReservationForm(User user, TourTouristDTO selectedTour, TourReservationRepository tourReservationRepository, TourScheduleRepository tourScheduleRepository)
+        public TourReservationForm(User user, TourTouristDTO selectedTour, TourReservationService reservationService, TourScheduleService scheduleService)
         {
             InitializeComponent();
 
             LoggedUser = user;
 
-            this._tourReservationRepository = tourReservationRepository;
-            this._tourScheduleRepository = tourScheduleRepository;
-            _voucherRepository = new VoucherRepository();
+            this._reservationService = reservationService;
+            this._scheduleService = scheduleService;
+            _voucherService = new VoucherService();
 
             TourSchedules = new ObservableCollection<TourScheduleDTO>();
             TourGuests = new ObservableCollection<TourGuestDTO>();
 
-            foreach(var tourSchedule in _tourScheduleRepository.GetAll())
+            foreach(var tourSchedule in _scheduleService.GetAll())
             {
                 if(tourSchedule.TourId == selectedTour.Id)
                 {
@@ -130,7 +132,7 @@ namespace BookingApp.View
             if (!IsReservationValid())
                 return;
 
-            if(_tourReservationRepository.IsFullyBooked(TourSchedule.Id))
+            if(_reservationService.IsFullyBooked(TourSchedule.Id))
             {
                 SameLocationToursWindow sameLocationTours = new SameLocationToursWindow(TourSchedule, LoggedUser);
                 sameLocationTours.ShowDialog();
@@ -140,11 +142,11 @@ namespace BookingApp.View
 
                 if(TourSchedule.CurrentFreeSpace >= GuestNumber)
                 { 
-                    _tourReservationRepository.MakeReservation(TourSchedule, LoggedUser, TourGuests.ToList());
+                    _reservationService.MakeReservation(TourSchedule, LoggedUser, TourGuests.ToList());
                     if (Voucher != null)
                     {
                         voucher.Id = Voucher.Id;
-                        _voucherRepository.Delete(voucher);
+                        _voucherService.Delete(voucher);
                     }
                     
                     this.Close(); 

@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.Domain.Model;
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
@@ -28,7 +29,7 @@ namespace BookingApp.View.TouristView
     public partial class TourRating : Window
     {
         private readonly ImageRepository _imageRepository;
-        private readonly TourReviewRepository _tourReviewRepository = new TourReviewRepository();
+        private readonly TourReviewService _reviewService = new TourReviewService();
         public TourScheduleDTO SelectedTour { get; set; }
         public User LoggedUser { get; set; }
 
@@ -81,7 +82,7 @@ namespace BookingApp.View.TouristView
         {
             TourReviewDTO.ScheduleId = SelectedTour.Id;
             TourReviewDTO.TouristId = LoggedUser.Id;
-            _tourReviewRepository.MakeReview(TourReviewDTO);
+            _reviewService.MakeReview(TourReviewDTO);
             SaveImages(ImagesCollection.ToList());
             this.Close();
         }

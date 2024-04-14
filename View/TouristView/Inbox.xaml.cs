@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using System;
@@ -24,9 +25,10 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class Inbox : Window
     {
-        private TourRepository _tourRepository;
-        private TourGuestRepository _tourGuestRepository;
-        private TourReservationRepository _reservationRepository;
+        private TourService _tourService;
+        private TourGuestService _tourGuestService;
+        private TourReservationService _reservationService;
+        private TourScheduleService _scheduleService;
         public User LoggedUser { get; set; }
         public ObservableCollection<TourGuestDTO> TourGuests { get; set; }
         public ObservableCollection<TourScheduleDTO> FinishedTours { get; set; }
@@ -42,22 +44,23 @@ namespace BookingApp.View.TouristView
             FinishedTours = new ObservableCollection<TourScheduleDTO>();
             TourGuestDTO = new TourGuestDTO();
 
-            _tourRepository = new TourRepository();
-            _tourGuestRepository = new TourGuestRepository();
-            _reservationRepository = new TourReservationRepository();
+            _tourService = new TourService();
+            _tourGuestService = new TourGuestService();
+            _reservationService = new TourReservationService();
+            _scheduleService = new TourScheduleService();
             Update();
         }
         private void Update()
         {
             TourGuests.Clear();
 
-            foreach(TourSchedule schedule in _tourRepository.GetAllFinishedTours(LoggedUser)) //za svaki termin u mojim zavrsenim na kojim sam se pojavila mi prikazi osobe koje su se pojavile
+            foreach(TourSchedule schedule in _scheduleService.GetAllFinishedTours(LoggedUser)) //za svaki termin u mojim zavrsenim na kojim sam se pojavila mi prikazi osobe koje su se pojavile
             {
                 FinishedTours.Add(new TourScheduleDTO(schedule));
 
-                foreach (TourReservation reservation in _reservationRepository.GetAllByRealisationId(schedule.Id))
+                foreach (TourReservation reservation in _reservationService.GetAllByRealisationId(schedule.Id))
                 {
-                    foreach (TourGuests guest in _tourGuestRepository.GetAllPresentGuestsByReservation(reservation.Id))
+                    foreach (TourGuests guest in _tourGuestService.GetAllPresentGuestsByReservation(reservation.Id))
                     {
                         
                         TourGuests.Add(new TourGuestDTO(guest));

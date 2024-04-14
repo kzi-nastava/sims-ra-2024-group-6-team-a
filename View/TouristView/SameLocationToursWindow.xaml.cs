@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using System;
@@ -30,20 +31,20 @@ namespace BookingApp.View
         public User LoggedUser { get; set; }
 
         private LocationRepository _locationRepository;
-        private TourRepository _tourRepository;
-        private TourScheduleRepository _scheduleRepository;
-        private TourReservationRepository _tourReservationRepository;
+        private TourService _tourService;
+        private TourScheduleService _schdeuleService;
+        private TourReservationService _reservationService;
         
         public SameLocationToursWindow(TourScheduleDTO tourSchedule, User user)
         {
             InitializeComponent();
             DataContext = this;
 
-            _tourRepository = new TourRepository();
-            _scheduleRepository = new TourScheduleRepository();
+            _tourService = new TourService();
+            _schdeuleService = new TourScheduleService();
             _locationRepository = new LocationRepository();
-            _tourReservationRepository = new TourReservationRepository();
-            _tourRepository.Subscribe(this);
+            _reservationService = new TourReservationService();
+            //_tourService.Subscribe(this);
             LoggedUser = user;
 
             Tours = new ObservableCollection<TourTouristDTO>();
@@ -55,9 +56,9 @@ namespace BookingApp.View
         public void Update()
         {
             Tours.Clear();
-            foreach(Tour tour in _tourRepository.GetSameLocationTours(TourScheduleDTO))
+            foreach(Tour tour in _tourService.GetSameLocationTours(TourScheduleDTO))
             {
-                Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId), _scheduleRepository.GetByTour(tour)));
+                Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId), _schdeuleService.GetByTour(tour)));
             }
         }
 
@@ -68,7 +69,7 @@ namespace BookingApp.View
 
             if (selectedTour != null)
             {
-                TourReservationForm form = new TourReservationForm(LoggedUser, selectedTour, _tourReservationRepository, _scheduleRepository);
+                TourReservationForm form = new TourReservationForm(LoggedUser, selectedTour, _reservationService, _schdeuleService);
                 form.ShowDialog();
 
             }
