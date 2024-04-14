@@ -29,7 +29,7 @@ namespace BookingApp.View.GuideView.Components
         private void MoreInfoMouseDown(object sender, MouseButtonEventArgs e)
         {
             ReviewDetailsPage r = new ReviewDetailsPage(Convert.ToInt32(textBoxId.Text));
-            (Window.GetWindow(this) as GuideViewMenu).mainFrame.Content = r;
+            (Window.GetWindow(this) as GuideViewMenu).MainFrame.Content = r;
 
         }
     }
