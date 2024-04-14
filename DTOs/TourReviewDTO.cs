@@ -150,6 +150,46 @@ namespace BookingApp.DTOs
             }
         }
 
+        private String _nickname;
+        public String Nickname
+        {
+            get
+            {
+                return _nickname;
+            }
+
+            set
+            {
+                if (value != _nickname)
+                {
+                    _nickname = value;
+                    OnPropertyChanged("Nickname");
+                }
+            }
+        }
+
+        private String _checkpoint;
+        public String Checkpoint
+        {
+
+            get
+            {
+                return _checkpoint;
+            }
+
+            set
+            {
+                if (value != _checkpoint)
+                {
+                    _checkpoint = value;
+                    OnPropertyChanged("Checkpoint");
+                }
+            }
+
+        }
+
+
+
         public TourReviewDTO()
         {
 
@@ -164,6 +204,20 @@ namespace BookingApp.DTOs
             Impression = impression;
             Image = imagePath;
             TouristId = touristId;
+        }
+
+        public TourReviewDTO(int scheduleId, int languageGrade, int knowledgeGrade, int attractionsGrade, string impression, string imagePath, int touristId, string nickname, string checkpoint)
+        {
+            ScheduleId = scheduleId;
+            GuideKnowledgeGrade = knowledgeGrade;
+            GuideLanguageGrade = languageGrade;
+            TourAttractionsGrade = attractionsGrade;
+            Impression = impression;
+            Image = imagePath;
+            TouristId = touristId;
+            Nickname = nickname;
+            Checkpoint = checkpoint;
+
         }
 
 

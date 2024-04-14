@@ -42,12 +42,14 @@ namespace BookingApp.View
         private  CheckpointRepository _checkRepository;
         private  TourScheduleRepository _tourScheduleRepository;
         private TourGuestRepository _tourGuestRepository;
+        private TourReviewRepository _tourReviewRepository;
 
         public LiveToursPage liveToursPage;
         public TourCreationPage tourCreationPage;
         public TourStatisticsPage tourStatisticsPage;
         public AllToursPage allToursPage;
-
+        public ReviewDetailsPage reviewDetailsPage;
+        public TourReviewsPage tourReviewPage;
         public GuideViewMenu(User user,LocationRepository locationRepository,ImageRepository imageRepository)
         {
             InitializeComponent();
@@ -59,16 +61,18 @@ namespace BookingApp.View
             _checkRepository = new CheckpointRepository();
             _tourScheduleRepository = new TourScheduleRepository();
             _tourGuestRepository = new TourGuestRepository();
+            _tourReviewRepository = new TourReviewRepository(); 
             mainFrame = MainFrame;
             LoggedUser = user;
 
             tourStatisticsPage = new TourStatisticsPage(LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository, _tourGuestRepository);
             tourCreationPage = new TourCreationPage(LoggedUser, _tourRepository, _locationRepository, _imageRepository, _checkRepository, _tourScheduleRepository);
-            liveToursPage = new LiveToursPage(mainFrame,tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
+            liveToursPage = new LiveToursPage(mainFrame,tourStatisticsPage, tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
             allToursPage = new AllToursPage(mainFrame, tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
+            tourReviewPage = new TourReviewsPage(mainFrame, tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository,_tourReviewRepository);
         }
-           
-            
+
+
 
         private void ShowCreateTourForm(object sender, EventArgs e)
         {
@@ -85,7 +89,12 @@ namespace BookingApp.View
             MainFrame.Content = tourStatisticsPage;
         }
 
-       
+       private void TourReviewsPageClick(object sender, EventArgs e)
+        {
+            MainFrame.Content =tourReviewPage;
+        }
+
+
         private void LiveToursPageClick(object sender, RoutedEventArgs e)
         {
             List<Tour> tours = _tourRepository.GetAllByUser(LoggedUser);
@@ -102,13 +111,6 @@ namespace BookingApp.View
                 MainFrame.Content = liveToursPage;
             }
         }
-
-        private void StatisticsClick(object sender, RoutedEventArgs e)
-        {
-           
-        }
-
-
 
         private void AllToursPageClick(object sender, RoutedEventArgs e)
         {

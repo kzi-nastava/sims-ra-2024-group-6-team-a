@@ -37,9 +37,10 @@ namespace BookingApp.View.GuideView.Pages
         private TourScheduleRepository _tourScheduleRepository;
         private TourRepository _tourRepository;
         private LiveTour liveTour;
+        private TourStatisticsPage _tourStatisticsPage;
 
 
-        public LiveToursPage(Frame mainFrame,TourCreationPage tourCreationPage,User user, LocationRepository locationRepository, ImageRepository imageRepository, TourScheduleRepository tourScheduleRepository, TourRepository tourRepository)
+        public LiveToursPage(Frame mainFrame,TourStatisticsPage tourStatisticsPage,TourCreationPage tourCreationPage,User user, LocationRepository locationRepository, ImageRepository imageRepository, TourScheduleRepository tourScheduleRepository, TourRepository tourRepository)
         {
             InitializeComponent();
             DataContext = this;
@@ -49,8 +50,10 @@ namespace BookingApp.View.GuideView.Pages
             _imageRepository = imageRepository;
             _tourRepository = tourRepository;
             _tourScheduleRepository = tourScheduleRepository;
+            _tourStatisticsPage = tourStatisticsPage;
 
             TodaysTours = new ObservableCollection<TourGuideDTO>();
+
 
             this.mainFrame = mainFrame;
 
@@ -106,6 +109,7 @@ namespace BookingApp.View.GuideView.Pages
         private void TourEndedEventHandler(object sender, EventArgs e)
         {
             Update();
+            _tourStatisticsPage.Update();
         }
     }
 }
