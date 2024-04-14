@@ -23,7 +23,7 @@ namespace BookingApp.Repository
         public CheckpointRepository()
         {
             _serializer = new Serializer<Checkpoint>();
-            _checkpoints = new List<Checkpoint>();
+            _checkpoints = _serializer.FromCSV(FilePath);
             subject = new Subject();
         }
         public List<Checkpoint> GetAll()
@@ -93,5 +93,6 @@ namespace BookingApp.Repository
 
             return checkpoints;
         }
+
     }
 }

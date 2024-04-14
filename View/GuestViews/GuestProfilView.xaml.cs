@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BookingApp.DTOs;
+using BookingApp.Model;
+using BookingApp.ViewModels.GuestsViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +16,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookingApp.View
+namespace BookingApp.View.GuestViews
 {
     /// <summary>
-    /// Interaction logic for MyReservation.xaml
+    /// Interaction logic for GuestProfilView.xaml
     /// </summary>
-    public partial class MyReservation : Page
+    public partial class GuestProfilView : Page
     {
-        public MyReservation()
+        public GuestProfilView(Guest guest, NavigationService navigation)
         {
             InitializeComponent();
+            this.DataContext = new GuestProfilViewModel(guest, navigation);
+
         }
     }
 }

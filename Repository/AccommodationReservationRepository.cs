@@ -1,5 +1,6 @@
 ﻿using BookingApp.Model;
 using BookingApp.Observer;
+using BookingApp.Resources;
 using BookingApp.Serializer;
 using System;
 using System.Collections.Generic;
@@ -79,35 +80,14 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _accommodationReservations);
             subject.NotifyObservers();
         }
-
-        public AccommodationReservation ChangeReservationStatus(AccommodationReservation AccommodationReservation)
+        public int GetNumberOfReservation(int guestId)
         {
-            _accommodationReservations = _serializer.FromCSV(FilePath);
-            _accommodationReservations.Add(AccommodationReservation);
-            _serializer.ToCSV(FilePath, _accommodationReservations);
-            subject.NotifyObservers();
-            return AccommodationReservation;
-
+            int numberOfReservation = 0;
+            foreach (AccommodationReservation reservation in GetAll())
+                if (reservation.GuestId == guestId && reservation.Status == Enums.ReservationStatus.Active)
+                    numberOfReservation++;
+            return numberOfReservation;
         }
-
-        //public AccommodationReservation UpdateReservation(AccommodationReservation reservation)
-        //{
-        //    AccommodationReservation oldReservation = GetByReservationId(reservation.Id);
-        //    if (oldReservation == null) return null;
-        //    oldReservation.Status = reservation.Status;
-
-
-        //    string serializedObjects = _serializer.ToCSV(FilePath, _accommodationReservations);
-
-        //    using (StreamWriter streamWriter = new StreamWriter(_fileName))
-        //    {
-        //        streamWriter.Write(serializedObjects);
-        //    }
-        //    subject.NotifyObservers();
-
-        //    return oldReservation;
-        //}
-
         public List<AccommodationReservation> GetByAccommodation(Accommodation accommodation)
         {
             _accommodationReservations = _serializer.FromCSV(FilePath);
@@ -130,6 +110,17 @@ namespace BookingApp.Repository
             }
             return guestReservations;
         }
+        public List<AccommodationReservation> GetAllReservationsByGuest(int guestId)
+        {
+            List<AccommodationReservation> guestReservations = new List<AccommodationReservation>();
+            foreach (AccommodationReservation reservation in _accommodationReservations)
+            {
+                if (reservation.GuestId == guestId )
+                    guestReservations.Add(reservation);
+            }
+            return guestReservations;
+        }
+
 
         public List<DateRanges> GetAvailableDates(DateOnly firstDate, DateOnly lastDate, int daysNumber, int accommodationId)
         {

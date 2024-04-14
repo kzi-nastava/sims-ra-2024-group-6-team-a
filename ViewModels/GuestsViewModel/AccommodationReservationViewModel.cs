@@ -28,7 +28,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public ObservableCollection<DateRanges> AvailableDates { get; set; }
         private AccommodationReservationRepository _reservationRepository;
         public List<Model.Image> ListImages { get; set; }
-        private int _accommodationId;
         public DateRanges SelectedDates { get; set; }
         public RelayCommand ReserveCommand { get; set; }
         public RelayCommand FindDateCommand { get; set; }
@@ -42,40 +41,23 @@ namespace BookingApp.ViewModels.GuestsViewModel
             ReservationView = reservationView;
             NavService = navigation;
             ImageRepository _imageRepository = new ImageRepository();
-
-            _accommodationId = SelectedAccommodation.Id;
-            AccommodationName = SelectedAccommodation.Name;
-            State = SelectedAccommodation.State;
-            City = SelectedAccommodation.City;
-            Type = SelectedAccommodation.Type.ToString();
-            CancelationDays = SelectedAccommodation.CancelationDays.ToString();
-            MaxGuests = SelectedAccommodation.MaxGuests.ToString();
-            MinDays = SelectedAccommodation.MinReservationDays.ToString();
             List<Model.Image> lista = new List<Model.Image>();
             foreach (Model.Image image in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
-            {
                 lista.Add(image);
-
-            }
             ListImages = lista;
             _accommodationReservationRepository = new AccommodationReservationRepository();
             _accommodationRepository = new AccommodationRepository();
             AvailableDates = new ObservableCollection<DateRanges>();
-
             NextImageCommand = new RelayCommand(Execute_NextImageCommand);
             PreviousImageCommand = new RelayCommand(Execute_PreviousImageCommand);
             FirstDateCommand = new RelayCommand(Execute_FirstDateCommand);
             ReserveCommand = new RelayCommand(Execute_ReserveCommand);
             FindDateCommand = new RelayCommand(Execute_FindDateCommand);
-
             AvaibleDatesVisibility = Visibility.Collapsed;
-
-
         }
         public void Execute_NextImageCommand(object obj)
         {
-            if (CurrentImageIndex < ListImages.Count - 1)
-                CurrentImageIndex++;
+            if (CurrentImageIndex < ListImages.Count - 1)  CurrentImageIndex++;
             else CurrentImageIndex = 0;
         }
         public void Execute_FindDateCommand(object obj)
@@ -87,13 +69,11 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 DateOnly firstDate = DateOnly.FromDateTime((DateTime)firstDatePicekr);
                 DateOnly lastDate = DateOnly.FromDateTime((DateTime)lastDatePicekr);
                 if (lastDate < firstDate.AddDays(Convert.ToInt32(DaysNumber)))
-                {
                     MessageBox.Show("The end date must be greater than the start date by a minimum number of days", "Date entry error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
                 else
                 {
                     List<DateRanges> availableDates = new List<DateRanges>();
-                    availableDates = _accommodationReservationRepository.GetAvailableDates(firstDate, lastDate, Convert.ToInt32(DaysNumber), _accommodationId);
+                    availableDates = _accommodationReservationRepository.GetAvailableDates(firstDate, lastDate, Convert.ToInt32(DaysNumber), Accommodation.Id);
                     AvailableDates.Clear();
                     foreach (DateRanges dateRange in availableDates)
                     {
@@ -102,10 +82,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
                     AvaibleDatesVisibility = Visibility.Visible;
                 }
             }
-            else
-            {
-                MessageBox.Show("The fields are not filled in correctly!", "WRONG FORMAT ", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
+            else  MessageBox.Show("The fields are not filled in correctly!", "WRONG FORMAT ", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
         public void Execute_ReserveCommand(object obj)
         {
@@ -122,18 +99,15 @@ namespace BookingApp.ViewModels.GuestsViewModel
         {
             ReservationView.LastDatePicker.IsEnabled = true;
             DateTime? firstDatePicekr = ReservationView.FirstDatePicker.SelectedDate;
-            if (firstDatePicekr.HasValue) ReservationView.LastDatePicker.DisplayDateStart = firstDatePicekr.Value.AddDays(Convert.ToInt32(MinDays));
+            if (firstDatePicekr.HasValue) ReservationView.LastDatePicker.DisplayDateStart = firstDatePicekr.Value.AddDays(Convert.ToInt32(Accommodation.MinReservationDays));
         }
-
         public void Execute_PreviousImageCommand(object obj)
         {
-            if (CurrentImageIndex > 0)
-                CurrentImageIndex--;
-            else CurrentImageIndex = ListImages.Count - 1;
+            if (CurrentImageIndex > 0)   CurrentImageIndex--;
+            else  CurrentImageIndex = ListImages.Count - 1;
 
         }
         private Visibility avaibleDatesVisibility;
-
         public Visibility AvaibleDatesVisibility
         {
             get { return avaibleDatesVisibility; }
@@ -146,145 +120,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 }
             }
         }
-
-        private string _accommodationName;
-        public string AccommodationName
-        {
-            get => _accommodationName;
-            set
-            {
-                if (value != _accommodationName)
-                {
-                    _accommodationName = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private string _state;
-        public string State
-        {
-            get => _state;
-            set
-            {
-                if (value != _state)
-                {
-                    _state = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private string _city;
-        public string City
-        {
-            get => _city;
-            set
-            {
-                if (value != _city)
-                {
-                    _city = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _type;
-        public string Type
-        {
-            get => _type;
-            set
-            {
-                if (value != _type)
-                {
-                    _type = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _maxGuests;
-        public string MaxGuests
-        {
-            get => _maxGuests;
-            set
-            {
-                if (value != _maxGuests)
-                {
-                    _maxGuests = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _minDays;
-        public string MinDays
-        {
-            get => _minDays;
-            set
-            {
-                if (value != _minDays)
-                {
-                    _minDays = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _cancelationDays;
-        public string CancelationDays
-        {
-            get => _cancelationDays;
-            set
-            {
-                if (value != _cancelationDays)
-                {
-                    _cancelationDays = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _username;
-        public string Username
-        {
-            get => _username;
-            set
-            {
-                if (value != _username)
-                {
-                    _username = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _firstDate;
-        public string FirstDate
-        {
-            get => _firstDate;
-            set
-            {
-                if (value != _firstDate)
-                {
-                    _firstDate = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _lastDate;
-        public string LastDate
-        {
-            get => _lastDate;
-            set
-            {
-                if (value != _lastDate)
-                {
-                    _lastDate = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         private string _guestNumber;
         public string GuestNumber
         {
@@ -298,7 +133,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 }
             }
         }
-
         private string _daysNumber;
         public string DaysNumber
         {
@@ -308,19 +142,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 if (value != _daysNumber)
                 {
                     _daysNumber = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private string _imageAccommodation;
-        public string ImageAccommodation
-        {
-            get => _imageAccommodation;
-            set
-            {
-                if (value != _imageAccommodation)
-                {
-                    _imageAccommodation = value;
                     OnPropertyChanged();
                 }
             }
@@ -336,8 +157,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
             }
         }
         public Model.Image CurrentImage => ListImages[CurrentImageIndex];
-
-
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

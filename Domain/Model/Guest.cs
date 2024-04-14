@@ -11,6 +11,7 @@ namespace BookingApp.Model
     {
 
         public int Id { get; set; }
+        public string Username { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Phone { get; set; }
@@ -23,9 +24,10 @@ namespace BookingApp.Model
         public SuperGuest SuperGuest { get; set; }
 
         public Guest() { }
-        public Guest(int id, string name, string surname, string phone, string email, DateOnly birthday, int userId, int superGuestId, SuperGuest superGuest)
+        public Guest(int id, string username, string name, string surname, string phone, string email, DateOnly birthday, int userId, int superGuestId, SuperGuest superGuest)
         {
             Id = id;
+            Username = username;
             Name = name;
             Surname = surname;
             Phone = phone;
@@ -46,6 +48,8 @@ namespace BookingApp.Model
             Email = values[5];
             UserId = Convert.ToInt32(values[6]);
             SuperGuestId = Convert.ToInt32(values[7]);
+            Username = values[8];
+
         }
 
         public string[] ToCSV()
@@ -59,7 +63,8 @@ namespace BookingApp.Model
                 Birthday.ToString("dd.MM.yyyy"),
                 Email,
                 UserId.ToString(),
-                SuperGuestId.ToString()
+                SuperGuestId.ToString(),
+                Username
             };
             return csvvalues;
         }

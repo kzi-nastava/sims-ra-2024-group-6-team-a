@@ -104,12 +104,14 @@ namespace BookingApp.View.GuideView.Pages
             return _imageRepository.GetByEntity(tourId, Enums.ImageType.Tour).First();
         }
 
+        public Action MainRefresher { get; set; }
 
 
         private void TourEndedEventHandler(object sender, EventArgs e)
         {
             Update();
             _tourStatisticsPage.Update();
+            MainRefresher?.Invoke();
         }
     }
 }
