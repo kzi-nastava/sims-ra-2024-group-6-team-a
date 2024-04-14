@@ -18,6 +18,7 @@ using System.Runtime.CompilerServices;
 using BookingApp.Resources;
 using Microsoft.Win32;
 using BookingApp.ViewModels;
+using BookingApp.ApplicationServices;
 
 namespace BookingApp.View
 {
@@ -29,10 +30,10 @@ namespace BookingApp.View
 
         public RegisterAccommodationVM registerAccommodationVM;
 
-        public RegisterAccommodationMenu(AccommodationRepository accommodationRepository,LocationRepository locationRepository,ImageRepository imageRepository, int userId)
+        public RegisterAccommodationMenu(AccommodationService accommodationService,LocationRepository locationRepository,ImageService imageService, int userId)
         {
             InitializeComponent();
-            registerAccommodationVM = new RegisterAccommodationVM(accommodationRepository, locationRepository, imageRepository, userId);
+            registerAccommodationVM = new RegisterAccommodationVM(accommodationService, locationRepository, imageService, userId);
             DataContext = registerAccommodationVM;
 
             apt.IsChecked = true;
