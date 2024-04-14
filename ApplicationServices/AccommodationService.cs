@@ -47,6 +47,25 @@ namespace BookingApp.ApplicationServices
             return total;
         }
 
+        public List<Accommodation> GetAll()
+        {
+            return AccommodationRepository.GetAll();
+        }
+
+        public Accommodation Save(Accommodation accommodation)
+        {
+            return AccommodationRepository.Save(accommodation);
+        }
+
+        public List<Accommodation> GetByOwnerId(int id)
+        {
+            return AccommodationRepository.GetByOwnerId(id);
+        }
+
+        public Accommodation GetByReservationId(int id)
+        {
+            return AccommodationRepository.GetByReservationId(id);
+        }
 
     }
 }

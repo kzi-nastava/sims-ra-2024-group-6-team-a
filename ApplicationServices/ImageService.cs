@@ -41,5 +41,13 @@ namespace BookingApp.ApplicationServices
 
             return images;
         }
+
+        public void SaveImages(int accommodationId,List<String> _imageRelativePath)
+        {
+            foreach (String relativePath in _imageRelativePath)
+            {
+                imageRepository.Save(new Model.Image(relativePath, accommodationId, Enums.ImageType.Accommodation));
+            }
+        }
     }
 }

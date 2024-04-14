@@ -18,6 +18,24 @@ namespace BookingApp.ApplicationServices
             guestReviewRepository = new GuestReviewRepository();
         }
 
+        public List<GuestReview> GetAll()
+        {
+            return guestReviewRepository.GetAll();
+        }
+        public GuestReview Save(GuestReview GuestReview)
+        {
+            return guestReviewRepository.Save(GuestReview);
+        }
+
+        public bool DoesGradeExist(int reservationId)
+        {
+            return guestReviewRepository.DoesGradeExist(reservationId);
+        }
+
+        public GuestReview Get(int reservationId)
+        {
+            return guestReviewRepository.Get(reservationId);
+        }
 
     }
 
