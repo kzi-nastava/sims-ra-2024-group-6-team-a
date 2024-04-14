@@ -1,4 +1,6 @@
 ﻿using BookingApp.DTOs;
+using BookingApp.Model;
+using BookingApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +22,13 @@ namespace BookingApp.View
     /// </summary>
     public partial class GuestsReviewOfAccommodation : Window
     {
-        public GuestsReviewOfAccommodation(GuestReviewDTO ownersReview)
+        private GuestsReviewVM vm;
+        public GuestsReviewOfAccommodation(GuestReviewDTO selectedGuest,OwnerReview ownerReview)
         {
+            vm = new GuestsReviewVM(ownerReview);
+            DataContext = vm;
             InitializeComponent();
-            Title = ownersReview.GuestName + "'s review of your accommodation";
+            Title = selectedGuest.GuestName + "'s review.";
            
         }
     }

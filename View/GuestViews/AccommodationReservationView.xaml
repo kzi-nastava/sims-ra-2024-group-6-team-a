@@ -23,7 +23,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" >
                 <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
-                    <Image Source ="/Resources/Images/home.png" Width="70" Height="50"/>
+                    <Image Source ="/Resources/Images/menu.png" Width="70" Height="50"/>
                 </Button>
             </Grid>
             <Grid Grid.Column="1" >
@@ -56,11 +56,11 @@
                     </Grid>
                     <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Image Source= "{Binding CurrentImage.Path}" VerticalAlignment="Top" Width="330" Height="180" Margin="0,-24,0,0" />
-                        <Button Height="40" Width="22" HorizontalAlignment="Right" Background="DarkCyan" BorderBrush="DarkCyan"  Command="{Binding NextImageCommand}">
+                        <Button Height="40" Width="22" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Transparent"  Command="{Binding NextImageCommand}">
                             <Image Source ="/Resources/Images/rarrow.png" Width="20" Height="35"/>
                         </Button>
-                        <Button Height="40" Width="22" HorizontalAlignment="Left"  Background="DarkCyan" BorderBrush="DarkCyan"  Command="{Binding PreviousImageCommand}">
-                            <Image Source ="/Resources/Images/checkpoint.png" Width="20" Height="35"/>
+                        <Button Height="40" Width="22" HorizontalAlignment="Left"  Background="Transparent" BorderBrush="Transparent"  Command="{Binding PreviousImageCommand}">
+                            <Image Source ="/Resources/Images/larroww.png" Width="20" Height="35"/>
                         </Button>
                     </Grid>
                     <Grid Grid.Row="2" >

@@ -39,11 +39,17 @@ namespace BookingApp.ViewModels
         private GuestReviewRepository _guestReviewRepository;
         private ReservationChangeRepository _reservationChangeRepository;
         private OwnerRepository _ownerRepository;
-        bool existsNotReviewed = false;
+        private GuestRepository _guestRepository;
+        private OwnerReviewRepository _ownerReviewRepository;
 
-        public AccommodationMenuVM(Owner owner, LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository)
+
+        bool existsNotReviewed = false;
+        bool existsCanceled = false;
+
+        public AccommodationMenuVM(Owner owner, LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository,
+            UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository,GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
         {
-            InitiliazeRepositories(_locationRepository, _imageRepository, _reservationRepository, _userRepository, _reservationChangeRepository, _ownerRepository);
+            InitiliazeRepositories(_locationRepository, _imageRepository, _reservationRepository, _userRepository, _reservationChangeRepository, _ownerRepository, _guestRepository,_ownerReviewRepository);
 
             Owner = owner;
 
@@ -55,11 +61,28 @@ namespace BookingApp.ViewModels
 
             
             Update();
-            GuestsNotReviewedNotification();
+            EntryNotification();
+ 
         }
 
+        public void EntryNotification() 
+        {
+            if(existsCanceled && existsNotReviewed)
+            {
+                MessageBox.Show("You have cancelled reservations and unreviewed guests!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (existsNotReviewed)
+            {
+                MessageBox.Show("You have unreviewed guests!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (existsCanceled)
+            {
+                MessageBox.Show("You have cancelled reservations!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
 
-        public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository)
+        public void InitiliazeRepositories(LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository, 
+            UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository, GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
         {
             this._locationRepository = _locationRepository;
             this._imageRepository = _imageRepository;
@@ -67,6 +90,8 @@ namespace BookingApp.ViewModels
             this._userRepository = _userRepository;
             this._reservationChangeRepository = _reservationChangeRepository;
             this._ownerRepository = _ownerRepository;
+            this._guestRepository = _guestRepository;
+            this._ownerReviewRepository = _ownerReviewRepository;
             _repository = new AccommodationRepository();
             _guestReviewRepository = new GuestReviewRepository();
         }
@@ -89,8 +114,14 @@ namespace BookingApp.ViewModels
             {
                 foreach (AccommodationReservation r in _reservationRepository.GetByAccommodation(a))
                 {
+                    if (r.Status == Enums.ReservationStatus.Canceled)
+                    {
+                        existsCanceled = true;
+ 
+                    }
                     CheckReservationStatus(r, a);
                     CheckGuestReview(a, r);
+                    UpdateOwner(r);
                 }
 
                 string imagePath = AddMainAccommodationImage(a);
@@ -100,7 +131,7 @@ namespace BookingApp.ViewModels
                 Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a), imagePath));
             }
 
-
+            UpdateOwnerStatus();
 
         }
 
@@ -142,7 +173,7 @@ namespace BookingApp.ViewModels
                 if (reservationChange.AccommodationId == accommodation.Id && reservationChange.Status == Enums.ReservationChangeStatus.Pending)
                 {
 
-                    String userName = _userRepository.GetUsername(_reservationRepository.GetAll().Find(r => r.Id == reservationChange.ReservationId).GuestId);
+                    String userName = _guestRepository.GetFullname(_reservationRepository.GetAll().Find(r => r.Id == reservationChange.ReservationId).GuestId);
                     String oldDate = reservationChange.OldCheckIn.ToString("dd MMMM yyyy") + "   ->   " + reservationChange.OldCheckOut.ToString("dd MMMM yyyy");
                     String newDate = reservationChange.NewCheckIn.ToString("dd MMMM yyyy") + "   ->   " + reservationChange.NewCheckOut.ToString("dd MMMM yyyy");
                     String bookedStatus = "No";
@@ -164,7 +195,7 @@ namespace BookingApp.ViewModels
         public void AddReservations(AccommodationReservation reservation, Accommodation accommodation)
         {
 
-            String userName = _userRepository.GetUsername(reservation.GuestId);
+            String userName = _guestRepository.GetFullname(reservation.GuestId);
             String imagePath = AddMainAccommodationImage(accommodation);
 
             ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, accommodation.Name, _locationRepository.GetByAccommodation(accommodation), imagePath);
@@ -197,7 +228,7 @@ namespace BookingApp.ViewModels
         public void AddGuestReview(Accommodation accommodation, AccommodationReservation reservation, int cleanlinessGrade = 0, int respectGrade = 0, string comment = "")
         {
             string GuestOccupationPeriod = reservation.CheckInDate.ToString("dd.MM.yyyy") + " - " + reservation.CheckOutDate.ToString("dd.MM.yyyy");
-            GuestReviews.Add(new GuestReviewDTO(accommodation.Name, _userRepository.GetUsername(reservation.GuestId), cleanlinessGrade, respectGrade, comment, GuestOccupationPeriod, reservation.Id));
+            GuestReviews.Add(new GuestReviewDTO(accommodation.Name, _guestRepository.GetFullname(reservation.GuestId), cleanlinessGrade, respectGrade, comment, GuestOccupationPeriod, reservation.Id));
         }
 
 
@@ -214,18 +245,12 @@ namespace BookingApp.ViewModels
             return null;
         }
 
-        private void GuestsNotReviewedNotification()
-        {
-            if (existsNotReviewed)
-            {
-                MessageBox.Show("You have unreviewed guests!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
+
 
         public void DetailedAccommodationView()
         {
 
-            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(GetImagesForAccommodaton(), GetReservationsForAccommodation(), SelectedAccommodation);
+            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(GetImagesForAccommodaton(), GetReservationsForAccommodation(), SelectedAccommodation,_ownerReviewRepository);
             AccommodationDetailedMenu.ShowDialog();
 
         }
@@ -239,7 +264,7 @@ namespace BookingApp.ViewModels
                 if (reservation.AccommodationId == SelectedAccommodation.Id && reservation.Status != Enums.ReservationStatus.Changed)
                 {
                     Accommodation accommodation = _repository.GetByReservationId(SelectedAccommodation.Id);
-                    String userName = _userRepository.GetUsername(reservation.GuestId);
+                    String userName = _guestRepository.GetFullname(reservation.GuestId);
                     String imagePath = AddMainAccommodationImage(accommodation);
                     Location location = _locationRepository.GetByAccommodation(accommodation);
 
@@ -274,10 +299,22 @@ namespace BookingApp.ViewModels
             }
         }
 
+        public OwnerReview FindLinkedReview(GuestReviewDTO review)
+        {
+            return _ownerReviewRepository.Get(review.reservationId);
+        }
+
         public void ShowGuestsReview()
         {
-            GuestsReviewOfAccommodation guestsReview = new GuestsReviewOfAccommodation(SelectedGuestReview);
-            guestsReview.ShowDialog();
+            OwnerReview ownerReview = FindLinkedReview(SelectedGuestReview);
+            if (ownerReview != null)
+            {
+                GuestsReviewOfAccommodation guestsReview = new GuestsReviewOfAccommodation(SelectedGuestReview, FindLinkedReview(SelectedGuestReview));
+                guestsReview.ShowDialog();
+            }
+            else
+                MessageBox.Show("This guest hasn't reviewed your accommodation yet.", "Notice", MessageBoxButton.OK, MessageBoxImage.Information);
+
         }
 
         public void AllowReservationChange()
@@ -291,23 +328,32 @@ namespace BookingApp.ViewModels
 
         public void EnterOwnerInfo()
         {
-            UpdateOwner();
+            Math.Round(Owner.AverageGrade, 3);   
             OwnerInfo = new OwnerInfoDTO(Owner, GetTotalReservationCount(), GetTotalAccommodationCount());
             OwnerInfo ownerInfo = new OwnerInfo(OwnerInfo);
             ownerInfo.ShowDialog();
 
         }
 
-        private void UpdateOwner()
+        private void UpdateOwner(AccommodationReservation reservation)
         {
-
-            UpdateOwnerStatus();
+            foreach(OwnerReview review in _ownerReviewRepository.GetAll()) 
+            {
+                if(reservation.Id == review.ReservationId)
+                {
+                    Owner.GradeCount++;
+                    Owner.AverageGrade = Owner.AverageGrade + ((review.Correctness + review.Cleanliness) / 2.0);
+                }
+            }
         }
 
         private void UpdateOwnerStatus()
         {
-            //dodati i proveru da postoji 50 ocena,iz csv
-            if (!Owner.IsSuper && Owner.AverageGrade > 4.5)
+            Owner.AverageGrade = Owner.AverageGrade / Owner.GradeCount;
+
+            Owner.AverageGrade = Math.Round(Owner.AverageGrade, 3);
+            
+            if (!Owner.IsSuper && Owner.GradeCount >= 50 &&  Owner.AverageGrade > 4.5)
             {
                 Owner.IsSuper = true;
                 _ownerRepository.Update(Owner);

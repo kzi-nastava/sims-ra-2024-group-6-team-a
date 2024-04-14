@@ -146,7 +146,7 @@ namespace BookingApp.DTOs
             Reservations = reservations;
             Accommodations = accommodations;
             Grade = owner.AverageGrade;
-            Ranking = owner.Ranking;
+            Ranking = owner.GradeCount;
             if (owner.IsSuper)
                 Status = "Super Owner";
             else

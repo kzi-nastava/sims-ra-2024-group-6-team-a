@@ -1,0 +1,41 @@
+﻿<Window x:Class="BookingApp.View.TouristView.VoucherUsage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.TouristView"
+        mc:Ignorable="d"
+        Title="VoucherUsage" Height="450" Width="800">
+    
+        <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Row for the button -->
+            <RowDefinition Height="*"/>
+            <!-- Row for the scrollable coupons -->
+        </Grid.RowDefinitions>
+        <Button Content="Use" Width="50" Margin="0,0,20,0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="UseVoucherClick" Height="40"/>
+        <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" >
+            
+                <ListView ItemsSource="{Binding Vouchers}" SelectedItem="{Binding SelectedVoucher}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="5" Padding="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock FontWeight="Bold"> Expire Date</TextBlock>
+                                        <TextBlock Text="{Binding ExpirationDate}"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+
+        </Grid>
+</Window>

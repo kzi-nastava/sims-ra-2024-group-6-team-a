@@ -190,5 +190,10 @@ namespace BookingApp.View
             FinishedTours finishedTours = new FinishedTours(LoggedUser);
             finishedTours.ShowDialog();
         }
+        private void Vouchers_Click(object sender, RoutedEventArgs e)
+        {
+            VouchersView vouchersView = new VouchersView(LoggedUser);
+            vouchersView.ShowDialog();
+        }
     }
 }

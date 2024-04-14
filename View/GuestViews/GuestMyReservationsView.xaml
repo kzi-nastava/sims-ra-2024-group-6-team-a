@@ -22,7 +22,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" >
                 <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
-                    <Image Source ="/Resources/Images/home.png" Width="70" Height="50"/>
+                    <Image Source ="/Resources/Images/menu.png" Width="70" Height="50"/>
                 </Button>
             </Grid>
             <Grid Grid.Column="1" >
@@ -38,7 +38,7 @@
             <Button  Content="My request" FontSize="16" FontWeight="Bold" Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,250,0" Cursor="Hand" Background="LightBlue" BorderBrush="DarkBlue" BorderThickness="2"  Command="{Binding MyRequestCommand}" />
             <Button  Width="200" Height="35" BorderBrush="Black" BorderThickness="2.3"  Margin="130,0,0,0" >
                 <StackPanel Orientation="Horizontal" >
-                    <Image Source ="/Resources/Images/home.png" Width="30" Height="30" />
+                    <Image Source ="/Resources/Images/pdfFile.png" Width="30" Height="30" />
                     <Button Width="170"  Height="30" Content="Export reservations"   BorderBrush="Transparent" FontSize="18" FontWeight="DemiBold" FontStyle="Italic"/>
                 </StackPanel>
             </Button>
@@ -63,20 +63,19 @@
                             <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0">
                                 <TextBlock Foreground="black" Text="{Binding AccommodationName}" FontSize="24" FontWeight="Bold" Width="180"/>
                                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                                    <Image Source="/Resources/Images/location-ping.png" Width="18" Height="18"></Image>
-                                    <TextBlock Text="{Binding CheckIn}" ></TextBlock>
+                                    <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
+                                    <TextBlock Margin="5,0,0,0" Text="{Binding CheckIn}" />
                                     <TextBlock Text=" - "></TextBlock>
                                     <TextBlock Text="{Binding CheckOut}" ></TextBlock>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-                                    <Image Source="/Resources/Images/location-ping.png" Width="18" Height="18"></Image>
-                                    <TextBlock Text="{Binding City}" >,</TextBlock>
+                                    <Image Source="/Resources/Images/locationpin.png" Width="18" Height="18"></Image>
+                                    <TextBlock Margin="5,0,0,0" Text="{Binding City}" >,</TextBlock>
                                     <TextBlock Text="{Binding State}"  ></TextBlock>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                                    <Image Source="/Resources/Images/location-ping.png" Width="18" Height="18"></Image>
-                                    <TextBlock Foreground="Silver">_</TextBlock>
-                                    <TextBlock Foreground="black" Text="{Binding GuestNumber}" FontWeight="Bold" FontSize="12"   ></TextBlock>
+                                    <Image Source="/Resources/Images/people.png" Width="18" Height="18"></Image>
+                                    <TextBlock Margin="5,0,0,0" Foreground="black" Text="{Binding GuestNumber}" FontWeight="Bold" FontSize="12"   ></TextBlock>
                                 </StackPanel>
                             </StackPanel>
                             <Button  Content="see more" FontWeight="Bold" Width="70" Height="25" VerticalAlignment="Bottom" Margin="0,0,10,5" Cursor="Hand" Background="LightBlue" BorderBrush="DarkBlue" BorderThickness="2" 
