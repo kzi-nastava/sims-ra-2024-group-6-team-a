@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
 using BookingApp.View;
@@ -19,9 +20,9 @@ namespace BookingApp.ViewModels
     {
 
         public Accommodation accommodation;
-        public AccommodationRepository accommodationRepository;
+        public AccommodationService accommodationService;
         public LocationRepository locationRepository;
-        public ImageRepository imageRepository;
+        public ImageService imageService;
         public List<String> _imageRelativePath = new List<String>();
         public List<String> locations {  get; set; }
         public int userId;
@@ -29,12 +30,12 @@ namespace BookingApp.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
 
 
-        public RegisterAccommodationVM(AccommodationRepository accommodationRepository, LocationRepository locationRepository, ImageRepository imageRepository, int userId)
+        public RegisterAccommodationVM(AccommodationService accommodationService, LocationRepository locationRepository, ImageService imageService, int userId)
         {
 
             this.locationRepository = locationRepository;
-            this.accommodationRepository = accommodationRepository;
-            this.imageRepository = imageRepository;
+            this.accommodationService = accommodationService;
+            this.imageService = imageService;
             this.userId = userId;
             this.locations = new List<String>();
             AddLocations();
@@ -48,13 +49,6 @@ namespace BookingApp.ViewModels
             }
         }
 
-        private void SaveImages(int accommodationId)
-        {
-            foreach (String relativePath in _imageRelativePath)
-            {
-                imageRepository.Save(new Model.Image(relativePath, accommodationId, Enums.ImageType.Accommodation));
-            }
-        }
 
         public void ConvertImagePath(List<String> _imagePath)
         {
@@ -80,7 +74,7 @@ namespace BookingApp.ViewModels
 
 
             accommodation = new Accommodation(name, type, int.Parse(maxguests), int.Parse(minres), int.Parse(canceldays), location.Id, userId);
-            SaveImages(accommodationRepository.Save(accommodation).Id);
+            imageService.SaveImages(accommodationService.Save(accommodation).Id,_imageRelativePath);
         }
 
         private Enums.AccommodationType GetType(bool? aptChecked,bool? cottageChecked)

@@ -37,10 +37,16 @@
             </Button>
             <Separator/>
             <Button BorderThickness="0" Click="TourStatisticsPageClick" >
-
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/checkpoint.png" Width="20" Height="25"/>
                     <TextBlock x:Name="DeleteTxtBlock" Text="Statistics" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
+                </StackPanel>
+            </Button>
+            <Separator/>
+            <Button BorderThickness="0" Click="TourReviewsPageClick" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Images/checkpoint.png" Width="20" Height="25"/>
+                    <TextBlock  Text="Reviews" FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0" />
                 </StackPanel>
             </Button>
         </StackPanel>

@@ -1,4 +1,5 @@
-﻿using BookingApp.Repository;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,16 +21,16 @@ namespace BookingApp.View
     /// </summary>
     public partial class ReviewGuest : Window
     {
-        private GuestReviewRepository _guestReviewRepository;
+        private GuestReviewService guestReviewService;
         private int reservationId;
-        public ReviewGuest(GuestReviewRepository _guestReviewRepository,int reservationId)
+        public ReviewGuest(GuestReviewService guestReviewService,int reservationId)
         {
             DataContext = this;
             InitializeComponent();
 
             InitializeComboBoxes();
 
-            this._guestReviewRepository = _guestReviewRepository;
+            this.guestReviewService = guestReviewService;
             this.reservationId = reservationId;
             CommentBox.MaxLength = 60;
         }
@@ -51,7 +52,7 @@ namespace BookingApp.View
             {
                 if (MessageBox.Show("Confirm review?", "Grade the guest", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    _guestReviewRepository.Save(new Model.GuestReview(reservationId, CleanGradeCombo.SelectedIndex + 1, RespectGradeCombo.SelectedIndex + 1, CommentBox.Text));
+                    guestReviewService.Save(new Model.GuestReview(reservationId, CleanGradeCombo.SelectedIndex + 1, RespectGradeCombo.SelectedIndex + 1, CommentBox.Text));
                     Close();
                 }
 
