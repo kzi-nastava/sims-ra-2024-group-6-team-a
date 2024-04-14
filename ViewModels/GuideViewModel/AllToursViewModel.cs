@@ -2,28 +2,18 @@
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
+using BookingApp.View.GuideView.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace BookingApp.View.GuideView.Pages
+namespace BookingApp.ViewModels.GuideViewModel
 {
-    /// <summary>
-    /// Interaction logic for AllToursPage.xaml
-    /// </summary>
-    public partial class AllToursPage : Page
+    public class AllToursViewModel
     {
         public static ObservableCollection<TourGuideDTO> AllTours { get; set; }
         public User LoggedUser { get; set; }
@@ -35,10 +25,13 @@ namespace BookingApp.View.GuideView.Pages
         private TourScheduleRepository _tourScheduleRepository;
         private TourRepository _tourRepository;
 
-        public AllToursPage(Frame mainFrame, TourCreationPage tourCreationPage, User user, LocationRepository locationRepository, ImageRepository imageRepository, TourScheduleRepository tourScheduleRepository, TourRepository tourRepository)
+        public AllToursPage Window {  get; set; }
+        public AllToursViewModel(AllToursPage window,Frame mainFrame, TourCreationPage tourCreationPage, User user, LocationRepository locationRepository, ImageRepository imageRepository, TourScheduleRepository tourScheduleRepository, TourRepository tourRepository)
         {
-            InitializeComponent();
-            DataContext = this;
+
+
+            Window = window;
+
             LoggedUser = user;
 
             _locationRepository = locationRepository;
@@ -48,10 +41,17 @@ namespace BookingApp.View.GuideView.Pages
 
             AllTours = new ObservableCollection<TourGuideDTO>();
             this.mainFrame = mainFrame;
-
+            tourCreationPage.SomethingHappened += UpdateWindow;
 
             Update();
         }
+
+        private void UpdateWindow(object sender, EventArgs e)
+        {
+            Update();
+        }
+
+
 
         public void Update()
         {
@@ -73,7 +73,7 @@ namespace BookingApp.View.GuideView.Pages
             }
 
         }
-        private bool CheckUpdateConditions(TourSchedule tourSchedule, Tour tour)
+        public bool CheckUpdateConditions(TourSchedule tourSchedule, Tour tour)
         {
             if (tourSchedule.TourActivity == Enums.TourActivity.Finished || tour.GuideId != LoggedUser.Id)
             {
@@ -82,12 +82,12 @@ namespace BookingApp.View.GuideView.Pages
 
             return true;
         }
-        private Model.Image GetFirstTourImage(int tourId)
+        public Model.Image GetFirstTourImage(int tourId)
         {
             return _imageRepository.GetByEntity(tourId, Enums.ImageType.Tour).First();
         }
 
-        private void TourCanceledEventHandler(object sender, EventArgs e)
+        public void TourCanceledEventHandler()
         {
             Update();
         }

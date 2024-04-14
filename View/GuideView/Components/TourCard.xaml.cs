@@ -45,7 +45,7 @@ namespace BookingApp.View.GuideView.Components
             _tourScheduleRepository.Update(tourSchedule);
             LiveTour l = new LiveTour(Convert.ToInt32(textBoxId.Text));
             l.TourEnded += HandleTourEndedEvent;
-            (Window.GetWindow(this) as GuideViewMenu).mainFrame.Content = l;
+            (Window.GetWindow(this) as GuideViewMenu).MainFrame.Content = l;
 
         }
 

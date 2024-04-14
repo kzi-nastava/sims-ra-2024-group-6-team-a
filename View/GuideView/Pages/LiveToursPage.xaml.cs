@@ -39,6 +39,7 @@ namespace BookingApp.View.GuideView.Pages
         private LiveTour liveTour;
         private TourStatisticsPage _tourStatisticsPage;
 
+        public event EventHandler tourEnded;
 
         public LiveToursPage(Frame mainFrame,TourStatisticsPage tourStatisticsPage,TourCreationPage tourCreationPage,User user, LocationRepository locationRepository, ImageRepository imageRepository, TourScheduleRepository tourScheduleRepository, TourRepository tourRepository)
         {
@@ -58,7 +59,8 @@ namespace BookingApp.View.GuideView.Pages
             this.mainFrame = mainFrame;
 
             tourCreationPage.SomethingHappened += tourCreationPage_SomethingHappened;
-            
+
+
             Update();
 
         }
@@ -104,14 +106,12 @@ namespace BookingApp.View.GuideView.Pages
             return _imageRepository.GetByEntity(tourId, Enums.ImageType.Tour).First();
         }
 
-        public Action MainRefresher { get; set; }
 
 
         private void TourEndedEventHandler(object sender, EventArgs e)
         {
             Update();
-            _tourStatisticsPage.Update();
-            MainRefresher?.Invoke();
+            tourEnded?.Invoke(this, EventArgs.Empty);
         }
     }
 }

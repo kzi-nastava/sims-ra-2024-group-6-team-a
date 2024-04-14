@@ -171,7 +171,6 @@ namespace BookingApp.View.GuideView.Pages
             SelectedTour = _tourRepository.Save(SelectedTour);
 
 
-            //SaveCheckpoints(CheckpointsCollection.ToList());
             SaveImages(ImagesCollection.ToList());
             SaveTourDatesAndCheckpoints(TourDatesCollection.ToList(), CheckpointsCollection.ToList());
             OnSomethingHappened(EventArgs.Empty);
@@ -179,13 +178,7 @@ namespace BookingApp.View.GuideView.Pages
             MessageBox.Show("Tour Added");
         }
 
-        //private void SaveCheckpoints(List<String> checkpoints)
-        //{
-        //    foreach (string checkpoint in checkpoints)
-        //    {
-        //        _checkRepository.Save(new Checkpoint(checkpoint, SelectedTour.Id,false));
-        //    }
-        //}
+      
 
         private void SaveImages(List<String> images)
         {
