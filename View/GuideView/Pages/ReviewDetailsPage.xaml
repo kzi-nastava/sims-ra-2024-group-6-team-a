@@ -14,8 +14,8 @@
             <ColumnDefinition Width="550"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto" >
-            <ItemsControl ItemsSource ="{Binding AllTours}" >
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" >
+            <ItemsControl ItemsSource ="{Binding Reviews}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <components:DetailedReviewCard/>
