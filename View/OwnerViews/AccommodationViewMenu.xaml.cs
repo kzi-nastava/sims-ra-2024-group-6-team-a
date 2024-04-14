@@ -29,7 +29,7 @@ namespace BookingApp.View
             InitializeComponent();
             
 
-            vm = new AccommodationMenuVM(owner, _locationRepository, _imageRepository, _reservationRepository, _userRepository, _reservationChangeRepository, _ownerRepository,_guestRepository,_ownerReviewRepository);
+            vm = new AccommodationMenuVM(owner, _locationRepository, _imageRepository, _reservationRepository, _userRepository, _ownerRepository,_guestRepository,_ownerReviewRepository);
             DataContext = vm;
 
             Title = owner.Name + " " + owner.Surname + "'s accommodations"; // ime prozora ce biti ime vlasnika

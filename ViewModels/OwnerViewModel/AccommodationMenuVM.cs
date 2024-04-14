@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,7 +36,6 @@ namespace BookingApp.ViewModels
         private LocationRepository _locationRepository;
         private AccommodationReservationRepository _reservationRepository;
         private UserRepository _userRepository;
-        private ReservationChangeRepository _reservationChangeRepository;
         private GuestRepository _guestRepository;
         private OwnerReviewRepository _ownerReviewRepository;
 
@@ -43,15 +43,16 @@ namespace BookingApp.ViewModels
         private AccommodationService accommodationService;
         private GuestReviewService guestReviewService;
         private ImageService imageService;
+        private ReservationChangeService reservationChangeService;
 
 
         bool existsNotReviewed = false;
         bool existsCanceled = false;
 
         public AccommodationMenuVM(Owner owner, LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository,
-            UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository,GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
+            UserRepository _userRepository, OwnerRepository _ownerRepository,GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
         {
-            InitiliazeRepositories(_locationRepository, _reservationRepository, _userRepository, _reservationChangeRepository, _guestRepository,_ownerReviewRepository);
+            InitiliazeRepositories(_locationRepository, _reservationRepository, _userRepository, _guestRepository,_ownerReviewRepository);
 
             Owner = owner;
 
@@ -59,6 +60,7 @@ namespace BookingApp.ViewModels
             this.accommodationService = new AccommodationService();
             this.guestReviewService = new GuestReviewService();
             this.imageService = new ImageService();
+            this.reservationChangeService = new ReservationChangeService();
 
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
             GuestReviews = new ObservableCollection<GuestReviewDTO>();
@@ -88,12 +90,12 @@ namespace BookingApp.ViewModels
         }
 
         public void InitiliazeRepositories(LocationRepository _locationRepository, AccommodationReservationRepository _reservationRepository, 
-            UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
+            UserRepository _userRepository, GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
         {
             this._locationRepository = _locationRepository;
             this._reservationRepository = _reservationRepository;
             this._userRepository = _userRepository;
-            this._reservationChangeRepository = _reservationChangeRepository;
+            
            
             this._guestRepository = _guestRepository;
             this._ownerReviewRepository = _ownerReviewRepository;
@@ -175,7 +177,7 @@ namespace BookingApp.ViewModels
 
         public void AddChangedReservations(Accommodation accommodation)
         {
-            foreach (ReservationChanges reservationChange in _reservationChangeRepository.GetAll())
+            foreach (ReservationChanges reservationChange in reservationChangeService.GetAll())
             {
                 if (reservationChange.AccommodationId == accommodation.Id && reservationChange.Status == Enums.ReservationChangeStatus.Pending)
                 {
@@ -305,7 +307,7 @@ namespace BookingApp.ViewModels
 
         public void AllowReservationChange()
         {
-            AllowReservationChange allowReservationChange = new AllowReservationChange(SelectedChange, _reservationRepository, _reservationChangeRepository);
+            AllowReservationChange allowReservationChange = new AllowReservationChange(SelectedChange, _reservationRepository, reservationChangeService);
             allowReservationChange.ShowDialog();
 
 
