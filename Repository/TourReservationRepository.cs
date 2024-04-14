@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace BookingApp.Repository
 {
-    public class TourReservationRepository
+    public class TourReservationRepository : ITourReservationRepository
     {
         private const string FilePath = "../../../Resources/Data/reservations.csv";
 
@@ -80,47 +81,6 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return reservation;
         }
-        public bool IsFullyBooked(int currentTourRealisationId)
-        {
-            TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
-
-            int currentGuestNumber = tourScheduleRepository.GetById(currentTourRealisationId).CurrentFreeSpace;
-            return currentGuestNumber <= 0;
-        }
-        private void UpdateCurrentGuestNumber(int tourRealisationId, int guestNumber, TourScheduleRepository tourScheduleRepository)
-        {
-            foreach (TourSchedule tourSchedule in tourScheduleRepository.GetAll())
-            {
-                if (tourSchedule.Id == tourRealisationId)
-                {
-                    tourSchedule.CurrentFreeSpace -= guestNumber;
-                    tourScheduleRepository.Update(tourSchedule);
-                }
-            }
-        }
-        private void SaveTourGuests(int reservationId, List<TourGuestDTO> guests, TourGuestRepository tourGuestRepository)
-        {
-            foreach (TourGuestDTO guest in guests)
-            {
-                TourGuests newGuest = new TourGuests(guest, reservationId);
-                tourGuestRepository.Save(newGuest);
-            }
-        }
-
-        public void MakeReservation(TourScheduleDTO tourScheduleDTO, User loggedUser, List<TourGuestDTO> guests)
-        {
-            TourGuestRepository tourGuestRepository = new TourGuestRepository();
-            TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
-
-            TourReservation reservation = new TourReservation(guests.Count(), tourScheduleDTO.Id, tourScheduleDTO.TourId, loggedUser.Id);
-
-            UpdateCurrentGuestNumber(tourScheduleDTO.Id, reservation.GuestNumber, tourScheduleRepository);
-            Save(reservation);
-
-
-            SaveTourGuests(reservation.Id, guests, tourGuestRepository);
-        }
-
 
         public List<TourReservation> GetAllByUser(User user)  //pronasla sam sve rezervacije nekog turiste
         {

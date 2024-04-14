@@ -12,10 +12,11 @@ using BookingApp.DTOs;
 using System.CodeDom;
 using System.Windows.Input;
 using BookingApp.View.TouristView;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repository
 {
-    public class TourRepository
+    public class TourRepository : ITourRepository
     {
         private const string FilePath = "../../../Resources/Data/tours.csv";
 
@@ -85,23 +86,6 @@ namespace BookingApp.Repository
             return tour;
         }
 
-        public List<TourSchedule> GetOngoingToursByUser(User user)
-        {   
-            TourReservationRepository reservationRepository = new TourReservationRepository();
-            TourScheduleRepository scheduleRepository = new TourScheduleRepository();
-            List<TourSchedule> tours = new List<TourSchedule>();
-
-            foreach(TourReservation reservation in reservationRepository.GetAllByUser(user))
-            {
-                TourSchedule tourSchedule = scheduleRepository.GetById(reservation.TourRealisationId);
-                if (tourSchedule.TourActivity == Resources.Enums.TourActivity.Ongoing)
-                {
-                    tours.Add(tourSchedule);
-                }
-                
-            }
-            return tours;
-        }
         public List<Tour> GetAllByUser(User user)
         {
             _tours = _serializer.FromCSV(FilePath);
@@ -112,61 +96,9 @@ namespace BookingApp.Repository
         {
             return  _tours.Find(c => c.Id == id);
         }
-
-        public List<Tour> GetSameLocationTours(TourScheduleDTO schedule) 
-        {
-            return GetAll().Where(t => HasSameLocation(t, schedule)).ToList();
-        }
-
-        private bool HasSameLocation(Tour tour, TourScheduleDTO schedule)
-        {
-            LocationRepository locationRepository = new LocationRepository();
-            Tour currentTour = GetById(schedule.TourId);
-            string currentTourCity = locationRepository.GetById(currentTour.LocationId).City;
-            string otherTourCity = locationRepository.GetById(tour.LocationId).City;
-
-            return otherTourCity == currentTourCity && tour.Id != schedule.TourId;
-        }
-
-        public List<TourSchedule> GetAllFinishedTours(User user) //svi termini koje sam ja rezervisala, a koji su zavrseni na kojima sam prisustvovala
-        {
-            TourScheduleRepository scheduleRepository = new TourScheduleRepository();
-            TourReservationRepository reservationRepository = new TourReservationRepository();
-            TourGuestRepository guestRepository = new TourGuestRepository();
-
-            List<TourSchedule> tours = new List<TourSchedule>();
-
-            foreach(TourSchedule schedule in scheduleRepository.GetAll())
-            {
-                if (schedule.TourActivity == Resources.Enums.TourActivity.Finished)//imam sve zavrsene termine
-                {
-                    foreach(TourReservation reservation in reservationRepository.GetAll())
-                    {
-                        if(reservation.TourRealisationId == schedule.Id && reservation.TouristId == user.Id)//sve moje rezervacije tog termina
-                        {
-                            foreach(TourGuests guest in guestRepository.GetAllPresentGuestsByReservation(reservation.Id))//gosti na toj rezervaciji
-                            {
-                                if(guest.UserTypeId == user.Id)
-                                {
-                                    tours.Add(schedule);
-                                }
-                            }
-                            
-                        }
-                    }
-                    
-                }
-            }
-            return tours;
-        }
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
-        }
-
-        internal void Subscribe(ActiveTours activeTours)
-        {
-            throw new NotImplementedException();
         }
     }
 }

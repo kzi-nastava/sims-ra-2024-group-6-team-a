@@ -7,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Serializer;
 using BookingApp.Observer;
-
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repository
 {
-    public class VoucherRepository
+    public class VoucherRepository : IVoucherRepository
     {
         private const string FilePath = "../../../Resources/Data/vouchers.csv";
         private readonly Serializer<Voucher> _serializer;
@@ -78,20 +78,6 @@ namespace BookingApp.Repository
                 return 1;
             }
             return _vouchers.Max(x => x.Id) + 1;
-        }
-
-        public List<Voucher> GetAllByUser(User user)
-        {
-            List<Voucher> vouchers = new List<Voucher>();
-
-            foreach(Voucher voucher in GetAll())
-            {
-                if(voucher.UserId == user.Id && voucher.IssuingDate > DateTime.Now)
-                {
-                    vouchers.Add(voucher);
-                }
-            }
-            return vouchers;
         }
 
     }
