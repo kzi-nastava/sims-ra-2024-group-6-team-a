@@ -101,25 +101,7 @@ namespace BookingApp.Repository
                 
             }
             return tours;
-
-
-
-           /* foreach(Tour tour in GetAll())
-            {
-                foreach(TourReservation reservation in reservationRepository.GetAll())
-                {
-                    if (tour.Id == reservation.TourId && reservation.TouristId == user.Id && schedule.TourId == tour.Id && schedule.Activity.Equals("Ongoing"))
-                    {
-                        tours.Add(tour);
-                    }
-                }
-            }
-
-            return tours;*/
         }
-
-       
-
         public List<Tour> GetAllByUser(User user)
         {
             _tours = _serializer.FromCSV(FilePath);
@@ -146,22 +128,30 @@ namespace BookingApp.Repository
             return otherTourCity == currentTourCity && tour.Id != schedule.TourId;
         }
 
-        public List<TourSchedule> GetAllFinishedTours(User user)
+        public List<TourSchedule> GetAllFinishedTours(User user) //svi termini koje sam ja rezervisala, a koji su zavrseni na kojima sam prisustvovala
         {
             TourScheduleRepository scheduleRepository = new TourScheduleRepository();
             TourReservationRepository reservationRepository = new TourReservationRepository();
+            TourGuestRepository guestRepository = new TourGuestRepository();
 
             List<TourSchedule> tours = new List<TourSchedule>();
 
             foreach(TourSchedule schedule in scheduleRepository.GetAll())
             {
-                if (schedule.TourActivity == Resources.Enums.TourActivity.Finished)
+                if (schedule.TourActivity == Resources.Enums.TourActivity.Finished)//imam sve zavrsene termine
                 {
                     foreach(TourReservation reservation in reservationRepository.GetAll())
                     {
-                        if(reservation.TourRealisationId == schedule.Id && reservation.TouristId == user.Id)
+                        if(reservation.TourRealisationId == schedule.Id && reservation.TouristId == user.Id)//sve moje rezervacije tog termina
                         {
-                            tours.Add(schedule);
+                            foreach(TourGuests guest in guestRepository.GetAllPresentGuestsByReservation(reservation.Id))//gosti na toj rezervaciji
+                            {
+                                if(guest.UserTypeId == user.Id)
+                                {
+                                    tours.Add(schedule);
+                                }
+                            }
+                            
                         }
                     }
                     
@@ -169,7 +159,6 @@ namespace BookingApp.Repository
             }
             return tours;
         }
-
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

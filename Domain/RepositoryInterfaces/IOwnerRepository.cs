@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.RepositoryInterfaces
 {
-    public interface IOwnerRepository
+    public  interface IOwnerRepository
     {
         public List<Owner> GetAll();
         public Owner Save(Owner Owner);

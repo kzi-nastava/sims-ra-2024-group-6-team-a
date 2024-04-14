@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookingApp.Domain.RepositoryInterfaces
+namespace BookingApp.RepositoryInterfaces
 {
     public interface IReservationChangeRepository
     {

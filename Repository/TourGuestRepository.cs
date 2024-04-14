@@ -101,19 +101,45 @@ namespace BookingApp.Repository
             return guests;
         }
 
-
-        public string TourAttendanceNotification()
+        
+        public List<TourGuests> GetAllPresentGuestsByReservation(int reservationId) //pronadji sve goste u nekoj rezervaciji koji su se pojavili 
         {
-            string response = "Na turi su se pojavili:";
+            List<TourGuests> guests = new List<TourGuests> ();
+
             foreach(TourGuests guest in GetAll())
             {
-                if (guest.IsPresent == true)
+                if (guest.ReservationId == reservationId && guest.IsPresent == true)
+                    guests.Add(guest);
+
+            }
+            return guests;
+        }
+
+        //za zvrseni termin pronadji goste koji su rezervisali taj termin i koji su se pojvili = TRUE a rezervaciju sam napravila ja
+       /* public List<TourGuests> GetAllPresent(User user, int scheduleId)//prvo nadje sve termine koji su zavrsili a koje sam rezervisala, onda nadje goste koji su prosistvoval
+        {
+            List<TourGuests> guests = new List<TourGuests>();
+            TourReservationRepository reservationRepository = new TourReservationRepository();
+            TourRepository tourRepository = new TourRepository();
+
+            foreach(TourSchedule schedule in tourRepository.GetAllFinishedTours(user))//svi termini koji su zavrseni a koje sam ja rezevisala i na kojima sam se pojavila
+            {
+                if(schedule.Id == scheduleId)
                 {
-                    response += guest.Name + guest.Surname + guest.CheckpointId; 
+                    foreach(TourReservation reservation in reservationRepository.GetAllByRealisationId(scheduleId))
+                    {
+                        if(reservation.TouristId == user.Id)
+                        {
+                            foreach(TourGuests guest in GetAllByReservation(reservation.Id))
+                            {
+                                guests.Add(guest);
+                            }
+                        }
+                    }
                 }
             }
-            return response;
-        }
+            return guests;
+        }*/
 
     }
 }
