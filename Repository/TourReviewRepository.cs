@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Observer;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class TourReviewRepository
+    public class TourReviewRepository : ITourReviewRepository
     {
         private const string FilePath = "../../../Resources/Data/tourreviews.csv";
 

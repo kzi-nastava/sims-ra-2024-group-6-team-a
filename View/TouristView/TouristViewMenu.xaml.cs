@@ -19,6 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using BookingApp.View.TouristView;
+using BookingApp.ApplicationServices;
 
 namespace BookingApp.View
 {
@@ -44,26 +45,26 @@ namespace BookingApp.View
 
 
         private LocationRepository _locationRepository;
-        private TourRepository _repository;
+        private TourService _tourService;
         private ImageRepository _imageRepository;
-        private TourScheduleRepository _tourScheduleRepository;
-        private TourReservationRepository _tourReservationRepository;
+        private TourScheduleService _scheduleService;
+        private TourReservationService _reservationService;
         private UserRepository _userRepository;
 
-        public TouristViewMenu(User user,  LocationRepository locationRepository, ImageRepository imageRepository, TourScheduleRepository tourScheduleRepository, TourReservationRepository tourReservationRepository, UserRepository userRepository)
+        public TouristViewMenu(User user,  LocationRepository locationRepository, ImageRepository imageRepository, TourScheduleService scheduleService, TourReservationService reservationService, UserRepository userRepository)
         {
             InitializeComponent();
             DataContext = this;
 
             this._locationRepository = locationRepository;
             this._imageRepository = imageRepository;
-            this._tourScheduleRepository = tourScheduleRepository;
-            this._tourReservationRepository = tourReservationRepository;
+            this._scheduleService = scheduleService;
+            this._reservationService = reservationService;
             this._userRepository = userRepository;
             
             LoggedUser  = user;
-            _repository = new TourRepository();
-            _repository.Subscribe(this);
+            _tourService = new TourService();
+            //_tourService.Subscribe(this);
             
             Tours = new ObservableCollection<TourTouristDTO>();
             Update();
@@ -72,10 +73,10 @@ namespace BookingApp.View
         public void Update()
         {
             Tours.Clear();
-            foreach(Tour tour in _repository.GetAll()) 
+            foreach(Tour tour in _tourService.GetAll()) 
             {
                
-                Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId), _tourScheduleRepository.GetByTour(tour) ));
+                Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId), _scheduleService.GetByTour(tour) ));
             }
 
             
@@ -116,11 +117,11 @@ namespace BookingApp.View
         {
             Tours.Clear();
 
-            foreach (Tour tour in _repository.GetAll())
+            foreach (Tour tour in _tourService.GetAll())
             {
                 if (CheckSearchConditions(tour))
                 {
-                    Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId), _tourScheduleRepository.GetByTour(tour)));
+                    Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId), _scheduleService.GetByTour(tour)));
                 }
             }
         }
@@ -157,7 +158,7 @@ namespace BookingApp.View
             
             if (selectedTour != null)
             {
-                TourReservationForm form = new TourReservationForm(LoggedUser,selectedTour, _tourReservationRepository, _tourScheduleRepository);
+                TourReservationForm form = new TourReservationForm(LoggedUser,selectedTour, _reservationService, _scheduleService);
                 form.ShowDialog();
                 
             }

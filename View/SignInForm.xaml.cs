@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using BookingApp.Resources;
 using BookingApp.View.GuestViews;
+using BookingApp.ApplicationServices;
 
 namespace BookingApp.View
 {
@@ -25,6 +26,8 @@ namespace BookingApp.View
         private readonly GuestRepository _guestRepository;
         private readonly OwnerRepository _ownerRepository;
         private readonly OwnerReviewRepository _ownerReviewRepository;
+        private readonly TourScheduleService _scheduleService;
+        private readonly TourReservationService _reservationService;
         //private readonly TourRepository _tourRepository;
 
         private string _username;
@@ -63,6 +66,8 @@ namespace BookingApp.View
             _ownerRepository = new OwnerRepository();
             _guestRepository = new GuestRepository();
             _ownerReviewRepository = new OwnerReviewRepository();
+            _scheduleService = new TourScheduleService();
+            _reservationService = new TourReservationService();
             //_tourRepository = new TourRepository();
         }
 
@@ -124,7 +129,7 @@ namespace BookingApp.View
 
         private void InitiateTouristView(User user) 
         {
-            TouristViewMenu touristViewMenu = new TouristViewMenu(user, _locationRepository, _imageRepository, _tourScheduleRepository, _tourReservationRepository, _userRepository);
+            TouristViewMenu touristViewMenu = new TouristViewMenu(user, _locationRepository, _imageRepository, _scheduleService, _reservationService, _userRepository);
             touristViewMenu.Show();
             Close();
         }

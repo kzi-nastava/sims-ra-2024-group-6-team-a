@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using System;
@@ -26,11 +27,11 @@ namespace BookingApp.View.TouristView
         public static ObservableCollection<TourScheduleDTO> Tours {  get; set; }
         public User LoggedUser { get; set; }
 
-        private TourRepository _tourRepository;
-        private TourScheduleRepository _scheduleRepository;
+        private TourService _tourService;
+        private TourScheduleService _schdeuleService;
         private LocationRepository _locationRepository;
         private ImageRepository _imageRepository;
-        private TourReviewRepository _reviewRepository;
+        private TourReviewService _reviewService;
 
         public TourScheduleDTO SelectedTourSchedule { get; set; }
         public FinishedTours(User user)
@@ -39,11 +40,11 @@ namespace BookingApp.View.TouristView
             DataContext = this;
 
             LoggedUser = user;
-            _tourRepository = new TourRepository();
-            _scheduleRepository = new TourScheduleRepository();
+            _tourService = new TourService();
+            _schdeuleService = new TourScheduleService();
             _locationRepository = new LocationRepository();
             _imageRepository = new ImageRepository();
-            _reviewRepository = new TourReviewRepository();
+            _reviewService = new TourReviewService();
             Tours = new ObservableCollection<TourScheduleDTO>();
 
             Update();
@@ -52,7 +53,7 @@ namespace BookingApp.View.TouristView
         private void Update()
         {
             Tours.Clear();
-            foreach (TourSchedule tour in _tourRepository.GetAllFinishedTours(LoggedUser))
+            foreach (TourSchedule tour in _schdeuleService.GetAllFinishedTours(LoggedUser))
             {
                 Tours.Add(new TourScheduleDTO(tour));
             }

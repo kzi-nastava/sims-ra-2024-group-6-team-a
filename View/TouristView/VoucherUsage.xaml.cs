@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using System;
@@ -26,14 +27,15 @@ namespace BookingApp.View.TouristView
         public User LoggedUser { get; set; }
         public VouchersDTO SelectedVoucher { get; set; }
         public ObservableCollection<VouchersDTO> Vouchers { get; set; }
-        private VoucherRepository _voucherRepository;
+
+        private VoucherService _voucherService;
         public TourReservationForm ParentWindow { get; set; }
         public VoucherUsage(User user, TourReservationForm parentWindow)
         {
             InitializeComponent();
             DataContext = this;
 
-            _voucherRepository = new VoucherRepository();
+            _voucherService = new VoucherService();
             Vouchers = new ObservableCollection<VouchersDTO>();
             this.ParentWindow = parentWindow;
             LoggedUser = user;
@@ -44,7 +46,7 @@ namespace BookingApp.View.TouristView
         private void Update()
         {
             Vouchers.Clear();
-            foreach(Voucher voucher in _voucherRepository.GetAllByUser(LoggedUser))
+            foreach(Voucher voucher in _voucherService.GetAllByUser(LoggedUser))
             {
                 Vouchers.Add(new VouchersDTO(voucher));
             }

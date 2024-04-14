@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.Model;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -27,20 +28,20 @@ namespace BookingApp.View.TouristView
         public Tour SelectedTour { get; set; }
         public TourSchedule SelectedTourSchedule { get; set; }
 
-        private CheckpointRepository _checkpointRepository;
-        private TourRepository _tourRepository;
-        private TourScheduleRepository _tourScheduleRepository;
+        private CheckpointService _checkpointService;
+        private TourService _tourService;
+        private TourScheduleService _schdeuleService;
         public KeypointsTracking(int tourScheduleId)
         {
             InitializeComponent();
             DataContext = this;
 
-            _checkpointRepository = new CheckpointRepository();
-            _tourRepository = new TourRepository();
-            _tourScheduleRepository = new TourScheduleRepository();
+            _checkpointService = new CheckpointService();
+            _tourService = new TourService();
+            _schdeuleService = new TourScheduleService();
 
-            SelectedTourSchedule = _tourScheduleRepository.GetById(tourScheduleId);
-            SelectedTour = _tourRepository.GetById(SelectedTourSchedule.TourId);
+            SelectedTourSchedule = _schdeuleService.GetById(tourScheduleId);
+            SelectedTour = _tourService.GetById(SelectedTourSchedule.TourId);
             
             Checkpoints = new ObservableCollection<Checkpoint>();
 
@@ -51,7 +52,7 @@ namespace BookingApp.View.TouristView
         {
             Checkpoints.Clear();
 
-            foreach (Checkpoint checkpoint in _checkpointRepository.GetFinishedCheckpoints(SelectedTourSchedule))
+            foreach (Checkpoint checkpoint in _checkpointService.GetFinishedCheckpoints(SelectedTourSchedule))
             {
 
                 Checkpoints.Add(checkpoint);
