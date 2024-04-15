@@ -62,6 +62,7 @@ namespace BookingApp.ApplicationServices
 
             return checkpoints;
         }
+       
         public List<Checkpoint> GetFinishedCheckpoints(TourSchedule schedule)
         {
             List<Checkpoint> checkpoints = new List<Checkpoint>();
