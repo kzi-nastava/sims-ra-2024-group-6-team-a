@@ -4,11 +4,13 @@ using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
 using BookingApp.Serializer;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BookingApp.ApplicationServices
 {
@@ -16,10 +18,21 @@ namespace BookingApp.ApplicationServices
     {
         private ITourReservationRepository _tourReservationRepository;
 
+        public TourReservationService(ITourReservationRepository tourReservationRepository)
+        {
+            _tourReservationRepository = tourReservationRepository;
+        }
+
         public TourReservationService()
         {
             _tourReservationRepository = new TourReservationRepository();
         }
+
+        public static TourReservationService GetInstance()
+        {
+            return App.ServiceProvider.GetRequiredService<TourReservationService>();
+        }
+
 
         public TourReservation Save(TourReservation reservation)
         {
@@ -84,6 +97,16 @@ namespace BookingApp.ApplicationServices
         {
             return _tourReservationRepository.GetById(id);  
 
+        }
+
+        public List<TourReservation> GetAll()
+        {
+            return _tourReservationRepository.GetAll();
+        }
+
+        public void Delete(TourReservation reservation)
+        {
+           _tourReservationRepository.Delete(reservation);
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,17 @@ namespace BookingApp.ApplicationServices
 {
     public class OwnerService
     {
-        public IOwnerRepository OwnerRepository { get; set; }
+        public IOwnerRepository OwnerRepository;
 
-        public OwnerService()
+        public OwnerService(IOwnerRepository ownerRepository)
         {
-            OwnerRepository = new OwnerRepository();
+            OwnerRepository = ownerRepository;
+
+        }
+
+        public static OwnerService GetInstance()
+        {
+            return App.ServiceProvider.GetRequiredService<OwnerService>();
         }
 
         public void UpdateOwnerStatus(Owner owner)
@@ -37,6 +44,23 @@ namespace BookingApp.ApplicationServices
 
             OwnerRepository.Update(owner);
         }
+
+
+        public void UpdateOwner(AccommodationReservation reservation,OwnerReviewRepository _ownerReviewRepository,Owner owner)
+        {
+
+            foreach (OwnerReview review in _ownerReviewRepository.GetAll())
+            {
+                if (reservation.Id == review.ReservationId)
+                {
+                    owner.GradeCount++;
+                    owner.AverageGrade = owner.AverageGrade + ((review.Correctness + review.Cleanliness) / 2.0);
+                }
+            }
+
+            OwnerRepository.Update(owner);
+        }
+
 
 
     }

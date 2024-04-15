@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.ViewModels
 {
-    public class OwnerInfoVM : IObserver
+    public class OwnerInfoVM
     {
         public String Name { get; set; }
         public String Surname { get; set; }
@@ -29,15 +29,9 @@ namespace BookingApp.ViewModels
             Grade = ownerInfoDTO.Grade;
             Status = ownerInfoDTO.Status;
             Ranking = ownerInfoDTO.Ranking;
-
-            Update();     
+  
         }
 
-        public void Update()
-        {
-
-
-        }
 
     }
 }

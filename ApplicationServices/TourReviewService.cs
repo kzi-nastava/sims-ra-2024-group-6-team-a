@@ -4,6 +4,7 @@ using BookingApp.DTOs;
 using BookingApp.Observer;
 using BookingApp.Repository;
 using BookingApp.Serializer;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,25 @@ namespace BookingApp.ApplicationServices
     {
         private ITourReviewRepository _reviewRepository;
 
-        public TourReviewService()
+        public TourReviewService(ITourReviewRepository reviewRepository)
         {
-            _reviewRepository = new TourReviewRepository();
+            _reviewRepository = reviewRepository;
         }
+
+        public TourReviewService() 
+        {
+            _reviewRepository = new TourReviewRepository(); 
+        }
+       
+
+
+        public static TourReviewService GetInstance()
+        {
+            return App.ServiceProvider.GetRequiredService<TourReviewService>();
+        }
+
+
+
         public List<TourReview> GetAll()
         {
             return _reviewRepository.GetAll();  
@@ -42,6 +58,12 @@ namespace BookingApp.ApplicationServices
             }
             TourReview tourReview = new TourReview(tourReviewDTO.ScheduleId, tourReviewDTO.GuideKnowledgeGrade, tourReviewDTO.GuideLanguageGrade, tourReviewDTO.TourAttractionsGrade, tourReviewDTO.Impression, tourReviewDTO.TouristId, tourReviewDTO.IsValid);
             Save(tourReview);
+        }
+
+        public List<TourReview> GetAllReviewsByScheduleId(int tourScheduleId)
+        {
+            return _reviewRepository.GetAllReviewsByScheduleId(tourScheduleId);
+
         }
     }
 }

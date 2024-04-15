@@ -38,7 +38,6 @@ namespace BookingApp.ViewModels.TouristViewModel
             SelectedTour = selectedTour;
             TourReviewDTO = new TourReviewDTO();
             LoggedUser = user;
-
             SaveRateCommand = new RelayCommand(Execute_SaveRateCommand);
             CancleRateCommand = new RelayCommand(Execute_CancleRateCommand);
             SelectImageCommand = new RelayCommand(Execute_SelectImageCommand);
@@ -79,8 +78,12 @@ namespace BookingApp.ViewModels.TouristViewModel
         {
             TourReviewDTO.ScheduleId = SelectedTour.Id;
             TourReviewDTO.TouristId = LoggedUser.Id;
+          
             TourReviewDTO.IsValid = true;
             _reviewService.MakeReview(TourReviewDTO);
+
+            //TourReviewService.GetInstance().MakeReview(TourReviewDTO);
+
             SaveImages(ImagesCollection.ToList());
             Window.Close();
         }

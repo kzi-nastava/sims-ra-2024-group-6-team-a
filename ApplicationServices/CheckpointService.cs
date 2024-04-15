@@ -1,7 +1,9 @@
 ﻿using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using BookingApp.Serializer;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +16,31 @@ namespace BookingApp.ApplicationServices
     {
         private ICheckpointRepository _checkpointRepository;
 
+
+        public CheckpointService(ICheckpointRepository checkpointRepository)
+        {
+            _checkpointRepository = checkpointRepository;
+        }
+
         public CheckpointService()
         {
             _checkpointRepository = new CheckpointRepository();
+        }
+
+
+        public static CheckpointService GetInstance()
+        {
+            return App.ServiceProvider.GetRequiredService<CheckpointService>();
+        }
+
+        public Checkpoint Update(Checkpoint checkpoint)
+        {
+            return _checkpointRepository.Update(checkpoint);    
+        }
+
+        public Checkpoint Save(Checkpoint checkpoint)
+        {
+            return _checkpointRepository.Save(checkpoint);  
         }
 
         public List<Checkpoint> GetAll()
@@ -49,6 +73,12 @@ namespace BookingApp.ApplicationServices
 
             }
             return checkpoints;
+        }
+
+        public Checkpoint GetById(int checkpointId)
+        {
+
+            return _checkpointRepository.GetById(checkpointId);
         }
     }
 }
