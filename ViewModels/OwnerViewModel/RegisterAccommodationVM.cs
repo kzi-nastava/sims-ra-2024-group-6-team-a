@@ -61,36 +61,17 @@ namespace BookingApp.ViewModels
         }
 
 
-       
-
-
         public void Register(bool? aptChecked, bool? cottageChecked,int locationId,string name,string maxguests,string minres,string canceldays)
         {
 
 
-            Enums.AccommodationType type = GetType(aptChecked,cottageChecked);
+            Enums.AccommodationType type = accommodationService.GetType(aptChecked,cottageChecked);
 
             Location location = locationRepository.GetById(locationId);
 
 
             accommodation = new Accommodation(name, type, int.Parse(maxguests), int.Parse(minres), int.Parse(canceldays), location.Id, userId);
             imageService.SaveImages(accommodationService.Save(accommodation).Id,_imageRelativePath);
-        }
-
-        private Enums.AccommodationType GetType(bool? aptChecked,bool? cottageChecked)
-        {
-            if (aptChecked == true)
-            {
-                return Enums.AccommodationType.Apartment;
-            }
-            else if (cottageChecked == true)
-            {
-                return Enums.AccommodationType.Cottage;
-            }
-            else
-            {
-                return Enums.AccommodationType.House;
-            }
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
