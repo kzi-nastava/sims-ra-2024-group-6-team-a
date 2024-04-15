@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -34,31 +35,31 @@ namespace BookingApp.ViewModels
         
         private LocationRepository _locationRepository;
         private AccommodationReservationRepository _reservationRepository;
-        private UserRepository _userRepository;
-        private ReservationChangeRepository _reservationChangeRepository;
         private GuestRepository _guestRepository;
         private OwnerReviewRepository _ownerReviewRepository;
 
-        private OwnerService ownerService;
-        private AccommodationService accommodationService;
+
+        
         private GuestReviewService guestReviewService;
         private ImageService imageService;
+        private ReservationChangeService reservationChangeService;
 
 
         bool existsNotReviewed = false;
         bool existsCanceled = false;
 
-        public AccommodationMenuVM(Owner owner, LocationRepository _locationRepository, ImageRepository _imageRepository, AccommodationReservationRepository _reservationRepository,
-            UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, OwnerRepository _ownerRepository,GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
+        public AccommodationMenuVM(Owner owner, LocationRepository _locationRepository, AccommodationReservationRepository _reservationRepository,
+           GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
         {
-            InitiliazeRepositories(_locationRepository, _reservationRepository, _userRepository, _reservationChangeRepository, _guestRepository,_ownerReviewRepository);
+            InitiliazeRepositories(_locationRepository, _reservationRepository, _guestRepository,_ownerReviewRepository);
 
             Owner = owner;
 
-            this.ownerService = new OwnerService();
-            this.accommodationService = new AccommodationService();
+           
+            
             this.guestReviewService = new GuestReviewService();
             this.imageService = new ImageService();
+            this.reservationChangeService = new ReservationChangeService();
 
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
             GuestReviews = new ObservableCollection<GuestReviewDTO>();
@@ -88,12 +89,11 @@ namespace BookingApp.ViewModels
         }
 
         public void InitiliazeRepositories(LocationRepository _locationRepository, AccommodationReservationRepository _reservationRepository, 
-            UserRepository _userRepository, ReservationChangeRepository _reservationChangeRepository, GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
+             GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
         {
             this._locationRepository = _locationRepository;
             this._reservationRepository = _reservationRepository;
-            this._userRepository = _userRepository;
-            this._reservationChangeRepository = _reservationChangeRepository;
+              
            
             this._guestRepository = _guestRepository;
             this._ownerReviewRepository = _ownerReviewRepository;
@@ -103,21 +103,16 @@ namespace BookingApp.ViewModels
 
         public void Register()
         {
-            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(accommodationService, _locationRepository,imageService, Owner.Id);
+            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_locationRepository,imageService, Owner.Id);
             registerAccommodationMenu.ShowDialog();
             Update();
         }
 
         public void Update()
         {
-            Accommodations.Clear(); //we must clear so it doesnt duplicate
-            GuestReviews.Clear();
-            Reservations.Clear();
-            ReservationChanges.Clear();
-            Owner.AverageGrade = 0;
-            Owner.GradeCount = 0;
+            ClearOldData();
 
-            foreach (Accommodation a in accommodationService.GetByOwnerId(Owner.Id))
+            foreach (Accommodation a in AccommodationService.GetInstance().GetByOwnerId(Owner.Id))
             {
                 foreach (AccommodationReservation r in _reservationRepository.GetByAccommodation(a))
                 {
@@ -126,9 +121,7 @@ namespace BookingApp.ViewModels
                         existsCanceled = true;
  
                     }
-                    CheckReservationStatus(r, a);
-                    CheckGuestReview(a, r);
-                    UpdateOwner(r);
+                    UpdateReservationsOwnerAndReviews(a, r);
                 }
 
                 string imagePath = imageService.AddMainAccommodationImage(a);
@@ -138,8 +131,25 @@ namespace BookingApp.ViewModels
                 Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a), imagePath));
             }
 
-            ownerService.UpdateOwnerStatus(Owner);
+            OwnerService.GetInstance().UpdateOwnerStatus(Owner);
 
+        }
+
+        public void ClearOldData()
+        {
+            Accommodations.Clear(); //we must clear so it doesnt duplicate
+            GuestReviews.Clear();
+            Reservations.Clear();
+            ReservationChanges.Clear();
+            Owner.AverageGrade = 0;
+            Owner.GradeCount = 0;
+        }
+
+        public void UpdateReservationsOwnerAndReviews(Accommodation a,AccommodationReservation r)
+        {
+            CheckReservationStatus(r, a);
+            CheckGuestReview(a, r);
+            OwnerService.GetInstance().UpdateOwner(r,_ownerReviewRepository,Owner);
         }
 
         public void CheckReservationStatus(AccommodationReservation reservation, Accommodation accommodation)
@@ -149,33 +159,9 @@ namespace BookingApp.ViewModels
 
         }
 
-        public bool CheckIfAlreadyBooked(ReservationChanges reservationChange, Accommodation accommodation)
-        {
-            foreach (AccommodationReservation reservation in _reservationRepository.GetAll())
-            {
-                if (reservation.AccommodationId == accommodation.Id && reservationChange.ReservationId != reservation.Id && DoesDateInterfere(reservation, reservationChange))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public bool DoesDateInterfere(AccommodationReservation oldR, ReservationChanges reservationChange)
-        {
-            if (reservationChange.NewCheckIn < oldR.CheckInDate && reservationChange.NewCheckOut < oldR.CheckInDate)
-                return false;
-
-            if (reservationChange.NewCheckIn > oldR.CheckOutDate && reservationChange.NewCheckOut > oldR.CheckOutDate)
-                return false;
-
-            return true;
-        }
-
         public void AddChangedReservations(Accommodation accommodation)
         {
-            foreach (ReservationChanges reservationChange in _reservationChangeRepository.GetAll())
+            foreach (ReservationChanges reservationChange in reservationChangeService.GetAll())
             {
                 if (reservationChange.AccommodationId == accommodation.Id && reservationChange.Status == Enums.ReservationChangeStatus.Pending)
                 {
@@ -184,7 +170,7 @@ namespace BookingApp.ViewModels
                     String oldDate = reservationChange.OldCheckIn.ToString("dd MMMM yyyy") + "   ->   " + reservationChange.OldCheckOut.ToString("dd MMMM yyyy");
                     String newDate = reservationChange.NewCheckIn.ToString("dd MMMM yyyy") + "   ->   " + reservationChange.NewCheckOut.ToString("dd MMMM yyyy");
                     String bookedStatus = "No";
-                    if (CheckIfAlreadyBooked(reservationChange, accommodation))
+                    if (AccommodationService.GetInstance().CheckIfAlreadyBooked(reservationChange, accommodation,_reservationRepository))
                         bookedStatus = "Yes";
 
 
@@ -197,8 +183,6 @@ namespace BookingApp.ViewModels
 
 
         }
-
-
         public void AddReservations(AccommodationReservation reservation, Accommodation accommodation)
         {
 
@@ -238,42 +222,14 @@ namespace BookingApp.ViewModels
             GuestReviews.Add(new GuestReviewDTO(accommodation.Name, _guestRepository.GetFullname(reservation.GuestId), cleanlinessGrade, respectGrade, comment, GuestOccupationPeriod, reservation.Id));
         }
 
-
-
-
-
-
-
         public void DetailedAccommodationView()
         {
 
-            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(imageService.GetImagesForAccommodaton(SelectedAccommodation.Id), GetReservationsForAccommodation(), SelectedAccommodation,_ownerReviewRepository);
+            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(imageService.GetImagesForAccommodaton(SelectedAccommodation.Id), 
+                AccommodationService.GetInstance().GetReservationsForAccommodation(SelectedAccommodation,_reservationRepository,_guestRepository,_locationRepository), SelectedAccommodation,_ownerReviewRepository);
             AccommodationDetailedMenu.ShowDialog();
 
         }
-
-        private ObservableCollection<ReservationOwnerDTO> GetReservationsForAccommodation()
-        {
-            ObservableCollection<ReservationOwnerDTO> ReservationsForAccommodation = new ObservableCollection<ReservationOwnerDTO>();
-
-            foreach (AccommodationReservation reservation in _reservationRepository.GetAll())
-            {
-                if (reservation.AccommodationId == SelectedAccommodation.Id && reservation.Status != Enums.ReservationStatus.Changed)
-                {
-                    Accommodation accommodation = accommodationService.GetByReservationId(SelectedAccommodation.Id);
-                    String userName = _guestRepository.GetFullname(reservation.GuestId);
-                    String imagePath = imageService.AddMainAccommodationImage(accommodation);
-                    Location location = _locationRepository.GetByAccommodation(accommodation);
-
-                    ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, SelectedAccommodation.Name, location, imagePath);
-
-                    ReservationsForAccommodation.Add(newReservation);
-                }
-            }
-
-            return ReservationsForAccommodation;
-        }
-
 
         public void GradeEmptyReview()
         {
@@ -305,35 +261,19 @@ namespace BookingApp.ViewModels
 
         public void AllowReservationChange()
         {
-            AllowReservationChange allowReservationChange = new AllowReservationChange(SelectedChange, _reservationRepository, _reservationChangeRepository);
+            AllowReservationChange allowReservationChange = new AllowReservationChange(SelectedChange, _reservationRepository, reservationChangeService);
             allowReservationChange.ShowDialog();
-
-
 
         }
 
         public void EnterOwnerInfo()
         {
             Math.Round(Owner.AverageGrade, 3);   
-            OwnerInfo = new OwnerInfoDTO(Owner, accommodationService.GetTotalReservationCount(_reservationRepository,Owner.Id), accommodationService.GetTotalAccommodationCount(Owner.Id));
+            OwnerInfo = new OwnerInfoDTO(Owner, AccommodationService.GetInstance().GetTotalReservationCount(_reservationRepository,Owner.Id), AccommodationService.GetInstance().GetTotalAccommodationCount(Owner.Id));
             OwnerInfo ownerInfo = new OwnerInfo(OwnerInfo);
             ownerInfo.ShowDialog();
 
         }
-
-        private void UpdateOwner(AccommodationReservation reservation)
-        {
-            
-            foreach(OwnerReview review in _ownerReviewRepository.GetAll()) 
-            {
-                if(reservation.Id == review.ReservationId)
-                {
-                    Owner.GradeCount++;
-                    Owner.AverageGrade = Owner.AverageGrade + ((review.Correctness + review.Cleanliness) / 2.0);
-                }
-            }
-        }
-
 
     }
 }

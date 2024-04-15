@@ -55,8 +55,12 @@ namespace BookingApp
             services.AddSingleton<IVoucherRepository, VoucherRepository>(); 
             services.AddSingleton<ICheckpointRepository, CheckpointRepository>();   
             services.AddSingleton<IImageRepository, ImageRepository>();
-            services.AddSingleton<ILocationRepository,LocationRepository>();    
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<ILocationRepository,LocationRepository>(); 
+            services.AddSingleton<IAccommodationRepository, AccommodationRepository>();
+            services.AddSingleton<IReservationChangeRepository, ReservationChangeRepository>();
+            services.AddSingleton<IOwnerRepository, OwnerRepository>();
+            services.AddSingleton<IGuestReviewRepository, GuestReviewRepository>();
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -70,8 +74,12 @@ namespace BookingApp
             services.AddSingleton<TourService>();
             services.AddSingleton<VoucherService>();
             services.AddSingleton<ImageService>();
-            services.AddSingleton<LocationService>();  
             services.AddSingleton<UserService>();   
+            services.AddSingleton<LocationService>();
+            services.AddSingleton<AccommodationService>();
+            services.AddSingleton<ReservationChangeService>();
+            services.AddSingleton<OwnerService>();
+            services.AddSingleton<GuestReviewService>();
 
         }
 

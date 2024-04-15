@@ -1,8 +1,12 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.DTOs;
+using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
+using BookingApp.Resources;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +15,21 @@ namespace BookingApp.ApplicationServices
 {
     public class AccommodationService
     {
-        public IAccommodationRepository AccommodationRepository { get; set; }
+        public IAccommodationRepository AccommodationRepository;
+        public IImageRepository ImageRepository;
+        public ImageService imageService;
 
-        public AccommodationService() 
+        public AccommodationService(IAccommodationRepository accommodationRepository,IImageRepository imageRepository) 
         {
-            AccommodationRepository = new AccommodationRepository();
+            AccommodationRepository = accommodationRepository;
+            ImageRepository = imageRepository;
+            imageService = ImageService.GetInstance();
+        }
+
+
+        public static AccommodationService GetInstance()
+        {
+            return App.ServiceProvider.GetRequiredService<AccommodationService>();
         }
 
         public int GetTotalReservationCount(AccommodationReservationRepository reservationRepository, int id)
@@ -66,6 +80,69 @@ namespace BookingApp.ApplicationServices
         {
             return AccommodationRepository.GetByReservationId(id);
         }
+
+        public bool CheckIfAlreadyBooked(ReservationChanges reservationChange, Accommodation accommodation,AccommodationReservationRepository _reservationRepository)
+        {
+            foreach (AccommodationReservation reservation in _reservationRepository.GetAll())
+            {
+                if (reservation.AccommodationId == accommodation.Id && reservationChange.ReservationId != reservation.Id && DoesDateInterfere(reservation, reservationChange))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool DoesDateInterfere(AccommodationReservation oldR, ReservationChanges reservationChange)
+        {
+            if (reservationChange.NewCheckIn < oldR.CheckInDate && reservationChange.NewCheckOut < oldR.CheckInDate)
+                return false;
+
+            if (reservationChange.NewCheckIn > oldR.CheckOutDate && reservationChange.NewCheckOut > oldR.CheckOutDate)
+                return false;
+
+            return true;
+        }
+
+        public ObservableCollection<ReservationOwnerDTO> GetReservationsForAccommodation(AccommodationOwnerDTO SelectedAccommodation,AccommodationReservationRepository _reservationRepository,GuestRepository _guestRepository,LocationRepository _locationRepository)
+        {
+            ObservableCollection<ReservationOwnerDTO> ReservationsForAccommodation = new ObservableCollection<ReservationOwnerDTO>();
+
+            foreach (AccommodationReservation reservation in _reservationRepository.GetAll())
+            {
+                if (reservation.AccommodationId == SelectedAccommodation.Id && reservation.Status != Enums.ReservationStatus.Changed)
+                {
+                    Accommodation accommodation = AccommodationRepository.GetByReservationId(SelectedAccommodation.Id);
+                    String userName = _guestRepository.GetFullname(reservation.GuestId);
+                    String imagePath = imageService.AddMainAccommodationImage(accommodation);
+                    Location location = _locationRepository.GetByAccommodation(accommodation);
+
+                    ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, SelectedAccommodation.Name, location, imagePath);
+
+                    ReservationsForAccommodation.Add(newReservation);
+                }
+            }
+
+            return ReservationsForAccommodation;
+        }
+
+        public Enums.AccommodationType GetType(bool? aptChecked, bool? cottageChecked)
+        {
+            if (aptChecked == true)
+            {
+                return Enums.AccommodationType.Apartment;
+            }
+            else if (cottageChecked == true)
+            {
+                return Enums.AccommodationType.Cottage;
+            }
+            else
+            {
+                return Enums.AccommodationType.House;
+            }
+        }
+
 
     }
 }

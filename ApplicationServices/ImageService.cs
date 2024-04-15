@@ -31,6 +31,11 @@ namespace BookingApp.ApplicationServices
             return App.ServiceProvider.GetRequiredService<ImageService>();
         }
 
+        public static ImageService GetInstance()
+        {
+            return App.ServiceProvider.GetRequiredService<ImageService>();
+        }
+
         public string AddMainAccommodationImage(Accommodation a)
         {
             Model.Image image = new Model.Image();

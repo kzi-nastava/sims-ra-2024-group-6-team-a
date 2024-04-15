@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.ViewModels;
@@ -25,11 +26,11 @@ namespace BookingApp.View
     {
 
         private AllowChangeVM vm;
-        public AllowReservationChange(ReservationChangeDTO reservation,AccommodationReservationRepository _reservationRepository,ReservationChangeRepository _changesRepository)
+        public AllowReservationChange(ReservationChangeDTO reservation,AccommodationReservationRepository _reservationRepository,ReservationChangeService reservationChangeService)
         {
             InitializeComponent();
 
-            vm = new AllowChangeVM(reservation, _reservationRepository, _changesRepository);   
+            vm = new AllowChangeVM(reservation, _reservationRepository, reservationChangeService);   
             DataContext = vm.reservation;
 
         }
