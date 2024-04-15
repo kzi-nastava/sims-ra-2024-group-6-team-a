@@ -39,5 +39,22 @@ namespace BookingApp.ApplicationServices
         }
 
 
+        public void UpdateOwner(AccommodationReservation reservation,OwnerReviewRepository _ownerReviewRepository,Owner owner)
+        {
+
+            foreach (OwnerReview review in _ownerReviewRepository.GetAll())
+            {
+                if (reservation.Id == review.ReservationId)
+                {
+                    owner.GradeCount++;
+                    owner.AverageGrade = owner.AverageGrade + ((review.Correctness + review.Cleanliness) / 2.0);
+                }
+            }
+
+            OwnerRepository.Update(owner);
+        }
+
+
+
     }
 }
