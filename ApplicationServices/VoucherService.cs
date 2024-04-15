@@ -2,6 +2,7 @@
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,23 @@ namespace BookingApp.ApplicationServices
     public class VoucherService
     {
         private IVoucherRepository _voucherRepository;
+        private ITourReservationRepository _tourReservationRepository;
+        private TourReservationService _reservationService;
 
         public VoucherService()
         {
             _voucherRepository = new VoucherRepository();
+        }
+        public VoucherService(IVoucherRepository voucherRepository, ITourReservationRepository tourReservationRepository)
+        {
+            _voucherRepository = voucherRepository;
+            _tourReservationRepository = tourReservationRepository;
+            _reservationService = TourReservationService.GetInstance();
+        }
+
+        public static VoucherService GetInstance()
+        {
+            return App.ServiceProvider.GetRequiredService<VoucherService>();
         }
 
         public void Delete(Voucher voucher)
@@ -36,6 +50,21 @@ namespace BookingApp.ApplicationServices
                 }
             }
             return vouchers;
+        }
+        public void SaveAllGuests(List<TourGuests> guests)
+        {
+
+            foreach (TourGuests tourGuest in guests)
+            {
+                TourReservation tourReservation = _tourReservationRepository.GetById(tourGuest.ReservationId);
+                Voucher voucher = new Voucher();
+                voucher.TouristName = tourGuest.Name;
+                voucher.TouristSurname = tourGuest.Surname;
+                voucher.TouristBirth = tourGuest.Age;
+                voucher.IssuingDate = DateTime.Now.AddYears(1);
+                voucher.UserId = tourGuest.UserTypeId;
+                _voucherRepository.Save(voucher);
+            }
         }
     }
 }

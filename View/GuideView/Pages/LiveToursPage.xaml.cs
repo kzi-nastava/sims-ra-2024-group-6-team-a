@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookingApp.ApplicationServices;
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Observer;
@@ -32,25 +33,19 @@ namespace BookingApp.View.GuideView.Pages
 
         public Frame mainFrame;
 
-        private LocationRepository _locationRepository;
-        private ImageRepository _imageRepository;
-        private TourScheduleRepository _tourScheduleRepository;
-        private TourRepository _tourRepository;
+      
+       
         private LiveTour liveTour;
         private TourStatisticsPage _tourStatisticsPage;
 
         public event EventHandler tourEnded;
 
-        public LiveToursPage(Frame mainFrame,TourStatisticsPage tourStatisticsPage,TourCreationPage tourCreationPage,User user, LocationRepository locationRepository, ImageRepository imageRepository, TourScheduleRepository tourScheduleRepository, TourRepository tourRepository)
+        public LiveToursPage(Frame mainFrame,TourStatisticsPage tourStatisticsPage,TourCreationPage tourCreationPage,User user)
         {
             InitializeComponent();
             DataContext = this;
             LoggedUser = user;
 
-            _locationRepository = locationRepository;
-            _imageRepository = imageRepository;
-            _tourRepository = tourRepository;
-            _tourScheduleRepository = tourScheduleRepository;
             _tourStatisticsPage = tourStatisticsPage;
 
             TodaysTours = new ObservableCollection<TourGuideDTO>();
@@ -73,13 +68,13 @@ namespace BookingApp.View.GuideView.Pages
         public void Update()
         {
             TodaysTours.Clear();
-            foreach (TourSchedule tourSchedule in _tourScheduleRepository.GetAll())
+            foreach (TourSchedule tourSchedule in TourScheduleService.GetInstance().GetAll())
             {
-                Tour tour = _tourRepository.GetById(tourSchedule.TourId);
+                Tour tour = TourService.GetInstance().GetById(tourSchedule.TourId);
                 if (!CheckUpdateConditions(tourSchedule, tour))
                     continue;
                  
-                Location location = _locationRepository.GetById(tour.LocationId);
+                Location location = LocationService.GetInstance().GetById(tour.LocationId);
                
                 DateTime dateTime = tourSchedule.Start;
                 
@@ -103,7 +98,7 @@ namespace BookingApp.View.GuideView.Pages
 
         private Model.Image GetFirstTourImage(int tourId)
         {
-            return _imageRepository.GetByEntity(tourId, Enums.ImageType.Tour).First();
+            return ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour).First();
         }
 
 

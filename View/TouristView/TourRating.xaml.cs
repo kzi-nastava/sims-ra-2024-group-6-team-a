@@ -30,7 +30,7 @@ namespace BookingApp.View.TouristView
     public partial class TourRating : Window
     {
         private readonly ImageRepository _imageRepository;
-        private readonly TourReviewService _reviewService = new TourReviewService();
+        //private readonly TourReviewService _reviewService = new TourReviewService();
         public TourScheduleDTO SelectedTour { get; set; }
         public User LoggedUser { get; set; }
 

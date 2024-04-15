@@ -31,10 +31,10 @@ namespace BookingApp.View.GuideView.Pages
     {
      
         public TourStatisticsViewModel StatisticsViewModel { get; set; }
-        public TourStatisticsPage(User user, LocationRepository locationRepository, ImageRepository imageRepository, TourScheduleRepository tourScheduleRepository, TourRepository tourRepository, TourGuestRepository tourGuestRepository)
+        public TourStatisticsPage(User user)
         {
             InitializeComponent();
-            StatisticsViewModel = new TourStatisticsViewModel(this, user, locationRepository, imageRepository, tourScheduleRepository, tourRepository, tourGuestRepository);
+            StatisticsViewModel = new TourStatisticsViewModel(this, user);
             DataContext = StatisticsViewModel;
 
        

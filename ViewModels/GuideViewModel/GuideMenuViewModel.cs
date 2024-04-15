@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 using BookingApp.View;
+using BookingApp.ApplicationServices;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
@@ -22,15 +23,6 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public Frame mainFrame;
 
-
-        private TourRepository _tourRepository;
-        private LocationRepository _locationRepository;
-        private ImageRepository _imageRepository;
-        private CheckpointRepository _checkRepository;
-        private TourScheduleRepository _tourScheduleRepository;
-        private TourGuestRepository _tourGuestRepository;
-        private TourReviewRepository _tourReviewRepository;
-
         public LiveToursPage liveToursPage;
         public TourCreationPage tourCreationPage;
         public TourStatisticsPage tourStatisticsPage;
@@ -40,28 +32,22 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public GuideViewMenu MainWindow { get; set; }
 
-        public GuideMenuViewModel(GuideViewMenu mainWindow,User user, LocationRepository locationRepository, ImageRepository imageRepository)
+        public GuideMenuViewModel(GuideViewMenu mainWindow,User user)
         {
             
 
-            _locationRepository = locationRepository;
-            _imageRepository = imageRepository;
-            _tourRepository = new TourRepository();
-            _checkRepository = new CheckpointRepository();
-            _tourScheduleRepository = new TourScheduleRepository();
-            _tourGuestRepository = new TourGuestRepository();
-            _tourReviewRepository = new TourReviewRepository();
+            
             
             LoggedUser = user;
             MainWindow = mainWindow;
 
-            tourStatisticsPage = new TourStatisticsPage(LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository, _tourGuestRepository);
-            tourCreationPage = new TourCreationPage(LoggedUser, _tourRepository, _locationRepository, _imageRepository, _checkRepository, _tourScheduleRepository);
-            liveToursPage = new LiveToursPage(mainFrame, tourStatisticsPage, tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
+            tourStatisticsPage = new TourStatisticsPage(LoggedUser);
+            tourCreationPage = new TourCreationPage(LoggedUser);
+            liveToursPage = new LiveToursPage(mainFrame, tourStatisticsPage, tourCreationPage, LoggedUser);
             liveToursPage.tourEnded += UpdateWindows;
             
-            allToursPage = new AllToursPage(mainFrame, tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository);
-            tourReviewPage = new TourReviewsPage(mainFrame, tourCreationPage, LoggedUser, _locationRepository, _imageRepository, _tourScheduleRepository, _tourRepository, _tourReviewRepository);
+            allToursPage = new AllToursPage(mainFrame, tourCreationPage, LoggedUser);
+            tourReviewPage = new TourReviewsPage(mainFrame, tourCreationPage, LoggedUser);
             
         }
 
@@ -97,8 +83,8 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public void LiveToursPageClick()
         {
-            List<Tour> tours = _tourRepository.GetAllByUser(LoggedUser);
-            int tourScheduleId = _tourScheduleRepository.FindOngoingTour(tours);
+            List<Tour> tours = TourService.GetInstance().GetAllByUser(LoggedUser);
+            int tourScheduleId = TourScheduleService.GetInstance().FindOngoingTour(tours);
 
             if (tourScheduleId != 0)
             {

@@ -37,11 +37,8 @@ namespace BookingApp.View
         {
             InitializeComponent();
             DataContext = MainWindowViewModel;
-            MainWindowViewModel = new GuideMenuViewModel(this, user, locationRepository, imageRepository);
+            MainWindowViewModel = new GuideMenuViewModel(this, user);
         }
-
-       
-
 
         private void ShowCreateTourForm(object sender, EventArgs e)
         {

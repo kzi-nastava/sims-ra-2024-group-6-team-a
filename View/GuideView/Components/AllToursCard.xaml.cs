@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.Model;
 using BookingApp.Repository;
 using System;
 using System.Collections.Generic;
@@ -23,28 +24,19 @@ namespace BookingApp.View.GuideView.Components
     public partial class AllToursCard : UserControl
     {
 
-        TourScheduleRepository _tourScheduleRepository;
-        TourGuestRepository _tourGuestRepository;
-        VoucherRepository _voucherRepository;
-        TourRepository _tourRepository;
-
-        TourReservationRepository _tourReservationRepository;
+       
 
         public event EventHandler TourCanceledCard;
         public AllToursCard()
         {
             InitializeComponent();
-            _tourScheduleRepository = new TourScheduleRepository();
-            _tourGuestRepository = new TourGuestRepository();
-            _voucherRepository = new VoucherRepository();
-            _tourRepository = new TourRepository();
-            _tourReservationRepository  = new TourReservationRepository();
+            
         }
 
         private void DeleteTourMouseDown(object sender, MouseButtonEventArgs e)
         {
-            TourSchedule tourSchedule = _tourScheduleRepository.GetById(Convert.ToInt32(textBoxId.Text));
-            List<TourGuests> guests = _tourGuestRepository.GetAllByTourId(tourSchedule.Id);
+            TourSchedule tourSchedule = TourScheduleService.GetInstance().GetById(Convert.ToInt32(textBoxId.Text));
+            List<TourGuests> guests = TourGuestService.GetInstance().GetAllByTourId(tourSchedule.Id);
 
 
             MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel your tour?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -54,12 +46,12 @@ namespace BookingApp.View.GuideView.Components
                 {
                     if (guests.Count != 0)
                     {
-                        _voucherRepository.SaveAllGuests(guests);
+                        VoucherService.GetInstance().SaveAllGuests(guests);
                         
-                        foreach (TourReservation tourReservation in _tourReservationRepository.GetAll())
+                        foreach (TourReservation tourReservation in TourReservationService.GetInstance().GetAll())
                         {
                             if (tourReservation.TourRealisationId == tourSchedule.Id)
-                                _tourReservationRepository.Delete(tourReservation);
+                                TourReservationService.GetInstance().Delete(tourReservation);
                         
                         }
 
@@ -67,16 +59,16 @@ namespace BookingApp.View.GuideView.Components
 
                     foreach (TourGuests guest in guests)
                     {
-                        _tourGuestRepository.Delete(guest);
+                        TourGuestService.GetInstance().Delete(guest);
                     }
 
 
-                    if (_tourScheduleRepository.GetAllByTourId(tourSchedule.TourId).Count == 1)
+                    if (TourScheduleService.GetInstance().GetAllByTourId(tourSchedule.TourId).Count == 1)
                     {
-                        _tourRepository.Delete(_tourRepository.GetById(tourSchedule.TourId));
+                        TourService.GetInstance().Delete(TourService.GetInstance().GetById(tourSchedule.TourId));
                     }
 
-                    _tourScheduleRepository.Delete(tourSchedule);
+                    TourScheduleService.GetInstance().Delete(tourSchedule);
                     HandleTourCanceledEvent();
                 }
             }

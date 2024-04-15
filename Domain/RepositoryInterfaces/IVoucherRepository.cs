@@ -17,7 +17,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
 
         public void Delete(Voucher voucher);
 
-        public void SaveAllGuests(List<TourGuests> guests);
 
         public int NextId();
     }

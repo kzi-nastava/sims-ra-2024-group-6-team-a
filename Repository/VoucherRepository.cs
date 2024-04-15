@@ -53,21 +53,7 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
         }
 
-        public void SaveAllGuests(List<TourGuests> guests)
-        {
-
-            foreach(TourGuests tourGuest in guests)
-            {
-                TourReservation tourReservation = _tourReservationRepository.GetById(tourGuest.ReservationId);
-                Voucher voucher = new Voucher();
-                voucher.TouristName = tourGuest.Name;
-                voucher.TouristSurname = tourGuest.Surname;
-                voucher.TouristBirth = tourGuest.Age;
-                voucher.IssuingDate = DateTime.Now.AddYears(1);
-                voucher.UserId = tourGuest.UserTypeId;
-                Save(voucher);
-            }
-        }
+       
 
 
         public int NextId()
