@@ -2,6 +2,7 @@
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.ViewModels.TouristViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,37 +31,20 @@ namespace BookingApp.View.TouristView
 
         private VoucherService _voucherService;
         public TourReservationForm ParentWindow { get; set; }
+        public VouchersUsageViewModel VouchersUsageWindow { get; set; }
         public VoucherUsage(User user, TourReservationForm parentWindow)
         {
             InitializeComponent();
-            DataContext = this;
-
-            _voucherService = new VoucherService();
-            Vouchers = new ObservableCollection<VouchersDTO>();
-            this.ParentWindow = parentWindow;
-            LoggedUser = user;
+            VouchersUsageWindow = new VouchersUsageViewModel(this, user, parentWindow);
+            DataContext = VouchersUsageWindow;
             Update();
 
         }
 
         private void Update()
         {
-            Vouchers.Clear();
-            foreach(Voucher voucher in _voucherService.GetAllByUser(LoggedUser))
-            {
-                Vouchers.Add(new VouchersDTO(voucher));
-            }
-
+            VouchersUsageWindow.Update();
         }
-
-        private void UseVoucherClick(object sender, RoutedEventArgs e)
-        {
-            if(SelectedVoucher != null)
-            {
-                ParentWindow.Voucher = SelectedVoucher;
-            }
-            this.Close();
-            
-        }
+       
     }
 }
