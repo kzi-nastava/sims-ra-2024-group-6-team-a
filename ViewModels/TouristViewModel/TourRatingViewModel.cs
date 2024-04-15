@@ -79,6 +79,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         {
             TourReviewDTO.ScheduleId = SelectedTour.Id;
             TourReviewDTO.TouristId = LoggedUser.Id;
+            TourReviewDTO.IsValid = true;
             _reviewService.MakeReview(TourReviewDTO);
             SaveImages(ImagesCollection.ToList());
             Window.Close();

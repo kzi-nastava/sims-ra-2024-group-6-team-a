@@ -76,6 +76,23 @@ namespace BookingApp.DTOs
                 }
             }
         }
+        private bool _isValid;
+        public bool IsValid
+        {
+            get
+            {
+                return _isValid;
+            }
+            set
+            {
+                if (_isValid != value)
+                {
+                    _isValid = value;
+                    OnPropertyChanged("IsValid");
+
+                }
+            }
+        }
 
         private int _tourAttractionsGrade;
         public int TourAttractionsGrade

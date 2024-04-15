@@ -53,7 +53,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         {
             if (SelectedVoucher != null)
             {
-                ParentWindow.Voucher = SelectedVoucher;
+                Window.ParentWindow.Voucher = SelectedVoucher;
             }
             Window.Close();
 
