@@ -21,11 +21,6 @@ namespace BookingApp.ApplicationServices
             this.reservationChangeRepository = reservationChangeRepository;
 
         }
-
-        public static ReservationChangeService GetInstance()
-        {
-            return App.ServiceProvider.GetRequiredService<ReservationChangeService>();
-        }
         public static ReservationChangeService GetInstance()
         {
             return App.ServiceProvider.GetRequiredService<ReservationChangeService>();

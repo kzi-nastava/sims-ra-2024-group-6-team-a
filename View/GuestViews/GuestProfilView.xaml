@@ -91,7 +91,7 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="200" />
                             </Grid.ColumnDefinitions>
-                            <Image Source ="/Resources/Images/profile.png" Width="38" Height="40" VerticalAlignment="Center" />
+                            <Image Source ="/Resources/Images/profileG.png" Width="38" Height="40" VerticalAlignment="Center" />
                             <Label Grid.Column="1" Content="{Binding Guest.Name}" FontSize="18"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
                             <Label Grid.Column="1" Content="{Binding Guest.Surname}" FontSize="18"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" Margin="42,0,-35,0" />
                         </Grid>
@@ -103,7 +103,7 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="200" />
                             </Grid.ColumnDefinitions>
-                            <Image Source ="/Resources/Images/profile.png" Width="38" Height="40" VerticalAlignment="Center" />
+                            <Image Source ="/Resources/Images/phoneG.png" Width="38" Height="40" VerticalAlignment="Center" />
                             <Label Grid.Column="1" Content="{Binding Guest.Phone}" FontSize="18"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
                         </Grid>
                     </Border>
@@ -114,7 +114,7 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="200" />
                             </Grid.ColumnDefinitions>
-                            <Image Source ="/Resources/Images/profile.png" Width="38" Height="40" VerticalAlignment="Center" />
+                            <Image Source ="/Resources/Images/gmail.png" Width="38" Height="40" VerticalAlignment="Center" />
                             <Label Grid.Column="1" Content="{Binding Guest.Email}" FontSize="18"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
                         </Grid>
                     </Border>
@@ -125,7 +125,7 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="200" />
                             </Grid.ColumnDefinitions>
-                            <Image Source ="/Resources/Images/profile.png" Width="38" Height="40" VerticalAlignment="Center" />
+                            <Image Source ="/Resources/Images/cakeG.png" Width="38" Height="40" VerticalAlignment="Center" />
                             <Label Grid.Column="1" Content="{Binding Guest.Birthday}" FontSize="18"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
                         </Grid>
                     </Border>
@@ -139,7 +139,7 @@
                                             <ColumnDefinition Width="100" />
                                             <ColumnDefinition Width="200" />
                                         </Grid.ColumnDefinitions>
-                                        <Image Source="/Resources/Images/profile.png" Width="38" Height="40" VerticalAlignment="Center" />
+                                        <Image Source="/Resources/Images/suitcase.png" Width="38" Height="40" Margin="40,8,23,8" />
                                         <Label Grid.Column="1" Content="{Binding NumberOfReservations}" ContentStringFormat="My reservations ({0})" FontSize="18" FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
                                     </Grid>
                                 </Border>
@@ -155,7 +155,7 @@
                                             <ColumnDefinition Width="100" />
                                             <ColumnDefinition Width="200" />
                                         </Grid.ColumnDefinitions>
-                                        <Image Source="/Resources/Images/profile.png" Width="38" Height="40" VerticalAlignment="Center" />
+                                        <Image Source="/Resources/Images/notificationsG.png" Width="38" Height="40" VerticalAlignment="Center"  Margin="40,8,23,8" />
                                         <Label Grid.Column="1" Content="{Binding NumberOfNotifications}" ContentStringFormat="Notifications ({0})" FontSize="18" FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
                                     </Grid>
                                 </Border>
@@ -168,7 +168,7 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="200" />
                             </Grid.ColumnDefinitions>
-                            <Image Source ="/Resources/Images/profile.png" Width="38" Height="40" VerticalAlignment="Center" />
+                            <Image Source ="/Resources/Images/logoutG.png" Width="38" Height="40" VerticalAlignment="Center" />
                             <Label Grid.Column="1" Content="Log out" FontSize="18"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
                         </Grid>
                     </Border>
