@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
@@ -28,22 +29,14 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public Guest Guest { get; set; }
         public NavigationService NavService { get; set; }
         public RateOwnerAndAccommodationView ReservationView { get; set; }
-        private ImageRepository _imageRepository;
-        private AccommodationRepository _accommodationRepository;
-        private OwnerRepository _ownerRepository;
-        private OwnerReviewRepository _ownerReviewRepository;
         public string OwnerName;
         public RateOwnerAndAccommodationViewModel(Guest guest, ReservationGuestDTO SelectedReservation, RateOwnerAndAccommodationView reservationView, NavigationService navigation)
         {
-            _accommodationRepository = new AccommodationRepository();
-            _ownerRepository = new OwnerRepository();
-            _imageRepository = new ImageRepository();
-            _ownerReviewRepository = new OwnerReviewRepository();
             Guest = guest;
             Reservation = SelectedReservation;
             ReservationView = reservationView;
             ImagesCollection = new ObservableCollection<string>();
-            OwnerName = _ownerRepository.GetByOwnersId(_accommodationRepository.GetByReservationId(SelectedReservation.AccommodationId).OwnerId).Name;
+            OwnerName = OwnerService.GetInstance().GetByOwnersId(AccommodationService.GetInstance().GetByReservationId(SelectedReservation.AccommodationId).OwnerId).Name;
             SendReviewCommand = new RelayCommand(Execute_SendReviewCommand);
             AddPhotoComand = new RelayCommand(Execute_AddPhotoCommand);
             RemovePhotoComand = new RelayCommand(Execute_RemovePhotoComand);
@@ -56,13 +49,13 @@ namespace BookingApp.ViewModels.GuestsViewModel
             int correctness = (int) ReservationView.CorrectnessSlider.Value;
             string comment = ReservationView.AdditionalComment.Text;
             if (comment != "") { 
-                            MessageBoxResult odgovor = MessageBox.Show("Are you sure to send this review?\nCleanliness  : " + cleanliness.ToString() + "\n" + "Correctness : " + correctness + "\nComment : " + comment, "Rate " + OwnerName + " and " + Reservation.AccommodationName, MessageBoxButton.YesNo);
+                MessageBoxResult odgovor = MessageBox.Show("Are you sure to send this review?\nCleanliness  : " + cleanliness.ToString() + "\n" + "Correctness : " + correctness + "\nComment : " + comment, "Rate " + OwnerName + " and " + Reservation.AccommodationName, MessageBoxButton.YesNo);
                 switch (odgovor) { 
                     case MessageBoxResult.Yes:
                         OwnerReview ownerReview = new OwnerReview(Reservation.Id, cleanliness, correctness, comment);
                         foreach (String relativePath in ImagesCollection)
-                            _imageRepository.Save(new Model.Image(relativePath, Reservation.Id, Enums.ImageType.OwnersReviews));
-                        _ownerReviewRepository.Save(ownerReview);
+                            ImageService.GetInstance().Save(new Model.Image(relativePath, Reservation.Id, Enums.ImageType.OwnersReviews));
+                        OwnerReviewService.GetInstance().Save(ownerReview);
                         NavService.Navigate(new GuestMyReservationsView(Guest, NavService));
                         break;
                     default:

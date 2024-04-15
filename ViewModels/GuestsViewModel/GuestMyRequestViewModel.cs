@@ -14,15 +14,12 @@ using System.Threading.Tasks;
 using System.Windows.Navigation;
 using System.Windows;
 using System.Xml.Linq;
+using BookingApp.ApplicationServices;
+
 namespace BookingApp.ViewModels.GuestsViewModel
 {
     public class GuestMyRequestViewModel : INotifyPropertyChanged
     {
-        private AccommodationRepository _accommodationRepository;
-        private ImageRepository _imageRepository;
-        private AccommodationReservationRepository accommodationReservationRepository;
-        private ReservationChangeRepository _reservationChangeRepository;
-        public static ObservableCollection<ImageDTO> Images { get; set; }
         public ObservableCollection<GuestRequstDTO> ChangeReservations { get; set; }
         public Guest Guest { get; set; }
         public NavigationService NavService { get; set; }
@@ -31,10 +28,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public GuestMyRequestViewModel(Guest guest, NavigationService navigation)
         {
             Guest = guest;
-            accommodationReservationRepository = new AccommodationReservationRepository();
-            _imageRepository = new ImageRepository();
-            _accommodationRepository = new AccommodationRepository();
-            _reservationChangeRepository= new ReservationChangeRepository();
             ChangeReservations = new ObservableCollection<GuestRequstDTO>();
             NavService = navigation;
             SeenRCommand = new RelayCommand(Execute_SeenRCommand);
@@ -44,13 +37,13 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public void Update()
         {
             ChangeReservations.Clear();
-            foreach (ReservationChanges reservationChange in _reservationChangeRepository.GetAll()) { 
+            foreach (ReservationChanges reservationChange in ReservationChangeService.GetInstance().GetAll()) { 
                 Model.Image image = new Model.Image();
-                foreach (Model.Image i in _imageRepository.GetByEntity(reservationChange.AccommodationId, Enums.ImageType.Accommodation)) { 
+                foreach (Model.Image i in ImageService.GetInstance().GetByEntity(reservationChange.AccommodationId, Enums.ImageType.Accommodation)) { 
                     image = i;
                     break;
                 }
-                Accommodation accommodation = _accommodationRepository.GetByReservationId(reservationChange.AccommodationId);
+                Accommodation accommodation = AccommodationService.GetInstance().GetByReservationId(reservationChange.AccommodationId);
                 ChangeReservations.Add(new GuestRequstDTO(Guest, reservationChange, accommodation, image.Path));
             }
         }
@@ -58,14 +51,14 @@ namespace BookingApp.ViewModels.GuestsViewModel
         {
             GuestRequstDTO guestRequstDTO = obj as GuestRequstDTO;
             ReservationChanges changeReservations = new ReservationChanges(guestRequstDTO.Id, guestRequstDTO.AccommodationId, guestRequstDTO.OldCheckIn, guestRequstDTO.OldCheckOut, guestRequstDTO.NewCheckIn, guestRequstDTO.NewCheckOut,guestRequstDTO.Comment, Enums.ReservationChangeStatus.RejectedSeen);
-            _reservationChangeRepository.Update(changeReservations);
+            ReservationChangeService.GetInstance().Update(changeReservations);
             NavService.Navigate(new GuestMyRequestView(Guest, NavService));
         }
         private void Execute_SeenACommand(object obj)
         {
             GuestRequstDTO guestRequstDTO = obj as GuestRequstDTO;
             ReservationChanges changeReservations = new ReservationChanges(guestRequstDTO.Id, guestRequstDTO.AccommodationId, guestRequstDTO.OldCheckIn, guestRequstDTO.OldCheckOut, guestRequstDTO.NewCheckIn, guestRequstDTO.NewCheckOut, guestRequstDTO.Comment, Enums.ReservationChangeStatus.AcceptedSeen);
-            _reservationChangeRepository.Update(changeReservations);
+            ReservationChangeService.GetInstance().Update(changeReservations);
             NavService.Navigate(new GuestMyRequestView(Guest, NavService));
         }
         public event PropertyChangedEventHandler? PropertyChanged;

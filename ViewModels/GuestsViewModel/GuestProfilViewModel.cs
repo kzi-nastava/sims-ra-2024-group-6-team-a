@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.RepositoryInterfaces;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.View.GuestViews;
@@ -17,8 +18,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
 {
     public class GuestProfilViewModel : INotifyPropertyChanged
     {
-        private AccommodationReservationRepository accommodationReservationRepository;
-        private ReservationChangeRepository reservationChangeRepository;
         public Guest Guest { get; set; }
         public NavigationService NavService { get; set; }
         public RelayCommand MyReservationCommand { get; set; }
@@ -26,12 +25,10 @@ namespace BookingApp.ViewModels.GuestsViewModel
 
         public GuestProfilViewModel(Guest guest, NavigationService navigation)
         {
-            accommodationReservationRepository = new AccommodationReservationRepository();
-            reservationChangeRepository = new ReservationChangeRepository();
             Guest = guest;
-            NumberOfReservations = accommodationReservationRepository.GetNumberOfReservation(Guest.Id).ToString();
-            foreach (AccommodationReservation reservation in accommodationReservationRepository.GetAllReservationsByGuest(Guest.Id))
-                NumberOfNotifications += reservationChangeRepository.GetNumberOfNotifications(reservation.Id);
+            NumberOfReservations = AccommodationReservationService.GetInstance().GetNumberOfReservation(Guest.Id).ToString();
+            foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAllReservationsByGuest(Guest.Id))
+                NumberOfNotifications += ReservationChangeService.GetInstance().GetNumberOfNotifications(reservation.Id);
             MyReservationCommand = new RelayCommand(Execute_MyReservationCommand);
             MyRequestCommand = new RelayCommand(Execute_MyRequestCommand);
             NavService = navigation;

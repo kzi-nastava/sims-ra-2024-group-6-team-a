@@ -1,6 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
+using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,10 @@ namespace BookingApp.ApplicationServices
         {
             return App.ServiceProvider.GetRequiredService<OwnerService>();
         }
-
+        public Owner GetByOwnersId(int id)
+        {
+            return OwnerRepository.GetAll().Find(c => c.Id == id);
+        }
         public void UpdateOwnerStatus(Owner owner)
         {
              owner.AverageGrade = owner.AverageGrade / owner.GradeCount;
