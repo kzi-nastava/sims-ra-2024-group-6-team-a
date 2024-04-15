@@ -16,7 +16,7 @@
                 <DataGridTextColumn  Header="Start date" Binding="{Binding Start}" Width="120"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Track kyepoints" Click="Button_Click" HorizontalAlignment="Left" Margin="580,85,0,0" VerticalAlignment="Top" Width="90" Height="20"/>
+        <Button Content="Track kyepoints"  Command="{Binding TrackKeypointCommand}" HorizontalAlignment="Left" Margin="580,85,0,0" VerticalAlignment="Top" Width="90" Height="20"/>
 
     </Grid>
 </Window>

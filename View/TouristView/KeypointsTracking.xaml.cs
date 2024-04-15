@@ -1,6 +1,7 @@
 ﻿using BookingApp.ApplicationServices;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.ViewModels.TouristViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,32 +32,18 @@ namespace BookingApp.View.TouristView
         private CheckpointService _checkpointService;
         private TourService _tourService;
         private TourScheduleService _schdeuleService;
+        public KeypointsTrackingViewModel KeypointsViewModel { get; set; }
         public KeypointsTracking(int tourScheduleId)
         {
             InitializeComponent();
-            DataContext = this;
-
-            _checkpointService = new CheckpointService();
-            _tourService = new TourService();
-            _schdeuleService = new TourScheduleService();
-
-            SelectedTourSchedule = _schdeuleService.GetById(tourScheduleId);
-            SelectedTour = _tourService.GetById(SelectedTourSchedule.TourId);
-            
-            Checkpoints = new ObservableCollection<Checkpoint>();
-
+            KeypointsViewModel = new KeypointsTrackingViewModel(this, tourScheduleId);
+            DataContext = KeypointsViewModel;
             Update();
         }
 
         private void Update()
         {
-            Checkpoints.Clear();
-
-            foreach (Checkpoint checkpoint in _checkpointService.GetFinishedCheckpoints(SelectedTourSchedule))
-            {
-
-                Checkpoints.Add(checkpoint);
-            }
+            KeypointsViewModel.Update();
 
         }
     }

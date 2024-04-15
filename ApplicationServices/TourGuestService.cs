@@ -22,7 +22,7 @@ namespace BookingApp.ApplicationServices
         {
             return _guestRepository.GetAll();
         }
-        public List<TourGuests> GetAllPresentGuestsByReservation(int reservationId) //pronadji sve goste u nekoj rezervaciji koji su se pojavili 
+        public List<TourGuests> GetAllPresentGuestsByReservation(int reservationId)
         {
             List<TourGuests> guests = new List<TourGuests>();
 

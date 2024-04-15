@@ -35,9 +35,9 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Column="1" Grid.Row="4" Width="25" Height="25" Margin="0,15,-290,0" Click="SelectImage_Click">Add</Button>
-        <Button Grid.Column="1" Grid.Row="4" Width="35" Height="25" Margin="0,15,-360,0" Click="RemoveImage_Click">Delete</Button>
-        <Button Grid.Column="0" Grid.Row="5" Width="55" Height="25" Click="CancelRate_Click">Cancel</Button>
-        <Button Grid.Column="1" Grid.Row="5" Width="55" Height="25" Click="SaveRate_Click">Confirm</Button>
+        <Button Grid.Column="1" Grid.Row="4" Width="25" Height="25" Margin="0,15,-290,0" Command="{Binding SelectImageCommand}">Add</Button>
+        <Button Grid.Column="1" Grid.Row="4" Width="35" Height="25" Margin="0,15,-360,0" Command="{Binding RemoveImageCommand}">Delete</Button>
+        <Button Grid.Column="0" Grid.Row="5" Width="55" Height="25" Command="{Binding CancleRateCommand}">Cancel</Button>
+        <Button Grid.Column="1" Grid.Row="5" Width="55" Height="25" Command="{Binding SaveRateCommand}">Confirm</Button>
     </Grid>
 </Window>

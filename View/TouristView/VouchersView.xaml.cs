@@ -2,6 +2,7 @@
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.ViewModels.TouristViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,27 +30,19 @@ namespace BookingApp.View.TouristView
 
         private VoucherService _voucherService;
 
+        public VouchersViewModel VouchersWindow { get; set; }
         public VouchersView(User user)
         {
             InitializeComponent();
-            DataContext = this;
-
-            LoggedUser = user;
-            _voucherService = new VoucherService();
-
-            Vouchers = new ObservableCollection<VouchersDTO>();
+            VouchersWindow = new VouchersViewModel(this, user);
+            DataContext = VouchersWindow;
             Update();
 
         }
 
         public void Update()
         {
-            Vouchers.Clear();
-            foreach(Voucher voucher in _voucherService.GetAllByUser(LoggedUser))
-            {
-                Vouchers.Add(new VouchersDTO(voucher));
-            }
-
+            VouchersWindow.Update();
         }
     }
 }

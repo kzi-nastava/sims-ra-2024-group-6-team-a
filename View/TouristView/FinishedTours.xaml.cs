@@ -2,6 +2,8 @@
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.ViewModels.GuideViewModel;
+using BookingApp.ViewModels.TouristViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,50 +26,20 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class FinishedTours : Window
     {
-        public static ObservableCollection<TourScheduleDTO> Tours {  get; set; }
-        public User LoggedUser { get; set; }
 
-        private TourService _tourService;
-        private TourScheduleService _schdeuleService;
-        private LocationRepository _locationRepository;
-        private ImageRepository _imageRepository;
-        private TourReviewService _reviewService;
-
-        public TourScheduleDTO SelectedTourSchedule { get; set; }
-        public FinishedTours(User user)
+        public FinishedToursViewModel FinishedToursWindow { get; set; }
+        public FinishedTours( User user)
         {
             InitializeComponent();
-            DataContext = this;
-
-            LoggedUser = user;
-            _tourService = new TourService();
-            _schdeuleService = new TourScheduleService();
-            _locationRepository = new LocationRepository();
-            _imageRepository = new ImageRepository();
-            _reviewService = new TourReviewService();
-            Tours = new ObservableCollection<TourScheduleDTO>();
-
+            FinishedToursWindow = new FinishedToursViewModel(this, user);
+            DataContext = FinishedToursWindow;
             Update();
         }
 
         private void Update()
         {
-            Tours.Clear();
-            foreach (TourSchedule tour in _schdeuleService.GetAllFinishedTours(LoggedUser))
-            {
-                Tours.Add(new TourScheduleDTO(tour));
-            }
+            FinishedToursWindow.Update();
 
-        }
-
-        private void RateTour_Click(object sender, RoutedEventArgs e)
-        {
-            if(SelectedTourSchedule != null)
-            {
-                TourRating rating = new TourRating(SelectedTourSchedule, _imageRepository, LoggedUser);
-                rating.ShowDialog();
-            }
-           
         }
 
     }

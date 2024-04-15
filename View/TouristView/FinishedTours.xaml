@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         mc:Ignorable="d"
         Title="FinishedTours" Height="450" Width="800">
+   
     <Grid>
         <TextBlock Margin="45" FontSize="15">Finished tours you ready for rating:</TextBlock>
-        <Button Height="25" Width="55" Margin="450,0,0,325" Click="RateTour_Click">Rate tour</Button>
+        <Button Height="25" Width="55" Margin="450,0,0,325" Command="{Binding RateTourCommand}">Rate tour</Button>
         <DataGrid x:Name="tourDataGrid" ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
   SelectedItem="{Binding Path=SelectedTourSchedule, UpdateSourceTrigger=PropertyChanged}"
   Margin="45,80,45,121" IsReadOnly="True" SelectionMode="Single " Width="250"
