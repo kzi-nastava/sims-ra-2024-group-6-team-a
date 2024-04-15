@@ -27,12 +27,13 @@ namespace BookingApp
         private void App_Startup(object sender, StartupEventArgs e)
         {
             IServiceCollection services = new ServiceCollection();
-            ConfigureWindows(services);
-            ConfigureServices(services);
+
             ConfigureRepositories(services);
+            ConfigureServices(services);
+            ConfigureWindows(services);
+
 
             _serviceProvider = services.BuildServiceProvider();
-
             var signInForm = _serviceProvider.GetRequiredService<SignInForm>();
             signInForm.Show();
 
@@ -54,6 +55,7 @@ namespace BookingApp
             services.AddSingleton<IVoucherRepository, VoucherRepository>(); 
             services.AddSingleton<ICheckpointRepository, CheckpointRepository>();   
             services.AddSingleton<IImageRepository, ImageRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<ILocationRepository,LocationRepository>(); 
             services.AddSingleton<IAccommodationRepository, AccommodationRepository>();
             services.AddSingleton<IReservationChangeRepository, ReservationChangeRepository>();
@@ -72,6 +74,7 @@ namespace BookingApp
             services.AddSingleton<TourService>();
             services.AddSingleton<VoucherService>();
             services.AddSingleton<ImageService>();
+            services.AddSingleton<UserService>();   
             services.AddSingleton<LocationService>();
             services.AddSingleton<AccommodationService>();
             services.AddSingleton<ReservationChangeService>();

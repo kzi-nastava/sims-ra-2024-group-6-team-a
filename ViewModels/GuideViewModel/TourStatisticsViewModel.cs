@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
@@ -16,11 +17,7 @@ namespace BookingApp.ViewModels.GuideViewModel
     public class TourStatisticsViewModel
     {
         public User LoggedUser { get; set; }
-        private LocationRepository _locationRepository;
-        private ImageRepository _imageRepository;
-        private TourScheduleRepository _tourScheduleRepository;
-        private TourRepository _tourRepository;
-        private TourGuestRepository _tourGuestRepository;
+       
 
 
         public static ObservableCollection<TourStatisticsDTO> FinishedTours { get; set; }
@@ -58,17 +55,13 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public TourStatisticsPage Window { get; set; }
 
-        public TourStatisticsViewModel(TourStatisticsPage window,User user, LocationRepository locationRepository, ImageRepository imageRepository, TourScheduleRepository tourScheduleRepository, TourRepository tourRepository, TourGuestRepository tourGuestRepository)
+        public TourStatisticsViewModel(TourStatisticsPage window,User user)
         {
            
             LoggedUser = user;
 
             Window = window;
-            _locationRepository = locationRepository;
-            _imageRepository = imageRepository;
-            _tourRepository = tourRepository;
-            _tourScheduleRepository = tourScheduleRepository;
-            _tourGuestRepository = tourGuestRepository;
+           
             FinishedTours = new ObservableCollection<TourStatisticsDTO>();
             MostVisitedTour = new ObservableCollection<TourStatisticsDTO>();
             Update();
@@ -131,15 +124,15 @@ namespace BookingApp.ViewModels.GuideViewModel
             FinishedTours.Clear();
             List<int> dates = new List<int>();
 
-            foreach (Tour tour in _tourRepository.GetAllByUser(LoggedUser))
+            foreach (Tour tour in TourService.GetInstance().GetAllByUser(LoggedUser))
             {
-                Location location = _locationRepository.GetById(tour.LocationId);
+                Location location = LocationService.GetInstance().GetById(tour.LocationId);
                 Model.Image image = GetFirstTourImage(tour.Id);
                 int touristCount = 0;
                 int childrenCount = 0;
                 int adultCount = 0;
                 int elderlyCount = 0;
-                foreach (TourSchedule schedule in _tourScheduleRepository.GetAllByTourId(tour.Id))
+                foreach (TourSchedule schedule in TourScheduleService.GetInstance().GetAllByTourId(tour.Id))
                 {
                     if (schedule.TourActivity != Enums.TourActivity.Finished) continue;
 
@@ -157,7 +150,7 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public void CountGuests(TourSchedule schedule, ref int touristCount, ref int childrenCount, ref int adultCount, ref int elderlyCount)
         {
-            foreach (TourGuests guest in _tourGuestRepository.GetAllByTourId(schedule.Id))
+            foreach (TourGuests guest in TourGuestService.GetInstance().GetAllByTourId(schedule.Id))
             {
                 touristCount++;
 
@@ -190,7 +183,7 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public Model.Image GetFirstTourImage(int tourId)
         {
-            return _imageRepository.GetByEntity(tourId, Enums.ImageType.Tour).First();
+            return ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour).First();
         }
 
     }

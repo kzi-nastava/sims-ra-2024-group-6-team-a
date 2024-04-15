@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
 using Microsoft.Win32;
@@ -29,11 +30,7 @@ namespace BookingApp.View.GuideView.Pages
     {
         public User LoggedUser { get; set; }
 
-        private readonly TourRepository _tourRepository;
-        private readonly LocationRepository _locationRepository;
-        private readonly ImageRepository _imageRepository;
-        private readonly CheckpointRepository _checkRepository;
-        private readonly TourScheduleRepository _tourScheduleRepository;
+       
 
         public Tour SelectedTour { get; set; }
         public Location SelectedLocation { get; set; }
@@ -68,17 +65,13 @@ namespace BookingApp.View.GuideView.Pages
         }
 
 
-        public TourCreationPage(User user, TourRepository tourRepository, LocationRepository locationRepository, ImageRepository imageRepository, CheckpointRepository checkpointRepository, TourScheduleRepository tourScheduleRepository)
+        public TourCreationPage(User user)
         {
             InitializeComponent();
             DataContext = this;
             LoggedUser = user;
             datePicker.DisplayDateStart = DateTime.Now;
-            _tourRepository = tourRepository;
-            _locationRepository = locationRepository;
-            _imageRepository = imageRepository;
-            _tourScheduleRepository = tourScheduleRepository;
-            _checkRepository = checkpointRepository;
+           
 
             SelectedLocation = new Location();
             SelectedTour = new Tour();
@@ -165,10 +158,10 @@ namespace BookingApp.View.GuideView.Pages
             }
            
             
-            SelectedLocation = _locationRepository.Save(SelectedLocation);
+            SelectedLocation = LocationService.GetInstance().Save(SelectedLocation);
             SelectedTour.LocationId = SelectedLocation.Id;
             SelectedTour.GuideId = LoggedUser.Id;
-            SelectedTour = _tourRepository.Save(SelectedTour);
+            SelectedTour = TourService.GetInstance().Save(SelectedTour);
 
 
             SaveImages(ImagesCollection.ToList());
@@ -184,7 +177,7 @@ namespace BookingApp.View.GuideView.Pages
         {
             foreach (string relativePath in images)
             {
-                _imageRepository.Save(new Model.Image(relativePath, SelectedTour.Id, Enums.ImageType.Tour));
+                ImageService.GetInstance().Save(new Model.Image(relativePath, SelectedTour.Id, Enums.ImageType.Tour));
             }
         }
 
@@ -192,10 +185,10 @@ namespace BookingApp.View.GuideView.Pages
         {
             foreach (DateTime date in dates)
             {
-               TourSchedule tourSchedule = _tourScheduleRepository.Save(new TourSchedule(date, SelectedTour.Id, SelectedTour.Capacity,Enums.TourActivity.Ready));
+               TourSchedule tourSchedule = TourScheduleService.GetInstance().Save(new TourSchedule(date, SelectedTour.Id, SelectedTour.Capacity,Enums.TourActivity.Ready));
                 foreach(string checkpoint in checkpoints)
                 {
-                    _checkRepository.Save(new Checkpoint(checkpoint, SelectedTour.Id,false,tourSchedule.Id));
+                    CheckpointService.GetInstance().Save(new Checkpoint(checkpoint, SelectedTour.Id,false,tourSchedule.Id));
                 }
             }
         }

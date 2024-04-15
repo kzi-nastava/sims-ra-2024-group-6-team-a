@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.Observer;
 using BookingApp.Resources;
+using BookingApp.ApplicationServices;
 
 namespace BookingApp.View.GuideView.Pages
 {
@@ -32,11 +33,7 @@ namespace BookingApp.View.GuideView.Pages
 
         public static ObservableCollection<TourGuests> TourGuests { get; set; }
 
-        private TourScheduleRepository _tourScheduleRepository;
-        private TourGuestRepository _tourGuestRepository;
-        private TourRepository _tourRepository;
-        private LocationRepository _locationRepository;
-        private CheckpointRepository _checkpointRepository;
+       
 
 
         public Tour SelectedTour { get; set; }
@@ -51,18 +48,14 @@ namespace BookingApp.View.GuideView.Pages
             InitializeComponent();
             DataContext = this;
 
-            _tourScheduleRepository = new TourScheduleRepository();
-            _tourGuestRepository = new TourGuestRepository();
-            _tourRepository = new TourRepository();
-            _locationRepository = new LocationRepository();
-            _checkpointRepository = new CheckpointRepository();
+           
 
             Checkpoints = new ObservableCollection<Checkpoint>();
             TourGuests = new ObservableCollection<TourGuests>();
 
-            SelectedTourSchedule = _tourScheduleRepository.GetById(tourScheduleId);
-            SelectedTour = _tourRepository.GetById(SelectedTourSchedule.TourId);
-            SelectedLocation = _locationRepository.GetById(SelectedTour.LocationId);
+            SelectedTourSchedule = TourScheduleService.GetInstance().GetById(tourScheduleId);
+            SelectedTour = TourService.GetInstance().GetById(SelectedTourSchedule.TourId);
+            SelectedLocation = LocationService.GetInstance().GetById(SelectedTour.LocationId);
 
             UpdateCheckpoints();
             UpdateGuests();
@@ -72,7 +65,7 @@ namespace BookingApp.View.GuideView.Pages
         public void UpdateCheckpoints()
         {
             Checkpoints.Clear();
-            foreach (Checkpoint checkpoint in _checkpointRepository.GetAllByTourScheduleId(SelectedTourSchedule.Id))
+            foreach (Checkpoint checkpoint in CheckpointService.GetInstance().GetAllByTourScheduleId(SelectedTourSchedule.Id))
             {
 
                 Checkpoints.Add(checkpoint);
@@ -83,7 +76,7 @@ namespace BookingApp.View.GuideView.Pages
         public void UpdateGuests()
         {
             TourGuests.Clear();
-            foreach (TourGuests tourGuest in _tourGuestRepository.GetAllByTourId(SelectedTourSchedule.Id))
+            foreach (TourGuests tourGuest in TourGuestService.GetInstance().GetAllByTourId(SelectedTourSchedule.Id))
             {
                 if(tourGuest.IsPresent == false)
                 TourGuests.Add(tourGuest);
@@ -109,7 +102,7 @@ namespace BookingApp.View.GuideView.Pages
         private void MarkCheckpointReached(Checkpoint checkpoint)
         {
             checkpoint.IsReached = true;
-            _checkpointRepository.Update(checkpoint);
+            CheckpointService.GetInstance().Update(checkpoint);
         }
 
 
@@ -121,7 +114,7 @@ namespace BookingApp.View.GuideView.Pages
                 if (tourist.IsPresent)
                 {
                     tourist.CheckpointId = selectedCheckpoint.Id;
-                    _tourGuestRepository.Update(tourist);
+                    TourGuestService.GetInstance().Update(tourist);
                 }
             }
                         UpdateGuests();
@@ -152,7 +145,7 @@ namespace BookingApp.View.GuideView.Pages
         {
             MessageBox.Show("Tour ended.", "Tour Status", MessageBoxButton.OK, MessageBoxImage.Information);
             SelectedTourSchedule.TourActivity = Enums.TourActivity.Finished;
-            _tourScheduleRepository.Update(SelectedTourSchedule);
+            TourScheduleService.GetInstance().Update(SelectedTourSchedule);
 
 
             RaiseTourEndedEvents();

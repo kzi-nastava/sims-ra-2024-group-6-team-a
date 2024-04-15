@@ -21,7 +21,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
 
         public TourSchedule Update(TourSchedule schedule);
 
-        public int FindOngoingTour(List<Tour> tours);
         public List<TourSchedule> GetAllByTourId(int tourId);
 
 

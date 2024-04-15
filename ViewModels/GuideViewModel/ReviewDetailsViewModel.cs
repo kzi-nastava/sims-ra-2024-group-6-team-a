@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.Model;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.Domain.Model;
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
@@ -15,14 +16,7 @@ namespace BookingApp.ViewModels.GuideViewModel
 {
     public class ReviewDetailsViewModel
     {
-        private TourScheduleRepository _tourScheduleRepository;
-        private TourRepository _tourRepository;
-        private CheckpointRepository _checkpointRepository;
-        private TourReviewRepository _tourReviewRepository;
-        private ImageRepository _imageRepository;
-        private UserRepository _userRepository;
-        private TourGuestRepository _tourGuestRepository;
-        private TourReservationRepository _tourReservationRepository;
+       
         private int tourScheduleId;
 
         public static ObservableCollection<TourReviewDTO> Reviews { get; set; }
@@ -33,14 +27,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         {
            
 
-            _tourReviewRepository = new TourReviewRepository();
-            _tourScheduleRepository = new TourScheduleRepository();
-            _tourRepository = new TourRepository();
-            _checkpointRepository = new CheckpointRepository();
-            _imageRepository = new ImageRepository();
-            _tourGuestRepository = new TourGuestRepository();
-            _tourReservationRepository = new TourReservationRepository();
-            _userRepository = new UserRepository();
+           
             Reviews = new ObservableCollection<TourReviewDTO>();
 
             this.tourScheduleId = tourScheduleId;
@@ -51,7 +38,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         public void Update()
         {
             Reviews.Clear();
-            foreach (TourReview review in _tourReviewRepository.GetAllReviewsByScheduleId(tourScheduleId))
+            foreach (TourReview review in TourReviewService.GetInstance().GetAllReviewsByScheduleId(tourScheduleId))
             {
                 Model.Image image = GetFirstTourImage(review.ScheduleId);
                 string username = GetUsername(review.TouristId);
@@ -64,18 +51,18 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public string GetUsername(int userId)
         {
-            return _userRepository.GetUsername(userId);
+            return UserService.GetInstance().GetUsername(userId);
 
         }
         public Model.Image GetFirstTourImage(int tourShceduleId)
         {
-            return _imageRepository.GetByEntity(tourShceduleId, Enums.ImageType.TourReview).First();
+            return ImageService.GetInstance().GetByEntity(tourShceduleId, Enums.ImageType.TourReview).First();
         }
 
         public int GetFirstUsersCheckpointId(int tourShceduleId, int userId)
         {
-            List<TourGuests> tourGuests = _tourGuestRepository.GetAllByTourId(tourShceduleId);
-            List<TourReservation> reservations = _tourReservationRepository.GetAllByRealisationId(tourScheduleId);
+            List<TourGuests> tourGuests = TourGuestService.GetInstance().GetAllByTourId(tourShceduleId);
+            List<TourReservation> reservations = TourReservationService.GetInstance().GetAllByRealisationId(tourScheduleId);
             foreach (TourGuests tourGuest in tourGuests)
             {
 
@@ -93,7 +80,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         }
         public Checkpoint GetCheckpointById(int checkpointId)
         {
-            return _checkpointRepository.GetById(checkpointId);
+            return CheckpointService.GetInstance().GetById(checkpointId);
         }
     }
 }

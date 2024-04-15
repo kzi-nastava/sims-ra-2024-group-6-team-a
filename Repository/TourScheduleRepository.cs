@@ -75,23 +75,23 @@ namespace BookingApp.Repository
             return schedule;
         }
 
-        public int FindOngoingTour(List<Tour> tours) 
-        {
-            _tourSchedules = _serializer.FromCSV(FilePath);
-            int id = 0;
+        //public int FindOngoingTour(List<Tour> tours) 
+        //{
+        //    _tourSchedules = _serializer.FromCSV(FilePath);
+        //    int id = 0;
            
-           foreach(Tour tour in tours) 
-            { 
-                foreach(TourSchedule tourSchedule in _tourSchedules)
-                {
-                    if(tourSchedule.TourId == tour.Id && tourSchedule.TourActivity == Resources.Enums.TourActivity.Ongoing)
-                    {
-                            return tourSchedule.Id;
-                    }
-                }
-            }
-            return id;
-        }
+        //   foreach(Tour tour in tours) 
+        //    { 
+        //        foreach(TourSchedule tourSchedule in _tourSchedules)
+        //        {
+        //            if(tourSchedule.TourId == tour.Id && tourSchedule.TourActivity == Resources.Enums.TourActivity.Ongoing)
+        //            {
+        //                    return tourSchedule.Id;
+        //            }
+        //        }
+        //    }
+        //    return id;
+        //}
 
         //KAD SE PREBACE OVE FUNKCIJE U SERVISE ZAKOMENTARISATI IH OVDJE ########## OSIM AKO SE NE POZIVAJU U SERVISU!!!!!!!!
 

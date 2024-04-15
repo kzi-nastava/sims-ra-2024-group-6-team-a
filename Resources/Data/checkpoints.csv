@@ -11,7 +11,13 @@
 26|aff|5|False|6
 27|as|6|True|7
 28|asss|6|True|7
-29|addd|6|False|7
+29|addd|6|True|7
 30|1|7|True|8
 31|2|7|True|8
 32|3|7|True|8
+33|Stefan|8|True|9
+34|Jovan|8|False|9
+35|Sandra|8|False|9
+36|Stefan|8|False|10
+37|Jovan|8|False|10
+38|Sandra|8|False|10

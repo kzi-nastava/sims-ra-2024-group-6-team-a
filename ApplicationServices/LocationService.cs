@@ -8,6 +8,8 @@ using BookingApp.Repository;
 using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;
+using System.Windows.Navigation;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace BookingApp.ApplicationServices
@@ -17,9 +19,19 @@ namespace BookingApp.ApplicationServices
         private ILocationRepository _locationRepository;
 
 
-        public LocationService()
+        public LocationService(ILocationRepository locationRepository)
+        {
+            _locationRepository = locationRepository;
+        }
+
+        public LocationService() 
         {
             _locationRepository = new LocationRepository();
+        }
+
+        public static LocationService GetInstance()
+        {
+        return App.ServiceProvider.GetRequiredService<LocationService>();  
         }
 
         public List<Location> GetAll()
