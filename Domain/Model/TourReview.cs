@@ -21,9 +21,10 @@ namespace BookingApp.Domain.Model
         public int TourAttractionsGrade { get; set; }
         public string Impression { get; set; }
         public int TouristId { get; set; }
+        public bool IsValid { get; set; }
         public List<Image> Images { get; set; }
 
-        public TourReview(int scheduleId, int guideKnowledgeGrade, int guideLanguageGrade, int tourAttractionsGrade, string impression, int touristId)
+        public TourReview(int scheduleId, int guideKnowledgeGrade, int guideLanguageGrade, int tourAttractionsGrade, string impression, int touristId, bool isValid)
         {
             ScheduleId = scheduleId;
             GuideKnowledgeGrade = guideKnowledgeGrade;
@@ -31,6 +32,7 @@ namespace BookingApp.Domain.Model
             TourAttractionsGrade = tourAttractionsGrade;
             Impression = impression;
             TouristId = touristId;
+            IsValid = isValid;
         }
 
         public TourReview()
@@ -40,7 +42,7 @@ namespace BookingApp.Domain.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), ScheduleId.ToString(), GuideKnowledgeGrade.ToString(), GuideLanguageGrade.ToString(), TourAttractionsGrade.ToString(), Impression, TouristId.ToString()};
+            string[] csvValues = { Id.ToString(), ScheduleId.ToString(), GuideKnowledgeGrade.ToString(), GuideLanguageGrade.ToString(), TourAttractionsGrade.ToString(), Impression, TouristId.ToString(), IsValid.ToString()};
             return csvValues;
         }
 
@@ -53,6 +55,7 @@ namespace BookingApp.Domain.Model
             TourAttractionsGrade = Convert.ToInt32(values[4]);
             Impression = values[5];
             TouristId = Convert.ToInt32(values[6]);
+            IsValid = bool.Parse(values[7]);
         }
 
     }
