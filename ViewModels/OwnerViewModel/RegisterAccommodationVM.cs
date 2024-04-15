@@ -22,7 +22,7 @@ namespace BookingApp.ViewModels
         public Accommodation accommodation;
         
         public LocationRepository locationRepository;
-        public ImageService imageService;
+        
         public List<String> _imageRelativePath = new List<String>();
         public List<String> locations {  get; set; }
         public int userId;
@@ -30,12 +30,12 @@ namespace BookingApp.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
 
 
-        public RegisterAccommodationVM( LocationRepository locationRepository, ImageService imageService, int userId)
+        public RegisterAccommodationVM( LocationRepository locationRepository, int userId)
         {
 
             this.locationRepository = locationRepository;
             
-            this.imageService = imageService;
+            
             this.userId = userId;
             this.locations = new List<String>();
             AddLocations();
@@ -71,7 +71,7 @@ namespace BookingApp.ViewModels
 
 
             accommodation = new Accommodation(name, type, int.Parse(maxguests), int.Parse(minres), int.Parse(canceldays), location.Id, userId);
-            imageService.SaveImages(AccommodationService.GetInstance().Save(accommodation).Id,_imageRelativePath);
+            ImageService.GetInstance().SaveImages(AccommodationService.GetInstance().Save(accommodation).Id,_imageRelativePath);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -6,16 +6,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Model;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BookingApp.ApplicationServices
 {
     public class ReservationChangeService
     {
-        private IReservationChangeRepository reservationChangeRepository {  get; set; }
+        private IReservationChangeRepository reservationChangeRepository;
         
-        public ReservationChangeService()
+        public ReservationChangeService(IReservationChangeRepository reservationChangeRepository)
         {
-            reservationChangeRepository = new ReservationChangeRepository();
+            this.reservationChangeRepository = reservationChangeRepository;
+
+        }
+
+        public static ReservationChangeService GetInstance()
+        {
+            return App.ServiceProvider.GetRequiredService<ReservationChangeService>();
         }
 
         public List<ReservationChanges> GetAll()
