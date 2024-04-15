@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
 using System.Windows;
+using BookingApp.ApplicationServices;
 
 namespace BookingApp.ViewModels.GuestsViewModel
 {
@@ -22,11 +23,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public Guest Guest { get; set; }
         public NavigationService NavService { get; set; }
         public AccommodationReservationView ReservationView { get; set; }
-        private ImageRepository _imageRepository;
-        private AccommodationReservationRepository _accommodationReservationRepository;
-        private AccommodationRepository _accommodationRepository;
         public ObservableCollection<DateRanges> AvailableDates { get; set; }
-        private AccommodationReservationRepository _reservationRepository;
         public List<Model.Image> ListImages { get; set; }
         public DateRanges SelectedDates { get; set; }
         public RelayCommand ReserveCommand { get; set; }
@@ -40,13 +37,10 @@ namespace BookingApp.ViewModels.GuestsViewModel
             Accommodation = SelectedAccommodation;
             ReservationView = reservationView;
             NavService = navigation;
-            ImageRepository _imageRepository = new ImageRepository();
             List<Model.Image> lista = new List<Model.Image>();
-            foreach (Model.Image image in _imageRepository.GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
+            foreach (Model.Image image in ImageService.GetInstance().GetByEntity(SelectedAccommodation.Id, Enums.ImageType.Accommodation))
                 lista.Add(image);
             ListImages = lista;
-            _accommodationReservationRepository = new AccommodationReservationRepository();
-            _accommodationRepository = new AccommodationRepository();
             AvailableDates = new ObservableCollection<DateRanges>();
             NextImageCommand = new RelayCommand(Execute_NextImageCommand);
             PreviousImageCommand = new RelayCommand(Execute_PreviousImageCommand);
@@ -73,7 +67,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 else
                 {
                     List<DateRanges> availableDates = new List<DateRanges>();
-                    availableDates = _accommodationReservationRepository.GetAvailableDates(firstDate, lastDate, Convert.ToInt32(DaysNumber), Accommodation.Id);
+                    availableDates = ReservationAvailableDatesService.GetInstance().GetAvailableDates(firstDate, lastDate, Convert.ToInt32(DaysNumber), Accommodation.Id);
                     AvailableDates.Clear();
                     foreach (DateRanges dateRange in availableDates)
                     {
@@ -88,8 +82,8 @@ namespace BookingApp.ViewModels.GuestsViewModel
         {
             if (SelectedDates != null)
             {
-                AccommodationReservation accommodationReservation = new AccommodationReservation(Accommodation.Id, Guest.Id, SelectedDates.CheckIn, SelectedDates.CheckOut, Convert.ToInt32(GuestNumber), Enums.ReservationStatus.Active, _accommodationRepository.GetByReservationId(Accommodation.Id));
-                _accommodationReservationRepository.Save(accommodationReservation);
+                AccommodationReservation accommodationReservation = new AccommodationReservation(Accommodation.Id, Guest.Id, SelectedDates.CheckIn, SelectedDates.CheckOut, Convert.ToInt32(GuestNumber), Enums.ReservationStatus.Active, AccommodationService.GetInstance().GetByReservationId(Accommodation.Id));
+                AccommodationReservationService.GetInstance().Save(accommodationReservation);
                 MessageBox.Show("Successful kao booking!", "WELL DONE", MessageBoxButton.OK);
                 NavService.Navigate(new GuestMyReservationsView(Guest, NavService));
             }

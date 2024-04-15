@@ -15,14 +15,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using BookingApp.ApplicationServices;
 
 namespace BookingApp.ViewModels.GuestsViewModel
 {
     public partial class GuestAccommodationsViewModel : Window, IObserver, INotifyPropertyChanged
     {
-        private AccommodationRepository _repository;
-        private LocationRepository _locationRepository;
-        private ImageRepository _imageRepository;
         public ObservableCollection<AccommodationOwnerDTO> Accommodations { get; set; }
         public Guest Guest { get; set; }
         public NavigationService NavService { get; set; }
@@ -33,24 +31,21 @@ namespace BookingApp.ViewModels.GuestsViewModel
             SearchCommand = new RelayCommand(Execute_SearchCommand);
             SearchResetCommand = new RelayCommand(Execute_SearchResetCommand);
             ReserveCommand = new RelayCommand(Execute_ReserveCommand);
-            _locationRepository = new LocationRepository();
-            _imageRepository = new ImageRepository();
-            _repository = new AccommodationRepository();
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
             Update();
         }
         public void Update()
         {
             Accommodations.Clear();
-            foreach (Accommodation accommodation in _repository.GetAll())
+            foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
             {
                 Model.Image image = new Model.Image();
-                foreach (Model.Image i in _imageRepository.GetByEntity(accommodation.Id, Enums.ImageType.Accommodation))
+                foreach (Model.Image i in ImageService.GetInstance().GetByEntity(accommodation.Id, Enums.ImageType.Accommodation))
                 {
                     image = i;
                     break;
                 }
-                Accommodations.Add(new AccommodationOwnerDTO(accommodation, _locationRepository.GetByAccommodation(accommodation), image.Path));
+                Accommodations.Add(new AccommodationOwnerDTO(accommodation, LocationService.GetInstance().GetByAccommodation(accommodation), image.Path));
             }
         }
         public RelayCommand SearchCommand { get; set; }

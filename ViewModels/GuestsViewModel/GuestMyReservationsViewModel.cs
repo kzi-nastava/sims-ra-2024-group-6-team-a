@@ -13,15 +13,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
 using System.Windows;
-
+using BookingApp.ApplicationServices;
 
 namespace BookingApp.ViewModels.GuestsViewModel
 {
     public class GuestMyReservationsViewModel
     {
-        private AccommodationRepository _accommodationRepository;
-        private LocationRepository _locationRepository;
-        private ImageRepository _imageRepository;
         public ObservableCollection<ReservationGuestDTO> Reservations { get; set; }
         public Guest Guest { get; set; }
         public NavigationService NavService { get; set; }
@@ -31,10 +28,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public GuestMyReservationsViewModel(Guest guest, NavigationService navigation)
         {
             Guest = guest;
-            accommodationReservationRepository = new AccommodationReservationRepository();
-            _locationRepository = new LocationRepository();
-            _imageRepository = new ImageRepository();
-            _accommodationRepository = new AccommodationRepository();
             Reservations = new ObservableCollection<ReservationGuestDTO>();
             SeeMoreCommand = new RelayCommand(Execute_SeeMoreCommand);
             MyRequestCommand = new RelayCommand(Execute_MyRequestCommand);
@@ -44,16 +37,16 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public void Update()
         {
             Reservations.Clear();
-            foreach (AccommodationReservation reservation in accommodationReservationRepository.GetActiveReservationsByGuest(Guest.Id))
+            foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetActiveReservationsByGuest(Guest.Id))
             {
                 Model.Image image = new Model.Image();
-                foreach (Model.Image i in _imageRepository.GetByEntity(reservation.AccommodationId, Enums.ImageType.Accommodation))
+                foreach (Model.Image i in ImageService.GetInstance().GetByEntity(reservation.AccommodationId, Enums.ImageType.Accommodation))
                 {
                     image = i;
                     break;
                 }
-                Accommodation accommodation = _accommodationRepository.GetByReservationId(reservation.AccommodationId);
-                Location location = _locationRepository.GetByAccommodation(accommodation);
+                Accommodation accommodation = AccommodationService.GetInstance().GetByReservationId(reservation.AccommodationId);
+                Location location = LocationService.GetInstance().GetByAccommodation(accommodation);
                 Reservations.Add(new ReservationGuestDTO(Guest, reservation, accommodation, location, image.Path));
             }
         }
