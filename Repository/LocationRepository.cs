@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using BookingApp.Model;
 using BookingApp.Serializer;
 using BookingApp.Observer;
+using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repository
 {
-    public class LocationRepository
+    public class LocationRepository : ILocationRepository
     {
         private const string FilePath = "../../../Resources/Data/locations.csv";
 
@@ -64,9 +65,9 @@ namespace BookingApp.Repository
         }
 
 
-        public Location GetById(int id) 
+        public Location GetById(int id)
         {
-           
+
             return _locations.Find(c => c.Id == id);
         }
 
@@ -75,4 +76,6 @@ namespace BookingApp.Repository
             return _locations.Find(c => c.Id == accommodation.LocationId);
         }
     }
+
+
 }
