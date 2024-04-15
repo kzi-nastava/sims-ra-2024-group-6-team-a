@@ -26,11 +26,11 @@ namespace BookingApp.View
     {
 
         private AllowChangeVM vm;
-        public AllowReservationChange(ReservationChangeDTO reservation,AccommodationReservationRepository _reservationRepository,ReservationChangeService reservationChangeService)
+        public AllowReservationChange(ReservationChangeDTO reservation,AccommodationReservationRepository _reservationRepository)
         {
             InitializeComponent();
 
-            vm = new AllowChangeVM(reservation, _reservationRepository, reservationChangeService);   
+            vm = new AllowChangeVM(reservation, _reservationRepository);   
             DataContext = vm.reservation;
 
         }
