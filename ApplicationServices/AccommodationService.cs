@@ -3,6 +3,7 @@ using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
 using BookingApp.Resources;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,13 +15,21 @@ namespace BookingApp.ApplicationServices
 {
     public class AccommodationService
     {
-        public IAccommodationRepository AccommodationRepository { get; set; }
-        public ImageService imageService { get; set; }
+        public IAccommodationRepository AccommodationRepository;
+        public IImageRepository ImageRepository;
+        public ImageService imageService;
 
-        public AccommodationService() 
+        public AccommodationService(IAccommodationRepository accommodationRepository,IImageRepository imageRepository) 
         {
-            AccommodationRepository = new AccommodationRepository();
-            imageService = new ImageService();
+            AccommodationRepository = accommodationRepository;
+            ImageRepository = imageRepository;
+            imageService = ImageService.GetInstance();
+        }
+
+
+        public static AccommodationService GetInstance()
+        {
+            return App.ServiceProvider.GetRequiredService<AccommodationService>();
         }
 
         public int GetTotalReservationCount(AccommodationReservationRepository reservationRepository, int id)

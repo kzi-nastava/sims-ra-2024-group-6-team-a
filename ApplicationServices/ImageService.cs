@@ -2,6 +2,7 @@
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
 using BookingApp.Resources;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,11 @@ namespace BookingApp.ApplicationServices
         public ImageService()
         {
             imageRepository = new ImageRepository();
+        }
+
+        public static ImageService GetInstance()
+        {
+            return App.ServiceProvider.GetRequiredService<ImageService>();
         }
 
         public string AddMainAccommodationImage(Accommodation a)

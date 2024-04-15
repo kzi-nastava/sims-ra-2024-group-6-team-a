@@ -30,10 +30,10 @@ namespace BookingApp.View
 
         public RegisterAccommodationVM registerAccommodationVM;
 
-        public RegisterAccommodationMenu(AccommodationService accommodationService,LocationRepository locationRepository,ImageService imageService, int userId)
+        public RegisterAccommodationMenu(LocationRepository locationRepository,ImageService imageService, int userId)
         {
             InitializeComponent();
-            registerAccommodationVM = new RegisterAccommodationVM(accommodationService, locationRepository, imageService, userId);
+            registerAccommodationVM = new RegisterAccommodationVM(locationRepository, imageService, userId);
             DataContext = registerAccommodationVM;
 
             apt.IsChecked = true;

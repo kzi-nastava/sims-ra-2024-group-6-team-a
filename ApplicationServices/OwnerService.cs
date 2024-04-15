@@ -1,6 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,17 @@ namespace BookingApp.ApplicationServices
 {
     public class OwnerService
     {
-        public IOwnerRepository OwnerRepository { get; set; }
+        public IOwnerRepository OwnerRepository;
 
-        public OwnerService()
+        public OwnerService(IOwnerRepository ownerRepository)
         {
-            OwnerRepository = new OwnerRepository();
+            OwnerRepository = ownerRepository;
+
+        }
+
+        public static OwnerService GetInstance()
+        {
+            return App.ServiceProvider.GetRequiredService<OwnerService>();
         }
 
         public void UpdateOwnerStatus(Owner owner)
