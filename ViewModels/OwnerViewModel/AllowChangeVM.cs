@@ -14,19 +14,19 @@ namespace BookingApp.ViewModels
     {
         public ReservationChangeDTO reservation;
         private AccommodationReservationRepository _reservationRepository;
-        private ReservationChangeService reservationChangeService;
 
-        public AllowChangeVM(ReservationChangeDTO reservation, AccommodationReservationRepository reservationRepository, ReservationChangeService reservationChangeService)
+
+        public AllowChangeVM(ReservationChangeDTO reservation, AccommodationReservationRepository reservationRepository)
         {
             this.reservation = reservation;
             _reservationRepository = reservationRepository;
-            this.reservationChangeService = reservationChangeService;
+            
         }
 
 
         public void YesToChange(string commentBox)
         {
-            ReservationChanges newRes = reservationChangeService.GetAll().Find(c => c.ReservationId == reservation.ReservationID);
+            ReservationChanges newRes = ReservationChangeService.GetInstance().GetAll().Find(c => c.ReservationId == reservation.ReservationID);
             AccommodationReservation oldRes = _reservationRepository.GetAll().Find(c => c.Id == reservation.ReservationID);
 
             newRes.Comment = commentBox;
@@ -41,7 +41,7 @@ namespace BookingApp.ViewModels
 
         public void NoToChange(string commentBox) 
         {
-            ReservationChanges newRes = reservationChangeService.GetAll().Find(c => c.ReservationId == reservation.ReservationID);
+            ReservationChanges newRes = ReservationChangeService.GetInstance().GetAll().Find(c => c.ReservationId == reservation.ReservationID);
             AccommodationReservation oldRes = _reservationRepository.GetAll().Find(c => c.Id == reservation.ReservationID);
 
             newRes.Comment = commentBox;
@@ -55,7 +55,7 @@ namespace BookingApp.ViewModels
         public void UpdateChanges(ReservationChanges newRes,AccommodationReservation oldRes)
         {
             oldRes.Status = BookingApp.Resources.Enums.ReservationStatus.Active;
-            reservationChangeService.Update(newRes);
+            ReservationChangeService.GetInstance().Update(newRes);
             _reservationRepository.Update(oldRes);
         }
     }

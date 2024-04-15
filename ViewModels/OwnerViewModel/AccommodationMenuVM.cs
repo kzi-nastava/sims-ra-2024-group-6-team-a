@@ -39,12 +39,6 @@ namespace BookingApp.ViewModels
         private OwnerReviewRepository _ownerReviewRepository;
 
 
-        
-        private GuestReviewService guestReviewService;
-        private ImageService imageService;
-        private ReservationChangeService reservationChangeService;
-
-
         bool existsNotReviewed = false;
         bool existsCanceled = false;
 
@@ -55,11 +49,6 @@ namespace BookingApp.ViewModels
 
             Owner = owner;
 
-           
-            
-            this.guestReviewService = new GuestReviewService();
-            this.imageService = new ImageService();
-            this.reservationChangeService = new ReservationChangeService();
 
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
             GuestReviews = new ObservableCollection<GuestReviewDTO>();
@@ -103,7 +92,7 @@ namespace BookingApp.ViewModels
 
         public void Register()
         {
-            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_locationRepository,imageService, Owner.Id);
+            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_locationRepository, Owner.Id);
             registerAccommodationMenu.ShowDialog();
             Update();
         }
@@ -124,7 +113,7 @@ namespace BookingApp.ViewModels
                     UpdateReservationsOwnerAndReviews(a, r);
                 }
 
-                string imagePath = imageService.AddMainAccommodationImage(a);
+                string imagePath = ImageService.GetInstance().AddMainAccommodationImage(a);
 
                 AddChangedReservations(a);
 
@@ -161,7 +150,7 @@ namespace BookingApp.ViewModels
 
         public void AddChangedReservations(Accommodation accommodation)
         {
-            foreach (ReservationChanges reservationChange in reservationChangeService.GetAll())
+            foreach (ReservationChanges reservationChange in ReservationChangeService.GetInstance().GetAll())
             {
                 if (reservationChange.AccommodationId == accommodation.Id && reservationChange.Status == Enums.ReservationChangeStatus.Pending)
                 {
@@ -187,7 +176,7 @@ namespace BookingApp.ViewModels
         {
 
             String userName = _guestRepository.GetFullname(reservation.GuestId);
-            String imagePath = imageService.AddMainAccommodationImage(accommodation);
+            String imagePath = ImageService.GetInstance().AddMainAccommodationImage(accommodation);
 
             ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, accommodation.Name, _locationRepository.GetByAccommodation(accommodation), imagePath);
 
@@ -201,7 +190,7 @@ namespace BookingApp.ViewModels
 
             if (DaysPassedForReview >= 0)
             {
-                GuestReview review = guestReviewService.Get(reservation.Id);
+                GuestReview review = GuestReviewService.GetInstance().Get(reservation.Id);
 
                 if (review == null && DaysPassedForReview < 5)
                 {
@@ -225,7 +214,7 @@ namespace BookingApp.ViewModels
         public void DetailedAccommodationView()
         {
 
-            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(imageService.GetImagesForAccommodaton(SelectedAccommodation.Id), 
+            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(ImageService.GetInstance().GetImagesForAccommodaton(SelectedAccommodation.Id), 
                 AccommodationService.GetInstance().GetReservationsForAccommodation(SelectedAccommodation,_reservationRepository,_guestRepository,_locationRepository), SelectedAccommodation,_ownerReviewRepository);
             AccommodationDetailedMenu.ShowDialog();
 
@@ -236,7 +225,7 @@ namespace BookingApp.ViewModels
 
             if (SelectedGuestReview.respectGrade == 0)
             {
-                ReviewGuest reviewGuest = new ReviewGuest(guestReviewService, SelectedGuestReview.ReservationId);
+                ReviewGuest reviewGuest = new ReviewGuest(SelectedGuestReview.ReservationId);
                 reviewGuest.ShowDialog();
             }
         }
@@ -261,7 +250,7 @@ namespace BookingApp.ViewModels
 
         public void AllowReservationChange()
         {
-            AllowReservationChange allowReservationChange = new AllowReservationChange(SelectedChange, _reservationRepository, reservationChangeService);
+            AllowReservationChange allowReservationChange = new AllowReservationChange(SelectedChange, _reservationRepository);
             allowReservationChange.ShowDialog();
 
         }

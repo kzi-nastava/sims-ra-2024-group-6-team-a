@@ -1,6 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,17 @@ namespace BookingApp.ApplicationServices
 {
     public class GuestReviewService
     {
-        private IGuestReviewRepository guestReviewRepository { get; set; }
+        private IGuestReviewRepository guestReviewRepository;
 
-        public GuestReviewService()
+        public GuestReviewService(IGuestReviewRepository guestReviewRepository)
         {
-            guestReviewRepository = new GuestReviewRepository();
+            this.guestReviewRepository = guestReviewRepository;
         }
 
+        public static GuestReviewService GetInstance()
+        {
+            return App.ServiceProvider.GetRequiredService<GuestReviewService>();
+        }
         public List<GuestReview> GetAll()
         {
             return guestReviewRepository.GetAll();
