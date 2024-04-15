@@ -18,7 +18,7 @@ namespace BookingApp.ViewModels.TouristViewModel
     public class TourRatingViewModel
     {
         private readonly ImageRepository _imageRepository;
-      //  private readonly TourReviewService _reviewService = new TourReviewService();
+        private readonly TourReviewService _reviewService = new TourReviewService();
         public TourScheduleDTO SelectedTour { get; set; }
         public User LoggedUser { get; set; }
         public RelayCommand SelectImageCommand { get; set; }
@@ -78,7 +78,12 @@ namespace BookingApp.ViewModels.TouristViewModel
         {
             TourReviewDTO.ScheduleId = SelectedTour.Id;
             TourReviewDTO.TouristId = LoggedUser.Id;
-            TourReviewService.GetInstance().MakeReview(TourReviewDTO);
+          
+            TourReviewDTO.IsValid = true;
+            _reviewService.MakeReview(TourReviewDTO);
+
+            //TourReviewService.GetInstance().MakeReview(TourReviewDTO);
+
             SaveImages(ImagesCollection.ToList());
             Window.Close();
         }
