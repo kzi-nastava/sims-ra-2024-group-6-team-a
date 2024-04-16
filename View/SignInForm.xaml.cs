@@ -18,13 +18,11 @@ namespace BookingApp.View
         private readonly UserRepository _repository;
         private readonly LocationRepository _locationRepository;
         private readonly ImageRepository _imageRepository;
-        private readonly AccommodationReservationRepository _accommodationReservationRepository;
+ 
         private readonly TourScheduleRepository _tourScheduleRepository;
         private readonly TourReservationRepository _tourReservationRepository;
         private readonly UserRepository _userRepository;
         private readonly GuestRepository _guestRepository;
-        private readonly OwnerRepository _ownerRepository;
-        private readonly OwnerReviewRepository _ownerReviewRepository;
         private readonly TourScheduleService _scheduleService;
         private readonly TourReservationService _reservationService;
         //private readonly TourRepository _tourRepository;
@@ -57,13 +55,13 @@ namespace BookingApp.View
             _repository = new UserRepository();
             _locationRepository = new LocationRepository();
             _imageRepository = new ImageRepository();
-            _accommodationReservationRepository = new AccommodationReservationRepository();
+           
             _tourScheduleRepository = new TourScheduleRepository();
             _tourReservationRepository = new TourReservationRepository();
             _userRepository = new UserRepository();
-            _ownerRepository = new OwnerRepository();
+           
             _guestRepository = new GuestRepository();
-            _ownerReviewRepository = new OwnerReviewRepository();
+           
             _scheduleService = new TourScheduleService();
             _reservationService = new TourReservationService();
             //_tourRepository = new TourRepository();
@@ -110,7 +108,7 @@ namespace BookingApp.View
 
         private void InitiateAccommodationView(Owner owner)
         {
-            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(owner, _accommodationReservationRepository,_guestRepository,_ownerReviewRepository);
+            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(owner);
             accommodationViewMenu.Show();
             Close();
         }

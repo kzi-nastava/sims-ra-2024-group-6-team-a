@@ -50,10 +50,10 @@ namespace BookingApp.ApplicationServices
         }
 
 
-        public void UpdateOwner(AccommodationReservation reservation,OwnerReviewRepository _ownerReviewRepository,Owner owner)
+        public void UpdateOwner(AccommodationReservation reservation,Owner owner)
         {
 
-            foreach (OwnerReview review in _ownerReviewRepository.GetAll())
+            foreach (OwnerReview review in OwnerReviewService.GetInstance().GetAll())
             {
                 if (reservation.Id == review.ReservationId)
                 {
