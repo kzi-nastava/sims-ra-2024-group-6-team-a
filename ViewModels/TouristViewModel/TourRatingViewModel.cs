@@ -28,10 +28,8 @@ namespace BookingApp.ViewModels.TouristViewModel
         public TourReviewDTO TourReviewDTO { get; set; }
         public String SelectedImageUrl { get; set; }
         public static ObservableCollection<String> ImagesCollection { get; set; }
-        public TourRating Window { get; set; }
-        public TourRatingViewModel(TourRating window, TourScheduleDTO selectedTour, User user)
+        public TourRatingViewModel(TourScheduleDTO selectedTour, User user)
         {
-            Window = window;
             SelectedTour = selectedTour;
             TourReviewDTO = new TourReviewDTO();
             LoggedUser = user;
@@ -80,12 +78,12 @@ namespace BookingApp.ViewModels.TouristViewModel
             TourReviewService.GetInstance().MakeReview(TourReviewDTO);
 
             SaveImages(ImagesCollection.ToList());
-            Window.Close();
+            //Window.Close();
         }
 
         private void Execute_CancleRateCommand(object sender)
         {
-            Window.Close();
+            //Window.Close();
         }
     }
 }

@@ -69,7 +69,6 @@ namespace BookingApp.ViewModels.TouristViewModel
         public User LoggedUser { get; set; }
         public TourScheduleDTO TourSchedule { get; set; }
         public VouchersDTO Voucher { get; set; }
-        public TourReservationForm Window { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -88,9 +87,8 @@ namespace BookingApp.ViewModels.TouristViewModel
         public RelayCommand SaveReservationCommand { get; set; }
         public RelayCommand UseVoucherCommand { get; set; }
 
-        public TourReservationFormViewModel(TourReservationForm window,  User user, TourTouristDTO selectedTour)
+        public TourReservationFormViewModel(  User user, TourTouristDTO selectedTour)
         {
-            Window = window;
             LoggedUser = user;
 
             AddPersonalInfoCommand = new RelayCommand(Execute_AddPersonalInfoCommand);
@@ -121,7 +119,6 @@ namespace BookingApp.ViewModels.TouristViewModel
             if (result != MessageBoxResult.Yes)
                 return;
 
-            Window.Close();
         }
         private void Execute_SaveReservationCommand(object sender)
         {
@@ -131,7 +128,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             {
                 SameLocationToursWindow sameLocationTours = new SameLocationToursWindow(TourSchedule, LoggedUser);
                 sameLocationTours.ShowDialog();
-                Window.Close();
+               
                 return;
             }
 
@@ -144,7 +141,6 @@ namespace BookingApp.ViewModels.TouristViewModel
                     VoucherService.GetInstance().Delete(voucher);
                 }
 
-                Window.Close();
                 return;
             }
 

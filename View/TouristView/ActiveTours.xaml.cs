@@ -29,7 +29,7 @@ namespace BookingApp.View.TouristView
         public ActiveTours(TourScheduleDTO tourSchedule, User user)
         {
             InitializeComponent();
-            ActiveToursWindow = new ActiveToursViewModel(this, tourSchedule, user);
+            ActiveToursWindow = new ActiveToursViewModel( tourSchedule, user);
             DataContext = ActiveToursWindow;
         }
 

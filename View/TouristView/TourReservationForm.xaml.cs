@@ -36,7 +36,7 @@ namespace BookingApp.View
         public TourReservationForm(User user, TourTouristDTO selectedTour)
         {
             InitializeComponent();
-            ReservationWindow = new TourReservationFormViewModel(this, user, selectedTour);
+            ReservationWindow = new TourReservationFormViewModel(user, selectedTour);
             DataContext = ReservationWindow;
         }
 

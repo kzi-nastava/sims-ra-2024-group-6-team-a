@@ -28,7 +28,7 @@ namespace BookingApp.View.TouristView
         public KeypointsTracking(int tourScheduleId)
         {
             InitializeComponent();
-            KeypointsViewModel = new KeypointsTrackingViewModel(this, tourScheduleId);
+            KeypointsViewModel = new KeypointsTrackingViewModel(tourScheduleId);
             DataContext = KeypointsViewModel;
         }
     }

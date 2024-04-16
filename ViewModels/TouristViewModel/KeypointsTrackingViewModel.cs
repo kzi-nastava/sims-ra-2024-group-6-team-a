@@ -16,13 +16,8 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         public Tour SelectedTour { get; set; }
         public TourSchedule SelectedTourSchedule { get; set; }
-
-        public KeypointsTracking Window { get; set; }
-        public KeypointsTrackingViewModel(KeypointsTracking window, int tourScheduleId)
+        public KeypointsTrackingViewModel( int tourScheduleId)
         {
-            Window = window;
-
-
             SelectedTourSchedule = TourScheduleService.GetInstance().GetById(tourScheduleId);
             SelectedTour = TourService.GetInstance().GetById(SelectedTourSchedule.TourId);
 
