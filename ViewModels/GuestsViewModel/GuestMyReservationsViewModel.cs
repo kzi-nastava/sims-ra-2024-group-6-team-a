@@ -24,7 +24,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public NavigationService NavService { get; set; }
         public RelayCommand SeeMoreCommand { get; set; }
         public RelayCommand MyRequestCommand { get; set; }
-        private AccommodationReservationRepository accommodationReservationRepository;
         public GuestMyReservationsViewModel(Guest guest, NavigationService navigation)
         {
             Guest = guest;

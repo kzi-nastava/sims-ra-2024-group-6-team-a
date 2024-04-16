@@ -86,7 +86,7 @@ namespace BookingApp.View
                             InitiateAccommodationView(owner);
                             break;
                         case Enums.UserType.Guest:
-                            Guest guest = _guestRepository.GetAll().Find(o => o.UserId == user.Id);
+                            Guest guest = GuestService.GetInstance().GetAll().Find(o => o.UserId == user.Id);
                             InitiateGuestView(guest);
                             break;
                         case Enums.UserType.Tourist:

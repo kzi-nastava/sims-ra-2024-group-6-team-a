@@ -18,20 +18,11 @@ namespace BookingApp.ApplicationServices
     public class AccommodationReservationService
     {
         public IAccommodationReservationRepository accommodationReservationRepository;
-        private List<DateRanges> _availableDates;
-        private List<DateRanges> _bookedDates;
-        private DateOnly _firstDate;
-        private DateOnly _lastDate;
 
         public AccommodationReservationService(IAccommodationReservationRepository _accommodationReservationRepository)
         {
             accommodationReservationRepository = _accommodationReservationRepository;
-            _availableDates = new List<DateRanges>();
-            _bookedDates = new List<DateRanges>();
-            _firstDate = new DateOnly();
-            _lastDate = new DateOnly();
         }
-
 
         public static AccommodationReservationService GetInstance()
         {
@@ -74,7 +65,6 @@ namespace BookingApp.ApplicationServices
         public List<AccommodationReservation> GetActiveReservationsByGuest(int guestId)
         {
             List<AccommodationReservation> guestReservations = new List<AccommodationReservation>();
-           // List<AccommodationReservation> reservations = GetAll();
             foreach (AccommodationReservation reservation in GetAll())
             {
                 if (reservation.GuestId == guestId && reservation.Status == ReservationStatus.Active)

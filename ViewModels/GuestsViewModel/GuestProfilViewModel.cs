@@ -26,9 +26,12 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public GuestProfilViewModel(Guest guest, NavigationService navigation)
         {
             Guest = guest;
+
             NumberOfReservations = AccommodationReservationService.GetInstance().GetNumberOfReservation(Guest.Id).ToString();
+
             foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAllReservationsByGuest(Guest.Id))
                 NumberOfNotifications += ReservationChangeService.GetInstance().GetNumberOfNotifications(reservation.Id);
+            
             MyReservationCommand = new RelayCommand(Execute_MyReservationCommand);
             MyRequestCommand = new RelayCommand(Execute_MyRequestCommand);
             NavService = navigation;

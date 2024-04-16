@@ -84,7 +84,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
             {
                 AccommodationReservation accommodationReservation = new AccommodationReservation(Accommodation.Id, Guest.Id, SelectedDates.CheckIn, SelectedDates.CheckOut, Convert.ToInt32(GuestNumber), Enums.ReservationStatus.Active, AccommodationService.GetInstance().GetByReservationId(Accommodation.Id));
                 AccommodationReservationService.GetInstance().Save(accommodationReservation);
-                MessageBox.Show("Successful kao booking!", "WELL DONE", MessageBoxButton.OK);
+                MessageBox.Show("Successful booking!", "WELL DONE", MessageBoxButton.OK);
                 NavService.Navigate(new GuestMyReservationsView(Guest, NavService));
             }
             else MessageBox.Show("You must select date ranges!", "Select date", MessageBoxButton.OK, MessageBoxImage.Warning);

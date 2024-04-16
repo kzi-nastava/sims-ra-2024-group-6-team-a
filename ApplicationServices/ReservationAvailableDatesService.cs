@@ -169,7 +169,6 @@ namespace BookingApp.ApplicationServices
             }
             return true;
         }
-
         public bool IsCheckInInRange(DateRanges bookedDate, DateOnly startDate, DateOnly endDate)
         {
             return bookedDate.CheckIn >= startDate && bookedDate.CheckIn < endDate;
