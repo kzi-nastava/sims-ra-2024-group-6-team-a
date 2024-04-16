@@ -80,7 +80,5 @@ namespace BookingApp.Repository
             Guest guest = _guests.Find(u => u.Id == id);
             return guest.Name + " " + guest.Surname;
         }
-
-
     }
 }

@@ -2,7 +2,7 @@
 using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
-using BookingApp.RepositoryInterfaces;
+using BookingApp.Resources;
 using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -86,6 +86,56 @@ namespace BookingApp.ApplicationServices
         public List<TourGuests> GetAllByReservationId(int reservationId)
         {
             return _guestRepository.GetAllByReservationId(reservationId);
+        }
+
+        public int CountGuests(int tourScheduleId)
+        {
+
+            int touristCount = 0;
+                    foreach(TourGuests guest in _guestRepository.GetAllByTourId(tourScheduleId))
+                    {
+                      touristCount++;  
+                    }
+            
+            return touristCount;
+        }
+        public int CountChildren(int tourScheduleId)
+        {
+            int childrenCount = 0;
+                foreach (TourGuests guest in _guestRepository.GetAllByTourId(tourScheduleId))
+                {
+                    if (guest.Age < 18)
+                    {
+                        childrenCount++;
+                    }
+                }
+            return childrenCount;
+        }
+        public int CountAdult(int tourScheduleId)
+        {
+            int adultCount = 0;
+           
+                foreach (TourGuests guest in _guestRepository.GetAllByTourId(tourScheduleId))
+                {
+                    if (guest.Age >= 18 && guest.Age <50)
+                    {
+                        adultCount++;
+                    }
+                }
+            return adultCount;
+        }
+        public int CountElderly(int tourScheduleId)
+        {
+            int elderlyCount = 0;
+                foreach (TourGuests guest in _guestRepository.GetAllByTourId(tourScheduleId))
+                {
+                    if (guest.Age >= 50)
+                    {
+                        elderlyCount++;
+                    }
+                }
+            
+            return elderlyCount;
         }
     }
 }

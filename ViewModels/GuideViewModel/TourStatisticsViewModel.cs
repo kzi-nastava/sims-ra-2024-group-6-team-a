@@ -105,18 +105,21 @@ namespace BookingApp.ViewModels.GuideViewModel
             {
                 Location location = LocationService.GetInstance().GetById(tour.LocationId);
                 Model.Image image = GetFirstTourImage(tour.Id);
-                int touristCount = 0;
-                int childrenCount = 0;
-                int adultCount = 0;
-                int elderlyCount = 0;
+                int tourists = 0;
+                int children = 0;
+                int adult = 0;
+                int elderly = 0;
                 foreach (TourSchedule schedule in TourScheduleService.GetInstance().GetAllByTourId(tour.Id))
                 {
                     if (schedule.TourActivity != Enums.TourActivity.Finished || schedule.Start.Year != selectedYear) continue;
 
-                    CountGuests(schedule, ref touristCount, ref childrenCount, ref adultCount, ref elderlyCount);
+                    tourists += TourGuestService.GetInstance().CountGuests(schedule.Id);
+                    children += TourGuestService.GetInstance().CountChildren(schedule.Id);
+                    adult += TourGuestService.GetInstance().CountAdult(schedule.Id);
+                    elderly += TourGuestService.GetInstance().CountElderly(schedule.Id);
 
-                    if (mostVisitedTour.TouristNumber <= touristCount)
-                    mostVisitedTour = new TourStatisticsDTO(tour.Name, tour.Language, image.Path, location, touristCount, childrenCount, adultCount, elderlyCount);
+                    if (mostVisitedTour.TouristNumber <= tourists)
+                    mostVisitedTour = new TourStatisticsDTO(tour.Name, tour.Language, image.Path, location, tourists, children, adult, elderly);
 
                 }
             }
@@ -150,44 +153,23 @@ namespace BookingApp.ViewModels.GuideViewModel
             {
                 Location location = LocationService.GetInstance().GetById(tour.LocationId);
                 Model.Image image = GetFirstTourImage(tour.Id);
-                int touristCount = 0;
-                int childrenCount = 0;
-                int adultCount = 0;
-                int elderlyCount = 0;
+                int tourists = 0;
+                int children = 0;
+                int adult = 0;
+                int elderly = 0;
                 foreach (TourSchedule schedule in TourScheduleService.GetInstance().GetAllByTourId(tour.Id))
                 {
                     if (schedule.TourActivity != Enums.TourActivity.Finished) continue;
-
-                    CountGuests(schedule, ref touristCount, ref childrenCount, ref adultCount, ref elderlyCount);
-
                    
+                    tourists += TourGuestService.GetInstance().CountGuests(schedule.Id);
+                    children += TourGuestService.GetInstance().CountChildren(schedule.Id);
+                    adult += TourGuestService.GetInstance().CountAdult(schedule.Id);
+                    elderly += TourGuestService.GetInstance().CountElderly(schedule.Id);
                     dates.Add(schedule.Start.Year);
                 }
-                FinishedTours.Add(new TourStatisticsDTO(tour.Name, tour.Language, image.Path, location, touristCount, childrenCount, adultCount, elderlyCount));
+                FinishedTours.Add(new TourStatisticsDTO(tour.Name, tour.Language, image.Path, location, tourists, children, adult, elderly));
             }
             AddDatesToComboBox(dates);
-        }
-
-
-        public void CountGuests(TourSchedule schedule, ref int touristCount, ref int childrenCount, ref int adultCount, ref int elderlyCount)
-        {
-            foreach (TourGuests guest in TourGuestService.GetInstance().GetAllByTourId(schedule.Id))
-            {
-                touristCount++;
-
-                if (guest.Age < 18)
-                {
-                    childrenCount++;
-                }
-                else if (guest.Age >= 18 && guest.Age < 50)
-                {
-                    adultCount++;
-                }
-                else
-                {
-                    elderlyCount++;
-                }
-            }
         }
 
         public void AddDatesToComboBox(List<int> dates)

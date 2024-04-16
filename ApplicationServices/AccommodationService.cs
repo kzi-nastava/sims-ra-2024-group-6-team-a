@@ -17,19 +17,14 @@ namespace BookingApp.ApplicationServices
     public class AccommodationService
     {
         public IAccommodationRepository AccommodationRepository;
-        public IImageRepository ImageRepository;
-        public ILocationRepository LocationRepository;
+
 
         public LocationService locationService;
-        public ImageService imageService;
 
-        public AccommodationService(IAccommodationRepository accommodationRepository,IImageRepository imageRepository,ILocationRepository locationRepository) 
+
+        public AccommodationService(IAccommodationRepository accommodationRepository) 
         {
             AccommodationRepository = accommodationRepository;
-            ImageRepository = imageRepository;
-            LocationRepository = locationRepository;
-            imageService = ImageService.GetInstance();
-            locationService = LocationService.GetInstance();
         }
 
 
@@ -121,8 +116,8 @@ namespace BookingApp.ApplicationServices
                 {
                     Accommodation accommodation = AccommodationRepository.GetByReservationId(SelectedAccommodation.Id);
                     String userName = GuestService.GetInstance().GetFullname(reservation.GuestId);
-                    String imagePath = imageService.AddMainAccommodationImage(accommodation);
-                    Location location = locationService.GetByAccommodation(accommodation);
+                    String imagePath = ImageService.GetInstance().AddMainAccommodationImage(accommodation);
+                    Location location = LocationService.GetInstance().GetByAccommodation(accommodation);
 
                     ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, SelectedAccommodation.Name, location, imagePath);
 

@@ -99,6 +99,7 @@ namespace BookingApp.ApplicationServices
             return schedule.TourActivity == Resources.Enums.TourActivity.Finished;
         }
 
+
         private bool HasUserAttended(User user, TourSchedule schedule)
         {
             foreach (TourReservation reservation in TourReservationService.GetInstance().GetAllByUser(user))
