@@ -102,6 +102,11 @@ namespace BookingApp.Repository
             return guests;
         }
 
+        public List<TourGuests> GetAllByReservationId(int reservationId)
+        {
+            return GetAll().Where(g => g.ReservationId == reservationId && g.IsPresent == true).ToList();
+        }
+
     }
 }
 

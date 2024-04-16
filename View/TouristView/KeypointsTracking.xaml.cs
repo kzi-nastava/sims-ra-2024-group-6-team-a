@@ -24,27 +24,12 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class KeypointsTracking : Window
     {
-        public static ObservableCollection<Checkpoint> Checkpoints { get; set; }
-
-        public Tour SelectedTour { get; set; }
-        public TourSchedule SelectedTourSchedule { get; set; }
-
-        private CheckpointService _checkpointService;
-        private TourService _tourService;
-        private TourScheduleService _schdeuleService;
         public KeypointsTrackingViewModel KeypointsViewModel { get; set; }
         public KeypointsTracking(int tourScheduleId)
         {
             InitializeComponent();
             KeypointsViewModel = new KeypointsTrackingViewModel(this, tourScheduleId);
             DataContext = KeypointsViewModel;
-            Update();
-        }
-
-        private void Update()
-        {
-            KeypointsViewModel.Update();
-
         }
     }
 }

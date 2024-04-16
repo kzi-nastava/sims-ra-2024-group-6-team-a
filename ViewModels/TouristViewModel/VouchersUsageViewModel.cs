@@ -22,15 +22,13 @@ namespace BookingApp.ViewModels.TouristViewModel
         public VouchersDTO SelectedVoucher { get; set; }
         public ObservableCollection<VouchersDTO> Vouchers { get; set; }
 
-        private VoucherService _voucherService;
-        public TourReservationForm ParentWindow { get; set; }
+        public TourReservationFormViewModel ParentWindow { get; set; }
 
         public RelayCommand UseVoucherCommand { get; set; }
-        public VouchersUsageViewModel(VoucherUsage window,  User user, TourReservationForm parentWindow)
+        public VouchersUsageViewModel(VoucherUsage window,  User user, TourReservationFormViewModel parentWindow)
         {
             Window = window;
 
-            _voucherService = new VoucherService();
             Vouchers = new ObservableCollection<VouchersDTO>();
             this.ParentWindow = parentWindow;
             LoggedUser = user;
@@ -42,7 +40,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         public void Update()
         {
             Vouchers.Clear();
-            foreach (Voucher voucher in _voucherService.GetAllByUser(LoggedUser))
+            foreach (Voucher voucher in VoucherService.GetInstance().GetAllByUser(LoggedUser))
             {
                 Vouchers.Add(new VouchersDTO(voucher));
             }
@@ -53,7 +51,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         {
             if (SelectedVoucher != null)
             {
-                Window.ParentWindow.Voucher = SelectedVoucher;
+                ParentWindow.Voucher = SelectedVoucher;
             }
             Window.Close();
 
