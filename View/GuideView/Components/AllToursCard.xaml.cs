@@ -23,60 +23,82 @@ namespace BookingApp.View.GuideView.Components
     /// </summary>
     public partial class AllToursCard : UserControl
     {
-
-       
-
         public event EventHandler TourCanceledCard;
         public AllToursCard()
         {
-            InitializeComponent();
-            
+            InitializeComponent();     
         }
-
         private void DeleteTourMouseDown(object sender, MouseButtonEventArgs e)
         {
-            TourSchedule tourSchedule = TourScheduleService.GetInstance().GetById(Convert.ToInt32(textBoxId.Text));
+            int tourId = Convert.ToInt32(textBoxId.Text);
+            TourSchedule tourSchedule = TourScheduleService.GetInstance().GetById(tourId);
             List<TourGuests> guests = TourGuestService.GetInstance().GetAllByTourId(tourSchedule.Id);
 
-
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel your tour?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (Convert.ToDateTime(txtTourStart.Text) > DateTime.Now.AddHours(48))
+            if (CanTourBeCanceled(tourSchedule))
             {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel your tour?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
                 if (result == MessageBoxResult.Yes)
                 {
-                    if (guests.Count != 0)
-                    {
-                        VoucherService.GetInstance().SaveAllGuests(guests);
-                        
-                        foreach (TourReservation tourReservation in TourReservationService.GetInstance().GetAll())
-                        {
-                            if (tourReservation.TourRealisationId == tourSchedule.Id)
-                                TourReservationService.GetInstance().Delete(tourReservation);
-                        
-                        }
-
-                    }
-
-                    foreach (TourGuests guest in guests)
-                    {
-                        TourGuestService.GetInstance().Delete(guest);
-                    }
-
-
-                    if (TourScheduleService.GetInstance().GetAllByTourId(tourSchedule.TourId).Count == 1)
-                    {
-                        TourService.GetInstance().Delete(TourService.GetInstance().GetById(tourSchedule.TourId));
-                    }
-
-                    TourScheduleService.GetInstance().Delete(tourSchedule);
+                    CancelTour(tourSchedule, guests);
                     HandleTourCanceledEvent();
                 }
             }
             else
             {
-                MessageBox.Show("Selected tour can't be canceled(less than 48 hours til tour comences");
+                MessageBox.Show("Selected tour can't be canceled (less than 48 hours until tour commences)");
             }
+        }
 
+        private bool CanTourBeCanceled(TourSchedule tourSchedule)
+        {
+            return Convert.ToDateTime(txtTourStart.Text) > DateTime.Now.AddHours(48);
+        }
+
+
+        private void CancelTour(TourSchedule tourSchedule, List<TourGuests> guests)
+        {
+            SaveGuestVouchers(guests);
+            DeleteTourReservations(tourSchedule);
+            DeleteTourGuests(guests);
+            DeleteTourIfLast(tourSchedule);
+
+            TourScheduleService.GetInstance().Delete(tourSchedule);
+        }
+
+        private void SaveGuestVouchers(List<TourGuests> guests)
+        {
+            if (guests.Count != 0)
+            {
+                VoucherService.GetInstance().SaveAllGuests(guests);
+            }
+        }
+
+        private void DeleteTourReservations(TourSchedule tourSchedule)
+        {
+            foreach (TourReservation tourReservation in TourReservationService.GetInstance().GetAll())
+            {
+                if (tourReservation.TourRealisationId == tourSchedule.Id)
+                {
+                    TourReservationService.GetInstance().Delete(tourReservation);
+                }
+            }
+        }
+
+        private void DeleteTourGuests(List<TourGuests> guests)
+        {
+            foreach (TourGuests guest in guests)
+            {
+                TourGuestService.GetInstance().Delete(guest);
+            }
+        }
+
+        private void DeleteTourIfLast(TourSchedule tourSchedule)
+        {
+            if (TourScheduleService.GetInstance().GetAllByTourId(tourSchedule.TourId).Count == 1)
+            {
+                TourService.GetInstance().Delete(TourService.GetInstance().GetById(tourSchedule.TourId));
+            }
         }
 
         public void HandleTourCanceledEvent()

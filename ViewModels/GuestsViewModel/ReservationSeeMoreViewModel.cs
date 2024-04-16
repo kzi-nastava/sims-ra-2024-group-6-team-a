@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using BookingApp.ApplicationServices;
 
 namespace BookingApp.ViewModels.GuestsViewModel
 {
@@ -23,8 +24,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public Guest Guest { get; set; }
         public NavigationService NavService { get; set; }
         public ReservationSeeMoreView ReservationView { get; set; }
-        private ImageRepository _imageRepository;
-        private AccommodationReservationRepository _accommodationReservationRepository;
         public List<Model.Image> ListImages { get; set; }
         public RelayCommand CancelReservationCommand { get; set; }
         public RelayCommand MoveReservationComand { get; set; }
@@ -33,14 +32,12 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public RelayCommand PreviousImageCommand { get; set; }
         public ReservationSeeMoreViewModel(Guest guest, ReservationGuestDTO SelectedReservation, ReservationSeeMoreView reservationView, NavigationService navigation)
         {
-            _accommodationReservationRepository = new AccommodationReservationRepository();
-            _imageRepository = new ImageRepository();
             Guest = guest;
             Reservation = SelectedReservation;
             ReservationView = reservationView;
             NavService = navigation;
             List<Model.Image> lista = new List<Model.Image>();
-            foreach (Model.Image image in _imageRepository.GetByEntity(SelectedReservation.AccommodationId, Enums.ImageType.Accommodation))
+            foreach (Model.Image image in ImageService.GetInstance().GetByEntity(SelectedReservation.AccommodationId, Enums.ImageType.Accommodation))
             {
                 lista.Add(image);
             }
@@ -53,13 +50,13 @@ namespace BookingApp.ViewModels.GuestsViewModel
         }
         public void Execute_CancelReservationCommand(object obj)
         {
-            AccommodationReservation canceledReservationa = _accommodationReservationRepository.GetByReservationId(Reservation.Id);
+            AccommodationReservation canceledReservationa = AccommodationReservationService.GetInstance().GetByReservationId(Reservation.Id);
             if (DateOnly.FromDateTime(DateTime.Today) <= Reservation.CheckIn.AddDays(-Reservation.CancelationDays)) { 
                 MessageBoxResult odgovor = MessageBox.Show("Are you sure to cancel the reservation?", "Cancel reservation", MessageBoxButton.YesNo);
                 switch (odgovor) { 
                     case MessageBoxResult.Yes:
                         canceledReservationa.Status = Enums.ReservationStatus.Canceled;
-                        _accommodationReservationRepository.Update(canceledReservationa);
+                        AccommodationReservationService.GetInstance().Update(canceledReservationa);
                         NavService.Navigate(new GuestMyReservationsView(Guest, NavService));
                         break;
                     default:

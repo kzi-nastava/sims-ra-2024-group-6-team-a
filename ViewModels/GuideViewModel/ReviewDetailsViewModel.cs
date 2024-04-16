@@ -68,7 +68,7 @@ namespace BookingApp.ViewModels.GuideViewModel
 
                 foreach (TourReservation reservation in reservations)
                 {
-                    if (reservation.Id == tourGuest.ReservationId && tourGuest.UserTypeId == userId && tourGuest.IsPresent == true)
+                    if (IsMatchingGuestAndReservation(tourGuest, reservation, userId))
                     {
                         return tourGuest.CheckpointId;
                     }
@@ -78,6 +78,15 @@ namespace BookingApp.ViewModels.GuideViewModel
 
             return 0;
         }
+
+        private bool IsMatchingGuestAndReservation(TourGuests tourGuest, TourReservation reservation, int userId)
+        {
+            return reservation.Id == tourGuest.ReservationId &&
+                   tourGuest.UserTypeId == userId &&
+                   tourGuest.IsPresent;
+        }
+
+
         public Checkpoint GetCheckpointById(int checkpointId)
         {
             return CheckpointService.GetInstance().GetById(checkpointId);

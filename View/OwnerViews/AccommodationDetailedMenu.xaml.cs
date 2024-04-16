@@ -25,9 +25,9 @@ namespace BookingApp.View
     public partial class AccommodationDetailedMenu : Window
     {
         AccommodationDetailedVM ViewModel {  get; set; }
-        public AccommodationDetailedMenu(List<Model.Image> images,ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation,OwnerReviewRepository _reviews)
+        public AccommodationDetailedMenu(List<Model.Image> images,ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation)
         {
-            ViewModel = new AccommodationDetailedVM(images, Reservations,accommodation,_reviews) { };
+            ViewModel = new AccommodationDetailedVM(images, Reservations,accommodation) { };
             InitializeComponent();
             DataContext = ViewModel;
 

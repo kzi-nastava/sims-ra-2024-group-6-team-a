@@ -78,21 +78,5 @@ namespace BookingApp.Repository
             return _checkpoints.Find(c => c.Id == checkpointId);
         }
 
-        public List<Checkpoint> GetAllByTourScheduleId(int tourScheduleId)
-        {
-           List <Checkpoint> checkpoints = new List <Checkpoint>();
-           
-
-            foreach (Checkpoint checkpoint in GetAll())
-            {
-                if(checkpoint.TourScheduleId == tourScheduleId)
-                {
-                    checkpoints.Add(checkpoint);
-                }
-            }
-
-            return checkpoints;
-        }
-
     }
 }

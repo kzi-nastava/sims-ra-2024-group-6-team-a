@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
@@ -18,7 +19,7 @@ namespace BookingApp.ViewModels
 
         public static ObservableCollection<ImageDTO> Images { get; set; }
         public ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
-        public OwnerReviewRepository _reviews {  get; set; }
+       
         private double ratingNum;
 
         public String guestRating;
@@ -54,15 +55,14 @@ namespace BookingApp.ViewModels
 
         public ReservationOwnerDTO SelectedReservation { get; set; }
 
-        public AccommodationDetailedVM(List<Model.Image> images, ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation,OwnerReviewRepository _reviews) 
+        public AccommodationDetailedVM(List<Model.Image> images, ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation) 
         {
             Images = new ObservableCollection<ImageDTO>();
 
             imageModels = images;
             this.Reservations = Reservations;
             this.Accommodation = accommodation;
-            this._reviews = _reviews;
-            
+
 
             Update();
         }
@@ -93,7 +93,7 @@ namespace BookingApp.ViewModels
         {
             double sum = 0;
             double count = 0;
-            foreach(OwnerReview review in _reviews.GetAll())
+            foreach(OwnerReview review in OwnerReviewService.GetInstance().GetAll())
             {
                 foreach(ReservationOwnerDTO reservation in Reservations)
                 {
