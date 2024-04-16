@@ -23,13 +23,13 @@ namespace BookingApp.View
         public AccommodationMenuVM vm;
        
 
-        public AccommodationViewMenu(Owner owner, LocationRepository _locationRepository, AccommodationReservationRepository _reservationRepository
+        public AccommodationViewMenu(Owner owner, AccommodationReservationRepository _reservationRepository
             ,GuestRepository _guestRepository,OwnerReviewRepository _ownerReviewRepository)
         {
             InitializeComponent();
             
 
-            vm = new AccommodationMenuVM(owner, _locationRepository, _reservationRepository,_guestRepository,_ownerReviewRepository);
+            vm = new AccommodationMenuVM(owner,  _reservationRepository,_guestRepository,_ownerReviewRepository);
             DataContext = vm;
 
             Title = owner.Name + " " + owner.Surname + "'s accommodations"; // ime prozora ce biti ime vlasnika
