@@ -33,7 +33,7 @@ namespace BookingApp.View.TouristView
         public TourRating(TourScheduleDTO selectedTour, User user)
         {
             InitializeComponent();
-            RatingViewModel = new TourRatingViewModel(this, selectedTour,user);
+            RatingViewModel = new TourRatingViewModel(selectedTour,user);
             DataContext = RatingViewModel;
            
         }

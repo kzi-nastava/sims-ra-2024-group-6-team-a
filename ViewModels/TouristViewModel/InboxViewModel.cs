@@ -18,7 +18,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         public static  ObservableCollection<TouristNotificationDTO> Notifications { get; set; }
         public User LoggedUser { get; set; }
 
-        public  InboxViewModel(Inbox window,  User user) 
+        public  InboxViewModel(User user) 
         {
             LoggedUser = user;
 

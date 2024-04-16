@@ -30,7 +30,7 @@ namespace BookingApp.View.TouristView
         public FinishedTours(User user)
         {
             InitializeComponent();
-            FinishedToursWindow = new FinishedToursViewModel(this, user);
+            FinishedToursWindow = new FinishedToursViewModel( user);
             DataContext = FinishedToursWindow;
 
         }

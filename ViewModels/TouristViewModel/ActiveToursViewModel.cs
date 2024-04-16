@@ -18,11 +18,9 @@ namespace BookingApp.ViewModels.TouristViewModel
         public TourScheduleDTO SelectedTourSchedule { get; set; }
         public User LoggedUser { get; set; }
         public RelayCommand TrackKeypointCommand { get; set; }
-
-        public ActiveTours Window { get; set; }
-        public ActiveToursViewModel(ActiveTours window, TourScheduleDTO tourSchedule, User user)
+        public ActiveToursViewModel( TourScheduleDTO tourSchedule, User user)
         {
-            Window = window;
+            
             LoggedUser = user;
 
             Tours = new ObservableCollection<TourScheduleDTO>();

@@ -29,7 +29,7 @@ namespace BookingApp.View.TouristView
         public VouchersView(User user)
         {
             InitializeComponent();
-            VouchersWindow = new VouchersViewModel(this, user);
+            VouchersWindow = new VouchersViewModel(user);
             DataContext = VouchersWindow;
         }
     }

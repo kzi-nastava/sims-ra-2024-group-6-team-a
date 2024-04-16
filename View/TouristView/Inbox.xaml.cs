@@ -31,7 +31,7 @@ namespace BookingApp.View.TouristView
         public Inbox(User user)
         {
             InitializeComponent();
-            InboxVM = new InboxViewModel(this, user);
+            InboxVM = new InboxViewModel(user);
             DataContext = InboxVM;
 
         }

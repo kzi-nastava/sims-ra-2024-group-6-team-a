@@ -17,7 +17,6 @@ namespace BookingApp.ViewModels.TouristViewModel
     public class VouchersUsageViewModel
     {
         public User LoggedUser { get; set; }
-        public VoucherUsage Window { get; set; }
 
         public VouchersDTO SelectedVoucher { get; set; }
         public ObservableCollection<VouchersDTO> Vouchers { get; set; }
@@ -25,10 +24,8 @@ namespace BookingApp.ViewModels.TouristViewModel
         public TourReservationFormViewModel ParentWindow { get; set; }
 
         public RelayCommand UseVoucherCommand { get; set; }
-        public VouchersUsageViewModel(VoucherUsage window,  User user, TourReservationFormViewModel parentWindow)
+        public VouchersUsageViewModel(User user, TourReservationFormViewModel parentWindow)
         {
-            Window = window;
-
             Vouchers = new ObservableCollection<VouchersDTO>();
             this.ParentWindow = parentWindow;
             LoggedUser = user;
@@ -53,7 +50,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             {
                 ParentWindow.Voucher = SelectedVoucher;
             }
-            Window.Close();
+            
 
         }
     }

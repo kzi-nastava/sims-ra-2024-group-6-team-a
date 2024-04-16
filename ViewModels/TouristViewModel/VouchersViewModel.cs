@@ -15,11 +15,9 @@ namespace BookingApp.ViewModels.TouristViewModel
     {
         public ObservableCollection<VouchersDTO> Vouchers { get; set; }
         public User LoggedUser { get; set; }
-        public VouchersView Window;
 
-        public VouchersViewModel(VouchersView window, User user)
+        public VouchersViewModel( User user)
         {
-            Window = window;
 
             LoggedUser = user;
 
