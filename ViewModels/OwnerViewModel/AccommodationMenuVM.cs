@@ -118,17 +118,13 @@ namespace BookingApp.ViewModels
 
         public void UpdateReservationsOwnerAndReviews(Accommodation a,AccommodationReservation r)
         {
-            CheckReservationStatus(r, a);
+            if(r.Status != Enums.ReservationStatus.Changed)
+                 AddReservations(r, a);
             CheckGuestReview(a, r);
             OwnerService.GetInstance().UpdateOwner(r,Owner);
         }
 
-        public void CheckReservationStatus(AccommodationReservation reservation, Accommodation accommodation)
-        {
 
-            AddReservations(reservation, accommodation);
-
-        }
 
         public void AddChangedReservations(Accommodation accommodation)
         {
