@@ -33,6 +33,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public RateOwnerAndAccommodationViewModel(Guest guest, ReservationGuestDTO SelectedReservation, RateOwnerAndAccommodationView reservationView, NavigationService navigation)
         {
             Guest = guest;
+            NavService = navigation;
             Reservation = SelectedReservation;
             ReservationView = reservationView;
             ImagesCollection = new ObservableCollection<string>();

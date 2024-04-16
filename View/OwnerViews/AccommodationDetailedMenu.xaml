@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="" Height="900" Width="1600" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+        Title="" Height="800" Width="1500" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
@@ -14,8 +14,8 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="800"></ColumnDefinition>
-            <ColumnDefinition Width="800"></ColumnDefinition>
+            <ColumnDefinition Width="750"></ColumnDefinition>
+            <ColumnDefinition Width="750"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
 
@@ -51,7 +51,7 @@
                         <ListBox.ItemTemplate>
 
                             <DataTemplate>
-                                <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  Width="750" Margin="0,0,0,-4">
+                                <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  Width="700" Margin="0,0,0,-4">
                                     <Grid Background="{Binding ReservationStatus}">
                                          
                                         <Grid.ColumnDefinitions>
@@ -132,7 +132,7 @@
         </StackPanel>
 
 
-        <ListBox ItemsSource="{Binding Images}" Grid.Column="1" Grid.Row="2" ScrollViewer.CanContentScroll="False" MaxWidth="740">
+        <ListBox ItemsSource="{Binding Images}" Grid.Column="1" Grid.Row="2" ScrollViewer.CanContentScroll="False" MaxWidth="720">
             
 
             <ListBox.ItemTemplate>
@@ -140,8 +140,8 @@
 
                     <Grid Margin="-2,-2,-2,-2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="350"></ColumnDefinition>
-                            <ColumnDefinition Width="350"></ColumnDefinition>
+                            <ColumnDefinition Width="330"></ColumnDefinition>
+                            <ColumnDefinition Width="330"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>

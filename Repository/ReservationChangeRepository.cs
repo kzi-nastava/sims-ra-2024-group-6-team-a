@@ -79,9 +79,6 @@ namespace BookingApp.Repository
             }
             return reservationsChanges;
         }
-
-
-
         public ReservationChanges Update(ReservationChanges ReservationChanges)
         {
             _changes = _serializer.FromCSV(FilePath);
@@ -92,7 +89,6 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _changes);
             return ReservationChanges;
         }
-
         public ReservationChanges Get(int id)
         {
             _changes = _serializer.FromCSV(FilePath);
