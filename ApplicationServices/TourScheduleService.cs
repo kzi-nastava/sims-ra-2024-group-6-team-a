@@ -93,7 +93,7 @@ namespace BookingApp.ApplicationServices
                 if (schedule.TourActivity == Resources.Enums.TourActivity.Finished)//imam sve zavrsene termine
                 {
 
-                    foreach (TourReservation reservation in _reservationRepository.GetAllByUser(user))
+                    foreach (TourReservation reservation in _reservationService.GetAllByUser(user))
                     {
                         if (reservation.TourRealisationId == schedule.Id)//sve moje rezervacije tog termina
                         {
