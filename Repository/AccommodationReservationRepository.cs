@@ -21,20 +21,12 @@ namespace BookingApp.Repository
         private readonly Serializer<AccommodationReservation> _serializer;
         private readonly List<IObserver> _observers;
         private List<AccommodationReservation> _accommodationReservations;
-        private List<DateRanges> _availableDates;
-        private List<DateRanges> _bookedDates;
-        private DateOnly _firstDate;
-        private DateOnly _lastDate;
         public Subject subject;
         public AccommodationReservationRepository()
         {
             _observers = new List<IObserver>();
             _serializer = new Serializer<AccommodationReservation>();
             _accommodationReservations = _serializer.FromCSV(FilePath);
-            _availableDates = new List<DateRanges>();
-            _bookedDates = new List<DateRanges>();
-            _firstDate = new DateOnly();
-            _lastDate = new DateOnly();
             subject = new Subject();
         }
         public List<AccommodationReservation> GetAll()
@@ -70,18 +62,13 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _accommodationReservations);
             subject.NotifyObservers();
         }
-        public List<AccommodationReservation> GetByAccommodation(Accommodation accommodation)
-        {
-            _accommodationReservations = _serializer.FromCSV(FilePath);
-            return _accommodationReservations.FindAll(c => c.AccommodationId == accommodation.Id);
-        }
         public AccommodationReservation Update(AccommodationReservation AccommodationReservation)
         {
             _accommodationReservations = _serializer.FromCSV(FilePath);
             AccommodationReservation current = _accommodationReservations.Find(c => c.Id == AccommodationReservation.Id);
             int index = _accommodationReservations.IndexOf(current);
             _accommodationReservations.Remove(current);
-            _accommodationReservations.Insert(index, AccommodationReservation);       // keep ascending order of ids in file 
+            _accommodationReservations.Insert(index, AccommodationReservation);       
             _serializer.ToCSV(FilePath, _accommodationReservations);
             return AccommodationReservation;
         }
