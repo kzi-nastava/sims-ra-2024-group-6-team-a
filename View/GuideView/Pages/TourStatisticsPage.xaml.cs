@@ -73,12 +73,6 @@ namespace BookingApp.View.GuideView.Pages
 
         }
 
-
-        public void CountGuests(TourSchedule schedule, ref int touristCount, ref int childrenCount, ref int adultCount, ref int elderlyCount)
-        {
-            StatisticsViewModel.CountGuests(schedule, ref touristCount, ref childrenCount, ref adultCount, ref elderlyCount);
-        }
-
         public void AddDatesToComboBox(List <int> dates)
         {
           StatisticsViewModel.AddDatesToComboBox(dates);    
