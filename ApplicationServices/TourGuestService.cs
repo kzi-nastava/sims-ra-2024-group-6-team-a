@@ -92,7 +92,7 @@ namespace BookingApp.ApplicationServices
         {
 
             int touristCount = 0;
-                    foreach(TourGuests guest in _guestRepository.GetAllByTourId(tourScheduleId))
+                    foreach(TourGuests guest in GetAllByTourId(tourScheduleId))
                     {
                       touristCount++;  
                     }
@@ -102,7 +102,7 @@ namespace BookingApp.ApplicationServices
         public int CountChildren(int tourScheduleId)
         {
             int childrenCount = 0;
-                foreach (TourGuests guest in _guestRepository.GetAllByTourId(tourScheduleId))
+                foreach (TourGuests guest in GetAllByTourId(tourScheduleId))
                 {
                     if (guest.Age < 18)
                     {
@@ -115,7 +115,7 @@ namespace BookingApp.ApplicationServices
         {
             int adultCount = 0;
            
-                foreach (TourGuests guest in _guestRepository.GetAllByTourId(tourScheduleId))
+                foreach (TourGuests guest in GetAllByTourId(tourScheduleId))
                 {
                     if (guest.Age >= 18 && guest.Age <50)
                     {
@@ -127,7 +127,7 @@ namespace BookingApp.ApplicationServices
         public int CountElderly(int tourScheduleId)
         {
             int elderlyCount = 0;
-                foreach (TourGuests guest in _guestRepository.GetAllByTourId(tourScheduleId))
+                foreach (TourGuests guest in GetAllByTourId(tourScheduleId))
                 {
                     if (guest.Age >= 50)
                     {
