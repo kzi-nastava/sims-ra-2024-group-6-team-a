@@ -35,6 +35,10 @@ namespace BookingApp.Repository
         {
             return _serializer.FromCSV(FilePath);
         }
+        public TourReview GetById(int id)
+        {
+            return _reviews.Find(c => c.Id == id);
+        }
 
         public TourReview Save(TourReview review)
         {

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -83,7 +84,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         {
             TourStatisticsDTO mostVisitedTour = FinishedTours.First();
 
-            if (Window.datesBox.SelectedIndex != 0 && Window.datesBox.SelectedIndex != -1)
+            if (Window.datesBox.SelectedIndex != 0 && Window.datesBox.SelectedIndex != -1 && selectedYear != 0)
             {
                 mostVisitedTour = FindMostVisitedTourByYear(selectedYear);
             }
@@ -97,13 +98,34 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public TourStatisticsDTO FindMostVisitedTourByYear(int selectedYear)
         {
-            TourStatisticsDTO? mostVisitedTour = FinishedTours
-                .Where(tour => tour.Year == selectedYear)
-                .OrderByDescending(tour => tour.TouristNumber)
-                .FirstOrDefault();
 
-            return mostVisitedTour ?? FinishedTours.First();
+            TourStatisticsDTO mostVisitedTour = new TourStatisticsDTO();
+         
+            foreach (Tour tour in TourService.GetInstance().GetAllByUser(LoggedUser))
+            {
+                Location location = LocationService.GetInstance().GetById(tour.LocationId);
+                Model.Image image = GetFirstTourImage(tour.Id);
+                int touristCount = 0;
+                int childrenCount = 0;
+                int adultCount = 0;
+                int elderlyCount = 0;
+                foreach (TourSchedule schedule in TourScheduleService.GetInstance().GetAllByTourId(tour.Id))
+                {
+                    if (schedule.TourActivity != Enums.TourActivity.Finished || schedule.Start.Year != selectedYear) continue;
+
+                    CountGuests(schedule, ref touristCount, ref childrenCount, ref adultCount, ref elderlyCount);
+
+                    if (mostVisitedTour.TouristNumber <= touristCount)
+                    mostVisitedTour = new TourStatisticsDTO(tour.Name, tour.Language, image.Path, location, touristCount, childrenCount, adultCount, elderlyCount);
+
+                }
+            }
+
+            return mostVisitedTour;
         }
+        
+        
+        
         public TourStatisticsDTO FindMostVisitedTourOverall()
         {
             TourStatisticsDTO? mostVisitedTour = FinishedTours
@@ -138,12 +160,11 @@ namespace BookingApp.ViewModels.GuideViewModel
 
                     CountGuests(schedule, ref touristCount, ref childrenCount, ref adultCount, ref elderlyCount);
 
-                    FinishedTours.Add(new TourStatisticsDTO(tour.Name, schedule.Start, tour.Language, image.Path, location, touristCount, childrenCount, adultCount, elderlyCount));
+                   
                     dates.Add(schedule.Start.Year);
                 }
-
+                FinishedTours.Add(new TourStatisticsDTO(tour.Name, tour.Language, image.Path, location, touristCount, childrenCount, adultCount, elderlyCount));
             }
-
             AddDatesToComboBox(dates);
         }
 

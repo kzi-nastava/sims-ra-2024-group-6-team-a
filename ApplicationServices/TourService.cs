@@ -18,20 +18,17 @@ namespace BookingApp.ApplicationServices
     public class TourService
     {
         private ITourRepository _tourRepository;
-        private ILocationRepository _locationRepository;
         private LocationService _locationService;
        
-        public TourService(ITourRepository tourRepository,ILocationRepository locationRepository)
+        public TourService(ITourRepository tourRepository)
         {
             _tourRepository = tourRepository;
-            _locationRepository = locationRepository;
             _locationService = LocationService.GetInstance();
         }
 
         public TourService()
         {
             _tourRepository = new TourRepository();
-            _locationRepository = new LocationRepository();
 
         }
 
@@ -70,8 +67,8 @@ namespace BookingApp.ApplicationServices
         private bool HasSameLocation(Tour tour, TourScheduleDTO schedule)
         {
             Tour currentTour = GetById(schedule.TourId);
-            string currentTourCity = _locationRepository.GetById(currentTour.LocationId).City;
-            string otherTourCity = _locationRepository.GetById(tour.LocationId).City;
+            string currentTourCity = _locationService.GetById(currentTour.LocationId).City;
+            string otherTourCity = _locationService.GetById(tour.LocationId).City;
 
             return otherTourCity == currentTourCity && tour.Id != schedule.TourId;
         }

@@ -63,5 +63,10 @@ namespace BookingApp.View.GuideView.Pages
         { 
             return ReviewDetViewModel.GetCheckpointById(checkpointId);
         }
+
+        private void HandleFakeReport(object sender, EventArgs e)
+        {
+            Update();
+        }
     }
 }

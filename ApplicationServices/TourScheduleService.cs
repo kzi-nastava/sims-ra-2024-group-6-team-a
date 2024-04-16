@@ -16,21 +16,21 @@ namespace BookingApp.ApplicationServices
     public class TourScheduleService
     {
         private ITourScheduleRepository _scheduleRepository;
-        private ITourReservationRepository _reservationRepository;
         private TourGuestService _guestService;
+        private TourReservationService _reservationService;
 
-        public TourScheduleService(ITourScheduleRepository tourScheduleRepository, ITourReservationRepository tourReservationRepository)
+        public TourScheduleService(ITourScheduleRepository tourScheduleRepository)
         {
             _scheduleRepository = tourScheduleRepository;
-            _reservationRepository = tourReservationRepository;
             _guestService = TourGuestService.GetInstance();
+            _reservationService = TourReservationService.GetInstance();
         }
 
         public TourScheduleService()
         {
             _scheduleRepository = new TourScheduleRepository();
-            _reservationRepository = new TourReservationRepository();
             _guestService = new TourGuestService();
+            _reservationService = new TourReservationService();
         }
 
 
@@ -71,7 +71,7 @@ namespace BookingApp.ApplicationServices
         {
             List<TourSchedule> tours = new List<TourSchedule>();
 
-            foreach (TourReservation reservation in _reservationRepository.GetAllByUser(user))
+            foreach (TourReservation reservation in _reservationService.GetAllByUser(user))
             {
                 TourSchedule tourSchedule = GetById(reservation.TourRealisationId);
                 if (tourSchedule.TourActivity == Resources.Enums.TourActivity.Ongoing)
@@ -92,6 +92,7 @@ namespace BookingApp.ApplicationServices
             {
                 if (schedule.TourActivity == Resources.Enums.TourActivity.Finished)//imam sve zavrsene termine
                 {
+
                     foreach (TourReservation reservation in _reservationRepository.GetAllByUser(user))
                     {
                         if (reservation.TourRealisationId == schedule.Id)//sve moje rezervacije tog termina

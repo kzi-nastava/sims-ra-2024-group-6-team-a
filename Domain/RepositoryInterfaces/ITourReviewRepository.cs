@@ -14,6 +14,8 @@ namespace BookingApp.Domain.RepositoryInterfaces
     {
         public List<TourReview> GetAll();
 
+        public TourReview GetById(int id);
+
         public TourReview Save(TourReview review);
 
         public int NextId();
@@ -22,6 +24,7 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public TourReview Update(TourReview review);
 
         public void MakeReview(TourReviewDTO tourReviewDTO);
+
 
         public List<TourReview> GetAllReviewsByScheduleId(int tourScheduleId);
     }
