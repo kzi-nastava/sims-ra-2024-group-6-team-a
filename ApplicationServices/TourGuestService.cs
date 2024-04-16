@@ -16,13 +16,11 @@ namespace BookingApp.ApplicationServices
     public class TourGuestService
     {
         private ITourGuestRepository _guestRepository;
-        private ITourReservationRepository _tourReservationRepository;
         private TourReservationService _reservationService;
-        public TourGuestService(ITourGuestRepository guestRepository,ITourReservationRepository tourReservationRepository)
+        public TourGuestService(ITourGuestRepository guestRepository)
         {
            _guestRepository = guestRepository;
             _reservationService = TourReservationService.GetInstance();
-            _tourReservationRepository = tourReservationRepository;
         }
         
         public TourGuestService()

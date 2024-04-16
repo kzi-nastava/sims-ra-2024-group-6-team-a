@@ -45,7 +45,7 @@ namespace BookingApp.ViewModels.GuideViewModel
                 int checkpointId = GetFirstUsersCheckpointId(tourScheduleId, review.TouristId);
                 Checkpoint checkpoint = GetCheckpointById(checkpointId);
 
-                Reviews.Add(new TourReviewDTO(tourScheduleId, review.GuideLanguageGrade, review.GuideKnowledgeGrade, review.TourAttractionsGrade, review.Impression, image.Path, review.TouristId, username, checkpoint.Name));
+                Reviews.Add(new TourReviewDTO(review.Id,tourScheduleId, review.GuideLanguageGrade, review.GuideKnowledgeGrade, review.TourAttractionsGrade, review.Impression, image.Path, review.TouristId, username, checkpoint.Name,review.IsValid));
             }
         }
 

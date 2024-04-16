@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BookingApp.ApplicationServices
 {
@@ -35,6 +36,15 @@ namespace BookingApp.ApplicationServices
         }
 
 
+        public TourReview GetById(int id)
+        {
+            return _reviewRepository.GetById(id);
+        }
+
+        public TourReview Update(TourReview review)
+        {
+           return _reviewRepository.Update(review);
+        }
 
         public List<TourReview> GetAll()
         {

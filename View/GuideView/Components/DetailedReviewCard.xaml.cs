@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.Domain.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,26 @@ namespace BookingApp.View.GuideView.Components
     /// </summary>
     public partial class DetailedReviewCard : UserControl
     {
+
+        public event EventHandler FakeReportEventHandler;
+
         public DetailedReviewCard()
         {
             InitializeComponent();
         }
+
+        public void ReportReviewMouseDown(object sender, MouseEventArgs e)
+        {
+            TourReview review = TourReviewService.GetInstance().GetById(Convert.ToInt32(txtReviewId.Text));
+            review.IsValid = false;
+            TourReviewService.GetInstance().Update(review);
+            HandleFakeReport();
+        }
+
+        public void HandleFakeReport()
+        {
+            FakeReportEventHandler?.Invoke(this, EventArgs.Empty);
+        }
+
     }
 }

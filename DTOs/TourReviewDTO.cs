@@ -41,6 +41,25 @@ namespace BookingApp.DTOs
             }
         }
 
+        private int _reviewId;
+        public int ReviewId
+        {
+            get
+            {
+                return _reviewId;
+            }
+            set
+            {
+                if (_reviewId != value)
+                {
+                    _reviewId = value;
+                    OnPropertyChanged("ReviewId");
+
+                }
+            }
+        }
+
+
         private int _guideKnowledgeGrade;
         public int GuideKnowledgeGrade
         {
@@ -223,8 +242,9 @@ namespace BookingApp.DTOs
             TouristId = touristId;
         }
 
-        public TourReviewDTO(int scheduleId, int languageGrade, int knowledgeGrade, int attractionsGrade, string impression, string imagePath, int touristId, string nickname, string checkpoint)
+        public TourReviewDTO(int reviewId,int scheduleId, int languageGrade, int knowledgeGrade, int attractionsGrade, string impression, string imagePath, int touristId, string nickname, string checkpoint,bool isValid)
         {
+            ReviewId = reviewId;
             ScheduleId = scheduleId;
             GuideKnowledgeGrade = knowledgeGrade;
             GuideLanguageGrade = languageGrade;
@@ -234,6 +254,7 @@ namespace BookingApp.DTOs
             TouristId = touristId;
             Nickname = nickname;
             Checkpoint = checkpoint;
+            IsValid = isValid;
 
         }
 

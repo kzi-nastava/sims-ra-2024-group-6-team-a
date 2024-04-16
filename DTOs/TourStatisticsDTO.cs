@@ -212,7 +212,7 @@ namespace BookingApp.DTOs
             }
         }
         
-        public TourStatisticsDTO(string name,DateTime start ,string language, string image, Location location, int touristNumber, int children, int adult, int elderly)
+        public TourStatisticsDTO(string name,string language, string image, Location location, int touristNumber, int children, int adult, int elderly)
         {
             _name = name;
             _language = language;
@@ -223,10 +223,13 @@ namespace BookingApp.DTOs
             _children = children;
             _adult = adult;
             _elderly = elderly;
-            _year = start.Year;
                 
         }
 
-        public TourStatisticsDTO() { }
+        public TourStatisticsDTO() 
+        {
+            _touristNumber = 0;
+        
+        }
     }
 }
