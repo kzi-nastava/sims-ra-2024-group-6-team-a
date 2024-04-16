@@ -21,7 +21,7 @@ namespace BookingApp.ViewModels
 
         public Accommodation accommodation;
         
-        public LocationRepository locationRepository;
+       
         
         public List<String> _imageRelativePath = new List<String>();
         public List<String> locations {  get; set; }
@@ -30,12 +30,10 @@ namespace BookingApp.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
 
 
-        public RegisterAccommodationVM( LocationRepository locationRepository, int userId)
+        public RegisterAccommodationVM( int userId)
         {
 
-            this.locationRepository = locationRepository;
-            
-            
+
             this.userId = userId;
             this.locations = new List<String>();
             AddLocations();
@@ -43,7 +41,7 @@ namespace BookingApp.ViewModels
 
         private void AddLocations()
         {
-            foreach (Location location in this.locationRepository.GetAll()) 
+            foreach (Location location in LocationService.GetInstance().GetAll()) 
             {
                 locations.Add(location.City + " , " + location.State);
             }
@@ -67,7 +65,7 @@ namespace BookingApp.ViewModels
 
             Enums.AccommodationType type = AccommodationService.GetInstance().GetType(aptChecked,cottageChecked);
 
-            Location location = locationRepository.GetById(locationId);
+            Location location = LocationService.GetInstance().GetById(locationId);
 
 
             accommodation = new Accommodation(name, type, int.Parse(maxguests), int.Parse(minres), int.Parse(canceldays), location.Id, userId);

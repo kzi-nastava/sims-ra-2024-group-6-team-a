@@ -61,6 +61,10 @@ namespace BookingApp.ApplicationServices
             OwnerRepository.Update(owner);
         }
 
+        public List<Owner> GetAll()
+        {
+            return OwnerRepository.GetAll();
+        }
 
 
     }

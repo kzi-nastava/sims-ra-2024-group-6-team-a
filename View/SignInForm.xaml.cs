@@ -80,7 +80,7 @@ namespace BookingApp.View
                     {
 
                         case Enums.UserType.Owner:
-                            Owner owner = _ownerRepository.GetAll().Find(o => o.Id == user.Id);
+                            Owner owner = OwnerService.GetInstance().GetAll().Find(o => o.Id == user.Id);
                             InitiateAccommodationView(owner);
                             break;
                         case Enums.UserType.Guest:
@@ -110,7 +110,7 @@ namespace BookingApp.View
 
         private void InitiateAccommodationView(Owner owner)
         {
-            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(owner, _locationRepository, _accommodationReservationRepository,_guestRepository,_ownerReviewRepository);
+            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(owner, _accommodationReservationRepository,_guestRepository,_ownerReviewRepository);
             accommodationViewMenu.Show();
             Close();
         }

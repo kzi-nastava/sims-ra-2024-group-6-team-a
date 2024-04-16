@@ -30,22 +30,19 @@ namespace BookingApp.ViewModels
 
         public OwnerInfoDTO OwnerInfo { get; set; }
 
-
         public Owner Owner { get; set; }
-        
-        private LocationRepository _locationRepository;
+  
         private AccommodationReservationRepository _reservationRepository;
         private GuestRepository _guestRepository;
         private OwnerReviewRepository _ownerReviewRepository;
 
-
         bool existsNotReviewed = false;
         bool existsCanceled = false;
 
-        public AccommodationMenuVM(Owner owner, LocationRepository _locationRepository, AccommodationReservationRepository _reservationRepository,
+        public AccommodationMenuVM(Owner owner, AccommodationReservationRepository _reservationRepository,
            GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
         {
-            InitiliazeRepositories(_locationRepository, _reservationRepository, _guestRepository,_ownerReviewRepository);
+            InitiliazeRepositories(_reservationRepository, _guestRepository,_ownerReviewRepository);
 
             Owner = owner;
 
@@ -77,22 +74,19 @@ namespace BookingApp.ViewModels
             }
         }
 
-        public void InitiliazeRepositories(LocationRepository _locationRepository, AccommodationReservationRepository _reservationRepository, 
+        public void InitiliazeRepositories( AccommodationReservationRepository _reservationRepository, 
              GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
         {
-            this._locationRepository = _locationRepository;
+            
             this._reservationRepository = _reservationRepository;
-              
-           
             this._guestRepository = _guestRepository;
             this._ownerReviewRepository = _ownerReviewRepository;
-            
-            
+
         }
 
         public void Register()
         {
-            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_locationRepository, Owner.Id);
+            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(Owner.Id);
             registerAccommodationMenu.ShowDialog();
             Update();
         }
@@ -117,7 +111,7 @@ namespace BookingApp.ViewModels
 
                 AddChangedReservations(a);
 
-                Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a), imagePath));
+                Accommodations.Add(new AccommodationOwnerDTO(a, LocationService.GetInstance().GetByAccommodation(a), imagePath));
             }
 
             OwnerService.GetInstance().UpdateOwnerStatus(Owner);
@@ -178,7 +172,7 @@ namespace BookingApp.ViewModels
             String userName = _guestRepository.GetFullname(reservation.GuestId);
             String imagePath = ImageService.GetInstance().AddMainAccommodationImage(accommodation);
 
-            ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, accommodation.Name, _locationRepository.GetByAccommodation(accommodation), imagePath);
+            ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, accommodation.Name, LocationService.GetInstance().GetByAccommodation(accommodation), imagePath);
 
             Reservations.Add(newReservation);
         }
@@ -215,7 +209,7 @@ namespace BookingApp.ViewModels
         {
 
             AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(ImageService.GetInstance().GetImagesForAccommodaton(SelectedAccommodation.Id), 
-                AccommodationService.GetInstance().GetReservationsForAccommodation(SelectedAccommodation,_reservationRepository,_guestRepository,_locationRepository), SelectedAccommodation,_ownerReviewRepository);
+                AccommodationService.GetInstance().GetReservationsForAccommodation(SelectedAccommodation,_reservationRepository,_guestRepository), SelectedAccommodation,_ownerReviewRepository);
             AccommodationDetailedMenu.ShowDialog();
 
         }

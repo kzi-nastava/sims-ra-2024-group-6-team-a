@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
@@ -17,13 +18,18 @@ namespace BookingApp.ApplicationServices
     {
         public IAccommodationRepository AccommodationRepository;
         public IImageRepository ImageRepository;
+        public ILocationRepository LocationRepository;
+
+        public LocationService locationService;
         public ImageService imageService;
 
-        public AccommodationService(IAccommodationRepository accommodationRepository,IImageRepository imageRepository) 
+        public AccommodationService(IAccommodationRepository accommodationRepository,IImageRepository imageRepository,ILocationRepository locationRepository) 
         {
             AccommodationRepository = accommodationRepository;
             ImageRepository = imageRepository;
+            LocationRepository = locationRepository;
             imageService = ImageService.GetInstance();
+            locationService = LocationService.GetInstance();
         }
 
 
@@ -105,7 +111,7 @@ namespace BookingApp.ApplicationServices
             return true;
         }
 
-        public ObservableCollection<ReservationOwnerDTO> GetReservationsForAccommodation(AccommodationOwnerDTO SelectedAccommodation,AccommodationReservationRepository _reservationRepository,GuestRepository _guestRepository,LocationRepository _locationRepository)
+        public ObservableCollection<ReservationOwnerDTO> GetReservationsForAccommodation(AccommodationOwnerDTO SelectedAccommodation,AccommodationReservationRepository _reservationRepository,GuestRepository _guestRepository)
         {
             ObservableCollection<ReservationOwnerDTO> ReservationsForAccommodation = new ObservableCollection<ReservationOwnerDTO>();
 
@@ -116,7 +122,7 @@ namespace BookingApp.ApplicationServices
                     Accommodation accommodation = AccommodationRepository.GetByReservationId(SelectedAccommodation.Id);
                     String userName = _guestRepository.GetFullname(reservation.GuestId);
                     String imagePath = imageService.AddMainAccommodationImage(accommodation);
-                    Location location = _locationRepository.GetByAccommodation(accommodation);
+                    Location location = locationService.GetByAccommodation(accommodation);
 
                     ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, SelectedAccommodation.Name, location, imagePath);
 
