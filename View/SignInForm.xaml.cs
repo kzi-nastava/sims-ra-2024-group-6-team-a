@@ -27,6 +27,8 @@ namespace BookingApp.View
         private readonly OwnerReviewRepository _ownerReviewRepository;
         private readonly TourScheduleService _scheduleService;
         private readonly TourReservationService _reservationService;
+        private readonly LocationService _locationService;
+        private readonly ImageService _imageService;
         //private readonly TourRepository _tourRepository;
 
         private string _username;
@@ -66,6 +68,8 @@ namespace BookingApp.View
             _ownerReviewRepository = new OwnerReviewRepository();
             _scheduleService = new TourScheduleService();
             _reservationService = new TourReservationService();
+            _locationService = new LocationService();
+            _imageService = new ImageService();
             //_tourRepository = new TourRepository();
         }
 
@@ -127,7 +131,7 @@ namespace BookingApp.View
 
         private void InitiateTouristView(User user) 
         {
-            TouristViewMenu touristViewMenu = new TouristViewMenu(user, _locationRepository, _imageRepository, _scheduleService, _reservationService, _userRepository);
+            TouristViewMenu touristViewMenu = new TouristViewMenu(user, _locationService, _imageService, _scheduleService, _reservationService);
             touristViewMenu.Show();
             Close();
         }

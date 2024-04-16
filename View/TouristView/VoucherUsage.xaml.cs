@@ -25,26 +25,13 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class VoucherUsage : Window
     {
-        public User LoggedUser { get; set; }
-        public VouchersDTO SelectedVoucher { get; set; }
-        public ObservableCollection<VouchersDTO> Vouchers { get; set; }
-
-        private VoucherService _voucherService;
-        public TourReservationForm ParentWindow { get; set; }
         public VouchersUsageViewModel VouchersUsageWindow { get; set; }
-        public VoucherUsage(User user, TourReservationForm parentWindow)
+        public VoucherUsage(User user, TourReservationFormViewModel parentWindow)
         {
             InitializeComponent();
             VouchersUsageWindow = new VouchersUsageViewModel(this, user, parentWindow);
             DataContext = VouchersUsageWindow;
-            Update();
 
         }
-
-        private void Update()
-        {
-            VouchersUsageWindow.Update();
-        }
-       
     }
 }

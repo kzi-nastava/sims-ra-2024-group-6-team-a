@@ -17,20 +17,14 @@ namespace BookingApp.ViewModels.TouristViewModel
         public Tour SelectedTour { get; set; }
         public TourSchedule SelectedTourSchedule { get; set; }
 
-        private CheckpointService _checkpointService;
-        private TourService _tourService;
-        private TourScheduleService _schdeuleService;
         public KeypointsTracking Window { get; set; }
         public KeypointsTrackingViewModel(KeypointsTracking window, int tourScheduleId)
         {
             Window = window;
 
-            _checkpointService = new CheckpointService();
-            _tourService = new TourService();
-            _schdeuleService = new TourScheduleService();
 
-            SelectedTourSchedule = _schdeuleService.GetById(tourScheduleId);
-            SelectedTour = _tourService.GetById(SelectedTourSchedule.TourId);
+            SelectedTourSchedule = TourScheduleService.GetInstance().GetById(tourScheduleId);
+            SelectedTour = TourService.GetInstance().GetById(SelectedTourSchedule.TourId);
 
             Checkpoints = new ObservableCollection<Checkpoint>();
 
@@ -41,7 +35,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         {
             Checkpoints.Clear();
 
-            foreach (Checkpoint checkpoint in _checkpointService.GetFinishedCheckpoints(SelectedTourSchedule))
+            foreach (Checkpoint checkpoint in CheckpointService.GetInstance().GetFinishedCheckpoints(SelectedTourSchedule))
             {
 
                 Checkpoints.Add(checkpoint);

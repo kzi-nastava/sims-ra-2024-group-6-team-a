@@ -61,6 +61,7 @@ namespace BookingApp
             services.AddSingleton<IReservationChangeRepository, ReservationChangeRepository>();
             services.AddSingleton<IOwnerRepository, OwnerRepository>();
             services.AddSingleton<IGuestReviewRepository, GuestReviewRepository>();
+            services.AddSingleton<ITourisNotificationRepository, TourisNotificationRepository>();
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -80,7 +81,7 @@ namespace BookingApp
             services.AddSingleton<ReservationChangeService>();
             services.AddSingleton<OwnerService>();
             services.AddSingleton<GuestReviewService>();
-
+            services.AddSingleton<TouristNotificationService>();
         }
 
 

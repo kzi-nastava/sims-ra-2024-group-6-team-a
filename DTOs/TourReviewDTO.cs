@@ -205,13 +205,7 @@ namespace BookingApp.DTOs
 
         }
 
-
-
-        public TourReviewDTO()
-        {
-
-        }
-
+        public TourReviewDTO() { }
         public TourReviewDTO(int scheduleId, int languageGrade, int knowledgeGrade, int attractionsGrade, string impression, string imagePath, int touristId)
         {
             ScheduleId = scheduleId;

@@ -22,33 +22,25 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         public RelayCommand RateTourCommand { get; set; }
 
-        private TourService _tourService;
-        private TourScheduleService _schdeuleService;
-        private LocationRepository _locationRepository;
         private ImageRepository _imageRepository;
-        private TourReviewService _reviewService;
-
         public TourScheduleDTO SelectedTourSchedule { get; set; }
         public FinishedTours Window { get; set; }
         public FinishedToursViewModel(FinishedTours window, User user)
         {
             Window = window;
-
             LoggedUser = user;
-            _tourService = new TourService();
-            _schdeuleService = new TourScheduleService();
-            _locationRepository = new LocationRepository();
+
             _imageRepository = new ImageRepository();
-            _reviewService = new TourReviewService();
             Tours = new ObservableCollection<TourScheduleDTO>();
             RateTourCommand = new RelayCommand(Execute_RateTourCommand);
+
             Update();
         }
 
         public void Update()
         {
             Tours.Clear();
-            foreach (TourSchedule tour in _schdeuleService.GetAllFinishedTours(LoggedUser))
+            foreach (TourSchedule tour in TourScheduleService.GetInstance().GetAllFinishedTours(LoggedUser))
             {
                 Tours.Add(new TourScheduleDTO(tour));
             }
@@ -60,7 +52,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             if (SelectedTourSchedule != null)
             {
                 TourRating rating = new TourRating(SelectedTourSchedule, _imageRepository, LoggedUser);
-                rating.ShowDialog();
+                rating.ShowDialog();//U CODE BEHIND
             }
 
         }

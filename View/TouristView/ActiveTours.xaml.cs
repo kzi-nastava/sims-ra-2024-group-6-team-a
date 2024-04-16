@@ -25,29 +25,12 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class ActiveTours : Window
     {
-        public static ObservableCollection<TourScheduleDTO> Tours { get; set; }
-        public TourScheduleDTO SelectedTourSchedule { get; set; }
-        public TourTouristDTO SelectedTour { get; set; }
-        public User LoggedUser { get; set; }
-
-        private LocationRepository _locationRepository;
-        private TourService _tourService;
-        private TourScheduleService _schdeuleService;
-        private TourReservationService _reservationService;
-
         public ActiveToursViewModel ActiveToursWindow { get; set; }
         public ActiveTours(TourScheduleDTO tourSchedule, User user)
         {
             InitializeComponent();
             ActiveToursWindow = new ActiveToursViewModel(this, tourSchedule, user);
             DataContext = ActiveToursWindow;
-            Update();
-        }
-
-        private void Update() 
-        {
-            ActiveToursWindow.Update();
-
         }
 
     }
