@@ -2,6 +2,7 @@
 using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,17 +17,15 @@ namespace BookingApp.ApplicationServices
     public class TourGuestService
     {
         private ITourGuestRepository _guestRepository;
-        private TourReservationService _reservationService;
         public TourGuestService(ITourGuestRepository guestRepository)
         {
            _guestRepository = guestRepository;
-            _reservationService = TourReservationService.GetInstance();
         }
         
-        public TourGuestService()
+       /* public TourGuestService()
         {
             _guestRepository = new TourGuestRepository();
-        }
+        }*/
 
 
         public static TourGuestService GetInstance()
@@ -40,7 +39,10 @@ namespace BookingApp.ApplicationServices
             return _guestRepository.Update(guest);
         }
 
-
+        public TourGuests Save(TourGuests guest)
+        {
+            return _guestRepository.Save(guest);
+        }
         public void Delete(TourGuests guest)
         {
              _guestRepository.Delete(guest);
@@ -67,7 +69,7 @@ namespace BookingApp.ApplicationServices
             List<TourGuests> guests = new List<TourGuests>();
             List<TourReservation> reservations = new List<TourReservation>();
 
-            reservations = _reservationService.GetAllByRealisationId(tourRealisationId);
+            reservations = TourReservationService.GetInstance().GetAllByRealisationId(tourRealisationId);
             foreach (TourReservation reservation in reservations)
             {
                 foreach (TourGuests tourGuest in _guestRepository.GetAll())

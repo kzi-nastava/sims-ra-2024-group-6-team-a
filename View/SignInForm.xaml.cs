@@ -64,8 +64,6 @@ namespace BookingApp.View
            
             _guestRepository = new GuestRepository();
            
-            _scheduleService = new TourScheduleService();
-            _reservationService = new TourReservationService();
             _locationService = new LocationService();
             _imageService = new ImageService();
             //_tourRepository = new TourRepository();
@@ -129,14 +127,14 @@ namespace BookingApp.View
 
         private void InitiateTouristView(User user) 
         {
-            TouristViewMenu touristViewMenu = new TouristViewMenu(user, _locationService, _imageService, _scheduleService, _reservationService);
+            TouristViewMenu touristViewMenu = new TouristViewMenu(user);
             touristViewMenu.Show();
             Close();
         }
 
         private void InitiateGuideView(User user) 
         {
-            GuideViewMenu guideViewMenu = new GuideViewMenu(user, _locationRepository, _imageRepository);
+            GuideViewMenu guideViewMenu = new GuideViewMenu(user);
             guideViewMenu.Show();
             Close();
         }

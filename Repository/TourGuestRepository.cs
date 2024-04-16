@@ -1,12 +1,7 @@
 ﻿using BookingApp.Model;
 using BookingApp.Serializer;
-using System;
 using System.Collections.Generic;
-using System.DirectoryServices;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using BookingApp.Observer;
 using BookingApp.Domain.RepositoryInterfaces;
 
@@ -19,8 +14,6 @@ namespace BookingApp.Repository
         private readonly Serializer<TourGuests> _serializer;
         private readonly List<IObserver> _observers;
 
-        private readonly TourReservationRepository _tourReservationRepository;
-
         private List<TourGuests> _guests;
         public Subject subject;
 
@@ -31,7 +24,6 @@ namespace BookingApp.Repository
             _serializer = new Serializer<TourGuests>();
             _guests = _serializer.FromCSV(FilePath);
             subject = new Subject();
-            _tourReservationRepository = new TourReservationRepository();
 
         }
 
@@ -80,26 +72,6 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _guests);
             subject.NotifyObservers();
             return guest;
-        }
-
-        public List <TourGuests> GetAllByTourId(int tourRealisationId)
-        {
-            _guests = _serializer.FromCSV(FilePath);
-            List<TourGuests> guests = new List <TourGuests>();
-            List <TourReservation> reservations = new List <TourReservation>();
-
-            reservations = _tourReservationRepository.GetAllByRealisationId(tourRealisationId);
-            foreach(TourReservation reservation in reservations)
-            {
-                foreach(TourGuests tourGuest in _guests)
-                {
-                    if(reservation.Id == tourGuest.ReservationId)
-                    {
-                        guests.Add(tourGuest);
-                    }
-                }
-            }
-            return guests;
         }
 
         public List<TourGuests> GetAllByReservationId(int reservationId)

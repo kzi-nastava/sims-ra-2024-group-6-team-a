@@ -1,20 +1,12 @@
 ﻿using BookingApp.ApplicationServices;
 using BookingApp.DTOs;
 using BookingApp.Model;
-using BookingApp.Repository;
 using BookingApp.View.TouristView;
 using BookingApp.View;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows;
 using System.ComponentModel;
-using System.Windows.Input;
-using System.Reflection.Metadata;
 
 namespace BookingApp.ViewModels.TouristViewModel
 {
@@ -77,9 +69,6 @@ namespace BookingApp.ViewModels.TouristViewModel
         public User LoggedUser { get; set; }
         public TourScheduleDTO TourSchedule { get; set; }
         public VouchersDTO Voucher { get; set; }
-
-        private TourReservationService _reservationService;
-        private TourScheduleService _scheduleService;
         public TourReservationForm Window { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -99,7 +88,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         public RelayCommand SaveReservationCommand { get; set; }
         public RelayCommand UseVoucherCommand { get; set; }
 
-        public TourReservationFormViewModel(TourReservationForm window,  User user, TourTouristDTO selectedTour, TourReservationService reservationService, TourScheduleService scheduleService)
+        public TourReservationFormViewModel(TourReservationForm window,  User user, TourTouristDTO selectedTour)
         {
             Window = window;
             LoggedUser = user;
@@ -110,13 +99,10 @@ namespace BookingApp.ViewModels.TouristViewModel
             SaveReservationCommand = new RelayCommand(Execute_SaveReservationCommand);
             UseVoucherCommand = new RelayCommand(Execute_UseVoucherCommand);
 
-            this._reservationService = reservationService;
-            this._scheduleService = scheduleService;
-
             TourSchedules = new ObservableCollection<TourScheduleDTO>();
             TourGuests = new ObservableCollection<TourGuestDTO>();
 
-            foreach (var tourSchedule in _scheduleService.GetAll())
+            foreach (var tourSchedule in TourScheduleService.GetInstance().GetAll())
             {
                 if (tourSchedule.TourId == selectedTour.Id)
                 {
@@ -141,7 +127,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         {
             Voucher voucher = new Voucher();
             
-            if (_reservationService.IsFullyBooked(TourSchedule.Id))
+            if (TourReservationService.GetInstance().IsFullyBooked(TourSchedule.Id))
             {
                 SameLocationToursWindow sameLocationTours = new SameLocationToursWindow(TourSchedule, LoggedUser);
                 sameLocationTours.ShowDialog();
@@ -151,7 +137,7 @@ namespace BookingApp.ViewModels.TouristViewModel
 
             if (TourSchedule.CurrentFreeSpace >= GuestNumber && TourSchedule.Activity != Resources.Enums.TourActivity.Finished)
             {
-                _reservationService.MakeReservation(TourSchedule, LoggedUser, TourGuests.ToList());
+                TourReservationService.GetInstance().MakeReservation(TourSchedule, LoggedUser, TourGuests.ToList());
                 if (Voucher != null)
                 {
                     voucher.Id = Voucher.Id;

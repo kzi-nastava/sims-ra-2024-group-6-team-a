@@ -30,10 +30,10 @@ namespace BookingApp.View.TouristView
     public partial class TourRating : Window
     {
         public TourRatingViewModel RatingViewModel { get; set; }
-        public TourRating(TourScheduleDTO selectedTour, ImageRepository imageRepository, User user)
+        public TourRating(TourScheduleDTO selectedTour, User user)
         {
             InitializeComponent();
-            RatingViewModel = new TourRatingViewModel(this, selectedTour, imageRepository,user);
+            RatingViewModel = new TourRatingViewModel(this, selectedTour,user);
             DataContext = RatingViewModel;
            
         }

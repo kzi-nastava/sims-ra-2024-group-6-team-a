@@ -81,5 +81,7 @@ namespace BookingApp.ApplicationServices
 
             return _checkpointRepository.GetById(checkpointId);
         }
+
+       
     }
 }
