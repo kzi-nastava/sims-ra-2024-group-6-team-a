@@ -32,29 +32,29 @@
         <StackPanel Margin="0,10" Orientation="Horizontal">
             <Label Grid.Column="0" HorizontalAlignment="Left" Width="268" FontSize="20" Margin="30,10,0,0">Personal info:</Label>
             <Label Content="Name:" Margin="5"/>
-            <TextBox x:Name="PersonalNameTextBox" Width="100" Margin="5"/>
+            <TextBox Text="{Binding PersonalName}" Width="100" Margin="5"/>
 
             <Label Content="Surname:" Margin="5"/>
-            <TextBox x:Name="PersonalSurnameTextBox" Width="100" Margin="5"/>
+            <TextBox Text="{Binding PersonalSurname}" Width="100" Margin="5"/>
 
             <Label Content="Age:" Margin="5"/>
-            <TextBox x:Name="PersonalAgeTextBox" Width="40" Margin="5"/>
-            <Button Content=" Add " Click="AddPersonalInfoClick" Margin="5"/>
-            <Button Content="Delete" Click="DeletePesronalInfoClick" Margin="5"/>
+            <TextBox Text="{Binding PersonalAge}" Width="40" Margin="5"/>
+            <Button Content=" Add " Command="{Binding AddPersonalInfoCommand}" Margin="5"/>
+            <Button Content="Delete" Command="{Binding DeleteTouristInfoCommand}" Margin="5"/>
         </StackPanel>
         <StackPanel Margin="0,10" Orientation="Horizontal" >
         <Label Grid.Column="0" HorizontalAlignment="Left" Width="268" FontSize="20" Margin="30,10,0,0">Tourist's info:</Label>
         <Label Content="Name:" Margin="5"/>
-        <TextBox x:Name="NameTextBox" Width="100" Margin="5"/>
+            <TextBox Text="{Binding Name}" Width="100" Margin="5"/>
     
         <Label Content="Surname:" Margin="5"/>
-        <TextBox x:Name="SurnameTextBox" Width="100" Margin="5"/>
+            <TextBox Text="{Binding Surname}" Width="100" Margin="5"/>
     
         <Label Content="Age:" Margin="5"/>
-        <TextBox x:Name="AgeTextBox" Width="40" Margin="5"/>
-    
-        <Button Content=" Add " Click="AddTouristInfoClick" Margin="5"/>
-            <Button Content="Delete" Click="DeleteTouristInfoClick" Margin="5"/>
+            <TextBox Text="{Binding Age}" Width="40" Margin="5"/>
+
+            <Button Content=" Add " Command="{Binding AddTouristInfoCommand}" Margin="5"/>
+            <Button Content="Delete" Command="{Binding DeleteTouristInfoCommand}" Margin="5"/>
 
         </StackPanel>
 
@@ -67,8 +67,8 @@
         </DataGrid>
 
         <WrapPanel>
-            <Button Width="228" Height="37" Content="Save reservation" Click="SaveReservationClick" Margin="165,10,0,0" Grid.Column="1"/>
-            <Button Width="228" Height="37" Content="Use voucher" Click="UseVoucherClick" Margin="65,10,0,0" Grid.Column="1"/>
+                    <Button Width="228" Height="37" Content="Save reservation" Command="{Binding SaveReservationCommand}" Margin="165,10,0,0" Grid.Column="1"/>
+                    <Button Width="228" Height="37" Content="Use voucher" Command="{Binding UseVoucherCommand}" Margin="65,10,0,0" Grid.Column="1"/>
         </WrapPanel>
         
     </StackPanel>

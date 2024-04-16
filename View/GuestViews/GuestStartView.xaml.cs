@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookingApp.View.GuestViews
@@ -21,11 +23,32 @@ namespace BookingApp.View.GuestViews
     public partial class GuestStartView : Window
     {
         public Guest guest { get; set; }
+        public NavigationService NavService { get; set; }
         public GuestStartView(Guest _guest)
         {
             guest = _guest;
             InitializeComponent();
             SelectedTab.Content = new GuestAccommodationsView(guest, SelectedTab.NavigationService);
+            ShowNotice();
+        }
+        public void ShowNotice()
+        {
+            int numberOfNotifications = 0;
+            foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAllReservationsByGuest(guest.Id))
+                numberOfNotifications += ReservationChangeService.GetInstance().GetNumberOfNotifications(reservation.Id);
+            if (numberOfNotifications > 0)
+            {
+                MessageBoxResult odgovor = MessageBox.Show("You have " + numberOfNotifications + " notifications!\n\n Do you want to see notifications now?", "Notice!", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                switch (odgovor)
+                {
+                    case MessageBoxResult.Yes:
+                        SelectedTab.Content = new GuestMyRequestView(guest, SelectedTab.NavigationService);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
         }
         private void HomePage(object sender, RoutedEventArgs e)
         {

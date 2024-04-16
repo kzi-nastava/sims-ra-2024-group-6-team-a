@@ -80,5 +80,10 @@ namespace BookingApp.ApplicationServices
             }
             return guests;
         }
+
+        public List<TourGuests> GetAllByReservationId(int reservationId)
+        {
+            return _guestRepository.GetAllByReservationId(reservationId);
+        }
     }
 }

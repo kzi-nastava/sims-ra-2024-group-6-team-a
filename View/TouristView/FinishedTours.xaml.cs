@@ -26,21 +26,13 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class FinishedTours : Window
     {
-
         public FinishedToursViewModel FinishedToursWindow { get; set; }
-        public FinishedTours( User user)
+        public FinishedTours(User user)
         {
             InitializeComponent();
             FinishedToursWindow = new FinishedToursViewModel(this, user);
             DataContext = FinishedToursWindow;
-            Update();
-        }
-
-        private void Update()
-        {
-            FinishedToursWindow.Update();
 
         }
-
     }
 }

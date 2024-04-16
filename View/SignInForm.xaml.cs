@@ -18,15 +18,15 @@ namespace BookingApp.View
         private readonly UserRepository _repository;
         private readonly LocationRepository _locationRepository;
         private readonly ImageRepository _imageRepository;
-        private readonly AccommodationReservationRepository _accommodationReservationRepository;
+ 
         private readonly TourScheduleRepository _tourScheduleRepository;
         private readonly TourReservationRepository _tourReservationRepository;
         private readonly UserRepository _userRepository;
         private readonly GuestRepository _guestRepository;
-        private readonly OwnerRepository _ownerRepository;
-        private readonly OwnerReviewRepository _ownerReviewRepository;
         private readonly TourScheduleService _scheduleService;
         private readonly TourReservationService _reservationService;
+        private readonly LocationService _locationService;
+        private readonly ImageService _imageService;
         //private readonly TourRepository _tourRepository;
 
         private string _username;
@@ -57,15 +57,17 @@ namespace BookingApp.View
             _repository = new UserRepository();
             _locationRepository = new LocationRepository();
             _imageRepository = new ImageRepository();
-            _accommodationReservationRepository = new AccommodationReservationRepository();
+           
             _tourScheduleRepository = new TourScheduleRepository();
             _tourReservationRepository = new TourReservationRepository();
             _userRepository = new UserRepository();
-            _ownerRepository = new OwnerRepository();
+           
             _guestRepository = new GuestRepository();
-            _ownerReviewRepository = new OwnerReviewRepository();
+           
             _scheduleService = new TourScheduleService();
             _reservationService = new TourReservationService();
+            _locationService = new LocationService();
+            _imageService = new ImageService();
             //_tourRepository = new TourRepository();
         }
 
@@ -80,7 +82,7 @@ namespace BookingApp.View
                     {
 
                         case Enums.UserType.Owner:
-                            Owner owner = _ownerRepository.GetAll().Find(o => o.Id == user.Id);
+                            Owner owner = OwnerService.GetInstance().GetAll().Find(o => o.Id == user.Id);
                             InitiateAccommodationView(owner);
                             break;
                         case Enums.UserType.Guest:
@@ -110,7 +112,7 @@ namespace BookingApp.View
 
         private void InitiateAccommodationView(Owner owner)
         {
-            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(owner, _locationRepository, _accommodationReservationRepository,_guestRepository,_ownerReviewRepository);
+            AccommodationViewMenu accommodationViewMenu = new AccommodationViewMenu(owner);
             accommodationViewMenu.Show();
             Close();
         }
@@ -127,7 +129,7 @@ namespace BookingApp.View
 
         private void InitiateTouristView(User user) 
         {
-            TouristViewMenu touristViewMenu = new TouristViewMenu(user, _locationRepository, _imageRepository, _scheduleService, _reservationService, _userRepository);
+            TouristViewMenu touristViewMenu = new TouristViewMenu(user, _locationService, _imageService, _scheduleService, _reservationService);
             touristViewMenu.Show();
             Close();
         }

@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
@@ -21,9 +22,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public Guest Guest { get; set; }
         public NavigationService NavService { get; set; }
         public MoveReservationView ReservationView { get; set; }
-        private ImageRepository _imageRepository;
-        private AccommodationReservationRepository _accommodationReservationRepository;
-        private ReservationChangeRepository _reservationChangeRepository;
         public List<Model.Image> ListImages { get; set; }
         public RelayCommand SendRequestCommand { get; set; }
         public RelayCommand FirstDateCommand { get; set; }
@@ -31,15 +29,12 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public RelayCommand PreviousImageCommand { get; set; }
         public MoveReservationViewModel(Guest guest, ReservationGuestDTO SelectedReservation, MoveReservationView reservationView, NavigationService navigation)
         {
-            _accommodationReservationRepository = new AccommodationReservationRepository();
-            _reservationChangeRepository = new ReservationChangeRepository();
-            _imageRepository = new ImageRepository();
             Guest = guest;
             Reservation = SelectedReservation;
             ReservationView = reservationView;
             NavService = navigation;
             List<Model.Image> lista = new List<Model.Image>();
-            foreach (Model.Image image in _imageRepository.GetByEntity(SelectedReservation.AccommodationId, Enums.ImageType.Accommodation))
+            foreach (Model.Image image in ImageService.GetInstance().GetByEntity(SelectedReservation.AccommodationId, Enums.ImageType.Accommodation))
             {
                 lista.Add(image);
             }
@@ -56,13 +51,13 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 switch (odgovor)
                 {
                     case MessageBoxResult.Yes:
-                        AccommodationReservation movedReservation = _accommodationReservationRepository.GetByReservationId(Reservation.Id);
+                        AccommodationReservation movedReservation = AccommodationReservationService.GetInstance().GetByReservationId(Reservation.Id);
                         movedReservation.Status = Enums.ReservationStatus.Changed;
-                        _accommodationReservationRepository.Update(movedReservation);
+                        AccommodationReservationService.GetInstance().Update(movedReservation);
                         DateOnly firstDate = DateOnly.FromDateTime((DateTime)ReservationView.FirstDatePicker.SelectedDate);
                         DateOnly lastDate = DateOnly.FromDateTime((DateTime)ReservationView.LastDatePicker.SelectedDate);
                         ReservationChanges changedReservation = new ReservationChanges(Reservation.Id, Reservation.AccommodationId, Reservation.CheckIn, Reservation.CheckOut, firstDate, lastDate, "", Enums.ReservationChangeStatus.Pending);
-                        _reservationChangeRepository.Save(changedReservation);
+                        ReservationChangeService.GetInstance().Save(changedReservation);
                         NavService.Navigate(new GuestMyReservationsView(Guest, NavService));
                         break;
                     default:

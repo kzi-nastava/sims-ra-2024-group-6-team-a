@@ -44,27 +44,24 @@ namespace BookingApp.View
         public string DurationSearch { get; set; }
 
 
-        private LocationRepository _locationRepository;
+        private LocationService _locationService;
         private TourService _tourService;
-        private ImageRepository _imageRepository;
+        private ImageService _imageService;
         private TourScheduleService _scheduleService;
         private TourReservationService _reservationService;
-        private UserRepository _userRepository;
 
-        public TouristViewMenu(User user,  LocationRepository locationRepository, ImageRepository imageRepository, TourScheduleService scheduleService, TourReservationService reservationService, UserRepository userRepository)
+        public TouristViewMenu(User user,  LocationService locationService, ImageService imageService, TourScheduleService scheduleService, TourReservationService reservationService)
         {
             InitializeComponent();
             DataContext = this;
 
-            this._locationRepository = locationRepository;
-            this._imageRepository = imageRepository;
+            this._locationService = locationService;
+            this._imageService = imageService;
             this._scheduleService = scheduleService;
             this._reservationService = reservationService;
-            this._userRepository = userRepository;
             
             LoggedUser  = user;
             _tourService = new TourService();
-            //_tourService.Subscribe(this);
             
             Tours = new ObservableCollection<TourTouristDTO>();
             Update();
@@ -75,11 +72,8 @@ namespace BookingApp.View
             Tours.Clear();
             foreach(Tour tour in _tourService.GetAll()) 
             {
-               
-                Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId), _scheduleService.GetByTour(tour) ));
+                Tours.Add(new TourTouristDTO(tour, LocationService.GetInstance().GetById(tour.LocationId), TourScheduleService.GetInstance().GetByTour(tour) ));
             }
-
-            
         }
 
         private void TextboxCity_TextChanged(object sender, TextChangedEventArgs e)
@@ -121,7 +115,7 @@ namespace BookingApp.View
             {
                 if (CheckSearchConditions(tour))
                 {
-                    Tours.Add(new TourTouristDTO(tour, _locationRepository.GetById(tour.LocationId), _scheduleService.GetByTour(tour)));
+                    Tours.Add(new TourTouristDTO(tour, LocationService.GetInstance().GetById(tour.LocationId), TourScheduleService.GetInstance().GetByTour(tour)));
                 }
             }
         }
@@ -129,8 +123,8 @@ namespace BookingApp.View
         public bool CheckSearchConditions(Tour tour)
         {
             bool containsName = IsStringMatch(tour.Name, NameSearch);
-            bool containsCity = IsStringMatch(_locationRepository.GetById(tour.LocationId).City, CitySearch);
-            bool containsState = IsStringMatch(_locationRepository.GetById(tour.LocationId).State, StateSearch);
+            bool containsCity = IsStringMatch(LocationService.GetInstance().GetById(tour.LocationId).City, CitySearch);
+            bool containsState = IsStringMatch(LocationService.GetInstance().GetById(tour.LocationId).State, StateSearch);
             bool containsLanguage = IsStringMatch(tour.Language.ToString(), LanguageSearch);
             bool capacityIsLower = IsCapacityLower(tour.Capacity, CapacitySearch);
             bool containsDuration = IsDurationMatch(tour.Duration, DurationSearch);

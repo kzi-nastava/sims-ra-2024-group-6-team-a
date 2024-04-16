@@ -21,16 +21,16 @@ namespace BookingApp.View
     /// </summary>
     public partial class ReviewGuest : Window
     {
-        private GuestReviewService guestReviewService;
+       
         private int reservationId;
-        public ReviewGuest(GuestReviewService guestReviewService,int reservationId)
+        public ReviewGuest(int reservationId)
         {
             DataContext = this;
             InitializeComponent();
 
             InitializeComboBoxes();
 
-            this.guestReviewService = guestReviewService;
+           
             this.reservationId = reservationId;
             CommentBox.MaxLength = 60;
         }
@@ -52,7 +52,8 @@ namespace BookingApp.View
             {
                 if (MessageBox.Show("Confirm review?", "Grade the guest", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    guestReviewService.Save(new Model.GuestReview(reservationId, CleanGradeCombo.SelectedIndex + 1, RespectGradeCombo.SelectedIndex + 1, CommentBox.Text));
+                    
+                    GuestReviewService.GetInstance().Save(new Model.GuestReview(reservationId, CleanGradeCombo.SelectedIndex + 1, RespectGradeCombo.SelectedIndex + 1, CommentBox.Text));
                     Close();
                 }
 

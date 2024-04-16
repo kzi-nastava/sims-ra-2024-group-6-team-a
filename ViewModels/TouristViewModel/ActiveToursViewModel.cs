@@ -16,23 +16,13 @@ namespace BookingApp.ViewModels.TouristViewModel
     {
         public static ObservableCollection<TourScheduleDTO> Tours { get; set; }
         public TourScheduleDTO SelectedTourSchedule { get; set; }
-        public TourTouristDTO SelectedTour { get; set; }
         public User LoggedUser { get; set; }
         public RelayCommand TrackKeypointCommand { get; set; }
 
-        private LocationRepository _locationRepository;
-        private TourService _tourService;
-        private TourScheduleService _schdeuleService;
-        private TourReservationService _reservationService;
         public ActiveTours Window { get; set; }
         public ActiveToursViewModel(ActiveTours window, TourScheduleDTO tourSchedule, User user)
         {
             Window = window;
-
-            _tourService = new TourService();
-            _schdeuleService = new TourScheduleService();
-            _locationRepository = new LocationRepository();
-            _reservationService = new TourReservationService();
             LoggedUser = user;
 
             Tours = new ObservableCollection<TourScheduleDTO>();
@@ -44,7 +34,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         public void Update()
         {
             Tours.Clear();
-            foreach (TourSchedule tour in _schdeuleService.GetOngoingSchedulesByUser(LoggedUser))
+            foreach (TourSchedule tour in TourScheduleService.GetInstance().GetOngoingSchedulesByUser(LoggedUser))
             {
                 Tours.Add(new TourScheduleDTO(tour));
             }

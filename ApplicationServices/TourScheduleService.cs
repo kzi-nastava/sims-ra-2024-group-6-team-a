@@ -82,7 +82,7 @@ namespace BookingApp.ApplicationServices
             }
             return tours;
         }
-
+       
         public List<TourSchedule> GetAllFinishedTours(User user) //svi termini koje sam ja rezervisala, a koji su zavrseni na kojima sam prisustvovala
         {
 
@@ -92,9 +92,10 @@ namespace BookingApp.ApplicationServices
             {
                 if (schedule.TourActivity == Resources.Enums.TourActivity.Finished)//imam sve zavrsene termine
                 {
-                    foreach (TourReservation reservation in _reservationService.GetAll())
+
+                    foreach (TourReservation reservation in _reservationRepository.GetAllByUser(user))
                     {
-                        if (reservation.TourRealisationId == schedule.Id && reservation.TouristId == user.Id)//sve moje rezervacije tog termina
+                        if (reservation.TourRealisationId == schedule.Id)//sve moje rezervacije tog termina
                         {
                             foreach (TourGuests guest in _guestService.GetAllPresentGuestsByReservation(reservation.Id))//gosti na toj rezervaciji
                             {

@@ -94,9 +94,10 @@ namespace BookingApp.View.GuideView.Pages
 
             MarkCheckpointReached(selectedCheckpoint);
 
-            HasTourEnded(selectedCheckpoint,sender,e);
+            
 
             UpdateTourGuests(selectedCheckpoint);
+            HasTourEnded(selectedCheckpoint, sender, e);
         }
 
         private void MarkCheckpointReached(Checkpoint checkpoint)
@@ -136,6 +137,7 @@ namespace BookingApp.View.GuideView.Pages
             if (Checkpoints.Last() == selectedCheckpoint)
             {
                 TourEndedNotificationClick(sender, e);
+                //TouristNotificationService.GetInstance().SendNotification(SelectedTourSchedule);
             }
         }
 
@@ -146,10 +148,13 @@ namespace BookingApp.View.GuideView.Pages
             MessageBox.Show("Tour ended.", "Tour Status", MessageBoxButton.OK, MessageBoxImage.Information);
             SelectedTourSchedule.TourActivity = Enums.TourActivity.Finished;
             TourScheduleService.GetInstance().Update(SelectedTourSchedule);
-
+            
+            
 
             RaiseTourEndedEvents();
+            
             GoBackIfPossible();
+            TouristNotificationService.GetInstance().SendNotification(SelectedTourSchedule);
         }
 
         private void RaiseTourEndedEvents()

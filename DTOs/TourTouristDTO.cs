@@ -155,26 +155,6 @@ namespace BookingApp.DTOs
 
                 }
             }
-
-            private String _image;
-
-            public String Image
-            {
-                get
-                {
-                    return _image;
-                }
-
-                set
-                {
-                    if (value != _image)
-                    {
-                        _image = value;
-                        OnPropertyChanged("Image");
-                    }
-                }
-            }
-
         private DateTime _start;
         public DateTime Start
         {

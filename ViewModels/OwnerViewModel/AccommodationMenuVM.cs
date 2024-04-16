@@ -30,36 +30,19 @@ namespace BookingApp.ViewModels
 
         public OwnerInfoDTO OwnerInfo { get; set; }
 
-
         public Owner Owner { get; set; }
-        
-        private LocationRepository _locationRepository;
-        private AccommodationReservationRepository _reservationRepository;
-        private GuestRepository _guestRepository;
-        private OwnerReviewRepository _ownerReviewRepository;
-
-
-        
-        private GuestReviewService guestReviewService;
-        private ImageService imageService;
-        private ReservationChangeService reservationChangeService;
+  
 
 
         bool existsNotReviewed = false;
         bool existsCanceled = false;
 
-        public AccommodationMenuVM(Owner owner, LocationRepository _locationRepository, AccommodationReservationRepository _reservationRepository,
-           GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
+        public AccommodationMenuVM(Owner owner)
         {
-            InitiliazeRepositories(_locationRepository, _reservationRepository, _guestRepository,_ownerReviewRepository);
+            
 
             Owner = owner;
 
-           
-            
-            this.guestReviewService = new GuestReviewService();
-            this.imageService = new ImageService();
-            this.reservationChangeService = new ReservationChangeService();
 
             Accommodations = new ObservableCollection<AccommodationOwnerDTO>();
             GuestReviews = new ObservableCollection<GuestReviewDTO>();
@@ -88,22 +71,10 @@ namespace BookingApp.ViewModels
             }
         }
 
-        public void InitiliazeRepositories(LocationRepository _locationRepository, AccommodationReservationRepository _reservationRepository, 
-             GuestRepository _guestRepository, OwnerReviewRepository _ownerReviewRepository)
-        {
-            this._locationRepository = _locationRepository;
-            this._reservationRepository = _reservationRepository;
-              
-           
-            this._guestRepository = _guestRepository;
-            this._ownerReviewRepository = _ownerReviewRepository;
-            
-            
-        }
 
         public void Register()
         {
-            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(_locationRepository,imageService, Owner.Id);
+            RegisterAccommodationMenu registerAccommodationMenu = new RegisterAccommodationMenu(Owner.Id);
             registerAccommodationMenu.ShowDialog();
             Update();
         }
@@ -114,7 +85,7 @@ namespace BookingApp.ViewModels
 
             foreach (Accommodation a in AccommodationService.GetInstance().GetByOwnerId(Owner.Id))
             {
-                foreach (AccommodationReservation r in _reservationRepository.GetByAccommodation(a))
+                foreach (AccommodationReservation r in AccommodationReservationService.GetInstance().GetByAccommodation(a))
                 {
                     if (r.Status == Enums.ReservationStatus.Canceled)
                     {
@@ -124,11 +95,11 @@ namespace BookingApp.ViewModels
                     UpdateReservationsOwnerAndReviews(a, r);
                 }
 
-                string imagePath = imageService.AddMainAccommodationImage(a);
+                string imagePath = ImageService.GetInstance().AddMainAccommodationImage(a);
 
                 AddChangedReservations(a);
 
-                Accommodations.Add(new AccommodationOwnerDTO(a, _locationRepository.GetByAccommodation(a), imagePath));
+                Accommodations.Add(new AccommodationOwnerDTO(a, LocationService.GetInstance().GetByAccommodation(a), imagePath));
             }
 
             OwnerService.GetInstance().UpdateOwnerStatus(Owner);
@@ -147,30 +118,26 @@ namespace BookingApp.ViewModels
 
         public void UpdateReservationsOwnerAndReviews(Accommodation a,AccommodationReservation r)
         {
-            CheckReservationStatus(r, a);
+            if(r.Status != Enums.ReservationStatus.Changed)
+                 AddReservations(r, a);
             CheckGuestReview(a, r);
-            OwnerService.GetInstance().UpdateOwner(r,_ownerReviewRepository,Owner);
+            OwnerService.GetInstance().UpdateOwner(r,Owner);
         }
 
-        public void CheckReservationStatus(AccommodationReservation reservation, Accommodation accommodation)
-        {
 
-            AddReservations(reservation, accommodation);
-
-        }
 
         public void AddChangedReservations(Accommodation accommodation)
         {
-            foreach (ReservationChanges reservationChange in reservationChangeService.GetAll())
+            foreach (ReservationChanges reservationChange in ReservationChangeService.GetInstance().GetAll())
             {
                 if (reservationChange.AccommodationId == accommodation.Id && reservationChange.Status == Enums.ReservationChangeStatus.Pending)
                 {
 
-                    String userName = _guestRepository.GetFullname(_reservationRepository.GetAll().Find(r => r.Id == reservationChange.ReservationId).GuestId);
+                    String userName = GuestService.GetInstance().GetFullname(AccommodationReservationService.GetInstance().GetAll().Find(r => r.Id == reservationChange.ReservationId).GuestId);
                     String oldDate = reservationChange.OldCheckIn.ToString("dd MMMM yyyy") + "   ->   " + reservationChange.OldCheckOut.ToString("dd MMMM yyyy");
                     String newDate = reservationChange.NewCheckIn.ToString("dd MMMM yyyy") + "   ->   " + reservationChange.NewCheckOut.ToString("dd MMMM yyyy");
                     String bookedStatus = "No";
-                    if (AccommodationService.GetInstance().CheckIfAlreadyBooked(reservationChange, accommodation,_reservationRepository))
+                    if (AccommodationService.GetInstance().CheckIfAlreadyBooked(reservationChange, accommodation))
                         bookedStatus = "Yes";
 
 
@@ -186,10 +153,10 @@ namespace BookingApp.ViewModels
         public void AddReservations(AccommodationReservation reservation, Accommodation accommodation)
         {
 
-            String userName = _guestRepository.GetFullname(reservation.GuestId);
-            String imagePath = imageService.AddMainAccommodationImage(accommodation);
+            String userName = GuestService.GetInstance().GetFullname(reservation.GuestId);
+            String imagePath = ImageService.GetInstance().AddMainAccommodationImage(accommodation);
 
-            ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, accommodation.Name, _locationRepository.GetByAccommodation(accommodation), imagePath);
+            ReservationOwnerDTO newReservation = new ReservationOwnerDTO(userName, reservation, accommodation.Name, LocationService.GetInstance().GetByAccommodation(accommodation), imagePath);
 
             Reservations.Add(newReservation);
         }
@@ -201,7 +168,7 @@ namespace BookingApp.ViewModels
 
             if (DaysPassedForReview >= 0)
             {
-                GuestReview review = guestReviewService.Get(reservation.Id);
+                GuestReview review = GuestReviewService.GetInstance().Get(reservation.Id);
 
                 if (review == null && DaysPassedForReview < 5)
                 {
@@ -219,14 +186,14 @@ namespace BookingApp.ViewModels
         public void AddGuestReview(Accommodation accommodation, AccommodationReservation reservation, int cleanlinessGrade = 0, int respectGrade = 0, string comment = "")
         {
             string GuestOccupationPeriod = reservation.CheckInDate.ToString("dd.MM.yyyy") + " - " + reservation.CheckOutDate.ToString("dd.MM.yyyy");
-            GuestReviews.Add(new GuestReviewDTO(accommodation.Name, _guestRepository.GetFullname(reservation.GuestId), cleanlinessGrade, respectGrade, comment, GuestOccupationPeriod, reservation.Id));
+            GuestReviews.Add(new GuestReviewDTO(accommodation.Name, GuestService.GetInstance().GetFullname(reservation.GuestId), cleanlinessGrade, respectGrade, comment, GuestOccupationPeriod, reservation.Id));
         }
 
         public void DetailedAccommodationView()
         {
 
-            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(imageService.GetImagesForAccommodaton(SelectedAccommodation.Id), 
-                AccommodationService.GetInstance().GetReservationsForAccommodation(SelectedAccommodation,_reservationRepository,_guestRepository,_locationRepository), SelectedAccommodation,_ownerReviewRepository);
+            AccommodationDetailedMenu AccommodationDetailedMenu = new AccommodationDetailedMenu(ImageService.GetInstance().GetImagesForAccommodaton(SelectedAccommodation.Id), 
+                AccommodationService.GetInstance().GetReservationsForAccommodation(SelectedAccommodation), SelectedAccommodation);
             AccommodationDetailedMenu.ShowDialog();
 
         }
@@ -236,14 +203,14 @@ namespace BookingApp.ViewModels
 
             if (SelectedGuestReview.respectGrade == 0)
             {
-                ReviewGuest reviewGuest = new ReviewGuest(guestReviewService, SelectedGuestReview.ReservationId);
+                ReviewGuest reviewGuest = new ReviewGuest(SelectedGuestReview.ReservationId);
                 reviewGuest.ShowDialog();
             }
         }
 
         public OwnerReview FindLinkedReview(GuestReviewDTO review)
         {
-            return _ownerReviewRepository.Get(review.reservationId);
+            return OwnerReviewService.GetInstance().Get(review.reservationId);
         }
 
         public void ShowGuestsReview()
@@ -261,7 +228,7 @@ namespace BookingApp.ViewModels
 
         public void AllowReservationChange()
         {
-            AllowReservationChange allowReservationChange = new AllowReservationChange(SelectedChange, _reservationRepository, reservationChangeService);
+            AllowReservationChange allowReservationChange = new AllowReservationChange(SelectedChange);
             allowReservationChange.ShowDialog();
 
         }
@@ -269,7 +236,7 @@ namespace BookingApp.ViewModels
         public void EnterOwnerInfo()
         {
             Math.Round(Owner.AverageGrade, 3);   
-            OwnerInfo = new OwnerInfoDTO(Owner, AccommodationService.GetInstance().GetTotalReservationCount(_reservationRepository,Owner.Id), AccommodationService.GetInstance().GetTotalAccommodationCount(Owner.Id));
+            OwnerInfo = new OwnerInfoDTO(Owner, AccommodationService.GetInstance().GetTotalReservationCount(Owner.Id), AccommodationService.GetInstance().GetTotalAccommodationCount(Owner.Id));
             OwnerInfo ownerInfo = new OwnerInfo(OwnerInfo);
             ownerInfo.ShowDialog();
 

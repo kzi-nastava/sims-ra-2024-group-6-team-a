@@ -15,8 +15,6 @@ namespace BookingApp.ViewModels.TouristViewModel
     {
         public ObservableCollection<VouchersDTO> Vouchers { get; set; }
         public User LoggedUser { get; set; }
-
-        private VoucherService _voucherService;
         public VouchersView Window;
 
         public VouchersViewModel(VouchersView window, User user)
@@ -24,7 +22,6 @@ namespace BookingApp.ViewModels.TouristViewModel
             Window = window;
 
             LoggedUser = user;
-            _voucherService = new VoucherService();
 
             Vouchers = new ObservableCollection<VouchersDTO>();
 
@@ -35,7 +32,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         public void Update()
         {
             Vouchers.Clear();
-            foreach (Voucher voucher in _voucherService.GetAllByUser(LoggedUser))
+            foreach (Voucher voucher in VoucherService.GetInstance().GetAllByUser(LoggedUser))
             {
                 Vouchers.Add(new VouchersDTO(voucher));
             }

@@ -44,15 +44,6 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return ReservationChanges;
         }
-        public int GetNumberOfNotifications(int reservationId)
-        {
-            int numberOfNotifications = 0;
-            foreach (ReservationChanges change in GetAll())
-                if (change.ReservationId == reservationId && (change.Status == Enums.ReservationChangeStatus.Rejected || change.Status == Enums.ReservationChangeStatus.Accepted))
-                    numberOfNotifications++;
-            return numberOfNotifications;
-        }
-
         public int NextId()
         {
             _changes= _serializer.FromCSV(FilePath);

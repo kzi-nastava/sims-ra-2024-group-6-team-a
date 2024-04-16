@@ -29,14 +29,6 @@ namespace BookingApp.View.TouristView
     /// </summary>
     public partial class TourRating : Window
     {
-        private readonly ImageRepository _imageRepository;
-        //private readonly TourReviewService _reviewService = new TourReviewService();
-        public TourScheduleDTO SelectedTour { get; set; }
-        public User LoggedUser { get; set; }
-
-        public TourReviewDTO TourReviewDTO { get; set; }
-        public String SelectedImageUrl { get; set; }
-        public static ObservableCollection<String> ImagesCollection { get; set; }
         public TourRatingViewModel RatingViewModel { get; set; }
         public TourRating(TourScheduleDTO selectedTour, ImageRepository imageRepository, User user)
         {
