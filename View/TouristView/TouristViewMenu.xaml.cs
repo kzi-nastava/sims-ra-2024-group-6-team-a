@@ -1,23 +1,10 @@
 ﻿using BookingApp.DTOs;
-using BookingApp.Repository;
 using BookingApp.Observer;
-using BookingApp.Resources;
 using BookingApp.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.ComponentModel;
 using BookingApp.View.TouristView;
 using BookingApp.ApplicationServices;
 
@@ -29,9 +16,7 @@ namespace BookingApp.View
     public partial class TouristViewMenu : Window, IObserver
     {
 
-        public static ObservableCollection<TourTouristDTO> Tours {  get; set; }
-        public TourTouristDTO SelectedTour { get; set; }
-        public TourReservationDTO SelectedReservation { get; set; }
+        public static ObservableCollection<TourTouristDTO> Tours { get; set; }
         public TourScheduleDTO TourSchedule { get; set; }
         public User LoggedUser { get; set; }
 
@@ -43,26 +28,12 @@ namespace BookingApp.View
         public string CapacitySearch { get; set; }
         public string DurationSearch { get; set; }
 
-
-        private LocationService _locationService;
-        private TourService _tourService;
-        private ImageService _imageService;
-        private TourScheduleService _scheduleService;
-        private TourReservationService _reservationService;
-
-        public TouristViewMenu(User user,  LocationService locationService, ImageService imageService, TourScheduleService scheduleService, TourReservationService reservationService)
+        public TouristViewMenu(User user)
         {
             InitializeComponent();
             DataContext = this;
+            LoggedUser = user;
 
-            this._locationService = locationService;
-            this._imageService = imageService;
-            this._scheduleService = scheduleService;
-            this._reservationService = reservationService;
-            
-            LoggedUser  = user;
-            _tourService = new TourService();
-            
             Tours = new ObservableCollection<TourTouristDTO>();
             Update();
         }
@@ -70,9 +41,9 @@ namespace BookingApp.View
         public void Update()
         {
             Tours.Clear();
-            foreach(Tour tour in _tourService.GetAll()) 
+            foreach (Tour tour in TourService.GetInstance().GetAll())
             {
-                Tours.Add(new TourTouristDTO(tour, LocationService.GetInstance().GetById(tour.LocationId), TourScheduleService.GetInstance().GetByTour(tour) ));
+                Tours.Add(new TourTouristDTO(tour, LocationService.GetInstance().GetById(tour.LocationId), TourScheduleService.GetInstance().GetByTour(tour)));
             }
         }
 
@@ -94,7 +65,7 @@ namespace BookingApp.View
 
         private void TextboxDuration_TextChanged(object sender, TextChangedEventArgs e)
         {
-            DurationSearch= TextboxDuration.Text;
+            DurationSearch = TextboxDuration.Text;
         }
 
         private void TextboxLanguage_TextChanged(object sender, TextChangedEventArgs e)
@@ -111,7 +82,7 @@ namespace BookingApp.View
         {
             Tours.Clear();
 
-            foreach (Tour tour in _tourService.GetAll())
+            foreach (Tour tour in TourService.GetInstance().GetAll())
             {
                 if (CheckSearchConditions(tour))
                 {
@@ -149,25 +120,14 @@ namespace BookingApp.View
         private void Reservation_Click(object sender, RoutedEventArgs e)
         {
             TourTouristDTO selectedTour = (TourTouristDTO)tourDataGrid.SelectedItem;
-            
+
             if (selectedTour != null)
             {
-                TourReservationForm form = new TourReservationForm(LoggedUser,selectedTour, _reservationService, _scheduleService);
+                TourReservationForm form = new TourReservationForm(LoggedUser, selectedTour);
                 form.ShowDialog();
-                
+
             }
         }
-
-        private void Clear_Click(object sender, RoutedEventArgs e)
-        {
-            TextboxName.Text = "";
-            TextboxState.Text = "";
-            TextboxCity.Text = "";
-            TextboxDuration.Text = "";
-            TextboxCapacity.Text = "";
-            TextboxLanguage.Text = "";
-        }
-
         private void MyActiveTours_Click(object sender, RoutedEventArgs e)
         {
             ActiveTours activeTours = new ActiveTours(TourSchedule, LoggedUser);

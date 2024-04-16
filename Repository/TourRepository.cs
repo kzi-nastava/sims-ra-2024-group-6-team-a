@@ -1,17 +1,8 @@
 ﻿using BookingApp.Model;
 using BookingApp.Serializer;
-using System;
 using System.Collections.Generic;
-using System.DirectoryServices;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using BookingApp.Observer;
-using BookingApp.DTOs;
-using System.CodeDom;
-using System.Windows.Input;
-using BookingApp.View.TouristView;
 using BookingApp.Domain.RepositoryInterfaces;
 
 namespace BookingApp.Repository

@@ -29,17 +29,11 @@ namespace BookingApp.View
 
         public TourScheduleDTO TourScheduleDTO { get; set; }
         public User LoggedUser { get; set; }
-
-        private TourScheduleService _schdeuleService;
-        private TourReservationService _reservationService;
         
         public SameLocationToursWindow(TourScheduleDTO tourSchedule, User user)
         {
             InitializeComponent();
             DataContext = this;
-
-            _schdeuleService = new TourScheduleService();
-            _reservationService = new TourReservationService();
             LoggedUser = user;
 
             Tours = new ObservableCollection<TourTouristDTO>();
@@ -64,7 +58,7 @@ namespace BookingApp.View
 
             if (selectedTour != null)
             {
-                TourReservationForm form = new TourReservationForm(LoggedUser, selectedTour, _reservationService, _schdeuleService);
+                TourReservationForm form = new TourReservationForm(LoggedUser, selectedTour);
                 form.ShowDialog();
 
             }

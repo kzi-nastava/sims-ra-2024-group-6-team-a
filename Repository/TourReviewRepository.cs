@@ -1,15 +1,9 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.DTOs;
-using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BookingApp.Repository
 {
     public class TourReviewRepository : ITourReviewRepository
@@ -81,20 +75,6 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
             return review;
         }
-
-        public void MakeReview(TourReviewDTO tourReviewDTO) //provjeri da li si prethodno ocijenila
-        {
-            foreach(TourReview review in GetAll())
-            {
-                if(review.ScheduleId == tourReviewDTO.ScheduleId && review.TouristId == tourReviewDTO.TouristId)
-                {
-                    return;
-                }
-            }
-            TourReview tourReview = new TourReview(tourReviewDTO.ScheduleId, tourReviewDTO.GuideKnowledgeGrade, tourReviewDTO.GuideLanguageGrade, tourReviewDTO.TourAttractionsGrade, tourReviewDTO.Impression, tourReviewDTO.TouristId, tourReviewDTO.IsValid);
-            Save(tourReview);
-        }
-
         public List <TourReview> GetAllReviewsByScheduleId(int tourScheduleId)
         {
             return _reviews.Where(c => c.ScheduleId == tourScheduleId).ToList();

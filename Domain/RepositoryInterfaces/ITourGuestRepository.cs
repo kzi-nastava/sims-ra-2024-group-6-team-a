@@ -18,8 +18,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public int NextId();
 
         public void Delete(TourGuests guest);
-
-        public List<TourGuests> GetAllByTourId(int tourRealisationId);
         public TourGuests Update(TourGuests guest);
 
         public List<TourGuests> GetAllByReservationId(int reservationId);

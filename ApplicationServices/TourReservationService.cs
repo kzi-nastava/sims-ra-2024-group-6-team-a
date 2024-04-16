@@ -17,16 +17,17 @@ namespace BookingApp.ApplicationServices
     public class TourReservationService
     {
         private ITourReservationRepository _tourReservationRepository;
+       
 
         public TourReservationService(ITourReservationRepository tourReservationRepository)
         {
             _tourReservationRepository = tourReservationRepository;
         }
 
-        public TourReservationService()
+       /* public TourReservationService()
         {
             _tourReservationRepository = new TourReservationRepository();
-        }
+        }*/
 
         public static TourReservationService GetInstance()
         {
@@ -45,45 +46,42 @@ namespace BookingApp.ApplicationServices
 
         public bool IsFullyBooked(int currentTourRealisationId)
         {
-            TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
 
-            int currentGuestNumber = tourScheduleRepository.GetById(currentTourRealisationId).CurrentFreeSpace;
+            int currentGuestNumber = TourScheduleService.GetInstance().GetById(currentTourRealisationId).CurrentFreeSpace;
             return currentGuestNumber <= 0;
         }
 
-        private void UpdateCurrentGuestNumber(int tourRealisationId, int guestNumber, TourScheduleRepository tourScheduleRepository)
+        private void UpdateCurrentGuestNumber(int tourRealisationId, int guestNumber)
         {
-            foreach (TourSchedule tourSchedule in tourScheduleRepository.GetAll())
+            foreach (TourSchedule tourSchedule in TourScheduleService.GetInstance().GetAll())
             {
                 if (tourSchedule.Id == tourRealisationId)
                 {
                     tourSchedule.CurrentFreeSpace -= guestNumber;
-                    tourScheduleRepository.Update(tourSchedule);
+                    TourScheduleService.GetInstance().Update(tourSchedule);
                 }
             }
         }
 
-        private void SaveTourGuests(int reservationId, List<TourGuestDTO> guests, TourGuestRepository tourGuestRepository)
+        private void SaveTourGuests(int reservationId, List<TourGuestDTO> guests)
         {
             foreach (TourGuestDTO guest in guests)
             {
                 TourGuests newGuest = new TourGuests(guest, reservationId);
-                tourGuestRepository.Save(newGuest);
+                TourGuestService.GetInstance().Save(newGuest);
             }
         }
 
         public void MakeReservation(TourScheduleDTO tourScheduleDTO, User loggedUser, List<TourGuestDTO> guests)
         {
-            TourGuestRepository tourGuestRepository = new TourGuestRepository();
-            TourScheduleRepository tourScheduleRepository = new TourScheduleRepository();
 
             TourReservation reservation = new TourReservation(guests.Count(), tourScheduleDTO.Id, tourScheduleDTO.TourId, loggedUser.Id);
 
-            UpdateCurrentGuestNumber(tourScheduleDTO.Id, reservation.GuestNumber, tourScheduleRepository);
+            UpdateCurrentGuestNumber(tourScheduleDTO.Id, reservation.GuestNumber);
             Save(reservation);
 
 
-            SaveTourGuests(reservation.Id, guests, tourGuestRepository);
+            SaveTourGuests(reservation.Id, guests);
         }
 
         public List<TourReservation> GetAllByUser(User user) 

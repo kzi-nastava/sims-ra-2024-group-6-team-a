@@ -21,8 +21,6 @@ namespace BookingApp.ViewModels.TouristViewModel
         public User LoggedUser { get; set; }
 
         public RelayCommand RateTourCommand { get; set; }
-
-        private ImageRepository _imageRepository;
         public TourScheduleDTO SelectedTourSchedule { get; set; }
         public FinishedTours Window { get; set; }
         public FinishedToursViewModel(FinishedTours window, User user)
@@ -30,7 +28,6 @@ namespace BookingApp.ViewModels.TouristViewModel
             Window = window;
             LoggedUser = user;
 
-            _imageRepository = new ImageRepository();
             Tours = new ObservableCollection<TourScheduleDTO>();
             RateTourCommand = new RelayCommand(Execute_RateTourCommand);
 
@@ -51,7 +48,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         {
             if (SelectedTourSchedule != null)
             {
-                TourRating rating = new TourRating(SelectedTourSchedule, _imageRepository, LoggedUser);
+                TourRating rating = new TourRating(SelectedTourSchedule, LoggedUser);
                 rating.ShowDialog();//U CODE BEHIND
             }
 

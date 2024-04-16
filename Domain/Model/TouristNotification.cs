@@ -22,12 +22,12 @@ namespace BookingApp.Domain.Model
 
         public TouristNotification()
         {
-            Message = "Following guests have shown up: ";
+            Message = "Following guests have shown up on these checkpoints: ";
         }
 
         public TouristNotification(int userId, string title)
         {
-            Message = "Following guests have shown up: ";
+            Message = "Following guests have shown up on these checkpoints: ";
             UserId = userId;
             Title = title;  
         }

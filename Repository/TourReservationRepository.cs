@@ -1,9 +1,7 @@
 ﻿using BookingApp.Domain.RepositoryInterfaces;
-using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Serializer;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -82,7 +80,7 @@ namespace BookingApp.Repository
             return reservation;
         }
 
-        public List<TourReservation> GetAllByUser(User user)  //pronasla sam sve rezervacije nekog turiste
+        public List<TourReservation> GetAllByUser(User user)
         {
             _tourReservations = _serializer.FromCSV(FilePath);
             return _tourReservations.FindAll(x => x.TouristId == user.Id);

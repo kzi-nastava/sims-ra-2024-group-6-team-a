@@ -44,7 +44,6 @@
             <TextBox Name="TextboxCapacity" TextChanged="TextboxCapacity_TextChanged" HorizontalAlignment="Left" Margin="585,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="20"/>
         <Button Content="Search" Click="Search_Click" HorizontalAlignment="Left" Margin="645,45,0,0" VerticalAlignment="Top" Width="40" Height="20"/>
         <Button Content="Reserve" Click="Reservation_Click" HorizontalAlignment="Left" Margin="700,45,0,0" VerticalAlignment="Top" Width="40" Height="20"/>
-        <Button Content="Clear" Click="Clear_Click" HorizontalAlignment="Left" Margin="747,45,0,0" VerticalAlignment="Top" Width="35" Height="20"/>
     </Grid>
 
 </Window>

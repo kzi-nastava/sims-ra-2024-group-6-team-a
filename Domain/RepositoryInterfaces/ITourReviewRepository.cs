@@ -23,8 +23,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public void Delete(TourReview review);
         public TourReview Update(TourReview review);
 
-        public void MakeReview(TourReviewDTO tourReviewDTO);
-
 
         public List<TourReview> GetAllReviewsByScheduleId(int tourScheduleId);
     }

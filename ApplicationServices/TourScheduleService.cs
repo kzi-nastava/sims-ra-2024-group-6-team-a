@@ -16,22 +16,18 @@ namespace BookingApp.ApplicationServices
     public class TourScheduleService
     {
         private ITourScheduleRepository _scheduleRepository;
-        private TourGuestService _guestService;
-        private TourReservationService _reservationService;
 
         public TourScheduleService(ITourScheduleRepository tourScheduleRepository)
         {
             _scheduleRepository = tourScheduleRepository;
-            _guestService = TourGuestService.GetInstance();
-            _reservationService = TourReservationService.GetInstance();
         }
 
-        public TourScheduleService()
+       /* public TourScheduleService()
         {
             _scheduleRepository = new TourScheduleRepository();
             _guestService = new TourGuestService();
             _reservationService = new TourReservationService();
-        }
+        }*/
 
 
         public static TourScheduleService GetInstance()
@@ -71,7 +67,7 @@ namespace BookingApp.ApplicationServices
         {
             List<TourSchedule> tours = new List<TourSchedule>();
 
-            foreach (TourReservation reservation in _reservationService.GetAllByUser(user))
+            foreach (TourReservation reservation in TourReservationService.GetInstance().GetAllByUser(user))
             {
                 TourSchedule tourSchedule = GetById(reservation.TourRealisationId);
                 if (tourSchedule.TourActivity == Resources.Enums.TourActivity.Ongoing)
@@ -82,35 +78,45 @@ namespace BookingApp.ApplicationServices
             }
             return tours;
         }
-       
-        public List<TourSchedule> GetAllFinishedTours(User user) //svi termini koje sam ja rezervisala, a koji su zavrseni na kojima sam prisustvovala
-        {
 
-            List<TourSchedule> tours = new List<TourSchedule>();
+        public List<TourSchedule> GetAllFinishedTours(User user)
+        {
+            List<TourSchedule> finishedTours = new List<TourSchedule>();
 
             foreach (TourSchedule schedule in _scheduleRepository.GetAll())
             {
-                if (schedule.TourActivity == Resources.Enums.TourActivity.Finished)//imam sve zavrsene termine
+                if (IsTourScheduleFinished(schedule) && HasUserAttended(user, schedule))
                 {
-
-                    foreach (TourReservation reservation in TourReservationService.GetInstance().GetAllByUser(user))
-                    {
-                        if (reservation.TourRealisationId == schedule.Id)//sve moje rezervacije tog termina
-                        {
-                            foreach (TourGuests guest in _guestService.GetAllPresentGuestsByReservation(reservation.Id))//gosti na toj rezervaciji
-                            {
-                                if (guest.UserTypeId == user.Id)
-                                {
-                                    tours.Add(schedule);
-                                }
-                            }
-
-                        }
-                    }
-
+                    finishedTours.Add(schedule);
                 }
             }
-            return tours;
+
+            return finishedTours;
+        }
+
+        private bool IsTourScheduleFinished(TourSchedule schedule)
+        {
+            return schedule.TourActivity == Resources.Enums.TourActivity.Finished;
+        }
+
+
+        private bool HasUserAttended(User user, TourSchedule schedule)
+        {
+            foreach (TourReservation reservation in TourReservationService.GetInstance().GetAllByUser(user))
+            {
+                if (reservation.TourRealisationId == schedule.Id)
+                {
+                    foreach (TourGuests guest in TourGuestService.GetInstance().GetAllPresentGuestsByReservation(reservation.Id))
+                    {
+                        if (guest.UserTypeId == user.Id)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
         public int FindOngoingTour(List<Tour> tours)
         {

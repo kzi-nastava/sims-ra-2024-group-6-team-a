@@ -47,7 +47,7 @@ namespace BookingApp.ApplicationServices
                 foreach (var guest in guests)
                 {
                     if (guests.Any())
-                        notification.Message += guest.Name + " " + guest.Surname + " " + guest.CheckpointId + "; ";
+                        notification.Message += guest.Name + " " + guest.Surname + " " + CheckpointService.GetInstance().GetById(guest.CheckpointId).Name + "; ";
                 }
 
                 if (guests.Find(g => g.UserTypeId != -1) != null)

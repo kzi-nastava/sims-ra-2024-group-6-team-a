@@ -33,7 +33,7 @@ namespace BookingApp.View
        
         public GuideMenuViewModel MainWindowViewModel {  get; set; }
 
-        public GuideViewMenu(User user,LocationRepository locationRepository,ImageRepository imageRepository)
+        public GuideViewMenu(User user)
         {
             InitializeComponent();
             DataContext = MainWindowViewModel;

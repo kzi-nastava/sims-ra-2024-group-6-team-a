@@ -17,7 +17,6 @@ namespace BookingApp.ViewModels.TouristViewModel
 {
     public class TourRatingViewModel
     {
-        private readonly ImageRepository _imageRepository;
         public TourScheduleDTO SelectedTour { get; set; }
         public User LoggedUser { get; set; }
         public RelayCommand SelectImageCommand { get; set; }
@@ -30,10 +29,9 @@ namespace BookingApp.ViewModels.TouristViewModel
         public String SelectedImageUrl { get; set; }
         public static ObservableCollection<String> ImagesCollection { get; set; }
         public TourRating Window { get; set; }
-        public TourRatingViewModel(TourRating window, TourScheduleDTO selectedTour, ImageRepository imageRepository, User user)
+        public TourRatingViewModel(TourRating window, TourScheduleDTO selectedTour, User user)
         {
             Window = window;
-            _imageRepository = imageRepository;
             SelectedTour = selectedTour;
             TourReviewDTO = new TourReviewDTO();
             LoggedUser = user;
@@ -64,7 +62,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         {
             foreach (string relativePath in images)
             {
-                _imageRepository.Save(new Model.Image(relativePath, SelectedTour.Id, Enums.ImageType.TourReview));
+                ImageService.GetInstance().Save(new Model.Image(relativePath, SelectedTour.Id, Enums.ImageType.TourReview));
             }
         }
         private void Execute_RemoveImageCommand(object sender)

@@ -14,16 +14,14 @@ namespace BookingApp.ApplicationServices
     public class VoucherService
     {
         private IVoucherRepository _voucherRepository;
-        private TourReservationService _reservationService;
 
-        public VoucherService()
+       /* public VoucherService()
         {
             _voucherRepository = new VoucherRepository();
-        }
+        }*/
         public VoucherService(IVoucherRepository voucherRepository)
         {
             _voucherRepository = voucherRepository;
-            _reservationService = TourReservationService.GetInstance();
         }
 
         public static VoucherService GetInstance()
@@ -54,7 +52,7 @@ namespace BookingApp.ApplicationServices
 
             foreach (TourGuests tourGuest in guests)
             {
-                TourReservation tourReservation = _reservationService.GetById(tourGuest.ReservationId);
+                TourReservation tourReservation = TourReservationService.GetInstance().GetById(tourGuest.ReservationId);
                 Voucher voucher = new Voucher();
                 voucher.TouristName = tourGuest.Name;
                 voucher.TouristSurname = tourGuest.Surname;
