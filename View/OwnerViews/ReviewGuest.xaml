@@ -1,0 +1,31 @@
+﻿<Window x:Class="BookingApp.View.ReviewGuest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View"
+        mc:Ignorable="d"
+        Title="ReviewGuest" Height="350" Width="400" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Cleanliness:</Label>
+        <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Respectfulness:</Label>
+        <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Bonus Comment:</Label>
+        <ComboBox Grid.Row="0" Grid.Column="1" Width="80" Height="20" x:Name="CleanGradeCombo"></ComboBox>
+        <ComboBox Grid.Row="1" Grid.Column="1" Width="80" Height="20" x:Name="RespectGradeCombo"></ComboBox>
+        <TextBox TextWrapping="Wrap" x:Name ="CommentBox" Grid.Row="2" Grid.Column="1" FontSize="17" TextAlignment="Center" VerticalAlignment="Center" Height="120"></TextBox>
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="SaveGrade"  Background="CornflowerBlue" Width="115">Rate</Button>
+    </Grid>
+</Window>

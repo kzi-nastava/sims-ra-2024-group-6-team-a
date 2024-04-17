@@ -1,0 +1,163 @@
+﻿<Page x:Class="BookingApp.View.GuestViews.ReservationSeeMoreView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:local="clr-namespace:BookingApp.View.GuestViews"
+      mc:Ignorable="d" 
+     d:DesignHeight="540" d:DesignWidth="410"
+      Title="ReservationSeeMoreView">
+
+    <Grid>
+        <Grid  Background="Wheat" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="180"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid  Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" >
+                    <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
+                        <Image Source ="/Resources/Images/menu.png" Width="70" Height="50"/>
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="1" >
+                    <TextBlock FontSize="37" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" >My reservations</TextBlock>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1" >
+                <Label Content="{Binding Reservation.AccommodationName}"   Height="60" Width="auto" FontSize="35" FontWeight="DemiBold"   Background="Transparent" Foreground="Black" FontFamily="arial" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
+            </Grid>
+            <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
+
+            <Grid Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Image Source= "{Binding CurrentImage.Path}" VerticalAlignment="Top" Width="330" Height="180" Margin="0,-24,0,0" />
+                <Button Height="40" Width="22" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Transparent"  Command="{Binding NextImageCommand}">
+                    <Image Source ="/Resources/Images/rarrow.png" Width="20" Height="35"/>
+                </Button>
+                <Button Height="40" Width="22" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"  Command="{Binding PreviousImageCommand}">
+                    <Image Source ="/Resources/Images/larroww.png" Width="20" Height="35"/>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="3" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="34"/>
+                    <RowDefinition Height="33"/>
+                    <RowDefinition Height="33"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="65"/>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Label FontSize="15"  FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Center" Content="State:"></Label>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"   HorizontalAlignment="left"  Content="{Binding Reservation.State}" Margin="-20,0,0,0" />
+                    </Grid>
+
+                    <Grid Grid.Column="2">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="left"  Content="Check in date: " ></Label>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Reservation.CheckIn}"  Margin="-80,0,0,0" Width="90"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="65"/>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Label FontSize="15"  FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Center" Content="City:"></Label>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  Content="{Binding Reservation.City}"  Margin="-20,0,0,0" />
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left"  Content="Check out date: "></Label>
+                    </Grid>
+                    
+                    <Grid Grid.Column="3">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Reservation.CheckOut}" Margin="-80,0,0,0" Width="90"/>
+                    </Grid>
+                   
+                </Grid>
+                <Grid Grid.Row="2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="65"/>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Label FontSize="15"  FontFamily="Bahnschrift" Foreground="Black" HorizontalAlignment="Center" Content="Type:"></Label>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  Content="{Binding Reservation.Type}" Margin="-20,0,0,0" />
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left"  Content="Days of cancelation: "  ></Label>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Label FontSize="15" FontFamily="Bahnschrift" Foreground="Black"  HorizontalAlignment="Left" Content="{Binding Reservation.CancelationDays}" Margin="-40,0,0,0" Width="33"/>
+                    </Grid>
+                </Grid>
+                <Separator  VerticalAlignment="Bottom" Height="2" Background="Black" Grid.Row="2"></Separator>
+            </Grid>
+
+            <Grid Grid.Row="4" Background="Wheat">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="115"/>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="138"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="cancelReservationbtn" Grid.Column="0"  Cursor="Hand"  Content="    Cancel&#x0a;reservation" FontWeight="DemiBold" FontSize="17" Command="{Binding CancelReservationCommand}" Width="100" Height="60">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button  Grid.Column="1" Content="      Request to&#x0a;move reservation" Cursor="Hand"  FontWeight="DemiBold" FontSize="16" Command="{Binding MoveReservationComand}" Width="135" Height="60">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button  Grid.Column="2" Content="Rate owner and&#x0a;accommodation" Cursor="Hand"  FontWeight="DemiBold" FontSize="16" Command="{Binding RatePageCommand}" Width="130" Height="60">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderBrush="Black" BorderThickness="2" CornerRadius="10" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Grid>
+
+        
+    </Grid>
+</Page>

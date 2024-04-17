@@ -1,0 +1,76 @@
+﻿<Page x:Class="BookingApp.View.GuideView.Pages.LiveTour"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LiveTour">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41" />
+            <RowDefinition Height="59*" />
+            <RowDefinition Height="82*" />
+            <RowDefinition Height="71*" />
+            <RowDefinition Height="69*" />
+
+            <RowDefinition Height="128*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock FontSize="30" FontWeight="Bold" TextAlignment="Center" x:Name="txtTourName"  Text="{Binding SelectedTour.Name}" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="50" Width="800"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="-96,0,96,26">
+            <Image Margin="120 0 0 0" Height="40" Width="43" Source="\Resources\Images\capacity.png"/>
+            <TextBlock VerticalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="Capacity" FontSize="20"  />
+            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" HorizontalAlignment="Center" TextAlignment="Right"  FontSize="20" FontWeight="Bold" Text="{Binding SelectedTour.Capacity}"/>
+        </StackPanel>
+        <StackPanel  Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Margin="-96,0,96,13">
+            <Image Margin="120 0 0 0" Height="50" Width="43" Source="\Resources\Images\language.png"/>
+            <TextBlock VerticalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="Language" FontSize="20"  />
+            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" HorizontalAlignment="Center" TextAlignment="Right"  FontSize="20" FontWeight="Bold" Text="{Binding SelectedTour.Language}"/>
+        </StackPanel>
+        <StackPanel  HorizontalAlignment="Left" Orientation="Horizontal" Grid.Row="1" Margin="309,5,0,21" Width="401" Grid.ColumnSpan="2">
+            <Image Margin="120 0 0 0" Height="45" Width="30" Source="\Resources\Images\hourglass.png"/>
+            <TextBlock VerticalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="Duration" FontSize="20"  />
+            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" TextAlignment="Left"  FontSize="25" FontWeight="Bold" Text="{Binding SelectedTour.Duration}" Width="96"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="304,0,96,13" Grid.ColumnSpan="2">
+            <Image Margin="120 0 0 0" Height="42" Width="35" Source="\Resources\Images\location.png"/>
+            <TextBlock VerticalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="Location" FontSize="20"  />
+            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" HorizontalAlignment="Center" TextAlignment="Right"  FontSize="20" FontWeight="Bold" Text="{Binding SelectedLocation.City}"/>
+            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" HorizontalAlignment="Center" TextAlignment="Right"  FontSize="20" FontWeight="Bold" Text=","/>
+            <TextBlock VerticalAlignment="Center" Margin="0 0 0 0" HorizontalAlignment="Center" TextAlignment="Right"  FontSize="20" FontWeight="Bold" Text="{Binding SelectedLocation.State}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Margin="-96,0,96,0">
+            <Image Margin="120 0 0 0" Height="40" Width="43" Source="\Resources\Images\description.png"/>
+            <TextBlock  VerticalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="Description" FontSize="20"   />
+            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" HorizontalAlignment="Left" TextAlignment="Left"  FontSize="20" FontWeight="Bold" Text="{Binding SelectedTour.Description}" Width="471">
+
+            </TextBlock>
+        </StackPanel>
+        <DataGrid  x:Name="TourGuestsDataGrid" CanUserAddRows="False" AutoGenerateColumns="False" Grid.Row="4" ItemsSource="{Binding TourGuests}" Margin="0,0,72,17"  HorizontalAlignment="Right" Width="500" Grid.ColumnSpan="2" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="*"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Status" Width="50" Binding="{Binding IsPresent}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid  CanUserAddRows="False"  ItemsSource="{Binding Checkpoints}" AutoGenerateColumns="False" Width="500"  x:Name="CheckpointsDataGrid" Grid.Row="4" Margin="0,0,0,17"  HorizontalAlignment="Center">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Checkpoint" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                <DataGridCheckBoxColumn  Header="Status" Binding ="{Binding IsReached}">
+                    <DataGridCheckBoxColumn.ElementStyle>
+                        <Style TargetType="CheckBox">
+                            <EventSetter Event="Checked"  Handler="CheckpointCheckBox_Checked"/>
+                        </Style>
+                    </DataGridCheckBoxColumn.ElementStyle>
+                </DataGridCheckBoxColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Zavrsi turu" HorizontalAlignment="Left" Margin="360,84,0,0" Grid.Row="5" Click="TourEndedNotificationClick" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="80"/>
+    </Grid>
+</Page>

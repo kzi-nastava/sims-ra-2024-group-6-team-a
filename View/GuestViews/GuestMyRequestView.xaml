@@ -1,0 +1,204 @@
+﻿<Page x:Class="BookingApp.View.GuestViews.GuestMyRequestView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View.GuestViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="540" d:DesignWidth="410"
+      Title="GuestMyRequestView">
+    <Grid Background="Wheat">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid  Grid.Row="0" Background="Wheat">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" >
+                <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
+                    <Image Source ="/Resources/Images/menu.png" Width="70" Height="50"/>
+                </Button>
+            </Grid>
+            <Grid Grid.Column="1" >
+                <TextBlock FontSize="37" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" >My reservations</TextBlock>
+
+            </Grid>
+
+        </Grid>
+        <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
+
+        <Grid  Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Grid  Grid.Row="0">
+                <TextBlock FontSize="26" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" >My request to move reservations</TextBlock>
+            </Grid>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Transparent" FontWeight="SemiBold" >___</TextBlock>
+                <Image Source ="/Resources/Images/approved.png" Width="25" Height="25" />
+                <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" FontStyle="Italic" >-approved</TextBlock>
+                <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Transparent" FontWeight="SemiBold" >___</TextBlock>
+                <Image Source ="/Resources/Images/rejected.png" Width="25" Height="25" />
+                <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" FontStyle="Italic" >-rejected</TextBlock>
+                <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Transparent" FontWeight="SemiBold" >___</TextBlock>
+                <Image Source ="/Resources/Images/onHold.png" Width="25" Height="25" />
+                <TextBlock FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" FontStyle="Italic" >-on hold</TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid  Grid.Row="2" Background="Wheat">
+            <ListView     Background="DeepSkyBlue"
+                          BorderBrush="Black"
+                          BorderThickness="3"
+                          ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          ItemsSource="{Binding ChangeReservations, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedChangeReservation, UpdateSourceTrigger=PropertyChanged}"
+                          SelectionMode="Single" 
+                          x:Name="ChangeReservationsTable"
+                          Width="NaN" Height="NaN" d:ItemsSource="{d:SampleData ItemCount=3}" >
+                <ListView.ItemTemplate >
+                    <DataTemplate  >
+                        <StackPanel Orientation="Horizontal" Background="Silver" Margin="0,0,0,2" Width="375" Height="110">
+                            <Image Source= "{Binding Image}" Width="100" Height="100" HorizontalAlignment="Left" Stretch="Fill"  VerticalAlignment="Center" />
+
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0" Height="100">
+                                <TextBlock Foreground="black" Text="{Binding AccommodationName}" FontSize="24" FontWeight="Bold" Width="180" Margin="0,-5,0,0"/>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,3,3,0">
+                                    <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
+                                    <TextBlock Margin="5,0,0,0" Text="{Binding OldCheckIn}" TextDecorations="Strikethrough" Foreground="Gray" ></TextBlock>
+                                    <TextBlock Text=" - " TextDecorations="Strikethrough"  Foreground="Gray"></TextBlock>
+                                    <TextBlock Text="{Binding OldCheckOut}" TextDecorations="Strikethrough"  Foreground="Gray"  ></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1"  Margin="0,5,0,0">
+                                    <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
+                                    <TextBlock  Margin="5,0,0,0" Text="{Binding NewCheckIn}" FontWeight="SemiBold" ></TextBlock>
+                                    <TextBlock Text=" - "  FontWeight="SemiBold"></TextBlock>
+                                    <TextBlock Text="{Binding NewCheckOut}"  FontWeight="SemiBold" ></TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1"  Margin="0,5,0,0">
+                                    <Image Source="/Resources/Images/commentt.png" Width="18" Height="18"></Image>
+                                    <TextBlock  Margin="5,0,0,0" Foreground="black" Text="{Binding Comment}"  TextWrapping="Wrap"   FontSize="12"  MaxWidth="150" MaxHeight="29"></TextBlock>
+                                </StackPanel>
+                                <Button Margin="26,-15,-215,0" Width="70" Cursor="Hand" Height="20"
+                                        Command="{Binding DataContext.SeenACommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Accepted">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <TextBlock Text="Seen" Foreground="Black" FontWeight="Bold" />
+                                </Button>
+                                <Button  Margin="26,-15,-215,0" Width="70" Cursor="Hand" Height="20"
+                                         Command="{Binding DataContext.SeenRCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Rejected">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <TextBlock Text="Seen" Foreground="Black" FontWeight="Bold" />
+                                </Button>
+                            </StackPanel>
+                            <Image Source="/Resources/Images/approved.png" Width="45" Height="45"  Margin="26,0,0,53">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Accepted">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Image Source="/Resources/Images/approved.png" Width="45" Height="45"  Margin="26,0,0,53">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="AcceptedSeen">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Image Source="/Resources/Images/rejected.png" Width="45" Height="45"  Margin="26,0,0,53">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Rejected">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Image Source="/Resources/Images/rejected.png" Width="45" Height="45"  Margin="26,0,0,53">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="RejectedSeen">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Button Margin="26,0,0,23" Width="80" Cursor="Hand" Height="45">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Accepted">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <TextBlock Text="Approved" Foreground="Red" FontWeight="Bold" />
+                            </Button>
+                            <Image Source="/Resources/Images/onHold.png" Width="45" Height="45"  Margin="26,0,0,53">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Pending">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+
+
+
+
+
+    </Grid>
+</Page>
