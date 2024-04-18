@@ -39,14 +39,77 @@ namespace BookingApp.ApplicationServices
             Accommodation temp = new Accommodation();
             foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAll())
             {
-                temp = AccommodationRepository.GetByReservationId(reservation.AccommodationId);
-                if (temp.OwnerId == id)
+                temp = GetByReservationId(reservation.AccommodationId);
+                if (temp.OwnerId == id && reservation.Status == Enums.ReservationStatus.Active)
                 {
                     total++;
                 }
             }
 
             return total;
+        }
+
+        public int GetReservationCountForAccommodation(int accId,int year)
+        {
+            int total = 0;
+            Accommodation temp = new Accommodation();
+            foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAll())
+            {
+                temp = GetByReservationId(reservation.AccommodationId);
+                if (temp.Id == accId && reservation.Status == Enums.ReservationStatus.Active && reservation.CheckOutDate.Year == year)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public int GetChangesCountForAccommodation(int accId,int year)
+        {
+            int total = 0;
+            Accommodation temp = new Accommodation();
+            foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAll())
+            {
+                temp = GetByReservationId(reservation.AccommodationId);
+                if (temp.Id == accId && reservation.Status == Enums.ReservationStatus.Changed && reservation.CheckOutDate.Year == year)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public int GetCancelationCountForAccommodation(int accId,int year)
+        {
+            int total = 0;
+            Accommodation temp = new Accommodation();
+            foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAll())
+            {
+                temp = GetByReservationId(reservation.AccommodationId);
+                if (temp.Id == accId && reservation.Status == Enums.ReservationStatus.Canceled && reservation.CheckOutDate.Year == year)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public List<int> GatherAllReservationYears(List<ReservationOwnerDTO> reservations)
+        {
+            List<int> years = new List<int>();
+            foreach(ReservationOwnerDTO reservation in reservations)
+            {
+                if(!years.Contains(reservation.CheckOut.Year))
+                {
+                    years.Add(reservation.CheckOut.Year);
+                }
+            }
+
+            years.Sort((a, b) => b.CompareTo(a));
+            return years;
         }
 
         public int GetTotalAccommodationCount(int id)

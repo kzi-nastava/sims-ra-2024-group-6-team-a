@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace BookingApp.ViewModels
 
         public static ObservableCollection<ImageDTO> Images { get; set; }
         public ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
+
+        public ObservableCollection<AccommodationStatisticDTO> Statistics { get; set; }
        
         private double ratingNum;
 
@@ -54,10 +57,12 @@ namespace BookingApp.ViewModels
         public static List<Model.Image> imageModels { get; set; }
 
         public ReservationOwnerDTO SelectedReservation { get; set; }
+        public AccommodationStatisticDTO SelectedStatistic { get; set; }
 
         public AccommodationDetailedVM(List<Model.Image> images, ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation) 
         {
             Images = new ObservableCollection<ImageDTO>();
+            Statistics = new ObservableCollection<AccommodationStatisticDTO>();
 
             imageModels = images;
             this.Reservations = Reservations;
@@ -67,10 +72,26 @@ namespace BookingApp.ViewModels
             Update();
         }
 
+        public void GatherAllYearsAllStats()
+        {
+            List<int> years = AccommodationService.GetInstance().GatherAllReservationYears(Reservations.ToList());
+            foreach (int year in years)
+            {
+                AccommodationStatisticDTO stats = new AccommodationStatisticDTO(year, 
+                    AccommodationService.GetInstance().GetReservationCountForAccommodation(Accommodation.Id, year),
+                    AccommodationService.GetInstance().GetChangesCountForAccommodation(Accommodation.Id, year),
+                    AccommodationService.GetInstance().GetCancelationCountForAccommodation(Accommodation.Id,year),
+                    0);
+                Statistics.Add(stats);
+
+            }
+        }
+
         public void Update()
         {
             GetRatingAndColor();
             Images.Clear();
+            Statistics.Clear();
 
 
             for(int i = 0;i < imageModels.Count;i = i +2)
@@ -85,6 +106,8 @@ namespace BookingApp.ViewModels
 
                 Images.Add(image);
             }
+
+            GatherAllYearsAllStats();
 
 
         }
