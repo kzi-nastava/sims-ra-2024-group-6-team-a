@@ -65,6 +65,40 @@ namespace BookingApp.ApplicationServices
             return total;
         }
 
+        public int GetMostPopularYear(int accId)
+        {
+            Dictionary<int,int> yearsAndReservations = new Dictionary<int,int>();
+            Accommodation temp = new Accommodation();
+            foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAll())
+            {
+                temp = GetByReservationId(reservation.AccommodationId);
+                if (temp.Id == accId && reservation.Status == Enums.ReservationStatus.Active)
+                {
+                    int daysReserved = reservation.CheckOutDate.DayNumber - reservation.CheckInDate.DayNumber;
+
+                    if(yearsAndReservations.ContainsKey(reservation.CheckOutDate.Year))
+                        yearsAndReservations[reservation.CheckOutDate.Year] = yearsAndReservations[reservation.CheckOutDate.Year] + daysReserved;
+                    else
+                        yearsAndReservations[reservation.CheckOutDate.Year] = daysReserved;
+                }
+            }
+
+            int max = 0;
+            int year = 0;
+            foreach(int x in yearsAndReservations.Keys) 
+            {
+                if (yearsAndReservations[x] > max)
+                {
+                    max = yearsAndReservations[x];
+                    year = x;
+                }
+            }
+
+            return year;
+           
+
+        }
+
         public List<MonthlyStatisticDTO> GetMonthlyStatistics(int accId,int year)
         {
             List<MonthlyStatisticDTO> monthlyStats = new List<MonthlyStatisticDTO>();

@@ -83,6 +83,7 @@ namespace BookingApp.ViewModels
             imageModels = images;
             this.Reservations = Reservations;
             this.Accommodation = accommodation;
+            this.bestYear = AccommodationService.GetInstance().GetMostPopularYear(Accommodation.Id);
 
 
             Update();
@@ -91,19 +92,12 @@ namespace BookingApp.ViewModels
         public void GatherAllYearsAllStats()
         {
             List<int> years = AccommodationService.GetInstance().GatherAllReservationYears(Reservations.ToList());
-            int maxReservationCount = 0;
-            int reservationCount = 0;
 
             foreach (int year in years)
             {
-                reservationCount = reservationCount = AccommodationService.GetInstance().GetReservationCountForAccommodation(Accommodation.Id, year);
-                if (reservationCount > maxReservationCount)
-                {
-                    maxReservationCount = reservationCount;
-                    this.BestYear = year;
-                }
 
-                AccommodationStatisticDTO stats = new AccommodationStatisticDTO(year,reservationCount,
+                AccommodationStatisticDTO stats = new AccommodationStatisticDTO(year,
+                    AccommodationService.GetInstance().GetReservationCountForAccommodation(Accommodation.Id, year),
                     AccommodationService.GetInstance().GetChangesCountForAccommodation(Accommodation.Id, year),
                     AccommodationService.GetInstance().GetCancelationCountForAccommodation(Accommodation.Id,year),
                     0);
