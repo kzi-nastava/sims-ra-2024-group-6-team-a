@@ -90,7 +90,7 @@
                     <TextBlock><Underline>S</Underline>tatistics</TextBlock>
                 </TabItem.Header>
                 <Grid>
-                    <ListBox  x:Name="StatisticsList" SelectedItem="{Binding SelectedStatistic}" ItemsSource="{Binding Statistics}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" MaxHeight="800" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                    <ListBox Keyboard.KeyDown="StatisticsClick"  x:Name="StatisticsList" SelectedItem="{Binding SelectedStatistic}" ItemsSource="{Binding Statistics}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" MaxHeight="800" ScrollViewer.VerticalScrollBarVisibility="Visible" >
                         <ListBox.ItemTemplate>
 
                             <DataTemplate>
@@ -177,17 +177,22 @@
                 <TextBlock FontSize="20"  Foreground="SlateBlue">  ,  </TextBlock>
                 <TextBlock Text="{Binding Accommodation.State}"  FontSize="20"  Foreground="SlateBlue"></TextBlock>
                 <Image Source="/Resources/Images/location-ping.png"  Width="30" Height="30" ></Image>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="10,2,2,2">
 
-                <TextBlock Text="{Binding Accommodation.Type}" 
-                          Foreground="DarkBlue" FontSize="24"></TextBlock>
+                <TextBlock Margin="10,0,2,6" Text="{Binding Accommodation.Type}" 
+                         Foreground="DarkBlue" FontSize="24"></TextBlock>
             </StackPanel>
+ 
 
             <StackPanel Orientation="Horizontal" Margin="10,2,2,2">
 
                 <TextBlock Foreground="DarkBlue" FontSize="24" Text="Guest rating: "></TextBlock>
                 <TextBlock Foreground="{Binding RatingColor}" Text="{Binding GuestRating}" FontSize="24"></TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="10,2,2,2">
+
+                <TextBlock Foreground="DarkBlue" FontSize="24" Text="Best year: "></TextBlock>
+                <TextBlock Foreground="DarkBlue" Text="{Binding BestYear}" FontSize="24"></TextBlock>
             </StackPanel>
 
 

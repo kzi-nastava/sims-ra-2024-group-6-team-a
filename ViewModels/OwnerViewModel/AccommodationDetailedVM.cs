@@ -3,6 +3,7 @@ using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
+using BookingApp.View.OwnerViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +23,21 @@ namespace BookingApp.ViewModels
         public ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
 
         public ObservableCollection<AccommodationStatisticDTO> Statistics { get; set; }
+
+        private int bestYear;
+
+        public int BestYear
+        {
+            get { return bestYear; }
+            set
+            {
+                if (bestYear != value)
+                {
+                    bestYear = value;
+                }
+
+            }
+        }
        
         private double ratingNum;
 
@@ -75,10 +91,19 @@ namespace BookingApp.ViewModels
         public void GatherAllYearsAllStats()
         {
             List<int> years = AccommodationService.GetInstance().GatherAllReservationYears(Reservations.ToList());
+            int maxReservationCount = 0;
+            int reservationCount = 0;
+
             foreach (int year in years)
             {
-                AccommodationStatisticDTO stats = new AccommodationStatisticDTO(year, 
-                    AccommodationService.GetInstance().GetReservationCountForAccommodation(Accommodation.Id, year),
+                reservationCount = reservationCount = AccommodationService.GetInstance().GetReservationCountForAccommodation(Accommodation.Id, year);
+                if (reservationCount > maxReservationCount)
+                {
+                    maxReservationCount = reservationCount;
+                    this.BestYear = year;
+                }
+
+                AccommodationStatisticDTO stats = new AccommodationStatisticDTO(year,reservationCount,
                     AccommodationService.GetInstance().GetChangesCountForAccommodation(Accommodation.Id, year),
                     AccommodationService.GetInstance().GetCancelationCountForAccommodation(Accommodation.Id,year),
                     0);
@@ -186,6 +211,8 @@ namespace BookingApp.ViewModels
         {
             if (SelectedReservation == null)
             {
+                SelectedStatistic = null;
+
                 SelectedReservation = Reservations.First();
                 ReservationsList.SelectedIndex = 0;
                 ReservationsList.UpdateLayout();
@@ -194,6 +221,25 @@ namespace BookingApp.ViewModels
             }
         }
 
+        internal void SelectFirstStatistic(ListBox statisticsList)
+        {
+            if(SelectedStatistic == null)
+            {
+                SelectedReservation = null;
 
+                SelectedStatistic = Statistics.First();
+                statisticsList.SelectedIndex = 0;
+                statisticsList.UpdateLayout();
+                statisticsList.Focus();
+
+
+            }
+        }
+
+        internal void OpenMonthStatistic()
+        {
+            DetailedStatisticsView detailedStatisticsView = new DetailedStatisticsView(AccommodationService.GetInstance().GetMonthlyStatistics(Accommodation.Id,SelectedStatistic.Year),SelectedStatistic.Year);
+            detailedStatisticsView.ShowDialog();
+        }
     }
 }

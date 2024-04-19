@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using BookingApp.DTOs;
 using BookingApp.Observer;
 using BookingApp.Repository;
+using BookingApp.View.OwnerViews;
 using BookingApp.ViewModels;
 
 namespace BookingApp.View
@@ -51,6 +52,8 @@ namespace BookingApp.View
             else if(e.Key == Key.S)
             {
                 Tabs.SelectedItem = StatisticsTab;
+
+                ViewModel.SelectFirstStatistic(StatisticsList);
             }
             else if (e.Key == Key.N)
             {
@@ -59,6 +62,18 @@ namespace BookingApp.View
             else if (e.Key == Key.B)
             {
                 Tabs.SelectedItem = BlogsTab;
+            }
+        }
+
+        private void StatisticsClick(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                if(Tabs.SelectedItem == StatisticsTab && ViewModel.SelectedStatistic != null) 
+                {
+                    ViewModel.OpenMonthStatistic();
+
+                }
             }
         }
 

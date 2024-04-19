@@ -65,6 +65,41 @@ namespace BookingApp.ApplicationServices
             return total;
         }
 
+        public List<MonthlyStatisticDTO> GetMonthlyStatistics(int accId,int year)
+        {
+            List<MonthlyStatisticDTO> monthlyStats = new List<MonthlyStatisticDTO>();
+
+            for(int i = 1;i <= 12;i++)
+            {
+                int resCount  = 0;
+                int changeCount = 0;
+                int cancelCount = 0;
+                int renovationCount = 0;
+                Accommodation temp = new Accommodation();
+
+                foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAll())
+                {
+                    temp = GetByReservationId(reservation.AccommodationId);
+                    if (temp.Id == accId &&  reservation.CheckOutDate.Year == year && reservation.CheckOutDate.Month == i)
+                    {
+                            if (reservation.Status == Enums.ReservationStatus.Active)
+                                resCount++;
+                            else if (reservation.Status == Enums.ReservationStatus.Changed)
+                                changeCount++;
+                            else
+                                cancelCount++;
+                    }
+
+
+                }
+
+                MonthlyStatisticDTO monthlyStatisticDTO = new MonthlyStatisticDTO(i,resCount,changeCount,cancelCount,renovationCount);
+                monthlyStats.Add(monthlyStatisticDTO);
+            }
+
+            return monthlyStats;
+        }
+
         public int GetChangesCountForAccommodation(int accId,int year)
         {
             int total = 0;
