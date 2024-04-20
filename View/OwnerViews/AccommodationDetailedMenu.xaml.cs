@@ -58,6 +58,8 @@ namespace BookingApp.View
             else if (e.Key == Key.N)
             {
                 Tabs.SelectedItem = RenovationsTab;
+
+                ViewModel.SelectFirstRenovation(RenovationsList);
             }
             else if (e.Key == Key.B)
             {
@@ -80,6 +82,18 @@ namespace BookingApp.View
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void RenovationsList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (Tabs.SelectedItem == RenovationsTab && ViewModel.SelectedRenovation != null)
+                {
+
+
+                }
+            }
         }
     }
 }
