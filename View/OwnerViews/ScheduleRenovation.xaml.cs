@@ -1,4 +1,5 @@
-﻿using BookingApp.DTOs;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,11 +33,24 @@ namespace BookingApp.View.OwnerViews
             }
         }
         public AccommodationOwnerDTO Accommodation {  get; set; }
+        public List<ReservationOwnerDTO> Reservations { get; set; }
         public ScheduleRenovation(AccommodationOwnerDTO Accommodation,List<ReservationOwnerDTO> Reservations)
         {
             this.Accommodation = Accommodation;
+            this.Reservations = Reservations;
             DataContext = this;
             InitializeComponent();
+        }
+
+        private void Find_Click(object sender, RoutedEventArgs e)
+        {
+            String str = StartDatePicker.SelectedDate.ToString() + " " + EndDatePicker.SelectedDate.ToString() + " " + DurationPicker.Text;
+            MessageBox.Show(str);
+            List<DateOnly> availableDates = RenovationService.GetInstance().GetAvailableDatesForRenovation(Reservations, (DateTime)StartDatePicker.SelectedDate, (DateTime)EndDatePicker.SelectedDate, Convert.ToInt32(DurationPicker.Text));
+            if (availableDates[0] != null)
+            {
+                HelpBox.Text = "There is an available period between " + availableDates[0].ToString("dd MMMM,yyyy") + " and " + availableDates[1].ToString("dd MMMM,yyyy");
+            }
         }
     }
 }
