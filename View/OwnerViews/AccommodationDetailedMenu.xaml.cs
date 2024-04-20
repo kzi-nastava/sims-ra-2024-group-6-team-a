@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using BookingApp.DTOs;
 using BookingApp.Observer;
 using BookingApp.Repository;
+using BookingApp.View.OwnerViews;
 using BookingApp.ViewModels;
 
 namespace BookingApp.View
@@ -51,10 +52,14 @@ namespace BookingApp.View
             else if(e.Key == Key.S)
             {
                 Tabs.SelectedItem = StatisticsTab;
+
+                ViewModel.SelectFirstStatistic(StatisticsList);
             }
             else if (e.Key == Key.N)
             {
                 Tabs.SelectedItem = RenovationsTab;
+
+                ViewModel.SelectFirstRenovation(RenovationsList);
             }
             else if (e.Key == Key.B)
             {
@@ -62,9 +67,33 @@ namespace BookingApp.View
             }
         }
 
+        private void StatisticsClick(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                if(Tabs.SelectedItem == StatisticsTab && ViewModel.SelectedStatistic != null) 
+                {
+                    ViewModel.OpenMonthStatistic();
+
+                }
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void RenovationsList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (Tabs.SelectedItem == RenovationsTab && ViewModel.SelectedRenovation != null)
+                {
+
+
+                }
+            }
         }
     }
 }

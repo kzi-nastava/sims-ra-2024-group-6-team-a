@@ -89,6 +89,68 @@
                 <TabItem.Header>
                     <TextBlock><Underline>S</Underline>tatistics</TextBlock>
                 </TabItem.Header>
+                <Grid>
+                    <ListBox Keyboard.KeyDown="StatisticsClick"  x:Name="StatisticsList" SelectedItem="{Binding SelectedStatistic}" ItemsSource="{Binding Statistics}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" MaxHeight="800" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                        <ListBox.ItemTemplate>
+
+                            <DataTemplate>
+                                <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  Width="700" Margin="0,0,0,-4">
+                                    <Grid>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="125" />
+                                            <ColumnDefinition Width="250" />
+                                            <ColumnDefinition Width="20"></ColumnDefinition>
+                                            <ColumnDefinition Width="250"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="35"></RowDefinition>
+                                            <RowDefinition Height="35"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <Border  Grid.RowSpan ="3" Grid.Column="0" CornerRadius="1" BorderBrush="LightBlue" BorderThickness="4" Background="LightCyan">
+                                            <TextBlock Text="{Binding Year}" FontSize="35"  Foreground="DarkSlateBlue" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                        </Border>
+
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
+                                            <Image Source="/Resources/Images/reservation_img.png" Width="32" Height="32"/>
+                                            <TextBlock  Text="Reservations: " Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                            <TextBlock  Text="{Binding ReservationCount}" Margin="2,7,2,2" FontSize="18" Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                                            <Image Source="/Resources/Images/res_change.png" Width="32" Height="32"/>
+                                            <TextBlock  Text="Changes: " Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                            <TextBlock  Text="{Binding ChangesCount}" Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                        </StackPanel>
+
+                                        
+
+                                        <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="0">
+                                            <Image Source="/Resources/Images/cancel_res.png" Width="32" Height="32"/>
+                                            <TextBlock  Text="Cancelations: " Margin="2,7,2,2" FontSize="18" Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                            <TextBlock  Text="{Binding CancelationCount}" Margin="0,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+
+                                        </StackPanel>
+
+
+                                        <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="1">
+                                            <Image Source="/Resources/Images/renovation_acc.png" Width="32" Height="32"/>
+                                            <TextBlock  Text="Renovation suggestions: " Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                            <TextBlock  Text="{Binding RenovationSuggestions}" Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                        </StackPanel>
+
+
+
+
+
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
             </TabItem>
 
 
@@ -98,6 +160,43 @@
                 <TabItem.Header>
                     <TextBlock>Re<Underline>n</Underline>ovations</TextBlock>
                 </TabItem.Header>
+
+                <Grid>
+                    <ListBox Keyboard.KeyDown="RenovationsList_KeyDown"  x:Name="RenovationsList" SelectedItem="{Binding SelectedRenovation}" ItemsSource="{Binding Renovations}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" MaxHeight="800" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                        <ListBox.ItemTemplate>
+
+                            <DataTemplate>
+                                <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  Width="700" Margin="0,0,0,-4">
+                                    <Grid>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="690" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="35"></RowDefinition>
+                                            <RowDefinition Height="35"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+              
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" FontSize="27" Margin="3,0,0,0" Foreground="DarkSlateBlue" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+   
+
+                                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
+                                            <Image Source="/Resources/Images/reservation_img.png" Width="32" Height="32"/>
+                                            <TextBlock  Text="{Binding StartDate,StringFormat='dd MMMM,yyyy'}" Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Left"></TextBlock>
+                                            <Image Source="/Resources/Images/right-arrow.png" Margin="6,1,6,5" Width="25" Height="25" VerticalAlignment="Bottom"></Image>
+                                            <TextBlock  Text="{Binding EndDate,StringFormat='dd MMMM,yyyy'}" Margin="2,7,2,2" FontSize="18" Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                        </StackPanel>
+
+
+
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
             </TabItem>
 
             <TabItem x:Name="BlogsTab">
@@ -115,17 +214,22 @@
                 <TextBlock FontSize="20"  Foreground="SlateBlue">  ,  </TextBlock>
                 <TextBlock Text="{Binding Accommodation.State}"  FontSize="20"  Foreground="SlateBlue"></TextBlock>
                 <Image Source="/Resources/Images/location-ping.png"  Width="30" Height="30" ></Image>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="10,2,2,2">
 
-                <TextBlock Text="{Binding Accommodation.Type}" 
-                          Foreground="DarkBlue" FontSize="24"></TextBlock>
+                <TextBlock Margin="10,0,2,6" Text="{Binding Accommodation.Type}" 
+                         Foreground="DarkBlue" FontSize="24"></TextBlock>
             </StackPanel>
+ 
 
             <StackPanel Orientation="Horizontal" Margin="10,2,2,2">
 
                 <TextBlock Foreground="DarkBlue" FontSize="24" Text="Guest rating: "></TextBlock>
                 <TextBlock Foreground="{Binding RatingColor}" Text="{Binding GuestRating}" FontSize="24"></TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="10,2,2,2">
+
+                <TextBlock Foreground="DarkBlue" FontSize="24" Text="Best year: "></TextBlock>
+                <TextBlock Foreground="DarkBlue" Text="{Binding BestYear}" FontSize="24"></TextBlock>
             </StackPanel>
 
 
