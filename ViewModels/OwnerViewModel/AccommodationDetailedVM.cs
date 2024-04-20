@@ -272,5 +272,11 @@ namespace BookingApp.ViewModels
             DetailedStatisticsView detailedStatisticsView = new DetailedStatisticsView(AccommodationService.GetInstance().GetMonthlyStatistics(Accommodation.Id,SelectedStatistic.Year),SelectedStatistic.Year);
             detailedStatisticsView.ShowDialog();
         }
+
+        internal void ScheduleRenovation()
+        {
+            ScheduleRenovation scheduleRenovation = new ScheduleRenovation(Accommodation,Reservations.ToList());
+            scheduleRenovation.ShowDialog();
+        }
     }
 }

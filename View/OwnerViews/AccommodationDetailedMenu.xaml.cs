@@ -81,7 +81,7 @@ namespace BookingApp.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.ScheduleRenovation();
         }
 
         private void RenovationsList_KeyDown(object sender, KeyEventArgs e)
