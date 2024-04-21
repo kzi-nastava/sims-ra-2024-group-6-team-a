@@ -46,10 +46,14 @@ namespace BookingApp.View.OwnerViews
         {
             String str = StartDatePicker.SelectedDate.ToString() + " " + EndDatePicker.SelectedDate.ToString() + " " + DurationPicker.Text;
             MessageBox.Show(str);
-            List<DateOnly> availableDates = RenovationService.GetInstance().GetAvailableDatesForRenovation(Reservations, (DateTime)StartDatePicker.SelectedDate, (DateTime)EndDatePicker.SelectedDate, Convert.ToInt32(DurationPicker.Text));
+            List<DateOnly?> availableDates = RenovationService.GetInstance().GetAvailableDatesForRenovation(Reservations, DateOnly.FromDateTime((DateTime)StartDatePicker.SelectedDate), DateOnly.FromDateTime((DateTime)EndDatePicker.SelectedDate), Convert.ToInt32(DurationPicker.Text));
             if (availableDates[0] != null)
             {
-                HelpBox.Text = "There is an available period between " + availableDates[0].ToString("dd MMMM,yyyy") + " and " + availableDates[1].ToString("dd MMMM,yyyy");
+                HelpBox.Text = "There is an available period between " + ((DateOnly)availableDates[0]).ToString("dd MMMM,yyyy") + " and " +((DateOnly)availableDates[1]).ToString("dd MMMM,yyyy");
+            }
+            else
+            {
+                HelpBox.Text = "There is no available period between selected dates for the duration.";
             }
         }
     }
