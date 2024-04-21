@@ -29,5 +29,10 @@ namespace BookingApp.View.GuestViews
             this.DataContext = new RateOwnerAndAccommodationViewModel(guest, SelectedReservation, this, navigation);
 
         }
+
+        private void CleanlinessSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        {
+
+        }
     }
 }

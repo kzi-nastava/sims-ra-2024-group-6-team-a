@@ -44,16 +44,29 @@ namespace BookingApp.ViewModels.GuestsViewModel
             HasntPhotoVisibility = Visibility.Visible;
             HasPhotoVisibility = Visibility.Collapsed;
         }
+       
+        public string CheckUrgency() {
+            string urgencyLevel ="";
+            if((bool)ReservationView.Zero.IsChecked ) urgencyLevel="Level0";
+            if((bool)ReservationView.One.IsChecked ) urgencyLevel="Level1";
+            if((bool)ReservationView.Two.IsChecked ) urgencyLevel="Level2";
+            if((bool)ReservationView.Three.IsChecked ) urgencyLevel="Level3";
+            if((bool)ReservationView.Four.IsChecked ) urgencyLevel="Level4";
+            if((bool)ReservationView.Five.IsChecked ) urgencyLevel="Level5";
+            return urgencyLevel;
+        }
         public void Execute_SendReviewCommand(object obj)
         {
+            string SelectedUrgency = CheckUrgency();
             int cleanliness = (int) ReservationView.CleanlinessSlider.Value;
             int correctness = (int) ReservationView.CorrectnessSlider.Value;
-            string comment = ReservationView.AdditionalComment.Text;
-            if (comment != "") { 
-                MessageBoxResult odgovor = MessageBox.Show("Are you sure to send this review?\nCleanliness  : " + cleanliness.ToString() + "\n" + "Correctness : " + correctness + "\nComment : " + comment, "Rate " + OwnerName + " and " + Reservation.AccommodationName, MessageBoxButton.YesNo);
+            string AdditionalComment = ReservationView.AdditionalComment.Text;
+            string StateComment = ReservationView.StateComment.Text;
+            if (AdditionalComment != "") { 
+                MessageBoxResult odgovor = MessageBox.Show("Are you sure to send this review?\nCleanliness  : " + cleanliness.ToString() + "\n" + "Correctness : " + correctness + "\nComment : " + AdditionalComment, "Rate " + OwnerName + " and " + Reservation.AccommodationName, MessageBoxButton.YesNo);
                 switch (odgovor) { 
                     case MessageBoxResult.Yes:
-                        OwnerReview ownerReview = new OwnerReview(Reservation.Id, cleanliness, correctness, comment);
+                        OwnerReview ownerReview = new OwnerReview(Reservation.Id, cleanliness, correctness, AdditionalComment, SelectedUrgency, StateComment);
                         foreach (String relativePath in ImagesCollection)
                             ImageService.GetInstance().Save(new Model.Image(relativePath, Reservation.Id, Enums.ImageType.OwnersReviews));
                         OwnerReviewService.GetInstance().Save(ownerReview);
