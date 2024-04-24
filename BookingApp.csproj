@@ -82,6 +82,7 @@
     <None Remove="Resources\Images\pupin3.jpg" />
     <None Remove="Resources\Images\pupin4.jpg" />
     <None Remove="Resources\Images\pupin5.jpg" />
+    <None Remove="Resources\Images\questionMark.png" />
     <None Remove="Resources\Images\rarrow.png" />
     <None Remove="Resources\Images\register.png" />
     <None Remove="Resources\Images\rejected.png" />
@@ -414,6 +415,10 @@
 
   <ItemGroup>
     <Folder Include="Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\questionMark.png" />
   </ItemGroup>
 
 </Project>
