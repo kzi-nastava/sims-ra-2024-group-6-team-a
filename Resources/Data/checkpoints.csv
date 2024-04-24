@@ -20,10 +20,15 @@
 20|Teatro Massimo|2|False|6
 21|Quattro Canti|2|False|7
 22|Teatro Massimo|2|False|7
-23|Bagos|3|False|8
+23|Bagos|3|True|8
 24|Stari Futog|3|False|8
 25|Novi Futog|3|False|8
-28|Check in|4|False|9
-29|Free time|4|False|9
-30|Sightseeing|4|False|9
-31|Checkout|4|False|9
+26|Testic|4|False|9
+27|Testic|4|False|9
+28|Testic|4|False|9
+29|Jos 1 t est|5|True|10
+30|Jos 1 t est|5|False|10
+31|Jos 1 t est|5|False|10
+32|Veoma lepo selo Futog|6|False|11
+33|Veoma lepo selo Futog|6|False|11
+34|Veoma lepo selo Futog|6|False|11

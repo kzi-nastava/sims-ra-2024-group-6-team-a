@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -234,12 +235,12 @@ namespace BookingApp.DTOs
             }
         }
 
-        public GuideReviewDTO(Tour tour, Location location, string imagePath, DateTime tourStart, int tourScheduleId,double avgGrade)
+        public GuideReviewDTO(Tour tour,Language language ,Location location, string imagePath, DateTime tourStart, int tourScheduleId,double avgGrade)
         {
             Id = tour.Id;
             Name = tour.Name;
             Description = tour.Description;
-            Language = tour.Language;
+            Language = language.Name;
             Capacity = tour.Capacity;
             Duration = tour.Duration;
             City = location.City;

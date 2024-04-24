@@ -1,4 +1,6 @@
 ﻿using BookingApp.ApplicationServices;
+using BookingApp.Domain.Model;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
@@ -34,14 +36,38 @@ namespace BookingApp.View.GuideView.Pages
 
         public Tour SelectedTour { get; set; }
         public Location SelectedLocation { get; set; }
-        public String SelectedImageUrl { get; set; }
+        public ImageItemDTO SelectedImageUrl { get; set; }
         public String SelectedCheckpoint { get; set; }
 
         public DateTime SelectedTourDate { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private DateTime _tourDate;
+        public DateTime TourDate
+        {
+            get
+            {
+                return _tourDate;
+            }
+            set
+            {
+                if (value != _tourDate)
+                {
+                    _tourDate = value;
+                    OnPropertyChanged("TourDate");
 
-        public static ObservableCollection<String> ImagesCollection { get; set; }
+                }
+
+
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+       
+        public List<string> locations {  get; set; }
+
+        public List<string> languages {  get; set; }
+         
+        public static ObservableCollection<ImageItemDTO> ImagesCollection { get; set; }
         public static ObservableCollection<String> CheckpointsCollection { get; set; }
         public static ObservableCollection<DateTime> TourDatesCollection { get; set; }
         
@@ -70,15 +96,36 @@ namespace BookingApp.View.GuideView.Pages
             InitializeComponent();
             DataContext = this;
             LoggedUser = user;
-            datePicker.DisplayDateStart = DateTime.Now;
-           
+            InitializeLocations();
+            InitializeLanguages();
+
 
             SelectedLocation = new Location();
             SelectedTour = new Tour();
             SelectedTourDate = new DateTime();
             CheckpointsCollection = new ObservableCollection<string>();
-            ImagesCollection = new ObservableCollection<string>();
+            ImagesCollection = new ObservableCollection<ImageItemDTO>();
             TourDatesCollection = new ObservableCollection<DateTime>();
+            datePicker.FormatString = "dd.MM.yyyy HH:mm";
+            imageListBox.ItemsSource = ImagesCollection;
+
+        }
+        private void InitializeLanguages()
+        {
+            languages = new List <String> ();
+            foreach(Language language in LanguageService.GetInstance().GetAll())
+            {
+                languages.Add(language.Name);
+            }
+        }
+
+        private void InitializeLocations()
+        {
+            locations = new List<String>();
+            foreach (Location location in LocationService.GetInstance().GetAll())
+            {
+                locations.Add(location.City + " , " + location.State);
+            }
         }
 
         protected virtual void OnSomethingHappened(EventArgs e)
@@ -112,7 +159,8 @@ namespace BookingApp.View.GuideView.Pages
                 {
                     int relativePathStartIndex = imagePath.IndexOf("\\Resources");
                     String relativePath = imagePath.Substring(relativePathStartIndex);
-                    ImagesCollection.Add(relativePath);
+                    BitmapImage imageSource = new BitmapImage(new Uri(imagePath));
+                    ImagesCollection.Add(new ImageItemDTO(relativePath,imageSource));
                 }
             }
         }
@@ -120,10 +168,9 @@ namespace BookingApp.View.GuideView.Pages
         private void SelectDatesClick(object sender, RoutedEventArgs e)
         {
             DateTime time;
-            DateTime.TryParse(datePicker.SelectedDate.Value.Date.ToShortDateString() + " " + txtTourScheduleTime.Text, out time);
+            DateTime.TryParse(datePicker.Text, out time);
             TourDatesCollection.Add(time);
-            datePicker.SelectedDate = null;
-            txtTourScheduleTime.Clear();
+            datePicker.Text = "";
         }
 
         private void RemoveDateClick(object sender, RoutedEventArgs e)
@@ -135,11 +182,7 @@ namespace BookingApp.View.GuideView.Pages
         bool IsDataValid()
         {
             return !string.IsNullOrEmpty(txtTourName.Text)
-                && !string.IsNullOrEmpty(txtTourLanguage.Text)
-                && !string.IsNullOrEmpty(txtTourCity.Text)
-                && !string.IsNullOrEmpty(txtTourState.Text)
                 && !string.IsNullOrEmpty(txtTourCapacity.Text)
-                && !string.IsNullOrEmpty(txtTourDescription.Text)
                 && !string.IsNullOrEmpty(txtTourDescription.Text)
                 && CheckpointsCollection.Count >= 2
                 && ImagesCollection.Count >= 1
@@ -150,21 +193,21 @@ namespace BookingApp.View.GuideView.Pages
 
 
 
-        private void SaveTourClick(object sender, RoutedEventArgs e)
+        private void CreateTourClick(object sender, RoutedEventArgs e)
         {
             if (!IsDataValid())
             {
                 return;
             }
-           
-            
-            SelectedLocation = LocationService.GetInstance().Save(SelectedLocation);
-            SelectedTour.LocationId = SelectedLocation.Id;
+
+
+            SelectedTour.LocationId = locationComboBox.SelectedIndex + 1;
+            SelectedTour.LanguageId = languageComboBox.SelectedIndex + 1;
             SelectedTour.GuideId = LoggedUser.Id;
             SelectedTour = TourService.GetInstance().Save(SelectedTour);
 
 
-            SaveImages(ImagesCollection.ToList());
+            SaveImages();
             SaveTourDatesAndCheckpoints(TourDatesCollection.ToList(), CheckpointsCollection.ToList());
             OnSomethingHappened(EventArgs.Empty);
 
@@ -173,11 +216,11 @@ namespace BookingApp.View.GuideView.Pages
 
       
 
-        private void SaveImages(List<String> images)
+        private void SaveImages()
         {
-            foreach (string relativePath in images)
+            foreach (ImageItemDTO imageItem in ImagesCollection)
             {
-                ImageService.GetInstance().Save(new Model.Image(relativePath, SelectedTour.Id, Enums.ImageType.Tour));
+                ImageService.GetInstance().Save(new Model.Image(imageItem.ImagePath, SelectedTour.Id, Enums.ImageType.Tour));
             }
         }
 
@@ -201,8 +244,12 @@ namespace BookingApp.View.GuideView.Pages
 
         private void ImageRemoveClick(object sender, EventArgs e)
         {
-            string imageUrl = SelectedImageUrl;
-            ImagesCollection.Remove(imageUrl);
+            ImagesCollection.Remove(SelectedImageUrl);
+        }
+
+        private void CancelCreationClick(object sender, EventArgs e)
+        {
+            NavigationService.GoBack();
         }
 
     }
