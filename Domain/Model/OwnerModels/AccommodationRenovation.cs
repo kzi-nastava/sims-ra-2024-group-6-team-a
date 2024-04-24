@@ -20,10 +20,20 @@ namespace BookingApp.Model
         public DateOnly EndDate { get; set;}
 
         public AccommodationRenovation() { }
+
+        public AccommodationRenovation(int id, string title, int accommodationId, DateOnly startDate, DateOnly endDate)
+        {
+            Id = id;
+            Title = title;
+            AccommodationId = accommodationId;
+            StartDate = startDate;
+            EndDate = endDate;
+        }
+
         public string[] ToCSV()
         {
 
-            string[] csvValues = { Id.ToString(), Title,AccommodationId.ToString(),StartDate.ToString(),EndDate.ToString()};
+            string[] csvValues = { Id.ToString(), Title,AccommodationId.ToString(),StartDate.ToString("dd.MM.yyyy"),EndDate.ToString("dd.MM.yyyy") };
             return csvValues;
         }
 

@@ -4,6 +4,7 @@ using BookingApp.RepositoryInterfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,11 @@ namespace BookingApp.ApplicationServices
             return accommodationRenovationRepository.GetAll();
         }
 
+        public int NextId()
+        {
+            return accommodationRenovationRepository.NextId();
+        }
+
         public AccommodationRenovation Save(AccommodationRenovation AccommodationRenovation)
         {
             return accommodationRenovationRepository.Save(AccommodationRenovation);
@@ -45,9 +51,9 @@ namespace BookingApp.ApplicationServices
             return accommodationRenovationRepository.GetByAccommodation(id);
         }
 
-        public List<AccommodationRenovation> GetAllByAccommodation(int id)
+        public ObservableCollection<AccommodationRenovation> GetAllByAccommodation(int id)
         {
-            List<AccommodationRenovation> accommodationRenovations = new List<AccommodationRenovation>();
+            ObservableCollection<AccommodationRenovation> accommodationRenovations = new ObservableCollection<AccommodationRenovation>();
 
             foreach(AccommodationRenovation ren in accommodationRenovationRepository.GetAll())
             {

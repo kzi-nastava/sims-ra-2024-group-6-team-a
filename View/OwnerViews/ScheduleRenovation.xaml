@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.OwnerViews"
         mc:Ignorable="d"
-        Title="ScheduleRenovation" Height="420" Width="400" WindowStartupLocation="CenterScreen">
+        Title="ScheduleRenovation" Height="470" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
@@ -16,6 +16,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
@@ -39,11 +40,13 @@
 
         <TextBlock Grid.Row="3" Grid.Column="1" Margin="20,10,1,5" FontSize="20">Duration:</TextBlock>
         <TextBox x:Name="DurationPicker" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="-20,5,5,5"></TextBox>
-        <Button Click="Find_Click" Grid.Row="4" Grid.Column="2" FontSize="23" Margin="0,9,0,9">Find</Button>
+        <TextBlock Grid.Row="4" Grid.Column="1" Margin="20,10,1,5" FontSize="20">Title:</TextBlock>
+        <TextBox x:Name="TitleText" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Margin="-20,5,5,5"></TextBox>
+        <Button Click="Find_Click" Grid.Row="5" Grid.Column="2" FontSize="23" Margin="0,9,0,9">Find</Button>
 
-        <TextBlock x:Name="HelpBox" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" FontSize="14">Choose the start and end date,aswell as the duration,and press Find, so that the system can find a suitable renovation period.</TextBlock>
+        <TextBlock x:Name="HelpBox" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" FontSize="14">Choose the start and end date,aswell as the duration,and press Find, so that the system can find a suitable renovation period.</TextBlock>
 
-        <Button Grid.Row="6" Grid.Column="2" FontSize="20" Margin="0,9,0,9">Confirm</Button>
+        <Button Click="Confirm_Click" Grid.Row="7" Grid.Column="2" FontSize="20" Margin="0,9,0,9">Confirm</Button>
 
     </Grid>
 </Window>
