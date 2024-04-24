@@ -96,11 +96,11 @@ namespace BookingApp.View
             bool containsName = IsStringMatch(tour.Name, NameSearch);
             bool containsCity = IsStringMatch(LocationService.GetInstance().GetById(tour.LocationId).City, CitySearch);
             bool containsState = IsStringMatch(LocationService.GetInstance().GetById(tour.LocationId).State, StateSearch);
-            bool containsLanguage = IsStringMatch(tour.Language.ToString(), LanguageSearch);
+            //bool containsLanguage = IsStringMatch(tour.Language.ToString(), LanguageSearch);
             bool capacityIsLower = IsCapacityLower(tour.Capacity, CapacitySearch);
             bool containsDuration = IsDurationMatch(tour.Duration, DurationSearch);
 
-            return containsName && containsState && containsCity && containsDuration && capacityIsLower && containsLanguage;
+            return containsName && containsState && containsCity && containsDuration && capacityIsLower  /* && containsLanguage*/;
         }
 
         private bool IsStringMatch(string target, string search)

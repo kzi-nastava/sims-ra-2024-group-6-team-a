@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.ApplicationServices;
+using BookingApp.Domain.Model;
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Observer;
@@ -31,7 +32,6 @@ namespace BookingApp.View.GuideView.Pages
         public static ObservableCollection<TourGuideDTO> TodaysTours { get; set; }
         public User LoggedUser { get; set; }
 
-        public Frame mainFrame;
 
       
        
@@ -40,7 +40,7 @@ namespace BookingApp.View.GuideView.Pages
 
         public event EventHandler tourEnded;
 
-        public LiveToursPage(Frame mainFrame,TourStatisticsPage tourStatisticsPage,TourCreationPage tourCreationPage,User user)
+        public LiveToursPage(TourStatisticsPage tourStatisticsPage,TourCreationPage tourCreationPage,User user)
         {
             InitializeComponent();
             DataContext = this;
@@ -51,7 +51,6 @@ namespace BookingApp.View.GuideView.Pages
             TodaysTours = new ObservableCollection<TourGuideDTO>();
 
 
-            this.mainFrame = mainFrame;
 
             tourCreationPage.SomethingHappened += tourCreationPage_SomethingHappened;
 
@@ -73,14 +72,16 @@ namespace BookingApp.View.GuideView.Pages
                 Tour tour = TourService.GetInstance().GetById(tourSchedule.TourId);
                 if (!CheckUpdateConditions(tourSchedule, tour))
                     continue;
-                 
+                
                 Location location = LocationService.GetInstance().GetById(tour.LocationId);
                
                 DateTime dateTime = tourSchedule.Start;
                 
                 Model.Image image = GetFirstTourImage(tour.Id);
+
+                Language language = LanguageService.GetInstance().GetById(tour.LanguageId);
                 
-                TodaysTours.Add(new TourGuideDTO(tour, location, image.Path, dateTime, tourSchedule.Id));
+                TodaysTours.Add(new TourGuideDTO(tour, language,location, image.Path, dateTime, tourSchedule.Id));
             }
         }
 

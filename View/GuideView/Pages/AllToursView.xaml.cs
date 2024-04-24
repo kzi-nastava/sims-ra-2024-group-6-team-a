@@ -29,10 +29,10 @@ namespace BookingApp.View.GuideView.Pages
       
 
         public AllToursViewModel AllToursWindow { get; set; }
-        public AllToursPage(Frame mainFrame, TourCreationPage tourCreationPage, User user)
+        public AllToursPage(TourCreationPage tourCreationPage, User user)
         {
             InitializeComponent();
-            AllToursWindow = new AllToursViewModel(this, mainFrame, tourCreationPage, user);
+            AllToursWindow = new AllToursViewModel(tourCreationPage, user);
             DataContext = AllToursWindow;
             Update();
         }
