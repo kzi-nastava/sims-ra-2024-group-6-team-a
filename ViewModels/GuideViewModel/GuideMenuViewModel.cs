@@ -17,16 +17,14 @@ namespace BookingApp.ViewModels.GuideViewModel
 {
     public class GuideMenuViewModel
     {
-        public static ObservableCollection<TourGuideDTO> TodaysTours { get; set; }
-        public TourGuideDTO SelectedTour { get; set; }
         public User LoggedUser { get; set; }
 
         public Frame mainFrame;
 
-        public LiveToursPage liveToursPage;
-        public TourCreationPage tourCreationPage;
+        public ToursPage toursPage; 
+
+       
         public TourStatisticsPage tourStatisticsPage;
-        public AllToursPage allToursPage;
         public ReviewDetailsPage reviewDetailsPage;
         public TourReviewsPage tourReviewPage;
 
@@ -42,33 +40,22 @@ namespace BookingApp.ViewModels.GuideViewModel
             MainWindow = mainWindow;
 
             tourStatisticsPage = new TourStatisticsPage(LoggedUser);
-            tourCreationPage = new TourCreationPage(LoggedUser);
-            liveToursPage = new LiveToursPage(mainFrame, tourStatisticsPage, tourCreationPage, LoggedUser);
-            liveToursPage.tourEnded += UpdateWindows;
             
-            allToursPage = new AllToursPage(mainFrame, tourCreationPage, LoggedUser);
-            tourReviewPage = new TourReviewsPage(mainFrame, tourCreationPage, LoggedUser);
+
             
+            tourReviewPage = new TourReviewsPage(mainFrame, LoggedUser);
+
+            toursPage = new ToursPage(LoggedUser,tourStatisticsPage,tourReviewPage);
+
+            MainWindow.MainFrame.Content = toursPage;
+
         }
 
-        public void UpdateWindows(object sender, EventArgs e)
+        public void ToursPageClick()
         {
-            tourReviewPage.Update();
-            tourStatisticsPage.Update();
+            MainWindow.MainFrame.Content = toursPage;
         }
-
-   
-        public void ShowCreateTourForm()
-        {
-            MainWindow.MainFrame.Content = tourCreationPage;
-        }
-
-        public void LiveToursPageEvent(object sender, EventArgs e)
-        {
-            liveToursPage.Update();
-            tourStatisticsPage.Update();
-            tourReviewPage.Update();
-        }
+       
 
         public void TourStatisticsPageClick()
         {
@@ -80,27 +67,9 @@ namespace BookingApp.ViewModels.GuideViewModel
             MainWindow.MainFrame.Content = tourReviewPage;
         }
 
-
-        public void LiveToursPageClick()
+        public void TourRequestsPageClick()
         {
-            List<Tour> tours = TourService.GetInstance().GetAllByUser(LoggedUser);
-            int tourScheduleId = TourScheduleService.GetInstance().FindOngoingTour(tours);
 
-            if (tourScheduleId != 0)
-            {
-                LiveTour liveTour = new LiveTour(tourScheduleId);
-                MainWindow.MainFrame.Content = liveTour;
-                liveTour.TourEndedMainWindow += LiveToursPageEvent;
-            }
-            else
-            {
-                MainWindow.MainFrame.Content = liveToursPage;
-            }
-        }
-
-        public void AllToursPageClick()
-        {
-            MainWindow.MainFrame.Content = allToursPage;
         }
     }
 }

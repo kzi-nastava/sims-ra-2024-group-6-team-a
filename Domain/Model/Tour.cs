@@ -15,7 +15,7 @@ namespace BookingApp.Model
         public string Name { get; set; }
         public int LocationId { get; set; }
         public string Description { get; set; }
-        public string Language { get; set; }
+        public int LanguageId { get; set; }
         public int Capacity {  get; set; }
         public List<Checkpoint> Checkpoints { get; set; }
         public double Duration { get; set; }
@@ -34,7 +34,7 @@ namespace BookingApp.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Name,LocationId.ToString(), Description , Language , Capacity.ToString() , Duration.ToString(), GuideId.ToString()};
+            string[] csvValues = { Id.ToString(), Name,LocationId.ToString(), Description , LanguageId.ToString() , Capacity.ToString() , Duration.ToString(), GuideId.ToString()};
             return csvValues;
         }
 
@@ -44,7 +44,7 @@ namespace BookingApp.Model
             Name = values[1];
             LocationId = Convert.ToInt32(values[2]);
             Description =  values[3];
-            Language = values[4];
+            LanguageId = Convert.ToInt32(values[4]);
             Capacity = Convert.ToInt32(values[5]);
             Duration = Convert.ToDouble(values[6]);
             GuideId = Convert.ToInt32(values[7]);
