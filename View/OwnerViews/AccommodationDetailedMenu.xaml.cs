@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BookingApp.ApplicationServices;
 using BookingApp.DTOs;
 using BookingApp.Observer;
 using BookingApp.Repository;
@@ -90,8 +91,13 @@ namespace BookingApp.View
             {
                 if (Tabs.SelectedItem == RenovationsTab && ViewModel.SelectedRenovation != null)
                 {
-
-
+                    if (RenovationService.GetInstance().IsFiveDays(ViewModel.SelectedRenovation))
+                    {
+                        if ((MessageBox.Show("Do you want to remove the renovation?", "Remove renovation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
+                        {
+                            ViewModel.RemoveRenovation();
+                        }
+                    }
                 }
             }
         }

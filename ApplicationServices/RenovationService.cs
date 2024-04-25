@@ -55,9 +55,9 @@ namespace BookingApp.ApplicationServices
         {
             ObservableCollection<AccommodationRenovation> accommodationRenovations = new ObservableCollection<AccommodationRenovation>();
 
-            foreach(AccommodationRenovation ren in accommodationRenovationRepository.GetAll())
+            foreach (AccommodationRenovation ren in accommodationRenovationRepository.GetAll())
             {
-                if(ren.AccommodationId == id)
+                if (ren.AccommodationId == id)
                     accommodationRenovations.Add(ren);
             }
 
@@ -73,7 +73,7 @@ namespace BookingApp.ApplicationServices
             availableDates.Add(new DateOnly(2024, 4, 15));
             DateOnly? startingDay = null;
             DateOnly? endDay = null;
-   
+
 
             bool found = false;
 
@@ -92,7 +92,7 @@ namespace BookingApp.ApplicationServices
                 if (startingDay == null)
                     startingDay = day;
 
-                foreach(DateOnly day_sec in EachDay(StartDate.AddDays(1),EndDate))
+                foreach (DateOnly day_sec in EachDay(StartDate.AddDays(1), EndDate))
                 {
                     endDay = day_sec;
 
@@ -105,11 +105,11 @@ namespace BookingApp.ApplicationServices
                         continue;
                     else
                     {
-                        
+
                         bool interfere = false;
-                        foreach(DateOnly resDay in reservedDates)
+                        foreach (DateOnly resDay in reservedDates)
                         {
-                            if(resDay >= startingDay && resDay <= endDay)
+                            if (resDay >= startingDay && resDay <= endDay)
                             {
                                 interfere = true;
                                 startingDay = null;
@@ -120,7 +120,7 @@ namespace BookingApp.ApplicationServices
 
                         if (!interfere)
                         {
-                            
+
                             availableDates[0] = startingDay;
                             availableDates[1] = endDay;
                             return availableDates;
@@ -128,7 +128,7 @@ namespace BookingApp.ApplicationServices
                         else
                             break;
                     }
-                
+
                 }
             }
             availableDates[0] = null;
@@ -142,6 +142,13 @@ namespace BookingApp.ApplicationServices
         {
             for (var day = from; day <= thru; day = day.AddDays(1))
                 yield return day;
+        }
+
+        internal bool IsFiveDays(AccommodationRenovation selectedRenovation)
+        {
+            DateTime RenovationStart = selectedRenovation.StartDate.ToDateTime(TimeOnly.MinValue);
+            double DaysPassedForReview = (RenovationStart - DateTime.Today).TotalDays;
+            return DaysPassedForReview > 5.0;
         }
     }
 }

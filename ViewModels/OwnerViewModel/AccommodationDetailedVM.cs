@@ -288,5 +288,12 @@ namespace BookingApp.ViewModels
             scheduleRenovation.ShowDialog();
             Update();
         }
+
+        internal void RemoveRenovation()
+        {
+            AccommodationRenovation renovation = RenovationService.GetInstance().GetAll().Find(r => r.Id == SelectedRenovation.Id);
+            RenovationService.GetInstance().Delete(renovation);
+            Update();
+        }
     }
 }
