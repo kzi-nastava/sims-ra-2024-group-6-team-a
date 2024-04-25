@@ -62,7 +62,22 @@ namespace BookingApp.ApplicationServices
 
             return checkpoints;
         }
-       
+
+        public List<Checkpoint> GetAllByTourId(int tourId)
+        {
+            List<Checkpoint> checkpoints = new List<Checkpoint>();
+
+
+            foreach (Checkpoint oldCheckpoint in GetAll().Where(c => c.TourId == tourId).ToList())
+            {
+                if (checkpoints.Any(c => c.Name == oldCheckpoint.Name))
+                    continue;
+                checkpoints.Add(oldCheckpoint);
+            }
+
+            return checkpoints;
+        }
+
         public List<Checkpoint> GetFinishedCheckpoints(TourSchedule schedule)
         {
             List<Checkpoint> checkpoints = new List<Checkpoint>();

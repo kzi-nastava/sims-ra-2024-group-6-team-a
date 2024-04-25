@@ -172,8 +172,38 @@ namespace BookingApp.DTOs
                 }
             }
         }
+        private string _image;
+
+        public string Image
+        {
+            get
+            {
+                return _image;
+            }
+
+            set
+            {
+                if (value != _image)
+                {
+                    _image = value;
+                    OnPropertyChanged("Image");
+                }
+            }
+        }
 
         public TourTouristDTO(Tour tour, Location location, TourSchedule tourSchedule)
+        {
+            Id = tour.Id;
+            Name = tour.Name;
+            Description = tour.Description;
+            //Language = tour.Language;
+            Capacity = tour.Capacity;
+            Duration = tour.Duration;
+            City = location.City;
+            State = location.State;
+            Start = tourSchedule.Start;   
+        }
+        public TourTouristDTO(Tour tour, Location location, TourSchedule tourSchedule, string imagePath)
         {
             Id = tour.Id;
             Name = tour.Name;
@@ -183,7 +213,8 @@ namespace BookingApp.DTOs
             Duration = tour.Duration;
             City = location.City;
             State = location.State;
-            Start = tourSchedule.Start;   
+            Start = tourSchedule.Start;
+            Image = imagePath;
         }
 
 

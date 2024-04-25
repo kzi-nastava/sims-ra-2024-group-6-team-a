@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -212,10 +213,10 @@ namespace BookingApp.DTOs
             }
         }
         
-        public TourStatisticsDTO(string name,string language, string image, Location location, int touristNumber, int children, int adult, int elderly)
+        public TourStatisticsDTO(string name,Language language, string image, Location location, int touristNumber, int children, int adult, int elderly)
         {
             _name = name;
-            _language = language;
+            _language = language.Name;
             _image = image;
             _city = location.City;
             _state = location.State;
