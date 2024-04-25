@@ -9,22 +9,21 @@ namespace BookingApp.Model
 {
     public class Guest : ISerializable
     {
-
         public int Id { get; set; }
         public string Username { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Phone { get; set; }
         public DateOnly Birthday { get; set; }
+        public DateOnly StartSuperGuestDate { get; set; }
         public string Email { get; set; }
         public int Rating { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; }
-        public int SuperGuestId { get; set; }
-        public SuperGuest SuperGuest { get; set; }
+        public int BonusPoints { get; set; }
+        public bool IsSuperGuest { get; set; }
 
         public Guest() { }
-        public Guest(int id, string username, string name, string surname, string phone, string email, DateOnly birthday, int userId, int superGuestId, SuperGuest superGuest)
+        public Guest(int id, string username, string name, string surname, string phone, string email, DateOnly birthday, int userId, bool isSuperGuest, DateOnly startSuperGuest, int bonusPoints)
         {
             Id = id;
             Username = username;
@@ -34,8 +33,9 @@ namespace BookingApp.Model
             Email = email;
             Birthday = birthday;
             UserId = userId;
-            SuperGuestId = superGuestId;
-            SuperGuest = superGuest;
+            IsSuperGuest = isSuperGuest;
+            StartSuperGuestDate = startSuperGuest;
+            BonusPoints = bonusPoints;
         }
 
         public void FromCSV(string[] values)
@@ -47,8 +47,10 @@ namespace BookingApp.Model
             Birthday = DateOnly.ParseExact(values[4], "dd.MM.yyyy");
             Email = values[5];
             UserId = Convert.ToInt32(values[6]);
-            SuperGuestId = Convert.ToInt32(values[7]);
+            IsSuperGuest = Convert.ToBoolean(values[7]);
             Username = values[8];
+            BonusPoints = Convert.ToInt32(values[9]);
+            StartSuperGuestDate = DateOnly.ParseExact(values[10], "dd.MM.yyyy");
 
         }
 
@@ -63,8 +65,11 @@ namespace BookingApp.Model
                 Birthday.ToString("dd.MM.yyyy"),
                 Email,
                 UserId.ToString(),
-                SuperGuestId.ToString(),
-                Username
+                IsSuperGuest.ToString(),
+                Username,
+                BonusPoints.ToString(),
+                StartSuperGuestDate.ToString("dd.MM.yyyy"),
+
             };
             return csvvalues;
         }

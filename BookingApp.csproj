@@ -23,19 +23,23 @@
     <None Remove="Resources\Images\capacity.png" />
     <None Remove="Resources\Images\cetrii.png" />
     <None Remove="Resources\Images\checkpoint.png" />
+    <None Remove="Resources\Images\cleanliness.png" />
     <None Remove="Resources\Images\close-acc.png" />
     <None Remove="Resources\Images\commentt.png" />
     <None Remove="Resources\Images\delete.png" />
     <None Remove="Resources\Images\description.png" />
     <None Remove="Resources\Images\dva.png" />
     <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\emptyStar.png" />
     <None Remove="Resources\Images\forum.png" />
+    <None Remove="Resources\Images\fourArrow.png" />
     <None Remove="Resources\Images\futog.jpg" />
     <None Remove="Resources\Images\gmail.png" />
     <None Remove="Resources\Images\group.png" />
     <None Remove="Resources\Images\guestreview.png" />
     <None Remove="Resources\Images\habbo1.jpg" />
     <None Remove="Resources\Images\habbo2.jpg" />
+    <None Remove="Resources\Images\halfStar.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\horizonti1.jpg" />
     <None Remove="Resources\Images\horizonti10.jpg" />
@@ -89,6 +93,7 @@
     <None Remove="Resources\Images\register.png" />
     <None Remove="Resources\Images\rejected.png" />
     <None Remove="Resources\Images\renovation.png" />
+    <None Remove="Resources\Images\renovations.png" />
     <None Remove="Resources\Images\renovation_acc.png" />
     <None Remove="Resources\Images\report.png" />
     <None Remove="Resources\Images\reservationchange.png" />
@@ -96,8 +101,10 @@
     <None Remove="Resources\Images\reservation_img.png" />
     <None Remove="Resources\Images\res_change.png" />
     <None Remove="Resources\Images\right-arrow.png" />
+    <None Remove="Resources\Images\rules.png" />
     <None Remove="Resources\Images\send.png" />
     <None Remove="Resources\Images\sheraton1.jpg" />
+    <None Remove="Resources\Images\star.png" />
     <None Remove="Resources\Images\suitcase.png" />
     <None Remove="Resources\Images\terme1.jpg" />
     <None Remove="Resources\Images\terme2.jpg" />
@@ -152,19 +159,31 @@
     <Content Include="Resources\Images\cetrii.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\cleanliness.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\commentt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\dva.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\emptyStar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\forum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\fourArrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\gmail.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\guestreview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\halfStar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\jedan.png">
@@ -219,6 +238,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\rejected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\renovations.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\renovation_acc.png">
@@ -362,10 +384,16 @@
     <Content Include="Resources\Images\right-arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\rules.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\send.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\sheraton1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\star.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\suitcase.png">

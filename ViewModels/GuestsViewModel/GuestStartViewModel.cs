@@ -25,6 +25,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public RelayCommand ProfileCommand { get; set; }
         public RelayCommand MyReservationCommand { get; set; }
         public RelayCommand MyRequestCommand { get; set; }
+        public RelayCommand RatingsCommand { get; set; }
         public RelayCommand ForumCommand { get; set; }
         public RelayCommand MenuOpenCommand { get; set; }
         public RelayCommand MenuClosedCommand { get; set; }
@@ -40,6 +41,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
             MenuOpenCommand = new RelayCommand(Execute_MenuOpenCommand);
             MenuClosedCommand = new RelayCommand(Execute_MenuClosedCommand);
             MyRequestCommand = new RelayCommand(Execute_MyRequestCommand);
+            RatingsCommand = new RelayCommand(Execute_RatingsCommand);
             MenuOpenVisibility = Visibility.Collapsed;
             RedDotVisibility = Visibility.Collapsed;
             NavService.Navigate(new GuestAccommodationsView(Guest, NavService));
@@ -86,7 +88,11 @@ namespace BookingApp.ViewModels.GuestsViewModel
         {
             MenuOpenVisibility = Visibility.Collapsed;
             NavService.Navigate(new GuestAccommodationsView(Guest, NavService));
-
+        }
+        public void Execute_RatingsCommand(object obj)
+        {
+            MenuOpenVisibility = Visibility.Collapsed;
+            NavService.Navigate(new MyRatingView(Guest, NavService));
         }
         public void Execute_ProfileCommandCommand(object obj)
         {

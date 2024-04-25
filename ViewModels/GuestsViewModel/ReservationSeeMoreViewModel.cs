@@ -55,6 +55,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 MessageBoxResult odgovor = MessageBox.Show("Are you sure to cancel the reservation?", "Cancel reservation", MessageBoxButton.YesNo);
                 switch (odgovor) { 
                     case MessageBoxResult.Yes:
+                        if (Guest.BonusPoints != 5 && Guest.IsSuperGuest== true) Guest.BonusPoints++;
                         canceledReservationa.Status = Enums.ReservationStatus.Canceled;
                         AccommodationReservationService.GetInstance().Update(canceledReservationa);
                         NavService.Navigate(new GuestMyReservationsView(Guest, NavService));

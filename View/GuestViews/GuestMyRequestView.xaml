@@ -51,31 +51,109 @@
                           SelectionMode="Single" 
                           x:Name="ChangeReservationsTable"
                           Width="NaN" Height="NaN" d:ItemsSource="{d:SampleData ItemCount=3}" >
+            
                 <ListView.ItemTemplate >
                     <DataTemplate  >
-                        <StackPanel Orientation="Horizontal" Background="Silver" Margin="0,0,0,2" Width="375" Height="110">
-                            <Image Source= "{Binding Image}" Width="100" Height="100" HorizontalAlignment="Left" Stretch="Fill"  VerticalAlignment="Center" />
+                        <Border  CornerRadius="4" BorderBrush="Black" BorderThickness="2.5" Margin="-5,0,0,2">
+                            <StackPanel Orientation="Horizontal" Background="Silver" Width="362" Height="110">
+                                <Image Source= "{Binding Image}" Width="100" Height="100" HorizontalAlignment="Left" Stretch="Fill"  VerticalAlignment="Center" />
 
-                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0" Height="100">
-                                <TextBlock Foreground="black" Text="{Binding AccommodationName}" FontSize="24" FontWeight="Bold" Width="180" Margin="0,-5,0,0"/>
-                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,3,3,0">
-                                    <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
-                                    <TextBlock Margin="5,0,0,0" Text="{Binding OldCheckIn}" TextDecorations="Strikethrough" Foreground="Gray" ></TextBlock>
-                                    <TextBlock Text=" - " TextDecorations="Strikethrough"  Foreground="Gray"></TextBlock>
-                                    <TextBlock Text="{Binding OldCheckOut}" TextDecorations="Strikethrough"  Foreground="Gray"  ></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1"  Margin="0,5,0,0">
-                                    <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
-                                    <TextBlock  Margin="5,0,0,0" Text="{Binding NewCheckIn}" FontWeight="SemiBold" ></TextBlock>
-                                    <TextBlock Text=" - "  FontWeight="SemiBold"></TextBlock>
-                                    <TextBlock Text="{Binding NewCheckOut}"  FontWeight="SemiBold" ></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1"  Margin="0,5,0,0">
-                                    <Image Source="/Resources/Images/commentt.png" Width="18" Height="18"></Image>
-                                    <TextBlock  Margin="5,0,0,0" Foreground="black" Text="{Binding Comment}"  TextWrapping="Wrap"   FontSize="12"  MaxWidth="150" MaxHeight="29"></TextBlock>
-                                </StackPanel>
-                                <Button Margin="26,-15,-215,0" Width="70" Cursor="Hand" Height="20"
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0" Height="100">
+                                    <TextBlock Foreground="black" Text="{Binding AccommodationName}" FontSize="24" FontWeight="Bold" Width="180" Margin="0,-5,0,0"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,3,3,0">
+                                        <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
+                                        <TextBlock Margin="5,0,0,0" Text="{Binding OldCheckIn}" TextDecorations="Strikethrough" Foreground="Gray" ></TextBlock>
+                                        <TextBlock Text=" - " TextDecorations="Strikethrough"  Foreground="Gray"></TextBlock>
+                                        <TextBlock Text="{Binding OldCheckOut}" TextDecorations="Strikethrough"  Foreground="Gray"  ></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1"  Margin="0,5,0,0">
+                                        <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
+                                        <TextBlock  Margin="5,0,0,0" Text="{Binding NewCheckIn}" FontWeight="SemiBold" ></TextBlock>
+                                        <TextBlock Text=" - "  FontWeight="SemiBold"></TextBlock>
+                                        <TextBlock Text="{Binding NewCheckOut}"  FontWeight="SemiBold" ></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1"  Margin="0,5,0,0">
+                                        <Image Source="/Resources/Images/commentt.png" Width="18" Height="18"></Image>
+                                        <TextBlock  Margin="5,0,0,0" Foreground="black" Text="{Binding Comment}"  TextWrapping="Wrap"   FontSize="12"  MaxWidth="150" MaxHeight="29"></TextBlock>
+                                    </StackPanel>
+                                    <Button Margin="26,-15,-215,0" Width="70" Cursor="Hand" Height="20"
                                         Command="{Binding DataContext.SeenACommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Accepted">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <TextBlock Text="Seen" Foreground="Black" FontWeight="Bold" />
+                                    </Button>
+                                    <Button  Margin="26,-15,-215,0" Width="70" Cursor="Hand" Height="20"
+                                         Command="{Binding DataContext.SeenRCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Rejected">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <TextBlock Text="Seen" Foreground="Black" FontWeight="Bold" />
+                                    </Button>
+                                </StackPanel>
+                                <Image Source="/Resources/Images/approved.png" Width="45" Height="45"  Margin="26,0,0,53">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Accepted">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <Image Source="/Resources/Images/approved.png" Width="45" Height="45"  Margin="26,0,0,53">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="AcceptedSeen">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <Image Source="/Resources/Images/rejected.png" Width="45" Height="45"  Margin="26,0,0,53">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Rejected">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <Image Source="/Resources/Images/rejected.png" Width="45" Height="45"  Margin="26,0,0,53">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="RejectedSeen">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <Button Margin="26,0,0,23" Width="80" Cursor="Hand" Height="45">
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="Visibility" Value="Collapsed" />
@@ -86,97 +164,21 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
-                                    <TextBlock Text="Seen" Foreground="Black" FontWeight="Bold" />
                                 </Button>
-                                <Button  Margin="26,-15,-215,0" Width="70" Cursor="Hand" Height="20"
-                                         Command="{Binding DataContext.SeenRCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
-                                    <Button.Style>
-                                        <Style TargetType="Button">
+                                <Image Source="/Resources/Images/onHold.png" Width="45" Height="45"  Margin="26,0,0,53">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
                                             <Setter Property="Visibility" Value="Collapsed" />
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Rejected">
+                                                <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Pending">
                                                     <Setter Property="Visibility" Value="Visible" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
-                                    </Button.Style>
-                                    <TextBlock Text="Seen" Foreground="Black" FontWeight="Bold" />
-                                </Button>
+                                    </Image.Style>
+                                </Image>
                             </StackPanel>
-                            <Image Source="/Resources/Images/approved.png" Width="45" Height="45"  Margin="26,0,0,53">
-                                <Image.Style>
-                                    <Style TargetType="Image">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Accepted">
-                                                <Setter Property="Visibility" Value="Visible" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-                            </Image>
-                            <Image Source="/Resources/Images/approved.png" Width="45" Height="45"  Margin="26,0,0,53">
-                                <Image.Style>
-                                    <Style TargetType="Image">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="AcceptedSeen">
-                                                <Setter Property="Visibility" Value="Visible" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-                            </Image>
-                            <Image Source="/Resources/Images/rejected.png" Width="45" Height="45"  Margin="26,0,0,53">
-                                <Image.Style>
-                                    <Style TargetType="Image">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Rejected">
-                                                <Setter Property="Visibility" Value="Visible" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-                            </Image>
-                            <Image Source="/Resources/Images/rejected.png" Width="45" Height="45"  Margin="26,0,0,53">
-                                <Image.Style>
-                                    <Style TargetType="Image">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="RejectedSeen">
-                                                <Setter Property="Visibility" Value="Visible" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-                            </Image>
-                            <Button Margin="26,0,0,23" Width="80" Cursor="Hand" Height="45">
-                                <Button.Style>
-                                    <Style TargetType="Button">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Accepted">
-                                                <Setter Property="Visibility" Value="Visible" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                                <TextBlock Text="Approved" Foreground="Red" FontWeight="Bold" />
-                            </Button>
-                            <Image Source="/Resources/Images/onHold.png" Width="45" Height="45"  Margin="26,0,0,53">
-                                <Image.Style>
-                                    <Style TargetType="Image">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ReservationChangeStatus}" Value="Pending">
-                                                <Setter Property="Visibility" Value="Visible" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-                            </Image>
-                        </StackPanel>
+                        </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
