@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuestViews"
       mc:Ignorable="d" 
-      d:DesignHeight="540" d:DesignWidth="410"
+      d:DesignHeight="840" d:DesignWidth="410"
       Title="GuestProfile">
 
     <Grid>
         <Grid.RowDefinitions >
             <RowDefinition Height="70"/>
-            <RowDefinition Height="160"/>
+            <RowDefinition Height="120"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -20,41 +20,66 @@
         </Grid>
         <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
 
-        <Grid  Grid.Row="1" Background="CornflowerBlue">
+        <Grid  Grid.Row="1" Background="CornflowerBlue" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="130"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Grid.RowSpan="4" >
-                <StackPanel Orientation="Vertical" Margin="0,30,0,0">
+            <Grid Grid.Column="0" Grid.RowSpan="3" >
+                <StackPanel Orientation="Vertical" Margin="0,15,0,0">
                     <Image Source ="/Resources/Images/profile.png" Width="80" Height="70"/>
-                    <Label   Margin="-55,10,0,0" FontSize="22"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="Center" Content="{Binding Guest.Name}"></Label>
-                    <Label   Margin="0,-35,20,0" FontSize="22"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="Right" Content="{Binding Guest.Surname}"></Label>
+                    <Label   Margin="-5,0,0,0" FontSize="22"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="Center" Content="{Binding Guest.Username}"></Label>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Column="1" >
+            <Grid Grid.Column="1" Margin="0,5,0,0" >
                 <Grid.RowDefinitions >
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
-
                 <Grid Grid.Row="0" >
-                    <Label FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="left" Content="Username :"></Label>
-                    <Label FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="100,0,0,0" Content="{Binding Guest.Username}"></Label>
+                    <Label FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="left" Content="Rating :" ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"></Label>
+                    <Image Source ="/Resources/Images/star.png" Width="30" Height="30" VerticalAlignment="Center" Margin="-60,0,0,10" Visibility="{Binding OneStarVisibility}"  ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+                    <Image Source ="/Resources/Images/emptyStar.png" Width="30" Height="30" VerticalAlignment="Center" Margin="-60,0,0,10" Visibility="{Binding OneEStarVisibility}" ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+                    <Image Source ="/Resources/Images/halfStar.png" Width="30" Height="30" VerticalAlignment="Center" Margin="-60,0,0,10" Visibility="{Binding OneHStarVisibility}" ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+
+                    <Image Source ="/Resources/Images/star.png" Width="30" Height="30" VerticalAlignment="Center" Margin="0,0,0,10" Visibility="{Binding TwoStarVisibility}"  ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+                    <Image Source ="/Resources/Images/emptyStar.png" Width="30" Height="30" VerticalAlignment="Center" Margin="0,0,0,10" Visibility="{Binding TwoEStarVisibility}" ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+                    <Image Source ="/Resources/Images/halfStar.png" Width="30" Height="30" VerticalAlignment="Center" Margin="0,0,0,10" Visibility="{Binding TwoHStarVisibility}" ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+
+                    <Image Source ="/Resources/Images/star.png" Width="30" Height="30" VerticalAlignment="Center" Margin="60,0,0,10" Visibility="{Binding ThreeStarVisibility}"  ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+                    <Image Source ="/Resources/Images/emptyStar.png" Width="30" Height="30" VerticalAlignment="Center" Margin="60,0,0,10" Visibility="{Binding ThreeEStarVisibility}" ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+                    <Image Source ="/Resources/Images/halfStar.png" Width="30" Height="30" VerticalAlignment="Center" Margin="60,0,0,10" Visibility="{Binding ThreeHStarVisibility}" ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+
+                    <Image Source ="/Resources/Images/star.png" Width="30" Height="30" VerticalAlignment="Center" Margin="120,0,0,10" Visibility="{Binding FourStarVisibility}"  ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+                    <Image Source ="/Resources/Images/emptyStar.png" Width="30" Height="30" VerticalAlignment="Center" Margin="120,0,0,10" Visibility="{Binding FourEStarVisibility}"  ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+                    <Image Source ="/Resources/Images/halfStar.png" Width="30" Height="30" VerticalAlignment="Center" Margin="120,0,0,10" Visibility="{Binding FourHStarVisibility}" ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}" />
+
+                    <Image Source ="/Resources/Images/star.png" Width="30" Height="30" VerticalAlignment="Center" Margin="180,0,0,10" Visibility="{Binding FiveStarVisibility}"  ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+                    <Image Source ="/Resources/Images/emptyStar.png" Width="30" Height="30" VerticalAlignment="Center" Margin="180,0,0,10" Visibility="{Binding FiveEStarVisibility}"  ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+                    <Image Source ="/Resources/Images/halfStar.png" Width="30" Height="30" VerticalAlignment="Center" Margin="180,0,0,10" Visibility="{Binding FiveHStarVisibility}" ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}" />
                 </Grid>
                 <Grid Grid.Row="1" >
-                    <Label FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="left" Content="Rating :"></Label>
-                    <Label FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="100,0,0,0" Content="0/0"></Label>
+                    <Label FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="left" Content="Super Guest :"></Label>
+                    <TextBlock FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="60,5,0,0" >
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Text" Value="{Binding Guest.IsSuperGuest}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Guest.IsSuperGuest}" Value="true">
+                                        <Setter Property="Text"  Value="YES" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Guest.IsSuperGuest}" Value="false">
+                                        <Setter Property="Text"  Value="NO" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </Grid>
                 <Grid Grid.Row="2" >
-                    <Label FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="left" Content="Super Guest :"></Label>
-                    <Label FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="100,0,0,0" Content="NO"></Label>
-                </Grid>
-                <Grid Grid.Row="3" >
-                    <Label FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="left" Content="Bonus poents :"></Label>
-                    <Label FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="100,0,0,0" Content="0"></Label>
+                    <Label FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="left" Content="Bonus points :"></Label>
+                    <Label FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="60,0,0,0" Content="{Binding Guest.BonusPoints}"></Label>
                 </Grid>
             </Grid>
         </Grid>
