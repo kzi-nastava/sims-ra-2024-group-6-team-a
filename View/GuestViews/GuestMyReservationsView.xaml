@@ -10,26 +10,13 @@
 
     <Grid Background="Wheat">
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid  Grid.Row="0" Background="Wheat">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" >
-                <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
-                    <Image Source ="/Resources/Images/menu.png" Width="70" Height="50"/>
-                </Button>
-            </Grid>
-            <Grid Grid.Column="1" >
-                <TextBlock FontSize="37" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" >My reservations</TextBlock>
-
-            </Grid>
-
+        <Grid Grid.Row="0" Background="Wheat" >
+            <TextBlock FontSize="39" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="Black" FontWeight="SemiBold" Margin="40,0,0,0" >My reservations</TextBlock>
         </Grid>
         <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
 
@@ -55,32 +42,34 @@
                           SelectionMode="Single" 
                           x:Name="ReservationsTable"
                           Width="NaN" Height="NaN" d:ItemsSource="{d:SampleData ItemCount=3}" >
+                
                 <ListView.ItemTemplate >
                     <DataTemplate  >
-                        <StackPanel Orientation="Horizontal" Background="Silver" Margin="0,0,0,2">
-                            <Image Source= "{Binding Image}" Width="100" Height="100" HorizontalAlignment="Left" Stretch="Fill"  VerticalAlignment="Center" />
-
-                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0">
-                                <TextBlock Foreground="black" Text="{Binding AccommodationName}" FontSize="24" FontWeight="Bold" Width="180"/>
-                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                                    <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
-                                    <TextBlock Margin="5,0,0,0" Text="{Binding CheckIn}" />
-                                    <TextBlock Text=" - "></TextBlock>
-                                    <TextBlock Text="{Binding CheckOut}" ></TextBlock>
+                        <Border  CornerRadius="4" BorderBrush="Black" BorderThickness="2.5" Margin="-5,0,0,2">
+                            <StackPanel Orientation="Horizontal" Background="Silver"  Width="362">
+                                <Image Source= "{Binding Image}" Width="100" Height="100" HorizontalAlignment="Left" Stretch="Fill"  VerticalAlignment="Center" />
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0">
+                                    <TextBlock Foreground="black" Text="{Binding AccommodationName}" FontSize="24" FontWeight="Bold" Width="180" Margin="0,-10,0,0"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                                        <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
+                                        <TextBlock Margin="5,2,0,2" Text="{Binding CheckIn}" />
+                                        <TextBlock Text=" - "></TextBlock>
+                                        <TextBlock Text="{Binding CheckOut}" ></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                                        <Image Source="/Resources/Images/locationpin.png" Width="18" Height="18"></Image>
+                                        <TextBlock Margin="5,2,0,2" Text="{Binding City}" >,</TextBlock>
+                                        <TextBlock Text="{Binding State}"  ></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+                                        <Image Source="/Resources/Images/people.png" Width="18" Height="18"></Image>
+                                        <TextBlock  Margin="5,2,0,2" Foreground="black" Text="{Binding GuestNumber}" FontWeight="Bold" FontSize="12"   ></TextBlock>
+                                    </StackPanel>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-                                    <Image Source="/Resources/Images/locationpin.png" Width="18" Height="18"></Image>
-                                    <TextBlock Margin="5,0,0,0" Text="{Binding City}" >,</TextBlock>
-                                    <TextBlock Text="{Binding State}"  ></TextBlock>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                                    <Image Source="/Resources/Images/people.png" Width="18" Height="18"></Image>
-                                    <TextBlock Margin="5,0,0,0" Foreground="black" Text="{Binding GuestNumber}" FontWeight="Bold" FontSize="12"   ></TextBlock>
-                                </StackPanel>
-                            </StackPanel>
-                            <Button  Content="see more" FontWeight="Bold" Width="70" Height="25" VerticalAlignment="Bottom" Margin="0,0,10,5" Cursor="Hand" Background="LightBlue" BorderBrush="DarkBlue" BorderThickness="2" 
+                                <Button  Content="see more" FontWeight="Bold" Width="70" Height="25" VerticalAlignment="Bottom" Margin="0,0,10,5" Cursor="Hand" Background="LightBlue" BorderBrush="DarkBlue" BorderThickness="2" 
                                          Command="{Binding DataContext.SeeMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"/>
-                        </StackPanel>
+                            </StackPanel>
+                        </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

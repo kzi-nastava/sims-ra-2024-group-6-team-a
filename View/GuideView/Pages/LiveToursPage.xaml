@@ -10,6 +10,10 @@
       Title="LiveToursPage">
 
     <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.07*"/>
+            <RowDefinition Height="0.95*"/>
+        </Grid.RowDefinitions>
         <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto" >
             <ItemsControl ItemsSource ="{Binding TodaysTours}" >
                 <ItemsControl.ItemTemplate>

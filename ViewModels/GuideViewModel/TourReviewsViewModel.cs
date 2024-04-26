@@ -25,7 +25,7 @@ namespace BookingApp.ViewModels.GuideViewModel
        
 
         public TourReviewsPage Window {  get; set; }
-        public TourReviewsViewModel(TourReviewsPage window,Frame mainFrame, TourCreationPage tourCreationPage, User user)
+        public TourReviewsViewModel(TourReviewsPage window,Frame mainFrame, User user)
         {
             LoggedUser = user;
             Window = window;
@@ -44,13 +44,15 @@ namespace BookingApp.ViewModels.GuideViewModel
                 Model.Image image = GetFirstTourImage(tour.Id);
                 Double avgGrade = 0;
                 Location location = LocationService.GetInstance().GetById(tour.LocationId);
+                Language language = LanguageService.GetInstance().GetById(tour.LanguageId);
+
                 foreach (TourSchedule tourSchedule in TourScheduleService.GetInstance().GetAllByTourId(tour.Id))
                 {
                     if (tourSchedule.TourActivity != Enums.TourActivity.Finished) continue;
 
                     avgGrade = CalculateAvgGrade(tourSchedule.Id);
                     DateTime dateTime = tourSchedule.Start;
-                    Tours.Add(new GuideReviewDTO(tour, location, image.Path, dateTime, tourSchedule.Id, avgGrade));
+                    Tours.Add(new GuideReviewDTO(tour,language, location, image.Path, dateTime, tourSchedule.Id, avgGrade));
                 }
 
 

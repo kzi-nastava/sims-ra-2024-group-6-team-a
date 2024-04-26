@@ -27,6 +27,20 @@ namespace BookingApp.ApplicationServices
         {
             return guestReviewRepository.GetAll();
         }
+        public List<GuestReview> GetLegalReviews()
+        {
+            List<GuestReview> legalReviews = new List<GuestReview>();
+            foreach (GuestReview guestReview in GuestReviewService.GetInstance().GetAll())
+            {
+                foreach (OwnerReview ownerReview in OwnerReviewService.GetInstance().GetAll())
+                {
+                    if (ownerReview.ReservationId == guestReview.ReservationId)
+                        legalReviews.Add(guestReview);
+                }
+            }
+            return legalReviews;
+
+        }
         public GuestReview Save(GuestReview GuestReview)
         {
             return guestReviewRepository.Save(GuestReview);
@@ -36,12 +50,31 @@ namespace BookingApp.ApplicationServices
         {
             return guestReviewRepository.DoesGradeExist(reservationId);
         }
-
+        public GuestReview GetByReservationId(int id)
+        {
+            return guestReviewRepository.GetByReservationId(id);
+        }
         public GuestReview Get(int reservationId)
         {
             return guestReviewRepository.Get(reservationId);
         }
 
+        public double GetAverageGradeByGuest(Guest guest)
+        {
+            double averageGrade=0;
+            int iterator = 0;
+            foreach (GuestReview guestReview in GuestReviewService.GetInstance().GetLegalReviews()) {
+                        AccommodationReservation reservation = AccommodationReservationService.GetInstance().GetByReservationId(guestReview.ReservationId);
+                        if (guest.Id == reservation.GuestId)
+                        {
+                            averageGrade += guestReview.RespectGrade + guestReview.CleanlinessGrade;
+                            iterator++;
+                        }
+            }
+            if (iterator == 0) iterator = 1;
+                return averageGrade/(iterator*2.0);
+        }
+            
     }
 
 }

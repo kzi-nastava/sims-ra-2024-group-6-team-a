@@ -44,7 +44,7 @@ namespace BookingApp.ApplicationServices
             return accommodationReservationRepository.Update(reservation);
         }
 
-        public int GetNumberOfReservation(int guestId)
+        public int GetNumberOfActiveReservation(int guestId)
         {
             int numberOfReservation = 0;
             foreach (AccommodationReservation reservation in GetAll())
@@ -52,6 +52,15 @@ namespace BookingApp.ApplicationServices
                     numberOfReservation++;
             return numberOfReservation;
         }
+        public int GetNumberOfReservationInPreviousYear(int guestId)
+        {
+            int numberOfReservation = 0;
+            foreach (AccommodationReservation reservation in GetAll())
+                if (reservation.GuestId == guestId && reservation.Status == Enums.ReservationStatus.Active && DateOnly.FromDateTime(DateTime.Today).AddDays(-365) <= reservation.CheckInDate && DateOnly.FromDateTime(DateTime.Today) >= reservation.CheckInDate)
+                    numberOfReservation++;
+            return numberOfReservation;
+        }
+        
         public List<AccommodationReservation> GetByAccommodation(Accommodation accommodation)
         {
             List<AccommodationReservation> reservations = GetAll();

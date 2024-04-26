@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using BookingApp.View.TouristView;
 using BookingApp.ApplicationServices;
+using BookingApp.Resources;
+using System.Linq;
 
 namespace BookingApp.View
 {
@@ -19,6 +21,7 @@ namespace BookingApp.View
         public static ObservableCollection<TourTouristDTO> Tours { get; set; }
         public TourScheduleDTO TourSchedule { get; set; }
         public User LoggedUser { get; set; }
+        public TourTouristDTO SelectedTour { get; set; }
 
         public string NameSearch { get; set; }
         public string CitySearch { get; set; }
@@ -43,11 +46,16 @@ namespace BookingApp.View
             Tours.Clear();
             foreach (Tour tour in TourService.GetInstance().GetAll())
             {
-                Tours.Add(new TourTouristDTO(tour, LocationService.GetInstance().GetById(tour.LocationId), TourScheduleService.GetInstance().GetByTour(tour)));
+                Model.Image image = GetFirstTourImage(tour.Id);
+                Tours.Add(new TourTouristDTO(tour, LocationService.GetInstance().GetById(tour.LocationId), TourScheduleService.GetInstance().GetByTour(tour), image.Path));
             }
         }
+        public Model.Image GetFirstTourImage(int tourId)
+        {
+            return ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour).First();
+        }
 
-        private void TextboxCity_TextChanged(object sender, TextChangedEventArgs e)
+       /* private void TextboxCity_TextChanged(object sender, TextChangedEventArgs e)
         {
             CitySearch = TextboxCity.Text;
 
@@ -76,7 +84,7 @@ namespace BookingApp.View
         private void TextboxCapacity_TextChanged(object sender, TextChangedEventArgs e)
         {
             CapacitySearch = TextboxCapacity.Text;
-        }
+        }*/
 
         public void Search_Click(object sender, RoutedEventArgs e)
         {
@@ -86,7 +94,8 @@ namespace BookingApp.View
             {
                 if (CheckSearchConditions(tour))
                 {
-                    Tours.Add(new TourTouristDTO(tour, LocationService.GetInstance().GetById(tour.LocationId), TourScheduleService.GetInstance().GetByTour(tour)));
+                    Model.Image image = GetFirstTourImage(tour.Id);
+                    Tours.Add(new TourTouristDTO(tour, LocationService.GetInstance().GetById(tour.LocationId), TourScheduleService.GetInstance().GetByTour(tour), image.Path));
                 }
             }
         }
@@ -96,11 +105,11 @@ namespace BookingApp.View
             bool containsName = IsStringMatch(tour.Name, NameSearch);
             bool containsCity = IsStringMatch(LocationService.GetInstance().GetById(tour.LocationId).City, CitySearch);
             bool containsState = IsStringMatch(LocationService.GetInstance().GetById(tour.LocationId).State, StateSearch);
-            bool containsLanguage = IsStringMatch(tour.Language.ToString(), LanguageSearch);
+            //bool containsLanguage = IsStringMatch(tour.Language.ToString(), LanguageSearch);
             bool capacityIsLower = IsCapacityLower(tour.Capacity, CapacitySearch);
             bool containsDuration = IsDurationMatch(tour.Duration, DurationSearch);
 
-            return containsName && containsState && containsCity && containsDuration && capacityIsLower && containsLanguage;
+            return containsName && containsState && containsCity && containsDuration && capacityIsLower  /* && containsLanguage*/;
         }
 
         private bool IsStringMatch(string target, string search)
@@ -119,7 +128,8 @@ namespace BookingApp.View
         }
         private void Reservation_Click(object sender, RoutedEventArgs e)
         {
-            TourTouristDTO selectedTour = (TourTouristDTO)tourDataGrid.SelectedItem;
+            var button = sender as Button;
+            var selectedTour = (TourTouristDTO)button.DataContext;
 
             if (selectedTour != null)
             {
@@ -149,6 +159,16 @@ namespace BookingApp.View
         {
             VouchersView vouchersView = new VouchersView(LoggedUser);
             vouchersView.ShowDialog();
+        }
+
+        private void DetailedView_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var selectedTour = (TourTouristDTO)button.DataContext;
+
+            DetailedView details = new DetailedView(selectedTour);
+            details.Owner = this;
+            details.ShowDialog();
         }
     }
 }

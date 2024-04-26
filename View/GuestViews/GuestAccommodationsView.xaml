@@ -62,26 +62,14 @@
 
     <Grid Background="Wheat">
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="400"/>
         </Grid.RowDefinitions>
 
 
         <Grid Grid.Row="0" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" >
-                <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
-                    <Image Source ="/Resources/Images/menu.png" Width="70" Height="50"/>
-                </Button>
-            </Grid>
-            <Grid Grid.Column="1" >
-                <TextBlock FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" >Accommodations</TextBlock>
-
-            </Grid>
+                <TextBlock FontSize="39" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="Black" FontWeight="SemiBold" Margin="50,0,0,0" >Accommodations</TextBlock>
         </Grid>
         <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
         <Grid Grid.Row="1" >
@@ -121,7 +109,7 @@
                     <Button Width="100" Content="Search" Command="{Binding SearchCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" BorderBrush="Transparent" FontSize="23" FontWeight="DemiBold" FontStyle="Italic">
 
                         <Button.ContextMenu>
-                            <ContextMenu  Placement="Custom" Margin="555,187,0,0" Background="SlateGray" Width="auto" BorderBrush="Black" BorderThickness="2">
+                            <ContextMenu  Placement="Custom" Margin="555,169,0,0" Background="SlateGray" Width="auto" BorderBrush="Black" BorderThickness="2">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -180,17 +168,18 @@
             <ListView       Background="DeepSkyBlue"
                           BorderBrush="Black"
                           BorderThickness="3"
-                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          ScrollViewer.VerticalScrollBarVisibility="Visible"
                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                           ItemsSource="{Binding filteredData}"
                           SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}"
                           SelectionMode="Single" 
-                          Name="ListAccommodations" Width="NaN" Height="NaN" d:ItemsSource="{d:SampleData ItemCount=5}" >
+                          Name="ListAccommodations" Width="NaN" Height="NaN" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,0,0,-19" >
                 <ListView.ItemTemplate >
-                    <DataTemplate >
-                        <StackPanel Orientation="Horizontal" Background="Silver"  Margin="0,0,0,2">
+                    <DataTemplate  >
+                        <Border  CornerRadius="4" BorderBrush="Black" BorderThickness="2.5" Margin="-5,0,0,2">
+                            <StackPanel Orientation="Horizontal" Background="Silver" Width="361" >
                             <Image Source= "{Binding Image}" Width="100" Height="100" HorizontalAlignment="Left" Stretch="Fill" VerticalAlignment="Center" />
-                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8,0,0,0">
                                 <TextBlock Foreground="black" Text="{Binding Name}" FontSize="24" FontWeight="Bold" Width="180"/>
                                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                                     <Image Source="/Resources/Images/locationpin.png" Width="18" Height="18"></Image>
@@ -207,7 +196,7 @@
                                     <TextBlock Foreground="black" Text="{Binding MaxGuests}" FontWeight="Bold" FontSize="12"   ></TextBlock>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
-                                    <TextBlock>•Minimal days:</TextBlock>
+                                    <TextBlock >•Minimal days:</TextBlock>
                                     <TextBlock Foreground="Silver">_</TextBlock>
 
                                     <TextBlock Foreground="black" Text="{Binding MinReservationDays}" FontSize="12" FontWeight="Bold" TextWrapping="Wrap"></TextBlock>
@@ -215,10 +204,34 @@
 
                             </StackPanel>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,30,0,0">
-                                <Button  Content="Reserve" FontWeight="Bold" Width="75" Height="25"  Cursor="Hand" Background="LightBlue" BorderBrush="DarkBlue" BorderThickness="2" 
-                                         Command="{Binding DataContext.ReserveCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"/>
-                                <Separator Height="7" Background="Transparent"></Separator>
-                                <Button Width="75" Height="25" FontStyle="Italic" Foreground="Black" Cursor="Hand" Background="LightBlue" BorderBrush="DarkBlue" BorderThickness="2">
+                                <Image Source ="/Resources/Images/renovations.png" Width="35" Height="35" Margin="-33,-20,0,0" ToolTip="This accommodation is currently unavailable due to renovations" >
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding HasRenovation}" Value="true">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+
+                                <Button  Content="Reserve" Margin="-25,0,10,0" FontWeight="Bold" Width="75" Height="25"  Cursor="Hand" Background="LightBlue" BorderBrush="Black" BorderThickness="2" 
+                                         Command="{Binding DataContext.ReserveCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
+                                    <Button.Style>
+                                          <Style TargetType="Button">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding HasRenovation}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                    </Button.Style>
+                                </Button>
+
+                                    <Button Width="75" Height="25" Margin="-25,10,10,0" FontStyle="Italic" Foreground="Black" Cursor="Hand" Background="LightBlue" BorderBrush="Black" BorderThickness="2">
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">
                                             <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
@@ -230,7 +243,7 @@
                                 </Button>
                             </StackPanel>
                         </StackPanel>
-
+                        </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
