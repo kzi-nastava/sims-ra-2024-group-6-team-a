@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.OwnerViews"
         mc:Ignorable="d"
-        Height="800" Width="750" WindowStartupLocation="CenterScreen">
+        Height="800" Width="750" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
     <Grid>
-        <ListBox  x:Name="StatisticsList" ItemsSource="{Binding Statistics}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" MaxHeight="800" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+        <ListBox  x:Name="StatisticsList"  SelectedItem="SelectedMonth" ItemsSource="{Binding Statistics}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" MaxHeight="800" ScrollViewer.VerticalScrollBarVisibility="Visible" >
             <ListBox.ItemTemplate>
 
                 <DataTemplate>

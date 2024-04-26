@@ -3,6 +3,7 @@ using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
 using BookingApp.View.OwnerViews;
 using System;
 using System.Collections.Generic;
@@ -101,9 +102,10 @@ namespace BookingApp.ViewModels
 
             imageModels = images;
             this.Reservations = Reservations;
-          
+            Renovations = new ObservableCollection<AccommodationRenovation>();
 
-            Renovations = new ObservableCollection<AccommodationRenovation>(RenovationService.GetInstance().GetAllByAccommodation(Accommodation.Id));
+
+
             this.bestYear = AccommodationService.GetInstance().GetMostPopularYear(Accommodation.Id);
 
 
@@ -132,7 +134,7 @@ namespace BookingApp.ViewModels
             GetRatingAndColor();
             Images.Clear();
             Statistics.Clear();
-
+            Renovations.Clear();
 
             for(int i = 0;i < imageModels.Count;i = i +2)
             {
@@ -146,8 +148,14 @@ namespace BookingApp.ViewModels
 
                 Images.Add(image);
             }
-
             GatherAllYearsAllStats();
+
+            foreach (AccommodationRenovation ren in RenovationService.GetInstance().GetAll())
+            {
+                if (ren.AccommodationId == Accommodation.Id)
+                    Renovations.Add(ren);
+            }
+
 
 
         }
@@ -222,55 +230,27 @@ namespace BookingApp.ViewModels
 
         }
 
-        public void SelectFirstReservation(ListBox ReservationsList)
-        {
-            if (SelectedReservation == null)
-            {
-                SelectedStatistic = null;
-                SelectedRenovation = null;
 
-                SelectedReservation = Reservations.First();
-                ReservationsList.SelectedIndex = 0;
-                ReservationsList.UpdateLayout();
-                ReservationsList.Focus();
-
-            }
-        }
-
-        internal void SelectFirstStatistic(ListBox statisticsList)
-        {
-            if(SelectedStatistic == null)
-            {
-                SelectedReservation = null;
-                SelectedRenovation = null;
-
-                SelectedStatistic = Statistics.First();
-                statisticsList.SelectedIndex = 0;
-                statisticsList.UpdateLayout();
-                statisticsList.Focus();
-
-
-            }
-        }
-
-        internal void SelectFirstRenovation(ListBox renovationsList)
-        {
-            if(SelectedRenovation == null)
-            {
-                SelectedReservation = null;
-                SelectedStatistic = null;
-
-                SelectedRenovation = Renovations.First();
-                renovationsList.SelectedIndex = 0;
-                renovationsList.UpdateLayout();
-                renovationsList.Focus();
-
-            }
-        }
         internal void OpenMonthStatistic()
         {
             DetailedStatisticsView detailedStatisticsView = new DetailedStatisticsView(AccommodationService.GetInstance().GetMonthlyStatistics(Accommodation.Id,SelectedStatistic.Year),SelectedStatistic.Year);
             detailedStatisticsView.ShowDialog();
+            
+            Update();
+        }
+
+        internal void ScheduleRenovation()
+        {
+            ScheduleRenovation scheduleRenovation = new ScheduleRenovation(Accommodation,Reservations.ToList());
+            scheduleRenovation.ShowDialog();
+            Update();
+        }
+
+        internal void RemoveRenovation()
+        {
+            AccommodationRenovation renovation = RenovationService.GetInstance().GetAll().Find(r => r.Id == SelectedRenovation.Id);
+            RenovationService.GetInstance().Delete(renovation);
+            Update();
         }
     }
 }
