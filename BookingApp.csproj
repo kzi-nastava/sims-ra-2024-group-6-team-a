@@ -52,6 +52,7 @@
     <None Remove="Resources\Images\horizonti8.jpeg" />
     <None Remove="Resources\Images\horizonti9.jpg" />
     <None Remove="Resources\Images\hourglass.png" />
+    <None Remove="Resources\Images\information.png" />
     <None Remove="Resources\Images\Iraq.jpg" />
     <None Remove="Resources\Images\jedan.png" />
     <None Remove="Resources\Images\kanta.png" />
@@ -184,6 +185,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\halfStar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\information.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\jedan.png">

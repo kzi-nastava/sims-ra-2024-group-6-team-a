@@ -99,6 +99,18 @@ namespace BookingApp.ApplicationServices
             return schedule.TourActivity == Resources.Enums.TourActivity.Finished;
         }
 
+        public List <DateTime> GetAllRealisationDates(int tourId)
+        {
+            List<DateTime> realisationDates = new List<DateTime> ();
+
+            foreach(TourSchedule tourSchedule in _scheduleRepository.GetAllByTourId(tourId))
+            {
+                realisationDates.Add(tourSchedule.Start);
+
+            }
+
+            return realisationDates;
+        }
 
         private bool HasUserAttended(User user, TourSchedule schedule)
         {

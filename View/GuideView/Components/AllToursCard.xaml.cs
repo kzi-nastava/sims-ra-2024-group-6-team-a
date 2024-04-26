@@ -1,6 +1,7 @@
 ﻿using BookingApp.ApplicationServices;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.View.GuideView.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,6 +105,13 @@ namespace BookingApp.View.GuideView.Components
         public void HandleTourCanceledEvent()
         {
             TourCanceledCard?.Invoke(this,EventArgs.Empty);
+        }
+        private void TourDetailsMouseDown(object sender, MouseEventArgs e)
+        {
+
+            TourDetailsPage tourDetailsPage = new TourDetailsPage(Convert.ToInt32(textBoxId.Text));
+           
+            (Window.GetWindow(this) as GuideViewMenu).MainFrame.Content = tourDetailsPage;
         }
 
     }
