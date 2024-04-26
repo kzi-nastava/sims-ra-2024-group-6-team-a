@@ -236,7 +236,7 @@
         </StackPanel>
 
 
-        <ListBox ItemsSource="{Binding Images}" Grid.Column="1" Grid.Row="2" ScrollViewer.CanContentScroll="False" MaxWidth="720">
+        <ListBox x:Name="ImagesList" ItemsSource="{Binding Images}" Grid.Column="1" Grid.Row="2" ScrollViewer.CanContentScroll="False" MaxWidth="720">
             
 
             <ListBox.ItemTemplate>

@@ -129,8 +129,7 @@ namespace BookingApp.View
 
         private void SelectFirstAccommodation()
         {
-            if (vm.SelectedAccommodation == null)
-            {
+
                 vm.SelectedGuestReview = null;
                 vm.SelectedReservation = null;
                 vm.SelectedChange = null;
@@ -140,13 +139,11 @@ namespace BookingApp.View
                 AccommodationsList.Focus();
                
 
-            }
         }
 
         private void SelectFirstReview()
         {
-            if (vm.SelectedGuestReview == null)
-            {
+
                 vm.SelectedAccommodation = null;
                 vm.SelectedReservation = null;
                 vm.SelectedChange = null;
@@ -155,14 +152,12 @@ namespace BookingApp.View
                 ReviewsList.UpdateLayout();
                 ReviewsList.Focus();
                 
-            }
-
+     
         }
 
         private void SelectFirstReservation()
         {
-            if (vm.SelectedReservation == null)
-            {
+ 
                 vm.SelectedGuestReview = null;
                 vm.SelectedAccommodation = null;
                 vm.SelectedChange = null;
@@ -171,14 +166,13 @@ namespace BookingApp.View
                 ReservationsList.UpdateLayout();
                 ReservationsList.Focus();
 
-            }
+            
         }
 
 
         private void SelectFirstResChange()
         {
-            if (vm.SelectedChange == null)
-            {
+
                 vm.SelectedGuestReview = null;
                 vm.SelectedAccommodation = null;
                 vm.SelectedReservation = null;
@@ -187,7 +181,7 @@ namespace BookingApp.View
                 ReservationChangesGrid.UpdateLayout();
                 ReservationChangesGrid.Focus();
 
-            }
+            
         }
 
 

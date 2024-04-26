@@ -230,55 +230,12 @@ namespace BookingApp.ViewModels
 
         }
 
-        public void SelectFirstReservation(ListBox ReservationsList)
-        {
-            if (SelectedReservation == null)
-            {
-                SelectedStatistic = null;
-                SelectedRenovation = null;
 
-                SelectedReservation = Reservations.First();
-                ReservationsList.SelectedIndex = 0;
-                ReservationsList.UpdateLayout();
-                ReservationsList.Focus();
-
-            }
-        }
-
-        internal void SelectFirstStatistic(ListBox statisticsList)
-        {
-            if(SelectedStatistic == null)
-            {
-                SelectedReservation = null;
-                SelectedRenovation = null;
-
-                SelectedStatistic = Statistics.First();
-                statisticsList.SelectedIndex = 0;
-                statisticsList.UpdateLayout();
-                statisticsList.Focus();
-
-
-            }
-        }
-
-        internal void SelectFirstRenovation(ListBox renovationsList)
-        {
-            if(SelectedRenovation == null)
-            {
-                SelectedReservation = null;
-                SelectedStatistic = null;
-
-                SelectedRenovation = Renovations.First();
-                renovationsList.SelectedIndex = 0;
-                renovationsList.UpdateLayout();
-                renovationsList.Focus();
-
-            }
-        }
         internal void OpenMonthStatistic()
         {
             DetailedStatisticsView detailedStatisticsView = new DetailedStatisticsView(AccommodationService.GetInstance().GetMonthlyStatistics(Accommodation.Id,SelectedStatistic.Year),SelectedStatistic.Year);
             detailedStatisticsView.ShowDialog();
+            
             Update();
         }
 

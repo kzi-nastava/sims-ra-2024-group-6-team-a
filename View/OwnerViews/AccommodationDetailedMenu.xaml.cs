@@ -48,24 +48,70 @@ namespace BookingApp.View
             {
                 Tabs.SelectedItem = ReservationsTab;
 
-                ViewModel.SelectFirstReservation(ReservationsList);
+                SelectFirstReservation();
             }
             else if(e.Key == Key.S)
             {
                 Tabs.SelectedItem = StatisticsTab;
 
-                ViewModel.SelectFirstStatistic(StatisticsList);
+                SelectFirstStatistic();
             }
             else if (e.Key == Key.N)
             {
                 Tabs.SelectedItem = RenovationsTab;
 
-                ViewModel.SelectFirstRenovation(RenovationsList);
+                SelectFirstRenovation();
             }
             else if (e.Key == Key.B)
             {
                 Tabs.SelectedItem = BlogsTab;
             }
+            else if (e.Key == Key.I)
+            {
+                ImagesList.SelectedIndex = 0;
+                ImagesList.UpdateLayout();
+                ImagesList.Focus();
+            }
+        }
+
+        public void SelectFirstReservation()
+        {
+
+                ViewModel.SelectedStatistic = null;
+                ViewModel.SelectedRenovation = null;
+
+                ViewModel.SelectedReservation = ViewModel.Reservations.First();
+                ReservationsList.SelectedIndex = 0;
+                ReservationsList.UpdateLayout();
+                ReservationsList.Focus();
+
+        }
+
+        public void SelectFirstStatistic()
+        {
+ 
+                ViewModel.SelectedReservation = null;
+                ViewModel.SelectedRenovation = null;
+
+                ViewModel.SelectedStatistic = ViewModel.Statistics.First();
+                StatisticsList.SelectedIndex = 0;
+                StatisticsList.UpdateLayout();
+                StatisticsList.Focus();
+
+
+  
+        }
+
+        public void SelectFirstRenovation()
+        {
+                ViewModel.SelectedReservation = null;
+                ViewModel.SelectedStatistic = null;
+
+                ViewModel.SelectedRenovation = ViewModel.Renovations.First();
+                RenovationsList.SelectedIndex = 0;
+                RenovationsList.UpdateLayout();
+                RenovationsList.Focus();
+
         }
 
         private void StatisticsClick(object sender, KeyEventArgs e)

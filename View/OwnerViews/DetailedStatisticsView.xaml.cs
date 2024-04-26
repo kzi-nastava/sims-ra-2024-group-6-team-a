@@ -21,14 +21,33 @@ namespace BookingApp.View.OwnerViews
     public partial class DetailedStatisticsView : Window
     {
         public ObservableCollection<MonthlyStatisticDTO> Statistics { get; set; }
+        public MonthlyStatisticDTO SelectedMonth {  get; set; }
 
         public DetailedStatisticsView(List<MonthlyStatisticDTO> statistics,int year)
         {
+            
             this.Statistics = new ObservableCollection<MonthlyStatisticDTO>(statistics);
             Title = "Statistics for " + year;
+            SelectedMonth = statistics.First();
+           
 
             DataContext = this;
+            
             InitializeComponent();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape) 
+            {
+                Close();
+            }
+            else if(e.Key == Key.Enter)
+            {
+                StatisticsList.SelectedIndex = 0;
+                StatisticsList.UpdateLayout();
+                StatisticsList.Focus();
+            }
         }
     }
 }
