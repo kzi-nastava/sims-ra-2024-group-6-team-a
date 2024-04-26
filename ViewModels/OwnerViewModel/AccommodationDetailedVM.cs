@@ -123,7 +123,7 @@ namespace BookingApp.ViewModels
                     AccommodationService.GetInstance().GetReservationCountForAccommodation(Accommodation.Id, year),
                     AccommodationService.GetInstance().GetChangesCountForAccommodation(Accommodation.Id, year),
                     AccommodationService.GetInstance().GetCancelationCountForAccommodation(Accommodation.Id,year),
-                    0);
+                    AccommodationService.GetInstance().GetRenovationCountForAccommodation(Accommodation.Id,year));
                 Statistics.Add(stats);
 
             }
