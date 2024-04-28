@@ -15,6 +15,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace BookingApp.View
 {
@@ -23,12 +25,13 @@ namespace BookingApp.View
     /// </summary>
     public partial class OwnerInfo : Window
     {
-        public OwnerInfoVM ViewModel {  get; set; }
+        public OwnerInfoVM ViewModel { get; set; }
         public OwnerInfo(OwnerInfoDTO ownerInfoDTO)
         {
             ViewModel = new OwnerInfoVM(ownerInfoDTO);
-            
+
             InitializeComponent();
+   
 
             DataContext = ViewModel;
         }
@@ -40,6 +43,8 @@ namespace BookingApp.View
                 Close();
             }
         }
+
+    
 
     }
 }
