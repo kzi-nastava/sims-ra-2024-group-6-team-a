@@ -23,7 +23,7 @@
                     <TextBlock Text="{Binding Name}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
             </StackPanel>
 
-            <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
+            
 
             
                 <StackPanel Orientation="Horizontal">
@@ -31,40 +31,40 @@
                     <TextBlock Text="{Binding Surname}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
                 </StackPanel>
 
-                <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
+                
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Foreground="Blue" FontSize="20">Reservations: </TextBlock>
                     <TextBlock Text="{Binding Reservations}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
             </StackPanel>
 
-            <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
+            
             <StackPanel Orientation="Horizontal">
                 <TextBlock Foreground="Blue" FontSize="20">Accommodation count:</TextBlock>
                 <TextBlock Text="{Binding Accommodations}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
             </StackPanel>
 
-                <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
+                
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Foreground="Blue" FontSize="20">Average Grade:</TextBlock>
                     <TextBlock Text="{Binding Grade}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
                 </StackPanel>
 
-                <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
+                
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Foreground="Blue" FontSize="20">Status:</TextBlock>
                     <TextBlock Text="{Binding Status}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
                 </StackPanel>
 
-                <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
+               
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Foreground="Blue" FontSize="20">Review count:</TextBlock>
                     <TextBlock Text="{Binding Ranking}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
                 </StackPanel>
 
-                <Separator Foreground="Aqua" Background="DarkBlue"></Separator>
+                
 
             </StackPanel>
         </Border>

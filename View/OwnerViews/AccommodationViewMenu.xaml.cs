@@ -177,9 +177,9 @@ namespace BookingApp.View
                 vm.SelectedAccommodation = null;
                 vm.SelectedReservation = null;
                 vm.SelectedChange = vm.ReservationChanges.First();
-                ReservationChangesGrid.SelectedIndex = 0;
-                ReservationChangesGrid.UpdateLayout();
-                ReservationChangesGrid.Focus();
+                ChangesList.SelectedIndex = 0;
+                ChangesList.UpdateLayout();
+                ChangesList.Focus();
 
             
         }
