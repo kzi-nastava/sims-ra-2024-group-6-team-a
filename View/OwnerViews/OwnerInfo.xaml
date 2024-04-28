@@ -7,21 +7,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="OwnerInfo" Height="700" Width="800" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+        Title="OwnerInfo" Height="700" Width="850" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="350"/>
             <ColumnDefinition Width="500"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="350"></RowDefinition>
-            <RowDefinition Height="350"></RowDefinition>
+            <RowDefinition Height="300"></RowDefinition>
+            <RowDefinition Height="400"></RowDefinition>
         </Grid.RowDefinitions>
-        <Border BorderBrush="DarkBlue" BorderThickness="2">
+        
             <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="Blue" FontSize="20">Name: </TextBlock>
+                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Name: </TextBlock>
                     <TextBlock Text="{Binding Name}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
             </StackPanel>
 
@@ -29,57 +29,80 @@
 
             
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Foreground="Blue" FontSize="20">Surname: </TextBlock>
+                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Surname: </TextBlock>
                     <TextBlock Text="{Binding Surname}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
                 </StackPanel>
 
                 
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="Blue" FontSize="20">Reservations: </TextBlock>
+                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Reservations: </TextBlock>
                     <TextBlock Text="{Binding ReservationCount}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
             </StackPanel>
 
             
             <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="Blue" FontSize="20">Accommodation count:</TextBlock>
+                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Accommodation count:</TextBlock>
                 <TextBlock Text="{Binding Accommodations}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
             </StackPanel>
 
                 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Foreground="Blue" FontSize="20">Average Grade:</TextBlock>
+                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Average Grade:</TextBlock>
                     <TextBlock Text="{Binding Grade}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
                 </StackPanel>
 
                 
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Foreground="Blue" FontSize="20">Status:</TextBlock>
+                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Status:</TextBlock>
                     <TextBlock Text="{Binding Status}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
                 </StackPanel>
 
                
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Foreground="Blue" FontSize="20">Review count:</TextBlock>
+                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Review count:</TextBlock>
                     <TextBlock Text="{Binding Ranking}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
                 </StackPanel>
 
-                
 
-            </StackPanel>
-        </Border>
 
-        <StackPanel Grid.Row="0" Grid.Column="1">
-            <TextBlock HorizontalAlignment="Center" Foreground="Blue" FontSize="20" Margin="3,1,1,1">Reservations</TextBlock>
-            <lvc:CartesianChart Series="{Binding Reservations}" LegendLocation="Left" Width="490" Height="300" HorizontalAlignment="Center">
+            <TextBlock Foreground="Blue" Margin="0,75,0,0" FontSize="20" HorizontalAlignment="Center">Your reviews</TextBlock>
+
+
+        </StackPanel>
+
+
+
+
+        <StackPanel  Grid.Row="0" Grid.Column="1">
+            <TextBlock HorizontalAlignment="Center" Foreground="Blue" FontSize="20" Margin="3,1,1,1">Cancelations</TextBlock>
+            <lvc:CartesianChart Series="{Binding Cancelations}" LegendLocation="Left" Width="490" Height="290" HorizontalAlignment="Center">
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis Title="Years" Labels="{Binding Labels}"></lvc:Axis>
                 </lvc:CartesianChart.AxisX>
 
             </lvc:CartesianChart>
         </StackPanel>
+
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+                <TextBlock HorizontalAlignment="Center" Foreground="Blue" FontSize="20" Margin="3,1,1,1">Reservations</TextBlock>
+                <lvc:CartesianChart Series="{Binding Reservations}" LegendLocation="Left" Width="450" Height="320" HorizontalAlignment="Center">
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="Years" Labels="{Binding Labels}"></lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+
+                </lvc:CartesianChart>
+            </StackPanel>
+        
+
+
+        <lvc:PieChart Series="{Binding ReviewsChart}" Margin="0,0,0,20" Grid.Column="0" Grid.Row="1" Height="345" LegendLocation="Bottom"  Hoverable="False" DataTooltip="{x:Null}">
+            
+        </lvc:PieChart>
+
 
     </Grid>
 </Window>

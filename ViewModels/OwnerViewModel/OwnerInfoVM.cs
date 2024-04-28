@@ -25,8 +25,13 @@ namespace BookingApp.ViewModels
         public String Status { get; set; }
         public int Ranking { get; set; }
 
+        public int CurrentYear {  get; set; }
 
         public SeriesCollection Reservations { get; set; }
+        public SeriesCollection Cancelations { get; set; }
+        public SeriesCollection ReviewsChart { get; set; }
+
+
         public List<String> Labels { get; set; }
         public Func<double, string> Formatter { get; set; }
 
@@ -43,7 +48,13 @@ namespace BookingApp.ViewModels
             Ranking = ownerInfoDTO.Ranking;
             Labels = new List<String>();
 
+            CurrentYear = DateTime.Today.Year;
+
             Reservations = new SeriesCollection { };
+
+            Cancelations = new SeriesCollection { };
+
+            ReviewsChart = new SeriesCollection { };
 
             foreach(Accommodation acc in AccommodationService.GetInstance().GetAll())
             {
@@ -53,7 +64,13 @@ namespace BookingApp.ViewModels
                     {
                         Title = acc.Name,
                         Values = new ChartValues<int>(YearsAndReservations(acc.Id))
-                    }); 
+                    });
+
+                    Cancelations.Add(new ColumnSeries
+                    {
+                        Title = acc.Name,
+                        Values = new ChartValues<int>(YearsAndCancelations(acc.Id))
+                    });
                 }
 
             }
@@ -66,10 +83,22 @@ namespace BookingApp.ViewModels
             {
                 Labels.Add(y.ToString());
             }
-            
-            
+
+
+            for(int i = 1;i <= 5;i++)
+            {
+                ReviewsChart.Add(new PieSeries
+                {
+                    Title = i.ToString(),
+                    Values = new ChartValues<int> { GetCurrentYearReviews()[i] }
+                });
+
+            }
+
 
         }
+
+        public Func<ChartPoint, string> PointLabel { get; set; }
 
         public List<int> YearsAndReservations(int accid)
         {
@@ -83,6 +112,19 @@ namespace BookingApp.ViewModels
             return reservations;
         }
 
+
+
+        public List<int> YearsAndCancelations(int accid)
+        {
+            List<int> reservations = new List<int>();
+            foreach (int year in GetAllYears())
+            {
+                reservations.Add(AccommodationService.GetInstance().GetCancelationCountForAccommodation(accid, year));
+            }
+
+
+            return reservations;
+        }
         public List<int> GetAllYears()
         {
             List<int> years = new List<int>();
@@ -101,6 +143,26 @@ namespace BookingApp.ViewModels
             }
 
             return years;
+        }
+
+        public Dictionary<int,int> GetCurrentYearReviews()
+        {
+
+            Dictionary<int, int> reviews = new Dictionary<int, int>();
+            reviews[1] = 0;
+            reviews[2] = 0;
+            reviews[3] = 0;
+            reviews[4] = 0;
+            reviews[5] = 0;
+            foreach (OwnerReview review in OwnerReviewService.GetInstance().GetAll()) 
+            {
+                AccommodationReservation res = AccommodationReservationService.GetInstance().GetByReservationId(review.ReservationId);
+                    reviews[review.Cleanliness]++;
+                    reviews[review.Correctness]++;
+   
+            }
+
+            return reviews;
         }
 
 
