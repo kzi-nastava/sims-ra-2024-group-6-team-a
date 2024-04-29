@@ -67,6 +67,7 @@ namespace BookingApp.View
         {
             List<String> _imagePath = new List<String>();
             registerAccommodationVM._imageRelativePath.Clear();
+            registerAccommodationVM.AddedImages.Clear();
             //so it doesnt duplicate
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -81,16 +82,9 @@ namespace BookingApp.View
                 }
             }
 
-            if (_imagePath.Count == 1)
-            {
-                ImageCountText.Text = "Added 1 image";
-            }
-            else
-            {
-                ImageCountText.Text = "Added " + _imagePath.Count + " images";
-            }
 
             registerAccommodationVM.ConvertImagePath(_imagePath);
+            registerAccommodationVM.AddConvertedImages();
 
 
         }

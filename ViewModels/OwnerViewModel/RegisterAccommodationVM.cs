@@ -1,4 +1,5 @@
 ﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
@@ -6,6 +7,7 @@ using BookingApp.View;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -20,10 +22,12 @@ namespace BookingApp.ViewModels
     {
 
         public Accommodation accommodation;
-        
-       
-        
+
+
+
         public List<String> _imageRelativePath = new List<String>();
+
+        public ObservableCollection<ImageDTO> AddedImages { get; set; }
         public List<String> locations {  get; set; }
         public int userId;
 
@@ -36,6 +40,7 @@ namespace BookingApp.ViewModels
 
             this.userId = userId;
             this.locations = new List<String>();
+            this.AddedImages = new ObservableCollection<ImageDTO>();
             AddLocations();
         }
 
@@ -55,6 +60,15 @@ namespace BookingApp.ViewModels
                 int relativePathStartIndex = imgPath.IndexOf("\\Resources");
                 String relativePath = imgPath.Substring(relativePathStartIndex);
                 _imageRelativePath.Add(relativePath);
+            }
+        }
+
+        public void AddConvertedImages()
+        {
+            foreach(string imgPath in _imageRelativePath)
+            {
+                ImageDTO image = new ImageDTO(imgPath);
+                AddedImages.Add(image);
             }
         }
 
