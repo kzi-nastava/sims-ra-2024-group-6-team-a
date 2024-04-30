@@ -30,11 +30,13 @@ namespace BookingApp.ViewModels
         public List<String> locations {  get; set; }
         public int userId;
 
+
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public RegisterAccommodationVM( int userId)
         {
-
+           
 
             this.userId = userId;
             this.locations = new List<String>();

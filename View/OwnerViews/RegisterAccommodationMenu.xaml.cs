@@ -25,6 +25,9 @@ namespace BookingApp.View
     /// <summary>
     /// Interaction logic for RegisterAccommodationMenu.xaml
     /// </summary>
+    /// 
+    
+
     public partial class RegisterAccommodationMenu : Window
     {
 
@@ -33,10 +36,11 @@ namespace BookingApp.View
         public RegisterAccommodationMenu( int userId)
         {
             InitializeComponent();
+            apt.IsChecked = true;
             registerAccommodationVM = new RegisterAccommodationVM(userId);
             DataContext = registerAccommodationVM;
 
-            apt.IsChecked = true;
+           
             
         }
 
@@ -99,6 +103,34 @@ namespace BookingApp.View
             if(e.Key == Key.Enter && registerAccommodationVM.SelectedImage != null) 
             {
                 registerAccommodationVM.RemoveImage();
+            }
+
+            if (e.Key == Key.A)
+            {
+                apt.IsChecked = true;
+                house.IsChecked = false;
+                cottage.IsChecked = false;
+            }
+            else if (e.Key == Key.H)
+            {
+                apt.IsChecked = false;
+                house.IsChecked = true;
+                cottage.IsChecked = false;
+            }
+            else if (e.Key == Key.C)
+            {
+                apt.IsChecked = false;
+                house.IsChecked = false;
+                cottage.IsChecked = true;
+            }
+
+        }
+
+        private void LocationCombo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                LocationCombo.IsDropDownOpen = true;
             }
         }
     }
