@@ -78,6 +78,24 @@ namespace BookingApp.DTOs
                 }
             }
         }
+        public bool hasRenovation;
+
+        public bool HasRenovation
+        {
+            get
+            {
+                return hasRenovation;
+            }
+
+            set
+            {
+                if (value != hasRenovation)
+                {
+                    hasRenovation = value;
+                    OnPropertyChanged("HasRenovation");
+                }
+            }
+        }
 
         public int minReservationDays;
         public int MinReservationDays
@@ -187,6 +205,19 @@ namespace BookingApp.DTOs
             state = location.State;
             this.image = image;
 
+        }
+        public AccommodationOwnerDTO(Accommodation accommodation, Location location, String image, bool HasRenovations)
+        {
+            Id = accommodation.Id;
+            name = accommodation.Name;
+            type = accommodation.Type;
+            maxGuests = accommodation.MaxGuests;
+            minReservationDays = accommodation.MinReservationDays;
+            cancelationDays = accommodation.CancelationDays;
+            city = location.City;
+            state = location.State;
+            this.image = image;
+            HasRenovation = HasRenovations;
         }
         public AccommodationOwnerDTO(Accommodation accommodation, Location location)
         {

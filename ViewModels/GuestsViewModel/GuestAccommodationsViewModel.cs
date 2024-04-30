@@ -39,13 +39,19 @@ namespace BookingApp.ViewModels.GuestsViewModel
             Accommodations.Clear();
             foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
             {
+                bool hasRenovation= false;
                 Model.Image image = new Model.Image();
                 foreach (Model.Image i in ImageService.GetInstance().GetByEntity(accommodation.Id, Enums.ImageType.Accommodation))
                 {
                     image = i;
                     break;
                 }
-                Accommodations.Add(new AccommodationOwnerDTO(accommodation, LocationService.GetInstance().GetByAccommodation(accommodation), image.Path));
+                foreach (AccommodationRenovation renovation in RenovationService.GetInstance().GetAll())
+                {
+                    if(renovation.AccommodationId== accommodation.Id && DateOnly.FromDateTime(DateTime.Today) <= renovation.EndDate && DateOnly.FromDateTime(DateTime.Today) >= renovation.StartDate)
+                        hasRenovation= true;
+                }
+                    Accommodations.Add(new AccommodationOwnerDTO(accommodation, LocationService.GetInstance().GetByAccommodation(accommodation), image.Path, hasRenovation));
             }
         }
         public RelayCommand SearchCommand { get; set; }
@@ -158,6 +164,19 @@ namespace BookingApp.ViewModels.GuestsViewModel
             OnPropertyChanged(nameof(SearchType));
             OnPropertyChanged(nameof(SearchGuestNumber));
             OnPropertyChanged(nameof(SearchDaysNumber));
+        }
+        private Visibility reserveVisibility;
+        public Visibility ReserveVisibility
+        {
+            get { return reserveVisibility; }
+            set
+            {
+                if (reserveVisibility != value)
+                {
+                    reserveVisibility = value;
+                    OnPropertyChanged(nameof(ReserveVisibility));
+                }
+            }
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName = null)

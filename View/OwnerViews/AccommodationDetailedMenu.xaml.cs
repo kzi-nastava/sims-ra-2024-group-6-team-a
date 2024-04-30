@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BookingApp.ApplicationServices;
 using BookingApp.DTOs;
 using BookingApp.Observer;
 using BookingApp.Repository;
@@ -47,24 +48,70 @@ namespace BookingApp.View
             {
                 Tabs.SelectedItem = ReservationsTab;
 
-                ViewModel.SelectFirstReservation(ReservationsList);
+                SelectFirstReservation();
             }
             else if(e.Key == Key.S)
             {
                 Tabs.SelectedItem = StatisticsTab;
 
-                ViewModel.SelectFirstStatistic(StatisticsList);
+                SelectFirstStatistic();
             }
             else if (e.Key == Key.N)
             {
                 Tabs.SelectedItem = RenovationsTab;
 
-                ViewModel.SelectFirstRenovation(RenovationsList);
+                SelectFirstRenovation();
             }
             else if (e.Key == Key.B)
             {
                 Tabs.SelectedItem = BlogsTab;
             }
+            else if (e.Key == Key.I)
+            {
+                ImagesList.SelectedIndex = 0;
+                ImagesList.UpdateLayout();
+                ImagesList.Focus();
+            }
+        }
+
+        public void SelectFirstReservation()
+        {
+
+                ViewModel.SelectedStatistic = null;
+                ViewModel.SelectedRenovation = null;
+
+                ViewModel.SelectedReservation = ViewModel.Reservations.First();
+                ReservationsList.SelectedIndex = 0;
+                ReservationsList.UpdateLayout();
+                ReservationsList.Focus();
+
+        }
+
+        public void SelectFirstStatistic()
+        {
+ 
+                ViewModel.SelectedReservation = null;
+                ViewModel.SelectedRenovation = null;
+
+                ViewModel.SelectedStatistic = ViewModel.Statistics.First();
+                StatisticsList.SelectedIndex = 0;
+                StatisticsList.UpdateLayout();
+                StatisticsList.Focus();
+
+
+  
+        }
+
+        public void SelectFirstRenovation()
+        {
+                ViewModel.SelectedReservation = null;
+                ViewModel.SelectedStatistic = null;
+
+                ViewModel.SelectedRenovation = ViewModel.Renovations.First();
+                RenovationsList.SelectedIndex = 0;
+                RenovationsList.UpdateLayout();
+                RenovationsList.Focus();
+
         }
 
         private void StatisticsClick(object sender, KeyEventArgs e)
@@ -81,7 +128,7 @@ namespace BookingApp.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.ScheduleRenovation();
         }
 
         private void RenovationsList_KeyDown(object sender, KeyEventArgs e)
@@ -90,8 +137,13 @@ namespace BookingApp.View
             {
                 if (Tabs.SelectedItem == RenovationsTab && ViewModel.SelectedRenovation != null)
                 {
-
-
+                    if (RenovationService.GetInstance().IsFiveDays(ViewModel.SelectedRenovation))
+                    {
+                        if ((MessageBox.Show("Do you want to remove the renovation?", "Remove renovation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
+                        {
+                            ViewModel.RemoveRenovation();
+                        }
+                    }
                 }
             }
         }

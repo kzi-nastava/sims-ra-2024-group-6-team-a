@@ -84,6 +84,5 @@ namespace BookingApp.Repository
             _images = _serializer.FromCSV(FilePath);
             return _images.FindAll(c => c.EntityId == id && c.Type == type);
         }
-
     }
 }

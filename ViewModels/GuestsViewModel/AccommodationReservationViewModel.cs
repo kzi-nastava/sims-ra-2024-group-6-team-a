@@ -82,6 +82,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
         {
             if (SelectedDates != null)
             {
+                if (Guest.BonusPoints != 0) Guest.BonusPoints--;
                 AccommodationReservation accommodationReservation = new AccommodationReservation(Accommodation.Id, Guest.Id, SelectedDates.CheckIn, SelectedDates.CheckOut, Convert.ToInt32(GuestNumber), Enums.ReservationStatus.Active, AccommodationService.GetInstance().GetByReservationId(Accommodation.Id));
                 AccommodationReservationService.GetInstance().Save(accommodationReservation);
                 MessageBox.Show("Successful booking!", "WELL DONE", MessageBoxButton.OK);
