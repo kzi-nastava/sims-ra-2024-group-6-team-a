@@ -31,6 +31,10 @@
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\forum.png" />
     <None Remove="Resources\Images\futog.jpg" />
+    <None Remove="Resources\Images\gift.png" />
+    <None Remove="Resources\Images\gift2.png" />
+    <None Remove="Resources\Images\gift3.png" />
+    <None Remove="Resources\Images\giftt.png" />
     <None Remove="Resources\Images\gmail.png" />
     <None Remove="Resources\Images\group.png" />
     <None Remove="Resources\Images\guestreview.png" />
@@ -77,6 +81,8 @@
     <None Remove="Resources\Images\pet.png" />
     <None Remove="Resources\Images\phoneG.png" />
     <None Remove="Resources\Images\play.png" />
+    <None Remove="Resources\Images\present.png" />
+    <None Remove="Resources\Images\present2.png" />
     <None Remove="Resources\Images\profile.png" />
     <None Remove="Resources\Images\profileG.png" />
     <None Remove="Resources\Images\pupin1.png" />
@@ -438,6 +444,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\gift.png" />
+    <Resource Include="Resources\Images\gift2.png" />
+    <Content Include="Resources\Images\gift3.png" />
+    <Resource Include="Resources\Images\giftt.png" />
+    <Resource Include="Resources\Images\present.png" />
+    <Resource Include="Resources\Images\present2.png" />
     <Resource Include="Resources\Images\questionMark.png" />
   </ItemGroup>
 

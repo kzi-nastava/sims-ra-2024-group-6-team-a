@@ -5,22 +5,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="SameLocationToursWindow" Height="450" Width="800">
-    <Grid>
+        Title="SameLocationToursWindow" Height="650" Width="980"
+        WindowStartupLocation="CenterOwner">
+    <Grid Background="AliceBlue">
 
-        <DataGrid x:Name="tourDataGrid" ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}"
-                  Margin="45,80,45,121" IsReadOnly="True" SelectionMode="Single " 
-                  AutoGenerateColumns="False" HeadersVisibility="Column" FontSize="13">
-            <DataGrid.Columns>
-                <DataGridTextColumn  Header="Name" Binding="{Binding Name}" Width="120"></DataGridTextColumn>
-                <DataGridTextColumn  Header="City" Binding="{Binding City}" Width="90"></DataGridTextColumn>
-                <DataGridTextColumn  Header="State" Binding="{Binding State}" Width="90"></DataGridTextColumn>
-                <DataGridTextColumn  Header="Duration" Binding="{Binding Duration}" Width="80"></DataGridTextColumn>
-                <DataGridTextColumn  Header="Language" Binding="{Binding Language}" Width="90"></DataGridTextColumn>
-                <DataGridTextColumn  Header="Capacity" Binding="{Binding Capacity}" Width="*"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Content="Reserve tour" Click="Button_Click" HorizontalAlignment="Left" Margin="720,45,0,0" VerticalAlignment="Top" Width="40" Height="20"/>
-        </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="10">No free space on selected tour! Chose alternative:</TextBlock>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="10 10 10 20" Background="LightYellow">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid Grid.Row="1">
+                    <ItemsControl ItemsSource="{Binding Tours}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White" CornerRadius="8" Margin="15,15,5,15" Padding="11" BorderBrush="LightGray" BorderThickness="1" Height="224">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="{Binding Image}" Grid.Column="0" Grid.RowSpan="2" Width="150" Height="181" Stretch="UniformToFill" Margin="2,12,20,10"/>
+                                        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+                                            <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="18" Margin="0,0,0,5"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                                <Label Content="Location:" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding City}" FontStyle="Italic" VerticalAlignment="Center"/>
+                                                <TextBlock Text=", " FontStyle="Italic" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding State}" FontStyle="Italic" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <Grid Grid.Row="1" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" >
+                                                <Label Content="Capacity:" FontWeight="Bold" Margin="0,4,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Capacity}" FontStyle="Italic"  VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
+                                                <Label Content="Language:" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Language}" FontStyle="Italic" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2">
+                                                <Label Content="Duration:" FontWeight="Bold" Margin="0,4,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Duration}" FontStyle="Italic"  VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3" Margin="0 12 10 0" >
+                                                <Button Content="Book now" Click="Reservation_Click" Margin="5,8,15,5" VerticalAlignment="Center" Padding="5" Width="100" Grid.Row="3" Background="AntiqueWhite" FontWeight="Bold"/>
+                                                <Button Content="More details" VerticalAlignment="Center" Grid.Row="3" Padding="5" Width="100" Margin="0,3,4,0"  Background="AntiqueWhite" FontWeight="Bold" Click="DetailedView_Click"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" Margin="10"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
+            </ScrollViewer>
+            
+        </Border>
+    </Grid>
 </Window>

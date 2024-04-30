@@ -5,18 +5,120 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         mc:Ignorable="d"
-        Title="ActiveTours" Height="450" Width="800">
-    <Grid>
-        <DataGrid x:Name="tourDataGrid" ItemsSource="{Binding Path=Tours, UpdateSourceTrigger=PropertyChanged}"
-          SelectedItem="{Binding Path=SelectedTourSchedule, UpdateSourceTrigger=PropertyChanged}"
-          Margin="45,80,45,121" IsReadOnly="True" SelectionMode="Single " Width="250"
-          AutoGenerateColumns="False" HeadersVisibility="Column" FontSize="13">
-            <DataGrid.Columns>
-                <DataGridTextColumn  Header="Name" Binding="{Binding TourName}" Width="127"></DataGridTextColumn>
-                <DataGridTextColumn  Header="Start date" Binding="{Binding Start}" Width="120"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Content="Track kyepoints"  Command="{Binding TrackKeypointCommand}" HorizontalAlignment="Left" Margin="580,85,0,0" VerticalAlignment="Top" Width="90" Height="20"/>
-
+        Title="ActiveTours" Height="565" Width="800"
+        WindowStartupLocation="CenterOwner">
+    <Grid Background="AliceBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="1" Margin="10 5 10 5" BorderBrush="Black" BorderThickness="1" Background="LightYellow">
+            <TabItem Header="Active tours">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Grid.Row="1">
+                        <ItemsControl ItemsSource="{Binding Tours}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="White" CornerRadius="8" Margin="25 10 25 10" Padding="0" BorderBrush="LightGray" BorderThickness="1" Height="224">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Image Source="{Binding Image}" Grid.Column="0" Grid.RowSpan="5" Grid.Row="0" Width="180" Height="180" Stretch="UniformToFill" Margin="0,0,0,0"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Grid.Column="1" Grid.Row="0">
+                                                <Label Content="Location:" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding City}" FontStyle="Italic" VerticalAlignment="Center"/>
+                                                <TextBlock Text=", " FontStyle="Italic" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding State}" FontStyle="Italic" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="0 0 0 0" >
+                                                <Label Content="Current capacity:" FontWeight="Bold" Margin="0,4,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding CurrentFreeSpace}" FontStyle="Italic"  VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="0 0 0 0">
+                                                <Label Content="Language:" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding TourLanguage}" FontStyle="Italic" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" Margin="0 0 0 0">
+                                                <Label Content="Duration:" FontWeight="Bold" Margin="0,4,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Duration}" FontStyle="Italic"  VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Margin="0 5 0 0" >
+                                                <Button Content="Generate report" Margin="10,8,15,5" VerticalAlignment="Center" Padding="5" Width="110" Grid.Row="3" Background="AntiqueWhite" FontWeight="Bold"/>
+                                                <Button Content="Track keypoints" Command="{Binding DataContext.TrackKeypointCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"  CommandParameter="{Binding}" VerticalAlignment="Center" Grid.Row="3" Padding="5" Width="100" Margin="0,3,10,0"  Background="AntiqueWhite" FontWeight="Bold"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Future tours">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Grid.Row="1">
+                        <ItemsControl ItemsSource="{Binding FutureTours}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="White" CornerRadius="8" Margin="25 10 25 10" Padding="0" BorderBrush="LightGray" BorderThickness="1" Height="224">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Image Source="{Binding Image}" Grid.Column="0" Grid.RowSpan="5" Grid.Row="0" Width="180" Height="180" Stretch="UniformToFill" Margin="0,0,0,0"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Grid.Column="1" Grid.Row="0">
+                                                <Label Content="Location:" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding City}" FontStyle="Italic" VerticalAlignment="Center"/>
+                                                <TextBlock Text=", " FontStyle="Italic" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding State}" FontStyle="Italic" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="0 0 0 0" >
+                                                <Label Content="Start:" FontWeight="Bold" Margin="0,4,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Start}" FontStyle="Italic"  VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="0 0 0 0">
+                                                <Label Content="Language:" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding TourLanguage}" FontStyle="Italic" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" Margin="0 0 0 0">
+                                                <Label Content="Duration:" FontWeight="Bold" Margin="0,4,5,0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Duration}" FontStyle="Italic"  VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Margin="0 5 0 0" >
+                                                <Button Content="Generate report" Margin="10,8,15,5" VerticalAlignment="Center" Padding="5" Width="110" Grid.Row="3" Background="AntiqueWhite" FontWeight="Bold"/>
+                                                <Button ToolTipService.ShowOnDisabled="True" IsEnabled="False" Content="Track keypoints" Command="{Binding DataContext.TrackKeypointCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"  CommandParameter="{Binding}" VerticalAlignment="Center" Grid.Row="3" Padding="5" Width="100" Margin="0,3,10,0"  Background="AntiqueWhite" FontWeight="Bold">
+                                                    <Button.ToolTip>
+                                                        <ToolTip>
+                                                            Tour hasn't started yet
+                                                        </ToolTip>
+                                                    </Button.ToolTip>
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

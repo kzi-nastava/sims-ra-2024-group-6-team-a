@@ -2,6 +2,7 @@
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Resources;
 using BookingApp.View.GuideView.Pages;
 using BookingApp.View.TouristView;
 using System;
@@ -37,19 +38,23 @@ namespace BookingApp.ViewModels.TouristViewModel
             Tours.Clear();
             foreach (TourSchedule tour in TourScheduleService.GetInstance().GetAllFinishedTours(LoggedUser))
             {
-                Tours.Add(new TourScheduleDTO(tour));
+                Model.Image image = GetFirstTourImage(tour.TourId);
+                Tours.Add(new TourScheduleDTO(tour, LocationService.GetInstance().GetById(TourService.GetInstance().GetById(tour.TourId).LocationId), LanguageService.GetInstance().GetById(TourService.GetInstance().GetById(tour.TourId).LanguageId), image.Path));
             }
 
+        }
+
+        public Model.Image GetFirstTourImage(int tourId)
+        {
+            return ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour).First();
         }
 
         public void Execute_RateTourCommand(object obj)
         {
-            if (SelectedTourSchedule != null)
-            {
-                TourRating rating = new TourRating(SelectedTourSchedule, LoggedUser);
-                rating.ShowDialog();//U CODE BEHIND
-            }
-
+            TourScheduleDTO tourSchedule = (TourScheduleDTO)obj;
+            TourRating rating = new TourRating(tourSchedule, LoggedUser);
+            rating.Owner = Application.Current.MainWindow;
+            rating.ShowDialog();
         }
     }
-}
+} 

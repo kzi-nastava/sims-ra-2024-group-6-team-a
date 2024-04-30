@@ -5,25 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         mc:Ignorable="d"
-        Title="Inbox" Height="450" Width="800">
-    <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <StackPanel>
-                <ItemsControl ItemsSource="{Binding Notifications}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="Black" BorderThickness="1" Margin="5" Padding="10">
-                                <StackPanel>
-                                    <TextBlock>Attendance information for tour:</TextBlock>
-                                    <TextBlock FontSize="15" FontWeight="Bold" Text="{Binding Title}"></TextBlock>
-                                    <TextBlock FontWeight="Bold" Text ="{Binding Message}"></TextBlock>
-                                   
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
-        </ScrollViewer>
+        Title="Inbox" Height="520" Width="800"
+        WindowStartupLocation="CenterOwner">
+    <Grid Background="AliceBlue">
+        <TabControl Margin="15 13 15 15" Background="AliceBlue">
+            <TabItem Header="Tour attenadnce" BorderBrush="Black" BorderThickness="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Notifications}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1" Margin="5" Padding="10" Background="LightYellow">
+                                    <StackPanel>
+                                        <TextBlock FontWeight="Bold" FontSize="15">Attendance information for tour:</TextBlock>
+                                        <TextBlock FontSize="15" FontWeight="DemiBold" FontStyle="Italic" Text="{Binding Title}"></TextBlock>
+                                        <TextBlock FontSize="14" FontWeight="Bold" Text ="{Binding Message}"></TextBlock>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontSize="12">
+                                                <Run Text="Recieved: "/>
+                                            </TextBlock>
+                                            <TextBlock Text="{Binding Recieved}"></TextBlock>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="Approved requests">
+            </TabItem>
+
+            <TabItem Header="New tours">
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
