@@ -95,6 +95,11 @@ namespace BookingApp.View
             {
                 Close();
             }
+
+            if(e.Key == Key.Enter && registerAccommodationVM.SelectedImage != null) 
+            {
+                registerAccommodationVM.RemoveImage();
+            }
         }
     }
 }

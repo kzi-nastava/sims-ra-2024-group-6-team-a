@@ -26,6 +26,18 @@
         <ComboBox Grid.Row="0" Grid.Column="1" Width="80" Height="20" x:Name="CleanGradeCombo"></ComboBox>
         <ComboBox Grid.Row="1" Grid.Column="1" Width="80" Height="20" x:Name="RespectGradeCombo"></ComboBox>
         <TextBox TextWrapping="Wrap" x:Name ="CommentBox" Grid.Row="2" Grid.Column="1" FontSize="17" TextAlignment="Center" VerticalAlignment="Center" Height="120"></TextBox>
+        <TextBlock IsHitTestVisible="False" Text="Eg. Guest manners and details.." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray" Grid.Row="2" Grid.Column="1"  >
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=CommentBox}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="SaveGrade"  Background="CornflowerBlue" Width="115">Rate</Button>
     </Grid>
 </Window>

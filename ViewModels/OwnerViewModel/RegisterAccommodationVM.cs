@@ -22,8 +22,7 @@ namespace BookingApp.ViewModels
     {
 
         public Accommodation accommodation;
-
-
+        public ImageDTO SelectedImage { get; set; }
 
         public List<String> _imageRelativePath = new List<String>();
 
@@ -32,7 +31,6 @@ namespace BookingApp.ViewModels
         public int userId;
 
         public event PropertyChangedEventHandler? PropertyChanged;
-
 
         public RegisterAccommodationVM( int userId)
         {
@@ -90,6 +88,16 @@ namespace BookingApp.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        }
+
+        internal void RemoveImage()
+        {
+            AddedImages.Remove(SelectedImage);
+            _imageRelativePath.Clear();
+            foreach(ImageDTO img  in AddedImages)
+            {
+                _imageRelativePath.Add(img.LeftPath);
+            }
         }
     }
 }
