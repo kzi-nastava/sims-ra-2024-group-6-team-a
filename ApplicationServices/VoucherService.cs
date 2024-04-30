@@ -58,6 +58,7 @@ namespace BookingApp.ApplicationServices
                 voucher.TouristSurname = tourGuest.Surname;
                 voucher.TouristBirth = tourGuest.Age;
                 voucher.IssuingDate = DateTime.Now.AddYears(1);
+                voucher.ReceivingDate = DateTime.Now;
                 voucher.UserId = tourGuest.UserTypeId;
                 _voucherRepository.Save(voucher);
             }

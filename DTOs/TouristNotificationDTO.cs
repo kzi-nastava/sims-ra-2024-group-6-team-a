@@ -3,6 +3,7 @@ using BookingApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,22 @@ namespace BookingApp.DTOs
                     _message = value;
                     OnPropertyChanged("Message");
 
+                }
+            }
+        }
+        private DateTime _recieved;
+        public DateTime Recieved
+        {
+            get
+            {
+                return _recieved;
+            }
+            set
+            {
+                if(value != _recieved)
+                {
+                    _recieved = value;
+                    OnPropertyChanged("Recieved");
                 }
             }
         }
@@ -83,6 +100,7 @@ namespace BookingApp.DTOs
             Id = notification.Id;
             Message = notification.Message;
             UserId = notification.UserId;
+            Recieved = notification.Recieved;
         }
         public TouristNotificationDTO(TouristNotification notification)
         {
@@ -90,6 +108,7 @@ namespace BookingApp.DTOs
             Id = notification.Id;
             Message = notification.Message;
             UserId = notification.UserId;
+            Recieved = notification.Recieved;
         }
     }
 }

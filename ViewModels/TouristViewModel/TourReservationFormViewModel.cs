@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.ComponentModel;
+using BookingApp.Domain.Model;
 
 namespace BookingApp.ViewModels.TouristViewModel
 {
@@ -45,26 +46,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             get { return _age; }
             set { _age = value; OnPropertyChanged("Age"); }
         }
-        private string _personalName;
-        public string PersonalName
-        {
-            get { return _personalName; }
-            set { _personalName = value; OnPropertyChanged("PersonalName"); }
-        }
 
-        private string _personalSurname;
-        public string PersonalSurname
-        {
-            get { return _personalSurname; }
-            set { _personalSurname = value; OnPropertyChanged("PesronalSurname"); }
-        }
-
-        private int _personalAge;
-        public int PersonalAge
-        {
-            get { return _personalAge; }
-            set { _personalAge = value; OnPropertyChanged("PesronalAge"); }
-        }
         public TourTouristDTO TourTouristDTO { get; set; }
         public User LoggedUser { get; set; }
         public TourScheduleDTO TourSchedule { get; set; }
@@ -81,9 +63,8 @@ namespace BookingApp.ViewModels.TouristViewModel
         }
         public ObservableCollection<TourScheduleDTO> TourSchedules { get; set; }
         public ObservableCollection<TourGuestDTO> TourGuests { get; set; }
-        public RelayCommand AddPersonalInfoCommand { get;  set; }
         public RelayCommand AddTouristInfoCommand { get; set; }
-        public RelayCommand DeleteTouristInfoCommand { get; set; }
+        public RelayCommand RemoveTouristCommand { get; set; }
         public RelayCommand SaveReservationCommand { get; set; }
         public RelayCommand UseVoucherCommand { get; set; }
 
@@ -91,9 +72,9 @@ namespace BookingApp.ViewModels.TouristViewModel
         {
             LoggedUser = user;
 
-            AddPersonalInfoCommand = new RelayCommand(Execute_AddPersonalInfoCommand);
+            
             AddTouristInfoCommand = new RelayCommand(Execute_AddTouristInfoCommand);
-            DeleteTouristInfoCommand = new RelayCommand(Execute_DeleteTouristInfoCommand);
+            RemoveTouristCommand = new RelayCommand(RemoveTourist);
             SaveReservationCommand = new RelayCommand(Execute_SaveReservationCommand);
             UseVoucherCommand = new RelayCommand(Execute_UseVoucherCommand);
 
@@ -110,7 +91,17 @@ namespace BookingApp.ViewModels.TouristViewModel
 
             TourTouristDTO = selectedTour;
             TourReservationDTO = new TourReservationDTO();
+
+            AddUserInfo();
         }
+
+        private void AddUserInfo()
+        {
+            TourGuests.Clear();
+            Tourist tourist = TouristService.GetInstance().GetByTouristId(LoggedUser.Id);
+            TourGuests.Add(new TourGuestDTO(tourist.Name, tourist.Age, tourist.Surname, tourist.UserId));
+        }
+
         private void AvailableSpaceMessage()
         {
             string message = "Not enough space left. There are " + TourSchedule.CurrentFreeSpace + " spaces left. If you want to cancle the reservation say yes. If you want to change people number say no.";
@@ -127,6 +118,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             if (TourReservationService.GetInstance().IsFullyBooked(TourSchedule.Id))
             {
                 SameLocationToursWindow sameLocationTours = new SameLocationToursWindow(TourSchedule, LoggedUser);
+                sameLocationTours.Owner = Application.Current.MainWindow;
                 sameLocationTours.ShowDialog();
                
                 return;
@@ -146,11 +138,7 @@ namespace BookingApp.ViewModels.TouristViewModel
 
             AvailableSpaceMessage();
         }
-        private void Execute_AddPersonalInfoCommand(object sender)
-        {
-            TourGuests.Add(new TourGuestDTO(PersonalName, PersonalAge, PersonalSurname, LoggedUser.Id));
-            ClearInputFields();
-        }
+
         private void Execute_AddTouristInfoCommand(object sender)
         {
             TourGuests.Add(new TourGuestDTO(Name, Age, Surname, -1));
@@ -162,15 +150,16 @@ namespace BookingApp.ViewModels.TouristViewModel
             Surname = "";
             Age = 0;
         }
-        private void Execute_DeleteTouristInfoCommand(object parameter)
+        private void RemoveTourist(object parameter)
         {
-
-            if (parameter is TourGuestDTO tourist)
-                TourGuests.Remove(tourist);  
+            var touristToRemove = parameter as TourGuestDTO;
+            TourGuests.Remove(touristToRemove);
         }
+
         private void Execute_UseVoucherCommand(object sender)
         {
             VoucherUsage voucherUsage = new VoucherUsage(LoggedUser, this);
+            voucherUsage.Owner = Application.Current.MainWindow;
             voucherUsage.ShowDialog();
         }
     }
