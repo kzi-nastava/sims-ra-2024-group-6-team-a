@@ -35,6 +35,7 @@ namespace BookingApp.View.GuideView.Pages
         private int tourScheduleId;
 
         public static ObservableCollection<ImageItemDTO> ImagesCollection { get; set; }
+
         public  ImageItemDTO SelectedImage { get; set; }
         public RelayCommand NextImageCommand { get; set; }
         public RelayCommand PreviousImageCommand { get; set; }
@@ -101,6 +102,8 @@ namespace BookingApp.View.GuideView.Pages
         {
             if(SelectedImage != null)
             ImageIndex = imageListBox.SelectedIndex;
+
+            imageListBox.SelectedItem = null;
         }
 
 
@@ -109,6 +112,8 @@ namespace BookingApp.View.GuideView.Pages
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+       
 
         public void UpdateImages(List <String> images)
         {
@@ -120,7 +125,9 @@ namespace BookingApp.View.GuideView.Pages
             }
         }
 
-
-
+        public void GoBackClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }

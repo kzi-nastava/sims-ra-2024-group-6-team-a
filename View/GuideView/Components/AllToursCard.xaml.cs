@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit.Core.Utilities;
 
 namespace BookingApp.View.GuideView.Components
 {
@@ -110,7 +111,9 @@ namespace BookingApp.View.GuideView.Components
         {
 
             TourDetailsPage tourDetailsPage = new TourDetailsPage(Convert.ToInt32(textBoxId.Text));
-           
+            //var parent = VisualTreeHelper.GetParent()
+
+
             (Window.GetWindow(this) as GuideViewMenu).MainFrame.Content = tourDetailsPage;
         }
 

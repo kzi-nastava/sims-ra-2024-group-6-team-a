@@ -1,7 +1,11 @@
-﻿using System;
+﻿using BookingApp.ApplicationServices;
+using BookingApp.Domain.Model;
+using BookingApp.DTOs;
+using BookingApp.Model;
+using BookingApp.Resources;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,55 +18,68 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BookingApp.ApplicationServices;
-using BookingApp.Domain.Model;
-using BookingApp.DTOs;
-using BookingApp.Model;
-using BookingApp.Observer;
-using BookingApp.Repository;
-using BookingApp.Resources;
-using BookingApp.View.GuideView.Components;
+
 namespace BookingApp.View.GuideView.Pages
 {
     /// <summary>
-    /// Interaction logic for LiveToursPage.xaml
+    /// Interaction logic for AlreadyStartedTour.xaml
     /// </summary>
-    public partial class LiveToursPage : Page 
+    public partial class AlreadyStartedTour : Page
     {
+
+
         public static ObservableCollection<TourGuideDTO> TodaysTours { get; set; }
+
+        public static ObservableCollection<TourGuideDTO> SelectedTour {  get; set; }
         public User LoggedUser { get; set; }
 
 
-      
-       
+
+
         private LiveTour liveTour;
         private TourStatisticsPage _tourStatisticsPage;
 
+        public TourGuideDTO StartedTour {  get; set; }
+
         public event EventHandler tourEnded;
 
-        public LiveToursPage(TourStatisticsPage tourStatisticsPage,TourCreationPage tourCreationPage,User user)
+        public int TourScheduleId {  get; set; }
+
+
+        public AlreadyStartedTour(int tourScheduleId, TourStatisticsPage tourStatisticsPage, TourCreationPage tourCreationPage, User user)
         {
             InitializeComponent();
             DataContext = this;
             LoggedUser = user;
-            
+            TourScheduleId = tourScheduleId;
             _tourStatisticsPage = tourStatisticsPage;
 
             TodaysTours = new ObservableCollection<TourGuideDTO>();
-
-
+            SelectedTour = new ObservableCollection<TourGuideDTO>();  
 
             tourCreationPage.SomethingHappened += tourCreationPage_SomethingHappened;
 
-
+            UpdateStartedTour();
             Update();
-
         }
-        
+
+
         private void tourCreationPage_SomethingHappened(object sender, EventArgs e)
         {
             Update();
         }
+
+        private void UpdateStartedTour()
+        {
+            TourSchedule tourSchedule = TourScheduleService.GetInstance().GetById(TourScheduleId);
+            Tour tour = TourService.GetInstance().GetById(tourSchedule.TourId);
+            Location location = LocationService.GetInstance().GetById(tour.LocationId);
+            DateTime dateTime = tourSchedule.Start;
+            Model.Image image = GetFirstTourImage(tour.Id);
+            Language language = LanguageService.GetInstance().GetById(tour.LanguageId);
+            SelectedTour.Add(new TourGuideDTO(tour, language, location, image.Path, dateTime, tourSchedule.Id));
+        }
+
 
         public void Update()
         {
@@ -72,24 +89,24 @@ namespace BookingApp.View.GuideView.Pages
                 Tour tour = TourService.GetInstance().GetById(tourSchedule.TourId);
                 if (!CheckUpdateConditions(tourSchedule, tour))
                     continue;
-                
+
                 Location location = LocationService.GetInstance().GetById(tour.LocationId);
-               
+
                 DateTime dateTime = tourSchedule.Start;
-                
+
                 Model.Image image = GetFirstTourImage(tour.Id);
 
                 Language language = LanguageService.GetInstance().GetById(tour.LanguageId);
-                
-                TodaysTours.Add(new TourGuideDTO(tour, language,location, image.Path, dateTime, tourSchedule.Id, false));
+
+                TodaysTours.Add(new TourGuideDTO(tour, language, location, image.Path, dateTime, tourSchedule.Id, true));
             }
         }
 
 
-        
+
         private bool CheckUpdateConditions(TourSchedule tourSchedule, Tour tour)
         {
-            if(tourSchedule.Start.Date != System.DateTime.Now.Date || tourSchedule.TourActivity == Enums.TourActivity.Finished || tour.GuideId != LoggedUser.Id)
+            if (tourSchedule.Start.Date != System.DateTime.Now.Date || tourSchedule.TourActivity == Enums.TourActivity.Finished || tour.GuideId != LoggedUser.Id)
             {
                 return false;
             }

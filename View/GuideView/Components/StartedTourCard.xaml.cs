@@ -1,7 +1,5 @@
 ﻿using BookingApp.ApplicationServices;
-using BookingApp.DTOs;
 using BookingApp.Model;
-using BookingApp.Repository;
 using BookingApp.Resources;
 using BookingApp.View.GuideView.Pages;
 using System;
@@ -22,21 +20,20 @@ using System.Windows.Shapes;
 namespace BookingApp.View.GuideView.Components
 {
     /// <summary>
-    /// Interaction logic for TourCard.xaml
+    /// Interaction logic for StartedTourCard.xaml
     /// </summary>
-    public partial class TourCard : UserControl
+    public partial class StartedTourCard : UserControl
     {
 
         public event EventHandler TourEndedCard;
 
-        public TourCard()
+        public StartedTourCard()
         {
             InitializeComponent();
-
         }
 
-       
-        private void BeginTourMouseDown(object sender, MouseEventArgs e)
+
+        private void LiveTrackingMouseDown(object sender, MouseEventArgs e)
         {
 
             TourSchedule tourSchedule = TourScheduleService.GetInstance().GetById(Convert.ToInt32(textBoxId.Text));
@@ -48,10 +45,11 @@ namespace BookingApp.View.GuideView.Components
 
         }
 
-         public void HandleTourEndedEvent(object sender, EventArgs e)
+        public void HandleTourEndedEvent(object sender, EventArgs e)
         {
             TourEndedCard?.Invoke(this, e);
         }
+
         private void TourDetailsMouseDown(object sender, MouseEventArgs e)
         {
 
@@ -59,6 +57,6 @@ namespace BookingApp.View.GuideView.Components
 
 
             (Window.GetWindow(this) as GuideViewMenu).MainFrame.Content = tourDetailsPage;
-        } 
+        }
     }
 }

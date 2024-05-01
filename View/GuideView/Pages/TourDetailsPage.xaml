@@ -21,10 +21,12 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.RowSpan="5" Grid.Column="1" Margin="0 60 40 0">
+        <Grid Grid.RowSpan="6" Grid.Column="1" Margin="0 60 40 0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="0.23*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.4*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.3*"/>
@@ -32,7 +34,8 @@
                 <ColumnDefinition Width="0.3*"/>
             </Grid.ColumnDefinitions>
             <Image Grid.ColumnSpan="3" Grid.Row="0" Source="{Binding CurrentImage.ImagePath, UpdateSourceTrigger=PropertyChanged}" />
-            <ListView Grid.Row="1" Grid.Column="1" x:Name="imageListBox" SelectionMode="Multiple" SelectionChanged="ChangeBigImage" SelectedItem="{Binding SelectedImage, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}"  >
+            <ListView Grid.Row="1" Grid.Column="1" x:Name="imageListBox" SelectionMode="Multiple" 
+                SelectionChanged="ChangeBigImage" SelectedItem="{Binding SelectedImage, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}"  >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -52,9 +55,25 @@
             <Button Grid.Column="0" Grid.Row="1" Height="40" Width="22" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"   Command="{Binding PreviousImageCommand}">
                 <Image Source ="/Resources/Images/larroww.png" Width="20" Height="35"/>
             </Button>
+            <Grid Grid.Row="4" Grid.ColumnSpan="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="0.6*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.6*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="1" Grid.Column="2" Content="Go Back" Click="GoBackClick">
+                    
+                </Button>
+
+            </Grid>
         </Grid>
         
-        <StackPanel Grid.Row="0">
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
             <TextBlock FontSize="40" FontWeight="Bold" TextAlignment="Center" x:Name="txtTourName"  Text="{Binding SelectedTour.Name}" HorizontalAlignment="Center"/>
         </StackPanel>
         <Grid Grid.Row="1" Margin="35 0 35 0">
@@ -86,10 +105,14 @@
                 <Label VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="30"  >Capacity:</Label>
                 <TextBlock Margin="15 0 0 0" FontSize="30"  TextAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedTour.Capacity}" />
             </StackPanel>
-            <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-                <Label VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="30"  >Description:</Label>
-                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15 0 0 0" FontSize="10" Text="{Binding SelectedTour.Description}" />
-            </StackPanel>
+            <Grid Grid.Column="1" Grid.ColumnSpan="2" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="30"  >Description:</Label>
+                <TextBlock Grid.Column="1" TextWrapping="Wrap" HorizontalAlignment="Left"  TextAlignment="Left"  FontSize="10" Text="{Binding SelectedTour.Description}" />
+            </Grid>
         </Grid>
         <Grid Grid.Row="4" Grid.RowSpan="2" Margin="35 0 35 30">
             <Grid.ColumnDefinitions>

@@ -27,11 +27,11 @@ namespace BookingApp.View.GuideView.Pages
 
       
 
-        public ToursPage(User user, TourStatisticsPage statisticsPage, TourReviewsPage reviewPage)
+        public ToursPage(User user)
         {
             InitializeComponent();
             DataContext = ToursViewModel;
-            ToursViewModel = new ToursViewModel(this,user, statisticsPage, reviewPage);
+            ToursViewModel = new ToursViewModel(this,user);
         }
 
         public void UpdateWindows(object sender, EventArgs e)

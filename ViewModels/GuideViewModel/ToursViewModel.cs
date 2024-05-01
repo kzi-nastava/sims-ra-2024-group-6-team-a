@@ -22,24 +22,25 @@ namespace BookingApp.ViewModels.GuideViewModel
         public AllToursPage allToursPage;
         public TourStatisticsPage tourStatisticsPage;
         public TourReviewsPage tourReviewsPage;
+        public AlreadyStartedTour startedTourPage;
+
 
         public ToursPage window;
 
-        public ToursViewModel(ToursPage window,User user, TourStatisticsPage statisticsPage, TourReviewsPage reviewsPage)
+        public ToursViewModel(ToursPage window,User user)
         {
             LoggedUser = user;
             this.window = window;
 
 
 
-            tourStatisticsPage = statisticsPage;
-            tourReviewsPage = reviewsPage;
+            
 
             tourCreationPage = new TourCreationPage(LoggedUser);
             liveToursPage = new LiveToursPage(tourStatisticsPage, tourCreationPage, LoggedUser);
             allToursPage = new AllToursPage(tourCreationPage, LoggedUser);
             liveToursPage.tourEnded += UpdateWindows;
-            window.SecondFrame.Content = liveToursPage;
+            LiveToursPageClick();
 
         }
 
@@ -56,9 +57,9 @@ namespace BookingApp.ViewModels.GuideViewModel
 
             if (tourScheduleId != 0)
             {
-                LiveTour liveTour = new LiveTour(tourScheduleId);
-                window.SecondFrame.Content = liveTour;
-                liveTour.TourEndedMainWindow += LiveToursPageEvent;
+                startedTourPage = new AlreadyStartedTour(tourScheduleId, tourStatisticsPage, tourCreationPage, LoggedUser);
+                window.SecondFrame.Content = startedTourPage;
+                //liveTour.TourEndedMainWindow += LiveToursPageEvent;
             }
             else
             {
