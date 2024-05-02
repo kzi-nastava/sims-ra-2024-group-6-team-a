@@ -23,6 +23,7 @@ namespace BookingApp.DTOs
         {
             Id = voucher.Id;
             ExpirationDate = voucher.IssuingDate;
+            ReceiviingDate = voucher.ReceivingDate;
         }
 
         private int _id;
@@ -54,6 +55,24 @@ namespace BookingApp.DTOs
                 {
                     _expirationDate = value;
                     OnPropertyChanged("ExpirationDate");
+
+                }
+            }
+
+        }
+        private DateTime _receiviingDate;
+        public DateTime ReceiviingDate
+        {
+            get
+            {
+                return _receiviingDate;
+            }
+            set
+            {
+                if (value != _receiviingDate)
+                {
+                    _receiviingDate = value;
+                    OnPropertyChanged("ReceiviingDate");
 
                 }
             }

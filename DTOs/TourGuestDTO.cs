@@ -143,6 +143,22 @@ namespace BookingApp.DTOs
                 }
             }
         }
+        private bool _present;
+        public bool Present
+        {
+            get
+            {
+                return _present;
+            }
+            set
+            {
+                if(_present != value)
+                {
+                    _present = value;
+                    OnPropertyChanged("Present");
+                }
+            }
+        }
         public TourGuestDTO(string name, string surname, int age, int reservationId)
         {
             Name = name;
@@ -160,6 +176,7 @@ namespace BookingApp.DTOs
             ReservationId = reservationId;
             UserType = guest.UserTypeId;
             CheckpointId = guest.CheckpointId;
+            Present = guest.IsPresent;
         }
 
 
