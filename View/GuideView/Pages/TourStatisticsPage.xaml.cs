@@ -83,9 +83,9 @@ namespace BookingApp.View.GuideView.Pages
             return StatisticsViewModel.GetFirstTourImage(tourId);
         }
 
-        private void LoadStatistics(object sender, RoutedEventArgs e)
+        public void LoadStatistics(object sender, RoutedEventArgs e)
         {
-            Update();
+            StatisticsViewModel.LoadStatistics();
         }
     }
 }

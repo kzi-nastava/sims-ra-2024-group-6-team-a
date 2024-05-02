@@ -10,12 +10,12 @@
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="1.2*"/>
-            <RowDefinition/>
+            <RowDefinition Height="2.1*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="2.5*"/>
                 </Grid.RowDefinitions>
             <Grid VerticalAlignment="Top" Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -30,7 +30,7 @@
             Text="{Binding LoggedUser.Username, StringFormat='Hey {0}, you have one tour that is still running, you cant start other tours until the previous tour is finished'}"
            VerticalAlignment="Center" />
             </Grid>
-            <ItemsControl HorizontalAlignment="Center" Grid.Row="1" ItemsSource="{Binding SelectedTour}" >
+            <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" ItemsSource="{Binding SelectedTour}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <components:StartedTourCard/>
