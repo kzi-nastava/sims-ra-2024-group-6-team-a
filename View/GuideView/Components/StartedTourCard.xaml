@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="BookingApp.View.GuideView.Components.AllToursCard"
+﻿<UserControl x:Class="BookingApp.View.GuideView.Components.StartedTourCard"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
-             mc:Ignorable="d" 
-             Height="250" Width="950">
+             mc:Ignorable="d"
+             Width="1000">
     <Border Background="White" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="LightGray" BorderThickness="1">
         <Grid>
 
@@ -17,7 +17,7 @@
                 <RowDefinition Height="0.2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+            <Grid Margin="20 0 0 0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -28,9 +28,9 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" >
                     <TextBlock Margin="30 0 0 0" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Text="{Binding Name}" />
-                </Grid>
+                </StackPanel>
                 <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
                     <StackPanel VerticalAlignment="Center">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
@@ -65,9 +65,9 @@
                         <Image Width="20px" Height="20px" Source="\Resources\Images\information.png" PreviewMouseDown="TourDetailsMouseDown"/>
                         <TextBlock VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="Click here for more information" PreviewMouseDown="TourDetailsMouseDown"/>
                     </StackPanel>
-                    <StackPanel Margin="60 0 0 0" Orientation="Horizontal" Grid.Column="1">
-                        <Image Width="20px" Height="20px" Source="\Resources\Images\delete.png" PreviewMouseDown="DeleteTourMouseDown"/>
-                        <TextBlock VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="Click here to cancel Tour" PreviewMouseDown="DeleteTourMouseDown"/>
+                    <StackPanel Margin="27 0 0 0" Orientation="Horizontal" Grid.Column="1">
+                        <Image Width="20px" Height="20px" Source="\Resources\Images\play.png" PreviewMouseDown="LiveTrackingMouseDown"/>
+                        <TextBlock VerticalAlignment="Center" FontSize="20" TextWrapping="Wrap" Text="Click here for tracking menu" PreviewMouseDown="LiveTrackingMouseDown"/>
                     </StackPanel>
                 </Grid>
             </Grid>

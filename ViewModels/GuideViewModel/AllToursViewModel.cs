@@ -19,22 +19,17 @@ namespace BookingApp.ViewModels.GuideViewModel
     {
         public static ObservableCollection<TourGuideDTO> AllTours { get; set; }
         public User LoggedUser { get; set; }
-        public AllToursViewModel(TourCreationPage tourCreationPage, User user)
+        public AllToursViewModel(User user)
         {
 
 
             LoggedUser = user;
 
             AllTours = new ObservableCollection<TourGuideDTO>();
-            tourCreationPage.SomethingHappened += UpdateWindow;
-
             Update();
         }
 
-        private void UpdateWindow(object sender, EventArgs e)
-        {
-            Update();
-        }
+       
 
         public void Update()
         {
@@ -73,7 +68,7 @@ namespace BookingApp.ViewModels.GuideViewModel
             return ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour).First();
         }
 
-        public void TourCanceledEventHandler()
+        public void LoadAllTours()
         {
             Update();
         }

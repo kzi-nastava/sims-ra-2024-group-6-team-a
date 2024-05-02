@@ -40,9 +40,7 @@ namespace BookingApp.View.GuideView.Pages
         public TourSchedule SelectedTourSchedule { get; set; }
         public Location SelectedLocation { get; set; }
 
-        public event EventHandler TourEnded;
-        public event EventHandler TourEndedMainWindow;
-
+       
         public LiveTour(int tourScheduleId)
         {
             InitializeComponent();
@@ -149,41 +147,18 @@ namespace BookingApp.View.GuideView.Pages
             SelectedTourSchedule.TourActivity = Enums.TourActivity.Finished;
             TourScheduleService.GetInstance().Update(SelectedTourSchedule);
             
-            
-
-            RaiseTourEndedEvents();
-            
+                        
             GoBackIfPossible();
             TouristNotificationService.GetInstance().SendNotification(SelectedTourSchedule);
         }
 
-        private void RaiseTourEndedEvents()
-        {
-            RaiseTourEndedEvent();
-            RaiseTourEndedEventMain();
-        }
-
-
-        
-        private void RaiseTourEndedEventMain()
-        {
-            TourEndedMainWindow?.Invoke(this, EventArgs.Empty);
-        }
-
-
-        private void RaiseTourEndedEvent()
-        {
-
-            TourEnded?.Invoke(this, EventArgs.Empty);
-
-        }
-
+       
         private void GoBackIfPossible()
         {
-            if (NavigationService != null && NavigationService.CanGoBack)
-            {
-                NavigationService.GoBack();
-            }
+
+            LiveToursPage liveToursPage = new LiveToursPage(UserService.GetInstance().GetById(SelectedTour.GuideId));
+                NavigationService.Navigate(liveToursPage);
+            
         }
 
     }

@@ -210,7 +210,6 @@ namespace BookingApp.DTOs
             Name = tour.Name;
             Description = tour.Description;
             Language = language.Name;
-
             Capacity = tour.Capacity;
             Duration = tour.Duration;
             City = location.City;

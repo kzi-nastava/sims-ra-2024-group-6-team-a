@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Loaded="LoadTodaysTours"
       Title="ToursPage">
 
     <Grid Background="White">

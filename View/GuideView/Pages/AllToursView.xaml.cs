@@ -29,10 +29,10 @@ namespace BookingApp.View.GuideView.Pages
       
 
         public AllToursViewModel AllToursWindow { get; set; }
-        public AllToursPage(TourCreationPage tourCreationPage, User user)
+        public AllToursPage(User user)
         {
             InitializeComponent();
-            AllToursWindow = new AllToursViewModel(tourCreationPage, user);
+            AllToursWindow = new AllToursViewModel(user);
             DataContext = AllToursWindow;
             Update();
         }
@@ -53,9 +53,9 @@ namespace BookingApp.View.GuideView.Pages
            return AllToursWindow.GetFirstTourImage(tourId);
         }
 
-        public void TourCanceledEventHandler(object sender, EventArgs e)
+        public void LoadAllTours(object sender, RoutedEventArgs e)
         {
-            AllToursWindow.TourCanceledEventHandler();
+            AllToursWindow.LoadAllTours();
         }
     }
 }
