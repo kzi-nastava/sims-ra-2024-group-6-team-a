@@ -166,6 +166,22 @@ namespace BookingApp.DTOs
             }
         }
 
+        public String reservationStatusColor;
+
+        public String ReservationStatusColor
+        {
+            get { return reservationStatusColor; }
+
+            set
+            {
+                if (value != reservationStatusColor)
+                {
+                    reservationStatusColor = value;
+                    OnPropertyChanged("reservationStatusColor");
+                }
+            }
+        }
+
 
         public ReservationOwnerDTO(string guestName,AccommodationReservation reservation,string accommodationName,Location location,String image)
         {
@@ -180,11 +196,20 @@ namespace BookingApp.DTOs
 
 
             if (reservation.Status == Enums.ReservationStatus.Active && reservation.CheckOutDate >= DateOnly.FromDateTime(DateTime.Now))
-                ReservationStatus = "#64d9a8";
+            {
+                ReservationStatusColor = "#64d9a8";
+                ReservationStatus = "Upcoming";
+            }
             else if (reservation.Status == Enums.ReservationStatus.Active && reservation.CheckOutDate < DateOnly.FromDateTime(DateTime.Now))
-                ReservationStatus = "#b8d1ce";
+            {
+                ReservationStatusColor = "#b8d1ce";
+                ReservationStatus = "Completed";
+            }
             else
-                ReservationStatus = "#e6a8b4";
+            {
+                ReservationStatusColor = "#e6a8b4";
+                ReservationStatus = "Canceled";
+            }
 
         }
     }

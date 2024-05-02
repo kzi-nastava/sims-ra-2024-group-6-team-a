@@ -127,6 +127,17 @@ namespace BookingApp.ApplicationServices
 
                 }
 
+                foreach (OwnerReview review in OwnerReviewService.GetInstance().GetAll())
+                {
+                    AccommodationReservation res = AccommodationReservationService.GetInstance().GetByReservationId(review.ReservationId);
+                    if (res.AccommodationId == accId && review.Urgency != "" && res.CheckOutDate.Year == year && res.CheckOutDate.Month == i)
+                    {
+                        renovationCount++;
+                    }
+                }
+
+
+
                 MonthlyStatisticDTO monthlyStatisticDTO = new MonthlyStatisticDTO(i,resCount,changeCount,cancelCount,renovationCount);
                 monthlyStats.Add(monthlyStatisticDTO);
             }
@@ -158,6 +169,22 @@ namespace BookingApp.ApplicationServices
             {
                 temp = GetByReservationId(reservation.AccommodationId);
                 if (temp.Id == accId && reservation.Status == Enums.ReservationStatus.Canceled && reservation.CheckOutDate.Year == year)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public int GetRenovationCountForAccommodation(int accId, int year)
+        {
+            int total = 0;
+            
+            foreach (OwnerReview review in OwnerReviewService.GetInstance().GetAll())
+            {
+                AccommodationReservation res = AccommodationReservationService.GetInstance().GetByReservationId(review.ReservationId);
+                if(res.AccommodationId == accId && review.Urgency != "" && res.CheckOutDate.Year == year)
                 {
                     total++;
                 }
@@ -276,6 +303,10 @@ namespace BookingApp.ApplicationServices
             }
         }
 
+        public void Delete(int id)
+        {
+            AccommodationRepository.Delete(id);
+        }
 
     }
 }

@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="RegisterAccommodationMenu" Height="350" Width="600" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+        Title="RegisterAccommodationMenu" Height="400" Width="500" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="190"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -18,7 +18,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="120"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
 
         </Grid.RowDefinitions>
@@ -29,21 +29,101 @@
         <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Minimum Reservation:</Label>
         <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Cancelation Days:</Label>
         <Label Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Location:</Label>
-        
-        <TextBlock x:Name="ImageCountText" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue"></TextBlock>
-       
-        <TextBox x:Name="Name" Grid.Row="0" Grid.Column="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center"></TextBox>
+
+
+        <TextBox Width="300" x:Name="Name" Grid.Row="0" Grid.Column="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
+        <TextBlock IsHitTestVisible="False" Text="Eg. Hotel President" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray" Grid.Row="0" Grid.Column="1"  >
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=Name}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+
         <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="center" Orientation="Horizontal" VerticalAlignment="Center">
-            <RadioButton x:Name="apt" GroupName="type" FontSize="18" VerticalContentAlignment="Center" Margin="5,5,5,5">Apartment</RadioButton>
-            <RadioButton x:Name="house"  GroupName="type" FontSize="18" VerticalContentAlignment="Center" Margin="5,5,5,5">House</RadioButton>
-            <RadioButton x:Name="cottage"  GroupName="type" FontSize="18" VerticalContentAlignment="Center" Margin="5,5,5,5">Cottage</RadioButton>
+            <RadioButton  x:Name="apt" GroupName="type" FontSize="18" VerticalContentAlignment="Center" Margin="5,5,5,5">
+                <TextBlock>
+                    <Underline>A</Underline>partment
+                </TextBlock>
+            </RadioButton>
+            <RadioButton  x:Name="house"  GroupName="type" FontSize="18" VerticalContentAlignment="Center" Margin="5,5,5,5">
+                <TextBlock>
+                    <Underline>H</Underline>ouse
+                </TextBlock>
+            </RadioButton>
+            <RadioButton  x:Name="cottage"  GroupName="type" FontSize="18" VerticalContentAlignment="Center" Margin="5,5,5,5">
+                <TextBlock>
+                    <Underline>C</Underline>ottage
+                </TextBlock>
+            </RadioButton>
         </StackPanel>
+        
         <TextBox x:Name="MaxGuests"    Grid.Row="2" Grid.Column="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <TextBlock IsHitTestVisible="False" Text="Enter a number,eg. 5" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray" Grid.Row="2" Grid.Column="1"  >
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=MaxGuests}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+
         <TextBox x:Name ="MinReservation" Grid.Row="3" Grid.Column="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <TextBlock IsHitTestVisible="False" Text="Enter a number,eg. 5" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray" Grid.Row="3" Grid.Column="1"  >
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=MinReservation}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <TextBox x:Name ="CancelDays" Grid.Row="4" Grid.Column="1" FontSize="18" TextAlignment="Center" VerticalAlignment="Center"></TextBox>
-        <ComboBox x:Name="LocationCombo" Grid.Column="1" Grid.Row="5" ItemsSource="{Binding locations}"></ComboBox>
-       
-        <Button Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="AddImageClick"  Background="CornflowerBlue" Width="200">Add Images</Button>
+        <TextBlock IsHitTestVisible="False" Text="Enter a number,eg. 5" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray" Grid.Row="4" Grid.Column="1"  >
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=CancelDays}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <ComboBox x:Name="LocationCombo" Grid.Column="1" Grid.Row="5" ItemsSource="{Binding locations}" Keyboard.KeyDown="LocationCombo_KeyDown"></ComboBox>
+
+        <ListBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding AddedImages}" SelectedItem="{Binding SelectedImage}" Margin="-50,5,5,5" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Image Source="{Binding LeftPath}" Width="120" Height="85"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Click="AddImageClick"  Background="CornflowerBlue" Width="100" Margin="0,0,50,10">Add Images</Button>
         <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="RegisterClick"  Background="CornflowerBlue" Width="115">Register</Button>
     </Grid>
 
