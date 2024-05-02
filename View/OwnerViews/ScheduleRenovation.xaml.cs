@@ -57,5 +57,33 @@ namespace BookingApp.View.OwnerViews
                 HelpBox.Text = "Please find a period first using dates and a duration.";
             }
         }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape) 
+            {
+                Close();
+            }
+            else if(e.Key == Key.S)
+            {
+                EndDatePicker.IsDropDownOpen = false;
+                StartDatePicker.IsDropDownOpen = true;
+                
+            }
+            else if(e.Key == Key.E)
+            {
+                StartDatePicker.IsDropDownOpen = false;
+                EndDatePicker.IsDropDownOpen = true;
+
+            }
+            else if(e.Key == Key.F) 
+            {
+                Find_Click(sender, e);  
+            }
+            else if(e.Key == Key.C)
+            {
+                Confirm_Click(sender, e);
+            }
+        }
     }
 }

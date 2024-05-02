@@ -124,6 +124,7 @@ namespace BookingApp.View
                 cottage.IsChecked = true;
             }
 
+
         }
 
         private void LocationCombo_KeyDown(object sender, KeyEventArgs e)

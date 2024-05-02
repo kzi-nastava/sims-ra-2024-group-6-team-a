@@ -218,12 +218,12 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  MinWidth="890" Margin="0,0,0,-4">
-                                    <Grid Background="{Binding ReservationStatus}">
+                                    <Grid Background="{Binding ReservationStatusColor}">
 
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="150" />
                                             <ColumnDefinition Width="*" />
-
+                                            <ColumnDefinition Width="100"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
 
                                         <Grid.RowDefinitions>
@@ -250,7 +250,8 @@
                                             <TextBlock Text="{Binding State}" Margin="0,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right" ></TextBlock>
                                             <Image Source="/Resources/Images/location-ping.png" HorizontalAlignment="Right" Width="25" Height="25" VerticalAlignment="Top"></Image>
                                         </StackPanel>
-                                        
+
+                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding ReservationStatus}" Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
 
                                     </Grid>
                                 </Border>

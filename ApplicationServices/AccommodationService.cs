@@ -303,6 +303,10 @@ namespace BookingApp.ApplicationServices
             }
         }
 
+        public void Delete(int id)
+        {
+            AccommodationRepository.Delete(id);
+        }
 
     }
 }
