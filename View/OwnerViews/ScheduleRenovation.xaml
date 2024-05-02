@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.OwnerViews"
         mc:Ignorable="d"
-        Title="ScheduleRenovation" Height="470" Width="400" WindowStartupLocation="CenterScreen">
+        Title="ScheduleRenovation" Height="470" Width="400" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
@@ -28,12 +28,14 @@
 
         <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Orientation="Horizontal">
             <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.Name}"></TextBlock>
+            <TextBlock Margin="0,10,0,5" FontSize="20">,</TextBlock>
             <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.City}"></TextBlock>
+            <TextBlock Margin="0,10,0,5" FontSize="20">,</TextBlock>
             <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.State}"></TextBlock>
         </StackPanel>
 
-        <TextBlock Grid.Row="1" Grid.Column="1" Margin="5,20,5,0" FontSize="20">Start Date</TextBlock>
-        <TextBlock Grid.Row="1" Grid.Column="3" Margin="5,20,5,0" FontSize="20">End Date</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" Margin="5,20,5,0" FontSize="20"><Underline>S</Underline>tart Date</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="3" Margin="5,20,5,0" FontSize="20"><Underline>E</Underline>nd Date</TextBlock>
 
         <DatePicker x:Name="StartDatePicker" Grid.Row="2" Grid.Column="1" Height="40" Width="130"></DatePicker>
         <DatePicker x:Name="EndDatePicker" Grid.Row="2" Grid.Column="3" Height="40" Width="130"></DatePicker>
@@ -42,11 +44,14 @@
         <TextBox x:Name="DurationPicker" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="-20,5,5,5"></TextBox>
         <TextBlock Grid.Row="4" Grid.Column="1" Margin="20,10,1,5" FontSize="20">Title:</TextBlock>
         <TextBox x:Name="TitleText" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Margin="-20,5,5,5"></TextBox>
-        <Button Click="Find_Click" Grid.Row="5" Grid.Column="2" FontSize="23" Margin="0,9,0,9">Find</Button>
+        <Button Click="Find_Click" Grid.Row="5" Grid.Column="2" FontSize="23" Margin="0,9,0,9">
+            <TextBlock>
+                <Underline>F</Underline>ind</TextBlock></Button>
 
         <TextBlock x:Name="HelpBox" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" FontSize="14">Choose the start and end date,aswell as the duration,and press Find, so that the system can find a suitable renovation period.</TextBlock>
 
-        <Button Click="Confirm_Click" Grid.Row="7" Grid.Column="2" FontSize="20" Margin="0,9,0,9">Confirm</Button>
+        <Button Click="Confirm_Click" Grid.Row="7" Grid.Column="2" FontSize="20" Margin="0,9,0,9">
+            <TextBlock><Underline>C</Underline>onfirm</TextBlock></Button>
 
     </Grid>
 </Window>

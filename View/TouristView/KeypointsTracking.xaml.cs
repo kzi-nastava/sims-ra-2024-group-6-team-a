@@ -1,4 +1,5 @@
 ﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.ViewModels.TouristViewModel;
@@ -25,10 +26,10 @@ namespace BookingApp.View.TouristView
     public partial class KeypointsTracking : Window
     {
         public KeypointsTrackingViewModel KeypointsViewModel { get; set; }
-        public KeypointsTracking(int tourScheduleId)
+        public KeypointsTracking(TourScheduleDTO tourSchedule)
         {
             InitializeComponent();
-            KeypointsViewModel = new KeypointsTrackingViewModel(tourScheduleId);
+            KeypointsViewModel = new KeypointsTrackingViewModel(tourSchedule);
             DataContext = KeypointsViewModel;
         }
     }

@@ -44,12 +44,11 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         }
 
-        private void Execute_UseVoucherCommand(object sender)
+        private void Execute_UseVoucherCommand(object obj)
         {
-            if (SelectedVoucher != null)
-            {
-                ParentWindow.Voucher = SelectedVoucher;
-            }
+            VouchersDTO voucher = (VouchersDTO)obj;
+            ParentWindow.Voucher = voucher;
+            
             
 
         }

@@ -103,7 +103,26 @@ namespace BookingApp.DTOs
             }
         }
 
-        public ReservationChangeDTO(int id,string guestName, string accommodationName, string oldDate,  string newDate,  string bookedStatus)
+        public String image;
+
+        public String Image
+        {
+            get
+            {
+                return image;
+            }
+
+            set
+            {
+                if (value != image)
+                {
+                    image = value;
+                    OnPropertyChanged("image");
+                }
+            }
+        }
+
+        public ReservationChangeDTO(int id,string guestName, string accommodationName, string oldDate,  string newDate,  string bookedStatus,String image)
         {
             ReservationID = id;
             GuestName = guestName;
@@ -111,6 +130,7 @@ namespace BookingApp.DTOs
             OldDate = oldDate;
             NewDate = newDate;
             BookedStatus = bookedStatus;
+            Image = image;
         }
     }
 }

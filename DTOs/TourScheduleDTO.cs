@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
 using System;
@@ -14,6 +15,8 @@ namespace BookingApp.DTOs
     public class TourScheduleDTO : INotifyPropertyChanged
     {
         private readonly TourRepository _tourRepository = new TourRepository();
+        private readonly LocationRepository _locationRepository = new LocationRepository();
+        private readonly LanguageRepository _languageRepository = new LanguageRepository();
         public TourScheduleDTO() { }
 
         public TourScheduleDTO(TourSchedule tourSchedule)
@@ -23,8 +26,113 @@ namespace BookingApp.DTOs
             CurrentFreeSpace = tourSchedule.CurrentFreeSpace;
             TourId = tourSchedule.TourId;
             TourName = _tourRepository.GetById(TourId).Name;
+
         }
 
+        public TourScheduleDTO(TourSchedule tourSchedule, Location location, Language langugae, string imagePath)
+        {
+            Id = tourSchedule.Id;
+            Start = tourSchedule.Start;
+            CurrentFreeSpace = tourSchedule.CurrentFreeSpace;
+            TourId = tourSchedule.TourId;
+            TourName = _tourRepository.GetById(TourId).Name;
+            TourLanguage = langugae.Name;
+            City = location.City;
+            State = location.State;
+            Image = imagePath;
+            Duration = _tourRepository.GetById(TourId).Duration;
+        }
+
+        public TourScheduleDTO(Tour tour, Language langugae, Location location, TourSchedule tourSchedule, string imagePath)
+        {
+            Id = tourSchedule.Id;
+            Start = tourSchedule.Start;
+            CurrentFreeSpace = tourSchedule.CurrentFreeSpace;
+            TourId = tourSchedule.TourId;
+            TourName = tour.Name;
+            TourLanguage = langugae.Name;
+            City = location.City;
+            State = location.State;
+            Image = imagePath;
+            Duration = tour.Duration;
+
+        }
+
+        private string _image;
+
+        public string Image
+        {
+            get
+            {
+                return _image;
+            }
+
+            set
+            {
+                if (value != _image)
+                {
+                    _image = value;
+                    OnPropertyChanged("Image");
+                }
+            }
+        }
+
+        private string _city;
+        public string City
+        {
+            get
+            {
+                return _city;
+            }
+
+            set
+            {
+                if (value != _city)
+                {
+                    _city = value;
+                    OnPropertyChanged("City");
+                }
+
+            }
+        }
+        private string _state;
+
+        public string State
+        {
+            get
+            {
+                return _state;
+            }
+
+            set
+            {
+                if (value != _state)
+                {
+                    _state = value;
+                    OnPropertyChanged("State");
+                }
+
+            }
+        }
+
+
+
+        private string _language;
+        public string TourLanguage
+        {
+            get
+            {
+                return _language;
+            }
+            set
+            {
+                if (_language != value)
+                {
+                    _language = value;
+                    OnPropertyChanged("TourLanguage");
+                }
+            }
+        }
         public string TourScheduleDisplay => $"{Start}";
 
         private string _tourName;
@@ -57,6 +165,23 @@ namespace BookingApp.DTOs
                 {
                     _tourId = value;
                     OnPropertyChanged("TourId");
+                }
+            }
+        }
+
+        private double _duration;
+        public double Duration
+        {
+            get
+            {
+                return _duration;
+            }
+            set
+            {
+                if (_duration != value)
+                {
+                    _duration = value;
+                    OnPropertyChanged("Duration");
                 }
             }
         }

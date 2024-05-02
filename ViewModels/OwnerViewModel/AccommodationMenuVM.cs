@@ -140,8 +140,9 @@ namespace BookingApp.ViewModels
                     if (AccommodationService.GetInstance().CheckIfAlreadyBooked(reservationChange, accommodation))
                         bookedStatus = "Yes";
 
+                    String imagePath = ImageService.GetInstance().AddMainAccommodationImage(accommodation);
 
-                    ReservationChangeDTO newChange = new ReservationChangeDTO(reservationChange.ReservationId, userName, accommodation.Name, oldDate, newDate, bookedStatus);
+                    ReservationChangeDTO newChange = new ReservationChangeDTO(reservationChange.ReservationId, userName, accommodation.Name, oldDate, newDate, bookedStatus,imagePath);
 
                     ReservationChanges.Add(newChange);
                 }

@@ -79,6 +79,21 @@ namespace BookingApp.ApplicationServices
             return tours;
         }
 
+        public List<TourSchedule> GetFutureSchedulesByUser(User user)
+        {
+            List<TourSchedule> tours = new List<TourSchedule>();
+
+            foreach (TourReservation reservation in TourReservationService.GetInstance().GetAllByUser(user))
+            {
+                TourSchedule tourSchedule = GetById(reservation.TourRealisationId);
+                if (tourSchedule.TourActivity == Resources.Enums.TourActivity.Ready)
+                {
+                    tours.Add(tourSchedule);
+                }
+
+            }
+            return tours;
+        }
         public List<TourSchedule> GetAllFinishedTours(User user)
         {
             List<TourSchedule> finishedTours = new List<TourSchedule>();

@@ -87,5 +87,11 @@ namespace BookingApp.ApplicationServices
         {
             return _imageRepository.GetByEntity(id, type);
         }
+
+        public void Delete(Image Image)
+        {
+            _imageRepository.Delete(Image);
+        }
+
     }
 }

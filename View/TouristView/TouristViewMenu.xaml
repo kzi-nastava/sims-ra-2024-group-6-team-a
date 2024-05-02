@@ -32,7 +32,7 @@
 
         <Menu HorizontalAlignment="Right" Grid.Row="0" BorderBrush="Black" BorderThickness="0,1,0,1" Background="AliceBlue">
             <MenuItem BorderBrush="Black" BorderThickness="1 0 1 0" FontWeight="DemiBold" Header="Inbox" Click="Inbox_Click" HorizontalAlignment="Right"/>
-            <MenuItem BorderBrush="Black" BorderThickness="0 0 1 0" FontWeight="DemiBold" Header="Help" HorizontalAlignment="Right"/>
+            <MenuItem BorderBrush="Black" BorderThickness="0 0 1 0" FontWeight="DemiBold" Header="Help" Click="Help_Click" HorizontalAlignment="Right"/>
             <MenuItem BorderBrush="Black" BorderThickness="0 0 1 0" FontWeight="DemiBold" Header="User" HorizontalAlignment="Right"/>
         </Menu>
 
@@ -54,17 +54,25 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Label Margin="9" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">City:</Label>
-                <Label Margin="9" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="2">Country:</Label>
+                <Label Margin="9" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">Location:</Label>
                 <Label Margin="9" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="4">Language:</Label>
                 <Label Margin="9" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="6">Duration:</Label>
                 <Label Margin="9" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="8">Capacity:</Label>
 
-                <ComboBox x:Name="cityComboBox" IsEditable="True"  VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Width="85" Padding="3" Margin="14"/>
-                <ComboBox x:Name="stateComboBox" IsEditable="True"  VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="3" Width="85" Padding="3" Margin="14"/>
-                <ComboBox x:Name="languageComboBox" IsEditable="True"  VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="5" Width="85" Padding="3" Margin="14"/>
-                <xctk:IntegerUpDown VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="7" Width="50" Padding="3" Margin="14"/>
-                <xctk:IntegerUpDown VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="9" Width="50" Padding="3" Margin="14"/>
+                <ComboBox x:Name="locationComboBox" 
+                          ItemsSource="{Binding Locations}"
+                          SelectedItem="{Binding Filter.Location}"
+                          DisplayMemberPath="LocationDisplayFormat"
+                          IsEditable="True"  VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Width="85" Padding="3" Margin="14"/>
+                <ComboBox x:Name="languageComboBox" 
+                          ItemsSource="{Binding Languages}"                         
+                          SelectedItem="{Binding Filter.Language}"
+                          DisplayMemberPath="LanguageDisplayFormat"
+                          IsEditable="True"  VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="5" Width="85" Padding="3" Margin="14"/>
+                <xctk:IntegerUpDown VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="7" Width="50" Padding="3" Margin="14"
+                                    Text="{Binding Filter.Duration}"/>
+                <xctk:IntegerUpDown VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="9" Width="50" Padding="3" Margin="14"
+                                    Text="{Binding Filter.TouristNumber}"/>
                 <Button VerticalAlignment="Center" HorizontalAlignment="left" Grid.Column="10" Height="25" Width="50" Background="AliceBlue" Content="Search" Click="Search_Click" Margin="20 15 14 15" BorderBrush="Black" BorderThickness="1" FontWeight="DemiBold"/>
                 <Image Height="18px" Width="14"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-11 0 0 10 " Grid.Column="11" Source="..\..\Resources\Images\questionMark.png">
                     <Image.ToolTip>

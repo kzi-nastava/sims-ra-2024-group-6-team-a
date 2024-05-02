@@ -5,38 +5,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         mc:Ignorable="d"
-        Title="VouchersView" Height="450" Width="800">
+        Title="VouchersView" Height="570" Width="480"
+        WindowStartupLocation="CenterOwner">
    
         <Grid Background="AliceBlue">
-        <Grid>
+        
             <Grid.RowDefinitions>
                 <RowDefinition Height="80" />
                 <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
-        </Grid>
-            <TextBlock FontWeight="DemiBold" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Margin="20">Voucher list:</TextBlock>
-       
-            <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto" >
+
+        <Image Height="18px" Width="18"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="-11 2 2 10 " Source="..\..\Resources\Images\questionMark.png">
+            <Image.ToolTip>
+                <ToolTip>
+                    Valid vouchers that you can use
+                </ToolTip>
+            </Image.ToolTip>
+        </Image>
+
+        <TextBlock FontWeight="DemiBold" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Margin="20">Voucher list:</TextBlock>
+
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="20 0 20 10">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" >
             
             <ItemsControl ItemsSource="{Binding Vouchers}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Black" BorderThickness="1" Margin="5" Padding="10">
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="15" Padding="10" Background="LightYellow">
+                            
                             <Grid>
+                                
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock FontWeight="Bold"> Expire Date</TextBlock>
-                                    <TextBlock Text="{Binding ExpirationDate}"></TextBlock>
+                                    <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <Image Height="75px" Width="65"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15 0 0 0" Grid.RowSpan="3" Grid.Column="0" Source="..\..\Resources\Images\giftt.png"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" >
+                                    <TextBlock FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"> Expire Date:</TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Width="120" VerticalAlignment="Center" Grid.Column="1" Text="{Binding ExpirationDate}"></TextBlock>
                                 </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1">
+                                        <TextBlock FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"> Received:</TextBlock>
+                                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Margin="5" Width="120" VerticalAlignment="Center" Grid.Column="1" Text="{Binding ReceiviingDate}"></TextBlock>
+                                    </StackPanel>
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
+        </Border>
     </Grid>
 </Window>

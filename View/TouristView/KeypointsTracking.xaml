@@ -4,15 +4,66 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
+        xmlns:converters="clr-namespace:BookingApp.View.Converters"
         mc:Ignorable="d"
-        Title="KeypointsTracking" Height="450" Width="800">
-    <Grid>
-
-        <TextBlock Margin="145,20,35,20" FontSize="15">Tour has reached following checkpoints:</TextBlock>
-        <DataGrid  CanUserAddRows="False"  ItemsSource="{Binding Checkpoints}" AutoGenerateColumns="False" Width="500" Height="200"  x:Name="CheckpointsDataGrid"  Margin="0,0,0,17"  HorizontalAlignment="Center">
-        <DataGrid.Columns>
-                <DataGridTextColumn Header="Checkpoint" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        Title="KeypointsTracking" Height="565" Width="800"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <converters:BooleanToYesNoConverter  x:Key="BooleanToYesNoConverter" />
+    </Window.Resources>
+    <Grid Background="AliceBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" >
+            <TextBlock Text="{Binding SelectedTour.Name}" FontSize="30" FontWeight="DemiBold" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <TextBlock FontSize="30" FontWeight="DemiBold" Margin="0 0 5 0" VerticalAlignment="Center"> live tracking</TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal"  Width="Auto">
+            <Label  Content="Location:" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Bottom" Padding="10 10 10 0" HorizontalAlignment="Left"/>
+            <TextBlock  Text="{Binding SelectedTourSchedule.City}" FontStyle="Italic" FontSize="20" VerticalAlignment="Bottom" />
+            <TextBlock  Text=", " FontStyle="Italic" VerticalAlignment="Bottom"/>
+            <TextBlock Text="{Binding SelectedTourSchedule.State}" FontStyle="Italic" FontSize="20" VerticalAlignment="Bottom"/>
+        </StackPanel>
+        <Grid Grid.Row="2" >
+            <TextBlock FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="10">Checkpoints:</TextBlock>
+        </Grid>
+        <Grid Grid.Row="3" Grid.RowSpan="2">
+            <Border Margin="10 0 10 0" BorderBrush="Black" BorderThickness="1" Background="LightYellow">
+                <ItemsControl ItemsSource="{Binding Checkpoints}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="2" BorderBrush="Black" Margin="10 25 10 10" Background="AntiqueWhite" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Name}" Margin="15" VerticalAlignment="Center" />
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+        </Grid>
+        <TextBlock Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10" FontSize="20" FontWeight="DemiBold">Attendance information:</TextBlock>
+        <ListView ItemsSource="{Binding Guests}" Grid.Row="6" Grid.RowSpan="3" Width="340" HorizontalAlignment="Left" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="100" />
+                    <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}" Width="100" />
+                    <GridViewColumn Header="Age" DisplayMemberBinding="{Binding Age}" Width="55" />
+                    <GridViewColumn Header="Has joined?" DisplayMemberBinding="{Binding Present, Converter={StaticResource BooleanToYesNoConverter}}" Width="60" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

@@ -21,18 +21,18 @@
 
 
         <ToolBar Grid.Row="0" Grid.ColumnSpan="2">
-            <Button Click="Button_Click">
+            <Button Click="Schedule_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/renovation.png" Width="32" Height="32"/>
-                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">Schedule Renovation</TextBlock>
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">Sc<Underline>h</Underline>edule Renovation</TextBlock>
                     <Separator/>
                 </StackPanel>
             </Button>
 
-            <Button>
+            <Button Click="Close_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/close-acc.png" Width="32" Height="32"/>
-                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">Close Accommodation</TextBlock>
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0"><Underline>C</Underline>lose Accommodation</TextBlock>
                     <Separator/>
                 </StackPanel>
 
@@ -52,11 +52,12 @@
 
                             <DataTemplate>
                                 <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  Width="700" Margin="0,0,0,-4">
-                                    <Grid Background="{Binding ReservationStatus}">
+                                    <Grid Background="{Binding ReservationStatusColor}">
                                          
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="125" />
                                             <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="100"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
 
                                         <Grid.RowDefinitions>
@@ -75,7 +76,7 @@
                                         </StackPanel>
 
                                         <Label Grid.Row="0" Grid.Column="1" Content="{Binding GuestName}" FontSize="22" FontWeight="ExtraBold" FontStyle="Italic" Foreground="DarkSlateBlue"></Label>
-   
+                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding ReservationStatus}" Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
                                     </Grid>
                                 </Border>
                             </DataTemplate>

@@ -72,6 +72,14 @@ namespace BookingApp.View
                 ImagesList.UpdateLayout();
                 ImagesList.Focus();
             }
+            else if (e.Key == Key.H )
+            {
+                Schedule_Click(sender,e);
+            }
+            else if(e.Key == Key.C)
+            {
+                Close_Click(sender,e);
+            }
         }
 
         public void SelectFirstReservation()
@@ -126,9 +134,18 @@ namespace BookingApp.View
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Schedule_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.ScheduleRenovation();
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            if((MessageBox.Show("Do you want to close the accommodation? This process is irreversible.", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
+            {
+                ViewModel.CloseAccommodation();
+                Close();
+            }
         }
 
         private void RenovationsList_KeyDown(object sender, KeyEventArgs e)
