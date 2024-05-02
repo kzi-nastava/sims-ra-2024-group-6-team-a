@@ -9,7 +9,7 @@
 
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.4*"/>
+            <RowDefinition Height="1.2*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -17,7 +17,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+            <Grid VerticalAlignment="Top" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="5*"/>
@@ -26,12 +26,14 @@
                     <Image Width="70px" Height="70px" Source="\Resources\Images\important_notice.png"/>
                     <Label FontSize="10" Content="important notice" Height="24" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="101" />
                 </StackPanel>
-                <TextBlock Grid.Column="1" FontFamily="bold" FontSize="30" HorizontalAlignment="Left" Text="Hey GuideName, you have one tour that is still running, you can't start other tours until the previous tour is finished" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1" FontFamily="bold" FontSize="30" HorizontalAlignment="Left" 
+            Text="{Binding LoggedUser.Username, StringFormat='Hey {0}, you have one tour that is still running, you cant start other tours until the previous tour is finished'}"
+           VerticalAlignment="Center" />
             </Grid>
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding SelectedTour}" >
+            <ItemsControl HorizontalAlignment="Center" Grid.Row="1" ItemsSource="{Binding SelectedTour}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <components:StartedTourCard TourEndedCard="TourEndedEventHandler"/>
+                        <components:StartedTourCard/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
@@ -41,20 +43,28 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </Grid>
-       
-        <ScrollViewer Grid.Column="2" Grid.Row="2" VerticalScrollBarVisibility="Auto" >
-            <ItemsControl ItemsSource ="{Binding TodaysTours}" >
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <components:TourCard  x:Name="card" TourEndedCard="TourEndedEventHandler"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Other Tours" HorizontalAlignment="Center" FontSize="35"/>
+            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,0">
+                <ScrollViewer VerticalAlignment="Top" Grid.Column="2" Grid.Row="2" VerticalScrollBarVisibility="Auto" >
+                    <ItemsControl ItemsSource ="{Binding TodaysTours}" >
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <components:TourCard  x:Name="card"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

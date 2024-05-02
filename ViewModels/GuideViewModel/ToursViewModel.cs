@@ -18,11 +18,9 @@ namespace BookingApp.ViewModels.GuideViewModel
 
 
         public LiveToursPage liveToursPage;
-        public TourCreationPage tourCreationPage;
         public AllToursPage allToursPage;
-        public TourStatisticsPage tourStatisticsPage;
-        public TourReviewsPage tourReviewsPage;
         public AlreadyStartedTour startedTourPage;
+        public TourCreationPage tourCreationPage;
 
 
         public ToursPage window;
@@ -32,22 +30,11 @@ namespace BookingApp.ViewModels.GuideViewModel
             LoggedUser = user;
             this.window = window;
 
-
-
-            
-
-            tourCreationPage = new TourCreationPage(LoggedUser);
-            liveToursPage = new LiveToursPage(tourStatisticsPage, tourCreationPage, LoggedUser);
-            allToursPage = new AllToursPage(tourCreationPage, LoggedUser);
-            liveToursPage.tourEnded += UpdateWindows;
+            tourCreationPage = new TourCreationPage(user);
+            liveToursPage = new LiveToursPage(LoggedUser);
+            allToursPage = new AllToursPage(LoggedUser);
             LiveToursPageClick();
 
-        }
-
-        public void UpdateWindows(object sender, EventArgs e)
-        {
-            tourReviewsPage.Update();
-            tourStatisticsPage.Update();
         }
 
         public void LiveToursPageClick()
@@ -57,22 +44,15 @@ namespace BookingApp.ViewModels.GuideViewModel
 
             if (tourScheduleId != 0)
             {
-                startedTourPage = new AlreadyStartedTour(tourScheduleId, tourStatisticsPage, tourCreationPage, LoggedUser);
+                startedTourPage = new AlreadyStartedTour(tourScheduleId, LoggedUser);
                 window.SecondFrame.Content = startedTourPage;
-                //liveTour.TourEndedMainWindow += LiveToursPageEvent;
             }
             else
             {
                 window.SecondFrame.Content = liveToursPage;
             }
         }
-        public void LiveToursPageEvent(object sender, EventArgs e)
-        {
-            liveToursPage.Update();
-            tourStatisticsPage.Update();
-            tourReviewsPage.Update();
-        }
-
+        
         public void AllToursPageClick()
         {
             window.SecondFrame.Content = allToursPage;
@@ -82,5 +62,9 @@ namespace BookingApp.ViewModels.GuideViewModel
             window.SecondFrame.Content = tourCreationPage;
         }
 
+        public void LoadTodaysTours()
+        {
+            LiveToursPageClick();
+        }
     }
 }

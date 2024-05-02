@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             Width="1000">
     <Border Background="White" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="LightGray" BorderThickness="1">
         <Grid>
 
@@ -16,7 +17,7 @@
                 <RowDefinition Height="0.2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+            <Grid Margin="20 0 0 0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -27,8 +28,8 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" >
-                    <TextBlock TextWrapping="Wrap"  FontSize="30" FontWeight="Bold" Text="{Binding Name}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" >
+                    <TextBlock Margin="30 0 0 0" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Text="{Binding Name}" />
                 </StackPanel>
                 <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
                     <StackPanel VerticalAlignment="Center">
@@ -64,13 +65,13 @@
                         <Image Width="20px" Height="20px" Source="\Resources\Images\information.png" PreviewMouseDown="TourDetailsMouseDown"/>
                         <TextBlock VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="Click here for more information" PreviewMouseDown="TourDetailsMouseDown"/>
                     </StackPanel>
-                    <StackPanel Margin="40 0 0 0" Orientation="Horizontal" Grid.Column="1">
+                    <StackPanel Margin="27 0 0 0" Orientation="Horizontal" Grid.Column="1">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\play.png" PreviewMouseDown="LiveTrackingMouseDown"/>
-                        <TextBlock VerticalAlignment="Center" FontSize="20" TextWrapping="Wrap" Text="Tour live tracking" PreviewMouseDown="LiveTrackingMouseDown"/>
+                        <TextBlock VerticalAlignment="Center" FontSize="20" TextWrapping="Wrap" Text="Click here for tracking menu" PreviewMouseDown="LiveTrackingMouseDown"/>
                     </StackPanel>
                 </Grid>
             </Grid>
-            <Image Source="{Binding Image}"  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"  Width="220" Height="220"/>
+            <Image Source="{Binding Image}"  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"  Width="250" Height="220"/>
             <TextBlock Visibility="Collapsed" x:Name="textBoxId" Text="{Binding TourScheduleId}" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Width="0" Height="8"/>
         </Grid>
     </Border>

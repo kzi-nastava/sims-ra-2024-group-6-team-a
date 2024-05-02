@@ -34,38 +34,25 @@ namespace BookingApp.View.GuideView.Pages
         public User LoggedUser { get; set; }
 
 
-
-
         private LiveTour liveTour;
-        private TourStatisticsPage _tourStatisticsPage;
 
         public TourGuideDTO StartedTour {  get; set; }
-
-        public event EventHandler tourEnded;
 
         public int TourScheduleId {  get; set; }
 
 
-        public AlreadyStartedTour(int tourScheduleId, TourStatisticsPage tourStatisticsPage, TourCreationPage tourCreationPage, User user)
+        public AlreadyStartedTour(int tourScheduleId, User user)
         {
             InitializeComponent();
             DataContext = this;
             LoggedUser = user;
             TourScheduleId = tourScheduleId;
-            _tourStatisticsPage = tourStatisticsPage;
 
             TodaysTours = new ObservableCollection<TourGuideDTO>();
             SelectedTour = new ObservableCollection<TourGuideDTO>();  
 
-            tourCreationPage.SomethingHappened += tourCreationPage_SomethingHappened;
 
             UpdateStartedTour();
-            Update();
-        }
-
-
-        private void tourCreationPage_SomethingHappened(object sender, EventArgs e)
-        {
             Update();
         }
 
@@ -119,12 +106,5 @@ namespace BookingApp.View.GuideView.Pages
             return ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour).First();
         }
 
-
-
-        private void TourEndedEventHandler(object sender, EventArgs e)
-        {
-            Update();
-            tourEnded?.Invoke(this, EventArgs.Empty);
-        }
     }
 }

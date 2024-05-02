@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1080" d:DesignWidth="1920"
       Title="TourDetailsPage">
 
     <Grid Background="White" >
@@ -21,7 +21,7 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.RowSpan="6" Grid.Column="1" Margin="0 60 40 0">
+        <Grid Grid.RowSpan="6" Grid.Column="1" Margin="0 0 60 0">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="0.23*"/>
@@ -39,7 +39,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <Image Source="{Binding ImageSource}" Width="100" Height="100" Margin="5"/>
+                            <Image Source="{Binding ImageSource}" Width="100" Height="100" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -63,55 +63,77 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
                     <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="0.4*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Row="1" Grid.Column="2" Content="Go Back" Click="GoBackClick">
-                    
+                <Button Grid.Row="1" Grid.Column="1" Content="Go Back" Click="GoBackClick">
                 </Button>
-
             </Grid>
         </Grid>
-        
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
-            <TextBlock FontSize="40" FontWeight="Bold" TextAlignment="Center" x:Name="txtTourName"  Text="{Binding SelectedTour.Name}" HorizontalAlignment="Center"/>
-        </StackPanel>
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <TextBlock FontSize="40" TextWrapping="Wrap" FontWeight="Bold" TextAlignment="Center" x:Name="txtTourName"  Text="{Binding SelectedTour.Name}" HorizontalAlignment="Center"/>
+        </Grid>
         <Grid Grid.Row="1" Margin="35 0 35 0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="1.3*"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="1.5*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" VerticalAlignment="Top" Orientation="Horizontal" >
-                <Label VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="30"  >Location:</Label>
-                <TextBlock Margin="15 0 0 0" FontSize="30"  TextAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedTour.Location}" />
-            </StackPanel>
-            <StackPanel Grid.Column="1" VerticalAlignment="Top" Orientation="Horizontal" >
-                <Label VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="30"  >Duration:</Label>
-                <TextBlock Margin="15 0 0 0" FontSize="30"  TextAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedTour.Duration}" />
-            </StackPanel>
-            <StackPanel Grid.Column="2" VerticalAlignment="Top" Orientation="Horizontal" >
-                <Label VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="30"  >Language:</Label>
-                <TextBlock Margin="15 0 0 0" FontSize="30"  TextAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedTour.Language}" />
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="2" Grid.RowSpan="2" Margin="35 0 35 0">
-            <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="1.5*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" VerticalAlignment="Top" Orientation="Horizontal" >
-                <Label VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="30"  >Capacity:</Label>
-                <TextBlock Margin="15 0 0 0" FontSize="30"  TextAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedTour.Capacity}" />
-            </StackPanel>
-            <Grid Grid.Column="1" Grid.ColumnSpan="2" >
+            <Grid Grid.Column="0" VerticalAlignment="Top">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="128*"/>
+                    <ColumnDefinition Width="221*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="30"  >Description:</Label>
-                <TextBlock Grid.Column="1" TextWrapping="Wrap" HorizontalAlignment="Left"  TextAlignment="Left"  FontSize="10" Text="{Binding SelectedTour.Description}" />
+                <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="30"   >Location:</Label>
+                <TextBlock Margin="15 0 0 0" Grid.Column="1" TextWrapping="Wrap" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Location}" />
+            </Grid>
+            <Grid Grid.Column="1" VerticalAlignment="Top" Margin="20 0 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="146*"/>
+                    <ColumnDefinition Width="221*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="30"  >Duration:</Label>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Margin="15 0 0 0"  Grid.Column="1" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Duration}" />
+                    <Label FontSize="30" Content="h"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="2" VerticalAlignment="Top" Margin="50 0 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="94*"/>
+                    <ColumnDefinition Width="221*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="30"  >Language:</Label>
+                <TextBlock Margin="15 0 0 0" Grid.Column="1" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Language}" />
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" Margin="35 0 35 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.3*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="128*"/>
+                    <ColumnDefinition Width="221*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="30" Content="Capacity:" Width="168"/>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Margin="15 0 0 0" Grid.Column="1"  FontSize="30"  TextAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedTour.Capacity}" />
+                    <Label Content="people" VerticalAlignment="Center" FontSize="30"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.ColumnSpan="3" Margin="484,0,0,0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.35*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="30" Content="Description:" />
+                <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" >
+                    <TextBlock  TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Left"  FontSize="30" Text="{Binding SelectedTour.Description}" />
+
+                </ScrollViewer>
             </Grid>
         </Grid>
         <Grid Grid.Row="4" Grid.RowSpan="2" Margin="35 0 35 30">

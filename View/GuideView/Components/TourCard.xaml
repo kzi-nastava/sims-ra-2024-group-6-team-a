@@ -27,8 +27,8 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" >
-                    <TextBlock TextWrapping="Wrap"  FontSize="30" FontWeight="Bold" Text="{Binding Name}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" >
+                    <TextBlock Margin="30 0 0 0" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Text="{Binding Name}" />
                 </StackPanel>
                 <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
                     <StackPanel VerticalAlignment="Center">
@@ -37,7 +37,7 @@
                     </StackPanel>
                     <TextBlock VerticalAlignment="Center" FontSize="20"  Text="{Binding Language}"/>
                 </StackPanel>
-                <Grid   Grid.Column="0" Grid.Row="1">
+                <Grid   Grid.Column="0" Grid.ColumnSpan="2" Margin="0,69,202,69" Grid.RowSpan="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.2*"/>
                         <ColumnDefinition/>
@@ -80,7 +80,7 @@
                     </StackPanel>
                 </Grid>
             </Grid>
-            <Image Source="{Binding Image}"  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"  Width="220" Height="220"/>
+            <Image Source="{Binding Image}"  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"  Width="250" Height="220"/>
             <TextBlock Visibility="Collapsed" x:Name="textBoxId" Text="{Binding TourScheduleId}" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Width="0" Height="8"/>
         </Grid>
     </Border>

@@ -34,19 +34,11 @@ namespace BookingApp.View.GuideView.Pages
             ToursViewModel = new ToursViewModel(this,user);
         }
 
-        public void UpdateWindows(object sender, EventArgs e)
-        {
-            ToursViewModel.UpdateWindows(sender, e);
-        }
-
         public void LiveToursPageClick(object sender,EventArgs e)
         {
             ToursViewModel.LiveToursPageClick();
         }
-        public void LiveToursPageEvent(object sender, EventArgs e)
-        {
-            ToursViewModel.LiveToursPageEvent(sender, e);
-        }
+       
 
         public void AllToursPageClick(object sender, EventArgs e)
         {
@@ -58,5 +50,10 @@ namespace BookingApp.View.GuideView.Pages
             ToursViewModel.ShowCreateTourForm();
 
         }
+        public void LoadTodaysTours(object sender, EventArgs e)
+        {
+            ToursViewModel.LiveToursPageClick();
+        }
+
     }
 }
