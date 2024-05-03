@@ -50,9 +50,9 @@ namespace BookingApp.View.GuideView.Pages
             return ReviewDetViewModel.GetUsername(userId);
 
         }
-        private Model.Image GetFirstTourImage(int tourShceduleId)
+        private List<Model.Image> GetAllImages(int tourShceduleId)
         {
-            return ReviewDetViewModel.GetFirstTourImage(tourShceduleId);
+            return ReviewDetViewModel.GetAllImages(tourShceduleId);
         }
 
         private int GetFirstUsersCheckpointId(int tourShceduleId, int userId)
