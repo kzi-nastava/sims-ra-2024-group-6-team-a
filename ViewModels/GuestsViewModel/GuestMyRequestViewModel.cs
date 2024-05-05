@@ -37,7 +37,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public void Update()
         {
             ChangeReservations.Clear();
-            foreach (ReservationChanges reservationChange in ReservationChangeService.GetInstance().GetAll()) { 
+            foreach (ReservationChanges reservationChange in ReservationChangeService.GetInstance().GetAllByGuest(Guest.Id)) { 
                 Model.Image image = new Model.Image();
                 foreach (Model.Image i in ImageService.GetInstance().GetByEntity(reservationChange.AccommodationId, Enums.ImageType.Accommodation)) { 
                     image = i;

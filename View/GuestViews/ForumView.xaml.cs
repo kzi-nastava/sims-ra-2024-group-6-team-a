@@ -1,5 +1,4 @@
-﻿using BookingApp.DTOs;
-using BookingApp.Model;
+﻿using BookingApp.Model;
 using BookingApp.ViewModels.GuestsViewModel;
 using System;
 using System.Collections.Generic;
@@ -19,14 +18,14 @@ using System.Windows.Shapes;
 namespace BookingApp.View.GuestViews
 {
     /// <summary>
-    /// Interaction logic for AccommodationReservationView.xaml
+    /// Interaction logic for ForumView.xaml
     /// </summary>
-    public partial class AccommodationReservationView : Page
+    public partial class ForumView : Page
     {
-        public AccommodationReservationView(AccommodationOwnerDTO SelectedAccommodation, Guest guest, NavigationService navigation)
+        public ForumView(Guest guest, NavigationService navService)
         {
             InitializeComponent();
-            this.DataContext = new AccommodationReservationViewModel(guest, SelectedAccommodation, this, navigation);
+            this.DataContext = new ForumViewModel(guest, navService);
         }
     }
 }

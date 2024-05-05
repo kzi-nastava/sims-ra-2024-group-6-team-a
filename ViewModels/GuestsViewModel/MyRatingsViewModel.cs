@@ -30,7 +30,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public void Update()
         {
             Ratings.Clear();
-            foreach (GuestReview guestReviw in GuestReviewService.GetInstance().GetLegalReviews())
+            foreach (GuestReview guestReviw in GuestReviewService.GetInstance().GetLegalReviews(Guest.Id))
             {
                 AccommodationReservation reservation = AccommodationReservationService.GetInstance().GetByReservationId(guestReviw.ReservationId);
                 Accommodation accommodation = AccommodationService.GetInstance().GetByReservationId(reservation.AccommodationId);

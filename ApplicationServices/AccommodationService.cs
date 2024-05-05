@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.ApplicationServices
 {
@@ -224,6 +225,51 @@ namespace BookingApp.ApplicationServices
         public List<Accommodation> GetAll()
         {
             return AccommodationRepository.GetAll();
+        }  
+        public List<GuestWheneverDTO> GetAvailableAccommodationsWithoutDates(int guestNumber, int daysNumber)
+        {
+            List<GuestWheneverDTO> accommodations = new List<GuestWheneverDTO>();
+            foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
+            {
+                if (guestNumber <= accommodation.MaxGuests && daysNumber >= accommodation.MinReservationDays)
+                {
+                    List<DateRanges> availableDates = ReservationAvailableDatesService.GetInstance().GetAvailableDates(DateOnly.FromDateTime(DateTime.Today).AddDays(3), DateOnly.FromDateTime(DateTime.Today).AddDays(daysNumber+5), daysNumber, accommodation.Id, true);
+                    Location location = LocationService.GetInstance().GetByAccommodation(accommodation);
+                    Model.Image image = new Model.Image();
+                    foreach (Model.Image i in ImageService.GetInstance().GetByEntity(accommodation.Id, Enums.ImageType.Accommodation))
+                    {
+                        image = i;
+                        break;
+                    }
+                    foreach (DateRanges dateRanges in availableDates)
+                    {
+                        accommodations.Add(new GuestWheneverDTO(dateRanges.CheckIn, dateRanges.CheckOut, accommodation, location, image.Path, guestNumber));
+                    }
+                }
+            }
+            return accommodations;
+        }
+        public List<GuestWheneverDTO> GetAvailableAccommodations(DateOnly CheckIn, DateOnly CheckOut, int guestNumber, int daysNumber)
+        {
+            List<GuestWheneverDTO> accommodations = new List<GuestWheneverDTO>();
+            foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
+            {
+                if (guestNumber <= accommodation.MaxGuests && daysNumber >= accommodation.MinReservationDays) {
+                    List<DateRanges> availableDates = ReservationAvailableDatesService.GetInstance().GetAvailableDates(CheckIn, CheckOut, daysNumber, accommodation.Id, false);
+                        Location location = LocationService.GetInstance().GetByAccommodation(accommodation);
+                        Model.Image image = new Model.Image();
+                        foreach (Model.Image i in ImageService.GetInstance().GetByEntity(accommodation.Id, Enums.ImageType.Accommodation))
+                        {
+                            image = i;
+                            break;
+                        }
+                        foreach (DateRanges dateRanges in availableDates)
+                        {
+                            accommodations.Add(new GuestWheneverDTO(dateRanges.CheckIn, dateRanges.CheckOut, accommodation, location, image.Path, guestNumber));
+                        }
+                }
+            }
+            return accommodations;
         }
 
         public Accommodation Save(Accommodation accommodation)

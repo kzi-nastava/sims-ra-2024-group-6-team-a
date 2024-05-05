@@ -89,6 +89,16 @@ namespace BookingApp.ApplicationServices
             }
             return guestReservations;
         }
+        public List<AccommodationReservation> GetActiveReservations()
+        {
+            List<AccommodationReservation> guestReservations = new List<AccommodationReservation>();
+            foreach (AccommodationReservation reservation in GetAll())
+            {
+                if (reservation.Status == ReservationStatus.Active)
+                    guestReservations.Add(reservation);
+            }
+            return guestReservations;
+        }
         public List<AccommodationReservation> GetAllReservationsByGuest(int guestId)
         {
             List<AccommodationReservation> guestReservations = new List<AccommodationReservation>();
