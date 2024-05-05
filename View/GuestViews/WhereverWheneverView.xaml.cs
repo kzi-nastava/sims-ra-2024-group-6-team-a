@@ -19,14 +19,14 @@ using System.Windows.Shapes;
 namespace BookingApp.View.GuestViews
 {
     /// <summary>
-    /// Interaction logic for AccommodationReservationView.xaml
+    /// Interaction logic for WhereverWheneverView.xaml
     /// </summary>
-    public partial class AccommodationReservationView : Page
+    public partial class WhereverWheneverView : Page
     {
-        public AccommodationReservationView(AccommodationOwnerDTO SelectedAccommodation, Guest guest, NavigationService navigation)
+        public WhereverWheneverView(Guest guest, NavigationService navigation)
         {
             InitializeComponent();
-            this.DataContext = new AccommodationReservationViewModel(guest, SelectedAccommodation, this, navigation);
+            this.DataContext = new WhereverWheneverViewModel(guest, this, navigation);
         }
     }
 }

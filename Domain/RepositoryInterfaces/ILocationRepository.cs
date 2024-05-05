@@ -11,5 +11,6 @@ namespace BookingApp.Domain.RepositoryInterfaces
         Location GetById(int id);
         int NextId();
         Location Save(Location location);
+        public Location GetByCityAndState(string state, string city);
     }
 }
