@@ -68,6 +68,7 @@ namespace BookingApp
             services.AddSingleton<IAccommodationRenovationRepository, AccommodationRenovationRepository>();
             services.AddSingleton<ILanguageRepository, LanguageRepository>();
             services.AddSingleton<IForumsRepository, ForumsRepository>();
+            services.AddSingleton<ITouristRepository, TouristRepository>();
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -95,6 +96,7 @@ namespace BookingApp
             services.AddSingleton<RenovationService>();
             services.AddSingleton<LanguageService>();   
             services.AddSingleton<ForumService>();   
+            services.AddSingleton<TouristService>();
         }
 
 

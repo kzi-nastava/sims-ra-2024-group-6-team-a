@@ -7,7 +7,6 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-	
   <ItemGroup>
     <None Remove="Resources\Images\accommodations.png" />
     <None Remove="Resources\Images\add.png" />
@@ -31,9 +30,14 @@
     <None Remove="Resources\Images\dva.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\emptyStar.png" />
+    <None Remove="Resources\Images\finish_flag.png" />
     <None Remove="Resources\Images\forum.png" />
     <None Remove="Resources\Images\fourArrow.png" />
     <None Remove="Resources\Images\futog.jpg" />
+    <None Remove="Resources\Images\gift.png" />
+    <None Remove="Resources\Images\gift2.png" />
+    <None Remove="Resources\Images\gift3.png" />
+    <None Remove="Resources\Images\giftt.png" />
     <None Remove="Resources\Images\gmail.png" />
     <None Remove="Resources\Images\group.png" />
     <None Remove="Resources\Images\guestreview.png" />
@@ -52,6 +56,8 @@
     <None Remove="Resources\Images\horizonti8.jpeg" />
     <None Remove="Resources\Images\horizonti9.jpg" />
     <None Remove="Resources\Images\hourglass.png" />
+    <None Remove="Resources\Images\important_notice.png" />
+    <None Remove="Resources\Images\information.png" />
     <None Remove="Resources\Images\Iraq.jpg" />
     <None Remove="Resources\Images\jedan.png" />
     <None Remove="Resources\Images\kanta.png" />
@@ -81,6 +87,8 @@
     <None Remove="Resources\Images\pet.png" />
     <None Remove="Resources\Images\phoneG.png" />
     <None Remove="Resources\Images\play.png" />
+    <None Remove="Resources\Images\present.png" />
+    <None Remove="Resources\Images\present2.png" />
     <None Remove="Resources\Images\profile.png" />
     <None Remove="Resources\Images\profileG.png" />
     <None Remove="Resources\Images\pupin1.png" />
@@ -105,6 +113,7 @@
     <None Remove="Resources\Images\send.png" />
     <None Remove="Resources\Images\sheraton1.jpg" />
     <None Remove="Resources\Images\star.png" />
+    <None Remove="Resources\Images\star_normalan.png" />
     <None Remove="Resources\Images\suitcase.png" />
     <None Remove="Resources\Images\terme1.jpg" />
     <None Remove="Resources\Images\terme2.jpg" />
@@ -171,6 +180,9 @@
     <Content Include="Resources\Images\emptyStar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\finish_flag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\forum.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -184,6 +196,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\halfStar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\important_notice.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\information.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\jedan.png">
@@ -396,6 +414,9 @@
     <Content Include="Resources\Images\star.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\star_normalan.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\suitcase.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -457,6 +478,9 @@
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="LiveCharts" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
   </ItemGroup>
@@ -466,6 +490,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\gift.png" />
+    <Resource Include="Resources\Images\gift2.png" />
+    <Content Include="Resources\Images\gift3.png" />
+    <Resource Include="Resources\Images\giftt.png" />
+    <Resource Include="Resources\Images\present.png" />
+    <Resource Include="Resources\Images\present2.png" />
     <Resource Include="Resources\Images\questionMark.png" />
   </ItemGroup>
 

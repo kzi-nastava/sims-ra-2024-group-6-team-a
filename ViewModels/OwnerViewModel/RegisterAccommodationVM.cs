@@ -1,4 +1,5 @@
 ﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
@@ -6,6 +7,7 @@ using BookingApp.View;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -20,22 +22,25 @@ namespace BookingApp.ViewModels
     {
 
         public Accommodation accommodation;
-        
-       
-        
+        public ImageDTO SelectedImage { get; set; }
+
         public List<String> _imageRelativePath = new List<String>();
+
+        public ObservableCollection<ImageDTO> AddedImages { get; set; }
         public List<String> locations {  get; set; }
         public int userId;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
 
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public RegisterAccommodationVM( int userId)
         {
-
+           
 
             this.userId = userId;
             this.locations = new List<String>();
+            this.AddedImages = new ObservableCollection<ImageDTO>();
             AddLocations();
         }
 
@@ -58,6 +63,15 @@ namespace BookingApp.ViewModels
             }
         }
 
+        public void AddConvertedImages()
+        {
+            foreach(string imgPath in _imageRelativePath)
+            {
+                ImageDTO image = new ImageDTO(imgPath);
+                AddedImages.Add(image);
+            }
+        }
+
 
         public void Register(bool? aptChecked, bool? cottageChecked,int locationId,string name,string maxguests,string minres,string canceldays)
         {
@@ -76,6 +90,16 @@ namespace BookingApp.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        }
+
+        internal void RemoveImage()
+        {
+            AddedImages.Remove(SelectedImage);
+            _imageRelativePath.Clear();
+            foreach(ImageDTO img  in AddedImages)
+            {
+                _imageRelativePath.Add(img.LeftPath);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
@@ -78,7 +79,7 @@ namespace BookingApp.ApplicationServices
             return checkpoints;
         }
 
-        public List<Checkpoint> GetFinishedCheckpoints(TourSchedule schedule)
+        public List<Checkpoint> GetFinishedCheckpoints(TourScheduleDTO schedule)
         {
             List<Checkpoint> checkpoints = new List<Checkpoint>();
 
@@ -89,6 +90,18 @@ namespace BookingApp.ApplicationServices
 
             }
             return checkpoints;
+        }
+
+        public List<String> GetAllNamesByTourId(int tourScheduleId)
+        {
+            List<String> checkpointNames = new List<String>();
+            List<Checkpoint>checkpoints = GetAllByTourId(tourScheduleId);
+            foreach(Checkpoint checkpoint in checkpoints)
+            {
+                checkpointNames.Add(checkpoint.Name);
+            }
+
+            return checkpointNames;
         }
 
         public Checkpoint GetById(int checkpointId)

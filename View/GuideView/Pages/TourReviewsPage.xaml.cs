@@ -59,5 +59,10 @@ namespace BookingApp.View.GuideView.Pages
         {
             return ReviewViewModel.GetFirstTourImage(tourId);
         }
+
+        private void LoadReview(object sender, RoutedEventArgs e)
+        {
+            Update();
+        }
     }
 }

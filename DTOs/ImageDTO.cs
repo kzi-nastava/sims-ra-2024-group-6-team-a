@@ -56,6 +56,12 @@ namespace BookingApp.DTOs
             Id = image.Id;
             
         }
+
+        public ImageDTO(string path)
+        {
+            LeftPath = path;
+
+        }
     }
 
 }

@@ -48,7 +48,7 @@ namespace BookingApp.Repository
         public void Delete(GuestReview GuestReview)
         {
             _reviews = _serializer.FromCSV(FilePath);
-            GuestReview found = _reviews.Find(c => c.ReservationId == GuestReview.ReservationId);
+            GuestReview found = _reviews.Find(c => c == GuestReview);
             if (found != null)
             {
                 _reviews.Remove(found);

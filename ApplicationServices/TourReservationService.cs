@@ -63,7 +63,7 @@ namespace BookingApp.ApplicationServices
             }
         }
 
-        private void SaveTourGuests(int reservationId, List<TourGuestDTO> guests)
+        private void SaveTourGuests(int reservationId, List<TourGuestDTO> guests, User loggedUser)
         {
             foreach (TourGuestDTO guest in guests)
             {
@@ -81,7 +81,7 @@ namespace BookingApp.ApplicationServices
             Save(reservation);
 
 
-            SaveTourGuests(reservation.Id, guests);
+            SaveTourGuests(reservation.Id, guests, loggedUser);
         }
 
         public List<TourReservation> GetAllByUser(User user) 

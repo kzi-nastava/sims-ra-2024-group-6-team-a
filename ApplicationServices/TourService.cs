@@ -65,12 +65,45 @@ namespace BookingApp.ApplicationServices
         private bool HasSameLocation(Tour tour, TourScheduleDTO schedule)
         {
             Tour currentTour = GetById(schedule.TourId);
-            string currentTourCity = LocationService.GetInstance().GetById(currentTour.LocationId).City;
-            string otherTourCity = LocationService.GetInstance().GetById(tour.LocationId).City;
-
-            return otherTourCity == currentTourCity && tour.Id != schedule.TourId;
+            
+            return currentTour.LocationId == tour.LocationId && tour.Id != schedule.TourId;
         }
 
-      
+        private bool IsFiltered(Tour tour, TourFilterDTO filter)
+        {
+            return MatchesLocation(tour, filter) &&
+                   MatchesDuration(tour, filter) &&
+                   MatchesLanguage(tour, filter) &&
+                   MatchesMaxTouristNumber(tour, filter);
+        }
+
+        private bool MatchesLocation(Tour tour, TourFilterDTO filter)
+        {
+            return tour.LocationId == filter.Location.Id || filter.Location.Id == -1;
+        }
+
+        private bool MatchesDuration(Tour tour, TourFilterDTO filter)
+        {
+            return tour.Duration <= filter.Duration || filter.Duration == 0;
+        }
+
+        private bool MatchesLanguage(Tour tour, TourFilterDTO filter)
+        {
+            return tour.LanguageId == filter.Language.Id || filter.Language.Id == -1;
+        }
+
+        private bool MatchesMaxTouristNumber(Tour tour, TourFilterDTO filter)
+        {
+            return tour.Capacity >= filter.TouristNumber || filter.TouristNumber == 0;
+        }
+        public List<Tour> GetFiltered(TourFilterDTO filter)
+        {
+            List<Tour> allTours = _tourRepository.GetAll();
+
+            if (filter.isEmpty())
+                return allTours;
+
+            return allTours.Where(t => IsFiltered(t, filter)).ToList();
+        }
     }
 }

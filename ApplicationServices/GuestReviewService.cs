@@ -83,7 +83,17 @@ namespace BookingApp.ApplicationServices
             if (iterator == 0) iterator = 1;
                 return averageGrade/(iterator*2.0);
         }
-            
+
+
+        public void Delete(GuestReview GuestReview)
+        {
+            guestReviewRepository.Delete(GuestReview);
+        }
+
+
+
     }
+
+
 
 }

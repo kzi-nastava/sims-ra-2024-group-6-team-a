@@ -27,26 +27,18 @@ namespace BookingApp.View.GuideView.Pages
 
       
 
-        public ToursPage(User user, TourStatisticsPage statisticsPage, TourReviewsPage reviewPage)
+        public ToursPage(User user)
         {
             InitializeComponent();
             DataContext = ToursViewModel;
-            ToursViewModel = new ToursViewModel(this,user, statisticsPage, reviewPage);
-        }
-
-        public void UpdateWindows(object sender, EventArgs e)
-        {
-            ToursViewModel.UpdateWindows(sender, e);
+            ToursViewModel = new ToursViewModel(this,user);
         }
 
         public void LiveToursPageClick(object sender,EventArgs e)
         {
             ToursViewModel.LiveToursPageClick();
         }
-        public void LiveToursPageEvent(object sender, EventArgs e)
-        {
-            ToursViewModel.LiveToursPageEvent(sender, e);
-        }
+       
 
         public void AllToursPageClick(object sender, EventArgs e)
         {
@@ -58,5 +50,10 @@ namespace BookingApp.View.GuideView.Pages
             ToursViewModel.ShowCreateTourForm();
 
         }
+        public void LoadTodaysTours(object sender, EventArgs e)
+        {
+            ToursViewModel.LiveToursPageClick();
+        }
+
     }
 }

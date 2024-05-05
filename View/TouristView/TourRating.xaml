@@ -4,40 +4,117 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
+        xmlns:converters="clr-namespace:BookingApp.View.Converters"
         mc:Ignorable="d"
-        Title="TourRating" Height="450" Width="800">
-    <Grid>
+        Title="TourRating" Height="700" Width="700"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <converters:RadioButtonToIntConverter x:Key="RadioConverter"/>
+    </Window.Resources>
+
+    <Grid Background="AliceBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition/>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="90"></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Margin="15,15,15,15" Height="45">Guide's knowledge:</TextBlock>
-        <TextBox Grid.Row="0" Grid.Column="1" Width="35" Height="25" Text="{Binding TourReviewDTO.GuideKnowledgeGrade, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBlock Grid.Row="1" Grid.Column="0" Margin="15,15,15,15" >Guide's spoken language:</TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1" Width="35" Height="25" Text="{Binding TourReviewDTO.GuideLanguageGrade, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBlock Grid.Row="2" Grid.Column="0" Margin="15,15,15,15">Tour's attractions:</TextBlock>
-        <TextBox Grid.Row="2" Grid.Column="1" Width="35" Height="25"  Text="{Binding TourReviewDTO.TourAttractionsGrade, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBlock Grid.Row="3" Grid.Column="0" Margin="15,15,15,15" >Your impression:</TextBlock>
-        <TextBox Grid.Row="3" Grid.Column="1" Width="320" Height="80" Text="{Binding TourReviewDTO.Impression, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBlock Grid.Row="4" Grid.Column="0" Margin="15,15,15,15">Add photos:</TextBlock>
-        <ListBox Grid.Row="4" Grid.Column="1" Width="280" Margin="-25,0,15,15" SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Button Grid.Column="1" Grid.Row="4" Width="25" Height="25" Margin="0,15,-290,0" Command="{Binding SelectImageCommand}">Add</Button>
-        <Button Grid.Column="1" Grid.Row="4" Width="35" Height="25" Margin="0,15,-360,0" Command="{Binding RemoveImageCommand}">Delete</Button>
-        <Button Grid.Column="0" Grid.Row="5" Width="55" Height="25" Command="{Binding CancleRateCommand}">Cancel</Button>
-        <Button Grid.Column="1" Grid.Row="5" Width="55" Height="25" Command="{Binding SaveRateCommand}">Confirm</Button>
+
+        <TextBlock  Grid.Row="0" Grid.ColumnSpan="2" FontWeight="DemiBold" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center">Rate a tour</TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock  FontSize="20" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10" FontWeight="DemiBold">Tour name:</TextBlock>
+            <TextBlock FontStyle="Italic" Text="{Binding SelectedTour.TourName}" Grid.Column="1" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+        </Grid>
+        <Border Background="LightYellow" BorderBrush="Black" BorderThickness="1" Grid.Row="2" Grid.RowSpan="6" Grid.Column="0" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Margin="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold">Guide's knowledge:</TextBlock>
+                <RadioButton Grid.Column="0" Grid.Row="1" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.GuideKnowledgeGrade, Converter={StaticResource RadioConverter}, ConverterParameter=1}" Margin="10">1</RadioButton>
+                <RadioButton Grid.Column="1" Grid.Row="1" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.GuideKnowledgeGrade, Converter={StaticResource RadioConverter}, ConverterParameter=2}" Margin="10">2</RadioButton>
+                <RadioButton Grid.Column="2" Grid.Row="1" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.GuideKnowledgeGrade, Converter={StaticResource RadioConverter}, ConverterParameter=3}" Margin="10">3</RadioButton>
+                <RadioButton Grid.Column="3" Grid.Row="1" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.GuideKnowledgeGrade, Converter={StaticResource RadioConverter}, ConverterParameter=4}" Margin="10">4</RadioButton>
+                <RadioButton Grid.Column="4" Grid.Row="1" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.GuideKnowledgeGrade, Converter={StaticResource RadioConverter}, ConverterParameter=5}" Margin="10">5</RadioButton>
+                <TextBlock Margin="10" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold">Guide's spoken language:</TextBlock>
+                <RadioButton Grid.Column="0" Grid.Row="3" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.GuideLanguageGrade, Converter={StaticResource RadioConverter}, ConverterParameter=1}" Margin="10">1</RadioButton>
+                <RadioButton Grid.Column="1" Grid.Row="3" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.GuideLanguageGrade, Converter={StaticResource RadioConverter}, ConverterParameter=2}" Margin="10">2</RadioButton>
+                <RadioButton Grid.Column="2" Grid.Row="3" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.GuideLanguageGrade, Converter={StaticResource RadioConverter}, ConverterParameter=3}" Margin="10">3</RadioButton>
+                <RadioButton Grid.Column="3" Grid.Row="3" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.GuideLanguageGrade, Converter={StaticResource RadioConverter}, ConverterParameter=4}" Margin="10">4</RadioButton>
+                <RadioButton Grid.Column="4" Grid.Row="3" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.GuideLanguageGrade, Converter={StaticResource RadioConverter}, ConverterParameter=5}" Margin="10">5</RadioButton>
+                <TextBlock Margin="10" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold">Tour's attractions:</TextBlock>
+                <RadioButton Grid.Column="0" Grid.Row="5" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.TourAttractionsGrade, Converter={StaticResource RadioConverter}, ConverterParameter=1}" Margin="10">1</RadioButton>
+                <RadioButton Grid.Column="1" Grid.Row="5" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.TourAttractionsGrade, Converter={StaticResource RadioConverter}, ConverterParameter=2}" Margin="10">2</RadioButton>
+                <RadioButton Grid.Column="2" Grid.Row="5" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.TourAttractionsGrade, Converter={StaticResource RadioConverter}, ConverterParameter=3}" Margin="10">3</RadioButton>
+                <RadioButton Grid.Column="3" Grid.Row="5" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.TourAttractionsGrade, Converter={StaticResource RadioConverter}, ConverterParameter=4}" Margin="10">4</RadioButton>
+                <RadioButton Grid.Column="4" Grid.Row="5" Width="35" Height="25" GroupName="GuideKnowledge" IsChecked="{Binding TourReviewDTO.TourAttractionsGrade, Converter={StaticResource RadioConverter}, ConverterParameter=5}" Margin="10">5</RadioButton>
+            </Grid>
+        </Border>
+        <TextBlock Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" FontSize="20" FontWeight="DemiBold">Your impression:</TextBlock>
+        <TextBox Background="LightYellow" Text="{Binding TourReviewDTO.Impression, UpdateSourceTrigger=PropertyChanged}" Grid.Row="9" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="10 0 10 0" BorderBrush="Black" BorderThickness="1"></TextBox>
+        <Grid Grid.ColumnSpan="2" Grid.Row="11" Grid.RowSpan="3" Margin="10 10 10 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10 0 10 10"  FontSize="20" FontWeight="DemiBold">Add photo:</TextBlock>
+            <Button Command="{Binding SelectImageCommand}" Content="Upload photo" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10" Width="100" Height="30" Padding="5" Background="AntiqueWhite" FontSize="12" FontWeight="Medium"></Button>
+            <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 0 10 10">
+                <ListView x:Name="imageListBox" SelectionMode="Multiple" SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Image Source="{Binding ImageSource}" Width="90" Height="85" Margin="5 5 5 0"/>
+                                <Button Height="15" Width="15" Margin="0" Command="{Binding DataContext.RemoveImageCommand, ElementName=imageListBox}" CommandParameter="{Binding}">
+                                    <Button.Content>
+                                        <TextBlock  Text="x"/>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="3"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+            </Border>
+        </Grid>
+        <Button Command="{Binding CancleRateCommand}" Content="Cancel" Grid.Column="0" Grid.Row="14" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Background="AntiqueWhite" Padding="5" FontSize="15" FontWeight="DemiBold"></Button>
+        <Button Command="{Binding SaveRateCommand}" Content="Confirm" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="30" Background="AntiqueWhite" Padding="5" FontSize="15" FontWeight="DemiBold"></Button>
+
     </Grid>
 </Window>

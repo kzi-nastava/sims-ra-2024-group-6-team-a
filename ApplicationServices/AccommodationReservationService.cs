@@ -60,7 +60,13 @@ namespace BookingApp.ApplicationServices
                     numberOfReservation++;
             return numberOfReservation;
         }
-        
+
+
+        public List<AccommodationReservation> GetByAccommodationId(int accommodationId)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            return reservations.FindAll(c => c.AccommodationId == accommodationId);
+        }
         public List<AccommodationReservation> GetByAccommodation(Accommodation accommodation)
         {
             List<AccommodationReservation> reservations = GetAll();
