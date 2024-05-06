@@ -88,7 +88,7 @@ namespace BookingApp.View
                 ViewModel.SelectedStatistic = null;
                 ViewModel.SelectedRenovation = null;
 
-                ViewModel.SelectedReservation = ViewModel.Reservations.First();
+               
                 ReservationsList.SelectedIndex = 0;
                 ReservationsList.UpdateLayout();
                 ReservationsList.Focus();
@@ -101,7 +101,7 @@ namespace BookingApp.View
                 ViewModel.SelectedReservation = null;
                 ViewModel.SelectedRenovation = null;
 
-                ViewModel.SelectedStatistic = ViewModel.Statistics.First();
+                
                 StatisticsList.SelectedIndex = 0;
                 StatisticsList.UpdateLayout();
                 StatisticsList.Focus();
@@ -112,14 +112,15 @@ namespace BookingApp.View
 
         public void SelectFirstRenovation()
         {
+ 
                 ViewModel.SelectedReservation = null;
                 ViewModel.SelectedStatistic = null;
 
-                ViewModel.SelectedRenovation = ViewModel.Renovations.First();
+                
                 RenovationsList.SelectedIndex = 0;
                 RenovationsList.UpdateLayout();
                 RenovationsList.Focus();
-
+ 
         }
 
         private void StatisticsClick(object sender, KeyEventArgs e)
