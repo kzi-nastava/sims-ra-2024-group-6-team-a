@@ -32,7 +32,7 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="100"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="190"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="80"/>
@@ -242,7 +242,7 @@
                     <Grid Grid.Row="4" >
                         <Label  Content="  Additonal comment : " Height="40" Width="auto" FontSize="18" FontWeight="Medium"  Background="Transparent" Foreground="Black" FontFamily="arial" VerticalAlignment="Top" Margin="0,10,0,0"></Label>
                     </Grid>
-                    <Grid Grid.Row="5" Margin="-10,0,0,0" >
+                    <Grid Grid.Row="5" Margin="-20,0,0,0" >
                         <Border  HorizontalAlignment="Center" BorderThickness="2" Background="White" BorderBrush="Black">
                             <TextBox x:Name="AdditionalComment" Background="White" FontSize="13" Width="350" Height="90" TextWrapping="Wrap" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.Style>
@@ -270,47 +270,43 @@
                         </Border>
                     </Grid>
                     <Grid Grid.Row="6">
-                        <TextBlock x:Name="ImageCountText" Text="{Binding NumberOfPhoto}" Height="24" Width="132"  VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Margin="242,85,0,0"></TextBlock>
-                        <TextBlock x:Name="AddPhoto" Text="Add photos" Height="24" Width="102"  VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Margin="262,85,0,0" Visibility="{Binding HasntPhotoVisibility}"></TextBlock>
+                        <TextBlock x:Name="ImageCountText" Text=" {Binding NumberOfPhoto}" Height="24" Width="132"  VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Margin="250,135,0,0"></TextBlock>
+                        <TextBlock x:Name="AddPhoto" Text="Add photos" Height="24" Width="102"  VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Margin="269,55,0,0" Visibility="{Binding HasntPhotoVisibility}"></TextBlock>
                         <Label  Content="  Photos of accommodation : " Height="40" Width="auto" FontSize="18" FontWeight="Medium"  Background="Transparent" Foreground="Black" FontFamily="arial" VerticalAlignment="Top" Margin="2,18,-2,0"></Label>
 
-                        <ListBox SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Width="220" Margin="13,46,153,10" >
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding}" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <Button Width="43" Height="43"  Visibility="{Binding HasPhotoVisibility}" Margin="256,35,88,30" Cursor="Hand" BorderBrush="Transparent" Command="{Binding AddPhotoComand}"  >
+                        <Border  BorderBrush="Black" BorderThickness="1.5" Width="245" Height="150" Margin="7,46,153,10" Grid.Column="1" Grid.ColumnSpan="2">
+                            <ListView x:Name="imageListBox"   Width="245" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="Plum"  SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollectionn}" Margin="0,0,0,15" >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="-10,-15,0,-15"  Width="230" Height="150">
+                                            <Image Source="{Binding ImageSource}" Margin="0,0,0,0"  Width="180" Height="150" />
+                                            <Button Width="43" Height="43" Margin="3,0,0,0"  Cursor="Hand" BorderBrush="Transparent" Command="{Binding DataContext.RemoveImageCommand, ElementName=imageListBox}" CommandParameter="{Binding}"  >
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Grid>
+                                                            <Ellipse Stroke="Black" StrokeThickness="4"/>
+                                                            <Image Source ="/Resources/Images/delete.png" Width="40" Height="40"/>
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="1"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                            </ListView>
+                        </Border>
+                        <Button Width="43" Height="43" ToolTip="ADD PHOTO" Margin="286,55,58,30" Cursor="Hand" BorderBrush="Transparent" Command="{Binding SelectImageCommand}"  >
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <Grid>
                                         <Ellipse Stroke="Black" StrokeThickness="4"/>
                                         <Image Source ="/Resources/Images/add.png" Width="40" Height="40"/>
-
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Grid>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                        <Button Width="43" Height="43" ToolTip="ADD PHOTO" Visibility="{Binding HasntPhotoVisibility}" Margin="286,35,58,30" Cursor="Hand" BorderBrush="Transparent" Command="{Binding AddPhotoComand}"  >
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Grid>
-                                        <Ellipse Stroke="Black" StrokeThickness="4"/>
-                                        <Image Source ="/Resources/Images/add.png" Width="40" Height="40"/>
-
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Grid>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                        <Button Width="43" Height="43" Margin="318,35,26,30"  Visibility="{Binding HasPhotoVisibility}" Cursor="Hand" BorderBrush="Transparent" Command="{Binding RemovePhotoComand}"  >
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Grid>
-                                        <Ellipse Stroke="Black" StrokeThickness="4"/>
-                                        <Image Source ="/Resources/Images/delete.png" Width="40" Height="40"/>
 
                                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Grid>

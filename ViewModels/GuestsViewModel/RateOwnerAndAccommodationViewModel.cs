@@ -14,17 +14,22 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
 namespace BookingApp.ViewModels.GuestsViewModel
 {
     public class RateOwnerAndAccommodationViewModel : INotifyPropertyChanged
     {
+        public static ObservableCollection<ImageItemDTO> ImagesCollectionn { get; set; }
+
         public String SelectedImageUrl { get; set; }
         public static ObservableCollection<String> ImagesCollection { get; set; }
         public RelayCommand AddPhotoComand { get; set; }
         public RelayCommand SendReviewCommand { get; set; }
         public RelayCommand RemovePhotoComand { get; set; }
+        public RelayCommand SelectImageCommand { get; set; }
+        public RelayCommand RemoveImageCommand { get; set; }
         public ReservationGuestDTO Reservation { get; set; }
         public Guest Guest { get; set; }
         public NavigationService NavService { get; set; }
@@ -36,6 +41,10 @@ namespace BookingApp.ViewModels.GuestsViewModel
             NavService = navigation;
             Reservation = SelectedReservation;
             ReservationView = reservationView;
+            ImagesCollectionn = new ObservableCollection<ImageItemDTO>();
+            SelectImageCommand = new RelayCommand(Execute_SelectImageCommand);
+            RemoveImageCommand = new RelayCommand(Execute_RemoveImageCommand);
+
             ImagesCollection = new ObservableCollection<string>();
             OwnerName = OwnerService.GetInstance().GetByOwnersId(AccommodationService.GetInstance().GetByReservationId(SelectedReservation.AccommodationId).OwnerId).Name;
             SendReviewCommand = new RelayCommand(Execute_SendReviewCommand);
@@ -143,6 +152,34 @@ namespace BookingApp.ViewModels.GuestsViewModel
             }
             CheckPhotoNumber();
             if (ImagesCollection.Count != 0) NumberOfPhoto = "Added " + ImagesCollection.Count + " images";
+        }
+
+
+
+        private void Execute_SelectImageCommand(object sender)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Images|*.jpg;*.jpeg;*.png;*.gif|All Files|*.*";
+            openFileDialog.Multiselect = true;
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                foreach (string imagePath in openFileDialog.FileNames)
+                {
+                    int relativePathStartIndex = imagePath.IndexOf("\\Resources");
+                    String relativePath = imagePath.Substring(relativePathStartIndex);
+                    BitmapImage imageSource = new BitmapImage(new Uri(imagePath));
+                    ImagesCollectionn.Add(new ImageItemDTO(relativePath, imageSource));
+                }
+            }
+        }
+        private void Execute_RemoveImageCommand(object param)
+        {
+            /*   string imageUrl = SelectedImageUrl;
+               ImagesCollection.Remove(imageUrl);*/
+            var imageToRemove = param as ImageItemDTO;
+
+            ImagesCollectionn.Remove(imageToRemove);
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
