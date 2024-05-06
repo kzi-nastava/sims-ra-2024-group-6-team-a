@@ -22,8 +22,7 @@
 
         <Grid  Grid.Row="1">
 
-            <Button  Content="My request" FontSize="16" FontWeight="Bold" Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,250,0" Cursor="Hand" Background="LightBlue" BorderBrush="DarkBlue" BorderThickness="2"  Command="{Binding MyRequestCommand}" />
-            <Button  Width="200" Height="35" BorderBrush="Black" BorderThickness="2.3"  Margin="130,0,0,0" >
+            <Button  Width="200" Height="35" BorderBrush="Black" BorderThickness="2.3"  Margin="0,0,0,0" >
                 <StackPanel Orientation="Horizontal" >
                     <Image Source ="/Resources/Images/pdfFile.png" Width="30" Height="30" />
                     <Button Width="170"  Height="30" Content="Export reservations"   BorderBrush="Transparent" FontSize="18" FontWeight="DemiBold" FontStyle="Italic"/>
@@ -53,13 +52,13 @@
                                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                                         <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
                                         <TextBlock Margin="5,2,0,2" Text="{Binding CheckIn}" />
-                                        <TextBlock Text=" - "></TextBlock>
-                                        <TextBlock Text="{Binding CheckOut}" ></TextBlock>
+                                        <TextBlock  Margin="0,2,0,2" Text=" - "></TextBlock>
+                                        <TextBlock  Margin="0,2,0,2" Text="{Binding CheckOut}" ></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
                                         <Image Source="/Resources/Images/locationpin.png" Width="18" Height="18"></Image>
                                         <TextBlock Margin="5,2,0,2" Text="{Binding City}" >,</TextBlock>
-                                        <TextBlock Text="{Binding State}"  ></TextBlock>
+                                        <TextBlock  Margin="2,2,0,2" Text="{Binding State}"  ></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
                                         <Image Source="/Resources/Images/people.png" Width="18" Height="18"></Image>

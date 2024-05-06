@@ -45,7 +45,7 @@ namespace BookingApp.ViewModels.GuideViewModel
             
             tourReviewPage = new TourReviewsPage(mainFrame, LoggedUser);
 
-            toursPage = new ToursPage(LoggedUser,tourStatisticsPage,tourReviewPage);
+            toursPage = new ToursPage(LoggedUser);
 
             MainWindow.MainFrame.Content = toursPage;
 

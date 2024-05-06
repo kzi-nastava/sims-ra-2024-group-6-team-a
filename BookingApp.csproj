@@ -7,7 +7,6 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-	
   <ItemGroup>
     <None Remove="Resources\Images\accommodations.png" />
     <None Remove="Resources\Images\add.png" />
@@ -31,6 +30,7 @@
     <None Remove="Resources\Images\dva.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\emptyStar.png" />
+    <None Remove="Resources\Images\finish_flag.png" />
     <None Remove="Resources\Images\forum.png" />
     <None Remove="Resources\Images\fourArrow.png" />
     <None Remove="Resources\Images\futog.jpg" />
@@ -56,6 +56,8 @@
     <None Remove="Resources\Images\horizonti8.jpeg" />
     <None Remove="Resources\Images\horizonti9.jpg" />
     <None Remove="Resources\Images\hourglass.png" />
+    <None Remove="Resources\Images\important_notice.png" />
+    <None Remove="Resources\Images\information.png" />
     <None Remove="Resources\Images\Iraq.jpg" />
     <None Remove="Resources\Images\jedan.png" />
     <None Remove="Resources\Images\kanta.png" />
@@ -111,6 +113,7 @@
     <None Remove="Resources\Images\send.png" />
     <None Remove="Resources\Images\sheraton1.jpg" />
     <None Remove="Resources\Images\star.png" />
+    <None Remove="Resources\Images\star_normalan.png" />
     <None Remove="Resources\Images\suitcase.png" />
     <None Remove="Resources\Images\terme1.jpg" />
     <None Remove="Resources\Images\terme2.jpg" />
@@ -177,6 +180,9 @@
     <Content Include="Resources\Images\emptyStar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\finish_flag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\forum.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -190,6 +196,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\halfStar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\important_notice.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\information.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\jedan.png">
@@ -400,6 +412,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\star.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\star_normalan.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\suitcase.png">

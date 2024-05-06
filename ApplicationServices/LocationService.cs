@@ -43,6 +43,13 @@ namespace BookingApp.ApplicationServices
         {
             return _locationRepository.Save(location);
         }
+        public Location GetByCityAndState(string ComboBoxLocation)
+        {
+            Location location = new Location();
+            string[] parts = ComboBoxLocation.Split(", ");
+            location = _locationRepository.GetByCityAndState(parts[0],parts[1]);
+            return location;
+        }
 
         public int NextId()
         {

@@ -32,10 +32,10 @@ namespace BookingApp.View.GuideView.Components
         public TourCard()
         {
             InitializeComponent();
+
         }
 
-
-
+       
         private void BeginTourMouseDown(object sender, MouseEventArgs e)
         {
 
@@ -43,15 +43,18 @@ namespace BookingApp.View.GuideView.Components
             tourSchedule.TourActivity = Enums.TourActivity.Ongoing;
             TourScheduleService.GetInstance().Update(tourSchedule);
             LiveTour l = new LiveTour(Convert.ToInt32(textBoxId.Text));
-            l.TourEnded += HandleTourEndedEvent;
             (Window.GetWindow(this) as GuideViewMenu).MainFrame.Content = l;
 
         }
 
-         public void HandleTourEndedEvent(object sender, EventArgs e)
+         
+        private void TourDetailsMouseDown(object sender, MouseEventArgs e)
         {
-            TourEndedCard?.Invoke(this, e);
-        }
 
+            TourDetailsPage tourDetailsPage = new TourDetailsPage(Convert.ToInt32(textBoxId.Text));
+
+
+            (Window.GetWindow(this) as GuideViewMenu).MainFrame.Content = tourDetailsPage;
+        } 
     }
 }

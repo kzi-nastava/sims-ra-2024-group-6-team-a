@@ -193,5 +193,10 @@ namespace BookingApp.ViewModels.GuideViewModel
             return ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour).First();
         }
 
+
+        public void LoadStatistics()
+        {
+            Update();
+        }
     }
 }

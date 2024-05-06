@@ -38,7 +38,7 @@
                 <Button Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="1" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding MenuOpenCommand}">
                     <Image Source ="/Resources/Images/menu.png" Width="50" Height="65"/>
                 </Button>
-                <Grid x:Name="pageRoot" Margin="0,0,170,0" Visibility= "{Binding MenuOpenVisibility}"  Panel.ZIndex="1" Background="AntiqueWhite" >
+                <Grid x:Name="pageRoot" Margin="0,0,159,0" Visibility= "{Binding MenuOpenVisibility}"  Panel.ZIndex="1" Background="AntiqueWhite" >
 
                     
                     <Grid.RowDefinitions>
@@ -74,9 +74,9 @@
 
                     <StackPanel Orientation="Horizontal" Grid.Row="3">
                         <Button Command="{Binding MyRequestCommand}" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Left" Background="Transparent" Margin="0,0,0,0">
-                            <Image Source="/Resources/Images/suitcase.png" Width="23" Height="23" Margin="7.5,0,0,0" ></Image>
+                            <Image Source="/Resources/Images/suitcase.png" Width="23" Height="23" Margin="12,0,0,0" ></Image>
                         </Button>
-                        <Button  Content="  My requests" Command="{Binding MyRequestCommand}"  Margin="8,0,0,0" BorderBrush="Transparent" FontSize="21" FontWeight="DemiBold" HorizontalAlignment="Left" Background="Transparent" />
+                        <Button  Content="  My requests" Command="{Binding MyRequestCommand}"  Margin="1,0,0,0" BorderBrush="Transparent" FontSize="21" FontWeight="DemiBold" HorizontalAlignment="Left" Background="Transparent" />
                         <Ellipse Fill="Red" Height="20" Width="20" Panel.ZIndex="1" Visibility= "{Binding RedDotVisibility}" Margin="-261,7,0,0" VerticalAlignment="Top" />
                         <TextBlock Text="{Binding NumberOfNotifications}"
                 Visibility= "{Binding RedDotVisibility}"   Height="20" Width="20"  Margin="-250,6,0,0"
@@ -86,10 +86,10 @@
                FontSize="17" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="5">
-                        <Button Command="{Binding ProfileCommand}" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Left" Background="Transparent" Margin="0,0,0,0">
-                            <Image Source="/Resources/Images/profileG.png" Width="40" Height="40" ></Image>
+                        <Button Command="{Binding WhereverCommand}" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Left" Background="Transparent" Margin="0,0,0,0">
+                            <Image Source="/Resources/Images/suitcase.png" Width="40" Height="40" ></Image>
                         </Button>
-                        <Button  Content="My profile" Command="{Binding ProfileCommand}"  Margin="8,0,0,0" BorderBrush="Transparent" FontSize="21" FontWeight="DemiBold" HorizontalAlignment="Left" Background="Transparent" />
+                        <Button  Content="Wherever/Whenever" Command="{Binding WhereverCommand}"  Margin="6,0,0,0" BorderBrush="Transparent" FontSize="19" FontWeight="DemiBold" HorizontalAlignment="Left" Background="Transparent" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="6">
                         <Button Command="{Binding ProfileCommand}" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Left" Background="Transparent" Margin="0,0,0,0">

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using BookingApp.ApplicationServices;
 
 namespace BookingApp.Repository
 {
@@ -72,10 +73,9 @@ namespace BookingApp.Repository
             _changes = _serializer.FromCSV(FilePath);
             foreach (ReservationChanges change in _changes)
             {
-                //if (change.ReservationId.GuestId == guestId)
-                //{
+                AccommodationReservation reservation = AccommodationReservationService.GetInstance().GetByReservationId(change.ReservationId);
+                if (reservation.GuestId == guestId)
                     reservationsChanges.Add(change);
-                //}
             }
             return reservationsChanges;
         }

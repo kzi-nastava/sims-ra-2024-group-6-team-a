@@ -7,41 +7,69 @@
       xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Loaded="LoadStatistics"
       Title="TourStatisticsPage">
 
     
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="300"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="1.3*"/>
         </Grid.RowDefinitions>
-        <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" ItemsSource ="{Binding MostVisitedTour}" >
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <components:MostVisitedTour/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
-
-        <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" >
-            <ItemsControl ItemsSource ="{Binding FinishedTours}" >
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <components:TourStatisticsCard />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </ScrollViewer>
-        <ComboBox SelectedItem="{Binding SelectedYear}" x:Name="datesBox" Grid.Row="0" HorizontalAlignment="Left" Margin="1000,14,0,0" VerticalAlignment="Top" Width="120"/>
+        <Grid Margin="0 10 0 0" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="30 0 30 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label  Grid.Column="1" Content="The Most Visited Tour" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
+                <ComboBox SelectedItem="{Binding SelectedYear}" x:Name="datesBox" Grid.Column="2" HorizontalAlignment="Right"  VerticalAlignment="Center" Height="30" Width="120"/>
+                <Button Grid.Column="2" Content="Generate Statistics" Height="30" Width="120" />
+            </Grid>
+           
+            <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" ItemsSource ="{Binding MostVisitedTour}" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <components:MostVisitedTour/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Finished Tours" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
+                <Image Margin="20 0 0 0" Width="50px" Height="50px" Source="\Resources\Images\finish_flag.png"/>
+            </StackPanel>
+            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,0">
+                <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" >
+                    <ItemsControl ItemsSource ="{Binding FinishedTours}" >
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <components:TourStatisticsCard />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </Grid>
     </Grid>
 </Page>
