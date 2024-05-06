@@ -9,11 +9,25 @@
       Loaded="LoadTodaysTours"
       Title="ToursPage">
 
-    <Grid Background="White">
+    <Page.Resources>
+        <Style  TargetType="TextBlock">
+            <Setter Property="Foreground" Value="DarkGray"/>
+            
+        </Style>
+    </Page.Resources>
+
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.05*"/>
             <RowDefinition Height="0.95*"/>
         </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#F6F5F2"  Offset="0.3"/>
+                <GradientStop Color="#F3D0D7" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
         <Frame Grid.Row="1" x:Name="SecondFrame" NavigationUIVisibility="Hidden" />
         <Border BorderThickness="0,0,0,2" BorderBrush="Black">
 

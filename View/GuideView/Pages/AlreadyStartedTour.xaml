@@ -7,11 +7,17 @@
       xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
       Title="AlreadyStartedTour">
 
-    <Grid Background="White">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="2.1*"/>
         </Grid.RowDefinitions>
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#F6F5F2"  Offset="0.0"/>
+                <GradientStop Color="#F3D0D7" Offset="1.5"/>
+            </RadialGradientBrush>
+        </Grid.Background>
         <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>

@@ -6,7 +6,10 @@
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
              mc:Ignorable="d" 
              Height="230" Width="950">
-    <Border Background="White" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="LightGray" BorderThickness="1">
+    <Border Background="#F6F5F2" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+        </Border.Effect>
         <Grid>
 
             <Grid.ColumnDefinitions>
@@ -19,7 +22,7 @@
 
             </Grid.RowDefinitions>
             <Grid Grid.Column="1" Grid.Row="0">
-                <TextBlock Margin="30 0 0 0" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Text="{Binding Name}" />
+                <TextBlock FontFamily="Yu Gothic UI Light" Margin="30 0 0 0" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Text="{Binding Name}" />
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.ColumnDefinitions>
@@ -41,7 +44,7 @@
                         <Image Width="20px" Height="20px" Source="\Resources\Images\location.png"/>
                         <Label   FontSize="8" Content="location" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
-                    <TextBlock  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20"   Text="{Binding Location}"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20"   Text="{Binding Location}"/>
                 </Grid>
 
                 <Grid  Grid.Column="0" Grid.Row="1">
@@ -53,7 +56,7 @@
                         <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
                         <Label   FontSize="8" Content="language" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
-                    <TextBlock Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20" Text="{Binding Language}"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20" Text="{Binding Language}"/>
                 </Grid>
 
                 <Grid  Grid.Column="0" Grid.Row="2">
@@ -65,34 +68,38 @@
                         <Image Height="20px" Width="20px"  HorizontalAlignment="Center" Source="\Resources\Images\capacity.png"/>
                         <Label   FontSize="8" Content="tourists" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
-                    <TextBlock Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20" Text="{Binding TouristNumber}"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20" Text="{Binding TouristNumber}"/>
                 </Grid>
                 <Grid VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" FontSize="20" Text="Below 18 Years Old:"/>
-                    <TextBlock Grid.Column="1" FontSize="20" FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Children}"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="0" FontSize="20" Text="Below 18 Years Old:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="20" FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Children}"/>
                 </Grid>
                 <Grid VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock FontSize="20"  Grid.Column="0" Text="Between 18 and 50 Years Old:"/>
-                    <TextBlock Grid.Column="1" FontSize="20"  FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Adult}"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" FontSize="20"  Grid.Column="0" Text="Between 18 and 50 Years Old:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="20"  FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Adult}"/>
                 </Grid>
                 <Grid VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock FontSize="20" Grid.Column="0" Text="Above 50 Years Old:"/>
-                    <TextBlock Grid.Column="1" FontSize="20" FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Elderly}"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" FontSize="20" Grid.Column="0" Text="Above 50 Years Old:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="20" FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Elderly}"/>
                 </Grid>
             </Grid>
-            <Image Source="{Binding Image}"  Grid.Column="0" Grid.RowSpan="2" Width="250" Height="220"/>
+            <Border Margin="7"  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"  CornerRadius="7" BorderBrush="#F0EBE3" BorderThickness="4">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding Image}"  Stretch="Fill"/>
+                </Border.Background>
+            </Border>
         </Grid>
     </Border>
 </UserControl>

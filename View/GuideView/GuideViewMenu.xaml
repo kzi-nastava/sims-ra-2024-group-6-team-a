@@ -5,14 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
-  
          mc:Ignorable="d"
         Title="Guide" WindowState="Maximized" d:DesignHeight="1080" d:DesignWidth="1920" >
+
+    <Window.Resources>
+        <Style  TargetType="TextBlock">
+            <Setter Property="Foreground" Value="DarkGray"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.08*"/>
             <RowDefinition Height="0.85*"/>
         </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#F6F5F2"  Offset="0.3"/>
+                <GradientStop Color="#F3D0D7" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Frame Grid.Row="1" x:Name="MainFrame" NavigationUIVisibility="Hidden" />
         <Border BorderThickness="0,0,0,2" BorderBrush="Black">
             <Grid>

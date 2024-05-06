@@ -6,8 +6,11 @@
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
              mc:Ignorable="d" 
              Height="305" Width="1350">
-        <Border Background="White" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="LightGray" BorderThickness="1">
-            <Grid>
+    <Border Background="#F6F5F2" CornerRadius="8" Margin="10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+        </Border.Effect>
+        <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition/>
@@ -33,14 +36,14 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Label VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="Name:"/>
-                        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding FirstName}"/>
-                        <Label VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"  FontSize="25" Content="Surname:"/>
-                        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding LastName}"/>
-                        <Label VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"  FontSize="25" Content="Age:"/>
-                        <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Age}"/>
-                        <Label VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"  FontSize="25" Content="Checkpoint:"/>
-                        <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Checkpoint}"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="Name:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding FirstName}"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"  FontSize="25" Content="Surname:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding LastName}"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"  FontSize="25" Content="Age:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Age}"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"  FontSize="25" Content="Checkpoint:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Checkpoint}"/>
                     </Grid>
                     <Grid Grid.Column="1">
                         <Grid.ColumnDefinitions>
@@ -53,33 +56,33 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Label VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="Guide's knowledge:"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="Guide's knowledge:"/>
                         <Grid Grid.Row="0" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock  Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding GuideKnowledgeGrade}"/>
+                        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding GuideKnowledgeGrade}"/>
                             <Image Grid.Column="1" Width="40px" Height="40px" Source="\Resources\Images\star_normalan.png"/>
 
                         </Grid>
-                        <Label VerticalAlignment="Center"  Grid.Row="1" Grid.Column="0"  FontSize="25" Content="Guide's spoken language:"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center"  Grid.Row="1" Grid.Column="0"  FontSize="25" Content="Guide's spoken language:"/>
                         <Grid Grid.Row="1" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="25" Text="{Binding GuideLanguageGrade}"/>
+                        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="25" Text="{Binding GuideLanguageGrade}"/>
                             <Image Grid.Column="2" Width="40px" Height="40px" Source="\Resources\Images\star_normalan.png"/>
 
                         </Grid>
-                        <Label VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"  FontSize="25" Content="Tour's attraction:"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"  FontSize="25" Content="Tour's attraction:"/>
                         <Grid Grid.Row="2" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="25" Text="{Binding TourAttractionsGrade}"/>
+                        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="25" Text="{Binding TourAttractionsGrade}"/>
                             <Image Grid.Column="2" Width="40px" Height="40px" Source="\Resources\Images\star_normalan.png"/>
 
                         </Grid>
@@ -96,12 +99,12 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0"  FontSize="25" Content="Comment:"/>
+                    <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="Comment:"/>
                         <ScrollViewer Grid.Column="1" Grid.RowSpan="2"  VerticalScrollBarVisibility="Auto" >
-                            <TextBlock Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Left" TextAlignment="Left" TextWrapping="Wrap"  FontSize="25" Text="{Binding Impression}"/>
+                        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Left" TextAlignment="Left" TextWrapping="Wrap"  FontSize="25" Text="{Binding Impression}"/>
                         </ScrollViewer>
                         <StackPanel Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock FontSize="35">
+                        <TextBlock FontFamily="Yu Gothic UI Light" FontSize="35">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="Text" Value="VALID"/>
@@ -137,7 +140,11 @@
                     <ColumnDefinition Width="6*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Image Source="{Binding CurrentImage.Path, UpdateSourceTrigger=PropertyChanged}"  Grid.Column="1"/>
+                <Border    Grid.Column="1"  CornerRadius="7" BorderBrush="#F0EBE3" BorderThickness="4">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding CurrentImage.Path, UpdateSourceTrigger=PropertyChanged}"  Stretch="Fill"/>
+                    </Border.Background>
+                </Border>
                 <Button Grid.Column="2" Height="40" Width="22" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Transparent"  Click="NextImage">
                     <Image Source ="/Resources/Images/rarrow.png" Width="20" Height="35"/>
                 </Button>

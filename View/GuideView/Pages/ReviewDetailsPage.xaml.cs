@@ -68,5 +68,10 @@ namespace BookingApp.View.GuideView.Pages
         {
             Update();
         }
+
+        private void GoBackClick(object sender, EventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }

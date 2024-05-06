@@ -8,38 +8,98 @@
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="TourDetailsPage">
 
-    <Grid Background="White" >
+    <Grid>
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#F6F5F2"  Offset="0.0"/>
+                <GradientStop Color="#F3D0D7" Offset="1.5"/>
+            </RadialGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.7*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.5*"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.RowSpan="6" Grid.Column="1" Margin="0 0 60 0">
+        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="60" TextWrapping="Wrap" Text="{Binding SelectedTour.Name}" FontWeight="Bold" />
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition Height="0.23*"/>
-                <RowDefinition Height="0.1*"/>
-                <RowDefinition Height="0.4*"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label FontFamily="Yu Gothic UI Light" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="30">Location:</Label>
+            <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Location}" />
+            <Label FontFamily="Yu Gothic UI Light" Margin="25 0 0 0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="30">Duration:</Label>
+            <StackPanel Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Duration}" />
+                <Label FontFamily="Yu Gothic UI Light" FontSize="30" Content="h"/>
+            </StackPanel>
+            <Label FontFamily="Yu Gothic UI Light" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="30">Language:</Label>
+            <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="5" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Language}" />
+            <Label FontFamily="Yu Gothic UI Light"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center"  FontSize="30" Content="Capacity:"/>
+            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Orientation="Horizontal">
+                <TextBlock FontFamily="Yu Gothic UI Light" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Duration}" />
+                <Label FontFamily="Yu Gothic UI Light" Margin="10 0 0 0" FontSize="30" Content="people"/>
+            </StackPanel>
+            <Label FontFamily="Yu Gothic UI Light" Margin="25 0 0 0"  Grid.Row="1" Grid.Column="2"  VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="30" Content="Description:" />
+            <ScrollViewer FontFamily="Yu Gothic UI Light" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" >
+                <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Left"  FontSize="30" Text="{Binding SelectedTour.Description}" />
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label FontFamily="Yu Gothic UI Light" Margin="50 0 0 0" Grid.Row="0" VerticalAlignment="Bottom" FontSize="30" >Checkpoints</Label>
+            <ListBox  Grid.Row="1" Margin="50 0 100 60"  ItemsSource="{Binding SelectedTour.Checkpoints}"   >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontFamily="Yu Gothic UI Light" FontSize="20" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Label FontFamily="Yu Gothic UI Light" Margin="50 0 0 0" Grid.Row="0"  Grid.Column="1" VerticalAlignment="Bottom" FontSize="30" >Tour Realisations</Label>
+            <ListBox  Grid.Row="1" Grid.Column="1" Margin="50 0 100 60"  ItemsSource="{Binding SelectedTour.DateRealisations, StringFormat=dd.MM.yyyy HH:mm}"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontFamily="Yu Gothic UI Light" FontSize="20" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Image Grid.Row="1" Margin="40" Grid.Column="1" Source="{Binding CurrentImage.ImagePath, UpdateSourceTrigger=PropertyChanged}" />
+        <Grid Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.3*"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="0.3*"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.ColumnSpan="3" Grid.Row="0" Source="{Binding CurrentImage.ImagePath, UpdateSourceTrigger=PropertyChanged}" />
-            <ListView Grid.Row="1" Grid.Column="1" x:Name="imageListBox" SelectionMode="Multiple" 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.47*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <ListView Grid.Row="0" Grid.Column="1" x:Name="imageListBox" SelectionMode="Multiple" 
                 SelectionChanged="ChangeBigImage" SelectedItem="{Binding SelectedImage, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}"  >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <Image Source="{Binding ImageSource}" Width="100" Height="100" />
+                            <Image Source="{Binding ImageSource}" Width="103" Height="100" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -49,127 +109,23 @@
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
             </ListView>
-            <Button Grid.Row="1" Grid.Column="2" Height="40" Width="22" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Transparent"  Command="{Binding NextImageCommand}">
-                <Image Source ="/Resources/Images/rarrow.png" Width="20" Height="35"/>
+            <Button Grid.Row="0" Grid.Column="2" Height="40" Width="50" HorizontalAlignment="Left" Margin="20 0 0 0" Background="Transparent" BorderBrush="Transparent"  Command="{Binding NextImageCommand}">
+                <Image Source ="/Resources/Images/right_arrow.png" Width="40" Height="40"/>
             </Button>
-            <Button Grid.Column="0" Grid.Row="1" Height="40" Width="22" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"   Command="{Binding PreviousImageCommand}">
-                <Image Source ="/Resources/Images/larroww.png" Width="20" Height="35"/>
+            <Button Grid.Column="0" Grid.Row="0"  Height="40" Width="50" HorizontalAlignment="Right" Margin="0 0 20 0" Background="Transparent" BorderBrush="Transparent"   Command="{Binding PreviousImageCommand}">
+                <Image Source ="/Resources/Images/left_arrow.png" Width="40" Height="40"/>
             </Button>
-            <Grid Grid.Row="4" Grid.ColumnSpan="3">
+            <Grid Grid.Row="1" Grid.Column="1" Margin="0 0 0 60" >
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="0.6*"/>
+                    <RowDefinition Height="3*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="0.6*"/>
-                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Row="1" Grid.Column="1" Content="Go Back" Click="GoBackClick">
-                </Button>
-            </Grid>
-        </Grid>
-        <Grid Grid.Row="0" Grid.ColumnSpan="2">
-            <TextBlock FontSize="40" TextWrapping="Wrap" FontWeight="Bold" TextAlignment="Center" x:Name="txtTourName"  Text="{Binding SelectedTour.Name}" HorizontalAlignment="Center"/>
-        </Grid>
-        <Grid Grid.Row="1" Margin="35 0 35 0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.3*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="1.5*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" VerticalAlignment="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="128*"/>
-                    <ColumnDefinition Width="221*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="30"   >Location:</Label>
-                <TextBlock Margin="15 0 0 0" Grid.Column="1" TextWrapping="Wrap" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Location}" />
-            </Grid>
-            <Grid Grid.Column="1" VerticalAlignment="Top" Margin="20 0 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="146*"/>
-                    <ColumnDefinition Width="221*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="30"  >Duration:</Label>
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <TextBlock Margin="15 0 0 0"  Grid.Column="1" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Duration}" />
-                    <Label FontSize="30" Content="h"/>
-                </StackPanel>
-            </Grid>
-            <Grid Grid.Column="2" VerticalAlignment="Top" Margin="50 0 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="94*"/>
-                    <ColumnDefinition Width="221*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="30"  >Language:</Label>
-                <TextBlock Margin="15 0 0 0" Grid.Column="1" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Language}" />
-            </Grid>
-        </Grid>
-        <Grid Grid.Row="2" Margin="35 0 35 0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.3*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="1.5*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" VerticalAlignment="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="128*"/>
-                    <ColumnDefinition Width="221*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="30" Content="Capacity:" Width="168"/>
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <TextBlock Margin="15 0 0 0" Grid.Column="1"  FontSize="30"  TextAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedTour.Capacity}" />
-                    <Label Content="people" VerticalAlignment="Center" FontSize="30"/>
-                </StackPanel>
-            </Grid>
-            <Grid Grid.ColumnSpan="3" Margin="484,0,0,0" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.35*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="30" Content="Description:" />
-                <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" >
-                    <TextBlock  TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Left"  FontSize="30" Text="{Binding SelectedTour.Description}" />
+                <Button Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="Go Back" Click="GoBackClick"/>
 
-                </ScrollViewer>
-            </Grid>
-        </Grid>
-        <Grid Grid.Row="4" Grid.RowSpan="2" Margin="35 0 35 30">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.4*"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="1.4*"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
-                <Label  Grid.Row="0" VerticalAlignment="Center" FontSize="30" >Checkpoints</Label>
-                <ListBox Grid.Row="1"  ItemsSource="{Binding SelectedTour.Checkpoints}"   >
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}" FontSize="20" />
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Grid>
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
-                <Label   VerticalAlignment="Center" FontSize="30" >Tour Realisations</Label>
-                <ListBox Grid.Row="1" ItemsSource="{Binding SelectedTour.DateRealisations, StringFormat=dd.MM.yyyy HH:mm}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}" FontSize="20"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
             </Grid>
         </Grid>
     </Grid>
