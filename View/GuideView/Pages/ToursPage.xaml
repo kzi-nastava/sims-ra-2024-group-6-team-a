@@ -34,19 +34,19 @@
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center"  Grid.Row="0">
                 <Button Background="Transparent" BorderThickness="0" Click="LiveToursPageClick">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Today's Tours" FontSize="15" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock x:Name="btnTodaysTours"  Text="Today's Tours" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
                 <TextBlock Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
                 <Button Background="Transparent" BorderThickness="0" Click="AllToursPageClick"  >
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="All Tours" FontSize="15" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock x:Name="btnAllTours" Text="All Tours" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
                 <TextBlock Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
                 <Button Background="Transparent" BorderThickness="0" Click="ShowCreateTourForm"  >
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Create Tour" FontSize="15" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock x:Name="btnCreateTour" Text="Create Tour" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
             </StackPanel>

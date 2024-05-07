@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
@@ -39,6 +40,10 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public void LiveToursPageClick()
         {
+            ResetButtonColors();
+            window.btnTodaysTours.Foreground = Brushes.Black;
+
+
             List<Tour> tours = TourService.GetInstance().GetAllByUser(LoggedUser);
             int tourScheduleId = TourScheduleService.GetInstance().FindOngoingTour(tours);
 
@@ -55,16 +60,29 @@ namespace BookingApp.ViewModels.GuideViewModel
         
         public void AllToursPageClick()
         {
+            ResetButtonColors();
+            window.btnAllTours.Foreground = Brushes.Black;
+
             window.SecondFrame.Content = allToursPage;
         }
         public void ShowCreateTourForm()
         {
+            ResetButtonColors();
+            window.btnCreateTour.Foreground = Brushes.Black;
+
             window.SecondFrame.Content = tourCreationPage;
         }
 
         public void LoadTodaysTours()
         {
             LiveToursPageClick();
+        }
+
+        private void ResetButtonColors()
+        {
+            window.btnTodaysTours.Foreground = Brushes.DarkGray;
+            window.btnAllTours.Foreground = Brushes.DarkGray;
+            window.btnCreateTour.Foreground = Brushes.DarkGray;
         }
     }
 }
