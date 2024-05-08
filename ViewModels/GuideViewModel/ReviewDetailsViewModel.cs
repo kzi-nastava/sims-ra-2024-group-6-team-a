@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
@@ -21,6 +22,18 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public static ObservableCollection<TourReviewDTO> Reviews { get; set; }
 
+        public List<Model.Image> CurrentReviewImages { get; set; }
+
+        public TourSchedule TourSchedule { get; set; }
+
+        public Tour Tour {  get; set; }
+
+        public string Location {  get; set; }
+
+        public string Language { get; set; }
+
+        public string BigImagePath {  get; set; }
+
         public ReviewDetailsPage Window {  get; set; }
 
         public ReviewDetailsViewModel(ReviewDetailsPage window,int tourScheduleId)
@@ -29,10 +42,29 @@ namespace BookingApp.ViewModels.GuideViewModel
 
            
             Reviews = new ObservableCollection<TourReviewDTO>();
-
             this.tourScheduleId = tourScheduleId;
-            Update();
 
+            LoadTourData(tourScheduleId);
+           
+            Update();
+        }
+
+        public void LoadTourData(int tourScheduleId)
+        {
+            TourSchedule = TourScheduleService.GetInstance().GetById(tourScheduleId);
+            Tour = TourService.GetInstance().GetById(TourSchedule.TourId);
+            Location location = LocationService.GetInstance().GetById(Tour.LocationId);
+            Location = location.City + ", " + location.State;
+            Language language = LanguageService.GetInstance().GetById(Tour.LanguageId);
+            BigImagePath = GetFirstImagePath(Tour.Id);
+            Language = language.Name;
+        }
+
+        public string GetFirstImagePath(int tourId) 
+        {
+            List<Model.Image> image = ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour);
+
+            return image.First().Path;
         }
 
         public void Update()
@@ -40,12 +72,12 @@ namespace BookingApp.ViewModels.GuideViewModel
             Reviews.Clear();
             foreach (TourReview review in TourReviewService.GetInstance().GetAllReviewsByScheduleId(tourScheduleId))
             {
-                Model.Image image = GetFirstTourImage(review.ScheduleId);
-                string username = GetUsername(review.TouristId);
+                CurrentReviewImages = GetAllImages(review.ScheduleId);
+                Tourist tourist = TouristService.GetInstance().GetByTouristId(review.TouristId);
                 int checkpointId = GetFirstUsersCheckpointId(tourScheduleId, review.TouristId);
                 Checkpoint checkpoint = GetCheckpointById(checkpointId);
 
-                Reviews.Add(new TourReviewDTO(review.Id,tourScheduleId, review.GuideLanguageGrade, review.GuideKnowledgeGrade, review.TourAttractionsGrade, review.Impression, image.Path, review.TouristId, username, checkpoint.Name,review.IsValid));
+                Reviews.Add(new TourReviewDTO(review.Id,tourScheduleId, review.GuideLanguageGrade, review.GuideKnowledgeGrade, review.TourAttractionsGrade, review.Impression, CurrentReviewImages, review.TouristId,tourist, checkpoint.Name,review.IsValid));
             }
         }
 
@@ -54,9 +86,9 @@ namespace BookingApp.ViewModels.GuideViewModel
             return UserService.GetInstance().GetUsername(userId);
 
         }
-        public Model.Image GetFirstTourImage(int tourShceduleId)
+        public List <Model.Image> GetAllImages(int tourShceduleId)
         {
-            return ImageService.GetInstance().GetByEntity(tourShceduleId, Enums.ImageType.TourReview).First();
+            return ImageService.GetInstance().GetByEntity(tourShceduleId, Enums.ImageType.TourReview);
         }
 
         public int GetFirstUsersCheckpointId(int tourShceduleId, int userId)

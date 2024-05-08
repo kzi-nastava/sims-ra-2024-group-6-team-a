@@ -1,8 +1,14 @@
 ﻿using BookingApp.ApplicationServices;
 using BookingApp.Domain.Model;
+using BookingApp.DTOs;
+using BookingApp.Model;
+using BookingApp.Resources;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,10 +26,15 @@ namespace BookingApp.View.GuideView.Components
     /// <summary>
     /// Interaction logic for DetailedReviewCard.xaml
     /// </summary>
-    public partial class DetailedReviewCard : UserControl
+    public partial class DetailedReviewCard : UserControl 
     {
 
         public event EventHandler FakeReportEventHandler;
+
+        public RelayCommand NextImageCommand { get; set; }
+        public RelayCommand PreviousImageCommand { get; set; }
+
+        public List<Model.Image> ListImages { get; set; }
 
         public DetailedReviewCard()
         {
@@ -38,10 +49,27 @@ namespace BookingApp.View.GuideView.Components
             HandleFakeReport();
         }
 
+
         public void HandleFakeReport()
         {
             FakeReportEventHandler?.Invoke(this, EventArgs.Empty);
         }
+
+        public void NextImage(object sender, RoutedEventArgs e)
+        {
+            var review = DataContext as TourReviewDTO;
+            ListImages = review.ListImages;
+
+            review.NextImage();
+        }
+        public void PreviousImage(object sender, RoutedEventArgs e)
+        {
+            var review = DataContext as TourReviewDTO;
+            ListImages = review.ListImages;
+            review.PreviousImage();
+        }
+
+        
 
     }
 }

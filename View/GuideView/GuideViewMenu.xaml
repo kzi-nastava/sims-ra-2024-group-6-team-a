@@ -5,14 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
-  
          mc:Ignorable="d"
         Title="Guide" WindowState="Maximized" d:DesignHeight="1080" d:DesignWidth="1920" >
+
+    <Window.Resources>
+        <Style  TargetType="TextBlock">
+            <Setter Property="Foreground" Value="DarkGray"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.08*"/>
             <RowDefinition Height="0.85*"/>
         </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#F6F5F2"  Offset="0.3"/>
+                <GradientStop Color="#F3D0D7" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Frame Grid.Row="1" x:Name="MainFrame" NavigationUIVisibility="Hidden" />
         <Border BorderThickness="0,0,0,2" BorderBrush="Black">
             <Grid>
@@ -28,19 +40,19 @@
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" >
                     <Button Background="Transparent" BorderThickness="0" Click="ToursPageClick"  >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Tours" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock x:Name="btnTours" Text="Tours"  FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                     <TextBlock Text="|" FontSize="30" VerticalAlignment="Center" Margin="10,0,10,0"/>
                     <Button  Background="Transparent" BorderThickness="0" Click="TourReviewsPageClick" >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock  Text="Reviews" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock x:Name="btnReviews"  Text="Reviews" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                     <TextBlock Text="|" FontSize="30" VerticalAlignment="Center" Margin="10,0,10,0"/>
                     <Button  Background="Transparent" BorderThickness="0" Click="TourStatisticsPageClick" >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock  Text="Statistics" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock x:Name="btnStatistics"  Text="Statistics" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                     <TextBlock Text="|" FontSize="30" VerticalAlignment="Center" Margin="10,0,10,0"/>

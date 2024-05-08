@@ -1,3 +1,7 @@
+6|Park Guell|1|False|2
+7|Camp Nou|1|False|2
+8|La Ramba|1|False|2
+12|Sea Beach|1|False|3
 9|Park Guell|1|False|3
 10|Camp Nou|1|False|3
 11|La Ramba|1|False|3
@@ -20,12 +24,12 @@
 28|Testic|4|True|9
 29|Jos 1 t est|5|True|10
 30|Jos 1 t est|5|False|10
-31|Jos 1 t est|5|False|10
+31|Jos 1 t est|5|True|10
 32|Veoma lepo selo Futog|6|True|11
 33|Veoma lepo selo Futog|6|True|11
 34|Veoma lepo selo Futog|6|True|11
-35|koko|7|False|12
-36|lplp|7|False|12
+35|koko|7|True|12
+36|lplp|7|True|12
 37|dd|8|False|13
 38|dddddd|8|False|13
 39|dd|9|False|14
