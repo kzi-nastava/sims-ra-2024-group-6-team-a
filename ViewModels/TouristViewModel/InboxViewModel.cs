@@ -30,7 +30,7 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         private void Update()
         {
-            Notifications.Clear();
+            Notifications.Clear();//DA MI STIZU ZA OBICNE TURE I REQUESTED KOJE SAM JA TRAZILA
             
             foreach(TouristNotification notification in TouristNotificationService.GetInstance().GetAll())
             {

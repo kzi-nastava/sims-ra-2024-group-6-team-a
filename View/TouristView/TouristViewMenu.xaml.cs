@@ -36,6 +36,7 @@ namespace BookingApp.View
             Update();
             SetLanguages();
             SetLocations();
+            SimpleRequestService.GetInstance().CheckRequestStatus();
         }
 
         private void SetLanguages()
@@ -48,17 +49,17 @@ namespace BookingApp.View
         private void SetLocations()
         {
             Locations.Clear();
-            foreach(var location in LocationService.GetInstance().GetAll())
+            foreach (var location in LocationService.GetInstance().GetAll())
                 Locations.Add(new LocationDTO(location));
         }
 
-        public void Update()
+        public void Update() //OVDJE PRIKAZUJEM SAMO OBICNE TURE, NE REQUESTED TOURS
         {
             Tours.Clear();
             foreach (Tour tour in TourService.GetInstance().GetFiltered(Filter))
             {
                 Model.Image image = GetFirstTourImage(tour.Id);
-                Tours.Add(new TourTouristDTO(tour,LanguageService.GetInstance().GetById(tour.LanguageId), LocationService.GetInstance().GetById(tour.LocationId), TourScheduleService.GetInstance().GetByTour(tour), image.Path));
+                Tours.Add(new TourTouristDTO(tour, LanguageService.GetInstance().GetById(tour.LanguageId), LocationService.GetInstance().GetById(tour.LocationId), TourScheduleService.GetInstance().GetByTour(tour), image.Path));
             }
         }
         public Model.Image GetFirstTourImage(int tourId)
@@ -69,8 +70,19 @@ namespace BookingApp.View
         public void Search_Click(object sender, RoutedEventArgs e)
         {
             Update();
-            //languageComboBox.SelectedIndex = -1;
-            //locationComboBox.SelectedIndex = -1;
+        }
+
+        private void ClearFilters()
+        {
+            locationComboBox.SelectedIndex = -1;
+            languageComboBox.SelectedIndex = -1;
+            durationBox.Value = 0;
+            capacityBox.Value = 0;
+        }
+        private void ClearFilters_Click(object sender, RoutedEventArgs e)
+        {
+            ClearFilters();
+            Update();
         }
         private void Reservation_Click(object sender, RoutedEventArgs e)
         {
@@ -126,6 +138,37 @@ namespace BookingApp.View
         {
             HelpWindow help = new HelpWindow();
             help.ShowDialog();
+        }
+        private void MakeRequest_Click(object sender, RoutedEventArgs e)
+        {
+            RequestForm request = new RequestForm(LoggedUser);
+            request.Owner = this;
+            request.ShowDialog();
+        }
+        private void MyRequests_Click(object sender, RoutedEventArgs e)
+        {
+            MyRequests request = new MyRequests(LoggedUser);
+            request.Owner = this;
+            request.ShowDialog();
+        }
+
+        private void languageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (languageComboBox.SelectedItem != null)
+            {
+                Filter.Language = (LanguageDTO)languageComboBox.SelectedItem;
+                return;
+            }
+            Filter.Language = new LanguageDTO();
+        }
+        private void locationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (locationComboBox.SelectedItem != null)
+            {
+                Filter.Location = (LocationDTO)locationComboBox.SelectedItem;
+                return;
+            }
+            Filter.Location = new LocationDTO();
         }
     }
 }

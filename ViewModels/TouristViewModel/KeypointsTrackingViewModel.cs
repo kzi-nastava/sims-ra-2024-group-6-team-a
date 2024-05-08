@@ -38,7 +38,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             }
 
             Guests.Clear();
-            foreach(TourGuests guest in TourGuestService.GetInstance().GetAllByTourId(SelectedTourSchedule.TourId))
+            foreach(TourGuests guest in TourGuestService.GetInstance().GetAllByTourId(SelectedTourSchedule.Id))
             {
                 Guests.Add(new TourGuestDTO(guest));
             }

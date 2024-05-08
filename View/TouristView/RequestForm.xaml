@@ -1,0 +1,23 @@
+﻿<Window x:Class="BookingApp.View.TouristView.RequestForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.TouristView"
+        mc:Ignorable="d"
+        Title="RequestForm" Height="300" Width="380" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+    <Grid Background="AliceBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Margin="0 30 0 0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="DemiBold">Chose tour type you want to request:</TextBlock>
+        <Button Click="SimpleRequest_Click" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" Width="120" Height="25" FontSize="15" Background="AntiqueWhite" FontWeight="Bold">Simple tour</Button>
+        <Button VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Width="120" Height="25" FontSize="15" Background="AntiqueWhite" FontWeight="Bold">Complex tour</Button>
+    </Grid>
+</Window>

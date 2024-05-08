@@ -38,6 +38,23 @@ namespace BookingApp.DTOs
             }
         }
 
+        private int _requestId;
+        public int RequestId
+        {
+            get
+            {
+                return _requestId;
+            }
+            set
+            {
+                if (value != _requestId)
+                {
+                    _requestId = value;
+                    OnPropertyChanged("RequestId");
+                }
+            }
+        }
+
         private string _name;
         public string Name
         {
@@ -159,12 +176,13 @@ namespace BookingApp.DTOs
                 }
             }
         }
-        public TourGuestDTO(string name, string surname, int age, int reservationId)
+        public TourGuestDTO(string name, string surname, int age, int reservationId, int requestId)
         {
             Name = name;
             Surname = surname;
             Age = age;
             ReservationId = reservationId;
+            RequestId = requestId;
         }
 
         public TourGuestDTO(TourGuests guest)
@@ -177,6 +195,7 @@ namespace BookingApp.DTOs
             UserType = guest.UserTypeId;
             CheckpointId = guest.CheckpointId;
             Present = guest.IsPresent;
+            RequestId = _requestId;
         }
 
 
@@ -187,6 +206,7 @@ namespace BookingApp.DTOs
             this.Surname = surname;
             this.Age = age;
             this.ReservationId = reservationId;
+            this.RequestId = _requestId;
             
         }
 
@@ -197,7 +217,7 @@ namespace BookingApp.DTOs
             this.Age = age;
             this.ReservationId = reservationId;
             UserType = userType;
-
+            this.RequestId = _requestId;
         }
 
         public TourGuestDTO()

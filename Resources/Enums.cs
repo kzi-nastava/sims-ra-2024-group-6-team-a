@@ -57,5 +57,23 @@ namespace BookingApp.Resources
             Ongoing,
             Finished
         }
+        public enum RequestStatus
+        {
+            Onhold, 
+            Accepted, 
+            Invalid
+        }
+
+        public enum NotificationType
+        {
+            Attendance,
+            AcceptedRequest,
+            NewTour
+        }
+        public enum TourType
+        {
+            Ordinary,
+            Requested
+        }
     }
 }

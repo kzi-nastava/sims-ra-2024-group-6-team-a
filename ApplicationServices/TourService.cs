@@ -79,7 +79,7 @@ namespace BookingApp.ApplicationServices
 
         private bool MatchesLocation(Tour tour, TourFilterDTO filter)
         {
-            return tour.LocationId == filter.Location.Id || filter.Location.Id == -1;
+            return tour.LocationId == filter.Location.Id || filter.Location.Id == 0;
         }
 
         private bool MatchesDuration(Tour tour, TourFilterDTO filter)
@@ -89,16 +89,26 @@ namespace BookingApp.ApplicationServices
 
         private bool MatchesLanguage(Tour tour, TourFilterDTO filter)
         {
-            return tour.LanguageId == filter.Language.Id || filter.Language.Id == -1;
+            return tour.LanguageId == filter.Language.Id || filter.Language.Id == 0;
         }
 
         private bool MatchesMaxTouristNumber(Tour tour, TourFilterDTO filter)
         {
             return tour.Capacity >= filter.TouristNumber || filter.TouristNumber == 0;
         }
+        private List<Tour> GetOrdinaryTours()
+        {
+            List<Tour> tours = new List<Tour>();
+            foreach(Tour tour in GetAll())
+            {
+                if(tour.Type == Resources.Enums.TourType.Ordinary)
+                    tours.Add(tour);
+            }
+            return tours;
+        }
         public List<Tour> GetFiltered(TourFilterDTO filter)
         {
-            List<Tour> allTours = _tourRepository.GetAll();
+            List<Tour> allTours = GetOrdinaryTours();
 
             if (filter.isEmpty())
                 return allTours;
