@@ -7,14 +7,14 @@
       mc:Ignorable="d" 
       d:DesignHeight="540" d:DesignWidth="410"
       Title="GuestMyRequestView">
-    <Grid Background="Wheat">
+    <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="90"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="Wheat" >
+        <Grid Grid.Row="0" Background="LightGray" >
             <TextBlock FontSize="42" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="Black" FontWeight="SemiBold" Margin="30,0,0,0" >My request</TextBlock>
         </Grid>
         <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
@@ -40,8 +40,8 @@
             </StackPanel>
         </Grid>
 
-        <Grid  Grid.Row="2" Background="Wheat">
-            <ListView     Background="DeepSkyBlue"
+        <Grid  Grid.Row="2" >
+            <ListView     Background="SlateGray"
                           BorderBrush="Black"
                           BorderThickness="3"
                           ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -62,21 +62,21 @@
                                     <TextBlock Foreground="black" Text="{Binding AccommodationName}" FontSize="24" FontWeight="Bold" Width="180" Margin="0,-5,0,0"/>
                                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,3,3,0">
                                         <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
-                                        <TextBlock Margin="5,0,0,0" Text="{Binding OldCheckIn}" TextDecorations="Strikethrough" Foreground="Gray" ></TextBlock>
-                                        <TextBlock Text=" - " TextDecorations="Strikethrough"  Foreground="Gray"></TextBlock>
-                                        <TextBlock Text="{Binding OldCheckOut}" TextDecorations="Strikethrough"  Foreground="Gray"  ></TextBlock>
+                                        <TextBlock Margin="5,0,0,0" Text="{Binding OldCheckIn}" TextDecorations="Strikethrough" Foreground="DarkSlateGray" ></TextBlock>
+                                        <TextBlock Text=" -" TextDecorations="Strikethrough"  Foreground="DarkSlateGray"></TextBlock>
+                                        <TextBlock Text="{Binding OldCheckOut}" TextDecorations="Strikethrough"  Foreground="DarkSlateGray"  ></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1"  Margin="0,5,0,0">
                                         <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
-                                        <TextBlock  Margin="5,0,0,0" Text="{Binding NewCheckIn}" FontWeight="SemiBold" ></TextBlock>
-                                        <TextBlock Text=" - "  FontWeight="SemiBold"></TextBlock>
-                                        <TextBlock Text="{Binding NewCheckOut}"  FontWeight="SemiBold" ></TextBlock>
+                                        <TextBlock  Margin="5,0,0,0" Text="{Binding NewCheckIn}" FontWeight="Bold" ></TextBlock>
+                                        <TextBlock Text=" - "  FontWeight="Bold"></TextBlock>
+                                        <TextBlock Text="{Binding NewCheckOut}"  FontWeight="Bold" ></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1"  Margin="0,5,0,0">
                                         <Image Source="/Resources/Images/commentt.png" Width="18" Height="18"></Image>
                                         <TextBlock  Margin="5,0,0,0" Foreground="black" Text="{Binding Comment}"  TextWrapping="Wrap"   FontSize="12"  MaxWidth="150" MaxHeight="29"></TextBlock>
                                     </StackPanel>
-                                    <Button Margin="26,-15,-215,0" Width="70" Cursor="Hand" Height="20"
+                                    <Button Margin="26,-15,-215,0" Width="70" Cursor="Hand" Height="20 " BorderBrush="Black" BorderThickness="2" 
                                         Command="{Binding DataContext.SeenACommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
                                         <Button.Style>
                                             <Style TargetType="Button">
@@ -90,7 +90,7 @@
                                         </Button.Style>
                                         <TextBlock Text="Seen" Foreground="Black" FontWeight="Bold" />
                                     </Button>
-                                    <Button  Margin="26,-15,-215,0" Width="70" Cursor="Hand" Height="20"
+                                    <Button  Margin="26,-15,-215,0" Width="70" Cursor="Hand" Height="20 " BorderBrush="Black" BorderThickness="2" 
                                          Command="{Binding DataContext.SeenRCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}">
                                         <Button.Style>
                                             <Style TargetType="Button">
@@ -153,7 +153,7 @@
                                         </Style>
                                     </Image.Style>
                                 </Image>
-                                <Button Margin="26,0,0,23" Width="80" Cursor="Hand" Height="45">
+                                <Button Margin="26,0,0,23" Width="80" Cursor="Hand" Height="45" BorderBrush="Black" BorderThickness="2" >
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="Visibility" Value="Collapsed" />

@@ -8,14 +8,14 @@
       d:DesignHeight="540" d:DesignWidth="410"
       Title="GuestMyReservationsView">
 
-    <Grid Background="Wheat">
+    <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="Wheat" >
+        <Grid Grid.Row="0" Background="LightGray" >
             <TextBlock FontSize="39" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="Black" FontWeight="SemiBold" Margin="40,0,0,0" >My reservations</TextBlock>
         </Grid>
         <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
@@ -30,8 +30,8 @@
             </Button>
         </Grid>
 
-        <Grid  Grid.Row="2" Background="Wheat">
-            <ListView     Background="DeepSkyBlue"
+        <Grid  Grid.Row="2" >
+            <ListView     Background="SlateGray"
                           BorderBrush="Black"
                           BorderThickness="3"
                           ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -65,7 +65,7 @@
                                         <TextBlock  Margin="5,2,0,2" Foreground="black" Text="{Binding GuestNumber}" FontWeight="Bold" FontSize="12"   ></TextBlock>
                                     </StackPanel>
                                 </StackPanel>
-                                <Button  Content="see more" FontWeight="Bold" Width="70" Height="25" VerticalAlignment="Bottom" Margin="0,0,10,5" Cursor="Hand" Background="LightBlue" BorderBrush="DarkBlue" BorderThickness="2" 
+                                <Button  Content="see more" FontWeight="Bold" Width="70" Height="25" VerticalAlignment="Bottom" Margin="0,0,10,5" Cursor="Hand" Background="LightBlue" BorderBrush="Black" BorderThickness="2" 
                                          Command="{Binding DataContext.SeeMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"/>
                             </StackPanel>
                         </Border>
