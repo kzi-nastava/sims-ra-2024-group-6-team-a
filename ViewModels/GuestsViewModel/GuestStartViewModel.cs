@@ -48,6 +48,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
             RedDotVisibility = Visibility.Collapsed;
             NavService.Navigate(new GuestAccommodationsView(Guest, NavService));
             ShowNotice();
+            GuestService.GetInstance().SuperGuestRenewal(Guest);
         }
         public void ShowNotice()
         {

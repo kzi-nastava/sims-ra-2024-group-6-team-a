@@ -43,8 +43,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
             MyReservationCommand = new RelayCommand(Execute_MyReservationCommand);
             MyRequestCommand = new RelayCommand(Execute_MyRequestCommand);
             NavService = navigation;
-            if (DateOnly.FromDateTime(DateTime.Today)>Guest.StartSuperGuestDate.AddYears(1))
-            CheckSuperGuest();
             CheckRating();
         }
         public void ShowZeroStar()
@@ -134,23 +132,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
             else if (AverageGrade <= 4.75) ShowFourHalfStar();
 
         }
-        public void CheckSuperGuest(){
-            //MessageBox.Show("pre Uso");
-            Guest.IsSuperGuest = false;
-            Guest.BonusPoints = 0;
-            GuestService.GetInstance().Update(Guest);
-
-            if (AccommodationReservationService.GetInstance().GetNumberOfReservationInPreviousYear(Guest.Id) >= 10 )
-            {
-               //MessageBox.Show("Uso");
-                Guest.BonusPoints = 5;
-                Guest.IsSuperGuest = true;
-                Guest.StartSuperGuestDate = DateOnly.FromDateTime(DateTime.Today);
-                GuestService.GetInstance().Update(Guest);
-            }
-              
-        }
-
         public void Execute_MyReservationCommand(object obj)
         {
             NavService.Navigate(new GuestMyReservationsView(Guest, NavService));

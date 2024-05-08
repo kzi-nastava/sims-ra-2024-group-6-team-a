@@ -8,7 +8,7 @@
       d:DesignHeight="540" d:DesignWidth="410"
       Title="MyRatingView">
 
-    <Grid Background="Wheat">
+    <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="50"/>
@@ -16,7 +16,7 @@
 
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="Wheat" >
+        <Grid Grid.Row="0" Background="LightGray" >
             <TextBlock FontSize="39" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="Black" FontWeight="SemiBold" Margin="0,0,0,0" >My ratings</TextBlock>
         </Grid>
         <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
@@ -44,8 +44,8 @@
             </StackPanel>
         </Grid>
 
-        <Grid  Grid.Row="2" Background="Wheat">
-            <ListView     Background="DeepSkyBlue"
+        <Grid  Grid.Row="2" >
+            <ListView     Background="SlateGray"
                           BorderBrush="Black"
                           BorderThickness="3"
                           ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -69,13 +69,13 @@
                                         <TextBlock Text="{Binding CheckOut}" ></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="0,3,0,0">
-                                        <Image Source="/Resources/Images/cleanliness.png" Width="18" Height="18"></Image>
+                                        <Image Source="/Resources/Images/cleanliness.png" Width="20" Height="20" ></Image>
                                         <TextBlock Margin="5,0,0,0" Text="Cleanliness  :" Width="75" ></TextBlock>
                                         <TextBlock Text="{Binding Cleanliness}" ></TextBlock>
                                         <TextBlock  Text="/5" Width="71" ></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Margin="0,3,0,0">
-                                        <Image Source="/Resources/Images/rules.png" Width="18" Height="18" VerticalAlignment="Top"></Image>
+                                        <Image Source="/Resources/Images/rules.png" Width="18.8" Height="18.9" VerticalAlignment="Top"></Image>
                                         <TextBlock Margin="5,0,0,0" Text="Follow rules : " Width="75" ></TextBlock>
                                         <TextBlock Text="{Binding FollowRules}" ></TextBlock>
                                         <TextBlock  Text="/5" Width="71" ></TextBlock>
