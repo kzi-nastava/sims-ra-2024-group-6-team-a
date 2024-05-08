@@ -123,7 +123,7 @@ namespace BookingApp.ViewModels
                     AccommodationService.GetInstance().GetReservationCountForAccommodation(Accommodation.Id, year),
                     AccommodationService.GetInstance().GetChangesCountForAccommodation(Accommodation.Id, year),
                     AccommodationService.GetInstance().GetCancelationCountForAccommodation(Accommodation.Id,year),
-                    0);
+                    AccommodationService.GetInstance().GetRenovationCountForAccommodation(Accommodation.Id,year));
                 Statistics.Add(stats);
 
             }
@@ -251,6 +251,35 @@ namespace BookingApp.ViewModels
             AccommodationRenovation renovation = RenovationService.GetInstance().GetAll().Find(r => r.Id == SelectedRenovation.Id);
             RenovationService.GetInstance().Delete(renovation);
             Update();
+        }
+
+        internal void CloseAccommodation()
+        {
+            foreach(AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetByAccommodationId(Accommodation.Id)) 
+            {
+                AccommodationReservationService.GetInstance().Delete(reservation);
+                GuestReviewService.GetInstance().Delete(GuestReviewService.GetInstance().GetByReservationId(reservation.Id));
+            }
+
+            foreach(ReservationChanges change in ReservationChangeService.GetInstance().GetAll())
+            {
+                if(change.AccommodationId == Accommodation.Id) 
+                {
+                    ReservationChangeService.GetInstance().Delete(change); 
+                }
+            }
+
+            foreach(AccommodationRenovation renovation in RenovationService.GetInstance().GetAllByAccommodation(Accommodation.Id))
+            {
+                RenovationService.GetInstance().Delete(renovation);
+            }
+
+            foreach(Model.Image image in ImageService.GetInstance().GetImagesForAccommodaton(Accommodation.Id))
+            {
+                ImageService.GetInstance().Delete(image);
+            }
+
+            AccommodationService.GetInstance().Delete(Accommodation.Id);
         }
     }
 }

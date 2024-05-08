@@ -8,22 +8,21 @@
       d:DesignHeight="540" d:DesignWidth="410"
       Title="GuestMyReservationsView">
 
-    <Grid Background="Wheat">
+    <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="Wheat" >
+        <Grid Grid.Row="0" Background="LightGray" >
             <TextBlock FontSize="39" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="Black" FontWeight="SemiBold" Margin="40,0,0,0" >My reservations</TextBlock>
         </Grid>
         <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
 
         <Grid  Grid.Row="1">
 
-            <Button  Content="My request" FontSize="16" FontWeight="Bold" Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,250,0" Cursor="Hand" Background="LightBlue" BorderBrush="DarkBlue" BorderThickness="2"  Command="{Binding MyRequestCommand}" />
-            <Button  Width="200" Height="35" BorderBrush="Black" BorderThickness="2.3"  Margin="130,0,0,0" >
+            <Button  Width="200" Height="35" BorderBrush="Black" BorderThickness="2.3"  Margin="0,0,0,0" >
                 <StackPanel Orientation="Horizontal" >
                     <Image Source ="/Resources/Images/pdfFile.png" Width="30" Height="30" />
                     <Button Width="170"  Height="30" Content="Export reservations"   BorderBrush="Transparent" FontSize="18" FontWeight="DemiBold" FontStyle="Italic"/>
@@ -31,8 +30,8 @@
             </Button>
         </Grid>
 
-        <Grid  Grid.Row="2" Background="Wheat">
-            <ListView     Background="DeepSkyBlue"
+        <Grid  Grid.Row="2" >
+            <ListView     Background="SlateGray"
                           BorderBrush="Black"
                           BorderThickness="3"
                           ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -53,20 +52,20 @@
                                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                                         <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
                                         <TextBlock Margin="5,2,0,2" Text="{Binding CheckIn}" />
-                                        <TextBlock Text=" - "></TextBlock>
-                                        <TextBlock Text="{Binding CheckOut}" ></TextBlock>
+                                        <TextBlock  Margin="0,2,0,2" Text=" - "></TextBlock>
+                                        <TextBlock  Margin="0,2,0,2" Text="{Binding CheckOut}" ></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
                                         <Image Source="/Resources/Images/locationpin.png" Width="18" Height="18"></Image>
                                         <TextBlock Margin="5,2,0,2" Text="{Binding City}" >,</TextBlock>
-                                        <TextBlock Text="{Binding State}"  ></TextBlock>
+                                        <TextBlock  Margin="2,2,0,2" Text="{Binding State}"  ></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
                                         <Image Source="/Resources/Images/people.png" Width="18" Height="18"></Image>
                                         <TextBlock  Margin="5,2,0,2" Foreground="black" Text="{Binding GuestNumber}" FontWeight="Bold" FontSize="12"   ></TextBlock>
                                     </StackPanel>
                                 </StackPanel>
-                                <Button  Content="see more" FontWeight="Bold" Width="70" Height="25" VerticalAlignment="Bottom" Margin="0,0,10,5" Cursor="Hand" Background="LightBlue" BorderBrush="DarkBlue" BorderThickness="2" 
+                                <Button  Content="see more" FontWeight="Bold" Width="70" Height="25" VerticalAlignment="Bottom" Margin="0,0,10,5" Cursor="Hand" Background="LightBlue" BorderBrush="Black" BorderThickness="2" 
                                          Command="{Binding DataContext.SeeMoreCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"/>
                             </StackPanel>
                         </Border>

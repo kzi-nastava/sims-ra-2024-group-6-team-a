@@ -1,0 +1,76 @@
+﻿<Page x:Class="BookingApp.View.GuideView.Pages.AlreadyStartedTour"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
+      xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
+      Title="AlreadyStartedTour">
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.2*"/>
+            <RowDefinition Height="2.1*"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#F6F5F2"  Offset="0.0"/>
+                <GradientStop Color="#F3D0D7" Offset="1.5"/>
+            </RadialGradientBrush>
+        </Grid.Background>
+        <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="2.5*"/>
+                </Grid.RowDefinitions>
+            <Grid VerticalAlignment="Top" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="20 0 0 0 " Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Image Width="70px" Height="70px" Source="\Resources\Images\important_notice.png"/>
+                    <Label FontSize="10" Content="important notice" Height="24" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="101" />
+                </StackPanel>
+                <TextBlock Grid.Column="1" FontFamily="bold" FontSize="30" HorizontalAlignment="Left" 
+            Text="{Binding LoggedUser.Username, StringFormat='Hey {0}, you have one tour that is still running, you cant start other tours until the previous tour is finished'}"
+           VerticalAlignment="Center" />
+            </Grid>
+            <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" ItemsSource="{Binding SelectedTour}" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <components:StartedTourCard/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Other Tours" HorizontalAlignment="Center" FontSize="35"/>
+            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,0">
+                <ScrollViewer VerticalAlignment="Top" Grid.Column="2" Grid.Row="2" VerticalScrollBarVisibility="Auto" >
+                    <ItemsControl ItemsSource ="{Binding TodaysTours}" >
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <components:TourCard  x:Name="card"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace BookingApp.ApplicationServices
 {
@@ -64,6 +65,19 @@ namespace BookingApp.ApplicationServices
             }
         }
 
+        public List<String> GetAllImages(int tourId)
+        {
+            List<string> images = new List<string>();
+            List<Model.Image> imagePaths = ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour);
+
+            foreach (Model.Image imagePath in imagePaths)
+            {
+                images.Add(imagePath.Path);
+            }
+
+            return images;
+        }
+
         public Image Save(Image Image)
         {
            return _imageRepository.Save(Image); 
@@ -73,5 +87,11 @@ namespace BookingApp.ApplicationServices
         {
             return _imageRepository.GetByEntity(id, type);
         }
+
+        public void Delete(Image Image)
+        {
+            _imageRepository.Delete(Image);
+        }
+
     }
 }

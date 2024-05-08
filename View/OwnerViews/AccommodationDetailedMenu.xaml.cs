@@ -72,6 +72,14 @@ namespace BookingApp.View
                 ImagesList.UpdateLayout();
                 ImagesList.Focus();
             }
+            else if (e.Key == Key.H )
+            {
+                Schedule_Click(sender,e);
+            }
+            else if(e.Key == Key.C)
+            {
+                Close_Click(sender,e);
+            }
         }
 
         public void SelectFirstReservation()
@@ -80,7 +88,7 @@ namespace BookingApp.View
                 ViewModel.SelectedStatistic = null;
                 ViewModel.SelectedRenovation = null;
 
-                ViewModel.SelectedReservation = ViewModel.Reservations.First();
+               
                 ReservationsList.SelectedIndex = 0;
                 ReservationsList.UpdateLayout();
                 ReservationsList.Focus();
@@ -93,7 +101,7 @@ namespace BookingApp.View
                 ViewModel.SelectedReservation = null;
                 ViewModel.SelectedRenovation = null;
 
-                ViewModel.SelectedStatistic = ViewModel.Statistics.First();
+                
                 StatisticsList.SelectedIndex = 0;
                 StatisticsList.UpdateLayout();
                 StatisticsList.Focus();
@@ -104,14 +112,15 @@ namespace BookingApp.View
 
         public void SelectFirstRenovation()
         {
+ 
                 ViewModel.SelectedReservation = null;
                 ViewModel.SelectedStatistic = null;
 
-                ViewModel.SelectedRenovation = ViewModel.Renovations.First();
+                
                 RenovationsList.SelectedIndex = 0;
                 RenovationsList.UpdateLayout();
                 RenovationsList.Focus();
-
+ 
         }
 
         private void StatisticsClick(object sender, KeyEventArgs e)
@@ -126,9 +135,18 @@ namespace BookingApp.View
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Schedule_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.ScheduleRenovation();
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            if((MessageBox.Show("Do you want to close the accommodation? This process is irreversible.", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
+            {
+                ViewModel.CloseAccommodation();
+                Close();
+            }
         }
 
         private void RenovationsList_KeyDown(object sender, KeyEventArgs e)

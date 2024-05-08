@@ -1,8 +1,10 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,13 +15,7 @@ namespace BookingApp.DTOs
     public  class TourReviewDTO : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
+       
 
         public int Id { get; set; }
 
@@ -149,6 +145,24 @@ namespace BookingApp.DTOs
             }
         }
 
+        private int _age;
+        public int Age
+        {
+            get
+            {
+                return _age;
+            }
+            set
+            {
+                if (_age != value)
+                {
+                    _age = value;
+                    OnPropertyChanged("Age");
+
+                }
+            }
+        }
+
         private string _impression;
         public string Impression
         {
@@ -240,6 +254,100 @@ namespace BookingApp.DTOs
 
         }
 
+        private string _firstname;
+
+        public string FirstName
+        {
+            get
+            {
+                return _firstname;
+            }
+
+            set
+            {
+                if (value != _firstname)
+                {
+                    _firstname = value;
+                    OnPropertyChanged("FirstName");
+                }
+            }
+        }
+        private string _lastname;
+
+        public string LastName
+        {
+            get
+            {
+                return _lastname;
+            }
+
+            set
+            {
+                if (value != _lastname)
+                {
+                    _lastname = value;
+                    OnPropertyChanged("LastName");
+                }
+            }
+        }
+
+        private List<Model.Image> _listImages;
+
+        public List<Model.Image> ListImages
+        {
+            get
+            {
+                return _listImages;
+            }
+
+            set
+            {
+                if (value != _listImages)
+                {
+                    _listImages = value;
+                    OnPropertyChanged("ListImages");
+                }
+            }
+
+        }
+
+        private int _imageIndex = 0;
+        public int ImageIndex
+        {
+            get => _imageIndex;
+            set
+            {
+                _imageIndex = value;
+                OnPropertyChanged(nameof(ImageIndex));
+            }
+        }
+
+
+        public Model.Image CurrentImage => ListImages[ImageIndex];
+       
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        internal void NextImage()
+        {
+            if (ImageIndex < ListImages.Count - 1) ImageIndex++;
+            else ImageIndex = 0;
+            
+            OnPropertyChanged(nameof(CurrentImage));
+        }
+
+        internal void PreviousImage()
+        {
+            if (ImageIndex > 0) ImageIndex--;
+            else ImageIndex = ListImages.Count - 1;
+            
+            OnPropertyChanged(nameof(CurrentImage));
+
+        }
+
         public TourReviewDTO() { }
         public TourReviewDTO(int scheduleId, int languageGrade, int knowledgeGrade, int attractionsGrade, string impression, string imagePath, int touristId)
         {
@@ -252,7 +360,7 @@ namespace BookingApp.DTOs
             TouristId = touristId;
         }
 
-        public TourReviewDTO(int reviewId,int scheduleId, int languageGrade, int knowledgeGrade, int attractionsGrade, string impression, string imagePath, int touristId, string nickname, string checkpoint,bool isValid)
+        public TourReviewDTO(int reviewId,int scheduleId, int languageGrade, int knowledgeGrade, int attractionsGrade, string impression, List<Model.Image> images, int touristId, Tourist tourist, string checkpoint,bool isValid)
         {
             ReviewId = reviewId;
             ScheduleId = scheduleId;
@@ -260,9 +368,11 @@ namespace BookingApp.DTOs
             GuideLanguageGrade = languageGrade;
             TourAttractionsGrade = attractionsGrade;
             Impression = impression;
-            Image = imagePath;
+            ListImages = images;
             TouristId = touristId;
-            Nickname = nickname;
+            FirstName = tourist.Name;
+            LastName = tourist.Surname;
+            Age = tourist.Age;
             Checkpoint = checkpoint;
             IsValid = isValid;
 

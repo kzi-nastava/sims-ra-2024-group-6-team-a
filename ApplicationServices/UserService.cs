@@ -37,5 +37,9 @@ namespace BookingApp.ApplicationServices
         {
           return  _userRepository.GetUsername(id);
         }
+        public User GetById(int id)
+        {
+            return _userRepository.GetById(id);
+        }
     }
 }

@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="BookingApp.View.GuideView.Components.StartedTourCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
+             mc:Ignorable="d"
+            Height="220" Width="1000">
+    <Border  Background="#F6F5F2" CornerRadius="8" Margin="7" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="20 0 0 0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" >
+                    <TextBlock FontFamily="Yu Gothic UI Light" Margin="30 0 0 0" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Text="{Binding Name}" />
+                </StackPanel>
+                <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                    <StackPanel VerticalAlignment="Center">
+                        <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
+                        <Label   FontSize="8" Content="language" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                    </StackPanel>
+                    <TextBlock FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" FontSize="20"  Text="{Binding Language}"/>
+                </StackPanel>
+                <Grid   Grid.Column="0" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Image Width="20px" Height="20px" Source="\Resources\Images\location.png"/>
+                        <Label   FontSize="8" Content="location" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                    </StackPanel>
+                    <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20"   Text="{Binding Location}"/>
+                </Grid>
+                <StackPanel   Orientation="Horizontal" Grid.Column="2" Grid.Row="1">
+                    <StackPanel VerticalAlignment="Center">
+                        <Image Width="20px" Height="20px" Source="\Resources\Images\calendar.png"/>
+                        <Label   FontSize="8" Content="date" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                    </StackPanel>
+                    <TextBlock FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" TextAlignment="Center"  FontSize="20" x:Name="txtTourStart"  TextWrapping="Wrap" Text="{Binding TourStart,StringFormat=dd.MM.yyyy HH:mm}"/>
+                </StackPanel>
+                <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <Image Width="20px" Height="20px" Source="\Resources\Images\information.png" PreviewMouseDown="TourDetailsMouseDown"/>
+                        <TextBlock FontFamily="Yu Gothic UI Light" VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="Click here for more information" PreviewMouseDown="TourDetailsMouseDown"/>
+                    </StackPanel>
+                    <StackPanel Margin="27 0 0 0" Orientation="Horizontal" Grid.Column="1">
+                        <Image Width="20px" Height="20px" Source="\Resources\Images\play.png" PreviewMouseDown="LiveTrackingMouseDown"/>
+                        <TextBlock FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" FontSize="20" TextWrapping="Wrap" Text="Click here for tracking menu" PreviewMouseDown="LiveTrackingMouseDown"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <Border  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"  CornerRadius="7" BorderBrush="#F0EBE3" BorderThickness="4">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding Image}"  Stretch="Fill"/>
+                </Border.Background>
+            </Border>
+            <TextBlock  Visibility="Collapsed" x:Name="textBoxId" Text="{Binding TourScheduleId}" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Width="0" Height="8"/>
+        </Grid>
+    </Border>
+</UserControl>

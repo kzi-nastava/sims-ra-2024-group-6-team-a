@@ -39,9 +39,10 @@ namespace BookingApp.ApplicationServices
         {
             return accommodationReservationRepository.Save(reservation);
         }
-        public List<DateRanges> GetAvailableDates(DateOnly firstDate, DateOnly lastDate, int daysNumber, int accommodationId)
+        public List<DateRanges> GetAvailableDates(DateOnly firstDate, DateOnly lastDate, int daysNumber, int accommodationId, bool suggestion)
         {
             _availableDates.Clear();
+            _bookedDates.Clear();
             _firstDate = firstDate;
             _lastDate = lastDate;
             GetAllDates(daysNumber);
@@ -50,7 +51,9 @@ namespace BookingApp.ApplicationServices
             {
                 FindRangeCase(bookedDate);
             }
+            if(suggestion)
             IsAvailableDatesEmpty(daysNumber);
+
             return _availableDates;
         }
         public void IsAvailableDatesEmpty(int daysNumber)

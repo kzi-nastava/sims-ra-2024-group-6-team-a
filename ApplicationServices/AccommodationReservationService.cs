@@ -60,7 +60,13 @@ namespace BookingApp.ApplicationServices
                     numberOfReservation++;
             return numberOfReservation;
         }
-        
+
+
+        public List<AccommodationReservation> GetByAccommodationId(int accommodationId)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            return reservations.FindAll(c => c.AccommodationId == accommodationId);
+        }
         public List<AccommodationReservation> GetByAccommodation(Accommodation accommodation)
         {
             List<AccommodationReservation> reservations = GetAll();
@@ -80,6 +86,16 @@ namespace BookingApp.ApplicationServices
                 {
                     guestReservations.Add(reservation);
                 }
+            }
+            return guestReservations;
+        }
+        public List<AccommodationReservation> GetActiveReservations()
+        {
+            List<AccommodationReservation> guestReservations = new List<AccommodationReservation>();
+            foreach (AccommodationReservation reservation in GetAll())
+            {
+                if (reservation.Status == ReservationStatus.Active)
+                    guestReservations.Add(reservation);
             }
             return guestReservations;
         }

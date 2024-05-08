@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuestViews"
       mc:Ignorable="d" 
-      d:DesignHeight="840" d:DesignWidth="410"
+      d:DesignHeight="540" d:DesignWidth="410"
       Title="GuestProfile">
 
     <Grid>
@@ -15,12 +15,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid  Grid.Row="0" Background="Wheat">
+        <Grid  Grid.Row="0" Background="LightGray">
             <TextBlock FontSize="42" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="Black" FontWeight="SemiBold" Margin="30,0,0,0" >My profile</TextBlock>
         </Grid>
-        <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
 
-        <Grid  Grid.Row="1" Background="CornflowerBlue" Margin="0,0,0,0">
+        <Grid  Grid.Row="1" Background="SlateGray" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="130"/>
                 <ColumnDefinition Width="*"/>
@@ -59,7 +58,7 @@
                     <Image Source ="/Resources/Images/emptyStar.png" Width="30" Height="30" VerticalAlignment="Center" Margin="180,0,0,10" Visibility="{Binding FiveEStarVisibility}"  ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
                     <Image Source ="/Resources/Images/halfStar.png" Width="30" Height="30" VerticalAlignment="Center" Margin="180,0,0,10" Visibility="{Binding FiveHStarVisibility}" ToolTip="{Binding AverageGrade, StringFormat={}{0:N2}}" />
                 </Grid>
-                <Grid Grid.Row="1" >
+                <Grid Grid.Row="1" Margin="0,0,0,0" >
                     <Label FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="left" Content="Super Guest :"></Label>
                     <TextBlock FontSize="20"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="60,5,0,0" >
                         <TextBlock.Style>
@@ -84,43 +83,41 @@
             </Grid>
         </Grid>
 
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible">
-            <Grid  Grid.Row="2">
-                <Grid Background="Wheat" >
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Hidden">
+            <Grid  Grid.Row="2" Margin="0,0,0,0">
+                <Grid Background="LightGray" >
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="70"/>
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
 
-                    <Border Grid.Row="0" Background="Gold"  BorderBrush="Black" BorderThickness="1.5" CornerRadius="20" Width="300" Height="60" Padding="10">
+                    <Border Grid.Row="0" Margin="0,10,0,0"  Background="#8a949e"  BorderBrush="Black" BorderThickness="1.5" CornerRadius="20" Width="300" Height="60" Padding="10">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="200" />
                             </Grid.ColumnDefinitions>
-                            <Image Source ="/Resources/Images/profileG.png" Width="38" Height="40" VerticalAlignment="Center" />
+                            <Image Source ="/Resources/Images/profileG.png" Width="38" Height="36" VerticalAlignment="Center" />
                             <Label Grid.Column="1" Content="{Binding Guest.Name}" FontSize="18"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
                             <Label Grid.Column="1" Content="{Binding Guest.Surname}" FontSize="18"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" Margin="42,0,-35,0" />
                         </Grid>
                     </Border>
 
-                    <Border Grid.Row="1" Background="Gold"  BorderBrush="Black" BorderThickness="1.5" CornerRadius="20" Width="300" Padding="10">
+                    <Border Grid.Row="1" Margin="0,5,0,0"  Background="#8a949e"  BorderBrush="Black" BorderThickness="1.5" CornerRadius="20" Width="300" Padding="10">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="200" />
                             </Grid.ColumnDefinitions>
-                            <Image Source ="/Resources/Images/phoneG.png" Width="38" Height="40" VerticalAlignment="Center" />
+                            <Image Source ="/Resources/Images/phoneG.png" Width="33" Height="33" VerticalAlignment="Center" />
                             <Label Grid.Column="1" Content="{Binding Guest.Phone}" FontSize="18"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
                         </Grid>
                     </Border>
 
-                    <Border Grid.Row="2" Background="Gold" BorderBrush="Black" BorderThickness="1.5" CornerRadius="20" Width="300" Padding="10">
+                    <Border Grid.Row="2" Margin="0,5,0,0" Background="#8a949e" BorderBrush="Black" BorderThickness="1.5" CornerRadius="20" Width="300" Padding="10">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100" />
@@ -131,59 +128,34 @@
                         </Grid>
                     </Border>
 
-                    <Border Grid.Row="3" Background="Gold"  BorderBrush="Black" BorderThickness="1.5" CornerRadius="20" Width="300" Padding="10">
+                    <Border Grid.Row="3" Margin="0,5,0,0" Background="#8a949e"  BorderBrush="Black" BorderThickness="1.5" CornerRadius="20" Width="300" Padding="10">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="200" />
                             </Grid.ColumnDefinitions>
                             <Image Source ="/Resources/Images/cakeG.png" Width="38" Height="40" VerticalAlignment="Center" />
-                            <Label Grid.Column="1" Content="{Binding Guest.Birthday}" FontSize="18"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
+                            <Label Grid.Column="1" Content="{Binding Guest.Birthday}" Margin="10,0,0,0" FontSize="18"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
                         </Grid>
                     </Border>
 
-                    <Button Grid.Row="4" Width="300" Padding="10" Cursor="Hand" Command="{Binding MyReservationCommand}" >
+                    <Button Grid.Row="4"  Margin="0,5,0,0" Width="300" Padding="10" Cursor="Hand" Command="{Binding MyReservationCommand}" >
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Background="Gold" BorderBrush="Black" BorderThickness="2" CornerRadius="20">
+                                <Border Background="#8a949e" BorderBrush="Black" BorderThickness="1.5" CornerRadius="20">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="100" />
                                             <ColumnDefinition Width="200" />
                                         </Grid.ColumnDefinitions>
-                                        <Image Source="/Resources/Images/suitcase.png" Width="38" Height="40" Margin="40,8,23,8" />
+                                        <Image Source="/Resources/Images/suitcase.png" Width="36" Height="40" Margin="40,8,23,8" />
                                         <Label Grid.Column="1" Content="{Binding NumberOfReservations}" ContentStringFormat="My reservations ({0})" FontSize="18" FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
                                     </Grid>
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button Grid.Row="5" Width="300" Padding="10" Cursor="Hand" Command="{Binding MyRequestCommand}">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="Gold" BorderBrush="Black" BorderThickness="2" CornerRadius="20">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="100" />
-                                            <ColumnDefinition Width="200" />
-                                        </Grid.ColumnDefinitions>
-                                        <Image Source="/Resources/Images/notificationsG.png" Width="38" Height="40" VerticalAlignment="Center"  Margin="40,8,23,8" />
-                                        <Label Grid.Column="1" Content="{Binding NumberOfNotifications}" ContentStringFormat="Notifications ({0})" FontSize="18" FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
-                                    </Grid>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Border Grid.Row="6" Background="Gold"  BorderBrush="Black" BorderThickness="1.5" CornerRadius="20" Width="300" Padding="10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="200" />
-                            </Grid.ColumnDefinitions>
-                            <Image Source ="/Resources/Images/logoutG.png" Width="38" Height="40" VerticalAlignment="Center" />
-                            <Label Grid.Column="1" Content="Log out" FontSize="18"  FontFamily="Bahnschrift" Foreground="Black" FontWeight="DemiBold" VerticalAlignment="Center" />
-                        </Grid>
-                    </Border>
+                   
                 </Grid>
             </Grid>
         </ScrollViewer>

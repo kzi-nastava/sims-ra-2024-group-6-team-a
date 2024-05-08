@@ -31,5 +31,13 @@ namespace BookingApp.View
             Title = selectedGuest.GuestName + "'s review.";
            
         }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape) 
+            {
+                Close();
+            }
+        }
     }
 }

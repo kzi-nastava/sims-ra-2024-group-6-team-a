@@ -27,10 +27,19 @@ namespace BookingApp.ApplicationServices
         {
             return guestReviewRepository.GetAll();
         }
-        public List<GuestReview> GetLegalReviews()
+        public List<GuestReview> GetAllByGuest(int guestId)
+        {
+            List<GuestReview> reviews = new List<GuestReview>();
+            foreach (GuestReview guestReview in GuestReviewService.GetInstance().GetAll()) { 
+            AccommodationReservation reservation = AccommodationReservationService.GetInstance().GetByReservationId(guestReview.ReservationId);
+                if (reservation.GuestId == guestId) reviews.Add(guestReview);
+            }
+            return reviews;
+        }
+        public List<GuestReview> GetLegalReviews(int guestId)
         {
             List<GuestReview> legalReviews = new List<GuestReview>();
-            foreach (GuestReview guestReview in GuestReviewService.GetInstance().GetAll())
+            foreach (GuestReview guestReview in GuestReviewService.GetInstance().GetAllByGuest(guestId))
             {
                 foreach (OwnerReview ownerReview in OwnerReviewService.GetInstance().GetAll())
                 {
@@ -63,7 +72,7 @@ namespace BookingApp.ApplicationServices
         {
             double averageGrade=0;
             int iterator = 0;
-            foreach (GuestReview guestReview in GuestReviewService.GetInstance().GetLegalReviews()) {
+            foreach (GuestReview guestReview in GuestReviewService.GetInstance().GetLegalReviews(guest.Id)) {
                         AccommodationReservation reservation = AccommodationReservationService.GetInstance().GetByReservationId(guestReview.ReservationId);
                         if (guest.Id == reservation.GuestId)
                         {
@@ -74,7 +83,17 @@ namespace BookingApp.ApplicationServices
             if (iterator == 0) iterator = 1;
                 return averageGrade/(iterator*2.0);
         }
-            
+
+
+        public void Delete(GuestReview GuestReview)
+        {
+            guestReviewRepository.Delete(GuestReview);
+        }
+
+
+
     }
+
+
 
 }

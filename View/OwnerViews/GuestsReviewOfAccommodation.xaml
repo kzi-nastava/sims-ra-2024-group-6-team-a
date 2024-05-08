@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="GuestsReviewOfAccommodation" Height="200" Width="400" WindowStartupLocation="CenterScreen">
+        Title="Guests review" Height="300" Width="400" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
@@ -20,9 +20,18 @@
             <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding Correctness}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
         </StackPanel>
 
+            <Viewbox Margin="4,0,1,0">
+                <StackPanel Orientation="Vertical" Width="190">
+                    <TextBlock 
+                   FontSize="10" 
+                   TextWrapping="Wrap" 
+                   Foreground="Blue"
+                   Text="{Binding RenovationRec}" />
+                </StackPanel>
+            </Viewbox>
 
 
-        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal">
             <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom" Foreground="DarkBlue">Additional comment:</TextBlock>
 
                 <Viewbox Margin="1,0,1,0">

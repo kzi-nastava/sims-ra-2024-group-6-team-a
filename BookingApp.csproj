@@ -7,7 +7,6 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-	
   <ItemGroup>
     <None Remove="Resources\Images\accommodations.png" />
     <None Remove="Resources\Images\add.png" />
@@ -32,6 +31,7 @@
     <None Remove="Resources\Images\dva.png" />
     <None Remove="Resources\Images\edit.png" />
     <None Remove="Resources\Images\emptyStar.png" />
+    <None Remove="Resources\Images\finish_flag.png" />
     <None Remove="Resources\Images\forum.png" />
     <None Remove="Resources\Images\fourArrow.png" />
     <None Remove="Resources\Images\futog.jpg" />
@@ -57,12 +57,15 @@
     <None Remove="Resources\Images\horizonti8.jpeg" />
     <None Remove="Resources\Images\horizonti9.jpg" />
     <None Remove="Resources\Images\hourglass.png" />
+    <None Remove="Resources\Images\important_notice.png" />
+    <None Remove="Resources\Images\information.png" />
     <None Remove="Resources\Images\Iraq.jpg" />
     <None Remove="Resources\Images\jedan.png" />
     <None Remove="Resources\Images\kanta.png" />
     <None Remove="Resources\Images\language.png" />
     <None Remove="Resources\Images\languages.png" />
     <None Remove="Resources\Images\larroww.png" />
+    <None Remove="Resources\Images\left_arrow.png" />
     <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\location-ping.png" />
     <None Remove="Resources\Images\location.png" />
@@ -110,10 +113,12 @@
     <None Remove="Resources\Images\reservation_img.png" />
     <None Remove="Resources\Images\res_change.png" />
     <None Remove="Resources\Images\right-arrow.png" />
+    <None Remove="Resources\Images\right_arrow.png" />
     <None Remove="Resources\Images\rules.png" />
     <None Remove="Resources\Images\send.png" />
     <None Remove="Resources\Images\sheraton1.jpg" />
     <None Remove="Resources\Images\star.png" />
+    <None Remove="Resources\Images\star_normalan.png" />
     <None Remove="Resources\Images\suitcase.png" />
     <None Remove="Resources\Images\terme1.jpg" />
     <None Remove="Resources\Images\terme2.jpg" />
@@ -180,6 +185,9 @@
     <Content Include="Resources\Images\emptyStar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\finish_flag.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\forum.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -195,10 +203,19 @@
     <Content Include="Resources\Images\halfStar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\important_notice.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\information.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\jedan.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\larroww.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\left_arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\locationpin.png">
@@ -395,6 +412,9 @@
     <Content Include="Resources\Images\right-arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\right_arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\rules.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -405,6 +425,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\star.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\star_normalan.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\suitcase.png">
@@ -468,6 +491,9 @@
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <PackageReference Include="LiveCharts" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.WinForms" Version="0.9.7.1" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
   </ItemGroup>

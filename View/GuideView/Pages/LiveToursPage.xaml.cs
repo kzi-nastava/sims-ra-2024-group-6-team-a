@@ -36,33 +36,20 @@ namespace BookingApp.View.GuideView.Pages
       
        
         private LiveTour liveTour;
-        private TourStatisticsPage _tourStatisticsPage;
 
         public event EventHandler tourEnded;
 
-        public LiveToursPage(TourStatisticsPage tourStatisticsPage,TourCreationPage tourCreationPage,User user)
+        public LiveToursPage(User user)
         {
             InitializeComponent();
             DataContext = this;
-            LoggedUser = user;
-
-            _tourStatisticsPage = tourStatisticsPage;
-
+            LoggedUser = user;         
             TodaysTours = new ObservableCollection<TourGuideDTO>();
-
-
-
-            tourCreationPage.SomethingHappened += tourCreationPage_SomethingHappened;
-
-
             Update();
 
         }
         
-        private void tourCreationPage_SomethingHappened(object sender, EventArgs e)
-        {
-            Update();
-        }
+       
 
         public void Update()
         {
@@ -81,7 +68,7 @@ namespace BookingApp.View.GuideView.Pages
 
                 Language language = LanguageService.GetInstance().GetById(tour.LanguageId);
                 
-                TodaysTours.Add(new TourGuideDTO(tour, language,location, image.Path, dateTime, tourSchedule.Id));
+                TodaysTours.Add(new TourGuideDTO(tour, language,location, image.Path, dateTime, tourSchedule.Id, false));
             }
         }
 
@@ -101,13 +88,9 @@ namespace BookingApp.View.GuideView.Pages
         {
             return ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour).First();
         }
-
-
-
-        private void TourEndedEventHandler(object sender, EventArgs e)
+        private void LoadTodaysTours(object sender, RoutedEventArgs e)
         {
             Update();
-            tourEnded?.Invoke(this, EventArgs.Empty);
         }
     }
 }

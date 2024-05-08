@@ -12,6 +12,8 @@ using System.Windows.Controls;
 using System.Windows;
 using BookingApp.View;
 using BookingApp.ApplicationServices;
+using System.Windows.Media;
+using System.Net.NetworkInformation;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
@@ -45,31 +47,39 @@ namespace BookingApp.ViewModels.GuideViewModel
             
             tourReviewPage = new TourReviewsPage(mainFrame, LoggedUser);
 
-            toursPage = new ToursPage(LoggedUser,tourStatisticsPage,tourReviewPage);
+            toursPage = new ToursPage(LoggedUser);
 
-            MainWindow.MainFrame.Content = toursPage;
-
+            ToursPageClick();
         }
 
         public void ToursPageClick()
         {
+            ResetButtonColors();
+            MainWindow.btnTours.Foreground = Brushes.Black;
             MainWindow.MainFrame.Content = toursPage;
         }
        
 
         public void TourStatisticsPageClick()
         {
+            ResetButtonColors();
+            MainWindow.btnStatistics.Foreground = Brushes.Black;
+
             MainWindow.MainFrame.Content = tourStatisticsPage;
         }
 
         public void TourReviewsPageClick()
         {
+            ResetButtonColors();
+            MainWindow.btnReviews.Foreground = Brushes.Black;
             MainWindow.MainFrame.Content = tourReviewPage;
         }
 
-        public void TourRequestsPageClick()
+        private void ResetButtonColors()
         {
-
+            MainWindow.btnTours.Foreground = Brushes.DarkGray;
+            MainWindow.btnReviews.Foreground = Brushes.DarkGray;
+            MainWindow.btnStatistics.Foreground = Brushes.DarkGray;
         }
     }
 }

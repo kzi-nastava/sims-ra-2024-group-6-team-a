@@ -28,31 +28,38 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public Visibility ThreeStarVisibility { get; set; }
         public Visibility TwoStarVisibility { get; set; }
         public Visibility OneStarVisibility { get; set; }
+        public Visibility OneHStarVisibility { get; set; }
         public Visibility FiveHStarVisibility { get; set; }
         public Visibility FourHStarVisibility { get; set; }
         public Visibility ThreeHStarVisibility { get; set; }
         public Visibility TwoHStarVisibility { get; set; }
-        public Visibility FiveEStarVisibility { get; set; }
-        public Visibility FourEStarVisibility { get; set; }
-        public Visibility ThreeEStarVisibility { get; set; }
-        public Visibility TwoEStarVisibility { get; set; }
-
         public GuestProfilViewModel(Guest guest, NavigationService navigation)
         {
             Guest = guest;
-            NumberOfReservations = AccommodationReservationService.GetInstance().GetNumberOfReservationInPreviousYear(Guest.Id).ToString();
 
+            NumberOfReservations = AccommodationReservationService.GetInstance().GetActiveReservationsByGuest(guest.Id).Count.ToString();
             foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAllReservationsByGuest(Guest.Id))
                 NumberOfNotifications += ReservationChangeService.GetInstance().GetNumberOfNotifications(reservation.Id);
             MyReservationCommand = new RelayCommand(Execute_MyReservationCommand);
             MyRequestCommand = new RelayCommand(Execute_MyRequestCommand);
             NavService = navigation;
-            if (DateOnly.FromDateTime(DateTime.Today)>Guest.StartSuperGuestDate.AddYears(1))
-            CheckSuperGuest();
-
             CheckRating();
         }
-        public void ShowOneStar() {
+        public void ShowZeroStar()
+        {
+            FiveStarVisibility = Visibility.Collapsed;
+            FiveHStarVisibility = Visibility.Collapsed;
+            FourStarVisibility = Visibility.Collapsed;
+            FourHStarVisibility = Visibility.Collapsed;
+            ThreeStarVisibility = Visibility.Collapsed;
+            ThreeHStarVisibility = Visibility.Collapsed;
+            TwoStarVisibility = Visibility.Collapsed;
+            TwoHStarVisibility = Visibility.Collapsed;
+            OneStarVisibility = Visibility.Collapsed;
+            OneHStarVisibility = Visibility.Collapsed;
+        }
+        public void ShowOneStar()
+        {
             FiveStarVisibility = Visibility.Collapsed;
             FiveHStarVisibility = Visibility.Collapsed;
             FourStarVisibility = Visibility.Collapsed;
@@ -114,6 +121,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
         }
         public void CheckRating() {
             AverageGrade = Math.Round(GuestReviewService.GetInstance().GetAverageGradeByGuest(Guest), 2);
+            if(AverageGrade==0.00) ShowZeroStar();
             if (AverageGrade <= 1.25) ShowOneStar();
             else if (AverageGrade <= 1.75) ShowOneHalfStar();
             else if (AverageGrade <= 2.25) ShowTwoStar();
@@ -124,23 +132,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
             else if (AverageGrade <= 4.75) ShowFourHalfStar();
 
         }
-        public void CheckSuperGuest(){
-            MessageBox.Show("pre Uso");
-            Guest.IsSuperGuest = false;
-            Guest.BonusPoints = 0;
-            GuestService.GetInstance().Update(Guest);
-
-            if (AccommodationReservationService.GetInstance().GetNumberOfReservationInPreviousYear(Guest.Id) >= 5 )
-            {
-                MessageBox.Show("Uso");
-                Guest.BonusPoints = 5;
-                Guest.IsSuperGuest = true;
-                Guest.StartSuperGuestDate = DateOnly.FromDateTime(DateTime.Today);
-                GuestService.GetInstance().Update(Guest);
-            }
-              
-        }
-
         public void Execute_MyReservationCommand(object obj)
         {
             NavService.Navigate(new GuestMyReservationsView(Guest, NavService));

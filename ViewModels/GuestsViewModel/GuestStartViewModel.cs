@@ -29,6 +29,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public RelayCommand ForumCommand { get; set; }
         public RelayCommand MenuOpenCommand { get; set; }
         public RelayCommand MenuClosedCommand { get; set; }
+        public RelayCommand WhereverCommand { get; set; }
         public GuestStartViewModel(Guest guest, NavigationService navigation)
         {
             Guest = guest;
@@ -42,10 +43,12 @@ namespace BookingApp.ViewModels.GuestsViewModel
             MenuClosedCommand = new RelayCommand(Execute_MenuClosedCommand);
             MyRequestCommand = new RelayCommand(Execute_MyRequestCommand);
             RatingsCommand = new RelayCommand(Execute_RatingsCommand);
+            WhereverCommand = new RelayCommand(Execute_WhereverCommand);
             MenuOpenVisibility = Visibility.Collapsed;
             RedDotVisibility = Visibility.Collapsed;
             NavService.Navigate(new GuestAccommodationsView(Guest, NavService));
             ShowNotice();
+            GuestService.GetInstance().SuperGuestRenewal(Guest);
         }
         public void ShowNotice()
         {
@@ -68,8 +71,12 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public void Execute_ForumCommand(object obj)
         {
             MenuOpenVisibility = Visibility.Collapsed;
-
-            NavService.Navigate(new GuestMyReservationsView(Guest, NavService));
+            NavService.Navigate(new ForumView(Guest, NavService));
+        }   
+        public void Execute_WhereverCommand(object obj)
+        {
+            MenuOpenVisibility = Visibility.Collapsed;
+            NavService.Navigate(new WhereverWheneverView(Guest, NavService));
         }  
         public void Execute_MyRequestCommand(object obj)
         {

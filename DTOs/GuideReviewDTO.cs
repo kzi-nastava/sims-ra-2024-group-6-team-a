@@ -235,6 +235,27 @@ namespace BookingApp.DTOs
             }
         }
 
+
+        private string _location;
+        public string Location
+        {
+            get
+            {
+                return _location;
+            }
+
+            set
+            {
+                if (value != _location)
+                {
+                    _location = value;
+                    OnPropertyChanged("Location");
+
+                }
+            }
+        }
+
+
         public GuideReviewDTO(Tour tour,Language language ,Location location, string imagePath, DateTime tourStart, int tourScheduleId,double avgGrade)
         {
             Id = tour.Id;
@@ -243,12 +264,12 @@ namespace BookingApp.DTOs
             Language = language.Name;
             Capacity = tour.Capacity;
             Duration = tour.Duration;
-            City = location.City;
-            State = location.State;
+            
             Image = imagePath;
             TourStart = tourStart;
             TourScheduleId = tourScheduleId;
             AvgGrade = avgGrade;
+            Location = location.City + ", " + location.State;
         }
 
 
