@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.ComponentModel;
 using BookingApp.Domain.Model;
+using System;
 
 namespace BookingApp.ViewModels.TouristViewModel
 {
@@ -66,17 +67,19 @@ namespace BookingApp.ViewModels.TouristViewModel
         public RelayCommand AddTouristInfoCommand { get; set; }
         public RelayCommand RemoveTouristCommand { get; set; }
         public RelayCommand SaveReservationCommand { get; set; }
+        public RelayCommand CancelReservationCommand { get; set; }
         public RelayCommand UseVoucherCommand { get; set; }
+        public Action CloseAction { get; set; }
 
-        public TourReservationFormViewModel(  User user, TourTouristDTO selectedTour)
+        public TourReservationFormViewModel(User user, TourTouristDTO selectedTour)
         {
             LoggedUser = user;
-
-            
+           
             AddTouristInfoCommand = new RelayCommand(Execute_AddTouristInfoCommand);
             RemoveTouristCommand = new RelayCommand(RemoveTourist);
             SaveReservationCommand = new RelayCommand(Execute_SaveReservationCommand);
             UseVoucherCommand = new RelayCommand(Execute_UseVoucherCommand);
+            CancelReservationCommand = new RelayCommand(Execute_CancelReservationCommand);
 
             TourSchedules = new ObservableCollection<TourScheduleDTO>();
             TourGuests = new ObservableCollection<TourGuestDTO>();
@@ -132,13 +135,18 @@ namespace BookingApp.ViewModels.TouristViewModel
                     voucher.Id = Voucher.Id;
                     VoucherService.GetInstance().Delete(voucher);
                 }
-
+                CloseAction();
                 return;
             }
 
             AvailableSpaceMessage();
+
         }
 
+        private void Execute_CancelReservationCommand(object sender)
+        {
+            CloseAction();
+        }
         private void Execute_AddTouristInfoCommand(object sender)
         {
             TourGuests.Add(new TourGuestDTO(Name, Age, Surname, -1));

@@ -67,7 +67,7 @@ namespace BookingApp.ApplicationServices
         {
             foreach (TourGuestDTO guest in guests)
             {
-                TourGuests newGuest = new TourGuests(guest, reservationId);
+                TourGuests newGuest = new TourGuests(guest, reservationId, -1);
                 TourGuestService.GetInstance().Save(newGuest);
             }
         }

@@ -38,6 +38,8 @@ namespace BookingApp.View
             InitializeComponent();
             ReservationWindow = new TourReservationFormViewModel(user, selectedTour);
             DataContext = ReservationWindow;
+            if (ReservationWindow.CloseAction == null)
+                ReservationWindow.CloseAction = new Action(() => this.Close());
         }
 
     }

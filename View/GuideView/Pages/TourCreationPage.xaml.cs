@@ -204,6 +204,8 @@ namespace BookingApp.View.GuideView.Pages
             SelectedTour.LocationId = locationComboBox.SelectedIndex + 1;
             SelectedTour.LanguageId = languageComboBox.SelectedIndex + 1;
             SelectedTour.GuideId = LoggedUser.Id;
+            SelectedTour.Type = Enums.TourType.Ordinary; //OVDJE SAM DODALA POSTO SE PRAVI OBICNA TURA########
+            SelectedTour.RequestId = -1;//###############################################
             SelectedTour = TourService.GetInstance().Save(SelectedTour);
 
 

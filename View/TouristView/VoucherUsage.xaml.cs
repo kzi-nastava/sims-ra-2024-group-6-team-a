@@ -32,6 +32,9 @@ namespace BookingApp.View.TouristView
             VouchersUsageWindow = new VouchersUsageViewModel(user, parentWindow);
             DataContext = VouchersUsageWindow;
 
+            if (VouchersUsageWindow.CloseAction == null)
+                VouchersUsageWindow.CloseAction = new Action(() => this.Close());
+
         }
     }
 }

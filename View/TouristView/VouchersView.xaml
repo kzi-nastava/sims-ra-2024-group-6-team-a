@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         mc:Ignorable="d"
-        Title="VouchersView" Height="570" Width="480"
+        Title="VouchersView" Height="600" Width="550" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
    
         <Grid Background="AliceBlue">
@@ -15,7 +15,13 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-        <Image Height="18px" Width="18"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="-11 2 2 10 " Source="..\..\Resources\Images\questionMark.png">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+        <Image Height="18px" Width="18" Grid.Column="2"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="-11 2 2 10 " Source="..\..\Resources\Images\questionMark.png">
             <Image.ToolTip>
                 <ToolTip>
                     Valid vouchers that you can use
@@ -23,15 +29,15 @@
             </Image.ToolTip>
         </Image>
 
-        <TextBlock FontWeight="DemiBold" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Margin="20">Voucher list:</TextBlock>
+        <TextBlock FontWeight="DemiBold" FontSize="30" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Margin="20">Voucher list:</TextBlock>
 
-        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="20 0 20 10">
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="20 0 20 10">
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
             
             <ItemsControl ItemsSource="{Binding Vouchers}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Black" BorderThickness="1" Margin="15" Padding="10" Background="LightYellow">
+                            <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="3" Margin="10" Background="LightYellow">
                             
                             <Grid>
                                 
@@ -39,22 +45,22 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
+                                </Grid.ColumnDefinitions>
                                 
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
 
-                                    <Image Height="75px" Width="65"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15 0 0 0" Grid.RowSpan="3" Grid.Column="0" Source="..\..\Resources\Images\giftt.png"/>
+                                    <Image Height="75px" Width="75"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 5" Grid.RowSpan="3" Grid.Column="0" Source="..\..\Resources\Images\bluee.png"/>
                                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" >
-                                    <TextBlock FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"> Expire Date:</TextBlock>
-                                    <TextBlock HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Width="120" VerticalAlignment="Center" Grid.Column="1" Text="{Binding ExpirationDate}"></TextBlock>
-                                </StackPanel>
+                                        <TextBlock FontWeight="Bold" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"> Expire:</TextBlock>
+                                        <TextBlock HorizontalAlignment="Left" FontSize="15" Margin="5" Width="Auto" VerticalAlignment="Center" Grid.Column="1" Text="{Binding ExpirationDate}"></TextBlock>
+                                    </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1">
-                                        <TextBlock FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"> Received:</TextBlock>
-                                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Margin="5" Width="120" VerticalAlignment="Center" Grid.Column="1" Text="{Binding ReceiviingDate}"></TextBlock>
+                                        <TextBlock FontWeight="Bold" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"> Received:</TextBlock>
+                                        <TextBlock HorizontalAlignment="Left" FontSize="15" Margin="5" Width="Auto" VerticalAlignment="Center" Grid.Column="1" Text="{Binding ReceiviingDate}"></TextBlock>
                                     </StackPanel>
                             </Grid>
                         </Border>

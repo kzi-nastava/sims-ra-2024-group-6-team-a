@@ -14,6 +14,7 @@
     <None Remove="Resources\Images\barcelona.jpg" />
     <None Remove="Resources\Images\begec.jpg" />
     <None Remove="Resources\Images\blank-profile.jpg" />
+    <None Remove="Resources\Images\bluee.png" />
     <None Remove="Resources\Images\budapest.jpg" />
     <None Remove="Resources\Images\cakeG.png" />
     <None Remove="Resources\Images\calendar.png" />
@@ -88,6 +89,8 @@
     <None Remove="Resources\Images\pet.png" />
     <None Remove="Resources\Images\phoneG.png" />
     <None Remove="Resources\Images\play.png" />
+    <None Remove="Resources\Images\plus.png" />
+    <None Remove="Resources\Images\pluss.png" />
     <None Remove="Resources\Images\present.png" />
     <None Remove="Resources\Images\present2.png" />
     <None Remove="Resources\Images\profile.png" />
@@ -251,6 +254,8 @@
     <Content Include="Resources\Images\phoneG.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Images\bluee.png" />
+    <Resource Include="Resources\Images\pluss.png" />
     <Content Include="Resources\Images\profile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -502,6 +507,7 @@
     <Resource Include="Resources\Images\gift2.png" />
     <Content Include="Resources\Images\gift3.png" />
     <Resource Include="Resources\Images\giftt.png" />
+    <Resource Include="Resources\Images\plus.png" />
     <Resource Include="Resources\Images\present.png" />
     <Resource Include="Resources\Images\present2.png" />
     <Resource Include="Resources\Images\questionMark.png" />

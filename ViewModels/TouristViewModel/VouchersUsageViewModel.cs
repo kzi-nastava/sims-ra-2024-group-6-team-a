@@ -17,7 +17,7 @@ namespace BookingApp.ViewModels.TouristViewModel
     public class VouchersUsageViewModel
     {
         public User LoggedUser { get; set; }
-
+        public Action CloseAction { get; set; }
         public VouchersDTO SelectedVoucher { get; set; }
         public ObservableCollection<VouchersDTO> Vouchers { get; set; }
 
@@ -48,7 +48,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         {
             VouchersDTO voucher = (VouchersDTO)obj;
             ParentWindow.Voucher = voucher;
-            
+            CloseAction();
             
 
         }

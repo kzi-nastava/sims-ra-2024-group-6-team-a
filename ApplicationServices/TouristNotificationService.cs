@@ -36,12 +36,23 @@ namespace BookingApp.ApplicationServices
         {
             return _notificationRepository.GetAll();
         }
+        public List<TouristNotification> GetAttendance()
+        {
+            List<TouristNotification> notifications = new List<TouristNotification>();
+            foreach(TouristNotification notification in _notificationRepository.GetAll())
+            {
+                if(notification.Type == Resources.Enums.NotificationType.Attendance)
+                    notifications.Add(notification);
+            }
+            return notifications;
+        }
 
         public void SendNotification(TourSchedule tourSchedule)
         {
             foreach(var reservation in TourReservationService.GetInstance().GetAllByRealisationId(tourSchedule.Id))
             {
-                TouristNotification notification = new TouristNotification(reservation.TouristId, TourService.GetInstance().GetById(tourSchedule.TourId).Name);
+                string message = "Following guests have shown up on these checkpoints: ";
+                TouristNotification notification = new TouristNotification(message,reservation.TouristId, TourService.GetInstance().GetById(tourSchedule.TourId).Name, Resources.Enums.NotificationType.Attendance);
                 List<TourGuests> guests = TourGuestService.GetInstance().GetAllByReservationId(reservation.Id);
 
                 foreach (var guest in guests)

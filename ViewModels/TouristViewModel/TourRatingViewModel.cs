@@ -14,6 +14,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -29,7 +30,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         public RelayCommand CancleRateCommand { get; set; }
         public RelayCommand SaveRateCommand { get; set; }
 
-
+        public Action CloseAction { get; set; }
         public TourReviewDTO TourReviewDTO { get; set; }
         public ImageItemDTO SelectedImageUrl { get; set; }
         public static ObservableCollection<ImageItemDTO> ImagesCollection { get; set; }
@@ -71,8 +72,6 @@ namespace BookingApp.ViewModels.TouristViewModel
         }
         private void Execute_RemoveImageCommand(object param)
         {
-            /*   string imageUrl = SelectedImageUrl;
-               ImagesCollection.Remove(imageUrl);*/
             var imageToRemove = param as ImageItemDTO;
 
             ImagesCollection.Remove(imageToRemove);
@@ -87,12 +86,12 @@ namespace BookingApp.ViewModels.TouristViewModel
             TourReviewService.GetInstance().MakeReview(TourReviewDTO);
 
             SaveImages();
-            //Window.Close();
+            CloseAction();
         }
 
         private void Execute_CancleRateCommand(object sender)
         {
-            //Window.Close();
+            CloseAction();
         }
         protected void OnPropertyChanged(string propertyName)
         {

@@ -5,23 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="SameLocationToursWindow" Height="650" Width="980"
+        Title="SameLocationToursWindow" Height="620" Width="1020" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
     <Grid Background="AliceBlue">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="58"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="10">No free space on selected tour! Chose alternative:</TextBlock>
-        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="10 10 10 20" Background="LightYellow">
+        <TextBlock Grid.Row="0" FontSize="30" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="10">No free space on selected tour! Chose alternative:</TextBlock>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" CornerRadius="1" Margin="27,5,27,8" Background="LightYellow">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="2">
                     <ItemsControl ItemsSource="{Binding Tours}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="White" CornerRadius="8" Margin="15,15,5,15" Padding="11" BorderBrush="LightGray" BorderThickness="1" Height="224">
+                                <Border Background="White" CornerRadius="8" Margin="15,10,5,10" Padding="11" BorderBrush="LightGray" BorderThickness="2" Height="224">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
@@ -32,15 +32,32 @@
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
                                         <Image Source="{Binding Image}" Grid.Column="0" Grid.RowSpan="2" Width="150" Height="181" Stretch="UniformToFill" Margin="2,12,20,10"/>
-                                        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                                            <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="18" Margin="0,0,0,5"/>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                                <Label Content="Location:" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding City}" FontStyle="Italic" VerticalAlignment="Center"/>
-                                                <TextBlock Text=", " FontStyle="Italic" VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding State}" FontStyle="Italic" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </StackPanel>
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="{Binding Name}" Grid.Row="0" TextWrapping="Wrap" FontWeight="Bold" FontSize="19" Margin="5,0,0,6"/>
+                                            <Grid Grid.Row="1" Margin="0 0 0 4">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Column="0" FontSize="14" Content="Location:" FontWeight="Bold"  VerticalAlignment="Center"/>
+                                                <TextBlock FontStyle="Italic" TextWrapping="Wrap" Grid.Column="1" FontSize="14" VerticalAlignment="Center">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0}, {1}">
+                                                            <Binding Path="City"></Binding>
+                                                            <Binding Path="State"></Binding>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Grid>
+                                        </Grid>
                                         <Grid Grid.Row="1" Grid.Column="1">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
@@ -52,21 +69,33 @@
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" >
-                                                <Label Content="Capacity:" FontWeight="Bold" Margin="0,4,5,0" VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding Capacity}" FontStyle="Italic"  VerticalAlignment="Center"/>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Margin="0 0 0 4">
+                                                <Label Content="Capacity:" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Capacity}" FontSize="14" FontStyle="Italic"  VerticalAlignment="Center"/>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
-                                                <Label Content="Language:" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding Language}" FontStyle="Italic" VerticalAlignment="Center"/>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="0 0 0 4">
+                                                <Label Content="Language:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Language}" FontSize="14" FontStyle="Italic" VerticalAlignment="Center"/>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2">
-                                                <Label Content="Duration:" FontWeight="Bold" Margin="0,4,5,0" VerticalAlignment="Center"/>
-                                                <TextBlock Text="{Binding Duration}" FontStyle="Italic"  VerticalAlignment="Center"/>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2" Margin="0 0 0 4">
+                                                <Label Content="Duration:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Duration}" FontSize="14" FontStyle="Italic"  VerticalAlignment="Center"/>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3" Margin="0 12 10 0" >
-                                                <Button Content="Book now" Click="Reservation_Click" Margin="5,8,15,5" VerticalAlignment="Center" Padding="5" Width="100" Grid.Row="3" Background="AntiqueWhite" FontWeight="Bold"/>
-                                                <Button Content="More details" VerticalAlignment="Center" Grid.Row="3" Padding="5" Width="100" Margin="0,3,4,0"  Background="AntiqueWhite" FontWeight="Bold" Click="DetailedView_Click"/>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3" Margin="0 0 10 0" >
+                                                <Button Content="Book now" Click="Reservation_Click" FontSize="15" Margin="5,8,15,5" VerticalAlignment="Center" Height="25" Width="100" Grid.Row="3" Background="AntiqueWhite" FontWeight="Bold">
+                                                    <Button.ToolTip>
+                                                        <ToolTip>
+                                                            Click to book tour
+                                                        </ToolTip>
+                                                    </Button.ToolTip>
+                                                </Button>
+                                                <Button Content="More details" VerticalAlignment="Center" FontSize="15" Grid.Row="3" Width="100" Height="25" Margin="0,3,4,0"  Background="AntiqueWhite" FontWeight="Bold" Click="DetailedView_Click">
+                                                    <Button.ToolTip>
+                                                        <ToolTip>
+                                                            Click for details
+                                                        </ToolTip>
+                                                    </Button.ToolTip>
+                                                </Button>
                                             </StackPanel>
                                         </Grid>
                                     </Grid>
@@ -81,7 +110,6 @@
                     </ItemsControl>
                 </Grid>
             </ScrollViewer>
-            
         </Border>
     </Grid>
 </Window>
