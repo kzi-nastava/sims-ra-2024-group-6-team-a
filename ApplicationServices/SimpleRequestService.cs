@@ -73,9 +73,61 @@ namespace BookingApp.ApplicationServices
             }
             
         }
+
+        public TourRequest Update(TourRequest request)
+        {
+            return _simpleRequestRepository.Update(request);
+        }
+
         public TourRequest GetById(int id)
         {
             return _simpleRequestRepository.GetById(id);
+        }
+
+        private bool IsFiltered(TourRequest request, RequestFilterDTO filter)
+        {
+            return MatchesLocation(request, filter) &&
+                   MatchesBeginning(request, filter) &&
+                   MatchesEnding(request, filter) &&
+                   MatchesLanguage(request, filter) &&
+                   MatchesTouristNumber(request, filter);
+        }
+
+        private bool MatchesBeginning(TourRequest request, RequestFilterDTO filter)
+        {
+            return request.StartDate >= filter.Beggining || filter.Beggining == DateOnly.MinValue;
+        }
+
+
+        private bool MatchesEnding(TourRequest request, RequestFilterDTO filter)
+        {
+            return request.EndDate <= filter.Ending || filter.Ending == DateOnly.MinValue;
+
+        }
+
+        private bool MatchesLocation(TourRequest request, RequestFilterDTO filter)
+        {
+            return request.LocationId == filter.Location.Id || filter.Location.Id == 0;
+        }
+        private bool MatchesTouristNumber(TourRequest request, RequestFilterDTO filter)
+        {
+            return TourGuestService.GetInstance().CountGuestsInRequest(request.Id) == filter.TouristNumber || filter.TouristNumber == 0;
+        }
+
+        private bool MatchesLanguage(TourRequest request, RequestFilterDTO filter)
+        {
+            return request.LanguageId == filter.Language.Id || filter.Language.Id == 0;
+        }
+
+
+        public List<TourRequest> GetFiltered(RequestFilterDTO filter)
+        {
+            List<TourRequest> tourRequests = GetAll();
+            if (filter.isEmpty())
+            {
+                return tourRequests;
+            }
+            return tourRequests.Where(t => IsFiltered(t, filter)).ToList();
         }
     }
 }

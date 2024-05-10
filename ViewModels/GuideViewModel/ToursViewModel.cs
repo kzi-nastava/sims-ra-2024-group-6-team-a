@@ -24,12 +24,12 @@ namespace BookingApp.ViewModels.GuideViewModel
         public TourCreationPage tourCreationPage;
 
 
-        public ToursPage window;
+        public ToursPage Window {  get; set; }
 
         public ToursViewModel(ToursPage window,User user)
         {
             LoggedUser = user;
-            this.window = window;
+            this.Window = window;
 
             tourCreationPage = new TourCreationPage(user);
             liveToursPage = new LiveToursPage(LoggedUser);
@@ -41,7 +41,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         public void LiveToursPageClick()
         {
             ResetButtonColors();
-            window.btnTodaysTours.Foreground = Brushes.Black;
+            Window.btnTodaysTours.Foreground = Brushes.Black;
 
 
             List<Tour> tours = TourService.GetInstance().GetAllByUser(LoggedUser);
@@ -50,27 +50,27 @@ namespace BookingApp.ViewModels.GuideViewModel
             if (tourScheduleId != 0)
             {
                 startedTourPage = new AlreadyStartedTour(tourScheduleId, LoggedUser);
-                window.SecondFrame.Content = startedTourPage;
+                Window.SecondFrame.Content = startedTourPage;
             }
             else
             {
-                window.SecondFrame.Content = liveToursPage;
+                Window.SecondFrame.Content = liveToursPage;
             }
         }
         
         public void AllToursPageClick()
         {
             ResetButtonColors();
-            window.btnAllTours.Foreground = Brushes.Black;
+            Window.btnAllTours.Foreground = Brushes.Black;
 
-            window.SecondFrame.Content = allToursPage;
+            Window.SecondFrame.Content = allToursPage;
         }
         public void ShowCreateTourForm()
         {
             ResetButtonColors();
-            window.btnCreateTour.Foreground = Brushes.Black;
+            Window.btnCreateTour.Foreground = Brushes.Black;
 
-            window.SecondFrame.Content = tourCreationPage;
+            Window.SecondFrame.Content = tourCreationPage;
         }
 
         public void LoadTodaysTours()
@@ -80,9 +80,9 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         private void ResetButtonColors()
         {
-            window.btnTodaysTours.Foreground = Brushes.DarkGray;
-            window.btnAllTours.Foreground = Brushes.DarkGray;
-            window.btnCreateTour.Foreground = Brushes.DarkGray;
+            Window.btnTodaysTours.Foreground = Brushes.DarkGray;
+            Window.btnAllTours.Foreground = Brushes.DarkGray;
+            Window.btnCreateTour.Foreground = Brushes.DarkGray;
         }
     }
 }

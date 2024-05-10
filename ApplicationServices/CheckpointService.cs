@@ -110,6 +110,13 @@ namespace BookingApp.ApplicationServices
             return _checkpointRepository.GetById(checkpointId);
         }
 
+        public void SaveAll(List<String> checkpoints,int tourId, int tourScheduleId)
+        {
+            foreach (string checkpoint in checkpoints)
+            {
+                CheckpointService.GetInstance().Save(new Checkpoint(checkpoint, tourId, false, tourScheduleId));
+            }
+        }
        
     }
 }

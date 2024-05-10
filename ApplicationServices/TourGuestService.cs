@@ -137,5 +137,22 @@ namespace BookingApp.ApplicationServices
             
             return elderlyCount;
         }
+
+        public int CountGuestsInRequest(int requestId) 
+        {
+            return GetAll().Count(guest => guest.RequestId == requestId);
+        }
+
+        public void UpdateGuestReservation(TourReservation tourReservation, int requestId)
+        {
+            foreach (TourGuests guest in GetAll())
+            {
+                if (guest.RequestId == requestId)
+                {
+                    guest.ReservationId = tourReservation.Id;
+                    Update(guest);
+                }
+            }
+        }
     }
 }

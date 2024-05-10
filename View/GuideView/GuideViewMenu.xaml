@@ -58,7 +58,7 @@
                     <TextBlock Text="|" FontSize="30" VerticalAlignment="Center" Margin="10,0,10,0"/>
                     <Button  Background="Transparent" BorderThickness="0" Click="TourRequestsPageClick" >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock  Text="Tour Requests" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock x:Name="btnRequests" Text="Tour Requests" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                 </StackPanel>

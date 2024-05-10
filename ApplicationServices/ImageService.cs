@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.DTOs;
+using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
@@ -7,6 +8,7 @@ using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,5 +95,12 @@ namespace BookingApp.ApplicationServices
             _imageRepository.Delete(Image);
         }
 
+        public void SaveAllImages(ObservableCollection<ImageItemDTO> images,int tourId) 
+        {
+            foreach (ImageItemDTO imageItem in images)
+            {
+                ImageService.GetInstance().Save(new Model.Image(imageItem.ImagePath, tourId, Enums.ImageType.Tour));
+            }
+        }
     }
 }
