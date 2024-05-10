@@ -218,6 +218,62 @@ namespace BookingApp.DTOs
             }
         }
 
+        private string _location;
+        public string Location
+        {
+            get
+            {
+                return _location;
+            }
+            set
+            {
+                if (value != _location)
+                {
+                    _location = value;
+                    OnPropertyChanged("Location");
+
+                }
+            }
+        }
+
+        public int _touristNumber;
+        public int TouristNumber
+        {
+            get
+            {
+                return _touristNumber;
+            }
+            set
+            {
+                if (value != _touristNumber)
+                {
+                    _touristNumber = value;
+                    OnPropertyChanged("TouristNumber");
+
+                }
+            }
+
+        }
+
+        private int _userId;
+        public int UserId
+        {
+            get
+            {
+                return _userId;
+            }
+            set
+            {
+                if (value != _userId)
+                {
+                    _userId = value;
+                    OnPropertyChanged("UserId");
+
+                }
+            }
+
+        }
+
 
         public SimpleRequestDTO() { }
         public SimpleRequestDTO(TourRequest request, Location location, Language language)
@@ -231,6 +287,7 @@ namespace BookingApp.DTOs
             End = request.EndDate;
             TouristId = request.TouristId;
             Status = request.Status;
+            Location = location.City + ", " + location.State;
 
         }
         public SimpleRequestDTO(TourRequest request, int locationId, int languageId)
@@ -243,6 +300,23 @@ namespace BookingApp.DTOs
             End = request.EndDate;
             TouristId = request.TouristId;
             Status = request.Status;
+
+        }
+
+        public SimpleRequestDTO(TourRequest request, Location location, Language language, int touristNumber, int userId)
+        {
+            Id = request.Id;
+            City = location.City;
+            State = location.State;
+            Language = language.Name;
+            Description = request.Description;
+            Start = request.StartDate;
+            End = request.EndDate;
+            TouristId = request.TouristId;
+            Status = request.Status;
+            Location = location.City + ", " + location.State;
+            TouristNumber = touristNumber;
+            UserId = userId;
 
         }
 
