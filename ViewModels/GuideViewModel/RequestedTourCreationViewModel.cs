@@ -27,8 +27,8 @@ namespace BookingApp.ViewModels.GuideViewModel
         public Tour Tour { get; set; }
         public string Location { get; set; }
         public string Language { get; set; }
-        public TourRequest Request {  get; set; }
-        public int RequestId {  get; set; }
+        public TourRequest Request { get; set; }
+        public int RequestId { get; set; }
 
         public ImageItemDTO SelectedImageUrl { get; set; }
         public String SelectedCheckpoint { get; set; }
@@ -76,14 +76,14 @@ namespace BookingApp.ViewModels.GuideViewModel
                 }
             }
         }
-        public int UserId {  get; set; }
+        public int UserId { get; set; }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public RequestedTourCreationViewModel(RequestedTourCreation window,int requestId, int userId)
+        public RequestedTourCreationViewModel(RequestedTourCreation window, int requestId, int userId)
         {
             this.Window = window;
             RequestId = requestId;
@@ -102,6 +102,8 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         }
 
+
+    
         public void LoadRequestDetails()
         {
             Request = SimpleRequestService.GetInstance().GetById(RequestId);

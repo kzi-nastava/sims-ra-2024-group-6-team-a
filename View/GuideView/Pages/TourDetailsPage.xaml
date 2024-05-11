@@ -49,7 +49,7 @@
             <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="5" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Language}" />
             <Label FontFamily="Yu Gothic UI Light"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center"  FontSize="30" Content="Capacity:"/>
             <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Orientation="Horizontal">
-                <TextBlock FontFamily="Yu Gothic UI Light" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Duration}" />
+                <TextBlock FontFamily="Yu Gothic UI Light" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Capacity}" />
                 <Label FontFamily="Yu Gothic UI Light" Margin="10 0 0 0" FontSize="30" Content="people"/>
             </StackPanel>
             <Label FontFamily="Yu Gothic UI Light" Margin="25 0 0 0"  Grid.Row="1" Grid.Column="2"  VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="30" Content="Description:" />

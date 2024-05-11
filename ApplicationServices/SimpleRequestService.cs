@@ -235,6 +235,64 @@ namespace BookingApp.ApplicationServices
             }
             return tourRequests.Where(t => IsFiltered(t, filter)).ToList();
 
-         }
+        }
+        public Location CalculateMostRequestedLocation()
+        {
+            List<Location> locations = LocationService.GetInstance().GetAll();
+            List<TourRequest> tourRequests = GetAll();
+            Location mostRequestedLocation = locations[0];
+            int requestNumber = 0;
+            int tempRequestNumber = 0;
+
+            foreach (Location location in locations)
+            {
+                foreach(TourRequest request in tourRequests)
+                {
+                    if(request.LocationId == location.Id)
+                    {
+                        tempRequestNumber++;
+                    }
+                }
+
+                if(requestNumber < tempRequestNumber)
+                {
+                    requestNumber = tempRequestNumber;
+                    mostRequestedLocation = location;
+                }
+
+                tempRequestNumber = 0;
+            }
+
+            return mostRequestedLocation; 
+        }
+        public Language CalculateMostRequestedLanguage()
+        {
+            List<Language> languages = LanguageService.GetInstance().GetAll();
+            List<TourRequest> tourRequests = GetAll();
+            Language mostRequestedLocation = languages[0];
+            int requestNumber = 0;
+            int tempRequestNumber = 0;
+
+            foreach (Language language in languages)
+            {
+                foreach (TourRequest request in tourRequests)
+                {
+                    if (request.LocationId == language.Id)
+                    {
+                        tempRequestNumber++;
+                    }
+                }
+
+                if (requestNumber < tempRequestNumber)
+                {
+                    requestNumber = tempRequestNumber;
+                    mostRequestedLocation = language;
+                }
+
+                tempRequestNumber = 0;
+            }
+
+            return mostRequestedLocation;
+        }
     }
 }
