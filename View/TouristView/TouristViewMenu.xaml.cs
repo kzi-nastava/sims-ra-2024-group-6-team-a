@@ -151,6 +151,12 @@ namespace BookingApp.View
             request.Owner = this;
             request.ShowDialog();
         }
+        private void Statistics_Click(object sender, RoutedEventArgs e)
+        {
+            RequestStatistics statistics = new RequestStatistics(LoggedUser.Id);
+            statistics.Owner = this;
+            statistics.ShowDialog();
+        }
 
         private void languageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
