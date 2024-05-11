@@ -18,6 +18,7 @@ namespace BookingApp.ViewModels.TouristViewModel
     {
         public  ObservableCollection<TouristNotificationDTO> Notifications { get; set; }
         public ObservableCollection<TouristNotificationDTO> RequestNotifications { get; set; }
+        public ObservableCollection<TouristNotificationDTO> StatisticTourNotifications { get; set; }
         public User LoggedUser { get; set; }
 
         public  InboxViewModel(User user) 
@@ -26,15 +27,14 @@ namespace BookingApp.ViewModels.TouristViewModel
 
             Notifications = new ObservableCollection<TouristNotificationDTO>();
             RequestNotifications = new ObservableCollection<TouristNotificationDTO>();
-
+            StatisticTourNotifications = new ObservableCollection<TouristNotificationDTO>();
 
             Update();
         }
 
         private void Update()
         {
-            Notifications.Clear();
-            
+            Notifications.Clear();           
             foreach(TouristNotification notification in TouristNotificationService.GetInstance().GetAll())
             {
                 if (notification.UserId == LoggedUser.Id && notification.Type == Enums.NotificationType.Attendance)
@@ -43,13 +43,21 @@ namespace BookingApp.ViewModels.TouristViewModel
             }
 
             RequestNotifications.Clear();
-
             foreach (TouristNotification notification in TouristNotificationService.GetInstance().GetAll())
             {
                 if (notification.UserId == LoggedUser.Id && notification.Type == Enums.NotificationType.AcceptedRequest)
                     RequestNotifications.Add(new TouristNotificationDTO(notification));
 
             }
+
+            StatisticTourNotifications.Clear();
+            foreach (TouristNotification notification in TouristNotificationService.GetInstance().GetAll())
+            {
+                if (notification.UserId == LoggedUser.Id && notification.Type == Enums.NotificationType.NewTour)
+                    StatisticTourNotifications.Add(new TouristNotificationDTO(notification));
+
+            }
+
         }
 
     }

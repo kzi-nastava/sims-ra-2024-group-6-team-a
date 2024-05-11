@@ -3,6 +3,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Resources;
 using BookingApp.View.TouristView;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
@@ -100,6 +101,10 @@ namespace BookingApp.ApplicationServices
         {
             return GetByTouristId(userId).Where(r => r.Status == RequestStatus.Accepted).ToList();
         }
+        public List<TourRequest> GetNotAccepted()
+        {
+            return GetAll().Where(r => r.Status != RequestStatus.Accepted).ToList();
+        }
 
         public List<TourRequest> GetAcceptedByYear(int userId, int year)
         {
@@ -119,22 +124,6 @@ namespace BookingApp.ApplicationServices
         {
             return GetByTouristId(userId).Select(r => r.StartDate.Year).Distinct().ToList();
         }
-        public List<string> GetRequestLangugaes(int userId)
-        {
-            List<TourRequest> userRequests = GetByTouristId(userId);
-            List<int> languageIds = userRequests.Select(r => r.LanguageId).Distinct().ToList();
-            List<string> distinctLanguages = new List<string>();
-
-            foreach (int languageId in languageIds)
-            {
-                string languageName = LanguageService.GetInstance().GetNameById(languageId);
-                distinctLanguages.Add(languageName);
-            }
-
-            return distinctLanguages;
-        }
-    
-
         public int GetAcceptedPeopleNumber(int userId)
         {
             int count = 0;

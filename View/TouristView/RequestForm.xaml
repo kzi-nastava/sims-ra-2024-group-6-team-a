@@ -17,7 +17,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Margin="0 30 0 0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="DemiBold">Chose tour type you want to request:</TextBlock>
-        <Button Click="SimpleRequest_Click" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" Width="120" Height="25" FontSize="15" Background="AntiqueWhite" FontWeight="Bold">Simple tour</Button>
+        <Button Command="{Binding SimpleRequestCommand}" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" Width="120" Height="25" FontSize="15" Background="AntiqueWhite" FontWeight="Bold">Simple tour</Button>
         <Button VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Width="120" Height="25" FontSize="15" Background="AntiqueWhite" FontWeight="Bold">Complex tour</Button>
     </Grid>
 </Window>

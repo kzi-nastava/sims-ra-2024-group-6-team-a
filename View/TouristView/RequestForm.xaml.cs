@@ -1,4 +1,5 @@
 ﻿using BookingApp.Model;
+using BookingApp.ViewModels.TouristViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,19 +22,14 @@ namespace BookingApp.View.TouristView
     public partial class RequestForm : Window
     {
         public static User LoggedUser { get; set; }
+        public RequestFormViewModel formWindow { get; set; }
         public RequestForm(User user)
         {
             InitializeComponent();
-            DataContext = this;
-            LoggedUser = user;
-        }
-
-        private void SimpleRequest_Click(object sender, RoutedEventArgs e)
-        {
-            SimpleRequest simple = new SimpleRequest(LoggedUser);
-            simple.Owner = this;
-            simple.ShowDialog();
-            this.Close();
+            formWindow = new RequestFormViewModel(user);
+            DataContext = formWindow;
+            if (formWindow.CloseAction == null)
+                formWindow.CloseAction = new Action(() => this.Close());
         }
     }
 }

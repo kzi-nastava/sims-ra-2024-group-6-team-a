@@ -219,12 +219,10 @@ namespace BookingApp.ViewModels.TouristViewModel
         private void Execute_LoadGeneralPeopleNumberCommand(object obj)
         {
             AverageNumber = SimpleRequestService.GetInstance().GetAverageAccepetedPeople(UserId);
-
         }
         private void Execute_LoadYearPeopleNumberCommand(object obj)
         {
             AverageNumber = SimpleRequestService.GetInstance().GetAverageAccepetedPeopleByYear(UserId, SelectedYear);
-
         }
     }
 }

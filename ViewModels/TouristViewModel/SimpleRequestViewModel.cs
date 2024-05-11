@@ -16,7 +16,6 @@ namespace BookingApp.ViewModels.TouristViewModel
 {
     public class SimpleRequestViewModel : INotifyPropertyChanged
     {
-        public static ObservableCollection<TourRequest> Requests { get; set; } = new ObservableCollection<TourRequest>();
         public static ObservableCollection<TourGuestDTO> TourGuests { get; set; } = new ObservableCollection<TourGuestDTO>();
         public ObservableCollection<LanguageDTO> Languages { get; set; } = new ObservableCollection<LanguageDTO>();
         public ObservableCollection<LocationDTO> Locations { get; set; } = new ObservableCollection<LocationDTO>();
