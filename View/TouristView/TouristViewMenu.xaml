@@ -26,7 +26,7 @@
             <MenuItem FontSize="13" BorderBrush="Black" BorderThickness="0 0 1 0" FontWeight="DemiBold" Header="My requests" Click="MyRequests_Click"/>
             <MenuItem FontSize="13" BorderBrush="Black" BorderThickness="0 0 1 0" FontWeight="DemiBold" Header="Create request" Click="MakeRequest_Click"/>
             <MenuItem FontSize="13" BorderBrush="Black" BorderThickness="0 0 1 0" FontWeight="DemiBold" Header="Rate tour" Click="TourRating_Click"/>
-            <MenuItem FontSize="13" BorderBrush="Black" BorderThickness="0 0 1 0" FontWeight="DemiBold" Header="Statistics"/>
+            <MenuItem FontSize="13" BorderBrush="Black" BorderThickness="0 0 1 0" FontWeight="DemiBold" Header="Statistics" Click="Statistics_Click"/>
             <MenuItem FontSize="13" BorderBrush="Black" BorderThickness="0 0 1 0" FontWeight="DemiBold" Header="Vouchers" Click="Vouchers_Click" />
         </Menu>
 

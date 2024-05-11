@@ -10,7 +10,7 @@ using BookingApp.Observer;
 using BookingApp.Serializer;
 using System.Windows.Navigation;
 using Microsoft.Extensions.DependencyInjection;
-
+using BookingApp.Domain.Model;
 
 namespace BookingApp.ApplicationServices
 {
@@ -71,6 +71,15 @@ namespace BookingApp.ApplicationServices
         public Location GetByAccommodation(Accommodation accommodation)
         {
             return _locationRepository.GetByAccommodation(accommodation);
+        }
+        public List<Location> GetAllByUserRequest(int userId)
+        {
+            List<Location> list = new List<Location>();
+            foreach (TourRequest request in SimpleRequestService.GetInstance().GetByTouristId(userId))
+            {
+                list.Add(GetById(request.LocationId));
+            }
+            return list;
         }
 
     }
