@@ -78,7 +78,7 @@
                 </StackPanel>
                 <Label Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="25" FontWeight="Bold">Capacity:</Label>
                 <StackPanel Grid.Column="3" VerticalAlignment="Top" Orientation="Horizontal">
-                    <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Tour.Duration}"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Tour.Capacity}"/>
                     <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="25" FontWeight="Bold"  >people</Label>
                 </StackPanel>
                 <Label HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" >Description:</Label>

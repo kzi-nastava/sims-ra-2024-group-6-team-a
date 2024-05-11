@@ -73,7 +73,8 @@ namespace BookingApp.Resources
         public enum TourType
         {
             Ordinary,
-            Requested
+            Requested,
+            Statistics
         }
     }
 }
