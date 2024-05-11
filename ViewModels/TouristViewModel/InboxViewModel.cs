@@ -2,6 +2,7 @@
 using BookingApp.Domain.Model;
 using BookingApp.DTOs;
 using BookingApp.Model;
+using BookingApp.Resources;
 using BookingApp.View.TouristView;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ namespace BookingApp.ViewModels.TouristViewModel
 {
     public class InboxViewModel
     {
-        public static  ObservableCollection<TouristNotificationDTO> Notifications { get; set; }
+        public  ObservableCollection<TouristNotificationDTO> Notifications { get; set; }
+        public ObservableCollection<TouristNotificationDTO> RequestNotifications { get; set; }
         public User LoggedUser { get; set; }
 
         public  InboxViewModel(User user) 
@@ -23,6 +25,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             LoggedUser = user;
 
             Notifications = new ObservableCollection<TouristNotificationDTO>();
+            RequestNotifications = new ObservableCollection<TouristNotificationDTO>();
 
 
             Update();
@@ -30,12 +33,21 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         private void Update()
         {
-            Notifications.Clear();//DA MI STIZU ZA OBICNE TURE I REQUESTED KOJE SAM JA TRAZILA
+            Notifications.Clear();
             
             foreach(TouristNotification notification in TouristNotificationService.GetInstance().GetAll())
             {
-                if (notification.UserId == LoggedUser.Id)
+                if (notification.UserId == LoggedUser.Id && notification.Type == Enums.NotificationType.Attendance)
                     Notifications.Add(new TouristNotificationDTO(notification));
+
+            }
+
+            RequestNotifications.Clear();
+
+            foreach (TouristNotification notification in TouristNotificationService.GetInstance().GetAll())
+            {
+                if (notification.UserId == LoggedUser.Id && notification.Type == Enums.NotificationType.AcceptedRequest)
+                    RequestNotifications.Add(new TouristNotificationDTO(notification));
 
             }
         }

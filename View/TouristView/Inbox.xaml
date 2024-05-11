@@ -35,7 +35,30 @@
                 </ScrollViewer>
             </TabItem>
 
-            <TabItem Header="Approved requests">
+            <TabItem Header="Accepted requests" BorderBrush="Black" BorderThickness="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding RequestNotifications}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1" Margin="5" Padding="10 0 10 4" Background="LightYellow">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                        <StackPanel>
+                                            <TextBlock FontWeight="Bold" FontSize="19">Accepted request for tour:</TextBlock>
+                                            <TextBlock FontSize="15" FontWeight="Medium" Text="{Binding Title}" Margin="0 0 0 4"></TextBlock>
+                                            <TextBlock FontSize="15" FontWeight="DemiBold" Text="{Binding Message}" TextWrapping="Wrap"></TextBlock>
+                                            <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                                <TextBlock FontSize="12" FontStyle="Italic">
+                                                <Run Text="Recieved: "/>
+                                                </TextBlock>
+                                                <TextBlock Text="{Binding Recieved}" FontStyle="Italic"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
             </TabItem>
 
             <TabItem Header="New tours">
