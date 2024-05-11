@@ -212,7 +212,7 @@ namespace BookingApp.View.GuideView.Pages
             SaveImages();
             SaveTourDatesAndCheckpoints(TourDatesCollection.ToList(), CheckpointsCollection.ToList());
             OnSomethingHappened(EventArgs.Empty);
-
+            //TouristNotificationService.GetInstance().SendStatisticTourNotification(SelectedTour.Id);  TESTIRALA SAM TRECU TACKU, OBRISACU
             MessageBox.Show("Tour Added");
         }
 
