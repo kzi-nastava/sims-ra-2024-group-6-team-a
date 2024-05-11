@@ -29,6 +29,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         public TourStatisticsPage tourStatisticsPage;
         public ReviewDetailsPage reviewDetailsPage;
         public TourReviewsPage tourReviewPage;
+        public TourRequestsPage tourRequestsPage;
 
         public GuideViewMenu MainWindow { get; set; }
 
@@ -42,12 +43,10 @@ namespace BookingApp.ViewModels.GuideViewModel
             MainWindow = mainWindow;
 
             tourStatisticsPage = new TourStatisticsPage(LoggedUser);
-            
-
-            
             tourReviewPage = new TourReviewsPage(mainFrame, LoggedUser);
-
             toursPage = new ToursPage(LoggedUser);
+            tourRequestsPage = new TourRequestsPage(LoggedUser);
+
 
             ToursPageClick();
         }
@@ -75,8 +74,19 @@ namespace BookingApp.ViewModels.GuideViewModel
             MainWindow.MainFrame.Content = tourReviewPage;
         }
 
+        public void TourRequestsPageClick() 
+        {
+
+            ResetButtonColors();
+            MainWindow.btnRequests.Foreground = Brushes.Black;
+
+            MainWindow.MainFrame.Content = tourRequestsPage;
+
+        }
+
         private void ResetButtonColors()
         {
+            MainWindow.btnRequests.Foreground = Brushes.DarkGray;  
             MainWindow.btnTours.Foreground = Brushes.DarkGray;
             MainWindow.btnReviews.Foreground = Brushes.DarkGray;
             MainWindow.btnStatistics.Foreground = Brushes.DarkGray;

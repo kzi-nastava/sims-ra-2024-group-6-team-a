@@ -3,6 +3,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
+using BookingApp.Resources;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -64,6 +65,16 @@ namespace BookingApp.ApplicationServices
                 if (guests.Find(g => g.UserTypeId != -1) != null)
                     _notificationRepository.Save(notification);
             }
+        }
+
+        public void SendRequestNotification(TourSchedule tourSchedule,TourRequest request,int userId)
+        {
+            Guide guide = GuideService.GetInstance().GetByUserId(userId);
+            Tour tour = TourService.GetInstance().GetById(tourSchedule.TourId);
+            string message = "Guide " + guide.Name + " " + guide.Surname + "accepted your request and set the date for: " + tourSchedule.Start;
+            TouristNotification notification = new TouristNotification(message, request.TouristId, tour.Name, Enums.NotificationType.AcceptedRequest);
+            notification.Recieved = DateTime.Now;
+            _notificationRepository.Save(notification);
         }
     }
 }
