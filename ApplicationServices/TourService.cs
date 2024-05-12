@@ -115,5 +115,7 @@ namespace BookingApp.ApplicationServices
 
             return allTours.Where(t => IsFiltered(t, filter)).ToList();
         }
+
+      
     }
 }

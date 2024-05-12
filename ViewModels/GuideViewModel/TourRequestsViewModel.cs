@@ -15,6 +15,7 @@ namespace BookingApp.ViewModels.GuideViewModel
 
 
         public RequestsPage requestsPage;
+        public RequestedTourStatistics statistics;
 
 
         public TourRequestsPage Window { get; set; }
@@ -24,6 +25,7 @@ namespace BookingApp.ViewModels.GuideViewModel
             this.Window = window;
 
             requestsPage = new RequestsPage(LoggedUser);
+            statistics = new RequestedTourStatistics(LoggedUser);
 
             RequestsClick();
 
@@ -34,6 +36,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         {
             ResetButtonColors();
             Window.btnRequestStatistics.Foreground = Brushes.Black;
+            Window.SecondFrame.Content = statistics;
 
 
         }
