@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-
+	
   <ItemGroup>
     <None Remove="Resources\Images\accommodations.png" />
     <None Remove="Resources\Images\add.png" />
@@ -14,6 +14,7 @@
     <None Remove="Resources\Images\barcelona.jpg" />
     <None Remove="Resources\Images\begec.jpg" />
     <None Remove="Resources\Images\blank-profile.jpg" />
+    <None Remove="Resources\Images\bluee.png" />
     <None Remove="Resources\Images\budapest.jpg" />
     <None Remove="Resources\Images\cakeG.png" />
     <None Remove="Resources\Images\calendar.png" />
@@ -64,6 +65,7 @@
     <None Remove="Resources\Images\language.png" />
     <None Remove="Resources\Images\languages.png" />
     <None Remove="Resources\Images\larroww.png" />
+    <None Remove="Resources\Images\left_arrow.png" />
     <None Remove="Resources\Images\live.png" />
     <None Remove="Resources\Images\location-ping.png" />
     <None Remove="Resources\Images\location.png" />
@@ -87,6 +89,8 @@
     <None Remove="Resources\Images\pet.png" />
     <None Remove="Resources\Images\phoneG.png" />
     <None Remove="Resources\Images\play.png" />
+    <None Remove="Resources\Images\plus.png" />
+    <None Remove="Resources\Images\pluss.png" />
     <None Remove="Resources\Images\present.png" />
     <None Remove="Resources\Images\present2.png" />
     <None Remove="Resources\Images\profile.png" />
@@ -109,6 +113,7 @@
     <None Remove="Resources\Images\reservation_img.png" />
     <None Remove="Resources\Images\res_change.png" />
     <None Remove="Resources\Images\right-arrow.png" />
+    <None Remove="Resources\Images\right_arrow.png" />
     <None Remove="Resources\Images\rules.png" />
     <None Remove="Resources\Images\send.png" />
     <None Remove="Resources\Images\sheraton1.jpg" />
@@ -210,6 +215,9 @@
     <Content Include="Resources\Images\larroww.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\left_arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\locationpin.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -246,6 +254,8 @@
     <Content Include="Resources\Images\phoneG.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Images\bluee.png" />
+    <Resource Include="Resources\Images\pluss.png" />
     <Content Include="Resources\Images\profile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -402,6 +412,9 @@
     <Content Include="Resources\Images\right-arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\right_arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\rules.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -494,6 +507,7 @@
     <Resource Include="Resources\Images\gift2.png" />
     <Content Include="Resources\Images\gift3.png" />
     <Resource Include="Resources\Images\giftt.png" />
+    <Resource Include="Resources\Images\plus.png" />
     <Resource Include="Resources\Images\present.png" />
     <Resource Include="Resources\Images\present2.png" />
     <Resource Include="Resources\Images\questionMark.png" />

@@ -12,6 +12,8 @@ using System.Windows.Controls;
 using System.Windows;
 using BookingApp.View;
 using BookingApp.ApplicationServices;
+using System.Windows.Media;
+using System.Net.NetworkInformation;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
@@ -27,6 +29,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         public TourStatisticsPage tourStatisticsPage;
         public ReviewDetailsPage reviewDetailsPage;
         public TourReviewsPage tourReviewPage;
+        public TourRequestsPage tourRequestsPage;
 
         public GuideViewMenu MainWindow { get; set; }
 
@@ -40,36 +43,53 @@ namespace BookingApp.ViewModels.GuideViewModel
             MainWindow = mainWindow;
 
             tourStatisticsPage = new TourStatisticsPage(LoggedUser);
-            
-
-            
             tourReviewPage = new TourReviewsPage(mainFrame, LoggedUser);
-
             toursPage = new ToursPage(LoggedUser);
+            tourRequestsPage = new TourRequestsPage(LoggedUser);
 
-            MainWindow.MainFrame.Content = toursPage;
 
+            ToursPageClick();
         }
 
         public void ToursPageClick()
         {
+            ResetButtonColors();
+            MainWindow.btnTours.Foreground = Brushes.Black;
             MainWindow.MainFrame.Content = toursPage;
         }
        
 
         public void TourStatisticsPageClick()
         {
+            ResetButtonColors();
+            MainWindow.btnStatistics.Foreground = Brushes.Black;
+
             MainWindow.MainFrame.Content = tourStatisticsPage;
         }
 
         public void TourReviewsPageClick()
         {
+            ResetButtonColors();
+            MainWindow.btnReviews.Foreground = Brushes.Black;
             MainWindow.MainFrame.Content = tourReviewPage;
         }
 
-        public void TourRequestsPageClick()
+        public void TourRequestsPageClick() 
         {
 
+            ResetButtonColors();
+            MainWindow.btnRequests.Foreground = Brushes.Black;
+
+            MainWindow.MainFrame.Content = tourRequestsPage;
+
+        }
+
+        private void ResetButtonColors()
+        {
+            MainWindow.btnRequests.Foreground = Brushes.DarkGray;  
+            MainWindow.btnTours.Foreground = Brushes.DarkGray;
+            MainWindow.btnReviews.Foreground = Brushes.DarkGray;
+            MainWindow.btnStatistics.Foreground = Brushes.DarkGray;
         }
     }
 }

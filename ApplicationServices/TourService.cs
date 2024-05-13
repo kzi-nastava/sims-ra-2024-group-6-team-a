@@ -4,6 +4,7 @@ using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
+using BookingApp.Resources;
 using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -79,7 +80,7 @@ namespace BookingApp.ApplicationServices
 
         private bool MatchesLocation(Tour tour, TourFilterDTO filter)
         {
-            return tour.LocationId == filter.Location.Id || filter.Location.Id == -1;
+            return tour.LocationId == filter.Location.Id || filter.Location.Id == 0;
         }
 
         private bool MatchesDuration(Tour tour, TourFilterDTO filter)
@@ -89,21 +90,33 @@ namespace BookingApp.ApplicationServices
 
         private bool MatchesLanguage(Tour tour, TourFilterDTO filter)
         {
-            return tour.LanguageId == filter.Language.Id || filter.Language.Id == -1;
+            return tour.LanguageId == filter.Language.Id || filter.Language.Id == 0;
         }
 
         private bool MatchesMaxTouristNumber(Tour tour, TourFilterDTO filter)
         {
             return tour.Capacity >= filter.TouristNumber || filter.TouristNumber == 0;
         }
+        private List<Tour> GetAllForUser()
+        {
+            List<Tour> tours = new List<Tour>();
+            foreach(Tour tour in GetAll())
+            {
+                if(tour.Type == Enums.TourType.Ordinary || tour.Type == Enums.TourType.Statistics)
+                    tours.Add(tour);
+            }
+            return tours;
+        }
         public List<Tour> GetFiltered(TourFilterDTO filter)
         {
-            List<Tour> allTours = _tourRepository.GetAll();
+            List<Tour> allTours = GetAllForUser();
 
             if (filter.isEmpty())
                 return allTours;
 
             return allTours.Where(t => IsFiltered(t, filter)).ToList();
         }
+
+      
     }
 }

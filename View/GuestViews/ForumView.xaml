@@ -8,8 +8,8 @@
       d:DesignHeight="540" d:DesignWidth="410"
       Title="ForumView">
 
-    
-    <Grid Background="Wheat">
+
+    <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="50"/>
@@ -17,7 +17,7 @@
 
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="Wheat" >
+        <Grid Grid.Row="0" Background="LightGray" >
             <TextBlock FontSize="39" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="Black" FontWeight="SemiBold" Margin="5,0,0,0" >Forums</TextBlock>
         </Grid>
         <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
@@ -88,8 +88,8 @@
             </Button>
         </Grid>
 
-        <Grid  Grid.Row="2" Background="Wheat">
-            <ListView     Background="DeepSkyBlue"
+        <Grid  Grid.Row="2" >
+            <ListView     Background="SlateGray"
                           BorderBrush="Black"
                           BorderThickness="3"
                           ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -123,7 +123,7 @@
                                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Center">
                                         <Image Source="/Resources/Images/profileG.png" Width="18" Height="18"></Image>
                                         <TextBlock Margin="12,0,0,0" Text="{Binding userType}" Height="15" Width="32" ></TextBlock>
-                                        <TextBlock Margin="5,0,0,0" Text="{Binding Username}" Height="15" FontWeight="Bold" Width="37" ></TextBlock>
+                                        <TextBlock Margin="2,0,0,0" Text="{Binding Username}" Height="15" FontWeight="Bold" Width="41" ></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center">
                                         <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
@@ -134,7 +134,7 @@
                                     </StackPanel>
                                 </Grid>
                                 <Grid Grid.Column="1">
-                                    <TextBox Background="Ivory" BorderBrush="Black" BorderThickness="1.5" TextWrapping="Wrap" Text="{Binding Text}" IsReadOnly="True" MaxWidth="190" HorizontalAlignment="Center" Height="140" Width="190" Margin="0,20,10,0" ></TextBox>
+                                    <TextBox Background="Ivory" BorderBrush="Black" BorderThickness="1.5" TextWrapping="Wrap" Text="{Binding Text}" IsReadOnly="True" MaxWidth="190" HorizontalAlignment="Center" Height="150" Width="190" Margin="0,20,10,0" ></TextBox>
                                 </Grid>
                             </Grid>
                         </Border>

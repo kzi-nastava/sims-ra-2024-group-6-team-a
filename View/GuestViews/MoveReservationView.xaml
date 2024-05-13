@@ -10,7 +10,7 @@
       d:DesignHeight="540" d:DesignWidth="410"
       Title="MoveReservationView">
     <Grid>
-        <Grid  Background="Wheat" >
+        <Grid  Background="LightGray" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="80"/>
@@ -19,7 +19,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Background="Wheat" >
+            <Grid Grid.Row="0" Background="LightGray" >
                 <TextBlock FontSize="39" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="Black" FontWeight="SemiBold" Margin="40,0,0,0" >My reservations</TextBlock>
             </Grid>
 

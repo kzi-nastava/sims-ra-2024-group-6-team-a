@@ -79,6 +79,7 @@ namespace BookingApp.Repository
             return GetAll().Where(g => g.ReservationId == reservationId && g.IsPresent == true).ToList();
         }
 
+     
     }
 }
 

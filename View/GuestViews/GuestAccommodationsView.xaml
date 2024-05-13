@@ -60,7 +60,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid Background="Wheat">
+    <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="50"/>
@@ -165,7 +165,7 @@
             </Button>
         </Grid>
         <Grid Grid.Row="2" >
-            <ListView       Background="DeepSkyBlue"
+            <ListView    Background="SlateGray"
                           BorderBrush="Black"
                           BorderThickness="3"
                           ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -187,8 +187,9 @@
                                     <TextBlock Text="{Binding State}"  ></TextBlock>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-                                    <TextBlock>•</TextBlock>
-                                    <TextBlock Text="{Binding Type}" ></TextBlock>
+                                    <TextBlock>•Type:</TextBlock>
+                                        <TextBlock Foreground="Silver">_</TextBlock>
+                                        <TextBlock Text="{Binding Type}" ></TextBlock>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
                                     <TextBlock>•Maximum guests:</TextBlock>

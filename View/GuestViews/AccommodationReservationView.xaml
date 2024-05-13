@@ -16,14 +16,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="Wheat" >
+        <Grid Grid.Row="0" Background="LightGray" >
             <TextBlock FontSize="39" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="Black" FontWeight="SemiBold" Margin="50,0,0,0" >Accommodations</TextBlock>
         </Grid>
         <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
             <Grid  Grid.Row="1">
-                <Grid Background="Wheat" >
+                <Grid Background="LightGray" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="80"/>
                         <RowDefinition Height="180"/>

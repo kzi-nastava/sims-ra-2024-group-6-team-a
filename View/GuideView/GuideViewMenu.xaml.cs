@@ -61,7 +61,7 @@ namespace BookingApp.View
 
         private void TourRequestsPageClick(object sender, RoutedEventArgs e)
         {
-            MainWindowViewModel.TourReviewsPageClick();
+            MainWindowViewModel.TourRequestsPageClick();
         }
     }
 }

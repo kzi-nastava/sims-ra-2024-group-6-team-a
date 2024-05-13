@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -21,13 +22,6 @@ namespace BookingApp.ApplicationServices
         {
            _guestRepository = guestRepository;
         }
-        
-       /* public TourGuestService()
-        {
-            _guestRepository = new TourGuestRepository();
-        }*/
-
-
         public static TourGuestService GetInstance()
         {
             return App.ServiceProvider.GetRequiredService<TourGuestService>();
@@ -136,6 +130,30 @@ namespace BookingApp.ApplicationServices
                 }
             
             return elderlyCount;
+        }
+
+
+        public int GetGuestsCountByRequest(int requestId)
+        {
+            return GetAll().Count(guest => guest.RequestId == requestId);
+        }
+
+        public int CountGuestsInRequest(int requestId) 
+        {
+            return GetAll().Count(guest => guest.RequestId == requestId);
+        }
+
+        public void UpdateGuestReservation(TourReservation tourReservation, int requestId)
+        {
+            foreach (TourGuests guest in GetAll())
+            {
+                if (guest.RequestId == requestId)
+                {
+                    guest.ReservationId = tourReservation.Id;
+                    Update(guest);
+                }
+            }
+
         }
     }
 }

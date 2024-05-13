@@ -5,12 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         mc:Ignorable="d"
-        Title="VoucherUsage" Height="450" Width="800"
+        Title="VoucherUsage" Height="450" Width="800" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
 
     <Grid Background="AliceBlue">
         <Grid.RowDefinitions>
-            <RowDefinition Height="80" />
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -22,19 +21,20 @@
             </Image.ToolTip>
         </Image>
 
-        <TextBlock FontWeight="DemiBold" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Margin="20">Voucher list:</TextBlock>
+        <TextBlock FontWeight="DemiBold" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Margin="20 10 20 40">Voucher list:</TextBlock>
 
-        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="20 0 20 10">
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="20 60 20 10">
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
 
                 <ItemsControl ItemsSource="{Binding Vouchers}" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black" BorderThickness="1" Margin="15" Padding="10" Background="LightYellow">
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="15" Padding="5" Background="LightYellow">
 
                                 <Grid>
 
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
@@ -48,16 +48,22 @@
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
 
-                                    <Image Height="75px" Width="65"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15 0 0 0" Grid.RowSpan="3" Grid.Column="0" Source="..\..\Resources\Images\giftt.png"/>
-                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" >
-                                        <TextBlock FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"> Expire Date:</TextBlock>
-                                        <TextBlock HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Width="120" VerticalAlignment="Center" Grid.Column="1" Text="{Binding ExpirationDate}"></TextBlock>
+                                    <Image Height="85px" Width="75"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15 0 0 0" Grid.RowSpan="3" Grid.Column="0" Source="..\..\Resources\Images\bluee.png"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Bottom" Grid.ColumnSpan="3" Grid.Column="1" Margin="50 0 0 0" >
+                                        <TextBlock FontWeight="Bold"  VerticalAlignment="Center" FontSize="15" Margin="0 0 32 0"> Expire:</TextBlock>
+                                        <TextBlock  TextWrapping="Wrap" Width="200" FontSize="15" VerticalAlignment="Center" Text="{Binding ExpirationDate}"></TextBlock>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1">
-                                        <TextBlock FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"> Received:</TextBlock>
-                                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Margin="5" Width="120" VerticalAlignment="Center" Grid.Column="1" Text="{Binding ReceiviingDate}"></TextBlock>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Top" Grid.Column="1" Margin="50 0 0 0">
+                                        <TextBlock FontWeight="Bold" VerticalAlignment="Center" FontSize="15" Margin="0 0 15 0"> Received:</TextBlock>
+                                        <TextBlock TextWrapping="Wrap" Width="200"  FontSize="15" VerticalAlignment="Center" Grid.Column="1" Text="{Binding ReceiviingDate}"></TextBlock>
                                     </StackPanel>
-                                    <Button Grid.Column="4" Grid.Row="2" Command="{Binding DataContext.UseVoucherCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"  CommandParameter="{Binding}" Content="Use" Background="AntiqueWhite" FontWeight="DemiBold"></Button>
+                                    <Button Grid.Column="5" Height="25" Width="80" Grid.Row="2" VerticalAlignment="Top" Command="{Binding DataContext.UseVoucherCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"  CommandParameter="{Binding}" Content="Use" Background="AntiqueWhite" FontWeight="Bold" FontSize="15">
+                                        <Button.ToolTip>
+                                            <ToolTip>
+                                                Use voucher
+                                            </ToolTip>
+                                        </Button.ToolTip>
+                                    </Button>
                                 </Grid>
                             </Border>
                         </DataTemplate>

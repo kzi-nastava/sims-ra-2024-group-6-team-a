@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         xmlns:converters="clr-namespace:BookingApp.View.Converters"
         mc:Ignorable="d"
-        Title="KeypointsTracking" Height="565" Width="800"
+        Title="KeypointsTracking" Height="565" Width="800" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <converters:BooleanToYesNoConverter  x:Key="BooleanToYesNoConverter" />
@@ -23,18 +23,29 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" >
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 0 5 0" >
             <TextBlock Text="{Binding SelectedTour.Name}" FontSize="30" FontWeight="DemiBold" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-            <TextBlock FontSize="30" FontWeight="DemiBold" Margin="0 0 5 0" VerticalAlignment="Center"> live tracking</TextBlock>
+            <TextBlock FontSize="30" FontWeight="DemiBold" VerticalAlignment="Center"> live tracking</TextBlock>
         </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal"  Width="Auto">
-            <Label  Content="Location:" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Bottom" Padding="10 10 10 0" HorizontalAlignment="Left"/>
-            <TextBlock  Text="{Binding SelectedTourSchedule.City}" FontStyle="Italic" FontSize="20" VerticalAlignment="Bottom" />
-            <TextBlock  Text=", " FontStyle="Italic" VerticalAlignment="Bottom"/>
-            <TextBlock Text="{Binding SelectedTourSchedule.State}" FontStyle="Italic" FontSize="20" VerticalAlignment="Bottom"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Width="Auto" Margin="0">
+            <Border Background="LightYellow" Margin="10 0 0 0" >
+                <Label  Content="Location:" FontSize="20" FontWeight="DemiBold" VerticalAlignment="Bottom" Padding="0 10 10 0" HorizontalAlignment="Left"/>
+            </Border>
+            <Border Background="LightYellow">
+
+                <TextBlock  Text="{Binding SelectedTourSchedule.City}" FontStyle="Italic" FontSize="20" VerticalAlignment="Bottom" />
+                </Border>
+            <Border Background="LightYellow">
+
+                <TextBlock  Text=", " FontStyle="Italic" VerticalAlignment="Bottom"/>
+            </Border>
+            <Border Background="LightYellow" Margin="0 0 10 0" Padding="4 0 2 0">
+
+                <TextBlock Text="{Binding SelectedTourSchedule.State}" FontStyle="Italic" Padding="10 0 0 0" FontSize="20" VerticalAlignment="Bottom"/>
+            </Border>
         </StackPanel>
         <Grid Grid.Row="2" >
-            <TextBlock FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="10">Checkpoints:</TextBlock>
+            <TextBlock FontSize="20" FontWeight="DemiBold" VerticalAlignment="Center" Margin="10 10 10 0">Checkpoints:</TextBlock>
         </Grid>
         <Grid Grid.Row="3" Grid.RowSpan="2">
             <Border Margin="10 0 10 0" BorderBrush="Black" BorderThickness="1" Background="LightYellow">
@@ -54,8 +65,8 @@
                 </ItemsControl>
             </Border>
         </Grid>
-        <TextBlock Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10" FontSize="20" FontWeight="DemiBold">Attendance information:</TextBlock>
-        <ListView ItemsSource="{Binding Guests}" Grid.Row="6" Grid.RowSpan="3" Width="340" HorizontalAlignment="Left" Margin="10">
+        <TextBlock Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10 10 10 5" FontSize="20" FontWeight="DemiBold">Attendance information:</TextBlock>
+        <ListView ItemsSource="{Binding Guests}" Grid.Row="6" Grid.RowSpan="3" Width="340" HorizontalAlignment="Left" Margin="10 5 10 10">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="100" />

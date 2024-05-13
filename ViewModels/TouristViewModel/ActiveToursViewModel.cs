@@ -35,14 +35,14 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         public void Update()
         {
-            Tours.Clear();
+            Tours.Clear(); 
             foreach (TourSchedule tour in TourScheduleService.GetInstance().GetOngoingSchedulesByUser(LoggedUser))
             {
-                Model.Image image = GetFirstTourImage(tour.Id);
+                Model.Image image = GetFirstTourImage(tour.TourId);
                 Tours.Add(new TourScheduleDTO(tour, LocationService.GetInstance().GetById(TourService.GetInstance().GetById(tour.TourId).LocationId), LanguageService.GetInstance().GetById(TourService.GetInstance().GetById(tour.TourId).LanguageId), image.Path));
             }
 
-            FutureTours.Clear();
+            FutureTours.Clear(); 
             foreach (TourSchedule tour in TourScheduleService.GetInstance().GetFutureSchedulesByUser(LoggedUser))
             {
                 Model.Image image = GetFirstTourImage(tour.TourId);

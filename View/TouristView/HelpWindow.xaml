@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         mc:Ignorable="d"
-        Title="HelpWindow" Height="450" Width="800">
+        Title="HelpWindow" Height="450" Width="800" ResizeMode="NoResize"> 
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1" Padding="10" Background="LightYellow">
             <Grid Background="LightYellow">

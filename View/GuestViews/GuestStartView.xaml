@@ -11,12 +11,12 @@
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Background="Transparent"
-        BorderBrush="Black"
+        BorderBrush="Transparent"
         BorderThickness="3">
     
     <Border CornerRadius="40"
-                Background="LightSteelBlue"
-                BorderBrush="MediumSlateBlue" 
+                Background="#555759"
+                BorderBrush="#272829" 
                 BorderThickness="5">
 
         <Grid>
@@ -27,10 +27,12 @@
 
 
             <Grid Grid.Row="0" Margin="0,45,0,0" >
-                <Ellipse Fill="Red" Height="20" Width="20" Panel.ZIndex="2" Visibility= "{Binding RedDotVisibility}" Margin="37,4,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <Border BorderBrush="Black" BorderThickness="1.4" CornerRadius="10"  HorizontalAlignment="Left" Visibility="{Binding RedDotVisibility}"  Panel.ZIndex="2" VerticalAlignment="Top" Margin="37,4,0,0">
+                    <Ellipse Fill="Red" Height="20" Width="20" Panel.ZIndex="2" Visibility="{Binding RedDotVisibility}" />
+                </Border>
                 <Label Content="{Binding NumberOfNotifications}"
                 Visibility= "{Binding RedDotVisibility}"  Panel.ZIndex="3"
-                       Height="28" Width="23"  Margin="37,-2,0,0"
+                       Height="28" Width="23"  Margin="38.5,-2,0,0"
                HorizontalAlignment="left"
                VerticalAlignment="top"
                Foreground="White"
@@ -38,7 +40,7 @@
                 <Button Background="Transparent" BorderBrush="Transparent" Panel.ZIndex="1" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding MenuOpenCommand}">
                     <Image Source ="/Resources/Images/menu.png" Width="50" Height="65"/>
                 </Button>
-                <Grid x:Name="pageRoot" Margin="0,0,159,0" Visibility= "{Binding MenuOpenVisibility}"  Panel.ZIndex="1" Background="AntiqueWhite" >
+                <Grid x:Name="pageRoot" Margin="0,0,159,0" Visibility= "{Binding MenuOpenVisibility}"  Panel.ZIndex="1" Background="LightGray" >
 
                     
                     <Grid.RowDefinitions>
@@ -77,9 +79,11 @@
                             <Image Source="/Resources/Images/suitcase.png" Width="23" Height="23" Margin="12,0,0,0" ></Image>
                         </Button>
                         <Button  Content="  My requests" Command="{Binding MyRequestCommand}"  Margin="1,0,0,0" BorderBrush="Transparent" FontSize="21" FontWeight="DemiBold" HorizontalAlignment="Left" Background="Transparent" />
-                        <Ellipse Fill="Red" Height="20" Width="20" Panel.ZIndex="1" Visibility= "{Binding RedDotVisibility}" Margin="-261,7,0,0" VerticalAlignment="Top" />
+                        <Border BorderBrush="Black" BorderThickness="1.4" CornerRadius="10"  Panel.ZIndex="1" VerticalAlignment="Top"  Visibility="{Binding RedDotVisibility}" Margin="-261,7,0,0" Height="20" Width="20">
+                            <Ellipse Fill="Red"  Panel.ZIndex="2" Visibility="{Binding RedDotVisibility}" />
+                        </Border>
                         <TextBlock Text="{Binding NumberOfNotifications}"
-                Visibility= "{Binding RedDotVisibility}"   Height="20" Width="20"  Margin="-250,6,0,0"
+                Visibility= "{Binding RedDotVisibility}"   Height="20" Width="20"  Margin="-251,5,0,0"
                 Panel.ZIndex="3"
                VerticalAlignment="top"
                Foreground="White"
@@ -157,7 +161,7 @@
                     <Button HorizontalAlignment="Center" Width="101" Cursor="Hand" Command="{Binding ProfileCommand}" >
                         <StackPanel>
                             <Image Source ="/Resources/Images/profile.png" Width="45" Height="45"/>
-                            <TextBlock FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="Black" >Profile</TextBlock>
+                            <TextBlock FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="Black" >My profile</TextBlock>
                         </StackPanel>
                     </Button>
 

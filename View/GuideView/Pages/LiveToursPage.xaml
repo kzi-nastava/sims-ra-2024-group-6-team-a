@@ -10,9 +10,15 @@
       Loaded="LoadTodaysTours"
       Title="LiveToursPage">
 
-    <Grid Background="White">
+    <Grid >
         <Grid.RowDefinitions>
         </Grid.RowDefinitions>
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#F6F5F2"  Offset="0.0"/>
+                <GradientStop Color="#F3D0D7" Offset="1.5"/>
+            </RadialGradientBrush>
+        </Grid.Background>
         <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto" >
             <ItemsControl ItemsSource ="{Binding TodaysTours}" >
                 <ItemsControl.ItemTemplate>

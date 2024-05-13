@@ -1,13 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BookingApp.DTOs
 {
-    public class TourFilterDTO
+    public class TourFilterDTO : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
         public string Name { get; set; } = "";
         public LocationDTO Location { get; set; } =  new LocationDTO();
         public LanguageDTO Language { get; set; } = new LanguageDTO();
@@ -28,7 +37,7 @@ namespace BookingApp.DTOs
 
         public bool isEmpty()
         {
-            return Location.Id == 0 && Language.Id == 0  && Duration == 0 && TouristNumber == 0 && Name == "" && Beggining == DateTime.MinValue;
+            return Location.Id == 0 && Language.Id == 0  && Duration == 0 && TouristNumber == 0;
         }
     }
 }

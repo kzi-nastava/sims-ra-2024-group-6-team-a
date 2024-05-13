@@ -27,27 +27,47 @@ namespace BookingApp.ApplicationServices
 
         public List<Language> GetAll()
         {
-          return _langRepository.GetAll();    
+            return _langRepository.GetAll();
         }
         public Language Save(Language language)
         {
-          return _langRepository.Save(language);    
+            return _langRepository.Save(language);
         }
 
         public int NextId()
         {
-           return _langRepository.NextId(); 
+            return _langRepository.NextId();
         }
 
 
         public void Delete(Language language)
         {
-           _langRepository.Delete(language);
+            _langRepository.Delete(language);
         }
 
         public Language GetById(int id)
         {
-          return _langRepository.GetById(id);
+            return _langRepository.GetById(id);
+        }
+
+        public string GetNameById(int id)
+        {
+            foreach(Language lang in GetAll())
+            {
+                if(lang.Id == id)
+                    return lang.Name;
+            }
+            return "Unknown";
+        }
+
+        public List<Language> GetAllByUserRequest(int userId)
+        {
+            List<Language> list = new List<Language>(); 
+            foreach(TourRequest request in SimpleRequestService.GetInstance().GetByTouristId(userId))
+            {
+                list.Add(GetById(request.LanguageId));
+            }
+            return list;
         }
     }
 }
