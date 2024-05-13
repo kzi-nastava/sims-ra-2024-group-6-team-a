@@ -22,13 +22,6 @@ namespace BookingApp.ApplicationServices
         {
            _guestRepository = guestRepository;
         }
-        
-       /* public TourGuestService()
-        {
-            _guestRepository = new TourGuestRepository();
-        }*/
-
-
         public static TourGuestService GetInstance()
         {
             return App.ServiceProvider.GetRequiredService<TourGuestService>();
@@ -142,16 +135,7 @@ namespace BookingApp.ApplicationServices
 
         public int GetGuestsCountByRequest(int requestId)
         {
-
-            int count = 0;
-            foreach(TourGuests guest in GetAll())
-            {
-                if(guest.RequestId == requestId)
-                {
-                    count++;
-                }
-            }
-            return count;
+            return GetAll().Count(guest => guest.RequestId == requestId);
         }
 
         public int CountGuestsInRequest(int requestId) 

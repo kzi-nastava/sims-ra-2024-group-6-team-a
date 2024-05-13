@@ -22,7 +22,7 @@ namespace BookingApp.Model
         public int CheckpointId {  get; set; }
 
         public int UserTypeId { get; set; }
-        public int RequestId { get; set; } //DODALA SAM REQUEST ID DA BIH RAZLIKOVALA GOSTE BICE -1 AKO SU OBICNI
+        public int RequestId { get; set; }
 
         public TourGuests() { }
         public TourGuests(string name, string surname, int age, int reservationId, int userType, int requestId)

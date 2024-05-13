@@ -35,7 +35,7 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         public void Update()
         {
-            Tours.Clear();//OBICNE I REQUESTED KOJE SAM JA TRAZILA
+            Tours.Clear();
             foreach (TourSchedule tour in TourScheduleService.GetInstance().GetAllFinishedTours(LoggedUser))
             {
                 Model.Image image = GetFirstTourImage(tour.TourId);
