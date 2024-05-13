@@ -37,17 +37,6 @@ namespace BookingApp.ApplicationServices
         {
             return _notificationRepository.GetAll();
         }
-        public List<TouristNotification> GetAttendance()
-        {
-            List<TouristNotification> notifications = new List<TouristNotification>();
-            foreach(TouristNotification notification in _notificationRepository.GetAll())
-            {
-                if(notification.Type == Resources.Enums.NotificationType.Attendance)
-                    notifications.Add(notification);
-            }
-            return notifications;
-        }
-
         public void SendNotification(TourSchedule tourSchedule)
         {
             foreach(var reservation in TourReservationService.GetInstance().GetAllByRealisationId(tourSchedule.Id))
@@ -77,22 +66,37 @@ namespace BookingApp.ApplicationServices
             _notificationRepository.Save(notification);
         }
 
-        public void SendStatisticTourNotification(int tourId)
+       public void SendStatisticTourNotification(int tourId)
         {
             Tour tour = TourService.GetInstance().GetById(tourId);
             foreach (TourRequest request in SimpleRequestService.GetInstance().GetNotAccepted())
             {
                 if (request.LanguageId == tour.LanguageId || request.LocationId == tour.LocationId)
                 {
-                    string message = "Based on your requests, you may be interested into tour details, location: " + LocationService.GetInstance().GetById(tour.LocationId).City + ", " + LocationService.GetInstance().GetById(tour.LocationId).State + "; " + "language: " + LanguageService.GetInstance().GetById(tour.LanguageId).Name;
+                    Location location = LocationService.GetInstance().GetById(tour.LocationId);
+                    string message = "Based on your requests, you may be interested into tour details, location: " + location.City + ", " + location.State + "; " + "language: " + LanguageService.GetInstance().GetById(tour.LanguageId).Name;
                     TouristNotification notification = new TouristNotification(message, request.TouristId, tour.Name, Enums.NotificationType.NewTour);
                     notification.Recieved = DateTime.Now;
                     _notificationRepository.Save(notification);
                 }
-                continue;
-            }
-          
-
+            }         
         }
+
+        /*public List<Tourist> GetTouristForNotification(Tour tour)
+        {
+            List<Tourist> tourists = new List<Tourist>();
+            foreach (Tourist tourist in TouristService.GetInstance().GetAll())
+            {
+                foreach (TourRequest request in SimpleRequestService.GetInstance().GetNotAccepted(tourist.Id))
+                {
+                    if (request.LocationId == tour.LocationId || request.LanguageId == tour.LanguageId)
+                    {
+                        tourists.Add(tourist);
+                        break;
+                    }
+                }
+            }
+            return tourists;
+        }*/
     }
 }
