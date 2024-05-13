@@ -145,9 +145,36 @@ namespace BookingApp.ViewModels.GuideViewModel
         {
             DateTime time;
             DateTime.TryParse(Window.datePicker.Text, out time);
-            TourDatesCollection.Add(time);
-            Window.datePicker.Text = "";
+            if (CheckDateConditions(time))
+            {
+                TourDatesCollection.Add(time);
+                Window.datePicker.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("The Guide is busy at that time!");
+            }
         }
+                
+          
+
+        private bool CheckDateConditions(DateTime time)
+        {
+            User user = UserService.GetInstance().GetById(UserId);
+            var tours = TourService.GetInstance().GetAllByUser(user);
+            foreach (var tour in tours)
+            {
+                foreach(var tourSchedule in TourScheduleService.GetInstance().GetAllByTourId(tour.Id))
+                {
+                    if (time < tourSchedule.Start.AddHours(tour.Duration) && time > tourSchedule.Start)
+                    {
+                        return false;
+                    }
+                }  
+            }
+            return true;
+        }
+
 
         public void RemoveDateClick()
         {

@@ -273,5 +273,14 @@ namespace BookingApp.ApplicationServices
 
             return mostRequestedLocation;
         }
+
+        //public Dictionary<int, int> FilterStatisticsByLocation(int locationId)
+        //{
+        //    Dictionary tourData = new Dictionary<int, int>();
+
+
+
+        //    return tourData;
+        //}
     }
 }

@@ -57,9 +57,9 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public List<string> locations { get; set; }
+        public List<string> Locations { get; set; }
 
-        public List<string> languages { get; set; }
+        public List<string> Languages { get; set; }
 
         public static ObservableCollection<ImageItemDTO> ImagesCollection { get; set; }
         public static ObservableCollection<String> CheckpointsCollection { get; set; }
@@ -105,22 +105,22 @@ namespace BookingApp.ViewModels.GuideViewModel
         }
         private void InitializeLanguages()
         {
-            languages = new List<String>();
+            Languages = new List<String>();
             SuggestedLanguage = SimpleRequestService.GetInstance().CalculateMostRequestedLanguage();
 
             foreach (Language language in LanguageService.GetInstance().GetAll())
             {
-                languages.Add(language.Name);
+                Languages.Add(language.Name);
             }
         }
 
         private void InitializeLocations()
         {
             SuggestedLocation = SimpleRequestService.GetInstance().CalculateMostRequestedLocation();
-            locations = new List<String>();
+            Locations = new List<String>();
             foreach (Location location in LocationService.GetInstance().GetAll())
             {
-                locations.Add(location.City + " , " + location.State);
+                Locations.Add(location.City + " , " + location.State);
             }
         }
 
