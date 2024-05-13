@@ -117,8 +117,6 @@ namespace BookingApp.ViewModels.GuideViewModel
             });
         }
 
-
-
         private IEnumerable<TourRequest> FilterRequestsByYear(int languageId, int locationId, List<TourRequest> requests, int year)
         {
             return requests.Where(request =>
