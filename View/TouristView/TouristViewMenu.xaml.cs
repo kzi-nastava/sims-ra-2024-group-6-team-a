@@ -53,7 +53,7 @@ namespace BookingApp.View
                 Locations.Add(new LocationDTO(location));
         }
 
-        public void Update() //OVDJE PRIKAZUJEM SAMO OBICNE TURE, NE REQUESTED TOURS
+        public void Update()
         {
             Tours.Clear();
             foreach (Tour tour in TourService.GetInstance().GetFiltered(Filter))

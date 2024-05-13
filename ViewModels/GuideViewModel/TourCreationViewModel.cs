@@ -196,14 +196,16 @@ namespace BookingApp.ViewModels.GuideViewModel
             SelectedTour.LocationId = Window.locationComboBox.SelectedIndex + 1;
             SelectedTour.LanguageId = Window.languageComboBox.SelectedIndex + 1;
             SelectedTour.GuideId = LoggedUser.Id;
-            SelectedTour.Type = Enums.TourType.Ordinary; //OVDJE SAM DODALA POSTO SE PRAVI OBICNA TURA########
-            SelectedTour.RequestId = -1;//###############################################
+            SelectedTour.Type = Enums.TourType.Ordinary;
+            SelectedTour.RequestId = -1;
 
 
             CheckRadioButtonsStatus();
 
             SelectedTour = TourService.GetInstance().Save(SelectedTour);
 
+            if(SelectedTour.Type == Enums.TourType.Statistics)  
+                TouristNotificationService.GetInstance().SendStatisticTourNotification(SelectedTour.Id);
 
             SaveImages();
             SaveTourDatesAndCheckpoints(TourDatesCollection.ToList(), CheckpointsCollection.ToList());

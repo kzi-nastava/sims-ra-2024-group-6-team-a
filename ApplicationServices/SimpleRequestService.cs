@@ -31,17 +31,14 @@ namespace BookingApp.ApplicationServices
             _simpleRequestRepository = new SimpleRequestRepository();
 
         }
-
         public static SimpleRequestService GetInstance()
         {
             return App.ServiceProvider.GetRequiredService<SimpleRequestService>();
         }
-
         public List<TourRequest> GetAll()
         {
             return _simpleRequestRepository.GetAll();
         }
-
         public List<TourRequest> GetByTouristId(int touristId)
         {
             return _simpleRequestRepository.GetAll().Where(r => r.TouristId == touristId).ToList();
@@ -62,14 +59,12 @@ namespace BookingApp.ApplicationServices
                 TourGuestService.GetInstance().Save(newGuest);
             }
         }
-
         public void MakeTourRequest(SimpleRequestDTO request, List<TourGuestDTO> guests, User user)
         {
             TourRequest simpleRequest = new TourRequest(request.locationId, request.languageId, request.Description, request.Start, request.End, request.TouristId, request.Status);
             Save(simpleRequest);
             SaveRequestGuests(simpleRequest.Id, guests, user);
         }
-
         public void CheckRequestStatus()
         {
             DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
@@ -79,24 +74,19 @@ namespace BookingApp.ApplicationServices
             {
                 if (request.StartDate < tresholdDate)
                 {
-                    request.Status = Resources.Enums.RequestStatus.Invalid;
+                    request.Status = Enums.RequestStatus.Invalid;
                     _simpleRequestRepository.Update(request);
                 }
-            }
-            
+            }            
         }
-
         public TourRequest Update(TourRequest request)
         {
             return _simpleRequestRepository.Update(request);
         }
-
         public TourRequest GetById(int id)
         {
             return _simpleRequestRepository.GetById(id);
         }
-
-
         public List<TourRequest> GetAccepted(int userId)
         {
             return GetByTouristId(userId).Where(r => r.Status == RequestStatus.Accepted).ToList();

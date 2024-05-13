@@ -4,6 +4,7 @@ using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
+using BookingApp.Resources;
 using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -96,19 +97,19 @@ namespace BookingApp.ApplicationServices
         {
             return tour.Capacity >= filter.TouristNumber || filter.TouristNumber == 0;
         }
-        private List<Tour> GetOrdinaryTours()
+        private List<Tour> GetAllForUser()
         {
             List<Tour> tours = new List<Tour>();
             foreach(Tour tour in GetAll())
             {
-                if(tour.Type == Resources.Enums.TourType.Ordinary)
+                if(tour.Type == Enums.TourType.Ordinary || tour.Type == Enums.TourType.Statistics)
                     tours.Add(tour);
             }
             return tours;
         }
         public List<Tour> GetFiltered(TourFilterDTO filter)
         {
-            List<Tour> allTours = GetOrdinaryTours();
+            List<Tour> allTours = GetAllForUser();
 
             if (filter.isEmpty())
                 return allTours;
