@@ -65,22 +65,6 @@ namespace BookingApp.ApplicationServices
             notification.Recieved = DateTime.Now;
             _notificationRepository.Save(notification);
         }
-
-     /*  public void SendStatisticTourNotification(int tourId)
-        {
-            Tour tour = TourService.GetInstance().GetById(tourId);
-            foreach (TourRequest request in SimpleRequestService.GetInstance().GetNotAccepted())
-            {
-                if (request.LanguageId == tour.LanguageId || request.LocationId == tour.LocationId)
-                {
-                    Location location = LocationService.GetInstance().GetById(tour.LocationId);
-                    string message = "Based on your requests, you may be interested into tour details, location: " + location.City + ", " + location.State + "; " + "language: " + LanguageService.GetInstance().GetById(tour.LanguageId).Name;
-                    TouristNotification notification = new TouristNotification(message, request.TouristId, tour.Name, Enums.NotificationType.NewTour);
-                    notification.Recieved = DateTime.Now;
-                    _notificationRepository.Save(notification);
-                }
-            }         
-        }*/
         public void SendStatisticTourNotification(int userId, int tourId)
         {
             Tour tour = TourService.GetInstance().GetById(tourId);
@@ -94,23 +78,8 @@ namespace BookingApp.ApplicationServices
                 notification.Recieved = DateTime.Now;
                 _notificationRepository.Save(notification);
             }
-                //this.Save(new Notification(category, touristId, tourId));
+                
         }
-        /*public List<Tourist> GetTouristForNotification(Tour tour)
-        {
-            List<Tourist> tourists = new List<Tourist>();
-            foreach (Tourist tourist in TouristService.GetInstance().GetAll())
-            {
-                foreach (TourRequest request in SimpleRequestService.GetInstance().GetNotAccepted(tourist.Id))
-                {
-                    if (request.LocationId == tour.LocationId || request.LanguageId == tour.LanguageId)
-                    {
-                        tourists.Add(tourist);
-                        break;
-                    }
-                }
-            }
-            return tourists;
-        }*/
+       
     }
 }

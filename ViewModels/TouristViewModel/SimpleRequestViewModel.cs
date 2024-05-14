@@ -154,7 +154,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             SelectedRequest.LanguageId = SelectedLanguageIndex + 1;
             SelectedRequest.TouristId = LoggedUser.Id;
             SelectedRequest.Status = Resources.Enums.RequestStatus.Onhold;
-            SimpleRequestService.GetInstance().MakeTourRequest(SelectedRequest, TourGuests.ToList(), LoggedUser);
+            TourRequestService.GetInstance().MakeTourRequest(SelectedRequest, TourGuests.ToList(), LoggedUser);
             CloseAction();
         }
 

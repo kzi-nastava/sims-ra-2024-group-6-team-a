@@ -75,7 +75,7 @@ namespace BookingApp.ApplicationServices
         public List<Location> GetAllByUserRequest(int userId)
         {
             List<Location> list = new List<Location>();
-            foreach (TourRequest request in SimpleRequestService.GetInstance().GetByTouristId(userId))
+            foreach (TourRequest request in TourRequestService.GetInstance().GetByTouristId(userId))
             {
                 list.Add(GetById(request.LocationId));
             }

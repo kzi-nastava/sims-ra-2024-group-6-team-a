@@ -106,7 +106,7 @@ namespace BookingApp.ViewModels.GuideViewModel
     
         public void LoadRequestDetails()
         {
-            Request = SimpleRequestService.GetInstance().GetById(RequestId);
+            Request = TourRequestService.GetInstance().GetById(RequestId);
             Location location = LocationService.GetInstance().GetById(Request.LocationId);
             Location = location.City + ", " + location.State;
             Tour.LocationId = Request.LocationId;
@@ -210,7 +210,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         private void ChangeRequestStatus()
         {
             Request.Status = Enums.RequestStatus.Accepted;
-            Request = SimpleRequestService.GetInstance().Update(Request);
+            Request = TourRequestService.GetInstance().Update(Request);
         }
         private TourReservation CreateReservation(TourSchedule tourSchedule)
         {
