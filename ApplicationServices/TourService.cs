@@ -1,18 +1,11 @@
 ﻿using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.DTOs;
 using BookingApp.Model;
-using BookingApp.Observer;
 using BookingApp.Repository;
-using BookingApp.RepositoryInterfaces;
 using BookingApp.Resources;
-using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace BookingApp.ApplicationServices
 {

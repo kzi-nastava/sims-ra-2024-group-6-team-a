@@ -2,14 +2,11 @@
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Model;
 using BookingApp.Repository;
-using BookingApp.RepositoryInterfaces;
 using BookingApp.Resources;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.ApplicationServices
 {
@@ -37,6 +34,10 @@ namespace BookingApp.ApplicationServices
         {
             return _notificationRepository.GetAll();
         }
+        public List<TouristNotification> GetAllByUser(int userId)
+        {
+            return GetAll().Where( n => n.UserId == userId).ToList();
+        }
         public void SendNotification(TourSchedule tourSchedule)
         {
             foreach(var reservation in TourReservationService.GetInstance().GetAllByRealisationId(tourSchedule.Id))
@@ -60,7 +61,7 @@ namespace BookingApp.ApplicationServices
         {
             Guide guide = GuideService.GetInstance().GetByUserId(userId);
             Tour tour = TourService.GetInstance().GetById(tourSchedule.TourId);
-            string message = "Guide " + guide.Name + " " + guide.Surname + "accepted your request and set the date for: " + tourSchedule.Start;
+            string message = "Guide " + guide.Name + " " + guide.Surname + " accepted your request and set the date for: " + tourSchedule.Start;
             TouristNotification notification = new TouristNotification(message, request.TouristId, tour.Name, Enums.NotificationType.AcceptedRequest);
             notification.Recieved = DateTime.Now;
             _notificationRepository.Save(notification);
@@ -73,7 +74,7 @@ namespace BookingApp.ApplicationServices
 
             if (userId != -1)
             {
-                string message = "Based on your requests, you may be interested into tour details, location: " + location.City + ", " + location.State + "; " + "language: " + language.Name;
+                string message = "Guide created new tour that you may be interested into. Location: " + location.City + ", " + location.State + "; " + "Language: " + language.Name;
                 TouristNotification notification = new TouristNotification(message, userId, tour.Name, Enums.NotificationType.NewTour);
                 notification.Recieved = DateTime.Now;
                 _notificationRepository.Save(notification);

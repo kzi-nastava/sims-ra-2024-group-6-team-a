@@ -1,15 +1,8 @@
 ﻿using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Model;
-using BookingApp.Observer;
-using BookingApp.Repository;
-using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace BookingApp.ApplicationServices
 {
@@ -21,15 +14,6 @@ namespace BookingApp.ApplicationServices
         {
             _scheduleRepository = tourScheduleRepository;
         }
-
-       /* public TourScheduleService()
-        {
-            _scheduleRepository = new TourScheduleRepository();
-            _guestService = new TourGuestService();
-            _reservationService = new TourReservationService();
-        }*/
-
-
         public static TourScheduleService GetInstance()
         {
             return App.ServiceProvider.GetRequiredService<TourScheduleService>();

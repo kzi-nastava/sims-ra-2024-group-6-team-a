@@ -1,15 +1,6 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Model;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Xml.Linq;
-using Xceed.Wpf.AvalonDock.Controls;
 
 namespace BookingApp.DTOs
 {
@@ -93,14 +84,6 @@ namespace BookingApp.DTOs
 
                 }
             }
-        }
-
-        public TouristNotificationDTO(TouristNotificationDTO notification)
-        {
-            Id = notification.Id;
-            Message = notification.Message;
-            UserId = notification.UserId;
-            Recieved = notification.Recieved;
         }
         public TouristNotificationDTO(TouristNotification notification)
         {
