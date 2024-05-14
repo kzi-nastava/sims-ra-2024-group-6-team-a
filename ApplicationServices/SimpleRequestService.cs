@@ -91,9 +91,9 @@ namespace BookingApp.ApplicationServices
         {
             return GetByTouristId(userId).Where(r => r.Status == RequestStatus.Accepted).ToList();
         }
-        public List<TourRequest> GetNotAccepted()
+        public List<TourRequest> GetNotAccepted(int userId)
         {
-            return GetAll().Where(r => r.Status != RequestStatus.Accepted).ToList();
+            return GetByTouristId(userId).Where(r => r.Status != RequestStatus.Accepted).ToList();
         }
 
         public List<TourRequest> GetAcceptedByYear(int userId, int year)
@@ -274,13 +274,21 @@ namespace BookingApp.ApplicationServices
             return mostRequestedLocation;
         }
 
-        //public Dictionary<int, int> FilterStatisticsByLocation(int locationId)
-        //{
-        //    Dictionary tourData = new Dictionary<int, int>();
-
-
-
-        //    return tourData;
-        //}
+        public List<Tourist> GetTouristsForNotification(Tour tour)
+        {
+            List<Tourist> tourists = new List<Tourist>();
+            foreach (Tourist tourist in TouristService.GetInstance().GetAll())
+            {
+                foreach (TourRequest request in GetNotAccepted(tourist.UserId))
+                {
+                    if (request.LocationId == tour.LocationId || request.LanguageId == tour.LanguageId)
+                    {
+                        tourists.Add(tourist);
+                        break;
+                    }
+                }
+            }
+            return tourists;
+        }
     }
 }

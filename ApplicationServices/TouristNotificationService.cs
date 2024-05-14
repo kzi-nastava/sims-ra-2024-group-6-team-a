@@ -66,7 +66,7 @@ namespace BookingApp.ApplicationServices
             _notificationRepository.Save(notification);
         }
 
-       public void SendStatisticTourNotification(int tourId)
+     /*  public void SendStatisticTourNotification(int tourId)
         {
             Tour tour = TourService.GetInstance().GetById(tourId);
             foreach (TourRequest request in SimpleRequestService.GetInstance().GetNotAccepted())
@@ -80,8 +80,22 @@ namespace BookingApp.ApplicationServices
                     _notificationRepository.Save(notification);
                 }
             }         
-        }
+        }*/
+        public void SendStatisticTourNotification(int userId, int tourId)
+        {
+            Tour tour = TourService.GetInstance().GetById(tourId);
+            Location location = LocationService.GetInstance().GetById(tour.LocationId);
+            Language language = LanguageService.GetInstance().GetById(tour.LanguageId);
 
+            if (userId != -1)
+            {
+                string message = "Based on your requests, you may be interested into tour details, location: " + location.City + ", " + location.State + "; " + "language: " + language.Name;
+                TouristNotification notification = new TouristNotification(message, userId, tour.Name, Enums.NotificationType.NewTour);
+                notification.Recieved = DateTime.Now;
+                _notificationRepository.Save(notification);
+            }
+                //this.Save(new Notification(category, touristId, tourId));
+        }
         /*public List<Tourist> GetTouristForNotification(Tour tour)
         {
             List<Tourist> tourists = new List<Tourist>();
