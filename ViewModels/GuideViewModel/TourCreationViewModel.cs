@@ -204,8 +204,17 @@ namespace BookingApp.ViewModels.GuideViewModel
 
             SelectedTour = TourService.GetInstance().Save(SelectedTour);
 
-            if(SelectedTour.Type == Enums.TourType.Statistics)  
-                TouristNotificationService.GetInstance().SendStatisticTourNotification(SelectedTour.Id);
+            if(SelectedTour.Type == Enums.TourType.Statistics)
+            {
+                foreach (Tourist tourist in SimpleRequestService.GetInstance().GetTouristsForNotification(SelectedTour))
+                {
+                    TouristNotificationService.GetInstance().SendStatisticTourNotification(tourist.UserId, SelectedTour.Id);
+
+                }
+            }  
+
+
+               // TouristNotificationService.GetInstance().SendStatisticTourNotification(SelectedTour.Id);
 
             SaveImages();
             SaveTourDatesAndCheckpoints(TourDatesCollection.ToList(), CheckpointsCollection.ToList());
