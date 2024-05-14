@@ -1,19 +1,12 @@
 ﻿using BookingApp.ApplicationServices;
-using BookingApp.DTOs;
 using BookingApp.Model;
-using BookingApp.View.TouristView;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LiveCharts.Defaults;
-using BookingApp.Domain.Model;
-using System.Windows.Media;
 
 namespace BookingApp.ViewModels.TouristViewModel
 {
@@ -29,8 +22,6 @@ namespace BookingApp.ViewModels.TouristViewModel
         }
 
         public ObservableCollection<int> Years { get; set; } = new ObservableCollection<int>();
-        public ObservableCollection<int> RequestCounts { get; set; } = new ObservableCollection<int>();
-        public List<string> Languages { get; set; } = new List<string>();
 
         private SeriesCollection _pieChartCollection;
         public SeriesCollection PieChartCollection
@@ -97,7 +88,6 @@ namespace BookingApp.ViewModels.TouristViewModel
                 }
             }
         }
-        public Func<double, string> IntLabelFormatter => value => value.ToString("N0");
 
         private double _averageNumber;
         public double AverageNumber
@@ -121,8 +111,6 @@ namespace BookingApp.ViewModels.TouristViewModel
         public RelayCommand LoadYearStatisticsCommand { get; set; }
         public RelayCommand LoadGeneralPeopleNumberCommand { get; set; }
         public RelayCommand LoadYearPeopleNumberCommand { get; set; }
-        public List<string> CartesianLabels { get; set; } = new List<string>();
-        public ChartValues<int> CartesianValues { get; set; } = new ChartValues<int>();
         public RequestStatisticsViewModel(int userId)
         {
             UserId = userId;

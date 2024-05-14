@@ -63,7 +63,7 @@ namespace BookingApp.ViewModels.GuideViewModel
 
                 Location location = LocationService.GetInstance().GetById(request.LocationId);
                 Language language = LanguageService.GetInstance().GetById(request.LanguageId);
-                int touristNumber = TourGuestService.GetInstance().CountGuestsInRequest(request.Id);
+                int touristNumber = TourGuestService.GetInstance().GetGuestsCountByRequest(request.Id);
                 SimpleRequests.Add(new SimpleRequestDTO(request, location, language, touristNumber, LoggedUser.Id));
             }
         }

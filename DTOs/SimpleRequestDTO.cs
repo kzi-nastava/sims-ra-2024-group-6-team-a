@@ -1,14 +1,8 @@
-﻿using BookingApp.ApplicationServices;
-using BookingApp.Domain.Model;
+﻿using BookingApp.Domain.Model;
 using BookingApp.Model;
 using BookingApp.Resources;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO.Packaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookingApp.DTOs
 {
@@ -290,19 +284,6 @@ namespace BookingApp.DTOs
             Location = location.City + ", " + location.State;
 
         }
-        public SimpleRequestDTO(TourRequest request, int locationId, int languageId)
-        {
-            Id = request.Id;
-            LocationId = locationId;
-            LanguageId = languageId;
-            Description = request.Description;
-            Start = request.StartDate;
-            End = request.EndDate;
-            TouristId = request.TouristId;
-            Status = request.Status;
-
-        }
-
         public SimpleRequestDTO(TourRequest request, Location location, Language language, int touristNumber, int userId)
         {
             Id = request.Id;

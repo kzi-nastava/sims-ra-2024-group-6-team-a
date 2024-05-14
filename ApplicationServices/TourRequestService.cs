@@ -4,15 +4,10 @@ using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
-using BookingApp.View.TouristView;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using static BookingApp.Resources.Enums;
 
 namespace BookingApp.ApplicationServices
@@ -197,15 +192,13 @@ namespace BookingApp.ApplicationServices
         }
         private bool MatchesTouristNumber(TourRequest request, RequestFilterDTO filter)
         {
-            return TourGuestService.GetInstance().CountGuestsInRequest(request.Id) == filter.TouristNumber || filter.TouristNumber == 0;
+            return TourGuestService.GetInstance().GetGuestsCountByRequest(request.Id) == filter.TouristNumber || filter.TouristNumber == 0;
         }
 
         private bool MatchesLanguage(TourRequest request, RequestFilterDTO filter)
         {
             return request.LanguageId == filter.Language.Id || filter.Language.Id == 0;
         }
-
-
         public List<TourRequest> GetFiltered(RequestFilterDTO filter)
         {
             List<TourRequest> tourRequests = GetAll();

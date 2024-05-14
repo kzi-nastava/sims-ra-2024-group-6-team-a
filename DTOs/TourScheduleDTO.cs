@@ -3,20 +3,13 @@ using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace BookingApp.DTOs
 {
     public class TourScheduleDTO : INotifyPropertyChanged
     {
         private readonly TourRepository _tourRepository = new TourRepository();
-        private readonly LocationRepository _locationRepository = new LocationRepository();
-        private readonly LanguageRepository _languageRepository = new LanguageRepository();
         public TourScheduleDTO() { }
 
         public TourScheduleDTO(TourSchedule tourSchedule)
@@ -41,21 +34,6 @@ namespace BookingApp.DTOs
             State = location.State;
             Image = imagePath;
             Duration = _tourRepository.GetById(TourId).Duration;
-        }
-
-        public TourScheduleDTO(Tour tour, Language langugae, Location location, TourSchedule tourSchedule, string imagePath)
-        {
-            Id = tourSchedule.Id;
-            Start = tourSchedule.Start;
-            CurrentFreeSpace = tourSchedule.CurrentFreeSpace;
-            TourId = tourSchedule.TourId;
-            TourName = tour.Name;
-            TourLanguage = langugae.Name;
-            City = location.City;
-            State = location.State;
-            Image = imagePath;
-            Duration = tour.Duration;
-
         }
 
         private string _image;
