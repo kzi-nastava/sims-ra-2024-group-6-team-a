@@ -65,10 +65,10 @@
                 </Grid.ColumnDefinitions>
                 <Label FontSize="15" Margin="9" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">Tour Realisation Date:</Label>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" >
-                    <DatePicker x:Name="startDateComboBox"/>
+                    <DatePicker x:Name="startDateComboBox" SelectedDateChanged="DatePickerBeginning_SelectedDateChanged" />
                     <Label FontSize="15"  FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" Content="-"/>
                     <DatePicker 
-                        x:Name="endDateComboBox"
+                        x:Name="endDateComboBox" SelectedDateChanged = "DatePickerEnding_SelectedDateChanged"
                         />
 
                     
