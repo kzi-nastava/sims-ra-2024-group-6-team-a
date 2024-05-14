@@ -1,14 +1,8 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Xml.Linq;
 
 namespace BookingApp.DTOs
 {
@@ -349,16 +343,6 @@ namespace BookingApp.DTOs
         }
 
         public TourReviewDTO() { }
-        public TourReviewDTO(int scheduleId, int languageGrade, int knowledgeGrade, int attractionsGrade, string impression, string imagePath, int touristId)
-        {
-            ScheduleId = scheduleId;
-            GuideKnowledgeGrade = knowledgeGrade;
-            GuideLanguageGrade = languageGrade;
-            TourAttractionsGrade = attractionsGrade;
-            Impression = impression;
-            Image = imagePath;
-            TouristId = touristId;
-        }
 
         public TourReviewDTO(int reviewId,int scheduleId, int languageGrade, int knowledgeGrade, int attractionsGrade, string impression, List<Model.Image> images, int touristId, Tourist tourist, string checkpoint,bool isValid)
         {

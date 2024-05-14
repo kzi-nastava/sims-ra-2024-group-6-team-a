@@ -1,7 +1,6 @@
 ﻿using BookingApp.DTOs;
 using BookingApp.Observer;
 using BookingApp.Model;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,12 +16,11 @@ namespace BookingApp.View
     /// </summary>
     public partial class TouristViewMenu : Window, IObserver
     {
-        public static ObservableCollection<TourTouristDTO> Tours { get; set; }
+        public static ObservableCollection<TourTouristDTO> Tours { get; set; } = new ObservableCollection<TourTouristDTO>();
         public ObservableCollection<LanguageDTO> Languages { get; set; } = new ObservableCollection<LanguageDTO>();
         public ObservableCollection<LocationDTO> Locations { get; set; } = new ObservableCollection<LocationDTO>();
         public TourScheduleDTO TourSchedule { get; set; }
         public User LoggedUser { get; set; }
-        public TourTouristDTO SelectedTour { get; set; }
         public TourFilterDTO Filter { get; set; }
 
         public TouristViewMenu(User user)
@@ -31,7 +29,6 @@ namespace BookingApp.View
             DataContext = this;
             LoggedUser = user;
 
-            Tours = new ObservableCollection<TourTouristDTO>();
             Filter = new TourFilterDTO();
             Update();
             SetLanguages();
