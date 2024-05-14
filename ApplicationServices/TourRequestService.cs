@@ -250,7 +250,7 @@ namespace BookingApp.ApplicationServices
             {
                 foreach (TourRequest request in tourRequests)
                 {
-                    if (request.LocationId == language.Id)
+                    if (request.LanguageId == language.Id)
                     {
                         tempRequestNumber++;
                     }
