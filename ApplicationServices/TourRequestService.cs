@@ -175,14 +175,15 @@ namespace BookingApp.ApplicationServices
 
         private bool MatchesBeginning(TourRequest request, RequestFilterDTO filter)
         {
-            return request.StartDate >= filter.Beggining || filter.Beggining == DateOnly.MinValue;
+            return (request.EndDate >= filter.Beggining && (filter.Ending == DateOnly.MinValue || filter.Ending >= request.StartDate))
+                       || filter.Beggining == DateOnly.MinValue;
         }
 
 
         private bool MatchesEnding(TourRequest request, RequestFilterDTO filter)
         {
-            return request.EndDate <= filter.Ending || filter.Ending == DateOnly.MinValue;
-
+            return (request.StartDate <= filter.Ending && (filter.Beggining == DateOnly.MinValue || filter.Beggining <= request.EndDate))
+                       || filter.Ending == DateOnly.MinValue;
         }
 
         private bool MatchesLocation(TourRequest request, RequestFilterDTO filter)
