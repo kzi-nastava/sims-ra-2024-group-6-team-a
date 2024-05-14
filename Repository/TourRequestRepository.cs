@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class SimpleRequestRepository : ISimpleRequestRepository
+    public class TourRequestRepository : ITourRequestRepository
     {
         private const string FilePath = "../../../Resources/Data/simpleRequests.csv";
 
@@ -20,7 +20,7 @@ namespace BookingApp.Repository
         private List<TourRequest> _request;
         public Subject subject;
 
-        public SimpleRequestRepository()
+        public TourRequestRepository()
         {
             _observers = new List<IObserver>();
             _serializer = new Serializer<TourRequest>();

@@ -36,7 +36,7 @@ namespace BookingApp.View
             Update();
             SetLanguages();
             SetLocations();
-            SimpleRequestService.GetInstance().CheckRequestStatus();
+            TourRequestService.GetInstance().CheckRequestStatus();
         }
 
         private void SetLanguages()

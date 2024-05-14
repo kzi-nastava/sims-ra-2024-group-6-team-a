@@ -63,7 +63,7 @@ namespace BookingApp.ApplicationServices
         public List<Language> GetAllByUserRequest(int userId)
         {
             List<Language> list = new List<Language>(); 
-            foreach(TourRequest request in SimpleRequestService.GetInstance().GetByTouristId(userId))
+            foreach(TourRequest request in TourRequestService.GetInstance().GetByTouristId(userId))
             {
                 list.Add(GetById(request.LanguageId));
             }

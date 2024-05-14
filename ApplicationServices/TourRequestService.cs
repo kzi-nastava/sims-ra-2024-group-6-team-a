@@ -17,23 +17,23 @@ using static BookingApp.Resources.Enums;
 
 namespace BookingApp.ApplicationServices
 {
-    public class SimpleRequestService
+    public class TourRequestService
     {
-        private ISimpleRequestRepository _simpleRequestRepository;
+        private ITourRequestRepository _simpleRequestRepository;
 
-        public SimpleRequestService(ISimpleRequestRepository simpleRequestRepository)
+        public TourRequestService(ITourRequestRepository simpleRequestRepository)
         {
             _simpleRequestRepository = simpleRequestRepository;
         }
 
-        public SimpleRequestService()
+        public TourRequestService()
         {
-            _simpleRequestRepository = new SimpleRequestRepository();
+            _simpleRequestRepository = new TourRequestRepository();
 
         }
-        public static SimpleRequestService GetInstance()
+        public static TourRequestService GetInstance()
         {
-            return App.ServiceProvider.GetRequiredService<SimpleRequestService>();
+            return App.ServiceProvider.GetRequiredService<TourRequestService>();
         }
         public List<TourRequest> GetAll()
         {

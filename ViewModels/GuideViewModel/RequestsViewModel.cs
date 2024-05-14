@@ -56,7 +56,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         public void UpdateRequests()
         {
             SimpleRequests.Clear();
-            foreach (TourRequest request in SimpleRequestService.GetInstance().GetFiltered(Filter))
+            foreach (TourRequest request in TourRequestService.GetInstance().GetFiltered(Filter))
             {
                 if (request.Status != Enums.RequestStatus.Onhold)
                     continue;

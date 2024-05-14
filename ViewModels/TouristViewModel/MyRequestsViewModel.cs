@@ -36,10 +36,10 @@ namespace BookingApp.ViewModels.TouristViewModel
         private void Update()
         {
             SimpleRequests.Clear();
-            foreach(TourRequest request in SimpleRequestService.GetInstance().GetAll())
+            foreach(TourRequest request in TourRequestService.GetInstance().GetAll())
             {
                 if (request.TouristId == LoggedUser.Id)
-                    SimpleRequests.Add(new SimpleRequestDTO(request, LocationService.GetInstance().GetById(SimpleRequestService.GetInstance().GetById(request.Id).LocationId), LanguageService.GetInstance().GetById(SimpleRequestService.GetInstance().GetById(request.Id).LanguageId)));
+                    SimpleRequests.Add(new SimpleRequestDTO(request, LocationService.GetInstance().GetById(TourRequestService.GetInstance().GetById(request.Id).LocationId), LanguageService.GetInstance().GetById(TourRequestService.GetInstance().GetById(request.Id).LanguageId)));
             }
         }
     }

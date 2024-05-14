@@ -106,7 +106,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         private void InitializeLanguages()
         {
             Languages = new List<String>();
-            SuggestedLanguage = SimpleRequestService.GetInstance().CalculateMostRequestedLanguage();
+            SuggestedLanguage = TourRequestService.GetInstance().CalculateMostRequestedLanguage();
 
             foreach (Language language in LanguageService.GetInstance().GetAll())
             {
@@ -116,7 +116,7 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         private void InitializeLocations()
         {
-            SuggestedLocation = SimpleRequestService.GetInstance().CalculateMostRequestedLocation();
+            SuggestedLocation = TourRequestService.GetInstance().CalculateMostRequestedLocation();
             Locations = new List<String>();
             foreach (Location location in LocationService.GetInstance().GetAll())
             {
@@ -206,15 +206,13 @@ namespace BookingApp.ViewModels.GuideViewModel
 
             if(SelectedTour.Type == Enums.TourType.Statistics)
             {
-                foreach (Tourist tourist in SimpleRequestService.GetInstance().GetTouristsForNotification(SelectedTour))
+                foreach (Tourist tourist in TourRequestService.GetInstance().GetTouristsForNotification(SelectedTour))
                 {
                     TouristNotificationService.GetInstance().SendStatisticTourNotification(tourist.UserId, SelectedTour.Id);
 
                 }
             }  
 
-
-               // TouristNotificationService.GetInstance().SendStatisticTourNotification(SelectedTour.Id);
 
             SaveImages();
             SaveTourDatesAndCheckpoints(TourDatesCollection.ToList(), CheckpointsCollection.ToList());
