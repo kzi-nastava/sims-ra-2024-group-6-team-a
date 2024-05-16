@@ -23,13 +23,11 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public Guest Guest { get; set; }
         public NavigationService NavService { get; set; }
         public RelayCommand SeeMoreCommand { get; set; }
-        public RelayCommand MyRequestCommand { get; set; }
         public GuestMyReservationsViewModel(Guest guest, NavigationService navigation)
         {
             Guest = guest;
             Reservations = new ObservableCollection<ReservationGuestDTO>();
             SeeMoreCommand = new RelayCommand(Execute_SeeMoreCommand);
-            MyRequestCommand = new RelayCommand(Execute_MyRequestCommand);
             NavService = navigation;
             Update();
         }
@@ -48,10 +46,6 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 Location location = LocationService.GetInstance().GetByAccommodation(accommodation);
                 Reservations.Add(new ReservationGuestDTO(Guest, reservation, accommodation, location, image.Path));
             }
-        }
-        private void Execute_MyRequestCommand(object obj)
-        {
-            NavService.Navigate(new GuestMyRequestView(Guest, NavService));
         }
         private void Execute_SeeMoreCommand(object obj)
         {

@@ -5,82 +5,154 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
              mc:Ignorable="d" 
-             Height="235" Width="520">
-    <Grid>
-        <Border Background="White" CornerRadius="8" Margin="0,0,10,0" Padding="10" BorderBrush="LightGray" BorderThickness="1">
-            <Grid>
-
+             Height="305" Width="1350">
+    <Border Background="#F6F5F2" CornerRadius="8" Margin="10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+        </Border.Effect>
+        <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.2*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-
-
+                    <RowDefinition Height="1.8*"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="1" Grid.Column="1">
+                <Grid Grid.Row="0" Grid.Column="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Margin="5 5 5 5" Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
-                        <TextBlock  FontStyle="Italic" Text="Username:"/>
-                        <TextBlock HorizontalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="{Binding Nickname}"/>
-                    </StackPanel>
-                    <StackPanel  Margin="5 5 5 5" Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
-                        <TextBlock  FontStyle="Italic" Text="Checkpoint:"/>
-                        <TextBlock HorizontalAlignment="Center"  FontStyle="Italic"  Text="{Binding Checkpoint}"/>
-                    </StackPanel>
-                    <StackPanel   Margin="5 5 5 5" Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
-                        <TextBlock  FontStyle="Italic" Text="Guide's knowledge:"/>
-                        <TextBlock Grid.Column="2"    FontStyle="Italic" Text="{Binding GuideKnowledgeGrade}"/>
-                    </StackPanel>
-                    <StackPanel  Margin="5 5 5 5" Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-                        <TextBlock FontStyle="Italic" Text="Guide's spoken language:"/>
-                        <TextBlock  FontStyle="Italic" TextWrapping="Wrap" Text="{Binding GuideLanguageGrade}"/>
-                    </StackPanel>
-                    <StackPanel  Margin="5 5 5 5" Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
-                        <TextBlock Text="Tour's attraction:"/>
-                        <TextBlock FontStyle="Italic" Text="{Binding TourAttractionsGrade}"/>
-                    </StackPanel>
+                    <Grid Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.6*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="Name:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding FirstName}"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"  FontSize="25" Content="Surname:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding LastName}"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"  FontSize="25" Content="Age:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Age}"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"  FontSize="25" Content="Checkpoint:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Checkpoint}"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2.5*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="Guide's knowledge:"/>
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding GuideKnowledgeGrade}"/>
+                            <Image Grid.Column="1" Width="40px" Height="40px" Source="\Resources\Images\star_normalan.png"/>
+
+                        </Grid>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center"  Grid.Row="1" Grid.Column="0"  FontSize="25" Content="Guide's spoken language:"/>
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="25" Text="{Binding GuideLanguageGrade}"/>
+                            <Image Grid.Column="2" Width="40px" Height="40px" Source="\Resources\Images\star_normalan.png"/>
+
+                        </Grid>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"  FontSize="25" Content="Tour's attraction:"/>
+                        <Grid Grid.Row="2" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="25" Text="{Binding TourAttractionsGrade}"/>
+                            <Image Grid.Column="2" Width="40px" Height="40px" Source="\Resources\Images\star_normalan.png"/>
+
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Image Source="{Binding Image}"  Grid.Column="0" Grid.RowSpan="2" Margin="12,10,26,0"/>
-                <TextBlock Visibility="Collapsed" x:Name="txtReviewId" Text="{Binding ReviewId}" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Width="0" Height="8"/>
-
-                <StackPanel  Margin="5,5,86,5" Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="2">
-                    <TextBlock Text="Impression:"/>
-                    <TextBlock FontStyle="Italic" Text="{Binding Impression}"/>
-                </StackPanel>
-                <StackPanel Margin ="257,49,10,10" Grid.Column="1" Grid.Row="2" >
-                    <TextBlock FontSize="20">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Text" Value="VALID"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsValid}" Value="True">
+                <Grid Margin="0 10 0 0" Grid.Row="1" Grid.ColumnSpan="3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.15*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="0.3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                    <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="Comment:"/>
+                        <ScrollViewer Grid.Column="1" Grid.RowSpan="2"  VerticalScrollBarVisibility="Auto" >
+                        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Left" TextAlignment="Left" TextWrapping="Wrap"  FontSize="25" Text="{Binding Impression}"/>
+                        </ScrollViewer>
+                        <StackPanel Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock FontFamily="Yu Gothic UI Light" FontSize="35">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
                                         <Setter Property="Text" Value="VALID"/>
-                                        <Setter Property="Foreground" Value="Green"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding IsValid}" Value="False">
-                                        <Setter Property="Text" Value="INVALID"/>
-                                        <Setter Property="Foreground" Value="Red"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </StackPanel>
-                <Image Width="20px" Margin="318,-1,0,0" Height="20px" PreviewMouseDown="ReportReviewMouseDown" Source="\Resources\Images\report.png" Grid.Column="1"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsValid}" Value="True">
+                                                <Setter Property="Text" Value="VALID"/>
+                                                <Setter Property="Foreground" Value="Green"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsValid}" Value="False">
+                                                <Setter Property="Text" Value="INVALID"/>
+                                                <Setter Property="Foreground" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
 
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Width="30px" HorizontalAlignment="Right" Height="30px" PreviewMouseDown="ReportReviewMouseDown" Source="\Resources\Images\report.png" Grid.Column="1"/>
+                    <TextBlock Visibility="Collapsed" x:Name="txtReviewId" Text="{Binding ReviewId}" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center"/>
+                </Grid>
+              <Grid Grid.Row="0" Grid.Column="0" Margin="0 0 30 0" >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border    Grid.Column="1"  CornerRadius="7" BorderBrush="#F0EBE3" BorderThickness="4">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding CurrentImage.Path, UpdateSourceTrigger=PropertyChanged}"  Stretch="Fill"/>
+                    </Border.Background>
+                </Border>
+                <Button Grid.Column="2" Height="40" Width="22" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Transparent"  Click="NextImage">
+                    <Image Source ="/Resources/Images/rarrow.png" Width="20" Height="35"/>
+                </Button>
+                <Button Grid.Column="0" Height="40" Width="22" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent"  Click="PreviousImage">
+                    <Image Source ="/Resources/Images/larroww.png" Width="20" Height="35"/>
+                </Button>
             </Grid>
+           </Grid>
         </Border>
-    </Grid>
 </UserControl>
+

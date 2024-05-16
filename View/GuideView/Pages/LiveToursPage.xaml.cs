@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookingApp.ApplicationServices;
+using BookingApp.Domain.Model;
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Observer;
@@ -31,39 +32,24 @@ namespace BookingApp.View.GuideView.Pages
         public static ObservableCollection<TourGuideDTO> TodaysTours { get; set; }
         public User LoggedUser { get; set; }
 
-        public Frame mainFrame;
 
       
        
         private LiveTour liveTour;
-        private TourStatisticsPage _tourStatisticsPage;
 
         public event EventHandler tourEnded;
 
-        public LiveToursPage(Frame mainFrame,TourStatisticsPage tourStatisticsPage,TourCreationPage tourCreationPage,User user)
+        public LiveToursPage(User user)
         {
             InitializeComponent();
             DataContext = this;
-            LoggedUser = user;
-
-            _tourStatisticsPage = tourStatisticsPage;
-
+            LoggedUser = user;         
             TodaysTours = new ObservableCollection<TourGuideDTO>();
-
-
-            this.mainFrame = mainFrame;
-
-            tourCreationPage.SomethingHappened += tourCreationPage_SomethingHappened;
-
-
             Update();
 
         }
         
-        private void tourCreationPage_SomethingHappened(object sender, EventArgs e)
-        {
-            Update();
-        }
+       
 
         public void Update()
         {
@@ -73,14 +59,16 @@ namespace BookingApp.View.GuideView.Pages
                 Tour tour = TourService.GetInstance().GetById(tourSchedule.TourId);
                 if (!CheckUpdateConditions(tourSchedule, tour))
                     continue;
-                 
+                
                 Location location = LocationService.GetInstance().GetById(tour.LocationId);
                
                 DateTime dateTime = tourSchedule.Start;
                 
                 Model.Image image = GetFirstTourImage(tour.Id);
+
+                Language language = LanguageService.GetInstance().GetById(tour.LanguageId);
                 
-                TodaysTours.Add(new TourGuideDTO(tour, location, image.Path, dateTime, tourSchedule.Id));
+                TodaysTours.Add(new TourGuideDTO(tour, language,location, image.Path, dateTime, tourSchedule.Id, false));
             }
         }
 
@@ -100,13 +88,9 @@ namespace BookingApp.View.GuideView.Pages
         {
             return ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour).First();
         }
-
-
-
-        private void TourEndedEventHandler(object sender, EventArgs e)
+        private void LoadTodaysTours(object sender, RoutedEventArgs e)
         {
             Update();
-            tourEnded?.Invoke(this, EventArgs.Empty);
         }
     }
 }

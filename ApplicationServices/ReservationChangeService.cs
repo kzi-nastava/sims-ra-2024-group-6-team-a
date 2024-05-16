@@ -49,7 +49,14 @@ namespace BookingApp.ApplicationServices
 
         public List<ReservationChanges> GetAllByGuest(int guestId)
         {
-            return reservationChangeRepository.GetAllByGuest(guestId);
+            List<ReservationChanges> reservationsChanges = new List<ReservationChanges>();
+            foreach (ReservationChanges change in GetAll())
+            {
+                AccommodationReservation reservation = AccommodationReservationService.GetInstance().GetByReservationId(change.ReservationId);
+                if (reservation.GuestId == guestId)
+                    reservationsChanges.Add(change);
+            }
+            return reservationsChanges;
         }
 
         public ReservationChanges Update(ReservationChanges ReservationChanges)

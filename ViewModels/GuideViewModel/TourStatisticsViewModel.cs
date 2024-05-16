@@ -1,4 +1,5 @@
 ﻿using BookingApp.ApplicationServices;
+using BookingApp.Domain.Model;
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
@@ -105,6 +106,7 @@ namespace BookingApp.ViewModels.GuideViewModel
             {
                 Location location = LocationService.GetInstance().GetById(tour.LocationId);
                 Model.Image image = GetFirstTourImage(tour.Id);
+                Language language = LanguageService.GetInstance().GetById(tour.LanguageId);
                 int tourists = 0;
                 int children = 0;
                 int adult = 0;
@@ -119,7 +121,7 @@ namespace BookingApp.ViewModels.GuideViewModel
                     elderly += TourGuestService.GetInstance().CountElderly(schedule.Id);
 
                     if (mostVisitedTour.TouristNumber <= tourists)
-                    mostVisitedTour = new TourStatisticsDTO(tour.Name, tour.Language, image.Path, location, tourists, children, adult, elderly);
+                    mostVisitedTour = new TourStatisticsDTO(tour.Name, language, image.Path, location, tourists, children, adult, elderly);
 
                 }
             }
@@ -153,6 +155,8 @@ namespace BookingApp.ViewModels.GuideViewModel
             {
                 Location location = LocationService.GetInstance().GetById(tour.LocationId);
                 Model.Image image = GetFirstTourImage(tour.Id);
+                Language language = LanguageService.GetInstance().GetById(tour.LanguageId);
+
                 int tourists = 0;
                 int children = 0;
                 int adult = 0;
@@ -167,7 +171,7 @@ namespace BookingApp.ViewModels.GuideViewModel
                     elderly += TourGuestService.GetInstance().CountElderly(schedule.Id);
                     dates.Add(schedule.Start.Year);
                 }
-                FinishedTours.Add(new TourStatisticsDTO(tour.Name, tour.Language, image.Path, location, tourists, children, adult, elderly));
+                FinishedTours.Add(new TourStatisticsDTO(tour.Name, language, image.Path, location, tourists, children, adult, elderly));
             }
             AddDatesToComboBox(dates);
         }
@@ -189,5 +193,10 @@ namespace BookingApp.ViewModels.GuideViewModel
             return ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour).First();
         }
 
+
+        public void LoadStatistics()
+        {
+            Update();
+        }
     }
 }

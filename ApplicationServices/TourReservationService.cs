@@ -1,16 +1,9 @@
 ﻿using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.DTOs;
 using BookingApp.Model;
-using BookingApp.Observer;
-using BookingApp.Repository;
-using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace BookingApp.ApplicationServices
 {
@@ -23,12 +16,6 @@ namespace BookingApp.ApplicationServices
         {
             _tourReservationRepository = tourReservationRepository;
         }
-
-       /* public TourReservationService()
-        {
-            _tourReservationRepository = new TourReservationRepository();
-        }*/
-
         public static TourReservationService GetInstance()
         {
             return App.ServiceProvider.GetRequiredService<TourReservationService>();
@@ -63,11 +50,11 @@ namespace BookingApp.ApplicationServices
             }
         }
 
-        private void SaveTourGuests(int reservationId, List<TourGuestDTO> guests)
+        private void SaveTourGuests(int reservationId, List<TourGuestDTO> guests, User loggedUser)
         {
             foreach (TourGuestDTO guest in guests)
             {
-                TourGuests newGuest = new TourGuests(guest, reservationId);
+                TourGuests newGuest = new TourGuests(guest, reservationId, -1);
                 TourGuestService.GetInstance().Save(newGuest);
             }
         }
@@ -79,9 +66,7 @@ namespace BookingApp.ApplicationServices
 
             UpdateCurrentGuestNumber(tourScheduleDTO.Id, reservation.GuestNumber);
             Save(reservation);
-
-
-            SaveTourGuests(reservation.Id, guests);
+            SaveTourGuests(reservation.Id, guests, loggedUser);
         }
 
         public List<TourReservation> GetAllByUser(User user) 
@@ -89,7 +74,6 @@ namespace BookingApp.ApplicationServices
             return _tourReservationRepository.GetAllByUser(user);
 
         }
-
 
         public TourReservation GetById(int id)
         {

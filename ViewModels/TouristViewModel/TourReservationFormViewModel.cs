@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.ComponentModel;
+using BookingApp.Domain.Model;
+using System;
 
 namespace BookingApp.ViewModels.TouristViewModel
 {
@@ -45,26 +47,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             get { return _age; }
             set { _age = value; OnPropertyChanged("Age"); }
         }
-        private string _personalName;
-        public string PersonalName
-        {
-            get { return _personalName; }
-            set { _personalName = value; OnPropertyChanged("PersonalName"); }
-        }
 
-        private string _personalSurname;
-        public string PersonalSurname
-        {
-            get { return _personalSurname; }
-            set { _personalSurname = value; OnPropertyChanged("PesronalSurname"); }
-        }
-
-        private int _personalAge;
-        public int PersonalAge
-        {
-            get { return _personalAge; }
-            set { _personalAge = value; OnPropertyChanged("PesronalAge"); }
-        }
         public TourTouristDTO TourTouristDTO { get; set; }
         public User LoggedUser { get; set; }
         public TourScheduleDTO TourSchedule { get; set; }
@@ -79,26 +62,24 @@ namespace BookingApp.ViewModels.TouristViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-        public ObservableCollection<TourScheduleDTO> TourSchedules { get; set; }
-        public ObservableCollection<TourGuestDTO> TourGuests { get; set; }
-        public RelayCommand AddPersonalInfoCommand { get;  set; }
+        public ObservableCollection<TourScheduleDTO> TourSchedules { get; set; } = new ObservableCollection<TourScheduleDTO>();
+        public ObservableCollection<TourGuestDTO> TourGuests { get; set; } = new ObservableCollection<TourGuestDTO>();
         public RelayCommand AddTouristInfoCommand { get; set; }
-        public RelayCommand DeleteTouristInfoCommand { get; set; }
+        public RelayCommand RemoveTouristCommand { get; set; }
         public RelayCommand SaveReservationCommand { get; set; }
+        public RelayCommand CancelReservationCommand { get; set; }
         public RelayCommand UseVoucherCommand { get; set; }
+        public Action CloseAction { get; set; }
 
-        public TourReservationFormViewModel(  User user, TourTouristDTO selectedTour)
+        public TourReservationFormViewModel(User user, TourTouristDTO selectedTour)
         {
             LoggedUser = user;
-
-            AddPersonalInfoCommand = new RelayCommand(Execute_AddPersonalInfoCommand);
+           
             AddTouristInfoCommand = new RelayCommand(Execute_AddTouristInfoCommand);
-            DeleteTouristInfoCommand = new RelayCommand(Execute_DeleteTouristInfoCommand);
+            RemoveTouristCommand = new RelayCommand(RemoveTourist);
             SaveReservationCommand = new RelayCommand(Execute_SaveReservationCommand);
             UseVoucherCommand = new RelayCommand(Execute_UseVoucherCommand);
-
-            TourSchedules = new ObservableCollection<TourScheduleDTO>();
-            TourGuests = new ObservableCollection<TourGuestDTO>();
+            CancelReservationCommand = new RelayCommand(Execute_CancelReservationCommand);
 
             foreach (var tourSchedule in TourScheduleService.GetInstance().GetAll())
             {
@@ -107,9 +88,17 @@ namespace BookingApp.ViewModels.TouristViewModel
                     TourSchedules.Add(new TourScheduleDTO(tourSchedule));
                 }
             }
-
             TourTouristDTO = selectedTour;
             TourReservationDTO = new TourReservationDTO();
+
+            AddUserInfo();
+        }
+
+        private void AddUserInfo()
+        {
+            TourGuests.Clear();
+            Tourist tourist = TouristService.GetInstance().GetByTouristId(LoggedUser.Id);
+            TourGuests.Add(new TourGuestDTO(tourist.Name, tourist.Age, tourist.Surname, tourist.UserId));
         }
         private void AvailableSpaceMessage()
         {
@@ -127,6 +116,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             if (TourReservationService.GetInstance().IsFullyBooked(TourSchedule.Id))
             {
                 SameLocationToursWindow sameLocationTours = new SameLocationToursWindow(TourSchedule, LoggedUser);
+                sameLocationTours.Owner = Application.Current.MainWindow;
                 sameLocationTours.ShowDialog();
                
                 return;
@@ -140,16 +130,16 @@ namespace BookingApp.ViewModels.TouristViewModel
                     voucher.Id = Voucher.Id;
                     VoucherService.GetInstance().Delete(voucher);
                 }
-
+                CloseAction();
                 return;
             }
 
             AvailableSpaceMessage();
+
         }
-        private void Execute_AddPersonalInfoCommand(object sender)
+        private void Execute_CancelReservationCommand(object sender)
         {
-            TourGuests.Add(new TourGuestDTO(PersonalName, PersonalAge, PersonalSurname, LoggedUser.Id));
-            ClearInputFields();
+            CloseAction();
         }
         private void Execute_AddTouristInfoCommand(object sender)
         {
@@ -162,15 +152,15 @@ namespace BookingApp.ViewModels.TouristViewModel
             Surname = "";
             Age = 0;
         }
-        private void Execute_DeleteTouristInfoCommand(object parameter)
+        private void RemoveTourist(object parameter)
         {
-
-            if (parameter is TourGuestDTO tourist)
-                TourGuests.Remove(tourist);  
+            var touristToRemove = parameter as TourGuestDTO;
+            TourGuests.Remove(touristToRemove);
         }
         private void Execute_UseVoucherCommand(object sender)
         {
             VoucherUsage voucherUsage = new VoucherUsage(LoggedUser, this);
+            voucherUsage.Owner = Application.Current.MainWindow;
             voucherUsage.ShowDialog();
         }
     }

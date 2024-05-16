@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.DTOs;
+using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
@@ -7,9 +8,11 @@ using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace BookingApp.ApplicationServices
 {
@@ -64,6 +67,19 @@ namespace BookingApp.ApplicationServices
             }
         }
 
+        public List<String> GetAllImages(int tourId)
+        {
+            List<string> images = new List<string>();
+            List<Model.Image> imagePaths = ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour);
+
+            foreach (Model.Image imagePath in imagePaths)
+            {
+                images.Add(imagePath.Path);
+            }
+
+            return images;
+        }
+
         public Image Save(Image Image)
         {
            return _imageRepository.Save(Image); 
@@ -72,6 +88,19 @@ namespace BookingApp.ApplicationServices
         public List<Image> GetByEntity(int id, Enums.ImageType type)
         {
             return _imageRepository.GetByEntity(id, type);
+        }
+
+        public void Delete(Image Image)
+        {
+            _imageRepository.Delete(Image);
+        }
+
+        public void SaveAllImages(ObservableCollection<ImageItemDTO> images,int tourId) 
+        {
+            foreach (ImageItemDTO imageItem in images)
+            {
+                ImageService.GetInstance().Save(new Model.Image(imageItem.ImagePath, tourId, Enums.ImageType.Tour));
+            }
         }
     }
 }

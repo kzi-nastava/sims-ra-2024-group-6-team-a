@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="AllowReservationChange" Height="500" Width="400" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+        Title="Allow Change" Height="500" Width="400" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
     <Grid>
         <StackPanel Orientation="Vertical">
 

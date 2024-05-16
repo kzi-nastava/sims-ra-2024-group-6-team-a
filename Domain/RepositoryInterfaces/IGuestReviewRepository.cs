@@ -14,5 +14,7 @@ namespace BookingApp.RepositoryInterfaces
         public void Delete(GuestReview GuestReview);
         public bool DoesGradeExist(int reservationId);
         public GuestReview Get(int reservationId);
+        public GuestReview GetByReservationId(int id);
+
     }
 }

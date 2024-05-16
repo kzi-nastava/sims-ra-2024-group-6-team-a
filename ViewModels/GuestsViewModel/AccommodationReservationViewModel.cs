@@ -67,7 +67,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 else
                 {
                     List<DateRanges> availableDates = new List<DateRanges>();
-                    availableDates = ReservationAvailableDatesService.GetInstance().GetAvailableDates(firstDate, lastDate, Convert.ToInt32(DaysNumber), Accommodation.Id);
+                    availableDates = ReservationAvailableDatesService.GetInstance().GetAvailableDates(firstDate, lastDate, Convert.ToInt32(DaysNumber), Accommodation.Id,true);
                     AvailableDates.Clear();
                     foreach (DateRanges dateRange in availableDates)
                     {
@@ -82,6 +82,8 @@ namespace BookingApp.ViewModels.GuestsViewModel
         {
             if (SelectedDates != null)
             {
+                if (Guest.BonusPoints != 0) Guest.BonusPoints--;
+                GuestService.GetInstance().Update(Guest);
                 AccommodationReservation accommodationReservation = new AccommodationReservation(Accommodation.Id, Guest.Id, SelectedDates.CheckIn, SelectedDates.CheckOut, Convert.ToInt32(GuestNumber), Enums.ReservationStatus.Active, AccommodationService.GetInstance().GetByReservationId(Accommodation.Id));
                 AccommodationReservationService.GetInstance().Save(accommodationReservation);
                 MessageBox.Show("Successful booking!", "WELL DONE", MessageBoxButton.OK);

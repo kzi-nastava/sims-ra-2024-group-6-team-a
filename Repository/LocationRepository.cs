@@ -71,6 +71,12 @@ namespace BookingApp.Repository
             return _locations.Find(c => c.Id == id);
         }
 
+        public Location GetByCityAndState(string state, string city)
+        {
+
+            return _locations.Find(c => c.State == state && c.City == city);
+        }
+
         public Location GetByAccommodation(Accommodation accommodation)
         {
             return _locations.Find(c => c.Id == accommodation.LocationId);

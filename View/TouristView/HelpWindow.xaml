@@ -1,0 +1,54 @@
+﻿<Window x:Class="BookingApp.View.TouristView.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.TouristView"
+        mc:Ignorable="d"
+        Title="HelpWindow" Height="450" Width="800" ResizeMode="NoResize"> 
+    <Grid>
+        <Border BorderBrush="Black" BorderThickness="1" Padding="10" Background="LightYellow">
+            <Grid Background="LightYellow">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Welcome to Booking App!" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" />
+                <TextBlock Grid.Row="1" Text="This application allows you to easily and quickly book tours for travel around the world." Margin="10,10,0,0" />
+                <TextBlock Grid.Row="2" Text="To reserve a tour, first search for available tours by clicking 'Search'." Margin="10,10,0,0" />
+                <TextBlock Grid.Row="3" Text="Once you find a tour you like, click on 'Book Now' and enter your details." Margin="10,10,0,0" />
+                <TextBlock Grid.Row="4" Text="If you have any questions, please feel free to contact us on info@bookingapp.com." Margin="10,10,0,10" />
+                <TextBlock Grid.Row="5" Text="To search properly, enter keywords that describe the tour you want." Margin="10,10,0,0" />
+                <TextBlock Grid.Row="6" Text="If you can't find the specific tour you're looking for, check if you entered the keywords correctly.." Margin="10,10,0,0" />
+                <TextBlock Grid.Row="7" Text="Frequently asked questions (FAQ):" Margin="10,10,0,0" />
+                <TextBlock Grid.Row="8" Text="1.Do I need to register to use the app?" Margin="10,10,0,0" />
+                <TextBlock Grid.Row="9" Text="2. No, the app does not directly support credit card payments." Margin="10,10,0,0" />
+                <TextBlock Grid.Row="10" Text="3. Can I book a tour in a foreign language? Yes, you can book a tour in any language supported by the app." Margin="10,10,0,10" />
+                <TextBlock Grid.Row="11" Text="4. Does the app offer the possibility of canceling reservations? No, the app does not currently offer the possibility of canceling reservations." Margin="10,10,0,0" />
+                <TextBlock Grid.Row="12" Text="5. Da li aplikacija nudi mogućnost promene rezervacija? Da, aplikacija nudi mogućnost promene rezervacija do određenog datuma." Margin="10,10,0,10" />
+                <TextBlock Grid.Row="13" Text="6. Da li aplikacija nudi mogućnost ocene tura koje sam rezervisao? Da, nakon završetka ture, možete oceniti turu i ostaviti komentar." Margin="10,10,0,0" />
+                <TextBlock Grid.Row="14" Text="7. Da li aplikacija nudi mogućnost čuvanja omiljenih tura? Da, možete sačuvati ture koje vam se sviđaju kako biste ih lakše pronašli u budućnosti." Margin="10,10,0,10" />
+                <TextBlock Grid.Row="15" Text="8. Da li aplikacija nudi mogućnost prilagođavanja pretrage? Da, možete prilagoditi pretragu prema datumu putovanja, ceni, dužini trajanja i drugim kriterijumima." Margin="10,10,0,0" />
+                <TextBlock Grid.Row="16" Text="9. Da li aplikacija nudi mogućnost deljenja tura sa prijateljima? Da, možete deliti ture sa prijateljima putem e-pošte ili društvenih mreža." Margin="10,10,0,10" />
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

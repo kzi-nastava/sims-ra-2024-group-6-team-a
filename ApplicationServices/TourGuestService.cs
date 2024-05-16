@@ -1,17 +1,8 @@
 ﻿using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Model;
-using BookingApp.Observer;
-using BookingApp.Repository;
-using BookingApp.Resources;
-using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
 namespace BookingApp.ApplicationServices
 {
     public class TourGuestService
@@ -21,13 +12,6 @@ namespace BookingApp.ApplicationServices
         {
            _guestRepository = guestRepository;
         }
-        
-       /* public TourGuestService()
-        {
-            _guestRepository = new TourGuestRepository();
-        }*/
-
-
         public static TourGuestService GetInstance()
         {
             return App.ServiceProvider.GetRequiredService<TourGuestService>();
@@ -136,6 +120,24 @@ namespace BookingApp.ApplicationServices
                 }
             
             return elderlyCount;
+        }
+
+        public int GetGuestsCountByRequest(int requestId) 
+        {
+            return GetAll().Count(guest => guest.RequestId == requestId);
+        }
+
+        public void UpdateGuestReservation(TourReservation tourReservation, int requestId)
+        {
+            foreach (TourGuests guest in GetAll())
+            {
+                if (guest.RequestId == requestId)
+                {
+                    guest.ReservationId = tourReservation.Id;
+                    Update(guest);
+                }
+            }
+
         }
     }
 }

@@ -70,6 +70,20 @@ namespace BookingApp.View
             {
                 Close();
             }
+            else if(e.Key == Key.C)
+            {
+
+                RespectGradeCombo.IsDropDownOpen = false;
+                CleanGradeCombo.IsDropDownOpen = true;
+                CleanGradeCombo.SelectedItem = 1;
+            }
+            else if(e.Key == Key.R) 
+            {
+                CleanGradeCombo.IsDropDownOpen = false;
+                RespectGradeCombo.IsDropDownOpen = true;
+                RespectGradeCombo.SelectedItem = 1;
+                
+            }
         }
     }
 

@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.ApplicationServices
 {
@@ -39,14 +40,173 @@ namespace BookingApp.ApplicationServices
             Accommodation temp = new Accommodation();
             foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAll())
             {
-                temp = AccommodationRepository.GetByReservationId(reservation.AccommodationId);
-                if (temp.OwnerId == id)
+                temp = GetByReservationId(reservation.AccommodationId);
+                if (temp.OwnerId == id && reservation.Status == Enums.ReservationStatus.Active)
                 {
                     total++;
                 }
             }
 
             return total;
+        }
+
+        public int GetReservationCountForAccommodation(int accId,int year)
+        {
+            int total = 0;
+            Accommodation temp = new Accommodation();
+            foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAll())
+            {
+                temp = GetByReservationId(reservation.AccommodationId);
+                if (temp.Id == accId && reservation.Status == Enums.ReservationStatus.Active && reservation.CheckOutDate.Year == year)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public int GetMostPopularYear(int accId)
+        {
+            Dictionary<int,int> yearsAndReservations = new Dictionary<int,int>();
+            Accommodation temp = new Accommodation();
+            foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAll())
+            {
+                temp = GetByReservationId(reservation.AccommodationId);
+                if (temp.Id == accId && reservation.Status == Enums.ReservationStatus.Active)
+                {
+                    int daysReserved = reservation.CheckOutDate.DayNumber - reservation.CheckInDate.DayNumber;
+
+                    if(yearsAndReservations.ContainsKey(reservation.CheckOutDate.Year))
+                        yearsAndReservations[reservation.CheckOutDate.Year] = yearsAndReservations[reservation.CheckOutDate.Year] + daysReserved;
+                    else
+                        yearsAndReservations[reservation.CheckOutDate.Year] = daysReserved;
+                }
+            }
+
+            int max = 0;
+            int year = 0;
+            foreach(int x in yearsAndReservations.Keys) 
+            {
+                if (yearsAndReservations[x] > max)
+                {
+                    max = yearsAndReservations[x];
+                    year = x;
+                }
+            }
+
+            return year;
+           
+
+        }
+
+        public List<MonthlyStatisticDTO> GetMonthlyStatistics(int accId,int year)
+        {
+            List<MonthlyStatisticDTO> monthlyStats = new List<MonthlyStatisticDTO>();
+
+            for(int i = 1;i <= 12;i++)
+            {
+                int resCount  = 0;
+                int changeCount = 0;
+                int cancelCount = 0;
+                int renovationCount = 0;
+                Accommodation temp = new Accommodation();
+
+                foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAll())
+                {
+                    temp = GetByReservationId(reservation.AccommodationId);
+                    if (temp.Id == accId &&  reservation.CheckOutDate.Year == year && reservation.CheckOutDate.Month == i)
+                    {
+                            if (reservation.Status == Enums.ReservationStatus.Active)
+                                resCount++;
+                            else if (reservation.Status == Enums.ReservationStatus.Changed)
+                                changeCount++;
+                            else
+                                cancelCount++;
+                    }
+
+
+                }
+
+                foreach (OwnerReview review in OwnerReviewService.GetInstance().GetAll())
+                {
+                    AccommodationReservation res = AccommodationReservationService.GetInstance().GetByReservationId(review.ReservationId);
+                    if (res.AccommodationId == accId && review.Urgency != "" && res.CheckOutDate.Year == year && res.CheckOutDate.Month == i)
+                    {
+                        renovationCount++;
+                    }
+                }
+
+
+
+                MonthlyStatisticDTO monthlyStatisticDTO = new MonthlyStatisticDTO(i,resCount,changeCount,cancelCount,renovationCount);
+                monthlyStats.Add(monthlyStatisticDTO);
+            }
+
+            return monthlyStats;
+        }
+
+        public int GetChangesCountForAccommodation(int accId,int year)
+        {
+            int total = 0;
+            Accommodation temp = new Accommodation();
+            foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAll())
+            {
+                temp = GetByReservationId(reservation.AccommodationId);
+                if (temp.Id == accId && reservation.Status == Enums.ReservationStatus.Changed && reservation.CheckOutDate.Year == year)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public int GetCancelationCountForAccommodation(int accId,int year)
+        {
+            int total = 0;
+            Accommodation temp = new Accommodation();
+            foreach (AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetAll())
+            {
+                temp = GetByReservationId(reservation.AccommodationId);
+                if (temp.Id == accId && reservation.Status == Enums.ReservationStatus.Canceled && reservation.CheckOutDate.Year == year)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public int GetRenovationCountForAccommodation(int accId, int year)
+        {
+            int total = 0;
+            
+            foreach (OwnerReview review in OwnerReviewService.GetInstance().GetAll())
+            {
+                AccommodationReservation res = AccommodationReservationService.GetInstance().GetByReservationId(review.ReservationId);
+                if(res.AccommodationId == accId && review.Urgency != "" && res.CheckOutDate.Year == year)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public List<int> GatherAllReservationYears(List<ReservationOwnerDTO> reservations)
+        {
+            List<int> years = new List<int>();
+            foreach(ReservationOwnerDTO reservation in reservations)
+            {
+                if(!years.Contains(reservation.CheckOut.Year))
+                {
+                    years.Add(reservation.CheckOut.Year);
+                }
+            }
+
+            years.Sort((a, b) => b.CompareTo(a));
+            return years;
         }
 
         public int GetTotalAccommodationCount(int id)
@@ -65,6 +225,51 @@ namespace BookingApp.ApplicationServices
         public List<Accommodation> GetAll()
         {
             return AccommodationRepository.GetAll();
+        }  
+        public List<GuestWheneverDTO> GetAvailableAccommodationsWithoutDates(int guestNumber, int daysNumber)
+        {
+            List<GuestWheneverDTO> accommodations = new List<GuestWheneverDTO>();
+            foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
+            {
+                if (guestNumber <= accommodation.MaxGuests && daysNumber >= accommodation.MinReservationDays)
+                {
+                    List<DateRanges> availableDates = ReservationAvailableDatesService.GetInstance().GetAvailableDates(DateOnly.FromDateTime(DateTime.Today).AddDays(3), DateOnly.FromDateTime(DateTime.Today).AddDays(daysNumber+5), daysNumber, accommodation.Id, true);
+                    Location location = LocationService.GetInstance().GetByAccommodation(accommodation);
+                    Model.Image image = new Model.Image();
+                    foreach (Model.Image i in ImageService.GetInstance().GetByEntity(accommodation.Id, Enums.ImageType.Accommodation))
+                    {
+                        image = i;
+                        break;
+                    }
+                    foreach (DateRanges dateRanges in availableDates)
+                    {
+                        accommodations.Add(new GuestWheneverDTO(dateRanges.CheckIn, dateRanges.CheckOut, accommodation, location, image.Path, guestNumber));
+                    }
+                }
+            }
+            return accommodations;
+        }
+        public List<GuestWheneverDTO> GetAvailableAccommodations(DateOnly CheckIn, DateOnly CheckOut, int guestNumber, int daysNumber)
+        {
+            List<GuestWheneverDTO> accommodations = new List<GuestWheneverDTO>();
+            foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
+            {
+                if (guestNumber <= accommodation.MaxGuests && daysNumber >= accommodation.MinReservationDays) {
+                    List<DateRanges> availableDates = ReservationAvailableDatesService.GetInstance().GetAvailableDates(CheckIn, CheckOut, daysNumber, accommodation.Id, false);
+                        Location location = LocationService.GetInstance().GetByAccommodation(accommodation);
+                        Model.Image image = new Model.Image();
+                        foreach (Model.Image i in ImageService.GetInstance().GetByEntity(accommodation.Id, Enums.ImageType.Accommodation))
+                        {
+                            image = i;
+                            break;
+                        }
+                        foreach (DateRanges dateRanges in availableDates)
+                        {
+                            accommodations.Add(new GuestWheneverDTO(dateRanges.CheckIn, dateRanges.CheckOut, accommodation, location, image.Path, guestNumber));
+                        }
+                }
+            }
+            return accommodations;
         }
 
         public Accommodation Save(Accommodation accommodation)
@@ -144,6 +349,10 @@ namespace BookingApp.ApplicationServices
             }
         }
 
+        public void Delete(int id)
+        {
+            AccommodationRepository.Delete(id);
+        }
 
     }
 }

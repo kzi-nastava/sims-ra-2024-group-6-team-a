@@ -44,13 +44,28 @@ namespace BookingApp.ApplicationServices
             return accommodationReservationRepository.Update(reservation);
         }
 
-        public int GetNumberOfReservation(int guestId)
+        public int GetNumberOfActiveReservation(int guestId)
         {
             int numberOfReservation = 0;
             foreach (AccommodationReservation reservation in GetAll())
                 if (reservation.GuestId == guestId && reservation.Status == Enums.ReservationStatus.Active)
                     numberOfReservation++;
             return numberOfReservation;
+        }
+        public int GetNumberOfReservationInPreviousYear(int guestId)
+        {
+            int numberOfReservation = 0;
+            foreach (AccommodationReservation reservation in GetAll())
+                if (reservation.GuestId == guestId && reservation.Status == Enums.ReservationStatus.Active && DateOnly.FromDateTime(DateTime.Today).AddDays(-365) <= reservation.CheckInDate && DateOnly.FromDateTime(DateTime.Today) >= reservation.CheckInDate)
+                    numberOfReservation++;
+            return numberOfReservation;
+        }
+
+
+        public List<AccommodationReservation> GetByAccommodationId(int accommodationId)
+        {
+            List<AccommodationReservation> reservations = GetAll();
+            return reservations.FindAll(c => c.AccommodationId == accommodationId);
         }
         public List<AccommodationReservation> GetByAccommodation(Accommodation accommodation)
         {
@@ -71,6 +86,16 @@ namespace BookingApp.ApplicationServices
                 {
                     guestReservations.Add(reservation);
                 }
+            }
+            return guestReservations;
+        }
+        public List<AccommodationReservation> GetActiveReservations()
+        {
+            List<AccommodationReservation> guestReservations = new List<AccommodationReservation>();
+            foreach (AccommodationReservation reservation in GetAll())
+            {
+                if (reservation.Status == ReservationStatus.Active)
+                    guestReservations.Add(reservation);
             }
             return guestReservations;
         }

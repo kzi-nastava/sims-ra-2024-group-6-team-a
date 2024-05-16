@@ -35,10 +35,10 @@ namespace BookingApp.View.GuideView.Pages
 
         public TourReviewsViewModel ReviewViewModel {  get; set; }
 
-        public TourReviewsPage(Frame mainFrame, TourCreationPage tourCreationPage, User user)
+        public TourReviewsPage(Frame mainFrame, User user)
         {
             InitializeComponent();
-            ReviewViewModel = new TourReviewsViewModel(this, mainFrame, tourCreationPage, user);
+            ReviewViewModel = new TourReviewsViewModel(this, mainFrame, user);
             DataContext = ReviewViewModel;
             Update();
         }
@@ -58,6 +58,11 @@ namespace BookingApp.View.GuideView.Pages
         public Model.Image GetFirstTourImage(int tourId)
         {
             return ReviewViewModel.GetFirstTourImage(tourId);
+        }
+
+        private void LoadReview(object sender, RoutedEventArgs e)
+        {
+            Update();
         }
     }
 }

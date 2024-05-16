@@ -12,9 +12,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BookingApp.ApplicationServices;
 using BookingApp.DTOs;
 using BookingApp.Observer;
 using BookingApp.Repository;
+using BookingApp.View.OwnerViews;
 using BookingApp.ViewModels;
 
 namespace BookingApp.View
@@ -46,25 +48,122 @@ namespace BookingApp.View
             {
                 Tabs.SelectedItem = ReservationsTab;
 
-                ViewModel.SelectFirstReservation(ReservationsList);
+                SelectFirstReservation();
             }
             else if(e.Key == Key.S)
             {
                 Tabs.SelectedItem = StatisticsTab;
+
+                SelectFirstStatistic();
             }
             else if (e.Key == Key.N)
             {
                 Tabs.SelectedItem = RenovationsTab;
+
+                SelectFirstRenovation();
             }
             else if (e.Key == Key.B)
             {
                 Tabs.SelectedItem = BlogsTab;
             }
+            else if (e.Key == Key.I)
+            {
+                ImagesList.SelectedIndex = 0;
+                ImagesList.UpdateLayout();
+                ImagesList.Focus();
+            }
+            else if (e.Key == Key.H )
+            {
+                Schedule_Click(sender,e);
+            }
+            else if(e.Key == Key.C)
+            {
+                Close_Click(sender,e);
+            }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void SelectFirstReservation()
         {
 
+                ViewModel.SelectedStatistic = null;
+                ViewModel.SelectedRenovation = null;
+
+               
+                ReservationsList.SelectedIndex = 0;
+                ReservationsList.UpdateLayout();
+                ReservationsList.Focus();
+
+        }
+
+        public void SelectFirstStatistic()
+        {
+ 
+                ViewModel.SelectedReservation = null;
+                ViewModel.SelectedRenovation = null;
+
+                
+                StatisticsList.SelectedIndex = 0;
+                StatisticsList.UpdateLayout();
+                StatisticsList.Focus();
+
+
+  
+        }
+
+        public void SelectFirstRenovation()
+        {
+ 
+                ViewModel.SelectedReservation = null;
+                ViewModel.SelectedStatistic = null;
+
+                
+                RenovationsList.SelectedIndex = 0;
+                RenovationsList.UpdateLayout();
+                RenovationsList.Focus();
+ 
+        }
+
+        private void StatisticsClick(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                if(Tabs.SelectedItem == StatisticsTab && ViewModel.SelectedStatistic != null) 
+                {
+                    ViewModel.OpenMonthStatistic();
+
+                }
+            }
+        }
+
+        private void Schedule_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ScheduleRenovation();
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            if((MessageBox.Show("Do you want to close the accommodation? This process is irreversible.", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
+            {
+                ViewModel.CloseAccommodation();
+                Close();
+            }
+        }
+
+        private void RenovationsList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (Tabs.SelectedItem == RenovationsTab && ViewModel.SelectedRenovation != null)
+                {
+                    if (RenovationService.GetInstance().IsFiveDays(ViewModel.SelectedRenovation))
+                    {
+                        if ((MessageBox.Show("Do you want to remove the renovation?", "Remove renovation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes))
+                        {
+                            ViewModel.RemoveRenovation();
+                        }
+                    }
+                }
+            }
         }
     }
 }

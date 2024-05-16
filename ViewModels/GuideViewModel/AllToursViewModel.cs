@@ -1,4 +1,5 @@
 ﻿using BookingApp.ApplicationServices;
+using BookingApp.Domain.Model;
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
@@ -18,26 +19,17 @@ namespace BookingApp.ViewModels.GuideViewModel
     {
         public static ObservableCollection<TourGuideDTO> AllTours { get; set; }
         public User LoggedUser { get; set; }
-        public Frame mainFrame;   
-        public AllToursPage Window {  get; set; }
-        public AllToursViewModel(AllToursPage window,Frame mainFrame, TourCreationPage tourCreationPage, User user)
+        public AllToursViewModel(User user)
         {
 
 
-            Window = window;
             LoggedUser = user;
 
             AllTours = new ObservableCollection<TourGuideDTO>();
-            this.mainFrame = mainFrame;
-            tourCreationPage.SomethingHappened += UpdateWindow;
-
             Update();
         }
 
-        private void UpdateWindow(object sender, EventArgs e)
-        {
-            Update();
-        }
+       
 
         public void Update()
         {
@@ -53,9 +45,12 @@ namespace BookingApp.ViewModels.GuideViewModel
 
                 DateTime dateTime = tourSchedule.Start;
 
+                Language language = LanguageService.GetInstance().GetById(tour.LanguageId);
+
+
                 Model.Image image = GetFirstTourImage(tour.Id);
 
-                AllTours.Add(new TourGuideDTO(tour, location, image.Path, dateTime, tourSchedule.Id));
+                AllTours.Add(new TourGuideDTO(tour,language , location, image.Path, dateTime, tourSchedule.Id));
             }
 
         }
@@ -73,7 +68,7 @@ namespace BookingApp.ViewModels.GuideViewModel
             return ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour).First();
         }
 
-        public void TourCanceledEventHandler()
+        public void LoadAllTours()
         {
             Update();
         }

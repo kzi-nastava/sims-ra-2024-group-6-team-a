@@ -2,6 +2,8 @@
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
+using BookingApp.Resources;
+using BookingApp.View.TouristView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -47,14 +49,18 @@ namespace BookingApp.View
             Tours.Clear();
             foreach(Tour tour in TourService.GetInstance().GetSameLocationTours(TourScheduleDTO))
             {
-                Tours.Add(new TourTouristDTO(tour, LocationService.GetInstance().GetById(tour.LocationId), TourScheduleService.GetInstance().GetByTour(tour)));
+                Model.Image image = GetFirstTourImage(tour.Id);
+                Tours.Add(new TourTouristDTO(tour, LanguageService.GetInstance().GetById(tour.LanguageId), LocationService.GetInstance().GetById(tour.LocationId), TourScheduleService.GetInstance().GetByTour(tour), image.Path));
             }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public Model.Image GetFirstTourImage(int tourId)
         {
-
-            TourTouristDTO selectedTour = (TourTouristDTO)tourDataGrid.SelectedItem;
+            return ImageService.GetInstance().GetByEntity(tourId, Enums.ImageType.Tour).First();
+        }
+        private void Reservation_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var selectedTour = (TourTouristDTO)button.DataContext;
 
             if (selectedTour != null)
             {
@@ -62,6 +68,16 @@ namespace BookingApp.View
                 form.ShowDialog();
 
             }
+        }
+
+        private void DetailedView_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var selectedTour = (TourTouristDTO)button.DataContext;
+
+            DetailedView details = new DetailedView(selectedTour);
+            details.Owner = this;
+            details.ShowDialog();
         }
     }
 }

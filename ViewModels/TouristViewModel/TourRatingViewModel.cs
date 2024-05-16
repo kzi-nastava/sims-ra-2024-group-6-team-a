@@ -8,15 +8,21 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace BookingApp.ViewModels.TouristViewModel
 {
-    public class TourRatingViewModel
+    public class TourRatingViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         public TourScheduleDTO SelectedTour { get; set; }
         public User LoggedUser { get; set; }
         public RelayCommand SelectImageCommand { get; set; }
@@ -24,11 +30,11 @@ namespace BookingApp.ViewModels.TouristViewModel
         public RelayCommand CancleRateCommand { get; set; }
         public RelayCommand SaveRateCommand { get; set; }
 
-
+        public Action CloseAction { get; set; }
         public TourReviewDTO TourReviewDTO { get; set; }
-        public String SelectedImageUrl { get; set; }
-        public static ObservableCollection<String> ImagesCollection { get; set; }
-        public TourRatingViewModel(TourScheduleDTO selectedTour, User user)
+        public ImageItemDTO SelectedImageUrl { get; set; }
+        public static ObservableCollection<ImageItemDTO> ImagesCollection { get; set; }
+        public TourRatingViewModel(TourScheduleDTO selectedTour, User user) 
         {
             SelectedTour = selectedTour;
             TourReviewDTO = new TourReviewDTO();
@@ -37,7 +43,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             CancleRateCommand = new RelayCommand(Execute_CancleRateCommand);
             SelectImageCommand = new RelayCommand(Execute_SelectImageCommand);
             RemoveImageCommand = new RelayCommand(Execute_RemoveImageCommand);
-            ImagesCollection = new ObservableCollection<String>();
+            ImagesCollection = new ObservableCollection<ImageItemDTO>();
         }
 
         private void Execute_SelectImageCommand(object sender)
@@ -52,21 +58,23 @@ namespace BookingApp.ViewModels.TouristViewModel
                 {
                     int relativePathStartIndex = imagePath.IndexOf("\\Resources");
                     String relativePath = imagePath.Substring(relativePathStartIndex);
-                    ImagesCollection.Add(relativePath);
+                    BitmapImage imageSource = new BitmapImage(new Uri(imagePath));
+                    ImagesCollection.Add(new ImageItemDTO(relativePath, imageSource));
                 }
             }
         }
-        public void SaveImages(List<String> images)
+        private void SaveImages()
         {
-            foreach (string relativePath in images)
+            foreach (ImageItemDTO imageItem in ImagesCollection)
             {
-                ImageService.GetInstance().Save(new Model.Image(relativePath, SelectedTour.Id, Enums.ImageType.TourReview));
+                ImageService.GetInstance().Save(new Model.Image(imageItem.ImagePath, SelectedTour.Id, Enums.ImageType.TourReview));
             }
         }
-        private void Execute_RemoveImageCommand(object sender)
+        private void Execute_RemoveImageCommand(object param)
         {
-            string imageUrl = SelectedImageUrl;
-            ImagesCollection.Remove(imageUrl);
+            var imageToRemove = param as ImageItemDTO;
+
+            ImagesCollection.Remove(imageToRemove);
         }
 
         private void Execute_SaveRateCommand(object sender)
@@ -77,13 +85,20 @@ namespace BookingApp.ViewModels.TouristViewModel
             TourReviewDTO.IsValid = true;
             TourReviewService.GetInstance().MakeReview(TourReviewDTO);
 
-            SaveImages(ImagesCollection.ToList());
-            //Window.Close();
+            SaveImages();
+            CloseAction();
         }
 
         private void Execute_CancleRateCommand(object sender)
         {
-            //Window.Close();
+            CloseAction();
+        }
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

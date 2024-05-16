@@ -4,82 +4,236 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      mc:Ignorable="d"
       Title="TourCreationPage">
+    <Page.Resources>
+        <Style TargetType="TextBox" >
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontFamily" Value="Yu Gothic UI Light"/>
+            <Setter Property="Background" Value="#F6F5F2"/>
+        </Style>
 
-    <Grid Background="White">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"></ColumnDefinition>
-            <ColumnDefinition Width="256"></ColumnDefinition>
-            <ColumnDefinition Width="148"></ColumnDefinition>
-            <ColumnDefinition Width="166"></ColumnDefinition>
-
-        </Grid.ColumnDefinitions>
+        <Style TargetType="Label" >
+            <Setter Property="FontFamily" Value="Yu Gothic UI Light"/>
+        </Style>
+    </Page.Resources>
+    <Grid >
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#F6F5F2"  Offset="0.0"/>
+                <GradientStop Color="#F3D0D7" Offset="1.5"/>
+            </RadialGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="62*"></RowDefinition>
-            <RowDefinition Height="62*"></RowDefinition>
-            <RowDefinition Height="62*"/>
-            <RowDefinition Height="62*"></RowDefinition>
-            <RowDefinition Height="107*"></RowDefinition>
-            <RowDefinition Height="58*"></RowDefinition>
-            <RowDefinition Height="21*"></RowDefinition>
-            <RowDefinition Height="62*"></RowDefinition>
-            <RowDefinition Height="62*"></RowDefinition>
-            <RowDefinition Height="62*"></RowDefinition>
-            <RowDefinition Height="62*"></RowDefinition>
-
+            <RowDefinition Height="0.13*"/>
+            <RowDefinition/>
+            <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0" Height="36">Name</Label>
-        <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0" Height="37">City</Label>
-        <Label Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" FontSize="20" Height="37">State</Label>
-        <Label Grid.Row="8" VerticalAlignment="Top" HorizontalAlignment="Center" Width="110" FontSize="20" Margin="0,15,0,0" Height="37">Description</Label>
-        <Label Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="133" FontSize="20" Margin="31,0,0,0" Height="37" Grid.ColumnSpan="2">Duration</Label>
-        <Label Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" FontSize="20" Height="36">Language</Label>
-        <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0" Height="37">Capacity</Label>
-        <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" FontSize="20" Margin="31,0,0,0" Height="37">Checkpoints</Label>
-        <Label Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" FontSize="20" Height="37">Images</Label>
-        <Label Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Width="199" FontSize="20" Margin="10,0,0,0" Content="Start date and time" Grid.ColumnSpan="2" Height="37"/>
+        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Create Tour" FontSize="60" FontWeight="Bold" />
+        <Grid Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="1.3*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Right"  FontSize="25" FontWeight="Bold" >Name:</Label>
+                <TextBox x:Name="txtTourName" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedTour.Name, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="194"/>
+                <Label Grid.Column="2" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="25" FontWeight="Bold"  >Location:</Label>
+                <ComboBox Grid.Column="3"  x:Name="locationComboBox" Height="37" Width="225" Margin="0 0 10 0" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                  IsEditable="True"
+                  IsTextSearchEnabled="True"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  IsTextSearchCaseSensitive="False"
+                  ItemsSource="{Binding Locations}" Background="#F6F5F2" />
+                <Label Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="25" FontWeight="Bold" >Language:</Label>
+                <ComboBox Grid.Column="5"  
+                  x:Name="languageComboBox" 
+                  HorizontalAlignment="Left"
+                  Height="37" Width="194"
+                  IsEditable="True"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  VerticalAlignment="Bottom"
+                  IsTextSearchEnabled="True"
+                  IsTextSearchCaseSensitive="False"
+                  ItemsSource="{Binding Languages}">
+                </ComboBox>
+                <Label Grid.Column="2"  Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right"  FontSize="25" FontWeight="Bold" Content="Recommened:" />
+                <Grid Margin="0 10 0 0" Grid.Row="1" Grid.Column="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.8*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap"  Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center"  FontSize="25" >
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0}, {1}">
+                                <Binding Path="SuggestedLocation.City"/>
+                                <Binding Path="SuggestedLocation.State"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Top" Orientation="Horizontal">
+                        <RadioButton x:Name="locationRadioButton"  VerticalAlignment="Center"/>
+                        <Image Margin="10 0 0 0" Source="\Resources\Images\information.png" Width="16" Height="16">
+                            <Image.ToolTip>
+                                <ToolTip Content="With the push of a button, you select the most requested location based on tour request statistics" />
+                            </Image.ToolTip>
+                        </Image>
+                    </StackPanel>
+                </Grid>
+                <Label Grid.Column="4"  Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right"  FontSize="25" FontWeight="Bold" Content="Recommened:" />
+                <Grid Margin="0 10 0 0" Grid.Row="1" Grid.Column="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.4*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap"  Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" Text="{Binding SuggestedLanguage.Name}"  FontSize="25"/>
 
-        <TextBox x:Name="txtTourName" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedTour.Name, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="194"/>
-        <TextBox x:Name="txtTourCity" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedLocation.City, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="194"></TextBox>
-        <TextBox x:Name="txtTourState" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedLocation.State, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="166"></TextBox>
-        <TextBox x:Name="txtTourDescription" Grid.Column="1" Grid.Row="8" VerticalAlignment="Top" TextAlignment="Left" HorizontalAlignment="Left"  VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedTour.Description, UpdateSourceTrigger=PropertyChanged}" Height="95" Width="426" Margin="13,32,0,0" Grid.ColumnSpan="3" Grid.RowSpan="3"></TextBox>
-        <TextBox x:Name="txtTourDuration" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedTour.Duration, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="166"></TextBox>
-        <TextBox x:Name="txtTourLanguage" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path =SelectedTour.Language, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="166"/>
-        <TextBox x:Name="txtTourCapacity" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedTour.Capacity, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="194"></TextBox>
-        <TextBox x:Name="txtTourCheckpoints" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Checkpoint, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="170" RenderTransformOrigin="0.361,0.435"/>
-        <Button Click="AddCheckPointClick" Content="+"   Grid.Column="1" Grid.Row="3" Margin="175,14,54,13" RenderTransformOrigin="-1.2,0.566"/>
-        <TextBox x:Name="txtImageNumber" IsReadOnly="True" BorderThickness="0" Grid.Column="3" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Images, UpdateSourceTrigger=PropertyChanged}" Height="36" Width="126" Margin="87,10,0,0"/>
-        <DatePicker x:Name="datePicker" Grid.Row="5" Margin="40,10,24,9" Grid.Column="1" RenderTransformOrigin="1.781,1.147"/>
-        <Button Click ="SelectImagesClick"  Grid.Column="2" Content="Dodaj" HorizontalAlignment="Left" Margin="142,10,0,0" Grid.Row="3" VerticalAlignment="Top" Height="36" Width="41" Grid.ColumnSpan="2"/>
-        <Button Grid.Column="1" Click="SaveTourClick" Content="Button" HorizontalAlignment="Left" Grid.Row="10" VerticalAlignment="Top" Height="20" Width="40" RenderTransformOrigin="1.012,3.089" Margin="130,11,0,0"/>
-        <TextBox x:Name="txtTourScheduleTime" Grid.Column="2" Grid.Row="5" VerticalAlignment="Top" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Schedules, UpdateSourceTrigger=PropertyChanged}" Height="39" Width="82" Margin="0,8,0,0"/>
-        <Button Click ="SelectDatesClick"  Grid.Column="2" Content="+" HorizontalAlignment="Left" Margin="128,0,0,0" Grid.Row="5" VerticalAlignment="Center" Height="36" Width="30" RenderTransformOrigin="-0.567,0.594" Grid.ColumnSpan="2"/>
-        <ListBox  Grid.Row="4" SelectedItem="{Binding SelectedCheckpoint, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding CheckpointsCollection}" Margin="20,0,10,10" Grid.ColumnSpan="2">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <ListBox Grid.Row="4" SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}" Grid.Column="2"  Margin="36,0,-47,10" Grid.ColumnSpan="2">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <ListBox Grid.Row="5" SelectedItem="{Binding SelectedTourDate, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding TourDatesCollection,StringFormat=dd.MM.yy HH:mm}" Grid.Column="1"  Margin="13,58,131,49" Grid.ColumnSpan="3" Grid.RowSpan="4">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Button Grid.Column="1" Content="-" HorizontalAlignment="Left" Margin="207,0,0,0" Grid.Row="3" VerticalAlignment="Center" Height="35" Width="27" Click="CheckpointRemoveClick"/>
-        <Button Grid.Column="3" Click="ImageRemoveClick" Content="Ukloni" HorizontalAlignment="Left" Margin="40,10,0,0" Grid.Row="3" VerticalAlignment="Top" Height="36" Width="42"/>
-        <Button Grid.Column="5" Content="-" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Row="5" VerticalAlignment="Center" Height="35" Width="29" Click="RemoveDateClick" RenderTransformOrigin="0.556,0.314"/>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Top" Orientation="Horizontal">
+                        <RadioButton x:Name="languageRadioButton"  VerticalAlignment="Center"/>
+                        <Image Margin="10 0 0 0" Source="\Resources\Images\information.png" Width="16" Height="16">
+                            <Image.ToolTip>
+                                <ToolTip Content="With the push of a button, you select the most requested language based on tour request statistics" />
+                            </Image.ToolTip>
+                        </Image>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.43*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Right"  FontSize="25" FontWeight="Bold"  >Duration:</Label>
+                <StackPanel Grid.Column="1" VerticalAlignment="Top" Orientation="Horizontal">
+                    <xctk:IntegerUpDown  Minimum="0"  Background="#F6F5F2"   x:Name="txtTourDuration"  Text="{Binding Path = SelectedTour.Duration, UpdateSourceTrigger=PropertyChanged}"  Height="37" Width="80" />
+                    <Label Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20">h</Label>
+                </StackPanel>
+                <Label Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="25" FontWeight="Bold">Capacity:</Label>
+                <StackPanel Grid.Column="3" VerticalAlignment="Top" Orientation="Horizontal">
+                    <xctk:IntegerUpDown Background="#F6F5F2"  Minimum="0" Height="37" Width="80"  x:Name="txtTourCapacity" Text="{Binding Path = SelectedTour.Capacity, UpdateSourceTrigger=PropertyChanged}"  />
+                    <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="25" FontWeight="Bold"  >people</Label>
+                </StackPanel>
+                <Label Grid.Column="4" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" >Description:</Label>
+                <TextBox Grid.Column="5"   x:Name="txtTourDescription"  VerticalContentAlignment="Top" VerticalAlignment="Top" TextAlignment="Left"  TextWrapping="Wrap" Text="{Binding Path=SelectedTour.Description, UpdateSourceTrigger=PropertyChanged}" Height="200" Width="358"  HorizontalAlignment="Left" />
+            </Grid>
+            <Grid Margin="0 30 0 0" Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="1.5*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="50 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
+                    <Label   FontSize="25" FontWeight="Bold" >Checkpoints:</Label>
+                    <TextBox   x:Name="txtTourCheckpoints" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Checkpoint, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="194"/>
+                    <StackPanel  Orientation="Vertical" Margin="5 0 0 0" Height="33"  >
+                        <Button Click="AddCheckPointClick" Content="+" RenderTransformOrigin="-1.2,0.566" Height="19" Width="24"/>
+                        <Label   FontSize="7" Content="Add" Height="19" HorizontalAlignment="Center" Width="24" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="5 0 0 0" Height="33" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="33">
+                        <Button Grid.Column="1" Content="-" HorizontalAlignment="Left" Margin="5,0,0,0" Height="19" Width="23" Click="CheckpointRemoveClick"/>
+                        <Label  HorizontalContentAlignment="Center" FontSize="7" Content="Remove" Height="18" HorizontalAlignment="Center" Width="36" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
+                    <Label   FontSize="25" FontWeight="Bold" >Dates:</Label>
+                    <xctk:DateTimePicker Background="#F6F5F2"  x:Name="datePicker" Grid.Row="5" Text="{Binding TourDate}" Format="Custom" FormatString="dd.MM.yyyy HH:mm" Grid.Column="1" RenderTransformOrigin="1.781,1.147" Width="247" Height="36"/>
+                    <StackPanel  Orientation="Vertical" Margin="5 0 0 0" Height="33"  >
+                        <Button  Content="+"  Grid.Column="1"  HorizontalAlignment="Left" Click="SelectDatesClick" Height="19" Width="23"/>
+                        <Label   FontSize="7" Content="Add" Height="19" HorizontalAlignment="Center" Width="24" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="5 0 0 0" Height="33"  VerticalAlignment="Center" Width="33">
+                        <Button Content="-"  Height="19" Width="23" Click="RemoveDateClick"/>
+                        <Label  HorizontalContentAlignment="Center" FontSize="7" Content="Remove" Height="18" HorizontalAlignment="Center" Width="36" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel  VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Column="2" Grid.Row="0">
+                    <Label  FontSize="25" FontWeight="Bold">Images:</Label>
+                    <TextBox  Height="37" Width="194" x:Name="txtImageNumber" IsReadOnly="True" BorderThickness="0"  TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Images, UpdateSourceTrigger=PropertyChanged}"  />
+                    <StackPanel  Orientation="Vertical" Margin="10 0 0 0" Height="33"  >
+                        <Button  Content="+"   Grid.Column="1"  HorizontalAlignment="Left" Click="SelectImagesClick" Height="19" Width="23"/>
+                        <Label   FontSize="7" Content="Add" Height="19" HorizontalAlignment="Center" Width="24" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="5 0 0 0" Height="33"  VerticalAlignment="Center" Width="33">
+                        <Button Content="-"  Height="19" Width="23" Click="ImageRemoveClick"/>
+                        <Label  HorizontalContentAlignment="Center" FontSize="7" Content="Remove" Height="18" HorizontalAlignment="Center" Width="36" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="30 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" >
+                    <ListBox Background="#F6F5F2"   SelectedItem="{Binding SelectedCheckpoint, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding CheckpointsCollection}"  Width="424" Height="166" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock FontFamily="Yu Gothic UI Light" Text="{Binding}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Label FontSize="8" Content=" if you want to delete a checkpoint, select it and press the remove button" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" >
+                    <ListBox Background="#F6F5F2"  SelectedItem="{Binding SelectedTourDate, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding TourDatesCollection, StringFormat=dd.MM.yyyy HH:mm}"  Height="162" Width="387">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock FontFamily="Yu Gothic UI Light" Text="{Binding}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Label FontSize="8" Content=" if you want to delete the date, select it and press the remove button" Height="37"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" >
+                    <ListView  Background="#F6F5F2"  x:Name="imageListBox" SelectionMode="Multiple" SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}"  Height="162" Width="387">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Image Source="{Binding ImageSource}" Width="100" Height="100" Margin="5"/>
+                                    <TextBlock FontFamily="Yu Gothic UI Light" Text="{Binding ImageName}" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                    <Label FontFamily="Yu Gothic UI Light" FontSize="8" Content=" if you want to delete image, select it and press the remove button" Height="37"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button Grid.Column="0" Click="CreateTourClick" Content="Create Tour" FontSize="20" HorizontalAlignment="Right" Margin="0 0 40 0" Grid.Row="10" VerticalAlignment="Center" Height="40" Width="110" />
+                <Button Grid.Column="1" Click="CancelCreationClick" Content="Cancel" FontSize="20" HorizontalAlignment="Left" Grid.Row="10" VerticalAlignment="Center" Height="40" Width="110" />
+            </StackPanel>
 
+        </Grid>
     </Grid>
 </Page>

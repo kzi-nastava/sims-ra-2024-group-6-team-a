@@ -64,7 +64,13 @@ namespace BookingApp
             services.AddSingleton<ITourisNotificationRepository, TourisNotificationRepository>();
             services.AddSingleton<IGuestsRepository, GuestRepository>();  
             services.AddSingleton<IOwnerReviewRepository, OwnerReviewRepository>();  
-            services.AddSingleton<IAccommodationReservationRepository, AccommodationReservationRepository>();  
+            services.AddSingleton<IAccommodationReservationRepository, AccommodationReservationRepository>();
+            services.AddSingleton<IAccommodationRenovationRepository, AccommodationRenovationRepository>();
+            services.AddSingleton<ILanguageRepository, LanguageRepository>();
+            services.AddSingleton<IForumsRepository, ForumsRepository>();
+            services.AddSingleton<ITouristRepository, TouristRepository>();
+            services.AddSingleton<ITourRequestRepository, TourRequestRepository>();
+            services.AddSingleton<IGuideRepository,GuideRepository>();
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -89,6 +95,12 @@ namespace BookingApp
             services.AddSingleton<OwnerReviewService>();
             services.AddSingleton<AccommodationReservationService>();
             services.AddSingleton<ReservationAvailableDatesService>();
+            services.AddSingleton<RenovationService>();
+            services.AddSingleton<LanguageService>();   
+            services.AddSingleton<ForumService>();   
+            services.AddSingleton<TouristService>();
+            services.AddSingleton<TourRequestService>();
+            services.AddSingleton<GuideService>();  
         }
 
 

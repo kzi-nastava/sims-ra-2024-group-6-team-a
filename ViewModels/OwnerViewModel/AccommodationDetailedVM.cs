@@ -3,10 +3,13 @@ using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
+using BookingApp.RepositoryInterfaces;
+using BookingApp.View.OwnerViews;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +22,39 @@ namespace BookingApp.ViewModels
 
         public static ObservableCollection<ImageDTO> Images { get; set; }
         public ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
+        public ObservableCollection<AccommodationStatisticDTO> Statistics { get; set; }
+        public ObservableCollection<AccommodationRenovation> Renovations { get; set; }
+
+        private string mainImage;
+
+        public string MainImage
+        {
+            get { return mainImage; }
+
+            set
+            {
+                if (mainImage != value)
+                {
+                    mainImage = value;
+                }
+            }
+        }
+
+
+        private int bestYear;
+
+        public int BestYear
+        {
+            get { return bestYear; }
+            set
+            {
+                if (bestYear != value)
+                {
+                    bestYear = value;
+                }
+
+            }
+        }
        
         private double ratingNum;
 
@@ -53,25 +89,52 @@ namespace BookingApp.ViewModels
         public AccommodationOwnerDTO Accommodation { get; set; }
         public static List<Model.Image> imageModels { get; set; }
 
+        public AccommodationRenovation SelectedRenovation { get; set; }
         public ReservationOwnerDTO SelectedReservation { get; set; }
+        public AccommodationStatisticDTO SelectedStatistic { get; set; }
 
         public AccommodationDetailedVM(List<Model.Image> images, ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation) 
         {
+            this.Accommodation = accommodation;
+            this.MainImage = images[0].Path;
             Images = new ObservableCollection<ImageDTO>();
+            Statistics = new ObservableCollection<AccommodationStatisticDTO>();
 
             imageModels = images;
             this.Reservations = Reservations;
-            this.Accommodation = accommodation;
+            Renovations = new ObservableCollection<AccommodationRenovation>();
+
+
+
+            this.bestYear = AccommodationService.GetInstance().GetMostPopularYear(Accommodation.Id);
 
 
             Update();
+        }
+
+        public void GatherAllYearsAllStats()
+        {
+            List<int> years = AccommodationService.GetInstance().GatherAllReservationYears(Reservations.ToList());
+
+            foreach (int year in years)
+            {
+
+                AccommodationStatisticDTO stats = new AccommodationStatisticDTO(year,
+                    AccommodationService.GetInstance().GetReservationCountForAccommodation(Accommodation.Id, year),
+                    AccommodationService.GetInstance().GetChangesCountForAccommodation(Accommodation.Id, year),
+                    AccommodationService.GetInstance().GetCancelationCountForAccommodation(Accommodation.Id,year),
+                    AccommodationService.GetInstance().GetRenovationCountForAccommodation(Accommodation.Id,year));
+                Statistics.Add(stats);
+
+            }
         }
 
         public void Update()
         {
             GetRatingAndColor();
             Images.Clear();
-
+            Statistics.Clear();
+            Renovations.Clear();
 
             for(int i = 0;i < imageModels.Count;i = i +2)
             {
@@ -85,6 +148,14 @@ namespace BookingApp.ViewModels
 
                 Images.Add(image);
             }
+            GatherAllYearsAllStats();
+
+            foreach (AccommodationRenovation ren in RenovationService.GetInstance().GetAll())
+            {
+                if (ren.AccommodationId == Accommodation.Id)
+                    Renovations.Add(ren);
+            }
+
 
 
         }
@@ -159,18 +230,56 @@ namespace BookingApp.ViewModels
 
         }
 
-        public void SelectFirstReservation(ListBox ReservationsList)
-        {
-            if (SelectedReservation == null)
-            {
-                SelectedReservation = Reservations.First();
-                ReservationsList.SelectedIndex = 0;
-                ReservationsList.UpdateLayout();
-                ReservationsList.Focus();
 
-            }
+        internal void OpenMonthStatistic()
+        {
+            DetailedStatisticsView detailedStatisticsView = new DetailedStatisticsView(AccommodationService.GetInstance().GetMonthlyStatistics(Accommodation.Id,SelectedStatistic.Year),SelectedStatistic.Year);
+            detailedStatisticsView.ShowDialog();
+            
+            Update();
         }
 
+        internal void ScheduleRenovation()
+        {
+            ScheduleRenovation scheduleRenovation = new ScheduleRenovation(Accommodation,Reservations.ToList());
+            scheduleRenovation.ShowDialog();
+            Update();
+        }
 
+        internal void RemoveRenovation()
+        {
+            AccommodationRenovation renovation = RenovationService.GetInstance().GetAll().Find(r => r.Id == SelectedRenovation.Id);
+            RenovationService.GetInstance().Delete(renovation);
+            Update();
+        }
+
+        internal void CloseAccommodation()
+        {
+            foreach(AccommodationReservation reservation in AccommodationReservationService.GetInstance().GetByAccommodationId(Accommodation.Id)) 
+            {
+                AccommodationReservationService.GetInstance().Delete(reservation);
+                GuestReviewService.GetInstance().Delete(GuestReviewService.GetInstance().GetByReservationId(reservation.Id));
+            }
+
+            foreach(ReservationChanges change in ReservationChangeService.GetInstance().GetAll())
+            {
+                if(change.AccommodationId == Accommodation.Id) 
+                {
+                    ReservationChangeService.GetInstance().Delete(change); 
+                }
+            }
+
+            foreach(AccommodationRenovation renovation in RenovationService.GetInstance().GetAllByAccommodation(Accommodation.Id))
+            {
+                RenovationService.GetInstance().Delete(renovation);
+            }
+
+            foreach(Model.Image image in ImageService.GetInstance().GetImagesForAccommodaton(Accommodation.Id))
+            {
+                ImageService.GetInstance().Delete(image);
+            }
+
+            AccommodationService.GetInstance().Delete(Accommodation.Id);
+        }
     }
 }

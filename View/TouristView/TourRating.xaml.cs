@@ -35,7 +35,9 @@ namespace BookingApp.View.TouristView
             InitializeComponent();
             RatingViewModel = new TourRatingViewModel(selectedTour,user);
             DataContext = RatingViewModel;
-           
+            if (RatingViewModel.CloseAction == null)
+                RatingViewModel.CloseAction = new Action(() => this.Close());
+
         }
 
     }

@@ -1,0 +1,71 @@
+﻿<Window x:Class="BookingApp.View.OwnerViews.DetailedStatisticsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.OwnerViews"
+        mc:Ignorable="d"
+        Height="800" Width="750" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+    <Grid>
+        <ListBox  x:Name="StatisticsList"  SelectedItem="SelectedMonth" ItemsSource="{Binding Statistics}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" MaxHeight="800" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+            <ListBox.ItemTemplate>
+
+                <DataTemplate>
+                    <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  Width="695" Margin="0,0,0,-4">
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="20"></ColumnDefinition>
+                                <ColumnDefinition Width="250"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"></RowDefinition>
+                                <RowDefinition Height="35"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Border  Grid.RowSpan ="3" Grid.Column="0" CornerRadius="1" BorderBrush="LightBlue" BorderThickness="4" Background="LightCyan">
+                                <TextBlock Text="{Binding Month}" FontSize="35"  Foreground="MediumPurple" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            </Border>
+
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
+                                <Image Source="/Resources/Images/reservation_img.png" Width="32" Height="32"/>
+                                <TextBlock  Text="Reservations: " Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                <TextBlock  Text="{Binding ReservationCount}" Margin="2,7,2,2" FontSize="18" Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                                <Image Source="/Resources/Images/res_change.png" Width="32" Height="32"/>
+                                <TextBlock  Text="Changes: " Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                <TextBlock  Text="{Binding ChangesCount}" Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                            </StackPanel>
+
+
+
+                            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="0">
+                                <Image Source="/Resources/Images/cancel_res.png" Width="32" Height="32"/>
+                                <TextBlock  Text="Cancelations: " Margin="2,7,2,2" FontSize="18" Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                <TextBlock  Text="{Binding CancelationCount}" Margin="0,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+
+                            </StackPanel>
+
+
+                            <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="1">
+                                <Image Source="/Resources/Images/renovation_acc.png" Width="32" Height="32"/>
+                                <TextBlock  Text="Renovation suggestions: " Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                <TextBlock  Text="{Binding RenovationSuggestions}" Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                            </StackPanel>
+
+
+
+
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

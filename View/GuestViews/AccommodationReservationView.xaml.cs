@@ -27,7 +27,6 @@ namespace BookingApp.View.GuestViews
         {
             InitializeComponent();
             this.DataContext = new AccommodationReservationViewModel(guest, SelectedAccommodation, this, navigation);
-
         }
     }
 }

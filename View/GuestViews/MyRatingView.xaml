@@ -1,0 +1,106 @@
+﻿<Page x:Class="BookingApp.View.GuestViews.MyRatingView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View.GuestViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="540" d:DesignWidth="410"
+      Title="MyRatingView">
+
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="LightGray" >
+            <TextBlock FontSize="39" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="Black" FontWeight="SemiBold" Margin="0,0,0,0" >My ratings</TextBlock>
+        </Grid>
+        <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
+
+        <Grid  Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="29" VerticalAlignment="Center"  Foreground="Black" FontWeight="SemiBold" Margin="50,0,0,0" Width="207" >Average grade:
+                </TextBlock>
+                
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" Width="129">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property = "FontSize"  Value="29" />
+                            <Setter Property="Text" Value="{Binding AverageGrade, StringFormat={}{0:N2}}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding AverageGrade}" Value="0.00">
+                                    <Setter Property = "FontSize"  Value="24" />
+                                    <Setter Property = "Margin"  Value="0,7,0,0" />
+                                    <Setter Property="Text"  Value="No grade" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <Grid  Grid.Row="2" >
+            <ListView     Background="SlateGray"
+                          BorderBrush="Black"
+                          BorderThickness="3"
+                          ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          ItemsSource="{Binding Ratings, UpdateSourceTrigger=PropertyChanged}"
+                          x:Name="RatingsTable"
+                          Width="NaN" Height="NaN" d:ItemsSource="{d:SampleData ItemCount=3}" >
+               
+                <ListView.ItemTemplate >
+                    <DataTemplate >
+                        <Border  CornerRadius="4" BorderBrush="Black" BorderThickness="2.5" Margin="-5,0,0,2">
+                            <StackPanel Orientation="Horizontal"  Background="Silver" Margin="0,0,0,0" Width="362">
+                                <Image Source= "{Binding Image}" Width="100" Height="100" HorizontalAlignment="Left" Stretch="Fill"  VerticalAlignment="Center" />
+
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0,0,0">
+                                    <TextBlock Foreground="black" Text="{Binding AccommodationName}" FontSize="24" FontWeight="Bold"  Margin="0,0,160,0" Width="180"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,2,0,0">
+                                        <Image Source="/Resources/Images/calendarr.png" Width="18" Height="18"></Image>
+                                        <TextBlock Margin="5,0,0,0" Text="{Binding CheckIn}" />
+                                        <TextBlock Text=" - "></TextBlock>
+                                        <TextBlock Text="{Binding CheckOut}" ></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="0,3,0,0">
+                                        <Image Source="/Resources/Images/cleanliness.png" Width="20" Height="20" ></Image>
+                                        <TextBlock Margin="5,0,0,0" Text="Cleanliness  :" Width="75" ></TextBlock>
+                                        <TextBlock Text="{Binding Cleanliness}" ></TextBlock>
+                                        <TextBlock  Text="/5" Width="71" ></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Margin="0,3,0,0">
+                                        <Image Source="/Resources/Images/rules.png" Width="18.8" Height="18.9" VerticalAlignment="Top"></Image>
+                                        <TextBlock Margin="5,0,0,0" Text="Follow rules : " Width="75" ></TextBlock>
+                                        <TextBlock Text="{Binding FollowRules}" ></TextBlock>
+                                        <TextBlock  Text="/5" Width="71" ></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Margin="0,3,0,3"   >
+                                        <Image Source="/Resources/Images/commentt.png" Width="18" Height="18" VerticalAlignment="Top" ></Image>
+                                        <TextBlock Margin="5,0,0,0" Text="Comment :  " VerticalAlignment="Top" ></TextBlock>
+                                        <TextBlock Text="{Binding Comment}" TextWrapping="Wrap"  MaxWidth="170"></TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Grid.Row="2" Grid.RowSpan="3" Margin="-50,44,0,0" Height="50" Width="90" >
+                                    <TextBlock  Text="  Average grade" Width="90" ></TextBlock>
+                                    <TextBlock Margin="0,0,0,0" Text="{Binding Av}" Width="20" ></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+
+
+
+
+
+    </Grid>
+</Page>

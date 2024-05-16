@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -234,20 +235,41 @@ namespace BookingApp.DTOs
             }
         }
 
-        public GuideReviewDTO(Tour tour, Location location, string imagePath, DateTime tourStart, int tourScheduleId,double avgGrade)
+
+        private string _location;
+        public string Location
+        {
+            get
+            {
+                return _location;
+            }
+
+            set
+            {
+                if (value != _location)
+                {
+                    _location = value;
+                    OnPropertyChanged("Location");
+
+                }
+            }
+        }
+
+
+        public GuideReviewDTO(Tour tour,Language language ,Location location, string imagePath, DateTime tourStart, int tourScheduleId,double avgGrade)
         {
             Id = tour.Id;
             Name = tour.Name;
             Description = tour.Description;
-            Language = tour.Language;
+            Language = language.Name;
             Capacity = tour.Capacity;
             Duration = tour.Duration;
-            City = location.City;
-            State = location.State;
+            
             Image = imagePath;
             TourStart = tourStart;
             TourScheduleId = tourScheduleId;
             AvgGrade = avgGrade;
+            Location = location.City + ", " + location.State;
         }
 
 

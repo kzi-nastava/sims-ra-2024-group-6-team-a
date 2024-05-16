@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.ApplicationServices
 {
@@ -50,6 +51,32 @@ namespace BookingApp.ApplicationServices
         {
             return guestsRepository.GetFullname(id);
 
+        }
+        private void RemoveSuperGuestStats(Guest Guest) {
+            MessageBox.Show("pre Uso");
+            Guest.IsSuperGuest = false;
+            Guest.BonusPoints = 0;
+            GuestService.GetInstance().Update(Guest);
+        }
+        private void CheckSuperGuest(Guest Guest) {
+            if (AccommodationReservationService.GetInstance().GetNumberOfReservationInPreviousYear(Guest.Id) >= 10)
+            { 
+            AddSuperGuestsStats(Guest);
+            }
+            else RemoveSuperGuestStats(Guest);
+        }
+        private void AddSuperGuestsStats(Guest Guest) {
+                MessageBox.Show("Uso");
+                Guest.BonusPoints = 5;
+                Guest.IsSuperGuest = true;
+                Guest.StartSuperGuestDate = DateOnly.FromDateTime(DateTime.Today);
+                GuestService.GetInstance().Update(Guest);
+        }
+        public void SuperGuestRenewal(Guest Guest) {
+            MessageBox.Show("SuperGuestRenewal");
+
+            if (DateOnly.FromDateTime(DateTime.Today) > Guest.StartSuperGuestDate.AddYears(1))
+             CheckSuperGuest(Guest);
         }
     }
 }

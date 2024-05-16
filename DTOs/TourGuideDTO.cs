@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Model;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -216,17 +217,73 @@ namespace BookingApp.DTOs
 
         }
 
+        private string _location;
 
-        public TourGuideDTO(Tour tour, Location location, string imagePath, DateTime tourStart, int tourScheduleId)
+        public string Location
+        {
+
+            get
+            {
+                return _location;
+            }
+
+            set
+            {
+                if (value != _location)
+                {
+                    _location = value;
+                    OnPropertyChanged("Location");
+
+                }
+            }
+
+        }
+
+        private bool hasTourStarted;
+
+        public bool HasTourStarted
+        {
+            get
+            {
+                return hasTourStarted;
+            }
+
+            set
+            {
+                if (value != hasTourStarted)
+                {
+                    hasTourStarted = value;
+                    OnPropertyChanged("HasTourStarted");
+
+                }
+            }
+        }
+
+
+
+        public TourGuideDTO(Tour tour,Language language ,Location location, string imagePath, DateTime tourStart, int tourScheduleId, bool tourStarted)
         {
             Id = tour.Id;
             Name = tour.Name;
             Description = tour.Description;
-            Language = tour.Language;
+            Language = language.Name;
             Capacity = tour.Capacity;
             Duration = tour.Duration;
-            City = location.City;
-            State = location.State;
+            Location = location.City + ", " + location.State;
+            Image = imagePath;
+            TourStart = tourStart;
+            TourScheduleId = tourScheduleId;
+            HasTourStarted = tourStarted;
+        }
+        public TourGuideDTO(Tour tour, Language language, Location location, string imagePath, DateTime tourStart, int tourScheduleId)
+        {
+            Id = tour.Id;
+            Name = tour.Name;
+            Description = tour.Description;
+            Language = language.Name;
+            Capacity = tour.Capacity;
+            Duration = tour.Duration;
+            Location = location.City + ", " + location.State;
             Image = imagePath;
             TourStart = tourStart;
             TourScheduleId = tourScheduleId;

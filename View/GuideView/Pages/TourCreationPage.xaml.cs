@@ -1,7 +1,10 @@
 ﻿using BookingApp.ApplicationServices;
+using BookingApp.Domain.Model;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
+using BookingApp.ViewModels.GuideViewModel;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -26,183 +29,64 @@ namespace BookingApp.View.GuideView.Pages
     /// <summary>
     /// Interaction logic for TourCreationPage.xaml
     /// </summary>
-    public partial class TourCreationPage : Page, INotifyPropertyChanged
+    public partial class TourCreationPage : Page
     {
-        public User LoggedUser { get; set; }
 
-       
 
-        public Tour SelectedTour { get; set; }
-        public Location SelectedLocation { get; set; }
-        public String SelectedImageUrl { get; set; }
-        public String SelectedCheckpoint { get; set; }
 
-        public DateTime SelectedTourDate { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public static ObservableCollection<String> ImagesCollection { get; set; }
-        public static ObservableCollection<String> CheckpointsCollection { get; set; }
-        public static ObservableCollection<DateTime> TourDatesCollection { get; set; }
-        
-        public event EventHandler SomethingHappened;
-
-        private string checkpoint;
-        public string Checkpoint
-        {
-            get
-            {
-                return checkpoint;
-            }
-            set
-            {
-                if (value != checkpoint)
-                {
-                    checkpoint = value;
-                    OnPropertyChanged("Checkpoint");
-                }
-            }
-        }
+        public TourCreationViewModel TourCreationViewModel { get; set; }
 
 
         public TourCreationPage(User user)
         {
             InitializeComponent();
-            DataContext = this;
-            LoggedUser = user;
-            datePicker.DisplayDateStart = DateTime.Now;
-           
+            TourCreationViewModel = new TourCreationViewModel(this, user);
+            DataContext = TourCreationViewModel;
 
-            SelectedLocation = new Location();
-            SelectedTour = new Tour();
-            SelectedTourDate = new DateTime();
-            CheckpointsCollection = new ObservableCollection<string>();
-            ImagesCollection = new ObservableCollection<string>();
-            TourDatesCollection = new ObservableCollection<DateTime>();
         }
-
-        protected virtual void OnSomethingHappened(EventArgs e)
-        {
-            SomethingHappened?.Invoke(this, e);
-        }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+       
 
         private void AddCheckPointClick(object sender, EventArgs e)
         {
 
-            CheckpointsCollection.Add(checkpoint);
-            txtTourCheckpoints.Clear();
+            TourCreationViewModel.AddCheckPointClick();
         }
-
-
-
+        
+      
         private void SelectImagesClick(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Images|*.jpg;*.jpeg;*.png;*.gif|All Files|*.*";
-            openFileDialog.Multiselect = true;
-
-            if (openFileDialog.ShowDialog() == true)
-            {
-                foreach (string imagePath in openFileDialog.FileNames)
-                {
-                    int relativePathStartIndex = imagePath.IndexOf("\\Resources");
-                    String relativePath = imagePath.Substring(relativePathStartIndex);
-                    ImagesCollection.Add(relativePath);
-                }
-            }
+            TourCreationViewModel.SelectImagesClick();
         }
 
         private void SelectDatesClick(object sender, RoutedEventArgs e)
         {
-            DateTime time;
-            DateTime.TryParse(datePicker.SelectedDate.Value.Date.ToShortDateString() + " " + txtTourScheduleTime.Text, out time);
-            TourDatesCollection.Add(time);
-            datePicker.SelectedDate = null;
-            txtTourScheduleTime.Clear();
+            TourCreationViewModel.SelectDatesClick();
         }
 
         private void RemoveDateClick(object sender, RoutedEventArgs e)
         {
-            DateTime SelectedDate = SelectedTourDate;
-            TourDatesCollection.Remove(SelectedDate);
+            TourCreationViewModel.RemoveDateClick();
         }
 
-        bool IsDataValid()
+        private void CreateTourClick(object sender, RoutedEventArgs e)
         {
-            return !string.IsNullOrEmpty(txtTourName.Text)
-                && !string.IsNullOrEmpty(txtTourLanguage.Text)
-                && !string.IsNullOrEmpty(txtTourCity.Text)
-                && !string.IsNullOrEmpty(txtTourState.Text)
-                && !string.IsNullOrEmpty(txtTourCapacity.Text)
-                && !string.IsNullOrEmpty(txtTourDescription.Text)
-                && !string.IsNullOrEmpty(txtTourDescription.Text)
-                && CheckpointsCollection.Count >= 2
-                && ImagesCollection.Count >= 1
-                && TourDatesCollection.Count >= 1;
-
-
+            TourCreationViewModel.CreateTourClick();
         }
 
-
-
-        private void SaveTourClick(object sender, RoutedEventArgs e)
-        {
-            if (!IsDataValid())
-            {
-                return;
-            }
-           
-            
-            SelectedLocation = LocationService.GetInstance().Save(SelectedLocation);
-            SelectedTour.LocationId = SelectedLocation.Id;
-            SelectedTour.GuideId = LoggedUser.Id;
-            SelectedTour = TourService.GetInstance().Save(SelectedTour);
-
-
-            SaveImages(ImagesCollection.ToList());
-            SaveTourDatesAndCheckpoints(TourDatesCollection.ToList(), CheckpointsCollection.ToList());
-            OnSomethingHappened(EventArgs.Empty);
-
-            MessageBox.Show("Tour Added");
-        }
-
-      
-
-        private void SaveImages(List<String> images)
-        {
-            foreach (string relativePath in images)
-            {
-                ImageService.GetInstance().Save(new Model.Image(relativePath, SelectedTour.Id, Enums.ImageType.Tour));
-            }
-        }
-
-        private void SaveTourDatesAndCheckpoints(List<DateTime> dates, List <String> checkpoints)
-        {
-            foreach (DateTime date in dates)
-            {
-               TourSchedule tourSchedule = TourScheduleService.GetInstance().Save(new TourSchedule(date, SelectedTour.Id, SelectedTour.Capacity,Enums.TourActivity.Ready));
-                foreach(string checkpoint in checkpoints)
-                {
-                    CheckpointService.GetInstance().Save(new Checkpoint(checkpoint, SelectedTour.Id,false,tourSchedule.Id));
-                }
-            }
-        }
-
+  
         private void CheckpointRemoveClick(object sender, EventArgs e)
         {
-            string checkpoint = SelectedCheckpoint;
-            CheckpointsCollection.Remove(checkpoint);
+            TourCreationViewModel.CheckpointRemoveClick();
         }
 
         private void ImageRemoveClick(object sender, EventArgs e)
         {
-            string imageUrl = SelectedImageUrl;
-            ImagesCollection.Remove(imageUrl);
+            TourCreationViewModel.ImageRemoveClick();        
+        }
+
+        private void CancelCreationClick(object sender, EventArgs e)
+        {
+            TourCreationViewModel.CancelCreationClick();        
         }
 
     }

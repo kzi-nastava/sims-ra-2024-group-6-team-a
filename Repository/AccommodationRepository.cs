@@ -74,6 +74,15 @@ namespace BookingApp.Repository
             return _accommodations.FindAll(c => c.OwnerId == id);
         }
 
+        public void Delete(int id)
+        {
+            _accommodations = _serializer.FromCSV(FilePath);
+            Accommodation founded = _accommodations.Find(c => c.Id == id);
+            _accommodations.Remove(founded);
+            _serializer.ToCSV(FilePath, _accommodations);
+            subject.NotifyObservers();
+        }
+
         public Accommodation GetByReservationId(int id)
         {
             _accommodations = _serializer.FromCSV(FilePath);

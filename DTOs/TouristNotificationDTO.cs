@@ -1,14 +1,6 @@
 ﻿using BookingApp.Domain.Model;
-using BookingApp.Model;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Xml.Linq;
-using Xceed.Wpf.AvalonDock.Controls;
 
 namespace BookingApp.DTOs
 {
@@ -40,6 +32,22 @@ namespace BookingApp.DTOs
                     _message = value;
                     OnPropertyChanged("Message");
 
+                }
+            }
+        }
+        private DateTime _recieved;
+        public DateTime Recieved
+        {
+            get
+            {
+                return _recieved;
+            }
+            set
+            {
+                if(value != _recieved)
+                {
+                    _recieved = value;
+                    OnPropertyChanged("Recieved");
                 }
             }
         }
@@ -77,19 +85,13 @@ namespace BookingApp.DTOs
                 }
             }
         }
-
-        public TouristNotificationDTO(TouristNotificationDTO notification)
-        {
-            Id = notification.Id;
-            Message = notification.Message;
-            UserId = notification.UserId;
-        }
         public TouristNotificationDTO(TouristNotification notification)
         {
             Title = notification.Title;
             Id = notification.Id;
             Message = notification.Message;
             UserId = notification.UserId;
+            Recieved = notification.Recieved;
         }
     }
 }

@@ -5,24 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
              mc:Ignorable="d" 
-             d:DesignHeight="135" d:DesignWidth="457">
-    <Border Background="White" CornerRadius="8" Margin="0,0,10,0" Padding="10" BorderBrush="LightGray" BorderThickness="1">
+             Height="250" Width="950">
+    <Border Background="#F6F5F2" CornerRadius="8" Margin="10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+        </Border.Effect>
         <Grid>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.2*"/>
                 <RowDefinition Height="*"/>
-
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" Margin="49,0,0,94" Grid.RowSpan="2">
-                <TextBlock TextWrapping="Wrap" FontSize="15" FontWeight="Bold" Text="{Binding Name}" Width="175"/>
-            </StackPanel>
-            <Grid Grid.Row="1" Grid.Column="1">
+            <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
@@ -31,34 +31,60 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <StackPanel Margin="5 5 5 5" Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
-                    <Image Height="20px" Width="20px"  HorizontalAlignment="Center" Source="\Resources\Images\capacity.png"/>
-                    <TextBlock HorizontalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="{Binding Capacity}"/>
+                <Grid  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" >
+                    <TextBlock FontFamily="Yu Gothic UI Light" Margin="30 0 0 0" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Text="{Binding Name}" />
+                </Grid>
+                <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                    <StackPanel VerticalAlignment="Center">
+                        <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
+                        <Label   FontSize="8" Content="language" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                    </StackPanel>
+                    <TextBlock FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" FontSize="20"  Text="{Binding Language}"/>
                 </StackPanel>
-                <StackPanel  Margin="5 5 5 5" Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
-                    <Image Width="20px" Height="20px" Source="\Resources\Images\hourglass.png"/>
-                    <TextBlock HorizontalAlignment="Center"  FontStyle="Italic"  Text="{Binding Duration}"/>
+                <Grid   Grid.Column="0" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Image Width="20px" Height="20px" Source="\Resources\Images\location.png"/>
+                        <Label   FontSize="8" Content="location" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                    </StackPanel>
+                    <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20"   Text="{Binding Location}"/>
+                </Grid>
+                <StackPanel   Orientation="Horizontal" Grid.Column="2" Grid.Row="1">
+                    <StackPanel VerticalAlignment="Center">
+                        <Image Width="20px" Height="20px" Source="\Resources\Images\calendar.png"/>
+                        <Label   FontSize="8" Content="date" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                    </StackPanel>
+                    <TextBlock FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" TextAlignment="Center"  FontSize="20" x:Name="txtTourStart"  TextWrapping="Wrap" Text="{Binding TourStart,StringFormat=dd.MM.yyyy HH:mm}"/>
                 </StackPanel>
-                <StackPanel  Margin="5 5 5 5" Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
-                    <TextBlock  FontStyle="Italic" >Grade:</TextBlock>
-                    <TextBlock HorizontalAlignment="Center"  FontStyle="Italic" Text="{Binding AvgGrade ,  StringFormat=N2}"/>
-                </StackPanel>
-                <StackPanel   Margin="5 5 5 5" Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
-                    <Image Width="20px" Height="20px" Source="\Resources\Images\location.png"/>
-                    <TextBlock  FontStyle="Italic" Text="{Binding City}"/>
-                    <TextBlock  FontStyle="Italic" Text=","/>
-                    <TextBlock Grid.Column="2"    FontStyle="Italic" Text="{Binding State}"/>
-                </StackPanel>
-                <StackPanel  Margin="5 5 5 5" Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-                    <Image Width="20px" Height="20px" Source="\Resources\Images\calendar.png"/>
-                    <TextBlock  FontStyle="Italic" TextWrapping="Wrap" Text="{Binding TourStart,StringFormat=dd.MM.yy HH:mm}"/>
-                </StackPanel>
-                <StackPanel  Margin="5 5 5 5" Orientation="Horizontal" Grid.Column="0" Grid.Row="2">
-                    <Image Width="20px" Height="20px" Source="\Resources\Images\play.png" PreviewMouseDown="MoreInfoMouseDown"/>
-                    <TextBlock FontStyle="Italic" TextWrapping="Wrap" TextAlignment="Center" FontSize="10" Text="Click here for more info" PreviewMouseDown="MoreInfoMouseDown" Height="16"/>
-                </StackPanel>
+                <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <Image Width="20px" Height="20px" Source="\Resources\Images\information.png" PreviewMouseDown="MoreInfoMouseDown"/>
+                        <TextBlock FontFamily="Yu Gothic UI Light" VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="Click here to check all reviews" PreviewMouseDown="MoreInfoMouseDown"/>
+                    </StackPanel>
+                    <Grid Margin="30 0 0 0"  Grid.Column="1" Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label  FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Column="0" Content="Grade:" FontSize="25"/>
+                        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" Margin="10 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"  FontStyle="Italic" Text="{Binding AvgGrade ,  StringFormat=N2}"/>
+                        <Image Grid.Column="2" Width="40px" Height="40px" Source="\Resources\Images\star_normalan.png"/>
+                    </Grid>
+                </Grid>
             </Grid>
-            <Image Source="{Binding Image}"  Grid.Column="0" Grid.RowSpan="2" Width="125" Height="125"/>
+            <Border   Grid.Row="0" Grid.RowSpan="2" Margin="7" Grid.Column="0"  CornerRadius="7" BorderBrush="#F0EBE3" BorderThickness="4">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding Image}"  Stretch="Fill"/>
+                </Border.Background>
+            </Border>
             <TextBlock Visibility="Collapsed" x:Name="textBoxId" Text="{Binding TourScheduleId}" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Width="0" Height="8"/>
         </Grid>
     </Border>

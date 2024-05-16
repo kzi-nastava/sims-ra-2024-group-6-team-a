@@ -5,72 +5,151 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="TourReservationForm" Height="565" Width="850">
+        Title="Tour Reservation Form" Height="650" Width="850" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
 
-    <StackPanel Orientation="Vertical" Margin="0,0,0,-155">
-        
-        <StackPanel Margin="0,10" Orientation="Horizontal">
-        <Label  HorizontalAlignment="Left" Width="300" FontSize="20" Margin="30,10,0,0">Name:</Label>
-        <TextBlock x:Name="Nametxt" Text="{Binding TourTouristDTO.Name}" FontWeight="Bold" FontSize="16" Margin="0,0,0,0" Grid.Column="1"  Width="228"/>
-        </StackPanel>
-        
-        <StackPanel Margin="0,10" Orientation="Horizontal">
-        <Label Grid.Column="0" HorizontalAlignment="Left" Width="300" FontSize="20" Margin="31,10,0,0">Capacity:</Label>
-        <TextBlock x:Name="Capacitytxt" Text="{Binding TourTouristDTO.Capacity}" FontSize="16" Margin="0,0,0,0" IsEnabled="False" Grid.Column="1" Width="228"/>
-        </StackPanel>
-        
-        <StackPanel Margin="0,10" Orientation="Horizontal">
-            <Label Grid.Column="0" HorizontalAlignment="Left" Width="300" FontSize="20" Margin="31,10,0,0">Date and time:</Label>
-            <ComboBox x:Name="ComboBox" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="228" Height="37" ItemsSource="{Binding TourSchedules}" SelectedItem="{Binding TourSchedule, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="TourScheduleDisplay"/>
+    <Grid Background="AliceBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <StackPanel Margin="0,10" Orientation="Horizontal">
-        <Label Grid.Column="0" HorizontalAlignment="Left" Width="268" FontSize="20" Margin="30,10,0,0">Number of interested people:</Label>
-        <TextBox x:Name="txtGuestNumber"  Margin="31,10,0,0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Text="{Binding GuestNumber, UpdateSourceTrigger=PropertyChanged}" Height="45" Width="228"/>
-        </StackPanel>
-        <StackPanel Margin="0,10" Orientation="Horizontal">
-            <Label Grid.Column="0" HorizontalAlignment="Left" Width="268" FontSize="20" Margin="30,10,0,0">Personal info:</Label>
-            <Label Content="Name:" Margin="5"/>
-            <TextBox Text="{Binding PersonalName}" Width="100" Margin="5"/>
+        <TextBlock Grid.ColumnSpan="3" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" FontWeight="DemiBold" Margin="10" Grid.Row="0">Reservation form:</TextBlock>
+        <Border Background="LightYellow" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="190"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
 
-            <Label Content="Surname:" Margin="5"/>
-            <TextBox Text="{Binding PersonalSurname}" Width="100" Margin="5"/>
+                <TextBlock  FontSize="20" VerticalAlignment="Center" Margin="20 10 0 10" Grid.Column="0" FontWeight="DemiBold">Tour name:</TextBlock>
+                <TextBlock TextWrapping="Wrap" Text="{Binding TourTouristDTO.Name}" FontStyle="Italic" VerticalAlignment="Center" Margin="20 10 10 8" Grid.Column="1" FontSize="15"></TextBlock>
+                
+                <TextBlock  FontSize="20" VerticalAlignment="Center" Margin="20 10 0 10" Grid.Column="2" HorizontalAlignment="Left" FontWeight="DemiBold">Location:</TextBlock>
+                <TextBlock   TextWrapping="Wrap" Grid.Column="3" VerticalAlignment="Center" FontStyle="Italic" Margin="10 10 10 8" FontSize="15">
+                     <Run Text="{Binding TourTouristDTO.State}"/>
+                     <Run Text="," />
+                     <Run Text="{Binding TourTouristDTO.City}"  />      
+                </TextBlock>
+                
+                <TextBlock  FontSize="20" VerticalAlignment="Center" Margin="0 10 10 10" Grid.Column="4" FontWeight="DemiBold" HorizontalAlignment="Left">Max capacity:</TextBlock>
+                <TextBlock  Grid.Column="5" VerticalAlignment="Center" Text="{Binding TourTouristDTO.Capacity}" FontStyle="Italic" Margin="10 10 20 8" FontSize="16"></TextBlock>
 
-            <Label Content="Age:" Margin="5"/>
-            <TextBox Text="{Binding PersonalAge}" Width="40" Margin="5"/>
-            <Button Content=" Add " Command="{Binding AddPersonalInfoCommand}" Margin="5"/>
-            <Button Content="Delete" Command="{Binding DeleteTouristInfoCommand}" Margin="5"/>
-        </StackPanel>
-        <StackPanel Margin="0,10" Orientation="Horizontal" >
-        <Label Grid.Column="0" HorizontalAlignment="Left" Width="268" FontSize="20" Margin="30,10,0,0">Tourist's info:</Label>
-        <Label Content="Name:" Margin="5"/>
-            <TextBox Text="{Binding Name}" Width="100" Margin="5"/>
-    
-        <Label Content="Surname:" Margin="5"/>
-            <TextBox Text="{Binding Surname}" Width="100" Margin="5"/>
-    
-        <Label Content="Age:" Margin="5"/>
-            <TextBox Text="{Binding Age}" Width="40" Margin="5"/>
+            </Grid>
+            
+        </Border>
+        <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="10" FontSize="22" FontWeight="DemiBold" Grid.Row="3">Chose date and time:</TextBlock>
+        <ListView x:Name="sch" Grid.RowSpan="2" Margin="0 20 50 0" Width="Auto" ItemsSource="{Binding TourSchedules}" SelectedItem="{Binding TourSchedule, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Tour Schedule" DisplayMemberBinding="{Binding TourScheduleDisplay}" Width="218"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBlock FontSize="22" FontWeight="DemiBold" Grid.Column="0" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10 10 10 5">Enter tourist info:</TextBlock>
+        <TextBlock FontSize="22" FontWeight="DemiBold" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="145 10 10 5">Registered tourists:</TextBlock>
+        <TextBlock Grid.Row="5" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="12" Margin="0 10 20 0">Current capacity:</TextBlock>
+        <TextBlock Text="{Binding SelectedItem.CurrentFreeSpace, ElementName=sch}" Grid.Row="5" Grid.Column="2" Width="25" Height="15" VerticalAlignment="Center" FontSize="12" HorizontalAlignment="Center" Margin="110 41 0 0"></TextBlock>
+        <Image  Height="14px" Width="12" Grid.Row="5" Grid.Column="2" Margin="120 40 0 0" Source="..\..\Resources\Images\questionMark.png">
+            <Image.ToolTip>
+                <ToolTip>
+                    Take care of free space left!
+                </ToolTip>
+            </Image.ToolTip>
+        </Image>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.RowSpan="3" Grid.Row="6" Margin="10 5 10 10" Background="LightYellow">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-            <Button Content=" Add " Command="{Binding AddTouristInfoCommand}" Margin="5"/>
-            <Button Content="Delete" Command="{Binding DeleteTouristInfoCommand}" Margin="5"/>
+                <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" Margin="10">Name:</TextBlock>
+                <TextBox Text="{Binding Name}" Grid.Column="1" Grid.ColumnSpan="2" Height="30" Width="120"></TextBox>
+                <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" Margin="10">Surname:</TextBlock>
+                <TextBox Text="{Binding Surname}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="30" Width="120"></TextBox>
+                <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" FontWeight="DemiBold" FontSize="15">Age:</TextBlock>
+                <TextBox Text="{Binding Age}" Grid.Column="1" Grid.Row="2" Height="30" Width="50" Margin="20 0 0 0" ></TextBox>
+                <Button Background="AntiqueWhite" Command="{Binding AddTouristInfoCommand}" Content="+" FontWeight="DemiBold" FontSize="20" Width="25" Height="30" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0">
+                    <Button.ToolTip>
+                        <ToolTip>
+                            Add tourist info
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+            </Grid>
+            
+        </Border>
 
-        </StackPanel>
-
-        <DataGrid x:Name="TouristsDataGrid" CanUserAddRows="False" AutoGenerateColumns="False" Margin="5" Width="300" ItemsSource="{Binding TourGuests, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+        <DataGrid x:Name="TouristsDataGrid" Grid.Row="6" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="120 5 75 10 " CanUserAddRows="False" AutoGenerateColumns="False"  Width="315" ItemsSource="{Binding TourGuests, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="120"/>
-                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="120"/>
-                <DataGridTextColumn Header="Age" Binding="{Binding Age}" Width="60"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="95"/>
+                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="95"/>
+                <DataGridTextColumn Header="Age" Binding="{Binding Age}" Width="55"/>
 
-        <WrapPanel>
-                    <Button Width="228" Height="37" Content="Save reservation" Command="{Binding SaveReservationCommand}" Margin="165,10,0,0" Grid.Column="1"/>
-                    <Button Width="228" Height="37" Content="Use voucher" Command="{Binding UseVoucherCommand}" Margin="65,10,0,0" Grid.Column="1"/>
-        </WrapPanel>
-        
-    </StackPanel>
+                <DataGridTemplateColumn Header="Remove" Visibility="Visible" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="X" Command="{Binding DataContext.RemoveTouristCommand, ElementName=TouristsDataGrid}" 
+                            CommandParameter="{Binding}" HorizontalAlignment="Center">
+                                <Button.ToolTip>
+                                    <ToolTip>
+                                        Remove tourist
+                                    </ToolTip>
+                                </Button.ToolTip>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <Button Background="AntiqueWhite" Width="120" Height="30" Content="Cancel" FontSize="15" FontWeight="Bold" Command="{Binding CancelReservationCommand}" Margin="0,10,50,10" Grid.Column="0" Grid.Row="10" VerticalAlignment="Center" Grid.ColumnSpan="2">
+            <Button.ToolTip>
+                <ToolTip>
+                    Cancel reservation
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
+        <Button Background="AntiqueWhite" Width="120" Height="30" FontSize="15" FontWeight="Bold" Content="Confirm" Command="{Binding SaveReservationCommand}" Margin="0,10,50,10" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" Grid.ColumnSpan="2">
+            <Button.ToolTip>
+                <ToolTip>
+                    Save reservation
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
+        <Button Background="AntiqueWhite" Width="100" Height="25" FontSize="13" FontWeight="DemiBold" Content="Use voucher?" Command="{Binding UseVoucherCommand}" Margin="0,10,50,0" Grid.Column="1" Grid.Row="9" VerticalAlignment="Bottom"  Grid.ColumnSpan="2">
+            <Button.ToolTip>
+                <ToolTip>
+                    Use voucher
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
+    </Grid>
 
 </Window>

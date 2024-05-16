@@ -8,35 +8,22 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
-      d:DesignHeight="740" d:DesignWidth="410"
+      d:DesignHeight="1740" d:DesignWidth="410"
       Title="AccommodationReservationView">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid  Grid.Row="0" Background="Wheat">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" >
-                <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left">
-                    <Image Source ="/Resources/Images/menu.png" Width="70" Height="50"/>
-                </Button>
-            </Grid>
-            <Grid Grid.Column="1" >
-                <TextBlock FontSize="37" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="SemiBold" >Accommodations</TextBlock>
-
-            </Grid>
-
+        <Grid Grid.Row="0" Background="LightGray" >
+            <TextBlock FontSize="39" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="Black" FontWeight="SemiBold" Margin="50,0,0,0" >Accommodations</TextBlock>
         </Grid>
         <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
             <Grid  Grid.Row="1">
-                <Grid Background="Wheat" >
+                <Grid Background="LightGray" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="80"/>
                         <RowDefinition Height="180"/>

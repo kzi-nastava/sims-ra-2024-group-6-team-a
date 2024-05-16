@@ -23,11 +23,16 @@ namespace BookingApp.ViewModels.GuestsViewModel
     {
         public ObservableCollection<AccommodationOwnerDTO> Accommodations { get; set; }
         public Guest Guest { get; set; }
+        public List<String> Cities { get; set; }
+        public List<String> States { get; set; }
+
         public NavigationService NavService { get; set; }
         public GuestAccommodationsViewModel(Guest guest, NavigationService navigation)
         {
             Guest = guest;
             NavService = navigation;
+            States = new List<String>();
+            Cities = new List<String>();
             SearchCommand = new RelayCommand(Execute_SearchCommand);
             SearchResetCommand = new RelayCommand(Execute_SearchResetCommand);
             ReserveCommand = new RelayCommand(Execute_ReserveCommand);
@@ -36,43 +41,79 @@ namespace BookingApp.ViewModels.GuestsViewModel
         }
         public void Update()
         {
+            AddCities();
+            AddStates();
             Accommodations.Clear();
             foreach (Accommodation accommodation in AccommodationService.GetInstance().GetAll())
             {
+                bool hasRenovation= false;
                 Model.Image image = new Model.Image();
                 foreach (Model.Image i in ImageService.GetInstance().GetByEntity(accommodation.Id, Enums.ImageType.Accommodation))
                 {
                     image = i;
                     break;
                 }
-                Accommodations.Add(new AccommodationOwnerDTO(accommodation, LocationService.GetInstance().GetByAccommodation(accommodation), image.Path));
+                foreach (AccommodationRenovation renovation in RenovationService.GetInstance().GetAll())
+                {
+                    if(renovation.AccommodationId== accommodation.Id && DateOnly.FromDateTime(DateTime.Today) <= renovation.EndDate && DateOnly.FromDateTime(DateTime.Today) >= renovation.StartDate)
+                        hasRenovation= true;
+                }
+                    Accommodations.Add(new AccommodationOwnerDTO(accommodation, LocationService.GetInstance().GetByAccommodation(accommodation), image.Path, hasRenovation));
+            }
+        }
+        private void AddCities()
+        {
+            Cities.Clear();
+            if (SelectedState != null) {
+                foreach (Location location in LocationService.GetInstance().GetAll())
+                {
+                    if(SelectedState == location.State)
+                    Cities.Add(location.City);
+                }
+                return;
+            }
+
+            foreach (Location location in LocationService.GetInstance().GetAll())
+            {
+                Cities.Add(location.City);
+            }
+        }  
+        private void AddStates()
+        {
+            foreach (Location location in LocationService.GetInstance().GetAll())
+            {
+                if (!States.Contains(location.State))
+                {
+                    States.Add(location.State);
+                }
             }
         }
         public RelayCommand SearchCommand { get; set; }
         public RelayCommand SearchResetCommand { get; set; }
         public RelayCommand ReserveCommand { get; set; }
-        private string searchCity;
+        private string selectedCity;
         private string searchType;
         private string searchName;
-        private string searchState;
+        private string selectedState;
         private string searchGuestNumber;
         private string searchDaysNumber;
-        public string SearchCity
+        public string SelectedCity
         {
-            get { return searchCity; }
+            get { return selectedCity; }
             set
             {
-                searchCity = value;
+                selectedCity = value;
                 OnPropertyChanged(nameof(filteredData));
             }
         }
-        public string SearchState
+        public string SelectedState
         {
-            get { return searchState; }
+            get { return selectedState; }
             set
             {
-                searchState = value;
+                selectedState = value;
                 OnPropertyChanged(nameof(filteredData));
+                AddCities();
             }
         }
         public string SearchName
@@ -115,11 +156,12 @@ namespace BookingApp.ViewModels.GuestsViewModel
         {
             get
             {
+                AddCities();
                 ObservableCollection<AccommodationOwnerDTO> result = Accommodations;
-                if (!string.IsNullOrEmpty(searchCity))
-                    result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.city.ToLower().Contains(searchCity.ToLower())));
-                if (!string.IsNullOrEmpty(searchState))
-                    result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.State.ToLower().Contains(searchState.ToLower())));
+                if (!string.IsNullOrEmpty(SelectedCity))
+                    result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.city.ToLower().Contains(SelectedCity.ToLower())));
+                if (!string.IsNullOrEmpty(SelectedState))
+                    result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.State.ToLower().Contains(SelectedState.ToLower())));
                 if (!string.IsNullOrEmpty(searchType))
                     result = new ObservableCollection<AccommodationOwnerDTO>(result.Where(a => a.Type.ToString().ToLower().Contains(searchType.ToLower())));
                 if (!string.IsNullOrEmpty(searchName))
@@ -147,17 +189,31 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public void Execute_SearchResetCommand(object obj)
         {
             SearchName = null;
-            SearchState = null;
-            SearchCity = null;
+            SelectedState = null;
+            SelectedCity = null;
             SearchType = null;
             SearchGuestNumber = null;
             SearchDaysNumber = null;
             OnPropertyChanged(nameof(SearchName));
-            OnPropertyChanged(nameof(SearchState));
-            OnPropertyChanged(nameof(SearchCity));
+            OnPropertyChanged(nameof(SelectedState));
+            OnPropertyChanged(nameof(SelectedCity));
             OnPropertyChanged(nameof(SearchType));
             OnPropertyChanged(nameof(SearchGuestNumber));
             OnPropertyChanged(nameof(SearchDaysNumber));
+            AddCities();
+        }
+        private Visibility reserveVisibility;
+        public Visibility ReserveVisibility
+        {
+            get { return reserveVisibility; }
+            set
+            {
+                if (reserveVisibility != value)
+                {
+                    reserveVisibility = value;
+                    OnPropertyChanged(nameof(ReserveVisibility));
+                }
+            }
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName = null)

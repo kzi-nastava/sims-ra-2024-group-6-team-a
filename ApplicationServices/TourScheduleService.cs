@@ -1,15 +1,8 @@
 ﻿using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Model;
-using BookingApp.Observer;
-using BookingApp.Repository;
-using BookingApp.Serializer;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace BookingApp.ApplicationServices
 {
@@ -21,15 +14,6 @@ namespace BookingApp.ApplicationServices
         {
             _scheduleRepository = tourScheduleRepository;
         }
-
-       /* public TourScheduleService()
-        {
-            _scheduleRepository = new TourScheduleRepository();
-            _guestService = new TourGuestService();
-            _reservationService = new TourReservationService();
-        }*/
-
-
         public static TourScheduleService GetInstance()
         {
             return App.ServiceProvider.GetRequiredService<TourScheduleService>();
@@ -79,6 +63,21 @@ namespace BookingApp.ApplicationServices
             return tours;
         }
 
+        public List<TourSchedule> GetFutureSchedulesByUser(User user)
+        {
+            List<TourSchedule> tours = new List<TourSchedule>();
+
+            foreach (TourReservation reservation in TourReservationService.GetInstance().GetAllByUser(user))
+            {
+                TourSchedule tourSchedule = GetById(reservation.TourRealisationId);
+                if (tourSchedule.TourActivity == Resources.Enums.TourActivity.Ready)
+                {
+                    tours.Add(tourSchedule);
+                }
+
+            }
+            return tours;
+        }
         public List<TourSchedule> GetAllFinishedTours(User user)
         {
             List<TourSchedule> finishedTours = new List<TourSchedule>();
@@ -99,6 +98,18 @@ namespace BookingApp.ApplicationServices
             return schedule.TourActivity == Resources.Enums.TourActivity.Finished;
         }
 
+        public List <DateTime> GetAllRealisationDates(int tourId)
+        {
+            List<DateTime> realisationDates = new List<DateTime> ();
+
+            foreach(TourSchedule tourSchedule in _scheduleRepository.GetAllByTourId(tourId))
+            {
+                realisationDates.Add(tourSchedule.Start);
+
+            }
+
+            return realisationDates;
+        }
 
         private bool HasUserAttended(User user, TourSchedule schedule)
         {

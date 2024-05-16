@@ -40,15 +40,12 @@ namespace BookingApp.View
             MainWindowViewModel = new GuideMenuViewModel(this, user);
         }
 
-        private void ShowCreateTourForm(object sender, EventArgs e)
+        
+        private void ToursPageClick(object sender, RoutedEventArgs e)
         {
-            MainWindowViewModel.ShowCreateTourForm();
+            MainWindowViewModel.ToursPageClick();
         }
 
-        private void LiveToursPageEvent(object sender, EventArgs e)
-        {
-            MainWindowViewModel.LiveToursPageEvent(sender, e);        
-        }
 
         private void TourStatisticsPageClick(object sender, EventArgs e)
         {
@@ -61,14 +58,10 @@ namespace BookingApp.View
         }
 
 
-        private void LiveToursPageClick(object sender, RoutedEventArgs e)
-        {
-            MainWindowViewModel.LiveToursPageClick();
-        }
 
-        private void AllToursPageClick(object sender, RoutedEventArgs e)
+        private void TourRequestsPageClick(object sender, RoutedEventArgs e)
         {
-            MainWindowViewModel.AllToursPageClick();
+            MainWindowViewModel.TourRequestsPageClick();
         }
     }
 }

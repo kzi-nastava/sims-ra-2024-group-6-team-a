@@ -12,23 +12,24 @@ using System.Windows.Controls;
 using System.Windows;
 using BookingApp.View;
 using BookingApp.ApplicationServices;
+using System.Windows.Media;
+using System.Net.NetworkInformation;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
     public class GuideMenuViewModel
     {
-        public static ObservableCollection<TourGuideDTO> TodaysTours { get; set; }
-        public TourGuideDTO SelectedTour { get; set; }
         public User LoggedUser { get; set; }
 
         public Frame mainFrame;
 
-        public LiveToursPage liveToursPage;
-        public TourCreationPage tourCreationPage;
+        public ToursPage toursPage; 
+
+       
         public TourStatisticsPage tourStatisticsPage;
-        public AllToursPage allToursPage;
         public ReviewDetailsPage reviewDetailsPage;
         public TourReviewsPage tourReviewPage;
+        public TourRequestsPage tourRequestsPage;
 
         public GuideViewMenu MainWindow { get; set; }
 
@@ -42,65 +43,53 @@ namespace BookingApp.ViewModels.GuideViewModel
             MainWindow = mainWindow;
 
             tourStatisticsPage = new TourStatisticsPage(LoggedUser);
-            tourCreationPage = new TourCreationPage(LoggedUser);
-            liveToursPage = new LiveToursPage(mainFrame, tourStatisticsPage, tourCreationPage, LoggedUser);
-            liveToursPage.tourEnded += UpdateWindows;
-            
-            allToursPage = new AllToursPage(mainFrame, tourCreationPage, LoggedUser);
-            tourReviewPage = new TourReviewsPage(mainFrame, tourCreationPage, LoggedUser);
-            
+            tourReviewPage = new TourReviewsPage(mainFrame, LoggedUser);
+            toursPage = new ToursPage(LoggedUser);
+            tourRequestsPage = new TourRequestsPage(LoggedUser);
+
+
+            ToursPageClick();
         }
 
-        public void UpdateWindows(object sender, EventArgs e)
+        public void ToursPageClick()
         {
-            tourReviewPage.Update();
-            tourStatisticsPage.Update();
+            ResetButtonColors();
+            MainWindow.btnTours.Foreground = Brushes.Black;
+            MainWindow.MainFrame.Content = toursPage;
         }
-
-   
-        public void ShowCreateTourForm()
-        {
-            MainWindow.MainFrame.Content = tourCreationPage;
-        }
-
-        public void LiveToursPageEvent(object sender, EventArgs e)
-        {
-            liveToursPage.Update();
-            tourStatisticsPage.Update();
-            tourReviewPage.Update();
-        }
+       
 
         public void TourStatisticsPageClick()
         {
+            ResetButtonColors();
+            MainWindow.btnStatistics.Foreground = Brushes.Black;
+
             MainWindow.MainFrame.Content = tourStatisticsPage;
         }
 
         public void TourReviewsPageClick()
         {
+            ResetButtonColors();
+            MainWindow.btnReviews.Foreground = Brushes.Black;
             MainWindow.MainFrame.Content = tourReviewPage;
         }
 
-
-        public void LiveToursPageClick()
+        public void TourRequestsPageClick() 
         {
-            List<Tour> tours = TourService.GetInstance().GetAllByUser(LoggedUser);
-            int tourScheduleId = TourScheduleService.GetInstance().FindOngoingTour(tours);
 
-            if (tourScheduleId != 0)
-            {
-                LiveTour liveTour = new LiveTour(tourScheduleId);
-                MainWindow.MainFrame.Content = liveTour;
-                liveTour.TourEndedMainWindow += LiveToursPageEvent;
-            }
-            else
-            {
-                MainWindow.MainFrame.Content = liveToursPage;
-            }
+            ResetButtonColors();
+            MainWindow.btnRequests.Foreground = Brushes.Black;
+
+            MainWindow.MainFrame.Content = tourRequestsPage;
+
         }
 
-        public void AllToursPageClick()
+        private void ResetButtonColors()
         {
-            MainWindow.MainFrame.Content = allToursPage;
+            MainWindow.btnRequests.Foreground = Brushes.DarkGray;  
+            MainWindow.btnTours.Foreground = Brushes.DarkGray;
+            MainWindow.btnReviews.Foreground = Brushes.DarkGray;
+            MainWindow.btnStatistics.Foreground = Brushes.DarkGray;
         }
     }
 }

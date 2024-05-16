@@ -1,4 +1,5 @@
 ﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.View.TouristView;
 using System;
@@ -13,15 +14,17 @@ namespace BookingApp.ViewModels.TouristViewModel
     public class KeypointsTrackingViewModel
     {
         public static ObservableCollection<Checkpoint> Checkpoints { get; set; }
+        public static ObservableCollection<TourGuestDTO> Guests { get; set; }
 
         public Tour SelectedTour { get; set; }
-        public TourSchedule SelectedTourSchedule { get; set; }
-        public KeypointsTrackingViewModel( int tourScheduleId)
+        public TourScheduleDTO SelectedTourSchedule { get; set; }
+        public KeypointsTrackingViewModel( TourScheduleDTO tourSchedule)
         {
-            SelectedTourSchedule = TourScheduleService.GetInstance().GetById(tourScheduleId);
+            SelectedTourSchedule = tourSchedule;
             SelectedTour = TourService.GetInstance().GetById(SelectedTourSchedule.TourId);
 
             Checkpoints = new ObservableCollection<Checkpoint>();
+            Guests = new ObservableCollection<TourGuestDTO>();
 
             Update();
         }
@@ -29,11 +32,15 @@ namespace BookingApp.ViewModels.TouristViewModel
         public void Update()
         {
             Checkpoints.Clear();
-
             foreach (Checkpoint checkpoint in CheckpointService.GetInstance().GetFinishedCheckpoints(SelectedTourSchedule))
             {
-
                 Checkpoints.Add(checkpoint);
+            }
+
+            Guests.Clear();
+            foreach(TourGuests guest in TourGuestService.GetInstance().GetAllByTourId(SelectedTourSchedule.Id))
+            {
+                Guests.Add(new TourGuestDTO(guest));
             }
 
         }

@@ -129,65 +129,59 @@ namespace BookingApp.View
 
         private void SelectFirstAccommodation()
         {
-            if (vm.SelectedAccommodation == null)
-            {
+
                 vm.SelectedGuestReview = null;
                 vm.SelectedReservation = null;
                 vm.SelectedChange = null;
-                vm.SelectedAccommodation = vm.Accommodations.First();
+                
                 AccommodationsList.SelectedIndex = 0;
                 AccommodationsList.UpdateLayout();
                 AccommodationsList.Focus();
                
 
-            }
         }
 
         private void SelectFirstReview()
         {
-            if (vm.SelectedGuestReview == null)
-            {
+
                 vm.SelectedAccommodation = null;
                 vm.SelectedReservation = null;
                 vm.SelectedChange = null;
-                vm.SelectedGuestReview = vm.GuestReviews.First();
+                
                 ReviewsList.SelectedIndex = 0;
                 ReviewsList.UpdateLayout();
                 ReviewsList.Focus();
                 
-            }
-
+     
         }
 
         private void SelectFirstReservation()
         {
-            if (vm.SelectedReservation == null)
-            {
+ 
                 vm.SelectedGuestReview = null;
                 vm.SelectedAccommodation = null;
                 vm.SelectedChange = null;
-                vm.SelectedReservation = vm.Reservations.First();
+                
                 ReservationsList.SelectedIndex = 0;
                 ReservationsList.UpdateLayout();
                 ReservationsList.Focus();
 
-            }
+            
         }
 
 
         private void SelectFirstResChange()
         {
-            if (vm.SelectedChange == null)
-            {
+
                 vm.SelectedGuestReview = null;
                 vm.SelectedAccommodation = null;
                 vm.SelectedReservation = null;
-                vm.SelectedChange = vm.ReservationChanges.First();
-                ReservationChangesGrid.SelectedIndex = 0;
-                ReservationChangesGrid.UpdateLayout();
-                ReservationChangesGrid.Focus();
+                
+                ChangesList.SelectedIndex = 0;
+                ChangesList.UpdateLayout();
+                ChangesList.Focus();
 
-            }
+            
         }
 
 

@@ -7,14 +7,23 @@
       xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Loaded="LoadTodaysTours"
       Title="LiveToursPage">
 
-    <Grid Background="White">
+    <Grid >
+        <Grid.RowDefinitions>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#F6F5F2"  Offset="0.0"/>
+                <GradientStop Color="#F3D0D7" Offset="1.5"/>
+            </RadialGradientBrush>
+        </Grid.Background>
         <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto" >
             <ItemsControl ItemsSource ="{Binding TodaysTours}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <components:TourCard  x:Name="card" TourEndedCard="TourEndedEventHandler" />
+                        <components:TourCard  x:Name="card"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>

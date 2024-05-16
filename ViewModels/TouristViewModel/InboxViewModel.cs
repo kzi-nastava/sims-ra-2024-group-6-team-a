@@ -2,6 +2,7 @@
 using BookingApp.Domain.Model;
 using BookingApp.DTOs;
 using BookingApp.Model;
+using BookingApp.Resources;
 using BookingApp.View.TouristView;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,9 @@ namespace BookingApp.ViewModels.TouristViewModel
 {
     public class InboxViewModel
     {
-        public static  ObservableCollection<TouristNotificationDTO> Notifications { get; set; }
+        public  ObservableCollection<TouristNotificationDTO> Notifications { get; set; }
+        public ObservableCollection<TouristNotificationDTO> RequestNotifications { get; set; }
+        public ObservableCollection<TouristNotificationDTO> StatisticTourNotifications { get; set; }
         public User LoggedUser { get; set; }
 
         public  InboxViewModel(User user) 
@@ -23,7 +26,8 @@ namespace BookingApp.ViewModels.TouristViewModel
             LoggedUser = user;
 
             Notifications = new ObservableCollection<TouristNotificationDTO>();
-
+            RequestNotifications = new ObservableCollection<TouristNotificationDTO>();
+            StatisticTourNotifications = new ObservableCollection<TouristNotificationDTO>();
 
             Update();
         }
@@ -31,13 +35,28 @@ namespace BookingApp.ViewModels.TouristViewModel
         private void Update()
         {
             Notifications.Clear();
-            
-            foreach(TouristNotification notification in TouristNotificationService.GetInstance().GetAll())
+            StatisticTourNotifications.Clear();
+            RequestNotifications.Clear();
+
+            foreach (TouristNotification notification in TouristNotificationService.GetInstance().GetAllByUser(LoggedUser.Id))
             {
-                if (notification.UserId == LoggedUser.Id)
-                    Notifications.Add(new TouristNotificationDTO(notification));
+                switch (notification.Type)
+                {
+                    case Enums.NotificationType.Attendance:
+                        Notifications.Add(new TouristNotificationDTO(notification));
+                        break;
+                    case Enums.NotificationType.AcceptedRequest:
+                        RequestNotifications.Add(new TouristNotificationDTO(notification));
+                        break;
+                    case Enums.NotificationType.NewTour:
+                        StatisticTourNotifications.Add(new TouristNotificationDTO(notification));
+                        break;                    
+                }
+                
 
             }
+
+
         }
 
     }
