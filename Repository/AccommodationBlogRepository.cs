@@ -67,15 +67,6 @@ namespace BookingApp.Repository
             subject.NotifyObservers();
         }
 
-        public void Delete(int id)
-        {
-            _blogs = _serializer.FromCSV(FilePath);
-            AccommodationBlog founded = _blogs.Find(c => c.Id == id);
-            _blogs.Remove(founded);
-            _serializer.ToCSV(FilePath, _blogs);
-            subject.NotifyObservers();
-        }
-
         public AccommodationBlog GetById(int id)
         {
             _blogs = _serializer.FromCSV(FilePath);
