@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Serializer;
 
-namespace BookingApp.Model.OwnerModels
+namespace BookingApp.Model
 {
     public class AccommodationBlog : ISerializable
     {
