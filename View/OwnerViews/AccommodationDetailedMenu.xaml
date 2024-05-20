@@ -233,6 +233,10 @@
                 <TextBlock Foreground="DarkBlue" Text="{Binding BestYear}" FontSize="24"></TextBlock>
             </StackPanel>
 
+            <StackPanel Orientation="Horizontal" Margin="10,2,2,2">
+
+                <TextBlock Foreground="DarkBlue" Text="{Binding Suggestion}" FontSize="28"></TextBlock>
+            </StackPanel>
 
         </StackPanel>
 

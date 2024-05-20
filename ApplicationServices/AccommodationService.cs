@@ -146,6 +146,57 @@ namespace BookingApp.ApplicationServices
             return monthlyStats;
         }
 
+        public String GetSuggestionForAccommodation(int accommodationId)
+        {
+            String suggestion = "This is an OK location.";
+
+
+            double maxValue = 0;
+            double minValue = 1.0;
+
+            int maxId = 0;
+            int minId = 0;
+
+            int ownerId = 0;
+            foreach(Accommodation acc in AccommodationRepository.GetAll())
+            {
+                if (accommodationId == acc.Id)
+                    ownerId = acc.OwnerId;
+            }
+
+            foreach (Accommodation acc in AccommodationRepository.GetByOwnerId(ownerId))
+            {
+                double curValue = 0;
+                double resDays = 0;
+                foreach (AccommodationReservation res in AccommodationReservationService.GetInstance().GetByAccommodationId(acc.Id))
+                {
+                    resDays  = resDays +  ((res.CheckOutDate.DayNumber - res.CheckInDate.DayNumber) * res.GuestNumber);
+
+                }
+
+                curValue = resDays / (365 * acc.MaxGuests);
+
+                if(curValue >= maxValue)
+                {
+                    maxValue = curValue;
+                    maxId = acc.Id;
+                }
+                else if(curValue < minValue)
+                {
+                    minValue = curValue;
+                    minId = acc.Id;
+                }
+            }
+
+            if (accommodationId == maxId)
+                return "This is a great location!";
+            else if (accommodationId == minId)
+                return "This is a rarely visited location.";
+
+            return suggestion;
+        }
+
+
         public int GetChangesCountForAccommodation(int accId,int year)
         {
             int total = 0;

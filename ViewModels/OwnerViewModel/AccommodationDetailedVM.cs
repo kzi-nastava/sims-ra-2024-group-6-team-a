@@ -85,6 +85,21 @@ namespace BookingApp.ViewModels
             }
         }
 
+        public String suggestion;
+
+        public String Suggestion
+        {
+            get { return suggestion; }
+
+            set
+            {
+                if(suggestion != value)
+                {
+                    suggestion = value;
+                }
+            }
+        }
+
 
         public AccommodationOwnerDTO Accommodation { get; set; }
         public static List<Model.Image> imageModels { get; set; }
@@ -103,6 +118,7 @@ namespace BookingApp.ViewModels
             imageModels = images;
             this.Reservations = Reservations;
             Renovations = new ObservableCollection<AccommodationRenovation>();
+            Suggestion = AccommodationService.GetInstance().GetSuggestionForAccommodation(accommodation.Id);
 
 
 
@@ -159,6 +175,7 @@ namespace BookingApp.ViewModels
 
 
         }
+
 
         public void CalculateRating()
         {
