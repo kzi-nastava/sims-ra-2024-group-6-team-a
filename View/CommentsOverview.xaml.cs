@@ -25,7 +25,7 @@ namespace BookingApp.View
             DataContext = this;
             LoggedInUser = user;
             _repository = new CommentRepository();
-            Comments = new ObservableCollection<Comment>(_repository.GetByUser(user));
+       
         }
 
         private void ShowCreateCommentForm(object sender, RoutedEventArgs e)

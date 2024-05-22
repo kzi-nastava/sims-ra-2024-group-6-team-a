@@ -72,5 +72,16 @@ namespace BookingApp.Repository
             _blogs = _serializer.FromCSV(FilePath);
             return _blogs.Find(c => c.Id == id);
         }
+
+        public AccommodationBlog Update(AccommodationBlog AccommodationBlog)
+        {
+            _blogs = _serializer.FromCSV(FilePath);
+            AccommodationBlog current = _blogs.Find(c => c.Id == AccommodationBlog.Id);
+            int index = _blogs.IndexOf(current);
+            _blogs.Remove(current);
+            _blogs.Insert(index, AccommodationBlog);
+            _serializer.ToCSV(FilePath, _blogs);
+            return AccommodationBlog;
+        }
     }
 }

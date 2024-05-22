@@ -78,7 +78,7 @@ namespace BookingApp.View
             if(SelectedComment != null)
             {
                 SelectedComment.Text = Text;
-                SelectedComment.CreationTime = DateTime.Now;
+                
                 Comment updatedComment = _repository.Update(SelectedComment);
                 if (updatedComment != null)
                 {
@@ -88,12 +88,7 @@ namespace BookingApp.View
                     CommentsOverview.Comments.Insert(index, updatedComment);
                 }
             } 
-            else
-            {
-                Comment newComment = new Comment(DateTime.Now, Text, LoggedInUser);
-                Comment savedComment = _repository.Save(newComment);
-                CommentsOverview.Comments.Add(savedComment);
-            }
+
             
             Close();
         }

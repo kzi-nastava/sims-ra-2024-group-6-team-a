@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -24,6 +25,8 @@ namespace BookingApp.ViewModels
         public ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
         public ObservableCollection<AccommodationStatisticDTO> Statistics { get; set; }
         public ObservableCollection<AccommodationRenovation> Renovations { get; set; }
+
+        public ObservableCollection<AccommodationBlog> Blogs {  get; set; }
 
         private string mainImage;
 
@@ -107,6 +110,7 @@ namespace BookingApp.ViewModels
         public AccommodationRenovation SelectedRenovation { get; set; }
         public ReservationOwnerDTO SelectedReservation { get; set; }
         public AccommodationStatisticDTO SelectedStatistic { get; set; }
+        public AccommodationBlog SelectedBlog { get; set; }
 
         public AccommodationDetailedVM(List<Model.Image> images, ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation) 
         {
@@ -114,6 +118,7 @@ namespace BookingApp.ViewModels
             this.MainImage = images[0].Path;
             Images = new ObservableCollection<ImageDTO>();
             Statistics = new ObservableCollection<AccommodationStatisticDTO>();
+            Blogs = new ObservableCollection<AccommodationBlog>();
 
             imageModels = images;
             this.Reservations = Reservations;
@@ -151,6 +156,7 @@ namespace BookingApp.ViewModels
             Images.Clear();
             Statistics.Clear();
             Renovations.Clear();
+            Blogs.Clear();
 
             for(int i = 0;i < imageModels.Count;i = i +2)
             {
@@ -170,6 +176,12 @@ namespace BookingApp.ViewModels
             {
                 if (ren.AccommodationId == Accommodation.Id)
                     Renovations.Add(ren);
+            }
+
+            foreach (AccommodationBlog blog in AccommodationBlogService.GetInstance().GetAll())
+            {
+                if(blog.AccommodationId == Accommodation.Id)
+                    Blogs.Add(blog);
             }
 
 
@@ -297,6 +309,13 @@ namespace BookingApp.ViewModels
             }
 
             AccommodationService.GetInstance().Delete(Accommodation.Id);
+        }
+
+        internal void OpenBlog()
+        {
+            BlogView blogView = new BlogView(SelectedBlog,mainImage,OwnerService.GetInstance().GetOwnerNameByAccommodation(Accommodation.Id));
+            blogView.ShowDialog();
+            Update();
         }
     }
 }

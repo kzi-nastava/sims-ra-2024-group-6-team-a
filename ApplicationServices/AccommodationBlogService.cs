@@ -1,4 +1,5 @@
 ﻿using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Model;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,34 @@ namespace BookingApp.ApplicationServices
             AccommodationBlogRepository = accommodationBlogRepository;
         }
 
-        public static AccommodationService GetInstance()
+        public static AccommodationBlogService GetInstance()
         {
-            return App.ServiceProvider.GetRequiredService<AccommodationService>();
+            return App.ServiceProvider.GetRequiredService<AccommodationBlogService>();
+        }
+
+        public List<AccommodationBlog> GetAll()
+        {
+            return AccommodationBlogRepository.GetAll();
+        }
+
+        public AccommodationBlog Save(AccommodationBlog AccommodationBlog)
+        {
+            return AccommodationBlogRepository.Save(AccommodationBlog);
+        }
+
+        public void Delete(AccommodationBlog accommodationBlog)
+        {
+            AccommodationBlogRepository.Delete(accommodationBlog);
+        }
+
+        public AccommodationBlog GetById(int id)
+        {
+            return AccommodationBlogRepository.GetById(id);
+        }
+
+        public AccommodationBlog Update(AccommodationBlog AccommodationBlog)
+        {
+            return AccommodationBlogRepository.Update(AccommodationBlog);
         }
 
     }

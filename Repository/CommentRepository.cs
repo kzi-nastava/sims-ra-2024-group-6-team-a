@@ -1,23 +1,30 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.RepositoryInterfaces;
+using BookingApp.Model;
+using BookingApp.Observer;
 using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BookingApp.Repository
 {
-    public class CommentRepository
+    public class CommentRepository : ICommentRepository
     {
 
         private const string FilePath = "../../../Resources/Data/comments.csv";
 
         private readonly Serializer<Comment> _serializer;
+        private readonly List<IObserver> _observers;
+
+        public Subject subject;
 
         private List<Comment> _comments;
 
         public CommentRepository()
         {
+            _observers = new List<IObserver>();
             _serializer = new Serializer<Comment>();
             _comments = _serializer.FromCSV(FilePath);
+            subject = new Subject();
         }
 
         public List<Comment> GetAll()
@@ -31,6 +38,7 @@ namespace BookingApp.Repository
             _comments = _serializer.FromCSV(FilePath);
             _comments.Add(comment);
             _serializer.ToCSV(FilePath, _comments);
+            subject.NotifyObservers();
             return comment;
         }
 
@@ -50,6 +58,7 @@ namespace BookingApp.Repository
             Comment founded = _comments.Find(c => c.Id == comment.Id);
             _comments.Remove(founded);
             _serializer.ToCSV(FilePath, _comments);
+            subject.NotifyObservers();
         }
 
         public Comment Update(Comment comment)
@@ -60,13 +69,14 @@ namespace BookingApp.Repository
             _comments.Remove(current);
             _comments.Insert(index, comment);       // keep ascending order of ids in file 
             _serializer.ToCSV(FilePath, _comments);
+            subject.NotifyObservers();
             return comment;
         }
 
-        public List<Comment> GetByUser(User user)
+        public List<Comment> GetByBlog(AccommodationBlog blog)
         {
             _comments = _serializer.FromCSV(FilePath);
-            return _comments.FindAll(c => c.User.Id == user.Id);
+            return _comments.FindAll(c => c.BlogId == blog.Id);
         }
     }
 }

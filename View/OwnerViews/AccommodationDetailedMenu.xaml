@@ -204,6 +204,51 @@
                 <TabItem.Header>
                     <TextBlock><Underline>B</Underline>logs</TextBlock>
                 </TabItem.Header>
+
+                <Grid>
+                    <ListBox Keyboard.KeyDown="BlogList_KeyDown"  x:Name="BlogsList" SelectedItem="{Binding SelectedBlog}" ItemsSource="{Binding Blogs}" Grid.Row="1" Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" MaxHeight="800" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                        <ListBox.ItemTemplate>
+
+                            <DataTemplate>
+                                <Border  CornerRadius="3" BorderBrush="DeepSkyBlue" BorderThickness="2"  Width="700" Margin="0,0,0,-4">
+                                    <Grid>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="690" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="35"></RowDefinition>
+                                            <RowDefinition Height="40"></RowDefinition>
+                                            <RowDefinition Height="35"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" FontSize="27" Margin="3,0,0,0" Foreground="DarkSlateBlue" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+
+                                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
+                                            
+                                            <TextBlock  Text="Written by " Margin="2,7,2,2" FontSize="22"  Foreground="SlateBlue" HorizontalAlignment="Left"></TextBlock>
+                                            
+                                            <TextBlock  Text="{Binding Username}" Margin="2,7,2,2" FontSize="22" Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                        </StackPanel>
+
+
+                                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2">
+                                            <Image Source="/Resources/Images/reservation_img.png" Width="32" Height="32"/>
+                                            <TextBlock  Text="{Binding CheckIn,StringFormat='dd MMMM,yyyy'}" Margin="2,7,2,2" FontSize="18"  Foreground="SlateBlue" HorizontalAlignment="Left"></TextBlock>
+                                            <Image Source="/Resources/Images/right-arrow.png" Margin="6,1,6,5" Width="25" Height="25" VerticalAlignment="Bottom"></Image>
+                                            <TextBlock  Text="{Binding CheckOut,StringFormat='dd MMMM,yyyy'}" Margin="2,7,2,2" FontSize="18" Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
+                                        </StackPanel>
+
+
+
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
             </TabItem>
             
         </TabControl>

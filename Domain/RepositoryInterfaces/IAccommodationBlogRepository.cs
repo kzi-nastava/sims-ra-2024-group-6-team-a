@@ -13,6 +13,8 @@ namespace BookingApp.Domain.RepositoryInterfaces
         public AccommodationBlog Save(AccommodationBlog AccommodationBlog);
         public void Delete(AccommodationBlog AccommodationBlog);
         public AccommodationBlog GetById(int id);
+        public AccommodationBlog Update(AccommodationBlog AccommodationBlog);
+
 
     }
 }

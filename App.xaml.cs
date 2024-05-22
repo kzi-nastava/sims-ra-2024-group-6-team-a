@@ -72,6 +72,7 @@ namespace BookingApp
             services.AddSingleton<ITourRequestRepository, TourRequestRepository>();
             services.AddSingleton<IGuideRepository,GuideRepository>();
             services.AddSingleton<IAccommodationBlogRepository, AccommodationBlogRepository>();
+            services.AddSingleton<ICommentRepository, CommentRepository>();
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -103,6 +104,7 @@ namespace BookingApp
             services.AddSingleton<TourRequestService>();
             services.AddSingleton<GuideService>();
             services.AddSingleton<AccommodationBlogService>();
+            services.AddSingleton<CommentService>();
         }
 
 

@@ -6,31 +6,44 @@ namespace BookingApp.Model
     public class Comment : ISerializable
     {
         public int Id { get; set; }
-        public DateTime CreationTime { get; set; }
-        public string Text { get; set; }
-        public User User { get; set; }
+        public int BlogId { get; set; }
+        public String Text { get; set; }
+        public String Username { get; set; }
+
+        public int Ratio { get; set; }
+
+        public bool Reported { get; set; }
+
+        public String Status { get; set; }
 
         public Comment() { }
 
-        public Comment(DateTime creationTime, string text, User user)
-        {
-            CreationTime = creationTime;
+        public Comment(int blogId, String text, String user, int ratio,bool reported,String status)
+        {   
+            BlogId = blogId;
             Text = text;
-            User = user;
+            Username = user;
+            Ratio = ratio;
+            Reported = reported;
+            Status = status;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), CreationTime.ToString(), Text, User.Id.ToString() };
+            string[] csvValues = { Id.ToString(), BlogId.ToString(), Text, Username,Ratio.ToString(),Reported.ToString(),Status };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            CreationTime = Convert.ToDateTime(values[1]);
+            BlogId = Convert.ToInt32(values[1]);
             Text = values[2];
-            User = new User() { Id = Convert.ToInt32(values[3]) };
+            Username = values[3];
+            Ratio = Convert.ToInt32(values[4]);
+            Reported = Boolean.Parse(values[5]);
+            Status = values[6];
+
         }
     }
 }

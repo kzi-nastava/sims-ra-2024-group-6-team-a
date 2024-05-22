@@ -70,6 +70,13 @@ namespace BookingApp.ApplicationServices
             return OwnerRepository.GetAll();
         }
 
+        public String GetOwnerNameByAccommodation(int accommodationId)
+        {
+            Accommodation accommodation = AccommodationService.GetInstance().GetAll().Find(a => a.Id == accommodationId);
+            int ownerId = accommodation.OwnerId;
+            return OwnerRepository.GetAll().Find(o => o.Id == ownerId).Name;
+        }
+
 
     }
 }

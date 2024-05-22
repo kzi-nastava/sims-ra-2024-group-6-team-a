@@ -165,5 +165,17 @@ namespace BookingApp.View
                 }
             }
         }
+
+        private void BlogList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (Tabs.SelectedItem == BlogsTab && ViewModel.SelectedBlog != null)
+                {
+                    ViewModel.OpenBlog();
+                }
+
+            }
+        }
     }
 }
