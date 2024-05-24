@@ -38,7 +38,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             SimpleRequests.Clear();
             foreach(TourRequest request in TourRequestService.GetInstance().GetAll())
             {
-                if (request.TouristId == LoggedUser.Id)
+                if (request.TouristId == LoggedUser.Id && request.ComplexRequestId == -1)
                     SimpleRequests.Add(new SimpleRequestDTO(request, LocationService.GetInstance().GetById(TourRequestService.GetInstance().GetById(request.Id).LocationId), LanguageService.GetInstance().GetById(TourRequestService.GetInstance().GetById(request.Id).LanguageId)));
             }
         }
