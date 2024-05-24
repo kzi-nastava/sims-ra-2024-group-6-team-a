@@ -56,7 +56,7 @@ namespace BookingApp.ApplicationServices
         }
         public void MakeTourRequest(SimpleRequestDTO request, List<TourGuestDTO> guests, User user)
         {
-            TourRequest simpleRequest = new TourRequest(request.locationId, request.languageId, request.Description, request.Start, request.End, request.TouristId, request.Status);
+            TourRequest simpleRequest = new TourRequest(request.locationId, request.languageId, request.Description, request.Start, request.End, request.TouristId, request.Status, request.ComplexRequestId);
             Save(simpleRequest);
             SaveRequestGuests(simpleRequest.Id, guests, user);
         }
@@ -77,6 +77,11 @@ namespace BookingApp.ApplicationServices
         public TourRequest Update(TourRequest request)
         {
             return _simpleRequestRepository.Update(request);
+        }
+
+        public List<TourRequest> GetAllByComplexRequest(int complexRequestId)
+        {
+            return GetAll().Where(r => r.ComplexRequestId == complexRequestId).ToList();
         }
         public TourRequest GetById(int id)
         {

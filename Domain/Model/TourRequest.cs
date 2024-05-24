@@ -20,11 +20,12 @@ namespace BookingApp.Domain.Model
         public DateOnly EndDate { get; set; }
         public int TouristId { get; set; }
         public Enums.RequestStatus Status { get; set; }
+        public int ComplexRequestId { get; set; }
 
         
         public TourRequest() { }
 
-        public TourRequest(int locationId, int languageId, string description, DateOnly startDate, DateOnly endDate, int touristId, Enums.RequestStatus status)
+        public TourRequest(int locationId, int languageId, string description, DateOnly startDate, DateOnly endDate, int touristId, Enums.RequestStatus status, int complexRequestId)
         {
             LocationId = locationId;
             LanguageId = languageId;
@@ -33,10 +34,11 @@ namespace BookingApp.Domain.Model
             EndDate = endDate;
             TouristId = touristId;
             Status = status;
+            ComplexRequestId = complexRequestId;
         }
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), LocationId.ToString(), LanguageId.ToString(), Description, StartDate.ToString(), EndDate.ToString(), TouristId.ToString(), Status.ToString() };
+            string[] csvValues = { Id.ToString(), LocationId.ToString(), LanguageId.ToString(), Description, StartDate.ToString(), EndDate.ToString(), TouristId.ToString(), Status.ToString(), ComplexRequestId.ToString()};
             return csvValues;
         }
 
@@ -50,6 +52,7 @@ namespace BookingApp.Domain.Model
             EndDate = DateOnly.Parse(values[5]);
             TouristId = Convert.ToInt32(values[6]);
             Status = (Enums.RequestStatus)Enum.Parse(typeof(Enums.RequestStatus), values[7]);
+            ComplexRequestId = Convert.ToInt32(values[8]);
         }
     }
 }
