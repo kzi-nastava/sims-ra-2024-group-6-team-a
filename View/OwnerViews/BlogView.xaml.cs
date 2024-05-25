@@ -41,5 +41,18 @@ namespace BookingApp.View.OwnerViews
                 ViewModel.ConfirmComment(NewComment.Text);
             }
         }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape) 
+            {
+                Close();
+            }
+            else if(e.Key == Key.Enter)
+            {
+                ViewModel.CommentDetailed();
+
+            }
+        }
     }
 }

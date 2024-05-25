@@ -9,8 +9,10 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="200"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="160"></RowDefinition>
+            <RowDefinition Height="520"></RowDefinition>
+            <RowDefinition Height="40">
+            </RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -33,6 +35,15 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/close-acc.png" Width="32" Height="32"/>
                     <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0"><Underline>C</Underline>lose Accommodation</TextBlock>
+                    <Separator/>
+                </StackPanel>
+
+            </Button>
+
+            <Button Click="Pdf_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Images/pdf_report.png" Width="28" Height="28"/>
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0"><Underline>P</Underline>DF report</TextBlock>
                     <Separator/>
                 </StackPanel>
 
@@ -264,19 +275,18 @@
                 <TextBlock Margin="10,0,2,6" Text="{Binding Accommodation.Type}" 
                          Foreground="DarkBlue" FontSize="24"></TextBlock>
             </StackPanel>
- 
+
 
             <StackPanel Orientation="Horizontal" Margin="10,2,2,2">
 
                 <TextBlock Foreground="DarkBlue" FontSize="24" Text="Guest rating: "></TextBlock>
-                <TextBlock Foreground="{Binding RatingColor}" Text="{Binding GuestRating}" FontSize="24"></TextBlock>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="10,2,2,2">
-
-                <TextBlock Foreground="DarkBlue" FontSize="24" Text="Best year: "></TextBlock>
+                <TextBlock Foreground="{Binding RatingColor}" Text="{Binding GuestRating}" FontSize="24" Margin="0,0,4,0"></TextBlock>
+                <TextBlock Foreground="DarkBlue" FontSize="24" Text="Best year: " Margin="10,0,0,0"></TextBlock>
                 <TextBlock Foreground="DarkBlue" Text="{Binding BestYear}" FontSize="24"></TextBlock>
+
             </StackPanel>
+
+        
 
             <StackPanel Orientation="Horizontal" Margin="10,2,2,2">
 
@@ -286,31 +296,36 @@
         </StackPanel>
 
 
-        <ListBox x:Name="ImagesList" ItemsSource="{Binding Images}" Grid.Column="1" Grid.Row="2" ScrollViewer.CanContentScroll="False" MaxWidth="720">
-            
+        
+            <ListBox x:Name="ImagesList" ItemsSource="{Binding Images}" Grid.Column="1" Grid.Row="2" ScrollViewer.CanContentScroll="False" MaxWidth="720">
 
-            <ListBox.ItemTemplate>
-                <DataTemplate>
 
-                    <Grid Margin="-2,-2,-2,-2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="330"></ColumnDefinition>
-                            <ColumnDefinition Width="330"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="300"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        
-                        <Image Grid.Column="0" Grid.Row="0" Margin="-3" Source="{Binding LeftPath}" Stretch="Fill"/>
-                        <Image Grid.Column="1" Grid.Row="0" Margin="-3" Source="{Binding RightPath}" Stretch="fill"/>
-                    </Grid>
+                        <Grid Margin="-2,-2,-2,-2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="330"></ColumnDefinition>
+                                <ColumnDefinition Width="330"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
-                
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="300"></RowDefinition>
+                            </Grid.RowDefinitions>
 
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                            <Image Grid.Column="0" Grid.Row="0" Margin="-3" Source="{Binding LeftPath}" Stretch="Fill"/>
+                            <Image Grid.Column="1" Grid.Row="0" Margin="-3" Source="{Binding RightPath}" Stretch="fill"/>
+                        </Grid>
+
+
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <TextBlock Grid.Column="1" Grid.Row="3" Margin="10,3,3,3" FontSize="20"  Foreground="SlateBlue">Press "I" to choose images</TextBlock>
+
+        
 
 
     </Grid>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.OwnerViews"
         mc:Ignorable="d"
-        Title="Blog" Height="800" Width="700" WindowStartupLocation="CenterScreen">
+        Title="Blog" Height="800" Width="700" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
     <Grid>
         <StackPanel Orientation="Vertical">
             <Grid>
@@ -41,10 +41,10 @@
                     <TextBlock  Text="{Binding Blog.CheckOut,StringFormat='dd MMMM,yyyy'}" Margin="2,7,2,2" FontSize="18" Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
                 </StackPanel>
 
-                <Button Click="ReportClick" Grid.Column="1" Grid.Row="3" Margin="3,3,350,3">
+                <Button Click="ReportClick" Grid.Column="1" Grid.Row="3" Margin="3,3,350,3" Background="Azure" >
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Resources/Images/renovation.png" Width="32" Height="32"/>
-                        <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0"><Underline>F</Underline>lag as fraud</TextBlock>
+                        <Image Source="/Resources/Images/fraud.png" Width="26" Height="26"/>
+                        <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">Flag as fraud</TextBlock>
                         <Separator/>
                     </StackPanel>
                 </Button>
@@ -62,7 +62,7 @@
             <TextBlock Margin="2,2,2,2" Foreground="DarkBlue" FontSize="25" HorizontalAlignment="Center">Comments</TextBlock>
 
             <Border>
-                <ListBox  x:Name="CommentsList" ItemsSource="{Binding Comments}"  Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" Height="300" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <ListBox Keyboard.KeyDown="Window_KeyDown" SelectedItem="{Binding SelectedComment}"  x:Name="CommentsList" ItemsSource="{Binding Comments}"  Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" Height="300" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
                     <ListBox.ItemTemplate>
 
                         <DataTemplate>
@@ -74,7 +74,9 @@
                                         <Rectangle Width="10" Height="2" Fill="DeepSkyBlue" Margin="0,0,0,-1" VerticalAlignment="Center" />
                                         <TextBlock Margin="3,3,3,3" Text="{Binding Status}" FontSize="24"></TextBlock>
                                         <Rectangle Width="1" Height="30" Fill="DeepSkyBlue" Margin="2,0" VerticalAlignment="Bottom" />
-                                            <TextBlock Margin="3,3,3,3" Text="{Binding Ratio}" FontSize="24"></TextBlock>
+                                        <TextBlock Margin="3,3,3,3" Text="Reports: " FontSize="24" Foreground="Red"></TextBlock>
+
+                                        <TextBlock Margin="3,3,3,3" Text="{Binding Ratio}" FontSize="24" Foreground="Red"></TextBlock>
                                         </StackPanel>
 
 

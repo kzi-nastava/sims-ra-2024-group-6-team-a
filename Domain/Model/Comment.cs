@@ -12,25 +12,25 @@ namespace BookingApp.Model
 
         public int Ratio { get; set; }
 
-        public bool Reported { get; set; }
+        
 
         public String Status { get; set; }
 
         public Comment() { }
 
-        public Comment(int blogId, String text, String user, int ratio,bool reported,String status)
+        public Comment(int blogId, String text, String user, int ratio,String status)
         {   
             BlogId = blogId;
             Text = text;
             Username = user;
             Ratio = ratio;
-            Reported = reported;
+           
             Status = status;
         }
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), BlogId.ToString(), Text, Username,Ratio.ToString(),Reported.ToString(),Status };
+            string[] csvValues = { Id.ToString(), BlogId.ToString(), Text, Username,Ratio.ToString(),Status };
             return csvValues;
         }
 
@@ -41,8 +41,8 @@ namespace BookingApp.Model
             Text = values[2];
             Username = values[3];
             Ratio = Convert.ToInt32(values[4]);
-            Reported = Boolean.Parse(values[5]);
-            Status = values[6];
+           
+            Status = values[5];
 
         }
     }

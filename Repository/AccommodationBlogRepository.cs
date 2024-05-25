@@ -83,5 +83,6 @@ namespace BookingApp.Repository
             _serializer.ToCSV(FilePath, _blogs);
             return AccommodationBlog;
         }
+
     }
 }

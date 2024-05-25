@@ -48,5 +48,17 @@ namespace BookingApp.ApplicationServices
             return AccommodationBlogRepository.Update(AccommodationBlog);
         }
 
+        public bool ExistsBlogWithinAccommodation(Accommodation accommodation)
+        {
+            foreach(AccommodationBlog accommodationBlog in AccommodationBlogRepository.GetAll())
+            {
+                if(accommodationBlog.AccommodationId == accommodation.Id)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

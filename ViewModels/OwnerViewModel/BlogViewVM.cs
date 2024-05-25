@@ -15,6 +15,7 @@ namespace BookingApp.ViewModels
     { 
         public AccommodationBlog Blog { get; set; }
         public ObservableCollection<Comment> Comments { get; set; }
+        public Comment SelectedComment {  get; set; }
 
         public String OwnerName { get; set; }
 
@@ -60,9 +61,23 @@ namespace BookingApp.ViewModels
 
         internal void ConfirmComment(string text)
         {
-            Comment comment = new Comment(Blog.Id, text, OwnerName, 0, false,"Owner");
+            Comment comment = new Comment(Blog.Id, text, OwnerName, 0,"Owner");
             CommentService.GetInstance().Save(comment);
             Update();
+        }
+
+        internal void CommentDetailed()
+        {
+            if(SelectedComment != null)
+            {
+                if (MessageBox.Show("Are you sure?", "Report the comment", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    SelectedComment.Ratio += 1;
+                    CommentService.GetInstance().Update(SelectedComment);
+                    Update();
+                }
+
+            }
         }
     }
 }
