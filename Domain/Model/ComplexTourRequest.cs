@@ -24,7 +24,7 @@ namespace BookingApp.Domain.Model
 
         public string[] ToCSV()
         {
-            string[] csvValues = { Id.ToString(), Status.ToString() };
+            string[] csvValues = { Id.ToString(), Status.ToString(), TouristId.ToString()};
             return csvValues;
         }
 
@@ -32,6 +32,7 @@ namespace BookingApp.Domain.Model
         {
             Id = Convert.ToInt32(values[0]);
             Status = (Enums.RequestStatus)Enum.Parse(typeof(Enums.RequestStatus), values[1]);
+            TouristId = Convert.ToInt32(values[2]);
         }
 
     }
