@@ -34,7 +34,10 @@ namespace BookingApp.ApplicationServices
         {
             return _touristRepository.Save(tourist);
         }
-
+        public Tourist Update(Tourist tourist)
+        {
+            return _touristRepository.Update(tourist);
+        }
         public void Delete(Tourist tourist)
         {
             _touristRepository.Delete(tourist);
