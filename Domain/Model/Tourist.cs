@@ -15,22 +15,25 @@ namespace BookingApp.Domain.Model
         public string Surname { get; set; }
         public int Age { get; set; }
         public int UserId { get; set; }
+        public int Points { get; set; }
 
         public Tourist() { }
-        public Tourist(int id, string name, string surname, int age, int userId)
+        public Tourist(int id, string name, string surname, int age, int userId, int points)
         {
             Id = id;
             Name = name;
             Surname = surname;
             Age = age;
             UserId = userId;
+            Points = points;
         }
-        public Tourist(string name, string surname, int age, int userId)
+        public Tourist(string name, string surname, int age, int userId, int points)
         {
             Name = name;
             Surname = surname;
             Age = age;
             UserId = userId;
+            Points = points;
         }
 
         public void FromCSV(string[] values)
@@ -40,11 +43,12 @@ namespace BookingApp.Domain.Model
             Surname = values[2];
             Age = Convert.ToInt32(values[3]);
             UserId = Convert.ToInt32(values[4]);
+            Points = Convert.ToInt32(values[5]);
         }
 
         public string[] ToCSV()
         {
-            string[] csvvalues = {Id.ToString(), Name, Surname, Age.ToString(), UserId.ToString()};
+            string[] csvvalues = {Id.ToString(), Name, Surname, Age.ToString(), UserId.ToString(), Points.ToString()};
             return csvvalues;
         }
 
