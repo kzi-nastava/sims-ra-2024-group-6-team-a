@@ -101,6 +101,12 @@
                         </Button>
                         <Button  Content="My profile" Command="{Binding ProfileCommand}"  Margin="8,0,0,0" BorderBrush="Transparent" FontSize="21" FontWeight="DemiBold" HorizontalAlignment="Left" Background="Transparent" />
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="7">
+                        <Button Command="{Binding HelpCommand}" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Left" Background="Transparent" Margin="0,0,0,0">
+                            <Image Source="/Resources/Images/helpG.png" Width="40" Height="40" ></Image>
+                        </Button>
+                        <Button  Content="Help" Command="{Binding HelpCommand}"  Margin="8,0,0,0" BorderBrush="Transparent" FontSize="21" FontWeight="DemiBold" HorizontalAlignment="Left" Background="Transparent" />
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="4">
                         <Button Command="{Binding RatingsCommand}" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Left" Background="Transparent" Margin="0,0,0,0">
                             <Image Source="/Resources/Images/star.png" Width="40" Height="40" ></Image>

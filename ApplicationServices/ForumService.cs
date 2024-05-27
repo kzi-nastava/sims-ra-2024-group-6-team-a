@@ -31,6 +31,7 @@ namespace BookingApp.ApplicationServices
         {
             return forumsRepository.GetAll();
         }
+      
         public Forums Save(Forums forum)
         {
             return forumsRepository.Save(forum);
