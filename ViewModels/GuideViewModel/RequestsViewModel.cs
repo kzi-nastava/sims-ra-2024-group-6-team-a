@@ -56,14 +56,14 @@ namespace BookingApp.ViewModels.GuideViewModel
         public void UpdateRequests()
         {
             SimpleRequests.Clear();
-            foreach (TourRequest request in SimpleRequestService.GetInstance().GetFiltered(Filter))
+            foreach (TourRequest request in TourRequestService.GetInstance().GetFiltered(Filter))
             {
                 if (request.Status != Enums.RequestStatus.Onhold)
                     continue;
 
                 Location location = LocationService.GetInstance().GetById(request.LocationId);
                 Language language = LanguageService.GetInstance().GetById(request.LanguageId);
-                int touristNumber = TourGuestService.GetInstance().CountGuestsInRequest(request.Id);
+                int touristNumber = TourGuestService.GetInstance().GetGuestsCountByRequest(request.Id);
                 SimpleRequests.Add(new SimpleRequestDTO(request, location, language, touristNumber, LoggedUser.Id));
             }
         }
@@ -94,26 +94,18 @@ namespace BookingApp.ViewModels.GuideViewModel
         {
             if (Window.startDateComboBox.SelectedDate != null)
             {
-                // Assuming Filter is a class or object where you store the selected date
                 Filter.Beggining = DateOnly.FromDateTime(Window.startDateComboBox.SelectedDate.Value);
                 return;
             }
-
-            // If no date is selected, you might want to handle it accordingly
-            // For example, setting a default date or clearing the filter
             Filter.Beggining = DateOnly.MinValue;
         }
         public void DatePickerEnding_SelectedDateChanged()
         {
             if (Window.endDateComboBox.SelectedDate != null)
             {
-                // Assuming Filter is a class or object where you store the selected date
-                Filter.Beggining = DateOnly.FromDateTime(Window.endDateComboBox.SelectedDate.Value);
+                Filter.Ending = DateOnly.FromDateTime(Window.endDateComboBox.SelectedDate.Value);
                 return;
             }
-
-            // If no date is selected, you might want to handle it accordingly
-            // For example, setting a default date or clearing the filter
             Filter.Ending = DateOnly.MinValue;
         }
     }

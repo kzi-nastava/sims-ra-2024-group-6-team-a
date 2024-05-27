@@ -47,7 +47,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         private void InitializeYears()
         {
             Years = new List<int>();
-            List<TourRequest> tourRequests = SimpleRequestService.GetInstance().GetAll();
+            List<TourRequest> tourRequests = TourRequestService.GetInstance().GetAll();
             Years = tourRequests
                            .Select(request => request.StartDate.Year)
                            .Distinct()
@@ -81,7 +81,7 @@ namespace BookingApp.ViewModels.GuideViewModel
 
             TourData.Clear();
             SeriesCollection.Clear();
-            List<TourRequest> requests = SimpleRequestService.GetInstance().GetAll();
+            List<TourRequest> requests = TourRequestService.GetInstance().GetAll();
             if(Window.overallCheckBox.IsChecked  == true)
             {
                 OverallStatistics(languageId, locationId, requests);

@@ -4,36 +4,31 @@ using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
-using BookingApp.View.TouristView;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using static BookingApp.Resources.Enums;
 
 namespace BookingApp.ApplicationServices
 {
-    public class SimpleRequestService
+    public class TourRequestService
     {
-        private ISimpleRequestRepository _simpleRequestRepository;
+        private ITourRequestRepository _simpleRequestRepository;
 
-        public SimpleRequestService(ISimpleRequestRepository simpleRequestRepository)
+        public TourRequestService(ITourRequestRepository simpleRequestRepository)
         {
             _simpleRequestRepository = simpleRequestRepository;
         }
 
-        public SimpleRequestService()
+        public TourRequestService()
         {
-            _simpleRequestRepository = new SimpleRequestRepository();
+            _simpleRequestRepository = new TourRequestRepository();
 
         }
-        public static SimpleRequestService GetInstance()
+        public static TourRequestService GetInstance()
         {
-            return App.ServiceProvider.GetRequiredService<SimpleRequestService>();
+            return App.ServiceProvider.GetRequiredService<TourRequestService>();
         }
         public List<TourRequest> GetAll()
         {
@@ -61,7 +56,7 @@ namespace BookingApp.ApplicationServices
         }
         public void MakeTourRequest(SimpleRequestDTO request, List<TourGuestDTO> guests, User user)
         {
-            TourRequest simpleRequest = new TourRequest(request.locationId, request.languageId, request.Description, request.Start, request.End, request.TouristId, request.Status);
+            TourRequest simpleRequest = new TourRequest(request.locationId, request.languageId, request.Description, request.Start, request.End, request.TouristId, request.Status, request.ComplexRequestId);
             Save(simpleRequest);
             SaveRequestGuests(simpleRequest.Id, guests, user);
         }
@@ -83,6 +78,11 @@ namespace BookingApp.ApplicationServices
         {
             return _simpleRequestRepository.Update(request);
         }
+
+        public List<TourRequest> GetAllByComplexRequest(int complexRequestId)
+        {
+            return GetAll().Where(r => r.ComplexRequestId == complexRequestId).ToList();
+        }
         public TourRequest GetById(int id)
         {
             return _simpleRequestRepository.GetById(id);
@@ -91,9 +91,9 @@ namespace BookingApp.ApplicationServices
         {
             return GetByTouristId(userId).Where(r => r.Status == RequestStatus.Accepted).ToList();
         }
-        public List<TourRequest> GetNotAccepted()
+        public List<TourRequest> GetNotAccepted(int userId)
         {
-            return GetAll().Where(r => r.Status != RequestStatus.Accepted).ToList();
+            return GetByTouristId(userId).Where(r => r.Status != RequestStatus.Accepted).ToList();
         }
 
         public List<TourRequest> GetAcceptedByYear(int userId, int year)
@@ -180,14 +180,15 @@ namespace BookingApp.ApplicationServices
 
         private bool MatchesBeginning(TourRequest request, RequestFilterDTO filter)
         {
-            return request.StartDate >= filter.Beggining || filter.Beggining == DateOnly.MinValue;
+            return (request.EndDate >= filter.Beggining && (filter.Ending == DateOnly.MinValue || filter.Ending >= request.StartDate))
+                       || filter.Beggining == DateOnly.MinValue;
         }
 
 
         private bool MatchesEnding(TourRequest request, RequestFilterDTO filter)
         {
-            return request.EndDate <= filter.Ending || filter.Ending == DateOnly.MinValue;
-
+            return (request.StartDate <= filter.Ending && (filter.Beggining == DateOnly.MinValue || filter.Beggining <= request.EndDate))
+                       || filter.Ending == DateOnly.MinValue;
         }
 
         private bool MatchesLocation(TourRequest request, RequestFilterDTO filter)
@@ -196,15 +197,13 @@ namespace BookingApp.ApplicationServices
         }
         private bool MatchesTouristNumber(TourRequest request, RequestFilterDTO filter)
         {
-            return TourGuestService.GetInstance().CountGuestsInRequest(request.Id) == filter.TouristNumber || filter.TouristNumber == 0;
+            return TourGuestService.GetInstance().GetGuestsCountByRequest(request.Id) == filter.TouristNumber || filter.TouristNumber == 0;
         }
 
         private bool MatchesLanguage(TourRequest request, RequestFilterDTO filter)
         {
             return request.LanguageId == filter.Language.Id || filter.Language.Id == 0;
         }
-
-
         public List<TourRequest> GetFiltered(RequestFilterDTO filter)
         {
             List<TourRequest> tourRequests = GetAll();
@@ -256,7 +255,7 @@ namespace BookingApp.ApplicationServices
             {
                 foreach (TourRequest request in tourRequests)
                 {
-                    if (request.LocationId == language.Id)
+                    if (request.LanguageId == language.Id)
                     {
                         tempRequestNumber++;
                     }
@@ -274,13 +273,21 @@ namespace BookingApp.ApplicationServices
             return mostRequestedLocation;
         }
 
-        //public Dictionary<int, int> FilterStatisticsByLocation(int locationId)
-        //{
-        //    Dictionary tourData = new Dictionary<int, int>();
-
-
-
-        //    return tourData;
-        //}
+        public List<Tourist> GetTouristsForNotification(Tour tour)
+        {
+            List<Tourist> tourists = new List<Tourist>();
+            foreach (Tourist tourist in TouristService.GetInstance().GetAll())
+            {
+                foreach (TourRequest request in GetNotAccepted(tourist.UserId))
+                {
+                    if (request.LocationId == tour.LocationId || request.LanguageId == tour.LanguageId)
+                    {
+                        tourists.Add(tourist);
+                        break;
+                    }
+                }
+            }
+            return tourists;
+        }
     }
 }

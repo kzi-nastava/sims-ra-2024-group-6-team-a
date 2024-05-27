@@ -10,30 +10,30 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Repository
 {
-    public class SimpleRequestRepository : ISimpleRequestRepository
+    public class ComplexTourRequestRepository : IComplexTourRequestRepository
     {
-        private const string FilePath = "../../../Resources/Data/simpleRequests.csv";
+        private const string FilePath = "../../../Resources/Data/complexRequests.csv";
 
-        private readonly Serializer<TourRequest> _serializer;
+        private readonly Serializer<ComplexTourRequest> _serializer;
         private readonly List<IObserver> _observers;
 
-        private List<TourRequest> _request;
+        private List<ComplexTourRequest> _request;
         public Subject subject;
 
-        public SimpleRequestRepository()
+        public ComplexTourRequestRepository()
         {
             _observers = new List<IObserver>();
-            _serializer = new Serializer<TourRequest>();
+            _serializer = new Serializer<ComplexTourRequest>();
             _request = _serializer.FromCSV(FilePath);
             subject = new Subject();
         }
 
-        public List<TourRequest> GetAll()
+        public List<ComplexTourRequest> GetAll()
         {
             return _serializer.FromCSV(FilePath);
         }
 
-        public TourRequest Save(TourRequest request)
+        public ComplexTourRequest Save(ComplexTourRequest request)
         {
             request.Id = NextId();
             _request = _serializer.FromCSV(FilePath);
@@ -52,19 +52,19 @@ namespace BookingApp.Repository
             return _request.Max(c => c.Id) + 1;
         }
 
-        public void Delete(TourRequest request)
+        public void Delete(ComplexTourRequest request)
         {
             _request = _serializer.FromCSV(FilePath);
-            TourRequest founded = _request.Find(c => c.Id == request.Id);
+            ComplexTourRequest founded = _request.Find(c => c.Id == request.Id);
             _request.Remove(founded);
             _serializer.ToCSV(FilePath, _request);
             subject.NotifyObservers();
         }
 
-        public TourRequest Update(TourRequest request)
+        public ComplexTourRequest Update(ComplexTourRequest request)
         {
             _request = _serializer.FromCSV(FilePath);
-            TourRequest current = _request.Find(c => c.Id == request.Id);
+            ComplexTourRequest current = _request.Find(c => c.Id == request.Id);
             int index = _request.IndexOf(current);
             _request.Remove(current);
             _request.Insert(index, request);
@@ -76,7 +76,7 @@ namespace BookingApp.Repository
         {
             _observers.Add(observer);
         }
-        public TourRequest GetById(int id)
+        public ComplexTourRequest GetById(int id)
         {
 
             return _request.Find(c => c.Id == id);

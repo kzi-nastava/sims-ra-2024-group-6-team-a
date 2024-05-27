@@ -1,19 +1,12 @@
 ﻿using BookingApp.ApplicationServices;
-using BookingApp.DTOs;
 using BookingApp.Model;
-using BookingApp.View.TouristView;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LiveCharts.Defaults;
-using BookingApp.Domain.Model;
-using System.Windows.Media;
 
 namespace BookingApp.ViewModels.TouristViewModel
 {
@@ -29,8 +22,6 @@ namespace BookingApp.ViewModels.TouristViewModel
         }
 
         public ObservableCollection<int> Years { get; set; } = new ObservableCollection<int>();
-        public ObservableCollection<int> RequestCounts { get; set; } = new ObservableCollection<int>();
-        public List<string> Languages { get; set; } = new List<string>();
 
         private SeriesCollection _pieChartCollection;
         public SeriesCollection PieChartCollection
@@ -97,7 +88,6 @@ namespace BookingApp.ViewModels.TouristViewModel
                 }
             }
         }
-        public Func<double, string> IntLabelFormatter => value => value.ToString("N0");
 
         private double _averageNumber;
         public double AverageNumber
@@ -121,8 +111,6 @@ namespace BookingApp.ViewModels.TouristViewModel
         public RelayCommand LoadYearStatisticsCommand { get; set; }
         public RelayCommand LoadGeneralPeopleNumberCommand { get; set; }
         public RelayCommand LoadYearPeopleNumberCommand { get; set; }
-        public List<string> CartesianLabels { get; set; } = new List<string>();
-        public ChartValues<int> CartesianValues { get; set; } = new ChartValues<int>();
         public RequestStatisticsViewModel(int userId)
         {
             UserId = userId;
@@ -140,7 +128,7 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         private void LoadLangugaeChartData()
         {
-            var requestsByLanguages = SimpleRequestService.GetInstance().GetRequestsByLanguages(UserId);
+            var requestsByLanguages = TourRequestService.GetInstance().GetRequestsByLanguages(UserId);
 
             foreach (var pair in requestsByLanguages)
             {
@@ -153,7 +141,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         }
         private void LoadLocationChartData()
         {
-            var requestsByLocations = SimpleRequestService.GetInstance().GetRequestsByLocations(UserId);
+            var requestsByLocations = TourRequestService.GetInstance().GetRequestsByLocations(UserId);
 
             foreach (var pair in requestsByLocations)
             {
@@ -168,14 +156,14 @@ namespace BookingApp.ViewModels.TouristViewModel
         public void LoadYears()
         {
             Years.Clear();
-            foreach (var year in SimpleRequestService.GetInstance().GetRequestYears(UserId))
+            foreach (var year in TourRequestService.GetInstance().GetRequestYears(UserId))
                 Years.Add(year);
         }
 
         public void LoadAllTimePieChart()
         {
             PieChartCollection = new SeriesCollection();
-            double acceptedPercentage = SimpleRequestService.GetInstance().GetAllTimeAcceptedPercentage(UserId);
+            double acceptedPercentage = TourRequestService.GetInstance().GetAllTimeAcceptedPercentage(UserId);
 
             PieChartCollection.Clear();
             PieChartCollection.Add(new PieSeries
@@ -193,7 +181,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         public void LoadSelectedYearPieChart()
         {
             PieChartCollection = new SeriesCollection();
-            double acceptedPercentage = SimpleRequestService.GetInstance().GetAcceptedPercentageByYear(UserId, SelectedYear);
+            double acceptedPercentage = TourRequestService.GetInstance().GetAcceptedPercentageByYear(UserId, SelectedYear);
 
             PieChartCollection.Clear();
             PieChartCollection.Add(new PieSeries
@@ -218,11 +206,11 @@ namespace BookingApp.ViewModels.TouristViewModel
         }
         private void Execute_LoadGeneralPeopleNumberCommand(object obj)
         {
-            AverageNumber = SimpleRequestService.GetInstance().GetAverageAccepetedPeople(UserId);
+            AverageNumber = TourRequestService.GetInstance().GetAverageAccepetedPeople(UserId);
         }
         private void Execute_LoadYearPeopleNumberCommand(object obj)
         {
-            AverageNumber = SimpleRequestService.GetInstance().GetAverageAccepetedPeopleByYear(UserId, SelectedYear);
+            AverageNumber = TourRequestService.GetInstance().GetAverageAccepetedPeopleByYear(UserId, SelectedYear);
         }
     }
 }

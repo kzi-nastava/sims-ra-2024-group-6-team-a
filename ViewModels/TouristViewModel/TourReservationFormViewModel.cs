@@ -62,8 +62,8 @@ namespace BookingApp.ViewModels.TouristViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-        public ObservableCollection<TourScheduleDTO> TourSchedules { get; set; }
-        public ObservableCollection<TourGuestDTO> TourGuests { get; set; }
+        public ObservableCollection<TourScheduleDTO> TourSchedules { get; set; } = new ObservableCollection<TourScheduleDTO>();
+        public ObservableCollection<TourGuestDTO> TourGuests { get; set; } = new ObservableCollection<TourGuestDTO>();
         public RelayCommand AddTouristInfoCommand { get; set; }
         public RelayCommand RemoveTouristCommand { get; set; }
         public RelayCommand SaveReservationCommand { get; set; }
@@ -81,9 +81,6 @@ namespace BookingApp.ViewModels.TouristViewModel
             UseVoucherCommand = new RelayCommand(Execute_UseVoucherCommand);
             CancelReservationCommand = new RelayCommand(Execute_CancelReservationCommand);
 
-            TourSchedules = new ObservableCollection<TourScheduleDTO>();
-            TourGuests = new ObservableCollection<TourGuestDTO>();
-
             foreach (var tourSchedule in TourScheduleService.GetInstance().GetAll())
             {
                 if (tourSchedule.TourId == selectedTour.Id)
@@ -91,7 +88,6 @@ namespace BookingApp.ViewModels.TouristViewModel
                     TourSchedules.Add(new TourScheduleDTO(tourSchedule));
                 }
             }
-
             TourTouristDTO = selectedTour;
             TourReservationDTO = new TourReservationDTO();
 
@@ -104,7 +100,6 @@ namespace BookingApp.ViewModels.TouristViewModel
             Tourist tourist = TouristService.GetInstance().GetByTouristId(LoggedUser.Id);
             TourGuests.Add(new TourGuestDTO(tourist.Name, tourist.Age, tourist.Surname, tourist.UserId));
         }
-
         private void AvailableSpaceMessage()
         {
             string message = "Not enough space left. There are " + TourSchedule.CurrentFreeSpace + " spaces left. If you want to cancle the reservation say yes. If you want to change people number say no.";
@@ -129,7 +124,11 @@ namespace BookingApp.ViewModels.TouristViewModel
 
             if (TourSchedule.CurrentFreeSpace >= GuestNumber && TourSchedule.Activity != Resources.Enums.TourActivity.Finished)
             {
+                Tourist tourist = TouristService.GetInstance().GetByTouristId(LoggedUser.Id);
+                tourist.Points ++;
+                TouristService.GetInstance().Update(tourist);
                 TourReservationService.GetInstance().MakeReservation(TourSchedule, LoggedUser, TourGuests.ToList());
+
                 if (Voucher != null)
                 {
                     voucher.Id = Voucher.Id;
@@ -142,7 +141,6 @@ namespace BookingApp.ViewModels.TouristViewModel
             AvailableSpaceMessage();
 
         }
-
         private void Execute_CancelReservationCommand(object sender)
         {
             CloseAction();
@@ -163,7 +161,6 @@ namespace BookingApp.ViewModels.TouristViewModel
             var touristToRemove = parameter as TourGuestDTO;
             TourGuests.Remove(touristToRemove);
         }
-
         private void Execute_UseVoucherCommand(object sender)
         {
             VoucherUsage voucherUsage = new VoucherUsage(LoggedUser, this);

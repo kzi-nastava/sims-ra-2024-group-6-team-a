@@ -49,5 +49,14 @@ namespace BookingApp.View.GuideView.Pages
         {
             RequestsViewModel.Search_Click();
         }
+
+        public void DatePickerBeginning_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RequestsViewModel.DatePickerBeginning_SelectedDateChanged();
+        }
+        public void DatePickerEnding_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RequestsViewModel.DatePickerEnding_SelectedDateChanged();
+        }
     }
 }

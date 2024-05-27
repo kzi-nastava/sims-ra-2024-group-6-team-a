@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookingApp.Domain.RepositoryInterfaces
 {
-    public interface ISimpleRequestRepository
+    public interface ITourRequestRepository
     {
         public List<TourRequest> GetAll();
 

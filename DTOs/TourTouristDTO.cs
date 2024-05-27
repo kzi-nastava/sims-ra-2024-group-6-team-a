@@ -1,13 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Model;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace BookingApp.DTOs
 {
@@ -191,20 +185,6 @@ namespace BookingApp.DTOs
                 }
             }
         }
-
-        public TourTouristDTO(Tour tour,Language language, Location location, TourSchedule tourSchedule)
-        {
-            Id = tour.Id;
-            Name = tour.Name;
-            Description = tour.Description;
-            //Language = tour.Language;
-            Language = language.Name;
-            Capacity = tour.Capacity;
-            Duration = tour.Duration;
-            City = location.City;
-            State = location.State;
-            Start = tourSchedule.Start;   
-        }
         public TourTouristDTO(Tour tour,Language language, Location location, TourSchedule tourSchedule, string imagePath)
         {
             Id = tour.Id;
@@ -218,8 +198,6 @@ namespace BookingApp.DTOs
             Start = tourSchedule.Start;
             Image = imagePath;
         }
-
-
     }
     }
 

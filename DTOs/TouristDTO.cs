@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace BookingApp.DTOs
 {
@@ -104,12 +99,29 @@ namespace BookingApp.DTOs
                 }
             }
         }
-        public TouristDTO(string name, string surname, int age, int userId)
+        private int _points;
+        public int Points
+        {
+            get
+            {
+                return _points;
+            }
+            set
+            {
+                if (value != _points)
+                {
+                    _points = value;
+                    OnPropertyChanged("Points");
+                }
+            }
+        }
+        public TouristDTO(string name, string surname, int age, int userId, int points)
         {
             Name = name;
             Surname = surname;
             Age = age;
             UserId = userId;
+            Points = points;
         }
         public TouristDTO(string name, string surname, int age)
         {

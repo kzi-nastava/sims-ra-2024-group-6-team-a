@@ -1,12 +1,5 @@
 ﻿using BookingApp.Model;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace BookingApp.DTOs
 {
@@ -176,14 +169,6 @@ namespace BookingApp.DTOs
                 }
             }
         }
-        public TourGuestDTO(string name, string surname, int age, int reservationId, int requestId)
-        {
-            Name = name;
-            Surname = surname;
-            Age = age;
-            ReservationId = reservationId;
-            RequestId = requestId;
-        }
 
         public TourGuestDTO(TourGuests guest)
         {
@@ -197,19 +182,6 @@ namespace BookingApp.DTOs
             Present = guest.IsPresent;
             RequestId = _requestId;
         }
-
-
-
-        public TourGuestDTO(string name, string surname, int age)
-        {
-            this.Name = name;
-            this.Surname = surname;
-            this.Age = age;
-            this.ReservationId = reservationId;
-            this.RequestId = _requestId;
-            
-        }
-
         public TourGuestDTO(string name,  int age, string surname, int userType)
         {
             this.Name = name;

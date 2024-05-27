@@ -106,13 +106,13 @@ namespace BookingApp.ViewModels.GuideViewModel
     
         public void LoadRequestDetails()
         {
-            Request = SimpleRequestService.GetInstance().GetById(RequestId);
+            Request = TourRequestService.GetInstance().GetById(RequestId);
             Location location = LocationService.GetInstance().GetById(Request.LocationId);
             Location = location.City + ", " + location.State;
             Tour.LocationId = Request.LocationId;
             Tour.LanguageId = Request.LanguageId;
             Tour.Description = Request.Description;
-            Tour.Capacity = TourGuestService.GetInstance().CountGuestsInRequest(RequestId);
+            Tour.Capacity = TourGuestService.GetInstance().GetGuestsCountByRequest(RequestId);
             Language = LanguageService.GetInstance().GetById(Request.LanguageId).Name;
         }
 
@@ -210,11 +210,11 @@ namespace BookingApp.ViewModels.GuideViewModel
         private void ChangeRequestStatus()
         {
             Request.Status = Enums.RequestStatus.Accepted;
-            Request = SimpleRequestService.GetInstance().Update(Request);
+            Request = TourRequestService.GetInstance().Update(Request);
         }
         private TourReservation CreateReservation(TourSchedule tourSchedule)
         {
-            int touristsNumber = TourGuestService.GetInstance().CountGuestsInRequest(RequestId);
+            int touristsNumber = TourGuestService.GetInstance().GetGuestsCountByRequest(RequestId);
             TourReservation reservation = new TourReservation(touristsNumber, tourSchedule.Id, tourSchedule.TourId, Request.TouristId);
             reservation = TourReservationService.GetInstance().Save(reservation);
 
