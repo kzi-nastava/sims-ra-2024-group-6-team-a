@@ -102,7 +102,7 @@ namespace BookingApp
             services.AddSingleton<LanguageService>();   
             services.AddSingleton<ForumService>();   
             services.AddSingleton<TouristService>();
-            services.AddSingleton<SimpleRequestService>();
+            //services.AddSingleton<SimpleRequestService>();
             services.AddSingleton<GuideService>();  
             services.AddSingleton<ForumsCommentService>();  
             services.AddSingleton<TourRequestService>();
