@@ -1,5 +1,4 @@
 ﻿using BookingApp.Model;
-using BookingApp.ViewModels.GuestsViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,15 +17,13 @@ using System.Windows.Shapes;
 namespace BookingApp.View.GuestViews
 {
     /// <summary>
-    /// Interaction logic for GuestMyReservationsView.xaml
+    /// Interaction logic for HelpView.xaml
     /// </summary>
-    public partial class GuestMyReservationsView : Page
+    public partial class HelpView : Page
     {
-        public GuestMyReservationsView(Guest guest, NavigationService navService)
+        public HelpView(Guest guest, NavigationService navigation)
         {
             InitializeComponent();
-            this.DataContext = new GuestMyReservationsViewModel(guest,this, navService);
-
         }
     }
 }

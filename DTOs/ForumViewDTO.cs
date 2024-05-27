@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace BookingApp.DTOs
 {
-    public class ForumsDTO : INotifyPropertyChanged
+    public class ForumViewDTO : INotifyPropertyChanged
     {
+
         public int Id { get; set; }
-        public int locationId { get; set; }
         private DateOnly creationTime;
         public DateOnly CreationTime
         {
@@ -31,7 +31,7 @@ namespace BookingApp.DTOs
             }
         }
         public int userId;
-        public  int UserId
+        public int UserId
         {
             get
             {
@@ -46,38 +46,7 @@ namespace BookingApp.DTOs
                 }
             }
         }
-        public string city;
-        public string City
-        {
-            get
-            {
-                return city;
-            }
-            set
-            {
-                if (value != city)
-                {
-                    city = value;
-                    OnPropertyChanged("City");
-                }
-            }
-        }
-        public string state;
-        public string State
-        {
-            get
-            {
-                return state;
-            }
-            set
-            {
-                if (value != state)
-                {
-                    state = value;
-                    OnPropertyChanged("state");
-                }
-            }
-        }
+     
         public string text;
         public string Text
         {
@@ -110,20 +79,6 @@ namespace BookingApp.DTOs
                 }
             }
         }
-        public Enums.UserType _userType;
-        public Enums.UserType userType
-        {
-            get { return _userType; }
-
-            set
-            {
-                if (value != _userType)
-                {
-                    _userType = value;
-                    OnPropertyChanged("userType");
-                }
-            }
-        }
         public Enums.ReservationChangeStatus reservationChangeStatus;
 
         public Enums.ReservationChangeStatus ReservationChangeStatus
@@ -139,20 +94,35 @@ namespace BookingApp.DTOs
                 }
             }
         }
-        public ForumsDTO(string username, Location location,Forums forum, Enums.ReservationChangeStatus reservationChange)
+        public Enums.UserType _userType;
+        public Enums.UserType userType
         {
-            this.Id = forum.Id;
-            this.locationId = location.Id;
-            this.city = location.City;
-            this.state = location.State;
-            this.creationTime = forum.CreationTime;
-            this.text = forum.Text;
-            this.userId = forum.UserId;
-            this._userType = forum.UserType;
-            this.ReservationChangeStatus = reservationChange;
-            this.username = username;
-           
+            get { return _userType; }
+
+            set
+            {
+                if (value != _userType)
+                {
+                    _userType = value;
+                    OnPropertyChanged("_userType");
+                }
+            }
         }
+        public ForumViewDTO(string username, ForumsComment forumComment, Enums.ReservationChangeStatus reservationChange)
+        {
+            this.Id = forumComment.ForumId;
+            this.creationTime = forumComment.CreationTime;
+            this.text = forumComment.Text;
+            this.userId = forumComment.UserId;
+            this.username = username;
+            this._userType = forumComment.UserType;
+            this.ReservationChangeStatus = reservationChange;
+
+
+        }
+
+
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
