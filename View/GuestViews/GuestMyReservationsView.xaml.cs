@@ -25,7 +25,7 @@ namespace BookingApp.View.GuestViews
         public GuestMyReservationsView(Guest guest, NavigationService navService)
         {
             InitializeComponent();
-            this.DataContext = new GuestMyReservationsViewModel(guest, navService);
+            this.DataContext = new GuestMyReservationsViewModel(guest,this, navService);
 
         }
     }

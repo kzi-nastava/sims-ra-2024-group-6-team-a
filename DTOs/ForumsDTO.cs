@@ -13,6 +13,7 @@ namespace BookingApp.DTOs
     public class ForumsDTO : INotifyPropertyChanged
     {
         public int Id { get; set; }
+        public int locationId { get; set; }
         private DateOnly creationTime;
         public DateOnly CreationTime
         {
@@ -123,15 +124,32 @@ namespace BookingApp.DTOs
                 }
             }
         }
-        public ForumsDTO(string username, Location location,Forums forum)
+        public Enums.ReservationChangeStatus reservationChangeStatus;
+
+        public Enums.ReservationChangeStatus ReservationChangeStatus
+        {
+            get { return reservationChangeStatus; }
+
+            set
+            {
+                if (value != reservationChangeStatus)
+                {
+                    reservationChangeStatus = value;
+                    OnPropertyChanged("ReservationChangeStatus");
+                }
+            }
+        }
+        public ForumsDTO(string username, Location location,Forums forum, Enums.ReservationChangeStatus reservationChange)
         {
             this.Id = forum.Id;
+            this.locationId = location.Id;
             this.city = location.City;
             this.state = location.State;
             this.creationTime = forum.CreationTime;
             this.text = forum.Text;
             this.userId = forum.UserId;
             this._userType = forum.UserType;
+            this.ReservationChangeStatus = reservationChange;
             this.username = username;
            
         }

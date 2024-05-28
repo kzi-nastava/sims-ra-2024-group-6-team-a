@@ -46,6 +46,7 @@
     <None Remove="Resources\Images\habbo1.jpg" />
     <None Remove="Resources\Images\habbo2.jpg" />
     <None Remove="Resources\Images\halfStar.png" />
+    <None Remove="Resources\Images\helpG.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\horizonti1.jpg" />
     <None Remove="Resources\Images\horizonti10.jpg" />
@@ -206,6 +207,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\halfStar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\helpG.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\important_notice.png">

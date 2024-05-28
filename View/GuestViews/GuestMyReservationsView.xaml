@@ -4,10 +4,37 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuestViews"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       d:DesignHeight="540" d:DesignWidth="410"
       Title="GuestMyReservationsView">
-
+    <Page.Resources>
+        <Style x:Key="PlaceholderTextBoxStyle" TargetType="{x:Type TextBox}" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid >
+                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" />
+                            <TextBlock x:Name="placeholderText"  Text="{TemplateBinding Tag}" VerticalAlignment="top" Margin="5,0,0,0" Visibility="Collapsed" Foreground="Gray"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="5,0,0,0" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Text" Value=""/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="placeholderText" Property="Visibility" Value="Visible"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="placeholderText" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
@@ -22,11 +49,81 @@
 
         <Grid  Grid.Row="1">
 
-            <Button  Width="200" Height="35" BorderBrush="Black" BorderThickness="2.3"  Margin="0,0,0,0" >
-                <StackPanel Orientation="Horizontal" >
                     <Image Source ="/Resources/Images/pdfFile.png" Width="30" Height="30" />
-                    <Button Width="170"  Height="30" Content="Export reservations"   BorderBrush="Transparent" FontSize="18" FontWeight="DemiBold" FontStyle="Italic"/>
-                </StackPanel>
+            <Button  Height="35" Command="{Binding CreateCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" BorderBrush="Black" BorderThickness="2.3" Content="Export reservations"  FontSize="20" FontWeight="DemiBold" Margin="140,8,105,7">
+                <Button.Resources>
+                    <Style TargetType="ContextMenu">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ContextMenu">
+                                    <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="40">
+                                        <StackPanel>
+                                            <ItemsPresenter />
+                                        </StackPanel>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Opacity" Value="0" />
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="ContextMenu.Opened">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                </Button.Resources>
+                <Button.ContextMenu>
+                    <ContextMenu  Placement="Custom" Margin="495,169,0,0" Background="SlateGray" Width="auto" BorderBrush="Black" BorderThickness="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Label Content="Start date:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="0" FontSize="15"/>
+                            <Label Content="End date:" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0" FontSize="15"/>
+                            <Grid Grid.Column="0" Grid.Row="1" Margin="0,0,0,0">
+                                <DatePicker
+                                 Width="120"
+                                 DisplayDateStart="{x:Static sys:DateTime.Today}"
+                                 Height="25"
+                              x:Name="FirstDatePicker">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectedDateChanged">
+                                            <i:InvokeCommandAction Command="{Binding FirstDateCommand}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </DatePicker>
+                            </Grid>
+                            <Grid Grid.Column="1" Grid.Row="1">
+                                <DatePicker
+                    Width="120"
+                    Height="25"
+                        IsEnabled="False"
+                    x:Name="LastDatePicker"/>
+                            </Grid>
+
+                            <Button Content="Export reservations"  Command="{Binding CreateForumCommand}" Width="150" FontWeight="Bold" HorizontalAlignment="Right" Height="20" BorderBrush="Black" BorderThickness="1.5" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,5,31,5"/>
+
+                        </Grid>
+
+
+                    </ContextMenu>
+                </Button.ContextMenu>
             </Button>
         </Grid>
 
@@ -41,7 +138,7 @@
                           SelectionMode="Single" 
                           x:Name="ReservationsTable"
                           Width="NaN" Height="NaN" d:ItemsSource="{d:SampleData ItemCount=3}" >
-                
+
                 <ListView.ItemTemplate >
                     <DataTemplate  >
                         <Border  CornerRadius="4" BorderBrush="Black" BorderThickness="2.5" Margin="-5,0,0,2">

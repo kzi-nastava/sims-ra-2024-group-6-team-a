@@ -124,7 +124,11 @@ namespace BookingApp.ViewModels.TouristViewModel
 
             if (TourSchedule.CurrentFreeSpace >= GuestNumber && TourSchedule.Activity != Resources.Enums.TourActivity.Finished)
             {
+                Tourist tourist = TouristService.GetInstance().GetByTouristId(LoggedUser.Id);
+                tourist.Points ++;
+                TouristService.GetInstance().Update(tourist);
                 TourReservationService.GetInstance().MakeReservation(TourSchedule, LoggedUser, TourGuests.ToList());
+
                 if (Voucher != null)
                 {
                     voucher.Id = Voucher.Id;

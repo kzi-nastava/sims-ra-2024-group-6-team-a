@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static BookingApp.Resources.Enums;
 
 namespace BookingApp.ApplicationServices
 {
@@ -43,6 +44,15 @@ namespace BookingApp.ApplicationServices
         {
              guestsRepository.Delete(guest);
         }
+        public int GetGuestIDByUseId(int UserID)
+        {
+            int GuestId=0;
+            foreach (Guest guest in GetAll())
+            {
+                if (guest.UserId == UserID) GuestId = guest.Id;
+            }
+            return GuestId;
+        }
         public List<Guest> GetAll()
         {
             return guestsRepository.GetAll();
@@ -53,7 +63,6 @@ namespace BookingApp.ApplicationServices
 
         }
         private void RemoveSuperGuestStats(Guest Guest) {
-            MessageBox.Show("pre Uso");
             Guest.IsSuperGuest = false;
             Guest.BonusPoints = 0;
             GuestService.GetInstance().Update(Guest);
@@ -66,14 +75,12 @@ namespace BookingApp.ApplicationServices
             else RemoveSuperGuestStats(Guest);
         }
         private void AddSuperGuestsStats(Guest Guest) {
-                MessageBox.Show("Uso");
                 Guest.BonusPoints = 5;
                 Guest.IsSuperGuest = true;
                 Guest.StartSuperGuestDate = DateOnly.FromDateTime(DateTime.Today);
                 GuestService.GetInstance().Update(Guest);
         }
         public void SuperGuestRenewal(Guest Guest) {
-            MessageBox.Show("SuperGuestRenewal");
 
             if (DateOnly.FromDateTime(DateTime.Today) > Guest.StartSuperGuestDate.AddYears(1))
              CheckSuperGuest(Guest);

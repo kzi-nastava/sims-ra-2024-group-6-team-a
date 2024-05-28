@@ -2,6 +2,7 @@
 using BookingApp.Model;
 using BookingApp.Resources;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace BookingApp.DTOs
@@ -119,6 +120,23 @@ namespace BookingApp.DTOs
                 {
                     _end = value;
                     OnPropertyChanged("End");
+                }
+            }
+        }
+
+        private ObservableCollection<TourGuestDTO> _guests = new ObservableCollection<TourGuestDTO>();
+        public ObservableCollection<TourGuestDTO> Guests
+        {
+            get
+            {
+                return _guests;
+            }
+            set
+            {
+                if(value != _guests)
+                {
+                    _guests = value;
+                    OnPropertyChanged("Guests");
                 }
             }
         }
@@ -268,6 +286,22 @@ namespace BookingApp.DTOs
 
         }
 
+        private int _complexRequestId;
+        public int ComplexRequestId
+        {
+            get
+            {
+                return _complexRequestId;
+            }
+            set
+            {
+                if(value != _complexRequestId)
+                {
+                    _complexRequestId = value;
+                    OnPropertyChanged("ComplexRequestId");
+                }
+            }
+        }
 
         public SimpleRequestDTO() { }
         public SimpleRequestDTO(TourRequest request, Location location, Language language)
@@ -282,6 +316,7 @@ namespace BookingApp.DTOs
             TouristId = request.TouristId;
             Status = request.Status;
             Location = location.City + ", " + location.State;
+            ComplexRequestId = request.ComplexRequestId;
 
         }
         public SimpleRequestDTO(TourRequest request, Location location, Language language, int touristNumber, int userId)
@@ -298,6 +333,7 @@ namespace BookingApp.DTOs
             Location = location.City + ", " + location.State;
             TouristNumber = touristNumber;
             UserId = userId;
+            ComplexRequestId = request.ComplexRequestId;
 
         }
 
