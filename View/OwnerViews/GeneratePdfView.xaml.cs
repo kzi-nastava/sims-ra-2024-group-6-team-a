@@ -100,6 +100,18 @@ namespace BookingApp.View.OwnerViews
             {
                 Close();
             }
+            else if (e.Key == Key.S)
+            {
+                EndDatePicker.IsDropDownOpen = false;
+                StartDatePicker.IsDropDownOpen = true;
+
+            }
+            else if (e.Key == Key.E)
+            {
+                StartDatePicker.IsDropDownOpen = false;
+                EndDatePicker.IsDropDownOpen = true;
+
+            }
         }
     }
 }
