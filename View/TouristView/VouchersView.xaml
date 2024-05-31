@@ -31,13 +31,13 @@
 
         <TextBlock FontWeight="DemiBold" FontSize="30" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Margin="20">Voucher list:</TextBlock>
 
-        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="20 0 20 10">
+        <Border BorderBrush="Black" Background="LightYellow" BorderThickness="1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="20 0 20 10">
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
             
             <ItemsControl ItemsSource="{Binding Vouchers}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                            <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="3" Margin="10" Background="LightYellow">
+                            <Border  BorderBrush="LightGray" BorderThickness="2" CornerRadius="8" Grid.ColumnSpan="3" Margin="10" Background="White">
                             
                             <Grid>
                                 

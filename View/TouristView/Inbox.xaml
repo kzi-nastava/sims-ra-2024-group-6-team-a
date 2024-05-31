@@ -8,13 +8,13 @@
         Title="Inbox" Height="520" Width="800" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
     <Grid Background="AliceBlue">
-        <TabControl Margin="15 13 15 15" Background="AliceBlue">
+        <TabControl Margin="15 13 15 15" Background="LightYellow">
             <TabItem Header="Tour attenadnce" BorderBrush="Black" BorderThickness="1">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding Notifications}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="Black" BorderThickness="1" Margin="5" Padding="10 0 10 4" Background="LightYellow">
+                                <Border  BorderBrush="LightGray" BorderThickness="2" CornerRadius="8" Margin="5" Padding="10 0 10 4" Background="White">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                                         <StackPanel>
                                             <TextBlock FontWeight="Bold" FontSize="19">Attendance information for tour:</TextBlock>
@@ -40,7 +40,7 @@
                     <ItemsControl ItemsSource="{Binding RequestNotifications}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="Black" BorderThickness="1" Margin="5" Padding="10 0 10 4" Background="LightYellow">
+                                <Border  BorderBrush="LightGray" BorderThickness="2" CornerRadius="8" Margin="5" Padding="10 0 10 4" Background="white">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                                         <StackPanel>
                                             <TextBlock FontWeight="Bold" FontSize="19">Accepted request for tour:</TextBlock>
@@ -66,7 +66,7 @@
                     <ItemsControl ItemsSource="{Binding StatisticTourNotifications}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="Black" BorderThickness="1" Margin="5" Padding="10 0 10 4" Background="LightYellow">
+                                <Border BorderBrush="LightGray" BorderThickness="2" CornerRadius="8" Margin="5" Padding="10 0 10 4" Background="white">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                                         <StackPanel>
                                             <TextBlock FontWeight="Bold" FontSize="19">New tour information:</TextBlock>

@@ -109,7 +109,7 @@
                 </Button.ToolTip>
             </Button>
             <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 0 0 10">
-                <ListView x:Name="imageListBox" SelectionMode="Multiple" SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}" >
+                <ListView x:Name="imageListBox"  Background="LightYellow" SelectionMode="Multiple" SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>

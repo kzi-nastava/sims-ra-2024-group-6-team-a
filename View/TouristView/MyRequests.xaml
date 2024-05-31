@@ -3,10 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.View.TouristView"
+        xmlns:local="clr-namespace:BookingApp.View.TouristView"    
+        xmlns:converters="clr-namespace:BookingApp.View.Converters"
         mc:Ignorable="d"
         Title="MyRequests" Height="575" Width="720" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <converters:StatusToColorConverter  x:Key="StatusToColorConverter"/>
+    </Window.Resources>
     <Grid Background="AliceBlue">
         <TabControl  Background="LightYellow" Margin="15" BorderBrush="Black" BorderThickness="1">
             <TabItem Header="Simple request">
@@ -48,8 +52,8 @@
                                             <TextBlock Text="{Binding End}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Margin="10 -10 0 0">
-                                            <Label Content="Status" FontSize="15" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{Binding Status}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
+                                            <Label Content="Status:" FontSize="15" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Status}" Foreground="{Binding Status, Converter={StaticResource StatusToColorConverter}}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
                                         </StackPanel>
                                         <TextBlock FontSize="15" Margin="10 10 0 0" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2">Description:</TextBlock>
                                         <Border Background="GhostWhite" Margin="10 0 15 15" Padding="5 0 5 0" BorderBrush="DarkSlateGray" BorderThickness="1" Grid.Row="1" Grid.RowSpan="5" Grid.Column="2" Grid.ColumnSpan="2">
@@ -79,12 +83,22 @@
                                             <RowDefinition Height="auto"></RowDefinition>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock Margin="10" Grid.Row="0" Grid.Column="0" FontSize="25" FontWeight="DemiBold">Complex request</TextBlock>
-                                        <StackPanel Margin="10" Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
-                                            <TextBlock Margin="0 0 5 0" FontSize="15" FontStyle="Italic" FontWeight="DemiBold">Status: </TextBlock>
-                                            <TextBlock Text="{Binding Status}"  FontSize="15" FontStyle="Italic"></TextBlock>
+                                        <StackPanel Orientation="Horizontal"  Grid.Row="0" Grid.Column="0">
+                                            <TextBlock Margin="10" FontSize="25" FontWeight="Medium">Complex tour request</TextBlock>
+                                            <TextBlock FontSize="25" FontWeight="DemiBold" Margin="0 10 10 10" Text="{Binding Number}"></TextBlock>
                                         </StackPanel>
-                                        <Button Command="{Binding DataContext.DetailedViewCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 20 10" Width="100" Height="25" Background="AntiqueWhite" FontSize="15" FontWeight="Bold">More details</Button>
+                                      
+                                        <StackPanel Margin="10" Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                                            <TextBlock Margin="0 0 5 0" FontSize="15" FontWeight="Bold">Status: </TextBlock>
+                                            <TextBlock Text="{Binding Status}" Foreground="{Binding Status, Converter={StaticResource StatusToColorConverter}}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <Button Command="{Binding DataContext.DetailedViewCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 20 10" Width="100" Height="25" Background="AntiqueWhite" FontSize="15" FontWeight="Bold">More details
+                                            <Button.ToolTip>
+                                                <ToolTip>
+                                                    Click for details
+                                                </ToolTip>
+                                            </Button.ToolTip>
+                                        </Button>
                                     </Grid>
                                 </Border>
                             </DataTemplate>

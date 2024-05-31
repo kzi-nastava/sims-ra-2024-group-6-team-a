@@ -51,7 +51,23 @@ namespace BookingApp.ViewModels.TouristViewModel
         public TourTouristDTO TourTouristDTO { get; set; }
         public User LoggedUser { get; set; }
         public TourScheduleDTO TourSchedule { get; set; }
-        public VouchersDTO Voucher { get; set; }
+
+        private VouchersDTO? _voucher;
+        public VouchersDTO? Voucher { 
+            get
+            {
+                return _voucher;
+            }
+
+            set
+            {
+                if(_voucher != value)
+                {
+                    _voucher = value;
+                    OnPropertyChanged("Voucher");
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -69,6 +85,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         public RelayCommand SaveReservationCommand { get; set; }
         public RelayCommand CancelReservationCommand { get; set; }
         public RelayCommand UseVoucherCommand { get; set; }
+        public RelayCommand RemoveVoucherCommand { get; set; }
         public Action CloseAction { get; set; }
 
         public TourReservationFormViewModel(User user, TourTouristDTO selectedTour)
@@ -79,6 +96,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             RemoveTouristCommand = new RelayCommand(RemoveTourist);
             SaveReservationCommand = new RelayCommand(Execute_SaveReservationCommand);
             UseVoucherCommand = new RelayCommand(Execute_UseVoucherCommand);
+            RemoveVoucherCommand = new RelayCommand(Execute_RemoveVoucherCommand);
             CancelReservationCommand = new RelayCommand(Execute_CancelReservationCommand);
 
             foreach (var tourSchedule in TourScheduleService.GetInstance().GetAll())
@@ -108,6 +126,11 @@ namespace BookingApp.ViewModels.TouristViewModel
             if (result != MessageBoxResult.Yes)
                 return;
 
+        }
+
+        private void Execute_RemoveVoucherCommand(object parameter)
+        {
+            Voucher = null;
         }
         private void Execute_SaveReservationCommand(object sender)
         {

@@ -50,3 +50,18 @@
 61||18|False|23
 62|s|18|False|23
 63|ss|18|False|23
+64|s|19|False|24
+65|s|19|False|24
+66|d|20|True|25
+67|dd|20|True|25
+68|ddd|20|True|25
+69|dddddddd|20|True|25
+70|Prvi check|21|True|26
+71|Drugi check|21|True|26
+72|Treci check|21|True|26
+73|Cetvrtdo check|21|False|26
+74|Peti check|21|False|26
+75|Sesti check|21|False|26
+76|Sedmi check|21|False|26
+77|ok|22|False|27
+78|kk|22|False|27
