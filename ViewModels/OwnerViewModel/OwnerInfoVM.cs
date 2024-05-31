@@ -11,6 +11,7 @@ using BookingApp.Model;
 using BookingApp.ApplicationServices;
 using System.Windows;
 using Microsoft.VisualBasic;
+using System.Windows.Input;
 
 namespace BookingApp.ViewModels
 {
@@ -30,6 +31,7 @@ namespace BookingApp.ViewModels
         public SeriesCollection Reservations { get; set; }
         public SeriesCollection Cancelations { get; set; }
         public SeriesCollection ReviewsChart { get; set; }
+        public ICommand CloseWindowCommand { get; }
 
 
         public List<String> Labels { get; set; }
@@ -38,6 +40,8 @@ namespace BookingApp.ViewModels
 
         public OwnerInfoVM(OwnerInfoDTO ownerInfoDTO)
         {
+            CloseWindowCommand = new RelayCommand(CloseWindow);
+
             Id = ownerInfoDTO.Id;
             Name = ownerInfoDTO.Name;
             Surname = ownerInfoDTO.Surname;
@@ -163,6 +167,14 @@ namespace BookingApp.ViewModels
             }
 
             return reviews;
+        }
+
+        private void CloseWindow(object parameter)
+        {
+            if (parameter is Window window)
+            {
+                window.Close();
+            }
         }
 
 

@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.OwnerViews"
         mc:Ignorable="d"
-        Title="Blog" Height="800" Width="700" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+        Title="Blog" Height="800" Width="700" WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+    </Window.InputBindings>
     <Grid>
         <StackPanel Orientation="Vertical">
             <Grid>
@@ -41,7 +44,7 @@
                     <TextBlock  Text="{Binding Blog.CheckOut,StringFormat='dd MMMM,yyyy'}" Margin="2,7,2,2" FontSize="18" Foreground="SlateBlue" HorizontalAlignment="Right"></TextBlock>
                 </StackPanel>
 
-                <Button Click="ReportClick" Grid.Column="1" Grid.Row="3" Margin="3,3,350,3" Background="Azure" >
+                <Button Command="{Binding ReportCommand}" Grid.Column="1" Grid.Row="3" Margin="3,3,350,3" Background="Azure" >
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Images/fraud.png" Width="26" Height="26"/>
                         <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">Flag as fraud</TextBlock>
@@ -62,7 +65,7 @@
             <TextBlock Margin="2,2,2,2" Foreground="DarkBlue" FontSize="25" HorizontalAlignment="Center">Comments</TextBlock>
 
             <Border>
-                <ListBox Keyboard.KeyDown="Window_KeyDown" SelectedItem="{Binding SelectedComment}"  x:Name="CommentsList" ItemsSource="{Binding Comments}"  Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" Height="300" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <ListBox  SelectedItem="{Binding SelectedComment}"  x:Name="CommentsList" ItemsSource="{Binding Comments}"  Margin="4,4,4,4" ScrollViewer.CanContentScroll="False" Height="300" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
                     <ListBox.ItemTemplate>
 
                         <DataTemplate>
@@ -89,6 +92,9 @@
                             
                         </DataTemplate>
                     </ListBox.ItemTemplate>
+                    <ListBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding CommentDetailedCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}" />
+                    </ListBox.InputBindings>
                 </ListBox>
             </Border>
 
@@ -108,7 +114,7 @@
                 </TextBlock>
             </Grid>
 
-            <Button Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center" Click="ConfirmClick"  Background="CornflowerBlue" Width="115">Confirm</Button>
+            <Button Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding ConfirmCommentCommand}" CommandParameter="{Binding Text, ElementName=NewComment}"  Background="CornflowerBlue" Width="115">Confirm</Button>
         </StackPanel>
     </Grid>
 </Window>

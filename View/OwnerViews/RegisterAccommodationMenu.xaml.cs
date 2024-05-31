@@ -105,19 +105,19 @@ namespace BookingApp.View
                 registerAccommodationVM.RemoveImage();
             }
 
-            if (e.Key == Key.A)
+            if (e.Key == Key.A && !Name.IsKeyboardFocused && !MaxGuests.IsKeyboardFocused && !MinReservation.IsKeyboardFocused && !CancelDays.IsKeyboardFocused && !LocationCombo.IsKeyboardFocused )
             {
                 apt.IsChecked = true;
                 house.IsChecked = false;
                 cottage.IsChecked = false;
             }
-            else if (e.Key == Key.H)
+            else if (e.Key == Key.H && !Name.IsKeyboardFocused && !MaxGuests.IsKeyboardFocused && !MinReservation.IsKeyboardFocused && !CancelDays.IsKeyboardFocused && !LocationCombo.IsKeyboardFocused)
             {
                 apt.IsChecked = false;
                 house.IsChecked = true;
                 cottage.IsChecked = false;
             }
-            else if (e.Key == Key.C)
+            else if (e.Key == Key.C && !Name.IsKeyboardFocused && !MaxGuests.IsKeyboardFocused && !MinReservation.IsKeyboardFocused && !CancelDays.IsKeyboardFocused && !LocationCombo.IsKeyboardFocused)
             {
                 apt.IsChecked = false;
                 house.IsChecked = false;

@@ -5,41 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="Allow Change" Height="500" Width="400" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+        Title="Allow Change" Height="500" Width="400" WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+    </Window.InputBindings>
     <Grid>
         <StackPanel Orientation="Vertical">
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom" Foreground="DarkBlue">Guest Name :</TextBlock>
 
-                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding GuestName}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
+                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding Reservation.GuestName}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
                 </StackPanel>
 
                 
                 <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom" Foreground="DarkBlue">Accommodation :</TextBlock>
-                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding AccommodationName}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
+                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding Reservation.AccommodationName}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
                 </StackPanel>
                  
 
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom" Foreground="DarkBlue">Old period:</TextBlock>
-                <TextBlock Margin="5,2,5,6"  FontSize="12" Text="{Binding OldDate}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
+                <TextBlock Margin="5,2,5,6"  FontSize="12" Text="{Binding Reservation.OldDate}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
                 </StackPanel>
            
 
             
                 <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom" Foreground="DarkBlue">New period:</TextBlock>
-                <TextBlock Margin="5,2,5,6"  FontSize="12" Text="{Binding NewDate}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
+                <TextBlock Margin="5,2,5,6"  FontSize="12" Text="{Binding Reservation.NewDate}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
                 </StackPanel>
 
 
             
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="5,2,5,2"  FontSize="20" VerticalAlignment="Bottom" Foreground="DarkBlue">Already Booked:</TextBlock>
-                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding BookedStatus}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
+                <TextBlock Margin="5,2,5,2"  FontSize="20" Text="{Binding Reservation.BookedStatus}" VerticalAlignment="Bottom" Foreground="DarkBlue"></TextBlock>
                 </StackPanel>
 
             <Rectangle HorizontalAlignment="Stretch" Fill="Blue" Height="4"/>
@@ -55,14 +58,14 @@
             
             
             <StackPanel Orientation="Horizontal" Margin="3,10,3,10" HorizontalAlignment="center">
-                <Button Background="Bisque" Click="YesClick">
+                <Button Background="Bisque" Command="{Binding YesToChangeCommand}" CommandParameter="{Binding ElementName=CommentBox, Path=Text}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Images/yes.png" Width="40" Height="40"></Image>
                         <TextBlock FontSize="25" Margin="12,3,12,3" Foreground="DarkBlue">Yes</TextBlock>
                     </StackPanel>
 
                 </Button>
-                <Button Background="Bisque" Click="NoClick">
+                <Button Background="Bisque"  Command="{Binding NoToChangeCommand}" CommandParameter="{Binding ElementName=CommentBox, Path=Text}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Images/no.png" Width="40" Height="40"></Image>
                         <TextBlock FontSize="25" Margin="12,3,12,3" Foreground="DarkBlue">No</TextBlock>

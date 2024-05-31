@@ -62,25 +62,37 @@ namespace BookingApp.View.OwnerViews
         {
             if(e.Key == Key.Escape) 
             {
-                Close();
+                if(StartDatePicker.IsDropDownOpen)
+                {
+                    StartDatePicker.IsDropDownOpen = false;
+                }
+                else if(EndDatePicker.IsDropDownOpen)
+                {
+                    EndDatePicker.IsDropDownOpen= false;
+                }
+                else
+                {
+                    Close();
+                }
+                
             }
-            else if(e.Key == Key.S)
+            else if(e.Key == Key.S && !DurationPicker.IsKeyboardFocused && !TitleText.IsKeyboardFocused)
             {
                 EndDatePicker.IsDropDownOpen = false;
                 StartDatePicker.IsDropDownOpen = true;
                 
             }
-            else if(e.Key == Key.E)
+            else if(e.Key == Key.E && !DurationPicker.IsKeyboardFocused && !TitleText.IsKeyboardFocused)
             {
                 StartDatePicker.IsDropDownOpen = false;
                 EndDatePicker.IsDropDownOpen = true;
 
             }
-            else if(e.Key == Key.F) 
+            else if(e.Key == Key.F && !DurationPicker.IsKeyboardFocused && !TitleText.IsKeyboardFocused) 
             {
                 Find_Click(sender, e);  
             }
-            else if(e.Key == Key.C)
+            else if(e.Key == Key.C && !DurationPicker.IsKeyboardFocused && !TitleText.IsKeyboardFocused )
             {
                 Confirm_Click(sender, e);
             }

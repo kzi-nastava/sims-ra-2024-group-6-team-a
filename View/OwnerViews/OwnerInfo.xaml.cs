@@ -35,16 +35,5 @@ namespace BookingApp.View
 
             DataContext = ViewModel;
         }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-            {
-                Close();
-            }
-        }
-
-    
-
     }
 }
