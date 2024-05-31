@@ -30,5 +30,13 @@ namespace BookingApp.View.TouristView
             DetailsWindow = new DetailsViewModel(selectedTour);
             DataContext = DetailsWindow;
         }
+
+        private void ScrollViewer_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is DetailsViewModel viewModel)
+            {
+                viewModel.SetScrollViewer(scrollViewer);
+            }
+        }
     }
 }

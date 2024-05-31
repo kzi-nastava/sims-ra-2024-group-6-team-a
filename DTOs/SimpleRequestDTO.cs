@@ -303,6 +303,24 @@ namespace BookingApp.DTOs
             }
         }
 
+        public int _number;
+        public int Number
+        {
+            get
+            {
+                return _number;
+            }
+            set
+            {
+                if (value != _number)
+                {
+                    _number = value;
+                    OnPropertyChanged("Number");
+
+                }
+            }
+
+        }
         public SimpleRequestDTO() { }
         public SimpleRequestDTO(TourRequest request, Location location, Language language)
         {
@@ -317,7 +335,7 @@ namespace BookingApp.DTOs
             Status = request.Status;
             Location = location.City + ", " + location.State;
             ComplexRequestId = request.ComplexRequestId;
-
+            Number = Number;
         }
         public SimpleRequestDTO(TourRequest request, Location location, Language language, int touristNumber, int userId)
         {
@@ -334,7 +352,7 @@ namespace BookingApp.DTOs
             TouristNumber = touristNumber;
             UserId = userId;
             ComplexRequestId = request.ComplexRequestId;
-
+            
         }
 
     }

@@ -32,5 +32,12 @@ namespace BookingApp.View.TouristView
             KeypointsViewModel = new KeypointsTrackingViewModel(tourSchedule);
             DataContext = KeypointsViewModel;
         }
+        private void ScrollViewer_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is KeypointsTrackingViewModel viewModel)
+            {
+                viewModel.SetScrollViewer(scrollViewer);
+            }
+        }
     }
 }

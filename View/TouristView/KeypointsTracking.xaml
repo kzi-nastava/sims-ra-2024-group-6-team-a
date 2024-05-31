@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         xmlns:converters="clr-namespace:BookingApp.View.Converters"
         mc:Ignorable="d"
-        Title="KeypointsTracking" Height="565" Width="800" ResizeMode="NoResize"
+        Title="KeypointsTracking" Height="582" Width="750" 
         WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <converters:BooleanToYesNoConverter  x:Key="BooleanToYesNoConverter" />
+        <converters:CheckpointBackgroundConverter x:Key="CheckpointBackgroundConverter"/>
     </Window.Resources>
     <Grid Background="AliceBlue">
         <Grid.RowDefinitions>
@@ -49,30 +50,53 @@
         </Grid>
         <Grid Grid.Row="3" Grid.RowSpan="2">
             <Border Margin="10 0 10 0" BorderBrush="Black" BorderThickness="1" Background="LightYellow">
-                <ItemsControl ItemsSource="{Binding Checkpoints}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderThickness="2" BorderBrush="Black" Margin="10 25 10 10" Background="AntiqueWhite" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Name}" Margin="15" VerticalAlignment="Center" />
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button BorderBrush="LightYellow" Height="50" Grid.Column="0" Content="&lt;" FontWeight="Bold" FontSize="30" Background="LightYellow" Width="30" Command="{Binding ScrollLeftCommand}"/>
+
+                    <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" Name="scrollViewer" Loaded="ScrollViewer_Loaded">
+                        <ItemsControl ItemsSource="{Binding Checkpoints}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="10 0 10 0" 
+                                            Background="{Binding IsLastReached, Converter={StaticResource CheckpointBackgroundConverter}, ConverterParameter=Background}"
+                                            BorderThickness="{Binding IsLastReached, Converter={StaticResource CheckpointBackgroundConverter}, ConverterParameter=BorderThickness}"
+                                            BorderBrush="Black"
+                                            VerticalAlignment="Center"> 
+                                    <TextBlock Text="{Binding Name}" Margin="15" VerticalAlignment="Center" Width="110"
+                                            FontWeight="{Binding IsLastReached, Converter={StaticResource CheckpointBackgroundConverter}, ConverterParameter=FontWeight}" />
+                                    </Border>
+
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <!-- Right navigation button -->
+                    <Button Grid.Column="2" Height="50" BorderBrush="LightYellow" Content="&gt;" FontWeight="Bold" FontSize="30" Background="LightYellow" Width="30" Command="{Binding ScrollRightCommand}"/>
+                    <TextBlock Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="10" FontSize="12" FontStyle="Italic">*Note: Currently active checkpoint is colored differently</TextBlock>
+                </Grid>
+               
             </Border>
         </Grid>
         <TextBlock Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10 10 10 5" FontSize="20" FontWeight="DemiBold">Attendance information:</TextBlock>
-        <ListView ItemsSource="{Binding Guests}" Grid.Row="6" Grid.RowSpan="3" Width="340" HorizontalAlignment="Left" Margin="10 5 10 10">
+        <ListView IsHitTestVisible="False" Background="LightYellow" ItemsSource="{Binding Guests, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="6" Grid.RowSpan="3" Width="340" HorizontalAlignment="Left" Margin="10 5 10 10">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="100" />
                     <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}" Width="100" />
                     <GridViewColumn Header="Age" DisplayMemberBinding="{Binding Age}" Width="55" />
-                    <GridViewColumn Header="Has joined?" DisplayMemberBinding="{Binding Present, Converter={StaticResource BooleanToYesNoConverter}}" Width="60" />
+                    <GridViewColumn Header="Has joined?" DisplayMemberBinding="{Binding Present, Converter={StaticResource BooleanToYesNoConverter}}" Width="75"/>
                 </GridView>
             </ListView.View>
         </ListView>

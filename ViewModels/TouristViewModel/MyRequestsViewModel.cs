@@ -31,6 +31,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         public static SimpleRequestDTO SelectedRequest { get; set; } = new SimpleRequestDTO();
         public static User LoggedUser { get; set; } 
         public RelayCommand DetailedViewCommand { get; set; }
+        private int number { get; set; } = 0;
         public MyRequestsViewModel(User user)
         {
             LoggedUser = user;
@@ -52,7 +53,9 @@ namespace BookingApp.ViewModels.TouristViewModel
             {
                 if(request.TouristId == LoggedUser.Id)
                 {
-                    ComplexRequests.Add(new ComplexRequestDTO(request));
+                    number++;
+                    ComplexRequests.Add(new ComplexRequestDTO(request, number));
+                    
                 }
             }
         }
@@ -60,6 +63,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         private void Execute_DetailedViewCommand(object parameter)
         {
             ComplexRequestDetailed detailed = new ComplexRequestDetailed((ComplexRequestDTO)parameter);
+            detailed.Owner = Application.Current.MainWindow;
             detailed.ShowDialog();
         }
     }
