@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.View.TouristView"
+        xmlns:local="clr-namespace:BookingApp.View.TouristView"         
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="ComplexRequestComponent" Height="630" Width="800"
         WindowStartupLocation="CenterOwner">
@@ -57,9 +58,9 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <TextBlock Margin="20 10 10 10" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Center">From date:</TextBlock>
-            <DatePicker SelectedDate="{Binding Start, Mode=OneWayToSource}" BorderBrush="AliceBlue" Grid.Column="1" Width="120" HorizontalAlignment="Left" Margin="10 20 10 10"></DatePicker>
+            <DatePicker DisplayDateStart="{x:Static sys:DateTime.Now}" SelectedDate="{Binding Start, Mode=OneWayToSource}" BorderBrush="AliceBlue" Grid.Column="1" Width="120" HorizontalAlignment="Left" Margin="10 20 10 10"></DatePicker>
             <TextBlock  Margin="20 10 0 10" FontSize="20" Grid.Column="2" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Center">To date:</TextBlock>
-            <DatePicker SelectedDate="{Binding End, Mode=OneWayToSource}" BorderBrush="AliceBlue" Grid.Column="3" Width="120" HorizontalAlignment="Left" Margin="0 20 10 10"></DatePicker>
+            <DatePicker DisplayDateStart="{Binding Start}" SelectedDate="{Binding End, Mode=OneWayToSource}" BorderBrush="AliceBlue" Grid.Column="3" Width="120" HorizontalAlignment="Left" Margin="0 20 10 10"></DatePicker>
         </Grid>
         <TextBlock Grid.Column="0" Grid.Row="6" FontWeight="DemiBold" Margin="20 10 10 0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom">Enter tourist info:</TextBlock>
         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.RowSpan="3" Grid.Row="7" Margin="20 10 40 10" Background="LightYellow">

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.View.TouristView"    
         xmlns:converters="clr-namespace:BookingApp.View.Converters"
         mc:Ignorable="d"
-        Title="ComplexRequestDetailed" Height="650" Width="720"
+        Title="ComplexRequestDetailed" Height="580" Width="720"
         WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <converters:StatusToColorConverter  x:Key="StatusToColorConverter"/>
@@ -27,7 +27,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             
-                            <Border Background="White" CornerRadius="8" Margin="25 15 25 15" Height="190" BorderBrush="LightGray" BorderThickness="2">
+                            <Border Background="White" CornerRadius="8" Margin="25 15 25 15" BorderBrush="LightGray" BorderThickness="2">
                                 
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                                     <Grid>
@@ -35,25 +35,41 @@
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock FontSize="15" FontWeight="Bold" Grid.Column="1" Margin="10 10 5 10">Description:</TextBlock>
-                                        <Border Height="130" Grid.Column="1" Background="GhostWhite" Margin="10 15 15 0" Padding="5 0 5 0" BorderBrush="DarkSlateGray" BorderThickness="1">
-                                            <TextBlock Text="{Binding Description}" ></TextBlock>
-                                        </Border>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <StackPanel Orientation="Vertical" Margin="0 10 0 0" Grid.Column="1" >
+                                            <TextBlock VerticalAlignment="Bottom" FontSize="15" FontWeight="Bold" Margin="10 8 0 0">Description:</TextBlock>
+                                            <Border Height="140" Background="GhostWhite" Margin="11 5 15 10" Padding="5 0 5 0" BorderBrush="DarkSlateGray" BorderThickness="1">
+                                                <TextBlock FontSize="14" Margin="5" Text="{Binding Description}" ></TextBlock>
+                                            </Border>
+                                        </StackPanel>
+                                        
                                         <StackPanel Orientation="Vertical" Margin="10" Grid.Column="0">
                                         
-                                        <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                                        <StackPanel Orientation="Horizontal" Margin="0 0 0 10" Grid.Row="0">
                                             <TextBlock FontSize="23" FontWeight="DemiBold">Simple tour request</TextBlock>
                                             <TextBlock FontSize="23" FontWeight="DemiBold" Margin="5 0 0 0" Text="{Binding Number}"></TextBlock>
                                         </StackPanel>
-                                        
-                                        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Margin="0 5 0 0">
+
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 5 0 0">
                                             <Label Content="Location:" FontWeight="Bold" FontSize="15" Margin="0 0 5 0" VerticalAlignment="Center"/>
                                             <TextBlock Text="{Binding City}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
                                             <TextBlock Text=", " FontStyle="Italic" FontSize="15" VerticalAlignment="Center"/>
                                             <TextBlock Text="{Binding State}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
                                         </StackPanel>
-
-                                        <StackPanel Orientation="Horizontal" Margin="0 15 0 0">
+                                            
+                                        <StackPanel Grid.Row="2" Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 5 0 0">
+                                                <Label Content="Language:" FontWeight="Bold" FontSize="15" Margin="0 0 5 0" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Language}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                            
+                                        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0 5 0 0">
                                             <Label Content="Date:" FontWeight="Bold" FontSize="15" VerticalAlignment="Center"/>
                                             <TextBlock FontStyle="Italic" FontSize="15" Margin="5 5 0 0">
                                                 <TextBlock.Text>
@@ -65,7 +81,7 @@
                                             </TextBlock>
                                         </StackPanel>
 
-                                            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                                        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0 5 0 0">
                                             <Label Content="Status:" FontSize="15" FontWeight="Bold"></Label>
                                             <TextBlock  FontStyle="Italic" Text="{Binding Status}" Foreground="{Binding Status, Converter={StaticResource StatusToColorConverter}}" FontSize="15" Margin="5 5 0 0"></TextBlock>
                                         </StackPanel>

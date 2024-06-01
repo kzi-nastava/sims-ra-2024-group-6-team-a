@@ -45,16 +45,8 @@ namespace BookingApp.ViewModels.TouristViewModel
         {
             TourRequest request = new TourRequest();
 
-           /* foreach (SimpleRequestDTO simplRequest in SimpleRequests)
-            {
-                if (simplRequest != null)
-                {
-                    //simplRequest.ComplexRequestId = ComplexRequestDTO.Id;
-                    TourRequestService.GetInstance().MakeTourRequest(simplRequest, simplRequest.Guests.ToList(), LoggedUser);
-                }
-            }*/
-
             ComplexTourRequestService.GetInstance().MakeComplexRequest(ComplexRequestDTO, LoggedUser.Id, SimpleRequests.ToList());
+            CustomMessageBox.Show("Request successfully created!"); 
             CloseAction();
         }
         private void Execute_CancelRequestCommand(object sender)

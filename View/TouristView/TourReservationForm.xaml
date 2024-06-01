@@ -38,31 +38,31 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="190"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="140"/>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="135"/>
+                    <ColumnDefinition Width="65"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock  FontSize="20" VerticalAlignment="Center" Margin="20 10 0 10" Grid.Column="0" FontWeight="DemiBold">Tour name:</TextBlock>
-                <TextBlock TextWrapping="Wrap" Text="{Binding TourTouristDTO.Name}" FontStyle="Italic" VerticalAlignment="Center" Margin="20 10 10 8" Grid.Column="1" FontSize="15"></TextBlock>
+                <TextBlock TextWrapping="Wrap" Text="{Binding TourTouristDTO.Name}" FontStyle="Italic" VerticalAlignment="Center" Margin="15 10 0 8" Grid.Column="1" FontSize="20"></TextBlock>
                 
-                <TextBlock  FontSize="20" VerticalAlignment="Center" Margin="20 10 0 10" Grid.Column="2" HorizontalAlignment="Left" FontWeight="DemiBold">Location:</TextBlock>
-                <TextBlock   TextWrapping="Wrap" Grid.Column="3" VerticalAlignment="Center" FontStyle="Italic" Margin="10 10 10 8" FontSize="15">
+                <TextBlock  FontSize="20" VerticalAlignment="Center" Margin="25 10 0 10" Grid.Column="2" HorizontalAlignment="Left" FontWeight="DemiBold">Location:</TextBlock>
+                <TextBlock   TextWrapping="Wrap" Grid.Column="3" VerticalAlignment="Center" FontStyle="Italic" Margin="5 10 5 8" FontSize="20">
                      <Run Text="{Binding TourTouristDTO.State}"/>
                      <Run Text="," />
                      <Run Text="{Binding TourTouristDTO.City}"  />      
                 </TextBlock>
                 
-                <TextBlock  FontSize="20" VerticalAlignment="Center" Margin="0 10 10 10" Grid.Column="4" FontWeight="DemiBold" HorizontalAlignment="Left">Max capacity:</TextBlock>
-                <TextBlock  Grid.Column="5" VerticalAlignment="Center" Text="{Binding TourTouristDTO.Capacity}" FontStyle="Italic" Margin="10 10 20 8" FontSize="16"></TextBlock>
+                <TextBlock FontSize="20" VerticalAlignment="Center" Margin="0 10 0 10" Grid.Column="4" FontWeight="DemiBold" >Max capacity:</TextBlock>
+                <TextBlock  Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding TourTouristDTO.Capacity}" FontStyle="Italic" Margin="0 10 15 8" FontSize="20"></TextBlock>
 
             </Grid>
             
         </Border>
         <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="10" FontSize="22" FontWeight="DemiBold" Grid.Row="3">Chose date and time:</TextBlock>
-        <ListView Background="LightYellow" x:Name="sch" Grid.RowSpan="2" Margin="0 20 50 0" Width="Auto" ItemsSource="{Binding TourSchedules}" SelectedItem="{Binding TourSchedule, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1">
+        <ListView Background="LightYellow" x:Name="sch" Grid.RowSpan="2" Margin="0 20 50 0" Width="Auto" ItemsSource="{Binding TourSchedules}" SelectedItem="{Binding TourSchedule, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Tour schedules" DisplayMemberBinding="{Binding TourScheduleDisplay}" Width="218"/>
@@ -123,7 +123,7 @@
                             CommandParameter="{Binding}" HorizontalAlignment="Center">
                                 <Button.ToolTip>
                                     <ToolTip>
-                                        Remove tourist
+                                        Click to remove tourist
                                     </ToolTip>
                                 </Button.ToolTip>
                             </Button>
@@ -140,7 +140,7 @@
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Background="AntiqueWhite" Width="120" Height="30" FontSize="15" FontWeight="Bold" Content="Confirm" Command="{Binding SaveReservationCommand}" Margin="0,10,50,10" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" Grid.ColumnSpan="2">
+        <Button IsEnabled="{Binding SaveReservationCommand.CanExecute}" Background="AntiqueWhite" Width="120" Height="30" FontSize="15" FontWeight="Bold" Content="Confirm" Command="{Binding SaveReservationCommand}" Margin="0,10,50,10" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" Grid.ColumnSpan="2">
             <Button.ToolTip>
                 <ToolTip>
                     Click to confirm reservation
