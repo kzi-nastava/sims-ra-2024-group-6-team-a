@@ -5,72 +5,151 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1080" d:DesignWidth="1920"
       Title="LiveTour">
 
-    <Grid Background="White">
+    <Grid >
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#F6F5F2"  Offset="0.0"/>
+                <GradientStop Color="#F3D0D7" Offset="1.5"/>
+            </RadialGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="41" />
-            <RowDefinition Height="59*" />
-            <RowDefinition Height="82*" />
-            <RowDefinition Height="71*" />
-            <RowDefinition Height="69*" />
-
-            <RowDefinition Height="128*" />
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="0.6*"/>
+            <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock FontSize="30" FontWeight="Bold" TextAlignment="Center" x:Name="txtTourName"  Text="{Binding SelectedTour.Name}" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="50" Width="800"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="-96,0,96,26">
-            <Image Margin="120 0 0 0" Height="40" Width="43" Source="\Resources\Images\capacity.png"/>
-            <TextBlock VerticalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="Capacity" FontSize="20"  />
-            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" HorizontalAlignment="Center" TextAlignment="Right"  FontSize="20" FontWeight="Bold" Text="{Binding SelectedTour.Capacity}"/>
-        </StackPanel>
-        <StackPanel  Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Margin="-96,0,96,13">
-            <Image Margin="120 0 0 0" Height="50" Width="43" Source="\Resources\Images\language.png"/>
-            <TextBlock VerticalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="Language" FontSize="20"  />
-            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" HorizontalAlignment="Center" TextAlignment="Right"  FontSize="20" FontWeight="Bold" Text="{Binding SelectedTour.Language}"/>
-        </StackPanel>
-        <StackPanel  HorizontalAlignment="Left" Orientation="Horizontal" Grid.Row="1" Margin="309,5,0,21" Width="401" Grid.ColumnSpan="2">
-            <Image Margin="120 0 0 0" Height="45" Width="30" Source="\Resources\Images\hourglass.png"/>
-            <TextBlock VerticalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="Duration" FontSize="20"  />
-            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" TextAlignment="Left"  FontSize="25" FontWeight="Bold" Text="{Binding SelectedTour.Duration}" Width="96"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="304,0,96,13" Grid.ColumnSpan="2">
-            <Image Margin="120 0 0 0" Height="42" Width="35" Source="\Resources\Images\location.png"/>
-            <TextBlock VerticalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="Location" FontSize="20"  />
-            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" HorizontalAlignment="Center" TextAlignment="Right"  FontSize="20" FontWeight="Bold" Text="{Binding SelectedLocation.City}"/>
-            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" HorizontalAlignment="Center" TextAlignment="Right"  FontSize="20" FontWeight="Bold" Text=","/>
-            <TextBlock VerticalAlignment="Center" Margin="0 0 0 0" HorizontalAlignment="Center" TextAlignment="Right"  FontSize="20" FontWeight="Bold" Text="{Binding SelectedLocation.State}"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Margin="-96,0,96,0">
-            <Image Margin="120 0 0 0" Height="40" Width="43" Source="\Resources\Images\description.png"/>
-            <TextBlock  VerticalAlignment="Center" TextAlignment="Right" FontStyle="Italic" Text="Description" FontSize="20"   />
-            <TextBlock VerticalAlignment="Center" Margin="30 0 0 0" HorizontalAlignment="Left" TextAlignment="Left"  FontSize="20" FontWeight="Bold" Text="{Binding SelectedTour.Description}" Width="471">
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1" Margin="0 0 300 20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" FontFamily="Yu Gothic UI Light"  Grid.Column="0"  Content="Tourist Evidence" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock VerticalAlignment="Bottom"  FontSize="15" FontFamily="Yu Gothic UI Light" Grid.Row="1">Select the tourist who have appeared at the current checkpoint, if no one has appeared , press the checkbox</TextBlock>
+                <ListBox x:Name="TourGuestsListBox" Grid.Row="2"  ItemsSource="{Binding TourGuests}" SelectionMode="Multiple" SelectionChanged="TourGuestsListBox_SelectionChanged" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="Name"/>
+                                            <Binding Path="Surname"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+            
+            <Grid Grid.Row="0" Margin="0 0 300 20">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition />
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.1*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.6*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" FontFamily="Yu Gothic UI Light"  Grid.Column="0"  Content="Current Checkpoint:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock  TextWrapping="Wrap" FontFamily="Yu Gothic UI Light"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding SelectedCheckpoint.Name}"/>
 
-            </TextBlock>
-        </StackPanel>
-        <DataGrid  x:Name="TourGuestsDataGrid" CanUserAddRows="False" AutoGenerateColumns="False" Grid.Row="4" ItemsSource="{Binding TourGuests}" Margin="0,0,72,17"  HorizontalAlignment="Right" Width="500" Grid.ColumnSpan="2" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="*"></DataGridTextColumn>
-                <DataGridCheckBoxColumn Header="Status" Width="50" Binding="{Binding IsPresent}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <DataGrid  CanUserAddRows="False"  ItemsSource="{Binding Checkpoints}" AutoGenerateColumns="False" Width="500"  x:Name="CheckpointsDataGrid" Grid.Row="4" Margin="0,0,0,17"  HorizontalAlignment="Center">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Checkpoint" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
-                <DataGridCheckBoxColumn  Header="Status" Binding ="{Binding IsReached}">
-                    <DataGridCheckBoxColumn.ElementStyle>
-                        <Style TargetType="CheckBox">
-                            <EventSetter Event="Checked"  Handler="CheckpointCheckBox_Checked"/>
+                    <Button Grid.Column="2" FontFamily="Yu Gothic UI Light" FontSize="20" Click="NextCheckpointClick" >Next Checkpoint</Button>
+                </Grid>
+                <Grid VerticalAlignment="Bottom" Grid.Row="1">
+                    <TextBlock FontFamily="Yu Gothic UI Light" FontSize="14">The table below contains a list of all checkpoints.Greyed out checkpoints represent checkpoints that have been completed</TextBlock></Grid>
+                <ListBox ItemsSource="{Binding Checkpoints}" Grid.Row="2">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsReached}" Value="True">
+                                    <Setter Property="Background" Value="LightGray"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
-                    </DataGridCheckBoxColumn.ElementStyle>
-                </DataGridCheckBoxColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Content="Zavrsi turu" HorizontalAlignment="Left" Margin="360,84,0,0" Grid.Row="5" Click="TourEndedNotificationClick" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="80"/>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" Margin="5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsReached}" Value="True">
+                                                <Setter Property="Foreground" Value="Gray"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Grid>
+        <Grid Grid.ColumnSpan="3">
+            <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center"  FontSize="60" Text="{Binding SelectedTour.Name}"/>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Margin="30 0 0 0" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" FontFamily="Yu Gothic UI Light"  Grid.Column="0"  Content="Location:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label Grid.Row="1" FontFamily="Yu Gothic UI Light"  Grid.Column="0"  Content="Tour Realisation:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label Grid.Row="2" FontFamily="Yu Gothic UI Light"  Grid.Column="0"  Content="Language:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label Grid.Row="3" FontFamily="Yu Gothic UI Light"  Grid.Column="0"  Content="Duration:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0}, {1}">
+                            <Binding Path="SelectedLocation.City" />
+                            <Binding Path="SelectedLocation.State" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding SelectedTourSchedule.Start, StringFormat=dd.MM.yyyy HH:mm}"/>
+                <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding SelectedLanguage.Name}"/>
+                <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding SelectedTour.Duration}"/>
+                <Grid Grid.Row="5" Grid.ColumnSpan ="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0"  FontFamily="Yu Gothic UI Light"  Grid.Column="0"  Content="Current Tourist Number:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="1"  Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding TouristNumber}"/>
+
+                </Grid>
+
+            </Grid>
+            
+        </Grid>
     </Grid>
 </Page>

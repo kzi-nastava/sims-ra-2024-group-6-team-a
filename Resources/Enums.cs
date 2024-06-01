@@ -76,5 +76,11 @@ namespace BookingApp.Resources
             Requested,
             Statistics
         }
+
+        public enum GuideRank
+        {
+            Guide,
+            SuprGuide
+        }
     }
 }

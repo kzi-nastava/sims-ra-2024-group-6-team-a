@@ -12,6 +12,10 @@
         <Style  TargetType="TextBlock">
             <Setter Property="Foreground" Value="DarkGray"/>
         </Style>
+        <ContextMenu x:Key="AccountSettingsMenu">
+            <MenuItem Header="Account Settings" Click="AccountSettings_Click"/>
+            <MenuItem Header="Log Out" Click="LogOut_Click"/>
+        </ContextMenu>
     </Window.Resources>
 
     <Grid>
@@ -32,6 +36,35 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <StackPanel Margin="0 0 20 0" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Right">
+                    <StackPanel Orientation="Vertical">
+                   <TextBlock FontFamily="Yu Gothic UI Light"
+                   Grid.Column="1"
+                   TextWrapping="Wrap"
+                   FontSize="20"
+                   TextAlignment="Left"
+                   VerticalAlignment="Center">      
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="Guide.Name"/>
+                                    <Binding Path="Guide.Surname"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" FontSize="20"  TextAlignment="Left" VerticalAlignment="Center" Text="SuperGuide" />
+                    </StackPanel>
+                    <Menu FlowDirection="RightToLeft"  Background="{x:Null}" VerticalAlignment="Center">
+                        <MenuItem>
+                            <MenuItem.Header>
+                                <StackPanel>
+                                    <Image Source="/Resources/Images/account_settings.png" Width="40" Height="40" />
+                                </StackPanel>
+                            </MenuItem.Header>
+                            <MenuItem Click="AccountSettings_Click" Header="Account Details"></MenuItem>
+                            <MenuItem Click="LogOut_Click" Header="Log Out"></MenuItem>
+                        </MenuItem>
+                    </Menu>
+                </StackPanel>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="0">
                     <Button Click="ToursPageClick" Background="Transparent" BorderThickness="0" Width="100" Height="68"  Margin="30 0 0 0" >
                     <Image Source="/Resources/Images/logo.png" Width="100" Height="68" />

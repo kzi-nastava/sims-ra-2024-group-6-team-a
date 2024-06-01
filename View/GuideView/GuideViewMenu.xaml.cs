@@ -36,11 +36,12 @@ namespace BookingApp.View
         public GuideViewMenu(User user)
         {
             InitializeComponent();
-            DataContext = MainWindowViewModel;
             MainWindowViewModel = new GuideMenuViewModel(this, user);
+            DataContext = MainWindowViewModel;
+
         }
 
-        
+
         private void ToursPageClick(object sender, RoutedEventArgs e)
         {
             MainWindowViewModel.ToursPageClick();
@@ -63,5 +64,22 @@ namespace BookingApp.View
         {
             MainWindowViewModel.TourRequestsPageClick();
         }
+
+        public void LiveTourPageClick(int id) 
+        {
+            MainWindowViewModel.LiveTourPageClick(id);
+        }
+
+
+        private void AccountSettings_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowViewModel.AccountSettings_Click();    
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowViewModel.LogOut_Click();
+        }
+
     }
 }
