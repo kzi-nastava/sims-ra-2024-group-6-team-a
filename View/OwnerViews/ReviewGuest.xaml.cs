@@ -70,14 +70,14 @@ namespace BookingApp.View
             {
                 Close();
             }
-            else if(e.Key == Key.C)
+            else if(e.Key == Key.C && !CommentBox.IsKeyboardFocused)
             {
 
                 RespectGradeCombo.IsDropDownOpen = false;
                 CleanGradeCombo.IsDropDownOpen = true;
                 CleanGradeCombo.SelectedItem = 1;
             }
-            else if(e.Key == Key.R) 
+            else if(e.Key == Key.R && !CommentBox.IsKeyboardFocused) 
             {
                 CleanGradeCombo.IsDropDownOpen = false;
                 RespectGradeCombo.IsDropDownOpen = true;

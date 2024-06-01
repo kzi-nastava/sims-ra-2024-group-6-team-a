@@ -24,6 +24,7 @@ namespace BookingApp.ViewModels.OwnerViewModel
             _execute(parameter);
         }
 
+
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
