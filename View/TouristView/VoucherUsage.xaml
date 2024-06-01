@@ -60,7 +60,7 @@
                                     <Button Grid.Column="5" Height="25" Width="90" Grid.Row="2" VerticalAlignment="Top" Command="{Binding DataContext.UseVoucherCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"  CommandParameter="{Binding}" Content="Use" Background="AntiqueWhite" FontWeight="Bold" FontSize="15">
                                         <Button.ToolTip>
                                             <ToolTip>
-                                                Use voucher
+                                                Click to use voucher
                                             </ToolTip>
                                         </Button.ToolTip>
                                     </Button>

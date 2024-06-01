@@ -41,7 +41,7 @@
                                                 <TextBlock Text="{Binding State}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" Margin="0 5 0 0" >
-                                                <Label Content="Current capacity:" FontWeight="Bold" FontSize="15" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                                <Label Content="Capacity:" FontWeight="Bold" FontSize="15" Margin="0,0,5,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding CurrentFreeSpace}" FontSize="15" FontStyle="Italic"  VerticalAlignment="Center"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="0 5 0 0">
@@ -112,7 +112,7 @@
                                                 <TextBlock Text="{Binding State}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" Margin="0 5 0 0" >
-                                                <Label Content="Current capacity:" FontWeight="Bold" FontSize="15" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                                <Label Content="Capacity:" FontWeight="Bold" FontSize="15" Margin="0,0,5,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding CurrentFreeSpace}" FontSize="15" FontStyle="Italic"  VerticalAlignment="Center"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="0 5 0 0">

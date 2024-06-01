@@ -3,6 +3,7 @@ using BookingApp.Domain.Model;
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.View;
+using BookingApp.View.TouristView;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.ViewModels.TouristViewModel
 {
@@ -79,6 +81,7 @@ namespace BookingApp.ViewModels.TouristViewModel
                 {
                     _start = value;
                     OnPropertyChanged("Start");
+
                     SelectedRequest.Start = DateOnly.FromDateTime(value);
                 }
             }
@@ -156,9 +159,9 @@ namespace BookingApp.ViewModels.TouristViewModel
             SelectedRequest.Status = Resources.Enums.RequestStatus.Onhold;
             SelectedRequest.ComplexRequestId = -1;
             TourRequestService.GetInstance().MakeTourRequest(SelectedRequest, TourGuests.ToList(), LoggedUser);
+            CustomMessageBox.Show("Request successfully created!");
             CloseAction();
         }
-
         private void Execute_CancelReservationCommand(object sender)
         {
             CloseAction();

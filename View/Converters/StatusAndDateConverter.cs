@@ -23,7 +23,7 @@ namespace BookingApp.View.Converters
                         _ = Brushes.Red;
                         return "OnHold";
                     case RequestStatus.Invalid:
-                        return "Missing";
+                        return " / ";
                     case RequestStatus.Accepted:
                         if (values[1] is DateTime date)
                         {

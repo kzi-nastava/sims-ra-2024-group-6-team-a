@@ -17,10 +17,12 @@
                                 <Border  BorderBrush="LightGray" BorderThickness="2" CornerRadius="8" Margin="5" Padding="10 0 10 4" Background="White">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                                         <StackPanel>
-                                            <TextBlock FontWeight="Bold" FontSize="19">Attendance information for tour:</TextBlock>
-                                            <TextBlock FontSize="15" FontWeight="Medium" Text="{Binding Title}" Margin="0 0 0 4"></TextBlock>
+                                            <StackPanel Orientation="Horizontal" Margin="0 3 0 10">
+                                                <TextBlock FontWeight="Bold" FontSize="19">Attendance information for tour:</TextBlock>
+                                                <TextBlock FontSize="19" FontWeight="Medium" FontStyle="Italic" Text="{Binding Title}" Margin="10 0 0 0"></TextBlock>
+                                            </StackPanel>
                                             <TextBlock FontSize="15" FontWeight="DemiBold" Text="{Binding Message}" TextWrapping="Wrap"></TextBlock>
-                                            <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                            <StackPanel Orientation="Horizontal" Margin="0 15 0 0">
                                                 <TextBlock FontSize="12" FontStyle="Italic">
                                                     <Run Text="Recieved: "/>
                                                 </TextBlock>
@@ -43,10 +45,12 @@
                                 <Border  BorderBrush="LightGray" BorderThickness="2" CornerRadius="8" Margin="5" Padding="10 0 10 4" Background="white">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                                         <StackPanel>
-                                            <TextBlock FontWeight="Bold" FontSize="19">Accepted request for tour:</TextBlock>
-                                            <TextBlock FontSize="15" FontWeight="Medium" Text="{Binding Title}" Margin="0 0 0 4"></TextBlock>
-                                            <TextBlock FontSize="15" FontWeight="DemiBold" Text="{Binding Message}" TextWrapping="Wrap"></TextBlock>
-                                            <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                            <StackPanel Orientation="Horizontal" Margin="0 3 0 10">
+                                                    <TextBlock FontWeight="Bold" FontSize="19">Attendance information for tour:</TextBlock>
+                                                    <TextBlock FontSize="19" FontWeight="Medium" FontStyle="Italic" Text="{Binding Title}" Margin="10 0 0 0"></TextBlock>
+                                                </StackPanel>
+                                                <TextBlock FontSize="15" FontWeight="DemiBold" Text="{Binding Message}" TextWrapping="Wrap"></TextBlock>
+                                            <StackPanel Orientation="Horizontal" Margin="0 15 0 0">
                                                 <TextBlock FontSize="12" FontStyle="Italic">
                                                 <Run Text="Recieved: "/>
                                                 </TextBlock>
@@ -69,10 +73,12 @@
                                 <Border BorderBrush="LightGray" BorderThickness="2" CornerRadius="8" Margin="5" Padding="10 0 10 4" Background="white">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                                         <StackPanel>
-                                            <TextBlock FontWeight="Bold" FontSize="19">New tour information:</TextBlock>
-                                            <TextBlock FontSize="15" FontWeight="Medium" Text="{Binding Title}" Margin="0 0 0 4"></TextBlock>
+                                            <StackPanel Orientation="Horizontal" Margin="0 3 0 10">
+                                                <TextBlock FontWeight="Bold" FontSize="19">Attendance information for tour:</TextBlock>
+                                                <TextBlock FontSize="19" FontWeight="Medium" FontStyle="Italic" Text="{Binding Title}" Margin="10 0 0 0"></TextBlock>
+                                            </StackPanel>
                                             <TextBlock FontSize="15" FontWeight="DemiBold" Text="{Binding Message}" TextWrapping="Wrap"></TextBlock>
-                                            <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                            <StackPanel Orientation="Horizontal" Margin="0 15 0 0">
                                                 <TextBlock FontSize="12" FontStyle="Italic">
                                                     <Run Text="Recieved: "/>
                                                 </TextBlock>

@@ -75,14 +75,14 @@
             </ItemsControl>
             </ScrollViewer>
         </Border>
-        <Button Command="{Binding CancelRequestCommand}" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" Height="25" FontSize="15" Background="AntiqueWhite" FontWeight="Bold" Width="70">Cancel
+        <Button Margin="0 0 280 0" Grid.ColumnSpan="3" Command="{Binding CancelRequestCommand}" Grid.Row="5" Height="25" FontSize="15" Background="AntiqueWhite" FontWeight="Bold" Width="80">Cancel
             <Button.ToolTip>
                 <ToolTip>
                     Click to cancel request
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Height="25" Width="70"  FontSize="15" Background="AntiqueWhite" FontWeight="Bold" Command="{Binding MakeComplexRequestCommand}">Confirm
+        <Button Grid.Row="5" Grid.ColumnSpan="3" Margin="250 0 0 0" Height="25" Width="80" FontSize="15" Background="AntiqueWhite" FontWeight="Bold" Command="{Binding MakeComplexRequestCommand}">Confirm
             <Button.ToolTip>
                 <ToolTip>
                     Click to confirm request

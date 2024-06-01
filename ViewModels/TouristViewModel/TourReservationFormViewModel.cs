@@ -50,7 +50,7 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         public TourTouristDTO TourTouristDTO { get; set; }
         public User LoggedUser { get; set; }
-        public TourScheduleDTO TourSchedule { get; set; }
+       // public TourScheduleDTO TourSchedule { get; set; }
 
         private VouchersDTO? _voucher;
         public VouchersDTO? Voucher { 
@@ -78,6 +78,37 @@ namespace BookingApp.ViewModels.TouristViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
+
+        private TourScheduleDTO _tourSchedule;
+        public TourScheduleDTO TourSchedule
+        {
+            get => _tourSchedule;
+            set
+            {
+                if (_tourSchedule != value)
+                {
+                    _tourSchedule = value;
+                    OnPropertyChanged(nameof(TourSchedule));
+                    OnPropertyChanged(nameof(IsButtonEnabled));
+                }
+            }
+        }
+        private bool _isScheduleSelected;
+
+        public bool IsScheduleSelected
+        {
+            get => _isScheduleSelected;
+            set
+            {
+                if (_isScheduleSelected != value)
+                {
+                    _isScheduleSelected = value;
+                    OnPropertyChanged(nameof(IsScheduleSelected));
+                }
+            }
+        }
+
+        public bool IsButtonEnabled => IsScheduleSelected;
         public ObservableCollection<TourScheduleDTO> TourSchedules { get; set; } = new ObservableCollection<TourScheduleDTO>();
         public ObservableCollection<TourGuestDTO> TourGuests { get; set; } = new ObservableCollection<TourGuestDTO>();
         public RelayCommand AddTouristInfoCommand { get; set; }
@@ -94,7 +125,7 @@ namespace BookingApp.ViewModels.TouristViewModel
            
             AddTouristInfoCommand = new RelayCommand(Execute_AddTouristInfoCommand);
             RemoveTouristCommand = new RelayCommand(RemoveTourist);
-            SaveReservationCommand = new RelayCommand(Execute_SaveReservationCommand);
+            SaveReservationCommand = new RelayCommand(Execute_SaveReservationCommand, Save_canExecute);
             UseVoucherCommand = new RelayCommand(Execute_UseVoucherCommand);
             RemoveVoucherCommand = new RelayCommand(Execute_RemoveVoucherCommand);
             CancelReservationCommand = new RelayCommand(Execute_CancelReservationCommand);
@@ -127,11 +158,15 @@ namespace BookingApp.ViewModels.TouristViewModel
                 return;
 
         }
-
         private void Execute_RemoveVoucherCommand(object parameter)
         {
             Voucher = null;
         }
+        private bool Save_canExecute()
+        {
+            return TourSchedule != null; // Enable the button only if a schedule is selected
+        }
+
         private void Execute_SaveReservationCommand(object sender)
         {
             Voucher voucher = new Voucher();
@@ -157,6 +192,7 @@ namespace BookingApp.ViewModels.TouristViewModel
                     voucher.Id = Voucher.Id;
                     VoucherService.GetInstance().Delete(voucher);
                 }
+                CustomMessageBox.Show("Tour Booked successfully!");
                 CloseAction();
                 return;
             }
