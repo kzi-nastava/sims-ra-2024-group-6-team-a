@@ -41,5 +41,9 @@ namespace BookingApp.ApplicationServices
         {
             return _userRepository.GetById(id);
         }
+        public void Delete(User user)
+        {
+            _userRepository.Delete(user);
+        }   
     }
 }

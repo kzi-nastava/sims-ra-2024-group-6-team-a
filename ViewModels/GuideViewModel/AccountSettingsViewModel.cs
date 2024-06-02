@@ -29,5 +29,15 @@ namespace BookingApp.ViewModels.GuideViewModel
             Rank = Guide.Rank.ToString();
 
         }
+
+        public void DeleteAccountClick()
+        {
+            GuideService.GetInstance().DeleteGuide(Guide);
+            System.Windows.Application.Current.Shutdown();
+        }
+        public void GoBackButtonClick() 
+        {
+            SettingsWindow.NavigationService.GoBack();
+        }
     }
 }

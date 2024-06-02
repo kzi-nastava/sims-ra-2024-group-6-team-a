@@ -34,5 +34,13 @@ namespace BookingApp.View.GuideView.Pages
             DataContext = WindowViewModel;
         }
 
+        public void DeleteAccountClick(object sender, RoutedEventArgs e)
+        {
+            WindowViewModel.DeleteAccountClick();
+        }
+        public void GoBackButtonClick(object sender, RoutedEventArgs e)
+        {
+            WindowViewModel.GoBackButtonClick();
+        }
     }
 }

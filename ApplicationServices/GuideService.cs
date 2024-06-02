@@ -12,6 +12,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.ApplicationServices
 {
@@ -185,6 +186,36 @@ namespace BookingApp.ApplicationServices
 
             }
             return language;    
+        }
+
+        public void DeleteGuide(Guide guide)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete your account?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if(result == MessageBoxResult.Yes)
+            {
+                User user = UserService.GetInstance().GetById(guide.UserId);
+                List<TourSchedule> schedule = TourScheduleService.GetInstance().GetAllByUser(user);
+                foreach (TourSchedule sch in schedule)
+                {
+                    List<TourGuests> guests = TourGuestService.GetInstance().GetAllByTourId(sch.Id);
+                    if (guests.Count != 0)
+                    {
+                        VoucherService.GetInstance().SaveAllGuests(guests);
+                        foreach (TourGuests guest in guests)
+                        {
+                            TourGuestService.GetInstance().Delete(guest);
+                        }
+
+                    }
+
+                    sch.TourActivity = Enums.TourActivity.Canceled;
+                    TourScheduleService.GetInstance().Update(sch);  
+                }
+                GuideService.GetInstance().Delete(guide);
+                UserService.GetInstance().Delete(user);
+            }
+
         }
 
 

@@ -55,7 +55,8 @@ namespace BookingApp.Resources
         {
             Ready,
             Ongoing,
-            Finished
+            Finished,
+            Canceled
         }
         public enum RequestStatus
         {
