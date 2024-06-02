@@ -80,7 +80,7 @@ namespace BookingApp.Resources
         public enum GuideRank
         {
             Guide,
-            SuprGuide
+            SuperGuide
         }
     }
 }

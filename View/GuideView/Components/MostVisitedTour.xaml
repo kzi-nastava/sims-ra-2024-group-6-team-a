@@ -22,7 +22,7 @@
 
             </Grid.RowDefinitions>
             <Grid Grid.Column="1" Grid.Row="0">
-                <TextBlock FontFamily="Yu Gothic UI Light" Margin="30 0 0 0" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Text="{Binding Name}" />
+                <TextBlock FontFamily="Yu Gothic UI Light" Margin="30 0 0 0" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Text="{Binding Name}" />
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.ColumnDefinitions>

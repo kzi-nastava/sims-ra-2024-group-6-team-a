@@ -42,6 +42,8 @@
                    Grid.Column="1"
                    TextWrapping="Wrap"
                    FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="Black"
                    TextAlignment="Left"
                    VerticalAlignment="Center">      
                             <TextBlock.Text>

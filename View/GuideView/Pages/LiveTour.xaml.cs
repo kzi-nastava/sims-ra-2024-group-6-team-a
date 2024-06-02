@@ -160,6 +160,14 @@ namespace BookingApp.View.GuideView.Pages
 
         }
 
+        private void TourEndedClick(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to end the tour?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                TourEndedNotificationClick();
+            }
+        }
 
 
         private void TourEndedNotificationClick()
@@ -180,6 +188,11 @@ namespace BookingApp.View.GuideView.Pages
             LiveToursPage liveToursPage = new LiveToursPage(UserService.GetInstance().GetById(SelectedTour.GuideId));
                 NavigationService.Navigate(liveToursPage);
             
+        }
+
+        public void GoBackClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
 
     }

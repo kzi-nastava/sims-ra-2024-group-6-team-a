@@ -18,12 +18,16 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public AccountSettingsPage SettingsWindow { get; set; }
 
+        public string Rank { get; set; }
 
         public AccountSettingsViewModel(AccountSettingsPage settingsWindow, User user)
         {
             LoggedUser = user;
             SettingsWindow = settingsWindow;
             Guide = GuideService.GetInstance().GetByUserId(LoggedUser.Id);
+            GuideService.GetInstance().UpdateGuideDetails(LoggedUser);
+            Rank = Guide.Rank.ToString();
+
         }
     }
 }

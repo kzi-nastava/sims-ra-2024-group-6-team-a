@@ -46,7 +46,7 @@ namespace BookingApp.ViewModels.GuideViewModel
             
             LoggedUser = user;
             MainWindow = mainWindow;
-            Guide = GuideService.GetInstance().GetByUserId(LoggedUser.Id);
+            InitializeGuide();
             tourStatisticsPage = new TourStatisticsPage(LoggedUser);
             tourReviewPage = new TourReviewsPage(mainFrame, LoggedUser);
             toursPage = new ToursPage(LoggedUser);
@@ -55,6 +55,11 @@ namespace BookingApp.ViewModels.GuideViewModel
 
 
             ToursPageClick();
+        }
+        public void InitializeGuide() 
+        {
+            GuideService.GetInstance().UpdateGuideDetails(LoggedUser);
+            Guide = GuideService.GetInstance().GetByUserId(LoggedUser.Id);
         }
 
         public void ToursPageClick()

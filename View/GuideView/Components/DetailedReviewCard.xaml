@@ -6,7 +6,56 @@
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
              mc:Ignorable="d" 
              Height="305" Width="1350">
-    <Border Background="#F6F5F2" CornerRadius="8" Margin="10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+
+    <UserControl.Resources>
+        <Style TargetType="Border" x:Key="CardBorderStyle">
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                              To="1.02" Duration="0:0:0.3"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                              To="1.02" Duration="0:0:0.3"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Effect.Opacity"
+                                              To="0.4" Duration="0:0:0.3"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Effect.ShadowDepth"
+                                              To="3" Duration="0:0:0.3"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                              To="1" Duration="0:0:0.3"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                              To="1" Duration="0:0:0.3"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Effect.Opacity"
+                                              To="0.3" Duration="0:0:0.3"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Effect.ShadowDepth"
+                                              To="0.5" Duration="0:0:0.3"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Panel.ZIndex" Value="10"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+
+
+    <Border Style="{StaticResource CardBorderStyle}" Background="#F6F5F2" CornerRadius="8" Margin="10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
         <Border.Effect>
             <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
         </Border.Effect>
@@ -100,7 +149,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                     <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="Comment:"/>
-                        <ScrollViewer Grid.Column="1" Grid.RowSpan="2"  VerticalScrollBarVisibility="Auto" >
+                        <ScrollViewer Grid.Column="1" Grid.RowSpan="2" Margin="0 5 0 0"  VerticalScrollBarVisibility="Auto" >
                         <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Left" TextAlignment="Left" TextWrapping="Wrap"  FontSize="25" Text="{Binding Impression}"/>
                         </ScrollViewer>
                         <StackPanel Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -130,7 +179,7 @@
                         <RowDefinition Height="0.2*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Image Width="30px" HorizontalAlignment="Right" Height="30px" PreviewMouseDown="ReportReviewMouseDown" Source="\Resources\Images\report.png" Grid.Column="1"/>
+                <Image Cursor="Hand" Width="30px" HorizontalAlignment="Right" Height="30px" PreviewMouseDown="ReportReviewMouseDown" Source="\Resources\Images\report.png" Grid.Column="1"/>
                     <TextBlock Visibility="Collapsed" x:Name="txtReviewId" Text="{Binding ReviewId}" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center"/>
                 </Grid>
               <Grid Grid.Row="0" Grid.Column="0" Margin="0 0 30 0" >

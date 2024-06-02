@@ -1,6 +1,7 @@
 ﻿using BookingApp.Domain.Model;
 using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.DTOs;
+using BookingApp.Model;
 using BookingApp.Observer;
 using BookingApp.Repository;
 using BookingApp.Serializer;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 using System.Xml.Linq;
 
 namespace BookingApp.ApplicationServices
@@ -75,5 +77,37 @@ namespace BookingApp.ApplicationServices
             return _reviewRepository.GetAllReviewsByScheduleId(tourScheduleId);
 
         }
+        public List<TourReview> GetAllReviewsByUser(User user)
+        {
+            List<TourSchedule> schedules = TourScheduleService.GetInstance().GetAllByUser(user);
+            List<TourReview> reviews = new List<TourReview>();
+            foreach (TourSchedule schedule in schedules) 
+            { 
+
+                foreach(TourReview review in GetAllReviewsByScheduleId(schedule.Id))
+                {
+                    reviews.Add(review);
+                }
+            }
+
+            return reviews;
+        }
+
+        public List<TourReview> GetAllReviewsByPrimaryLanguage(User user, Language language) 
+        {
+            List<TourReview> reviews = GetAllReviewsByUser(user);
+            List<TourReview> primaryLanguageReviews = new List<TourReview>();
+            foreach (TourReview review in reviews)
+            {
+                TourSchedule tourSchedule = TourScheduleService.GetInstance().GetById(review.ScheduleId);
+                Tour tour = TourService.GetInstance().GetById(tourSchedule.TourId);
+                if (tour.LanguageId == language.Id)
+                {
+                    primaryLanguageReviews.Add(review);
+                }
+            }
+            return primaryLanguageReviews;  
+        }
+       
     }
 }
