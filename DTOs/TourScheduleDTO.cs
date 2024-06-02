@@ -236,6 +236,8 @@ namespace BookingApp.DTOs
             }
         }
 
+        public bool HasValue { get; internal set; }
+
         public event PropertyChangedEventHandler? PropertyChanged;
             protected virtual void OnPropertyChanged(string name)
             {

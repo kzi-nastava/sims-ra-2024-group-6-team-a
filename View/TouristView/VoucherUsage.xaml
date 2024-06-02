@@ -23,13 +23,13 @@
 
         <TextBlock FontWeight="DemiBold" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Margin="20 10 20 40">Voucher list:</TextBlock>
 
-        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="20 60 20 10">
+        <Border Background="LightYellow" BorderBrush="Black" BorderThickness="1" Grid.Row="1" Margin="20 60 20 10">
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
 
                 <ItemsControl ItemsSource="{Binding Vouchers}" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black" BorderThickness="1" Margin="15" Padding="5" Background="LightYellow">
+                            <Border  BorderBrush="LightGray" BorderThickness="2" CornerRadius="8" Margin="15" Padding="5" Background="White">
 
                                 <Grid>
 
@@ -57,10 +57,10 @@
                                         <TextBlock FontWeight="Bold" VerticalAlignment="Center" FontSize="15" Margin="0 0 15 0"> Received:</TextBlock>
                                         <TextBlock TextWrapping="Wrap" Width="200"  FontSize="15" VerticalAlignment="Center" Grid.Column="1" Text="{Binding ReceiviingDate}"></TextBlock>
                                     </StackPanel>
-                                    <Button Grid.Column="5" Height="25" Width="80" Grid.Row="2" VerticalAlignment="Top" Command="{Binding DataContext.UseVoucherCommand, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"  CommandParameter="{Binding}" Content="Use" Background="AntiqueWhite" FontWeight="Bold" FontSize="15">
+                                    <Button Grid.Column="5" Height="25" Width="90" Grid.Row="2" VerticalAlignment="Top" Command="{Binding DataContext.UseVoucherCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"  CommandParameter="{Binding}" Content="Use" Background="AntiqueWhite" FontWeight="Bold" FontSize="15">
                                         <Button.ToolTip>
                                             <ToolTip>
-                                                Use voucher
+                                                Click to use voucher
                                             </ToolTip>
                                         </Button.ToolTip>
                                     </Button>

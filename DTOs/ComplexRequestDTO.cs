@@ -67,13 +67,32 @@ namespace BookingApp.DTOs
                 }
             }
         }
+
+        private int _number;
+        public int Number
+        {
+            get
+            {
+                return _number;
+            }
+
+            set
+
+            {
+                if (value != _number)
+                {
+                    _number = value;
+                    OnPropertyChanged("Number");
+                }
+            }
+        }
         public ComplexRequestDTO() { }
-        public ComplexRequestDTO(ComplexTourRequest request)
+        public ComplexRequestDTO(ComplexTourRequest request, int number)
         {
             Id = request.Id;
             Status = request.Status;
             TouristId = request.TouristId;
+            Number = number;
         }
-
     }
 }

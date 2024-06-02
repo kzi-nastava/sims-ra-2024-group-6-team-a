@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="RequestStatistics" Height="500" Width="900"
+        Title="RequestStatistics" Height="560" Width="900"
         WindowStartupLocation="CenterOwner">
  
     <Grid Background="AliceBlue">
@@ -19,77 +19,121 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Border Background="LightYellow" BorderBrush="Black" BorderThickness="2" Grid.Column="0" Grid.Row="0" Margin="10">
+        <Border Background="LightYellow" BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="0" Margin="10">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <lvc:PieChart Grid.Column="0" LegendLocation="Bottom" HorizontalAlignment="Center" Margin="0 0 0 0" Height="200" Width="150" VerticalAlignment="Top" Series="{Binding PieChartCollection}"></lvc:PieChart>
-                <StackPanel Grid.Column="1" Margin="30 10 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="0 8 0 0" Grid.ColumnSpan="2" FontWeight="DemiBold" FontSize="20">Accepted requests statistics</TextBlock>
+                <lvc:PieChart Grid.Column="0" Grid.Row="1" LegendLocation="Bottom" HorizontalAlignment="Center"  Height="200" Width="150" VerticalAlignment="Top" Series="{Binding PieChartCollection}"></lvc:PieChart>
+                <StackPanel Grid.Column="1"  Grid.Row="1" Margin="30 10 0 0">
                     <TextBlock FontSize="15" FontWeight="DemiBold" Margin="0 0 0 5">Chose year:</TextBlock>
                     <ComboBox ItemsSource="{Binding Years}" Width="80" HorizontalAlignment="Left"
                               IsEditable="True"
                               SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                     </ComboBox>
-                    <Button Background="AntiqueWhite" Content="Show" Height="25" FontSize="15" FontWeight="Bold" Width="80" HorizontalAlignment="Left" Margin="0 10 0 0" Command="{Binding LoadYearStatisticsCommand}"/>
+                    <Button Background="AntiqueWhite" Content="Show" Height="25" FontSize="15" FontWeight="Bold" Width="80" HorizontalAlignment="Left" Margin="0 10 0 0" Command="{Binding LoadYearStatisticsCommand}">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Show statistics
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
                     <TextBlock FontSize="15" FontWeight="DemiBold" Margin="0 20 0 -5">General statistics:</TextBlock>
-                    <Button Background="AntiqueWhite" Content="Show" Height="25" FontSize="15" FontWeight="Bold" Width="80" HorizontalAlignment="Left" Margin="0 10 0 0" Command="{Binding LoadGeneralStatisticsCommand}"/>
+                    <Button Background="AntiqueWhite" Content="Show" Height="25" FontSize="15" FontWeight="Bold" Width="80" HorizontalAlignment="Left" Margin="0 10 0 0" Command="{Binding LoadGeneralStatisticsCommand}">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Show statistics
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
 
                 </StackPanel>
             </Grid>
         </Border>
         
-        <Border Background="LightYellow" BorderBrush="Black" BorderThickness="2" Grid.Column="1" Grid.Row="0" Margin="10">
+        <Border Background="LightYellow" BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.Row="0" Margin="10">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="250"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Margin="10 10 0 0">
+                <StackPanel Grid.Column="1" Margin="0 45 15 0">
                     <TextBlock FontSize="15" FontWeight="DemiBold" Margin="0 0 0 5">Chose year:</TextBlock>
                     <ComboBox ItemsSource="{Binding Years}" Width="80" HorizontalAlignment="Left"
               IsEditable="True"
               SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                     </ComboBox>
-                    <Button Background="AntiqueWhite" Content="Show" Height="25" FontSize="15" FontWeight="Bold" Width="80" HorizontalAlignment="Left" Margin="0 10 0 0" Command="{Binding LoadYearPeopleNumberCommand}"/>
+                    <Button Background="AntiqueWhite" Content="Show" Height="25" FontSize="15" FontWeight="Bold" Width="80" HorizontalAlignment="Left" Margin="0 10 0 0" Command="{Binding LoadYearPeopleNumberCommand}">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Click to show statistics
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
                     <TextBlock FontSize="15" FontWeight="DemiBold" Margin="0 20 0 -5" >General statistics:</TextBlock>
-                    <Button Background="AntiqueWhite" Content="Show" Height="25" FontSize="15" FontWeight="Bold" Width="80" HorizontalAlignment="Left" Margin="0 10 0 0" Command="{Binding LoadGeneralPeopleNumberCommand}"/>
+                    <Button Background="AntiqueWhite" Content="Show" Height="25" FontSize="15" FontWeight="Bold" Width="80" HorizontalAlignment="Left" Margin="0 10 0 0" Command="{Binding LoadGeneralPeopleNumberCommand}">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Click to show statistics
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
 
                 </StackPanel>
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Column="1" Margin="20 0 0 0">
-                    <TextBlock FontSize="15" FontWeight="DemiBold" TextWrapping="Wrap" VerticalAlignment="Center">Average people number in accepted requests:</TextBlock>
-                    <TextBox Width="40" Height="25" Margin="10 0 0 0" Text="{Binding AverageNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Grid.Column="0" Margin="20 8 0 0">
+                    <TextBlock FontSize="20" FontWeight="DemiBold" TextWrapping="Wrap" VerticalAlignment="Center">Average people number in accepted requests:</TextBlock>
+                    <TextBox Width="65" Height="25" Margin="0 30 50 0" Text="{Binding AverageNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 </StackPanel>
             </Grid>    
         </Border>
 
-        <Border Background="LightYellow" BorderBrush="Black" BorderThickness="2" Grid.Column="0" Grid.Row="1" Margin="10">
-            <lvc:CartesianChart Series="{Binding CartesianCollection}" 
-                    LegendLocation="Right" Height="150"
-                    Margin="5">
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Requests" FontWeight="DemiBold" Foreground="Black" FontSize="15"/>
-                </lvc:CartesianChart.AxisY>
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis ShowLabels="False" Title="Languages" FontWeight="DemiBold" Foreground="Black" FontSize="15"/>
-                </lvc:CartesianChart.AxisX>
-            </lvc:CartesianChart>
+        <Border Background="LightYellow" BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="1" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="0 10 0 0" HorizontalAlignment="Center" FontWeight="DemiBold" FontSize="20">Languages vs Requests</TextBlock>
+                <lvc:CartesianChart Grid.Row="1" Series="{Binding CartesianCollection}" 
+                    LegendLocation="Right" Height="170"
+                    Margin="0 15 0 0">
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Requests" FontWeight="DemiBold" Foreground="Black" FontSize="15"/>
+                    </lvc:CartesianChart.AxisY>
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis ShowLabels="False" Title="Languages" FontWeight="DemiBold" Foreground="Black" FontSize="15"/>
+                    </lvc:CartesianChart.AxisX>
+                </lvc:CartesianChart>
+            </Grid>
         </Border>
-
-        <Border Background="LightYellow"  BorderBrush="Black" BorderThickness="2" Grid.Column="1" Grid.Row="1" Margin="10">
-            <lvc:CartesianChart Series="{Binding CartesianLocationCollection}" 
-                                    LegendLocation="Right"
-                                    Margin="5" Height="150">
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Requests" FontWeight="DemiBold" Foreground="Black" FontSize="15"/>
-                </lvc:CartesianChart.AxisY>
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis ShowLabels="False" Title="Locations" FontWeight="DemiBold" Foreground="Black" FontSize="15"/>
-                </lvc:CartesianChart.AxisX>
-            </lvc:CartesianChart>
+        
+        <Border Background="LightYellow"  BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.Row="1" Margin="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Margin="0 10 0 0" HorizontalAlignment="Center" FontWeight="DemiBold" FontSize="20">Locations vs Requests</TextBlock>
+                <lvc:CartesianChart Grid.Row="1" Margin="0 15 0 0" Series="{Binding CartesianLocationCollection}" 
+                        LegendLocation="Right"
+                        Height="170">
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Requests" FontWeight="DemiBold" Foreground="Black" FontSize="15"/>
+                    </lvc:CartesianChart.AxisY>
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis ShowLabels="False" Title="Locations" FontWeight="DemiBold" Foreground="Black" FontSize="15"/>
+                    </lvc:CartesianChart.AxisX>
+                </lvc:CartesianChart>
+            </Grid>
+            
         </Border>
     </Grid>
 </Window>

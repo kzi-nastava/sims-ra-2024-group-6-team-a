@@ -36,6 +36,7 @@ namespace BookingApp.ViewModels
 
         bool existsNotReviewed = false;
         bool existsCanceled = false;
+        bool existsBlog = false;
 
         public AccommodationMenuVM(Owner owner)
         {
@@ -57,17 +58,35 @@ namespace BookingApp.ViewModels
 
         public void EntryNotification() 
         {
-            if(existsCanceled && existsNotReviewed)
+            if(existsCanceled && existsNotReviewed && existsBlog)
+            {
+                MessageBox.Show("You have cancelled reservations,unreviewed guests and new blogs!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (existsNotReviewed && existsBlog)
+            {
+                MessageBox.Show("You have unreviewed guests and new blogs!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (existsCanceled && existsBlog)
+            {
+                MessageBox.Show("You have cancelled reservations and new blogs!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if(existsCanceled && existsNotReviewed) 
             {
                 MessageBox.Show("You have cancelled reservations and unreviewed guests!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else if (existsNotReviewed)
-            {
-                MessageBox.Show("You have unreviewed guests!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else if (existsCanceled)
+            else if( existsCanceled) 
             {
                 MessageBox.Show("You have cancelled reservations!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+            else if(existsBlog)
+            {
+                MessageBox.Show("You have new blogs!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+            else if(existsNotReviewed)
+            {
+                MessageBox.Show("You have unreviewed guests!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -100,6 +119,9 @@ namespace BookingApp.ViewModels
                 AddChangedReservations(a);
 
                 Accommodations.Add(new AccommodationOwnerDTO(a, LocationService.GetInstance().GetByAccommodation(a), imagePath));
+
+                if(!existsBlog)
+                    existsBlog = AccommodationBlogService.GetInstance().ExistsBlogWithinAccommodation(a);
             }
 
             OwnerService.GetInstance().UpdateOwnerStatus(Owner);

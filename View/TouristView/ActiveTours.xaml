@@ -30,27 +30,29 @@
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                                 <RowDefinition/>
+                                                <RowDefinition/>
                                             </Grid.RowDefinitions>
-                                            <Image Source="{Binding Image}" Grid.Column="0" Grid.RowSpan="5" Grid.Row="0" Width="180" Height="180" Stretch="Fill"/>
-                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Grid.Column="1" Grid.Row="0">
+                                            <Image Source="{Binding Image}" Grid.Column="0" Margin="0 17 0 17" Grid.RowSpan="6" Grid.Row="0" Width="180"  Stretch="Fill"/>
+                                            <TextBlock Text="{Binding TourName}" Margin="0 10 0 0" FontSize="20" FontWeight="Bold" Grid.Column="1" Grid.Row="0"></TextBlock>
+                                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Grid.Column="1" Grid.Row="1">
                                                 <Label Content="Location:" FontSize="15" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding City}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
                                                 <TextBlock Text=", " FontStyle="Italic" FontSize="15" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding State}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="0 10 0 0" >
-                                                <Label Content="Current capacity:" FontWeight="Bold" FontSize="15" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" Margin="0 5 0 0" >
+                                                <Label Content="Capacity:" FontWeight="Bold" FontSize="15" Margin="0,0,5,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding CurrentFreeSpace}" FontSize="15" FontStyle="Italic"  VerticalAlignment="Center"/>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="0 10 0 0">
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="0 5 0 0">
                                                 <Label Content="Language:" FontWeight="Bold" FontSize="15" Margin="0,0,5,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding TourLanguage}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" Margin="0 10 0 0">
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Margin="0 5 0 0">
                                                 <Label Content="Duration:" FontWeight="Bold" FontSize="15" Margin="0,0,5,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding Duration}" FontStyle="Italic" FontSize="15"  VerticalAlignment="Center"/>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Margin="5 0 0 5" >
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="6" Margin="5 0 0 5" >
                                                 <Button Content="Generate report" Margin="0 0 20 0" Height="25" FontSize="15" VerticalAlignment="Center" Width="125" Grid.Row="3" Background="AntiqueWhite" FontWeight="Bold">
                                                     <Button.ToolTip>
                                                         <ToolTip>
@@ -99,27 +101,29 @@
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                                 <RowDefinition/>
+                                                <RowDefinition/>
                                             </Grid.RowDefinitions>
-                                            <Image Source="{Binding Image}" Grid.Column="0" Grid.RowSpan="5" Grid.Row="0" Width="180" Height="180" Stretch="Fill"/>
-                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Grid.Column="1" Grid.Row="0">
+                                            <Image Source="{Binding Image}" Grid.Column="0" Margin="0 17 0 17" Grid.RowSpan="6" Grid.Row="0" Width="180"  Stretch="Fill"/>
+                                            <TextBlock Text="{Binding TourName}" Margin="0 10 0 0" FontSize="20" FontWeight="Bold" Grid.Column="1" Grid.Row="0"></TextBlock>
+                                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Grid.Column="1" Grid.Row="1">
                                                 <Label Content="Location:" FontSize="15" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding City}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
                                                 <TextBlock Text=", " FontStyle="Italic" FontSize="15" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding State}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="0 10 0 0" >
-                                                <Label Content="Current capacity:" FontWeight="Bold" FontSize="15" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" Margin="0 5 0 0" >
+                                                <Label Content="Capacity:" FontWeight="Bold" FontSize="15" Margin="0,0,5,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding CurrentFreeSpace}" FontSize="15" FontStyle="Italic"  VerticalAlignment="Center"/>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="0 10 0 0">
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="0 5 0 0">
                                                 <Label Content="Language:" FontWeight="Bold" FontSize="15" Margin="0,0,5,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding TourLanguage}" FontSize="15" FontStyle="Italic" VerticalAlignment="Center"/>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" Margin="0 10 0 0">
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Margin="0 5 0 0">
                                                 <Label Content="Duration:" FontWeight="Bold" FontSize="15" Margin="0,0,5,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding Duration}" FontStyle="Italic" FontSize="15"  VerticalAlignment="Center"/>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Margin="90 0 0 5" >
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="90 0 0 5" >
                                                 <Button Content="Generate report" Margin="0 0 20 0" VerticalAlignment="Center" Width="125" Height="25" FontSize="15" Grid.Row="3" Background="AntiqueWhite" FontWeight="Bold">
                                                     <Button.ToolTip>
                                                         <ToolTip>

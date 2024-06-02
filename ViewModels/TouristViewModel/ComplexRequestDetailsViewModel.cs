@@ -24,6 +24,8 @@ namespace BookingApp.ViewModels.TouristViewModel
         }
         public ObservableCollection<SimpleRequestDTO> SimpleRequests { get; set; } = new ObservableCollection<SimpleRequestDTO>();
         public ComplexRequestDTO ComplexRequest { get; set; }
+
+        public int Number { get; set; } = 0;
         public ComplexRequestDetailsViewModel(ComplexRequestDTO complexRequest)
         {
             ComplexRequest = complexRequest;
@@ -34,7 +36,9 @@ namespace BookingApp.ViewModels.TouristViewModel
         {
             foreach(TourRequest simpleRequest in TourRequestService.GetInstance().GetAllByComplexRequest(ComplexRequest.Id))
             {
-                SimpleRequests.Add(new SimpleRequestDTO(simpleRequest, LocationService.GetInstance().GetById(simpleRequest.LocationId), LanguageService.GetInstance().GetById(simpleRequest.LanguageId)));
+                SimpleRequestDTO component = new SimpleRequestDTO(simpleRequest, LocationService.GetInstance().GetById(simpleRequest.LocationId), LanguageService.GetInstance().GetById(simpleRequest.LanguageId));
+                component.Number++;
+                SimpleRequests.Add(component);
             }
         }
     }
