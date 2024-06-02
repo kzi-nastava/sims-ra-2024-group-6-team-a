@@ -139,6 +139,10 @@ namespace BookingApp.ViewModels
         public ICommand RegisterCommand { get; }
         public ICommand AddImagesCommand { get; }
         public ICommand RemoveImageCommand { get; }
+        public ICommand PickAccommodationCommand {  get; }
+        public ICommand PickHouseCommand { get; }
+        public ICommand PickCottageCommand { get; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -155,10 +159,26 @@ namespace BookingApp.ViewModels
             RegisterCommand = new RelayCommand(Register);
             AddImagesCommand = new RelayCommand(AddImages);
             RemoveImageCommand = new RelayCommand(RemoveImage, CanRemoveImage);
+            PickAccommodationCommand = new RelayCommand(PickAccommodation);
+            PickCottageCommand = new RelayCommand(PickCottage);
+            PickHouseCommand = new RelayCommand(PickHouse);
+
             AddLocations();
         }
 
+        private void PickCottage(object parameter)
+        {
+            IsCottage = true;
+        }
 
+        private void PickHouse(object parameter) 
+        {
+            IsHouse = true;
+        }
+        private void PickAccommodation(object parameter)
+        {
+            IsApartment = true;
+        }
         private void AddLocations()
         {
             foreach (Location location in LocationService.GetInstance().GetAll())

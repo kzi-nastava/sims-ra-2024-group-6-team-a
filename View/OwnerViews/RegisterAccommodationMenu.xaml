@@ -8,7 +8,12 @@
         Title="Register New" Height="400" Width="500" WindowStartupLocation="CenterScreen"><Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
         <KeyBinding Command="{Binding AddImagesCommand}" Key="I" />
-</Window.InputBindings>
+        <KeyBinding Command="{Binding PickAccommodationCommand}" Key="A" Modifiers="Ctrl"></KeyBinding>
+        <KeyBinding Command="{Binding PickHouseCommand}" Key="H" Modifiers="Ctrl"></KeyBinding>
+
+        <KeyBinding Command="{Binding PickCottageCommand}" Key="C" Modifiers="Ctrl"></KeyBinding>
+
+    </Window.InputBindings>
 
 <Grid>
     <Grid.ColumnDefinitions>

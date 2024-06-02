@@ -20,36 +20,36 @@
         </Grid.RowDefinitions>
 
 
-        <ToolBar Grid.Row="0" Grid.ColumnSpan="3">
+        <ToolBar Grid.Row="0" Grid.ColumnSpan="3" Background="white">
 
-            <Button Click="SelectAccommodations">
+            <Button Click="SelectAccommodations" Background="{Binding AccommodationStatus}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/accommodations.png" Width="30" Height="30"/>
-                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0"><Underline>A</Underline>ccommodations</TextBlock>
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,2,0"><Underline>A</Underline>ccommodations</TextBlock>
                     <Separator/>
                 </StackPanel>
             </Button>
 
-            <Button Click="SelectReservations">
+            <Button Click="SelectReservations" Background="{Binding ReservationStatus}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/reservations.png" Width="30" Height="30"/>
-                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0"><Underline>R</Underline>eservations</TextBlock>
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,2,0"><Underline>R</Underline>eservations</TextBlock>
                     <Separator/>
                 </StackPanel>
             </Button>
 
-            <Button Click="SelectReviews">
+            <Button Click="SelectReviews" Background="{Binding ReviewStatus}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/guestreview.png" Width="30" Height="30"/>
-                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0"><Underline>G</Underline>uest review</TextBlock>
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,2,0"><Underline>G</Underline>uest review</TextBlock>
                     <Separator/>
                 </StackPanel>
             </Button>
 
-            <Button Click="SelectChanges">
+            <Button Click="SelectChanges" Background="{Binding ChangeStatus}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Images/reservationchange.png" Width="30" Height="30"/>
-                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,0,0">Reservation <Underline>c</Underline>hanges</TextBlock>
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="5,0,2,0">Reservation <Underline>c</Underline>hanges</TextBlock>
                     <Separator/>
                 </StackPanel>
             </Button>
