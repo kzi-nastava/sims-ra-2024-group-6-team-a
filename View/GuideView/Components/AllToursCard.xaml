@@ -6,7 +6,56 @@
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
              mc:Ignorable="d" 
              Height="250" Width="950">
-    <Border Background="#F6F5F2" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+
+    <UserControl.Resources>
+        <Style TargetType="Border" x:Key="CardBorderStyle">
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                 To="1.02" Duration="0:0:0.3"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                 To="1.02" Duration="0:0:0.3"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Effect.Opacity"
+                                                 To="0.4" Duration="0:0:0.3"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Effect.ShadowDepth"
+                                                 To="3" Duration="0:0:0.3"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                 To="1" Duration="0:0:0.3"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                 To="1" Duration="0:0:0.3"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Effect.Opacity"
+                                                 To="0.3" Duration="0:0:0.3"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Effect.ShadowDepth"
+                                                 To="0.5" Duration="0:0:0.3"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Panel.ZIndex" Value="10"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+
+
+    <Border Style="{StaticResource CardBorderStyle}" Background="#F6F5F2" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
         <Border.Effect>
             <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
         </Border.Effect>
@@ -32,7 +81,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid  Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" >
-                    <TextBlock FontFamily="Yu Gothic UI Light" Margin="30 0 0 0" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Text="{Binding Name}" />
+                    <TextBlock FontFamily="Yu Gothic UI Light" Margin="30 0 0 0" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="30" FontWeight="Bold"  Text="{Binding Name}" />
                 </Grid>
                 <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
                     <StackPanel VerticalAlignment="Center">
@@ -64,11 +113,11 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <StackPanel Cursor="Hand"  Orientation="Horizontal" Grid.Column="0">
                         <Image Width="20px" Height="20px"   Source="\Resources\Images\information.png" PreviewMouseDown="TourDetailsMouseDown"/>
                         <TextBlock VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="Click here for more information" PreviewMouseDown="TourDetailsMouseDown" FontFamily="Yu Gothic UI Light"/>
                     </StackPanel>
-                    <StackPanel Margin="60 0 0 0" Orientation="Horizontal" Grid.Column="1">
+                    <StackPanel Cursor="Hand" Margin="60 0 0 0" Orientation="Horizontal" Grid.Column="1">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\delete.png" PreviewMouseDown="DeleteTourMouseDown"/>
                         <TextBlock VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="Click here to cancel Tour" PreviewMouseDown="DeleteTourMouseDown" FontFamily="Yu Gothic UI Light"/>
                     </StackPanel>

@@ -40,6 +40,8 @@ namespace BookingApp.ViewModels.GuideViewModel
         public static ObservableCollection<ImageItemDTO> ImagesCollection { get; set; }
         public static ObservableCollection<String> CheckpointsCollection { get; set; }
         public static ObservableCollection<DateTime> TourDatesCollection { get; set; }
+        
+        public static ObservableCollection<TourGuests> Tourists { get; set; }        
 
         private DateTime _tourDate;
         public DateTime TourDate
@@ -93,20 +95,38 @@ namespace BookingApp.ViewModels.GuideViewModel
             Tour = new Tour();
             SelectedTourDate = new DateTime();
             CheckpointsCollection = new ObservableCollection<string>();
+            Tourists = new ObservableCollection<TourGuests>();
             ImagesCollection = new ObservableCollection<ImageItemDTO>();
             TourDatesCollection = new ObservableCollection<DateTime>();
-            Window.datePicker.FormatString = "dd.MM.yyyy HH:mm";
             Window.imageListBox.ItemsSource = ImagesCollection;
-
             LoadRequestDetails();
+            Window.datePicker.FormatString = "dd.MM.yyyy HH:mm";
+            LoadTourists();
 
         }
 
+        public void LoadTourists() 
+        {
+            List<TourGuests> guests = TourGuestService.GetInstance().GetAllByRequestId(RequestId);
+            foreach (var guest in guests)
+            {
+                Tourists.Add(guest);
+            }
+        }
 
-    
+
+
         public void LoadRequestDetails()
         {
             Request = TourRequestService.GetInstance().GetById(RequestId);
+
+
+           Window.datePicker.Kind = DateTimeKind.Local;
+            
+
+            Window.datePicker.Minimum = Request.StartDate.ToDateTime(new TimeOnly(0, 0));
+            Window.datePicker.Maximum = Request.EndDate.ToDateTime(new TimeOnly(23, 59));
+
             Location location = LocationService.GetInstance().GetById(Request.LocationId);
             Location = location.City + ", " + location.State;
             Tour.LocationId = Request.LocationId;
@@ -148,7 +168,6 @@ namespace BookingApp.ViewModels.GuideViewModel
             if (CheckDateConditions(time))
             {
                 TourDatesCollection.Add(time);
-                Window.datePicker.Text = "";
             }
             else
             {

@@ -51,7 +51,7 @@ namespace BookingApp.View.GuideView.Pages
             ImagesCollection = new ObservableCollection<ImageItemDTO>();
             UpdateDetails();
 
-            imageListBox.ItemsSource = ImagesCollection;
+            //imageListBox.ItemsSource = ImagesCollection;
         }
 
         public void UpdateDetails()
@@ -100,10 +100,10 @@ namespace BookingApp.View.GuideView.Pages
 
         private void ChangeBigImage(object sender, SelectionChangedEventArgs e)
         {
-            if(SelectedImage != null)
-            ImageIndex = imageListBox.SelectedIndex;
+           // if(SelectedImage != null)
+           // ImageIndex = imageListBox.SelectedIndex;
 
-            imageListBox.SelectedItem = null;
+ //           imageListBox.SelectedItem = null;
         }
 
 

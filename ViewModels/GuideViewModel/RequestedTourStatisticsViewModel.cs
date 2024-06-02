@@ -6,7 +6,9 @@ using BookingApp.View.TouristView;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Security.Permissions;
@@ -32,6 +34,9 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public List<int> Years {  get; set; }
 
+        public ObservableCollection<KeyValuePair<string, int>> DataGrid { get; set; }
+
+
         public RequestedTourStatisticsViewModel(RequestedTourStatistics window, User user)
         {
             this.Window = window;
@@ -41,6 +46,8 @@ namespace BookingApp.ViewModels.GuideViewModel
             InitializeYears();
             TourData = new Dictionary<int, int> { };
             SeriesCollection = new SeriesCollection(new LineSeries());
+            DataGrid = new ObservableCollection<KeyValuePair<string, int>>();
+
             Window.overallCheckBox.IsChecked = true;
         }
 
@@ -101,11 +108,26 @@ namespace BookingApp.ViewModels.GuideViewModel
             var tourData = CountToursByMonth(filteredRequests);
             var sortedRequestData = SortTourDataByMonth(tourData);
             var (months, values) = ExtractMonthsAndValues(sortedRequestData);
+
+
+            PopulateGrid(months, values);
+
+
             AddSeriesToChart("Requested Tours", values);
             SetUpXAxisLabelsMonth(months);
             SetUpYAxisLabels();
 
         }
+
+        private void PopulateGrid(List<string> months, List<int> values )
+        {
+            DataGrid.Clear();
+            for (int i = 0; i < months.Count; i++)
+            {
+                DataGrid.Add(new KeyValuePair<string, int>(months[i], values[i]));
+            }
+        }
+
 
         private void SetUpXAxisLabelsMonth(List<string> months)
         {
@@ -160,6 +182,10 @@ namespace BookingApp.ViewModels.GuideViewModel
             var tourData = CountToursByYear(filteredRequests);
             var sortedTourData = SortTourDataByYear(tourData);
             var (years, values) = ExtractYearsAndValues(sortedTourData);
+
+
+            PopulateGrid(years.Select(i => i.ToString()).ToList(), values);
+
 
             AddSeriesToChart("Requested Tours", values);
             SetUpXAxisLabels(years);

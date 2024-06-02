@@ -9,6 +9,7 @@
 	
   <ItemGroup>
     <None Remove="Resources\Images\accommodations.png" />
+    <None Remove="Resources\Images\account_settings.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\approved.png" />
     <None Remove="Resources\Images\barcelona.jpg" />
@@ -140,6 +141,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Images\account_settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

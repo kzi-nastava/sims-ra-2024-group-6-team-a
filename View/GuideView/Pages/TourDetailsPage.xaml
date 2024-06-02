@@ -15,118 +15,200 @@
                 <GradientStop Color="#F3D0D7" Offset="1.5"/>
             </RadialGradientBrush>
         </Grid.Background>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="60" TextWrapping="Wrap" Text="{Binding SelectedTour.Name}" FontWeight="Bold" />
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Label FontFamily="Yu Gothic UI Light" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="30">Location:</Label>
-            <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Location}" />
-            <Label FontFamily="Yu Gothic UI Light" Margin="25 0 0 0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="30">Duration:</Label>
-            <StackPanel Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Duration}" />
-                <Label FontFamily="Yu Gothic UI Light" FontSize="30" Content="h"/>
-            </StackPanel>
-            <Label FontFamily="Yu Gothic UI Light" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="30">Language:</Label>
-            <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="5" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Language}" />
-            <Label FontFamily="Yu Gothic UI Light"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center"  FontSize="30" Content="Capacity:"/>
-            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Orientation="Horizontal">
-                <TextBlock FontFamily="Yu Gothic UI Light" FontSize="30"  TextAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedTour.Capacity}" />
-                <Label FontFamily="Yu Gothic UI Light" Margin="10 0 0 0" FontSize="30" Content="people"/>
-            </StackPanel>
-            <Label FontFamily="Yu Gothic UI Light" Margin="25 0 0 0"  Grid.Row="1" Grid.Column="2"  VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="30" Content="Description:" />
-            <ScrollViewer FontFamily="Yu Gothic UI Light" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" >
-                <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Left"  FontSize="30" Text="{Binding SelectedTour.Description}" />
-            </ScrollViewer>
-        </Grid>
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.3*"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Label FontFamily="Yu Gothic UI Light" Margin="50 0 0 0" Grid.Row="0" VerticalAlignment="Bottom" FontSize="30" >Checkpoints</Label>
-            <ListBox  Grid.Row="1" Margin="50 0 100 60"  ItemsSource="{Binding SelectedTour.Checkpoints}"   >
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" FontFamily="Yu Gothic UI Light" FontSize="20" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Label FontFamily="Yu Gothic UI Light" Margin="50 0 0 0" Grid.Row="0"  Grid.Column="1" VerticalAlignment="Bottom" FontSize="30" >Tour Realisations</Label>
-            <ListBox  Grid.Row="1" Grid.Column="1" Margin="50 0 100 60"  ItemsSource="{Binding SelectedTour.DateRealisations, StringFormat=dd.MM.yyyy HH:mm}"  >
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" FontFamily="Yu Gothic UI Light" FontSize="20" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Grid>
-        <Image Grid.Row="1" Margin="40" Grid.Column="1" Source="{Binding CurrentImage.ImagePath, UpdateSourceTrigger=PropertyChanged}" />
-        <Grid Grid.Row="2" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.3*"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="0.3*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.47*"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <ListView Grid.Row="0" Grid.Column="1" x:Name="imageListBox" SelectionMode="Multiple" 
-                SelectionChanged="ChangeBigImage" SelectedItem="{Binding SelectedImage, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}"  >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <Image Source="{Binding ImageSource}" Width="103" Height="100" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-            </ListView>
-            <Button Grid.Row="0" Grid.Column="2" Height="40" Width="50" HorizontalAlignment="Left" Margin="20 0 0 0" Background="Transparent" BorderBrush="Transparent"  Command="{Binding NextImageCommand}">
-                <Image Source ="/Resources/Images/right_arrow.png" Width="40" Height="40"/>
-            </Button>
-            <Button Grid.Column="0" Grid.Row="0"  Height="40" Width="50" HorizontalAlignment="Right" Margin="0 0 20 0" Background="Transparent" BorderBrush="Transparent"   Command="{Binding PreviousImageCommand}">
-                <Image Source ="/Resources/Images/left_arrow.png" Width="40" Height="40"/>
-            </Button>
-            <Grid Grid.Row="1" Grid.Column="1" Margin="0 0 0 60" >
+        <Border Background="#F6F5F2" CornerRadius="8" Margin="5,10,5,10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+            </Border.Effect>
+            <Grid Margin="20 0 0 0" Grid.Column="0">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
                     <RowDefinition Height="3*"/>
-                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="Go Back" Click="GoBackClick"/>
-
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="Basic Info" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.14*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="Name:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label FontFamily="Yu Gothic UI Light" Grid.Row="1" Grid.Column="0"  Content="Location:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label FontFamily="Yu Gothic UI Light" Grid.Row="2" Grid.Column="0"  Content="Duration:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label FontFamily="Yu Gothic UI Light" Grid.Row="3" Grid.Column="0"  Content="Language:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label FontFamily="Yu Gothic UI Light" Grid.Row="4" Grid.Column="0"  Content="Capacity:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label FontFamily="Yu Gothic UI Light" Grid.Row="5" Grid.Column="0"  Content="Description:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center" Margin="0 0 50 0" FontSize="30" Text="{Binding SelectedTour.Name}"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center" Margin="0 0 50 0" FontSize="30" Text="{Binding SelectedTour.Location}"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center" Margin="0 0 50 0" FontSize="30" Text="{Binding SelectedTour.Duration}"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center" Margin="0 0 50 0" FontSize="30" Text="{Binding SelectedTour.Language}"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center" Margin="0 0 50 0" FontSize="30" Text="{Binding SelectedTour.Capacity}"/>
+                    <ScrollViewer  FontFamily="Yu Gothic UI Light" HorizontalAlignment="Left"  Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" >
+                        <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Left"  FontSize="30" Text="{Binding SelectedTour.Description}" />
+                    </ScrollViewer>
+                </Grid>
+                </Grid>
             </Grid>
-        </Grid>
+        </Border>
+        <Border Grid.Column="1" Background="#F6F5F2" CornerRadius="8" Margin="5,10,5,10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+        </Border.Effect>
+            <Grid Margin="20 0 20 20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="Schedule" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.14*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.4*"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="0.4*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="Checkpoints:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <ListBox  Grid.Row="1"  ItemsSource="{Binding SelectedTour.Checkpoints}"   >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" FontFamily="Yu Gothic UI Light" FontSize="20" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </ListBox.Resources>
+                        </ListBox>
+                        <Label FontFamily="Yu Gothic UI Light" Grid.Row="2" Grid.Column="0"  Content="Tour Realisations:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <ListBox  Grid.Row="3" Grid.Column="1"   ItemsSource="{Binding SelectedTour.DateRealisations, StringFormat=dd.MM.yyyy HH:mm}"  >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" FontFamily="Yu Gothic UI Light" FontSize="20" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </ListBox.Resources>
+                        </ListBox>
+
+
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+        <Border Grid.Column="2" Background="#F6F5F2" CornerRadius="8" Margin="5,10,5,10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="Media" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.14*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                      <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>    
+                        </Grid.RowDefinitions>
+                        <Border   Grid.Row="0"  Grid.Column="0"  CornerRadius="7" BorderBrush="#F0EBE3" BorderThickness="4">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding CurrentImage.ImagePath, UpdateSourceTrigger=PropertyChanged}"  Stretch="Fill"/>
+                            </Border.Background>
+                        </Border>
+                        <Grid Grid.Row="2" Margin="0 20 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.3*"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="0.3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.47*"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Border Background="#F6F5F2" CornerRadius="8" Grid.Column="1"  BorderBrush="#F0EBE3" BorderThickness="2">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+                                </Border.Effect>
+                                <ListView Grid.Row="0" Grid.Column="1" x:Name="imageListBox" SelectionMode="Multiple" 
+                SelectionChanged="ChangeBigImage" SelectedItem="{Binding SelectedImage, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}"  >
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <Image Source="{Binding ImageSource}" Width="103" Height="100" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListBox.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </ListBox.Resources>
+                                </ListView>
+                            </Border>
+                            <Button Grid.Row="0" Grid.Column="2" Height="40" Width="50" HorizontalAlignment="Left" Margin="20 0 0 0" Background="Transparent" BorderBrush="Transparent"  Command="{Binding NextImageCommand}">
+                                <Image Source ="/Resources/Images/right_arrow.png" Width="40" Height="40"/>
+                            </Button>
+                            <Button Grid.Column="0" Grid.Row="0"  Height="40" Width="50" HorizontalAlignment="Right" Margin="0 0 20 0" Background="Transparent" BorderBrush="Transparent"   Command="{Binding PreviousImageCommand}">
+                                <Image Source ="/Resources/Images/left_arrow.png" Width="40" Height="40"/>
+                            </Button>
+                            <Grid Grid.Row="1" Grid.Column="1" Margin="0 0 0 60" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Border Background="#F6F5F2" CornerRadius="8" Grid.Row="1" Grid.Column="1"  BorderBrush="#F0EBE3" BorderThickness="4">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+                                    </Border.Effect>
+                                    <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="Go Back" Click="GoBackClick"/>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

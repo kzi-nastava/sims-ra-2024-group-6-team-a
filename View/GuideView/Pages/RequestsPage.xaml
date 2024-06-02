@@ -7,7 +7,7 @@
       xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1080" d:DesignWidth="1920"
       Title="RequestsPage">
 
     <Grid>
@@ -18,7 +18,7 @@
             </RadialGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" >
@@ -35,76 +35,111 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="1.3*"/>
-                <ColumnDefinition Width="0.7*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.Column="0">
+        <Border Background="#F6F5F2" CornerRadius="0 0 8 8"   BorderBrush="#F0EBE3" BorderThickness="4">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+            </Border.Effect>
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="1.3*"/>
+                    <ColumnDefinition Width="0.7*"/>
                 </Grid.ColumnDefinitions>
-                <Label FontSize="15" Margin="9" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">Location:</Label>
-                <ComboBox  x:Name="locationComboBox" 
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label FontFamily="Yu Gothic UI Light"  FontSize="30"  Margin="50 0 0 0" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">Location:</Label>
+                    <ComboBox  x:Name="locationComboBox" 
                 SelectionChanged="locationComboBox_SelectionChanged"
                 ItemsSource="{Binding Locations}"
                 SelectedItem="{Binding Filter.Location}"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
                 DisplayMemberPath="LocationDisplayFormat"
-                IsEditable="True"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Width="114" Height="25" Padding="3"/>
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.03*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Label FontSize="15" Margin="9" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">Tour Realisation Date:</Label>
-                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" >
-                    <DatePicker x:Name="startDateComboBox" SelectedDateChanged="DatePickerBeginning_SelectedDateChanged" />
-                    <Label FontSize="15"  FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" Content="-"/>
-                    <DatePicker 
-                        x:Name="endDateComboBox" SelectedDateChanged = "DatePickerEnding_SelectedDateChanged"
-                        />
-
-                    
-                </StackPanel>
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Label FontSize="15" Margin="9" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">Language:</Label>
-                <ComboBox  x:Name="languageComboBox" 
+                IsEditable="True"  VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Height="50" Width="230" Padding="3"/>
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="343*"/>
+                        <ColumnDefinition Width="486*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label FontFamily="Yu Gothic UI Light"  FontSize="30" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Width="280">Tour Realisation Date:</Label>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Height="50" >
+                        <DatePicker  VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="50"  Width="230"  x:Name="startDateComboBox" SelectedDateChanged="DatePickerBeginning_SelectedDateChanged" />
+                        <Label FontSize="30"  FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" Content="-"/>
+                        <DatePicker x:Name="endDateComboBox" VerticalContentAlignment="Stretch" SelectedDateChanged = "DatePickerEnding_SelectedDateChanged" Height="50" Width="230"/>
+                    </StackPanel>
+    
+                </Grid>
+                <Grid Grid.Row="1" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label FontFamily="Yu Gothic UI Light"  FontSize="30"  Margin="50 0 0 0" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">Language:</Label>
+                    <ComboBox  x:Name="languageComboBox" 
+                               VerticalContentAlignment="Center"
+                               HorizontalContentAlignment="Center"
                 SelectionChanged="languageComboBox_SelectionChanged"
                 ItemsSource="{Binding Languages}"                         
                 SelectedItem="{Binding Filter.Language}"
                 DisplayMemberPath="LanguageDisplayFormat"
-                IsEditable="True"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Width="114" Height="25" Padding="3"/>
-            </Grid>
-            <Grid Grid.Row="0" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="0.5*"/>
-                </Grid.ColumnDefinitions>
-                <Label FontSize="15" Margin="9" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0">Number of Tourists:</Label>
+                IsEditable="True"  VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Height="50" Width="230" Padding="3"/>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="343*"/>
+                        <ColumnDefinition Width="486*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label FontFamily="Yu Gothic UI Light"  FontSize="30" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Height="50" Width="261">Number Of Tourists:</Label>
 
-                <xctk:IntegerUpDown x:Name="capacityBox" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Width="50" Padding="3" Margin="10 14 14 14"
+                    <xctk:IntegerUpDown x:Name="capacityBox" Height="50" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Width="50"  Padding="3" 
          Text="{Binding Filter.TouristNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+                <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <Border Background="#F6F5F2" CornerRadius="8" Grid.Row="1" Grid.Column="0" Margin="15 0 8 0"  BorderBrush="#F0EBE3" BorderThickness="4">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+                        </Border.Effect>
+                        <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="Search" Click="Search_Click">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                     Click here to search requests
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                    </Border>
+                    <Border Background="#F6F5F2" CornerRadius="8" Grid.Row="1" Grid.Column="1"  Margin="7 0 15 0"  BorderBrush="#F0EBE3" BorderThickness="4">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+                        </Border.Effect>
+                        <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="2" FontFamily="Yu Gothic UI Light" FontSize="30" Content="Reset Filter" Click="Reset_Click">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    Click here to search requests
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
+                    </Border>
+
+                </Grid>
             </Grid>
-           
-            <Button VerticalAlignment="Center" HorizontalAlignment="left" Grid.Column="10" Height="25" Width="60" Background="AntiqueWhite" Content="Search" Click="Search_Click" Margin="30 15 14 15" BorderBrush="Black" FontSize="15" BorderThickness="1" FontWeight="DemiBold">
-                <Button.ToolTip>
-                    <ToolTip>
-                        Click to filter tours
-                    </ToolTip>
-                </Button.ToolTip>
-            </Button>
-        </Grid>
+        </Border>
     </Grid>
 </Page>
