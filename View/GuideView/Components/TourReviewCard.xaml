@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
+
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
              mc:Ignorable="d" 
              Height="250" Width="950">
@@ -85,7 +87,7 @@
                 <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
                     <StackPanel VerticalAlignment="Center">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
-                        <Label   FontSize="8" Content="language" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                        <Label   FontSize="8" Content="{ns:Loc LanguageIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
                     <TextBlock FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" FontSize="20"  Text="{Binding Language}"/>
                 </StackPanel>
@@ -96,14 +98,14 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\location.png"/>
-                        <Label   FontSize="8" Content="location" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                        <Label   FontSize="8" Content="{ns:Loc LocationIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
                     <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20"   Text="{Binding Location}"/>
                 </Grid>
                 <StackPanel   Orientation="Horizontal" Grid.Column="2" Grid.Row="1">
                     <StackPanel VerticalAlignment="Center">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\calendar.png"/>
-                        <Label   FontSize="8" Content="date" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                        <Label   FontSize="8" Content="{ns:Loc DateIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
                     <TextBlock FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" TextAlignment="Center"  FontSize="20" x:Name="txtTourStart"  TextWrapping="Wrap" Text="{Binding TourStart,StringFormat=dd.MM.yyyy HH:mm}"/>
                 </StackPanel>
@@ -114,7 +116,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Cursor="Hand" Orientation="Horizontal" Grid.Column="0">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\information.png" PreviewMouseDown="MoreInfoMouseDown"/>
-                        <TextBlock FontFamily="Yu Gothic UI Light" VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="Click here to check all reviews" PreviewMouseDown="MoreInfoMouseDown"/>
+                        <TextBlock FontFamily="Yu Gothic UI Light" VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="{ns:Loc ReviewShowClick}" PreviewMouseDown="MoreInfoMouseDown"/>
                     </StackPanel>
                     <Grid Margin="30 0 0 0"  Grid.Column="1" Grid.Row="2">
                         <Grid.ColumnDefinitions>
@@ -122,7 +124,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Label  FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Column="0" Content="Grade:" FontSize="25"/>
+                        <Label  FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Column="0" Content="{ns:Loc Grade}" FontSize="25"/>
                         <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" Margin="10 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"  FontStyle="Italic" Text="{Binding AvgGrade ,  StringFormat=N2}"/>
                         <Image Grid.Column="2" Width="40px" Height="40px" Source="\Resources\Images\star_normalan.png"/>
                     </Grid>

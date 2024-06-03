@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
+      xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TourRequestsPage">
@@ -29,19 +30,19 @@
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center"  Grid.Row="0">
                 <Button Background="Transparent" BorderThickness="0" Click="RequestsClick">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="btnRequests"  Text="Requests" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock x:Name="btnRequests"  Text="{ns:Loc Requests}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
                 <TextBlock Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
                 <Button Background="Transparent" BorderThickness="0" Click="StatisticsClick"  >
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="btnRequestStatistics" Text="Statistics" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock x:Name="btnRequestStatistics" Text="{ns:Loc Statistics}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
                 <TextBlock Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
                 <Button Background="Transparent" BorderThickness="0" Click="ComplexTourClick"  >
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="btnComplexTours" Text="Complex Tour Requests" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock x:Name="btnComplexTours" Text="{ns:Loc ComplexTourRequests}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
             </StackPanel>

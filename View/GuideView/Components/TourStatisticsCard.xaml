@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
              mc:Ignorable="d" 
              Height="230" Width="950">
@@ -42,7 +43,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\location.png"/>
-                        <Label   FontSize="8" Content="location" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                        <Label   FontSize="8" Content="{ns:Loc LocationIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
                     <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20"   Text="{Binding Location}"/>
                 </Grid>
@@ -54,7 +55,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
-                        <Label   FontSize="8" Content="language" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                        <Label   FontSize="8" Content="{ns:Loc LanguageIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
                     <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20" Text="{Binding Language}"/>
                 </Grid>
@@ -66,7 +67,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Image Height="20px" Width="20px"  HorizontalAlignment="Center" Source="\Resources\Images\capacity.png"/>
-                        <Label   FontSize="8" Content="tourists" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                        <Label   FontSize="8" Content="{ns:Loc TouristsIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
                     <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20" Text="{Binding TouristNumber}"/>
                 </Grid>
@@ -75,7 +76,7 @@
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="0" FontSize="20" Text="Below 18 Years Old:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="0" FontSize="20" Text="{ns:Loc Below}"/>
                     <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="20" FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Children}"/>
                 </Grid>
                 <Grid VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
@@ -83,7 +84,7 @@
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock FontFamily="Yu Gothic UI Light" FontSize="20"  Grid.Column="0" Text="Between 18 and 50 Years Old:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" FontSize="20"  Grid.Column="0" Text="{ns:Loc Between}"/>
                     <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="20"  FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Adult}"/>
                 </Grid>
                 <Grid VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
@@ -91,7 +92,7 @@
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock FontFamily="Yu Gothic UI Light" FontSize="20" Grid.Column="0" Text="Above 50 Years Old:"/>
+                    <TextBlock FontFamily="Yu Gothic UI Light" FontSize="20" Grid.Column="0" Text="{ns:Loc Above}"/>
                     <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="20" FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Elderly}"/>
                 </Grid>
             </Grid>

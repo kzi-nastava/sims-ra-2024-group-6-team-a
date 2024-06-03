@@ -42,5 +42,12 @@ namespace BookingApp.View.GuideView.Pages
         {
             WindowViewModel.GoBackButtonClick();
         }
+
+      
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            WindowViewModel.ChangeLanguage();
+
+        }
     }
 }

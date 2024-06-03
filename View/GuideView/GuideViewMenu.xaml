@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
+        xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
         xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
          mc:Ignorable="d"
         Title="Guide" WindowState="Maximized" d:DesignHeight="1080" d:DesignWidth="1920" >
@@ -53,7 +54,19 @@
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
-                        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" FontSize="20"  TextAlignment="Left" VerticalAlignment="Center" Text="SuperGuide" />
+                        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" 
+                         FontSize="20" VerticalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="{ns:Loc Guide}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSuperGuide}" Value="True">
+                                            <Setter Property="Text" Value="{ns:Loc SuperGuide}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </StackPanel>
                     <Menu FlowDirection="RightToLeft"  Background="{x:Null}" VerticalAlignment="Center">
                         <MenuItem>
@@ -75,25 +88,25 @@
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" >
                     <Button Background="Transparent" BorderThickness="0" Click="ToursPageClick"  >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="btnTours" Text="Tours"  FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock x:Name="btnTours" Text="{ns:Loc Tours}"  FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                     <TextBlock Text="|" FontSize="30" VerticalAlignment="Center" Margin="10,0,10,0"/>
                     <Button  Background="Transparent" BorderThickness="0" Click="TourReviewsPageClick" >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="btnReviews"  Text="Reviews" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock x:Name="btnReviews"  Text="{ns:Loc Reviews}" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                     <TextBlock Text="|" FontSize="30" VerticalAlignment="Center" Margin="10,0,10,0"/>
                     <Button  Background="Transparent" BorderThickness="0" Click="TourStatisticsPageClick" >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="btnStatistics"  Text="Statistics" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock x:Name="btnStatistics"  Text="{ns:Loc Statistics}" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                     <TextBlock Text="|" FontSize="30" VerticalAlignment="Center" Margin="10,0,10,0"/>
                     <Button  Background="Transparent" BorderThickness="0" Click="TourRequestsPageClick" >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="btnRequests" Text="Tour Requests" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock x:Name="btnRequests" Text="{ns:Loc TourRequests}" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                 </StackPanel>

@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
+             xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
+
              mc:Ignorable="d" 
              Height="305" Width="1350">
 
@@ -85,13 +87,13 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="Name:"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="{ns:Loc FirstName}"/>
                     <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding FirstName}"/>
-                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"  FontSize="25" Content="Surname:"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"  FontSize="25" Content="{ns:Loc LastName}"/>
                     <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding LastName}"/>
-                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"  FontSize="25" Content="Age:"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"  FontSize="25" Content="{ns:Loc Age}"/>
                     <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Age}"/>
-                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"  FontSize="25" Content="Checkpoint:"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"  FontSize="25" Content="{ns:Loc Checkpoint}"/>
                     <TextBlock FontFamily="Yu Gothic UI Light" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Checkpoint}"/>
                     </Grid>
                     <Grid Grid.Column="1">
@@ -105,7 +107,7 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="Guide's knowledge:"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="{ns:Loc GuidesKnowledge}"/>
                         <Grid Grid.Row="0" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
@@ -115,7 +117,7 @@
                             <Image Grid.Column="1" Width="40px" Height="40px" Source="\Resources\Images\star_normalan.png"/>
 
                         </Grid>
-                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center"  Grid.Row="1" Grid.Column="0"  FontSize="25" Content="Guide's spoken language:"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center"  Grid.Row="1" Grid.Column="0"  FontSize="25" Content="{ns:Loc SpokenLanguage}"/>
                         <Grid Grid.Row="1" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
@@ -125,7 +127,7 @@
                             <Image Grid.Column="2" Width="40px" Height="40px" Source="\Resources\Images\star_normalan.png"/>
 
                         </Grid>
-                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"  FontSize="25" Content="Tour's attraction:"/>
+                    <Label FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"  FontSize="25" Content="{ns:Loc TourAttractions}"/>
                         <Grid Grid.Row="2" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
@@ -148,7 +150,7 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                    <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="Comment:"/>
+                    <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  FontSize="25" Content="{ns:Loc Comment}"/>
                         <ScrollViewer Grid.Column="1" Grid.RowSpan="2" Margin="0 5 0 0"  VerticalScrollBarVisibility="Auto" >
                         <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Left" TextAlignment="Left" TextWrapping="Wrap"  FontSize="25" Text="{Binding Impression}"/>
                         </ScrollViewer>
@@ -159,11 +161,11 @@
                                         <Setter Property="Text" Value="VALID"/>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsValid}" Value="True">
-                                                <Setter Property="Text" Value="VALID"/>
+                                            <Setter Property="Text" Value="{ns:Loc Valid}" />
                                                 <Setter Property="Foreground" Value="Green"/>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding IsValid}" Value="False">
-                                                <Setter Property="Text" Value="INVALID"/>
+                                            <Setter Property="Text" Value="{ns:Loc Invalid}"/>
                                                 <Setter Property="Foreground" Value="Red"/>
                                             </DataTrigger>
                                         </Style.Triggers>

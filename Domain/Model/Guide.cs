@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingApp.Serializer;
 using BookingApp.Resources;
+using Xceed.Wpf.AvalonDock.Themes;
 
 namespace BookingApp.Domain.Model
 {
@@ -28,9 +29,12 @@ namespace BookingApp.Domain.Model
 
         public double Grade { get; set; }
 
+        public string Theme { get; set; }
+
+        public string WebsiteLanguage { get; set; }
 
         public Guide() { }
-        public Guide(int id, string name, string surname, int age,int numberOfTours, Enums.GuideRank rank ,int userId, string language, double grade)
+        public Guide(int id, string name, string surname, int age,int numberOfTours, Enums.GuideRank rank ,int userId, string language, double grade, string theme, string webisteLanguage)
         {
             Id = id;
             Name = name;
@@ -41,8 +45,10 @@ namespace BookingApp.Domain.Model
             Rank = rank;
             Language = language;
             Grade = grade;
+            Theme = theme;
+            WebsiteLanguage = webisteLanguage;
         }
-        public Guide(string name, string surname, int age,int numberOfTours,Enums.GuideRank rank ,int userId, string language, double grade)
+        public Guide(string name, string surname, int age,int numberOfTours,Enums.GuideRank rank ,int userId, string language, double grade,string theme, string webisteLanguage)
         {
             Name = name;
             Surname = surname;
@@ -52,6 +58,8 @@ namespace BookingApp.Domain.Model
             Rank = rank;
             Language = language;
             Grade = grade;
+            Theme = theme;
+            WebsiteLanguage = webisteLanguage;
 
         }
 
@@ -66,12 +74,14 @@ namespace BookingApp.Domain.Model
             UserId = Convert.ToInt32(values[6]);
             Language = values[7];
             Grade = Convert.ToDouble(values[8]);
+            Theme = values[9];  
+            WebsiteLanguage = values[10];
 
         }
 
         public string[] ToCSV()
         {
-            string[] csvvalues = { Id.ToString(), Name, Surname, Age.ToString(),NumberOfTours.ToString(), Rank.ToString(),UserId.ToString(),Language, Grade.ToString()};
+            string[] csvvalues = { Id.ToString(), Name, Surname, Age.ToString(),NumberOfTours.ToString(), Rank.ToString(),UserId.ToString(),Language, Grade.ToString(),Theme,WebsiteLanguage};
             return csvvalues;
         }
     }

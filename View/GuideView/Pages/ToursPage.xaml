@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
+      xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Loaded="LoadTodaysTours"
@@ -34,19 +35,19 @@
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center"  Grid.Row="0">
                 <Button Background="Transparent" BorderThickness="0" Click="LiveToursPageClick">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="btnTodaysTours"  Text="Today's Tours" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock x:Name="btnTodaysTours"  Text="{ns:Loc TodaysTours}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
                 <TextBlock Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
                 <Button Background="Transparent" BorderThickness="0" Click="AllToursPageClick"  >
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="btnAllTours" Text="All Tours" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock x:Name="btnAllTours" Text="{ns:Loc AllTours}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
                 <TextBlock Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
                 <Button Background="Transparent" BorderThickness="0" Click="ShowCreateTourForm"  >
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="btnCreateTour" Text="Create Tour" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock x:Name="btnCreateTour" Text="{ns:Loc CreateTour}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
             </StackPanel>

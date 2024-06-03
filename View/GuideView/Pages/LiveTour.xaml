@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
+      xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="LiveTour">
@@ -36,8 +37,8 @@
                     <RowDefinition Height="0.5*" />
                     <RowDefinition Height="5*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" FontFamily="Yu Gothic UI Light"  Grid.Column="0"  Content="Tourist Evidence" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <TextBlock Margin="0 0 0 5" VerticalAlignment="Bottom"  FontSize="15" FontFamily="Yu Gothic UI Light" Grid.Row="1">Select the tourist who have appeared at the current checkpoint, if no one has appeared , press the checkbox</TextBlock>
+                <Label Grid.Row="0" FontFamily="Yu Gothic UI Light"  Grid.Column="0"  Content="{ns:Loc TouristEvidence}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Margin="0 0 0 5" VerticalAlignment="Bottom"  FontSize="15" FontFamily="Yu Gothic UI Light" Grid.Row="1" Text="{ns:Loc TouristTableInfo}" />
                 <Border Background="#F6F5F2" CornerRadius="8" Grid.Row="2" BorderBrush="#F0EBE3" BorderThickness="4"  ClipToBounds="True">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
@@ -78,17 +79,17 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="0.6*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" FontFamily="Yu Gothic UI Light"  Grid.Column="0"  Content="Current Checkpoint:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <Label Grid.Row="0" FontFamily="Yu Gothic UI Light"  Grid.Column="0"  Content="{ns:Loc CurrentCheckpoint}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     <TextBlock  TextWrapping="Wrap" FontFamily="Yu Gothic UI Light"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding SelectedCheckpoint.Name}"/>
                     <Border Grid.Column="2" Background="#F6F5F2" CornerRadius="8" Grid.Row="2" BorderBrush="#F0EBE3" BorderThickness="4">
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                         </Border.Effect>
-                        <Button Grid.Column="2" Background="Transparent" BorderThickness="0" FontFamily="Yu Gothic UI Light" FontSize="20" Click="NextCheckpointClick" >Next Checkpoint</Button>
+                        <Button Grid.Column="2" Background="Transparent" BorderThickness="0" FontFamily="Yu Gothic UI Light" FontSize="20" Click="NextCheckpointClick" Content="{ns:Loc NextCheckpoint}" ></Button>
                     </Border>
                 </Grid>
                 <Grid Margin="0 0 0 5" VerticalAlignment="Bottom" Grid.Row="1">
-                    <TextBlock FontFamily="Yu Gothic UI Light" FontSize="14">The table below contains a list of all checkpoints.Greyed out checkpoints represent checkpoints that have been completed</TextBlock>
+                    <TextBlock FontFamily="Yu Gothic UI Light" FontSize="14" Text="{ns:Loc CheckpointTableInfo}"/>
                 </Grid>
                 <Border Background="#F6F5F2" CornerRadius="8" Grid.Row="2" BorderBrush="#F0EBE3" BorderThickness="4">
                     <Border.Effect>
@@ -138,13 +139,13 @@
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                     </Border.Effect>
-                    <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="End Tour" Click="TourEndedClick"/>
+                    <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc EndTour}" Click="TourEndedClick"/>
                 </Border>
                 <Border Background="#F6F5F2" CornerRadius="8" Grid.Column="2" Margin="20,20,20,20" BorderBrush="#F0EBE3" BorderThickness="4">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                     </Border.Effect>
-                    <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="Go Back" Click="GoBackClick"/>
+                    <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc GoBack}" Click="GoBackClick"/>
                 </Border>
             </Grid>
         </Grid>
@@ -168,10 +169,10 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" FontFamily="Yu Gothic UI Light" Margin="15 0 0 0" Grid.Column="0"  Content="Location:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <Label Grid.Row="1" FontFamily="Yu Gothic UI Light" Margin="15 0 0 0"  Grid.Column="0"  Content="Tour Realisation:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <Label Grid.Row="2" FontFamily="Yu Gothic UI Light" Margin="15 0 0 0" Grid.Column="0"  Content="Language:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <Label Grid.Row="3" FontFamily="Yu Gothic UI Light"  Margin="15 0 0 0" Grid.Column="0"  Content="Duration:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label Grid.Row="0" FontFamily="Yu Gothic UI Light" Margin="15 0 0 0" Grid.Column="0"  Content="{ns:Loc Location}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label Grid.Row="1" FontFamily="Yu Gothic UI Light" Margin="15 0 0 0"  Grid.Column="0"  Content="{ns:Loc Realisation}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label Grid.Row="2" FontFamily="Yu Gothic UI Light" Margin="15 0 0 0" Grid.Column="0"  Content="{ns:Loc Language}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label Grid.Row="3" FontFamily="Yu Gothic UI Light"  Margin="15 0 0 0" Grid.Column="0"  Content="{ns:Loc Duration}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                 <TextBlock FontFamily="Yu Gothic UI Light"  Margin="0 0 100 0" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0}, {1}">
@@ -188,7 +189,7 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0"  FontFamily="Yu Gothic UI Light"  Grid.Column="0"  Content="Current Tourist Number:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="0"  FontFamily="Yu Gothic UI Light"  Grid.Column="0"  Content="{ns:Loc TouristNumber}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="1"  Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding TouristNumber}"/>
 
                 </Grid>

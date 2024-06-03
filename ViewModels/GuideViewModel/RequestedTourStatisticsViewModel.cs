@@ -49,6 +49,7 @@ namespace BookingApp.ViewModels.GuideViewModel
             DataGrid = new ObservableCollection<KeyValuePair<string, int>>();
 
             Window.overallCheckBox.IsChecked = true;
+            SearchButtonClick();
         }
 
         private void InitializeYears()

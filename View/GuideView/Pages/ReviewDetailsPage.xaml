@@ -1,6 +1,7 @@
 ﻿<Page x:Class="BookingApp.View.GuideView.Pages.ReviewDetailsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
@@ -56,11 +57,11 @@
                         <ImageBrush ImageSource="{Binding BigImagePath}"  Stretch="Fill"/>
                     </Border.Background>
                 </Border>
-                <Label FontFamily="Yu Gothic UI Light" Grid.Row="1" Grid.Column="0"  Content="Tour Name:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <Label  FontFamily="Yu Gothic UI Light" Grid.Row="2" Grid.Column="0"  Content="Location:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <Label FontFamily="Yu Gothic UI Light" Grid.Row="3" Grid.Column="0"  Content="Tour Realisation:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <Label FontFamily="Yu Gothic UI Light" Grid.Row="4" Grid.Column="0"  Content="Language:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <Label FontFamily="Yu Gothic UI Light" Grid.Row="5" Grid.Column="0"  Content="Duration:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="1" Grid.Column="0"  Content="{ns:Loc Name}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label  FontFamily="Yu Gothic UI Light" Grid.Row="2" Grid.Column="0"  Content="{ns:Loc Location}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="3" Grid.Column="0"  Content="{ns:Loc Realisation}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="4" Grid.Column="0"  Content="{ns:Loc Language}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="5" Grid.Column="0"  Content="{ns:Loc Duration}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
                 <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Tour.Name}"/>
                 <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Location}"/>
@@ -72,7 +73,7 @@
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                     </Border.Effect>
-                    <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="Go Back" Click="GoBackClick"/>
+                    <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc GoBack}" Click="GoBackClick"/>
                 </Border>
             </Grid>
         </Border>

@@ -1,14 +1,13 @@
-﻿<UserControl x:Class="BookingApp.View.GuideView.Components.SimpleRequestCard"
+﻿<UserControl x:Class="BookingApp.View.GuideView.Components.ComplexRequestCard"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
 
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
              mc:Ignorable="d" 
-             Height="250" Width="950">
-
+             Height="250" Width="800">
     <UserControl.Resources>
         <Style TargetType="Border" x:Key="CardBorderStyle">
             <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
@@ -28,13 +27,13 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
-                                                 To="1.02" Duration="0:0:0.3"/>
+                                               To="1.02" Duration="0:0:0.3"/>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
-                                                 To="1.02" Duration="0:0:0.3"/>
+                                               To="1.02" Duration="0:0:0.3"/>
                                 <DoubleAnimation Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)"
-                                                 To="0.4" Duration="0:0:0.3"/>
+                                               To="0.4" Duration="0:0:0.3"/>
                                 <DoubleAnimation Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)"
-                                                 To="3" Duration="0:0:0.3"/>
+                                               To="3" Duration="0:0:0.3"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
@@ -42,13 +41,13 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
-                                                 To="1" Duration="0:0:0.3"/>
+                                               To="1" Duration="0:0:0.3"/>
                                 <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
-                                                 To="1" Duration="0:0:0.3"/>
+                                               To="1" Duration="0:0:0.3"/>
                                 <DoubleAnimation Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)"
-                                                 To="0.3" Duration="0:0:0.3"/>
+                                               To="0.3" Duration="0:0:0.3"/>
                                 <DoubleAnimation Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)"
-                                                 To="0.5" Duration="0:0:0.3"/>
+                                               To="0.5" Duration="0:0:0.3"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.ExitActions>
@@ -59,9 +58,6 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-
-
-
     <Border Style="{StaticResource CardBorderStyle}" Background="#F6F5F2" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
         <Grid>
             <Grid.RowDefinitions>
@@ -71,73 +67,56 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1.3*"/>
+                <ColumnDefinition Width="0.7*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Row="0" Grid.Column="0">
+
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.ColumnSpan="2">
+                <TextBlock FontFamily="Yu Gothic UI Light" FontSize="30" Text="{ns:Loc ComplexTourRequest}" FontWeight="Bold"/>
+                <TextBlock FontFamily="Yu Gothic UI Light" Margin="10,0,0,0" FontSize="30" Text="{Binding Id}" />
+            </StackPanel>
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Image Height="20px" Width="20px"  HorizontalAlignment="Center" Source="\Resources\Images\capacity.png"/>
+                    <Label   FontSize="8" Content="{ns:Loc SegmentNumber}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="63" />
+                </StackPanel>
+                <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding NumberOfFragments}"/>
+            </Grid>
+        
+            <Grid Grid.Row="1" Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.15*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Image Width="20px" Height="20px" Source="\Resources\Images\location.png"/>
-                    <Label   FontSize="8" Content="{ns:Loc LocationIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                    <Label   FontSize="8" Content="{ns:Loc FirstNameIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                 </StackPanel>
-                <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding Location}"/>
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.15*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <StackPanel VerticalAlignment="Center">
-                    <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
-                    <Label   FontSize="7" Content="{ns:Loc LanguageIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
-                </StackPanel>
-                <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding Language}"/>
+                <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding TouristName}"/>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.18*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <StackPanel VerticalAlignment="Center">
-                    <Image Width="20px" Height="20px" Source="\Resources\Images\calendar.png"/>
-                    <Label   FontSize="8" Content="{ns:Loc DateIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
-                </StackPanel>
-                <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"  >
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0:dd.MM.yyyy} - {1:dd.MM.yyyy}">
-                            <Binding Path="Start"/>
-                            <Binding Path="End"/>
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
+               
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.2*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Image Height="20px" Width="20px"  HorizontalAlignment="Center" Source="\Resources\Images\capacity.png"/>
-                    <Label   FontSize="8" Content="{ns:Loc TouristsIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="63" />
+                <StackPanel VerticalAlignment="Center">
+                    <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
+                    <Label   FontSize="7" Content="{ns:Loc LastNameIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                 </StackPanel>
-                <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding TouristNumber}"/>
+                <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding TouristLastName}"/>
             </Grid>
-            <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.2*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Margin="0 30 0 0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Image Height="20px" Width="20px"  HorizontalAlignment="Center" Source="\Resources\Images\description.png"/>
-                    <Label   FontSize="8" Content="{ns:Loc DescriptionIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="63" />
-                </StackPanel>
-                <ScrollViewer Grid.Column="1" Grid.RowSpan="2" Margin="0 25 0 0"  VerticalScrollBarVisibility="Auto" >
-                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Left" TextAlignment="Left" TextWrapping="Wrap"  FontSize="25" Text="{Binding Description}"/>
-                </ScrollViewer>
-            </Grid>
+            
             <Grid Grid.RowSpan="2" Grid.Column="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="6*"/>
@@ -153,7 +132,7 @@
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                     </Border.Effect>
-                    <Button Background="Transparent" BorderThickness="0" Click="AcceptRequestClick" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="20" Content="{ns:Loc Accept}"></Button>
+                    <Button Background="Transparent" BorderThickness="0" Click="DetailsClick" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="20" Content="{ns:Loc Details}" ></Button>
                 </Border>
                 <TextBlock Grid.Column="1" Visibility="Collapsed" x:Name="txtRequestId" Text="{Binding Id}"  HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Height="0" Width="0"/>
                 <TextBlock Grid.Column="1" Visibility="Collapsed" x:Name="txtUserId" Text="{Binding UserId}"  HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Height="0" Margin="67,0,0,0" Width="0"/>

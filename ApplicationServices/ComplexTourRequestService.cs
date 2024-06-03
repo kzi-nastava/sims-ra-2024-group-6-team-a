@@ -55,6 +55,8 @@ namespace BookingApp.ApplicationServices
                 TourRequestService.GetInstance().MakeTourRequest(request, request.Guests.ToList(), user);
             }
         }
+
+        
         public void MakeComplexRequest(ComplexRequestDTO request, int touristId, List<SimpleRequestDTO> simpleRequests)
         {
             ComplexTourRequest complexRequest = new ComplexTourRequest(request.Status, touristId);
