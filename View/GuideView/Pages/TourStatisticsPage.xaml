@@ -1,6 +1,7 @@
 ﻿<Page x:Class="BookingApp.View.GuideView.Pages.TourStatisticsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
@@ -33,7 +34,7 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Label  Grid.Column="1" Content="The Most Visited Tour" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
+                <Label  Grid.Column="1" Content="{ns:Loc TheMostVisitedTour}" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
                 <Grid Grid.Column="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -49,7 +50,7 @@
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                         </Border.Effect>
-                        <Button Background="{x:Null}" BorderThickness="0" Grid.Column="2" Content="Generate Statistics" FontFamily="Yu Gothic UI Light" FontSize="25" />
+                        <Button Background="{x:Null}" BorderThickness="0" Grid.Column="2" Content="{ns:Loc GenerateStatistics}" FontFamily="Yu Gothic UI Light" FontSize="25" />
                     </Border>
                 </Grid>
             </Grid>
@@ -72,7 +73,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Label Content="Finished Tours" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
+                <Label Content="{ns:Loc FinishedTours}" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
                 <Image Margin="20 0 0 0" Width="50px" Height="50px" Source="\Resources\Images\finish_flag.png"/>
             </StackPanel>
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,0">

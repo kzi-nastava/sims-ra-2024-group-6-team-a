@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Above" xml:space="preserve">
+    <value>Iznad 50 godina:</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Prihvati</value>
+  </data>
+  <data name="AccountDetails" xml:space="preserve">
+    <value>Detalji Profila</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="AddTourCheckpointInfo" xml:space="preserve">
+    <value>Ako zelis da obrises kontrolnu tacku, odaberi je i pritisni dugme za brisanje</value>
+  </data>
+  <data name="AddTourDateInfo" xml:space="preserve">
+    <value>Ako zelis da obrises datum, odaberi ga i pritisni dugme za brisanje</value>
+  </data>
+  <data name="AddTourImageInfo" xml:space="preserve">
+    <value>Ako zelis da obrises sliku, odaberi je i pritisni dugme za brisanje</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Godine:</value>
+  </data>
+  <data name="AllTours" xml:space="preserve">
+    <value>Svi Obilasci</value>
+  </data>
+  <data name="BasicInfo" xml:space="preserve">
+    <value>Osnovne Informacije</value>
+  </data>
+  <data name="Below" xml:space="preserve">
+    <value>Ispod 18 godina:</value>
+  </data>
+  <data name="Between" xml:space="preserve">
+    <value>Izmedju 18 i 50 godina:</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="CancelTourClick" xml:space="preserve">
+    <value>Pritisnite ovde za brisanje obilazaka</value>
+  </data>
+  <data name="Capacity" xml:space="preserve">
+    <value>Kapacitet:</value>
+  </data>
+  <data name="Checkpoint" xml:space="preserve">
+    <value>Kontrolna tacka:</value>
+  </data>
+  <data name="Checkpoints" xml:space="preserve">
+    <value>Kontrolne Tacke</value>
+  </data>
+  <data name="CheckpointTableInfo" xml:space="preserve">
+    <value>Tabela ispod sadrzi listu svih kontrolnih tacaka.Zatamnjene tacke predstavljaju tacke koje su zavrsene</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Komentar:</value>
+  </data>
+  <data name="ComplexRequests" xml:space="preserve">
+    <value>Kompleksni Zahtevi</value>
+  </data>
+  <data name="ComplexTourRequest" xml:space="preserve">
+    <value>Kompleksni Zahtev</value>
+  </data>
+  <data name="ComplexTourRequests" xml:space="preserve">
+    <value>Kompleksni Zahtevi</value>
+  </data>
+  <data name="CreateRequestedTour" xml:space="preserve">
+    <value>Napravi Slozenu Turu</value>
+  </data>
+  <data name="CreateTour" xml:space="preserve">
+    <value>Napravi Obilazak</value>
+  </data>
+  <data name="CurrentCheckpoint" xml:space="preserve">
+    <value>Trenutna Kontrolna Tacka:</value>
+  </data>
+  <data name="DateIcon" xml:space="preserve">
+    <value>datum</value>
+  </data>
+  <data name="Dates" xml:space="preserve">
+    <value>Datumi</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis Obilaska:</value>
+  </data>
+  <data name="DescriptionIcon" xml:space="preserve">
+    <value>opis</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detalji</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Trajanje:</value>
+  </data>
+  <data name="EndTour" xml:space="preserve">
+    <value>Zavrsi Obilazak</value>
+  </data>
+  <data name="FinishedTours" xml:space="preserve">
+    <value>Zavrsene Ture</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Ime:</value>
+  </data>
+  <data name="FirstNameIcon" xml:space="preserve">
+    <value>ime</value>
+  </data>
+  <data name="GenerateStatistics" xml:space="preserve">
+    <value>Generisi Statistiku</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>Prethodna Stranica</value>
+  </data>
+  <data name="Grade" xml:space="preserve">
+    <value>Ocena:</value>
+  </data>
+  <data name="GuideRankMainPage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GuidesKnowledge" xml:space="preserve">
+    <value>Znanje vodica:</value>
+  </data>
+  <data name="Images" xml:space="preserve">
+    <value>Slike</value>
+  </data>
+  <data name="ImportantNotice" xml:space="preserve">
+    <value>vazno obavestenje</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>Nevalidno</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Jezik:</value>
+  </data>
+  <data name="LanguageIcon" xml:space="preserve">
+    <value>jezik</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Prezime:</value>
+  </data>
+  <data name="LastNameIcon" xml:space="preserve">
+    <value>prezime</value>
+  </data>
+  <data name="LiveTourClick" xml:space="preserve">
+    <value>Pritisnite ovde za pracenje obilaska</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Lokacija:</value>
+  </data>
+  <data name="LocationIcon" xml:space="preserve">
+    <value>lokacija</value>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>Slike</value>
+  </data>
+  <data name="MoreInfoClick" xml:space="preserve">
+    <value>Pritisnite ovde za vise informacija</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Naziv:</value>
+  </data>
+  <data name="NextCheckpoint" xml:space="preserve">
+    <value>Sledeca Tacka</value>
+  </data>
+  <data name="NumberOfFinishedTours" xml:space="preserve">
+    <value>Broj obilazaka:</value>
+  </data>
+  <data name="NumberOfTourists" xml:space="preserve">
+    <value>Broj Turista:</value>
+  </data>
+  <data name="OtherTours" xml:space="preserve">
+    <value>Ostale Obilasci</value>
+  </data>
+  <data name="OverallStats" xml:space="preserve">
+    <value>Sveukupna Statistika</value>
+  </data>
+  <data name="ParamsInfo" xml:space="preserve">
+    <value>Odaberite parametre i pritisnite "pretraga"</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>ljudi</value>
+  </data>
+  <data name="QuitJob" xml:space="preserve">
+    <value>Daj Otkaz</value>
+  </data>
+  <data name="Rank" xml:space="preserve">
+    <value>Zvanje:</value>
+  </data>
+  <data name="Realisation" xml:space="preserve">
+    <value>Realizacija:</value>
+  </data>
+  <data name="Recommended" xml:space="preserve">
+    <value>Preporuceno:</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Obrisi</value>
+  </data>
+  <data name="Requests" xml:space="preserve">
+    <value>Zahtevi</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>Restartuj Filter</value>
+  </data>
+  <data name="Reviews" xml:space="preserve">
+    <value>Recenzije</value>
+  </data>
+  <data name="ReviewShowClick" xml:space="preserve">
+    <value>Pritisnite za prikaz svih recenzija</value>
+  </data>
+  <data name="Schedule" xml:space="preserve">
+    <value>Realizacija</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pretraga</value>
+  </data>
+  <data name="SegmentNumber" xml:space="preserve">
+    <value>broj obilazaka</value>
+  </data>
+  <data name="SpokenLanguage" xml:space="preserve">
+    <value>Vodicev jezik:</value>
+  </data>
+  <data name="StartTourClick" xml:space="preserve">
+    <value>Pritisnite ovde da zapocnete obilazak</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistika</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>tset</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Tema:</value>
+  </data>
+  <data name="TheMostVisitedTour" xml:space="preserve">
+    <value>Najposecenija Tura</value>
+  </data>
+  <data name="TodaysTours" xml:space="preserve">
+    <value>Danasnji Obilasci</value>
+  </data>
+  <data name="TourAttractions" xml:space="preserve">
+    <value>Znamenitosti obilaska:</value>
+  </data>
+  <data name="TourFragments" xml:space="preserve">
+    <value>Delovi Zahteva</value>
+  </data>
+  <data name="TouristEvidence" xml:space="preserve">
+    <value>Evidencija Turista</value>
+  </data>
+  <data name="TouristNumber" xml:space="preserve">
+    <value>Ukupan Broj Turista</value>
+  </data>
+  <data name="Tourists" xml:space="preserve">
+    <value>Turisti</value>
+  </data>
+  <data name="TouristsIcon" xml:space="preserve">
+    <value>turisti</value>
+  </data>
+  <data name="TouristTableInfo" xml:space="preserve">
+    <value>Oznacite turistu koji se pojavio na trenutnoj kontrolnoj tacki, ukoliko nema ni 1 novi turista,predji na sledeci checkpoint</value>
+  </data>
+  <data name="TourRealisationDate" xml:space="preserve">
+    <value>Datum Realizacije:</value>
+  </data>
+  <data name="TourRealisations" xml:space="preserve">
+    <value>Datumi Realizacije:</value>
+  </data>
+  <data name="TourRequests" xml:space="preserve">
+    <value>Zahtevi za Obilaske </value>
+  </data>
+  <data name="Tours" xml:space="preserve">
+    <value>Obilasci</value>
+  </data>
+  <data name="Valid" xml:space="preserve">
+    <value>Validno</value>
+  </data>
+  <data name="WebsiteLanguage" xml:space="preserve">
+    <value>Jezik sajta:</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Godina</value>
+  </data>
+</root>

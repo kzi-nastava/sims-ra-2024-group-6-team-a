@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d"
       Title="RequestedTourStatistics">
     <Grid>
@@ -37,7 +38,7 @@
                             <RowDefinition/>
                             <RowDefinition Height="0.4*"/>
                         </Grid.RowDefinitions>
-                        <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="Statistics" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc Statistics}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <Grid Grid.Row="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -48,8 +49,8 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label FontFamily="Yu Gothic UI Light" Margin="30 0 0 0" Grid.Row="0" Grid.ColumnSpan="2"  Content="Please select parameteres and press search" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            <Label FontFamily="Yu Gothic UI Light" Grid.Row="1" Margin="50 0 0 0" Grid.Column="0"  Content="Location:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <Label FontFamily="Yu Gothic UI Light" Margin="30 0 0 0" Grid.Row="0" Grid.ColumnSpan="2"  Content="{ns:Loc ParamsInfo}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <Label FontFamily="Yu Gothic UI Light" Grid.Row="1" Margin="50 0 0 0" Grid.Column="0"  Content="{ns:Loc Location}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             <ComboBox Grid.Column="1" Grid.Row="1"  x:Name="locationComboBox" Height="50" Width="230" HorizontalAlignment="Left" VerticalAlignment="Center"
                               IsEditable="True"
                               IsTextSearchEnabled="True"
@@ -57,7 +58,7 @@
                               VerticalContentAlignment="Center"
                               IsTextSearchCaseSensitive="False"
                               ItemsSource="{Binding Locations}" Background="#F6F5F2" />
-                            <Label FontFamily="Yu Gothic UI Light" Grid.Row="2" Margin="50 0 0 0" Grid.Column="0"  Content="Language:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <Label FontFamily="Yu Gothic UI Light" Grid.Row="2" Margin="50 0 0 0" Grid.Column="0"  Content="{ns:Loc Language}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             <ComboBox Grid.Column="1" Grid.Row="3"  
                               x:Name="languageComboBox"
                                 Height="50" Width="230"
@@ -85,7 +86,7 @@
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                                 </Border.Effect>
-                                <Button Background="Transparent" BorderThickness="0" Content="Search" FontSize="25"  Click="SearchButtonClick" Grid.Row="2" Grid.ColumnSpan="2" />
+                                <Button Background="Transparent" BorderThickness="0" Content="{ns:Loc Search}" FontSize="25"  Click="SearchButtonClick" Grid.Row="2" Grid.ColumnSpan="2" />
                             </Border>
                         </Grid>
 
@@ -109,7 +110,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox  VerticalContentAlignment="Center"
-          HorizontalContentAlignment="Center" Content="Overall Statistics" x:Name="overallCheckBox" Margin="50 0 0 0"  FontFamily="Yu Gothic UI Light" FontSize="30"  HorizontalAlignment="Left" Grid.Row="1" Grid.ColumnSpan="2"  VerticalAlignment="Center">
+          HorizontalContentAlignment="Center" Content="{ns:Loc OverallStats}" x:Name="overallCheckBox" Margin="50 0 0 0"  FontFamily="Yu Gothic UI Light" FontSize="30"  HorizontalAlignment="Left" Grid.Row="1" Grid.ColumnSpan="2"  VerticalAlignment="Center">
                             <CheckBox.ToolTip>
                                 <ToolTip>
                                     <StackPanel>
@@ -118,7 +119,7 @@
                                 </ToolTip>
                             </CheckBox.ToolTip>
                         </CheckBox>
-                        <Label FontFamily="Yu Gothic UI Light" Grid.Row="2" Margin="50 0 0 0" Grid.Column="0"  Content="Year:" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <Label FontFamily="Yu Gothic UI Light" Grid.Row="2" Margin="50 0 0 0" Grid.Column="0"  Content="{ns:Loc Year}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                         <ComboBox Grid.Column="2" Grid.Row="2"  x:Name="yearComboBox"   Height="50" Width="230"
                          HorizontalAlignment="Left" VerticalAlignment="Center"
                           IsEditable="True"

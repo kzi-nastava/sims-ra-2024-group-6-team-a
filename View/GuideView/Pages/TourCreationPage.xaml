@@ -2,6 +2,7 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -35,7 +36,7 @@
             <RowDefinition/>
             <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Create Tour" FontSize="60" FontWeight="Bold" />
+        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{ns:Loc CreateTour}" FontSize="60" FontWeight="Bold" />
         <Grid Grid.Row="1" Margin="100 0 100 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.7*"/>
@@ -57,14 +58,14 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100 0 0 0" FontSize="25" FontWeight="Bold" >Name:</Label>
+                <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100 0 0 0" FontSize="25" FontWeight="Bold" Content="{ns:Loc Name}"/>
                 <TextBox x:Name="txtTourName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0 20 40 20"  TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedTour.Name, UpdateSourceTrigger=PropertyChanged}" />
-                <Label Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="25" Margin="0 0 80 0" FontWeight="Bold"  >Location:</Label>
-                <Label Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="25" FontWeight="Bold" >Language:</Label>
-                <Label  Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="100 0 0 0"  FontSize="25" FontWeight="Bold"  >Duration:</Label>
-                <Label Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="25" Margin="0 0 80 0" FontWeight="Bold"  >Capacity:</Label>
-                <Label Grid.Column="2"  Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 0 80 0"  FontSize="25" FontWeight="Bold" Content="Recommended:"/>
-                <Label Grid.Column="4"  Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right"   FontSize="25" FontWeight="Bold" Content="Recommended:"/>
+                <Label Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="25" Margin="0 0 80 0" FontWeight="Bold" Content="{ns:Loc Location}"/>
+                <Label Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="25" FontWeight="Bold" Content="{ns:Loc Language}" />
+                <Label  Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="100 0 0 0"  FontSize="25" FontWeight="Bold" Content="{ns:Loc Duration}"/>
+                <Label Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="25" Margin="0 0 80 0" FontWeight="Bold" Content="{ns:Loc Capacity}"/>
+                <Label Grid.Column="2"  Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 0 80 0"  FontSize="25" FontWeight="Bold" Content="{ns:Loc Recommended}"/>
+                <Label Grid.Column="4"  Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right"   FontSize="25" FontWeight="Bold" Content="{ns:Loc Recommended}"/>
                 <ComboBox Grid.Column="3" Grid.Row="1"  x:Name="locationComboBox"  Margin="0 20 40 20"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                   IsEditable="True"
                   IsTextSearchEnabled="True"
@@ -92,7 +93,7 @@
 
                 <StackPanel Grid.Column="3" VerticalAlignment="Top" Grid.Row="3" Orientation="Horizontal">
                     <xctk:IntegerUpDown Background="#F6F5F2"  Minimum="0" Height="37" Width="80"  x:Name="txtTourCapacity" Text="{Binding Path = SelectedTour.Capacity, UpdateSourceTrigger=PropertyChanged}"  />
-                    <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="25" FontWeight="Bold"  >people</Label>
+                    <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="25" FontWeight="Bold" Content="{ns:Loc People}"/>
                 </StackPanel>
                 <StackPanel Margin="20 5 0 0" Grid.Row="2" Grid.Column="3" VerticalAlignment="Top" Orientation="Horizontal" >
                     <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap"  Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center"  FontSize="25" >
@@ -124,7 +125,7 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2" Orientation="Horizontal">
-                    <Label Grid.Column="4" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" >Description:</Label>
+                    <Label Grid.Column="4" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" Content="{ns:Loc Description}"/>
                     <TextBox Grid.Column="5" Margin="0 5 0 0"  x:Name="txtTourDescription"  VerticalContentAlignment="Top" VerticalAlignment="Top" TextAlignment="Left"  TextWrapping="Wrap" Text="{Binding Path=SelectedTour.Description, UpdateSourceTrigger=PropertyChanged}" Height="200" Width="414" />
 
                 </StackPanel>
@@ -140,39 +141,39 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Margin="50 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
-                    <Label   FontSize="25" FontWeight="Bold" >Checkpoints:</Label>
+                    <Label   FontSize="25" FontWeight="Bold" Content="{ns:Loc Checkpoints}"/>
                     <TextBox   x:Name="txtTourCheckpoints" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Checkpoint, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="194"/>
                     <StackPanel  Orientation="Vertical" Margin="5 0 0 0" Height="33"  >
                         <Button Click="AddCheckPointClick" Content="+" RenderTransformOrigin="-1.2,0.566" Height="19" Width="24"/>
-                        <Label   FontSize="7" Content="Add" Height="19" HorizontalAlignment="Center" Width="24" />
+                        <Label   FontSize="7" Content="{ns:Loc Add}" Height="19" HorizontalAlignment="Center" Width="24" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="5 0 0 0" Height="33" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="33">
                         <Button Grid.Column="1" Content="-" HorizontalAlignment="Left" Margin="5,0,0,0" Height="19" Width="23" Click="CheckpointRemoveClick"/>
-                        <Label  HorizontalContentAlignment="Center" FontSize="7" Content="Remove" Height="18" HorizontalAlignment="Center" Width="36" />
+                        <Label  HorizontalContentAlignment="Center" FontSize="7" Content="{ns:Loc Remove}" Height="18" HorizontalAlignment="Center" Width="36" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
-                    <Label   FontSize="25" FontWeight="Bold" >Dates:</Label>
+                    <Label   FontSize="25" FontWeight="Bold" Content="{ns:Loc Dates}"/>
                     <xctk:DateTimePicker Background="#F6F5F2"  x:Name="datePicker" Grid.Row="5" Text="{Binding TourDate}" Format="Custom" FormatString="dd.MM.yyyy HH:mm" Grid.Column="1" RenderTransformOrigin="1.781,1.147" Width="247" Height="36"/>
                     <StackPanel  Orientation="Vertical" Margin="5 0 0 0" Height="33"  >
                         <Button  Content="+"  Grid.Column="1"  HorizontalAlignment="Left" Click="SelectDatesClick" Height="19" Width="23"/>
-                        <Label   FontSize="7" Content="Add" Height="19" HorizontalAlignment="Center" Width="24" />
+                        <Label   FontSize="7" Content="{ns:Loc Add}" Height="19" HorizontalAlignment="Center" Width="24" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="5 0 0 0" Height="33"  VerticalAlignment="Center" Width="33">
                         <Button Content="-"  Height="19" Width="23" Click="RemoveDateClick"/>
-                        <Label  HorizontalContentAlignment="Center" FontSize="7" Content="Remove" Height="18" HorizontalAlignment="Center" Width="36" />
+                        <Label  HorizontalContentAlignment="Center" FontSize="7" Content="{ns:Loc Remove}" Height="18" HorizontalAlignment="Center" Width="36" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel  VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Column="2" Grid.Row="0">
-                    <Label  FontSize="25" FontWeight="Bold">Images:</Label>
+                    <Label  FontSize="25" FontWeight="Bold" Content="{ns:Loc Images}" />
                     <TextBox  Height="37" Width="194" x:Name="txtImageNumber" IsReadOnly="True" BorderThickness="0"  TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Images, UpdateSourceTrigger=PropertyChanged}"  />
                     <StackPanel  Orientation="Vertical" Margin="10 0 0 0" Height="33"  >
                         <Button  Content="+"   Grid.Column="1"  HorizontalAlignment="Left" Click="SelectImagesClick" Height="19" Width="23"/>
-                        <Label   FontSize="7" Content="Add" Height="19" HorizontalAlignment="Center" Width="24" />
+                        <Label   FontSize="7" Content="{ns:Loc Add}" Height="19" HorizontalAlignment="Center" Width="24" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="5 0 0 0" Height="33"  VerticalAlignment="Center" Width="33">
                         <Button Content="-"  Height="19" Width="23" Click="ImageRemoveClick"/>
-                        <Label  HorizontalContentAlignment="Center" FontSize="7" Content="Remove" Height="18" HorizontalAlignment="Center" Width="36" />
+                        <Label  HorizontalContentAlignment="Center" FontSize="7" Content="{ns:Loc Remove}" Height="18" HorizontalAlignment="Center" Width="36" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="30 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" >
@@ -183,7 +184,7 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Label FontSize="8" Content=" if you want to delete a checkpoint, select it and press the remove button" />
+                    <Label FontSize="8" Content="{ns:Loc AddTourCheckpointInfo}" />
                 </StackPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" >
                     <ListBox Background="#F6F5F2"  SelectedItem="{Binding SelectedTourDate, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding TourDatesCollection, StringFormat=dd.MM.yyyy HH:mm}"  Height="162" Width="387">
@@ -193,7 +194,7 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Label FontSize="8" Content=" if you want to delete the date, select it and press the remove button" Height="37"/>
+                    <Label FontSize="8" Content="{ns:Loc AddTourDateInfo}" Height="37"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" >
                     <ListView  Background="#F6F5F2"  x:Name="imageListBox" SelectionMode="Multiple" SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}"  Height="162" Width="387">
@@ -211,7 +212,7 @@
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                     </ListView>
-                    <Label FontFamily="Yu Gothic UI Light" FontSize="8" Content=" if you want to delete image, select it and press the remove button" Height="37"/>
+                    <Label FontFamily="Yu Gothic UI Light" FontSize="8" Content="{ns:Loc AddTourImageInfo}" Height="37"/>
                 </StackPanel>
             </Grid>
         </Grid>
@@ -226,13 +227,13 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                 </Border.Effect>
-                <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="Create Tour" Click="CreateTourClick"/>
+                <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc CreateTour}" Click="CreateTourClick"/>
             </Border>
             <Border Background="#F6F5F2" CornerRadius="8" Grid.Row="1" Grid.Column="2" Margin="10"  BorderBrush="#F0EBE3" BorderThickness="4">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                 </Border.Effect>
-                <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="Cancel" Click="CancelCreationClick"/>
+                <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc Cancel}" Click="CancelCreationClick"/>
             </Border>
         </Grid>
     </Grid>

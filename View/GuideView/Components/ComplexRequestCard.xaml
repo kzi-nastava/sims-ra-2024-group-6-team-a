@@ -2,7 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
+
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
              mc:Ignorable="d" 
              Height="250" Width="800">
@@ -70,7 +72,7 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.ColumnSpan="2">
-                <TextBlock FontFamily="Yu Gothic UI Light" FontSize="30" Text="Complex Tour Request" FontWeight="Bold"/>
+                <TextBlock FontFamily="Yu Gothic UI Light" FontSize="30" Text="{ns:Loc ComplexTourRequest}" FontWeight="Bold"/>
                 <TextBlock FontFamily="Yu Gothic UI Light" Margin="10,0,0,0" FontSize="30" Text="{Binding Id}" />
             </StackPanel>
             <Grid Grid.Row="1" Grid.Column="2">
@@ -80,7 +82,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Image Height="20px" Width="20px"  HorizontalAlignment="Center" Source="\Resources\Images\capacity.png"/>
-                    <Label   FontSize="8" Content="tourists" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="63" />
+                    <Label   FontSize="8" Content="{ns:Loc SegmentNumber}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="63" />
                 </StackPanel>
                 <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding NumberOfFragments}"/>
             </Grid>
@@ -92,7 +94,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Image Width="20px" Height="20px" Source="\Resources\Images\location.png"/>
-                    <Label   FontSize="8" Content="Name" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                    <Label   FontSize="8" Content="{ns:Loc FirstNameIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                 </StackPanel>
                 <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding TouristName}"/>
             </Grid>
@@ -110,7 +112,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel VerticalAlignment="Center">
                     <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
-                    <Label   FontSize="7" Content="Surname" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                    <Label   FontSize="7" Content="{ns:Loc LastNameIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                 </StackPanel>
                 <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding TouristLastName}"/>
             </Grid>
@@ -130,7 +132,7 @@
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                     </Border.Effect>
-                    <Button Background="Transparent" BorderThickness="0" Click="DetailsClick" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="20" Content="Details" ></Button>
+                    <Button Background="Transparent" BorderThickness="0" Click="DetailsClick" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="20" Content="{ns:Loc Details}" ></Button>
                 </Border>
                 <TextBlock Grid.Column="1" Visibility="Collapsed" x:Name="txtRequestId" Text="{Binding Id}"  HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Height="0" Width="0"/>
                 <TextBlock Grid.Column="1" Visibility="Collapsed" x:Name="txtUserId" Text="{Binding UserId}"  HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Height="0" Margin="67,0,0,0" Width="0"/>

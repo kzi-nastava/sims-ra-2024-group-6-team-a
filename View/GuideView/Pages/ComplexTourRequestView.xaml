@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
+      xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
       mc:Ignorable="d"
       xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
       d:DesignHeight="1080" d:DesignWidth="1920"
@@ -26,7 +27,7 @@
                     <RowDefinition Height="0.2*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="Complex Requests" FontSize="60" Margin="50 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc ComplexRequests}" FontSize="60" Margin="50 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" >
                     <ItemsControl HorizontalAlignment="Center" ItemsSource ="{Binding ComplexRequests}" >
                         <ItemsControl.ItemTemplate>
@@ -48,7 +49,7 @@
                 <RowDefinition Height="0.2*"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="Tour Fragments" FontSize="60" Margin="50 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc TourFragments}" FontSize="60" Margin="50 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" >
                 <ItemsControl ItemsSource ="{Binding TourFragments}" >
                     <ItemsControl.ItemTemplate>

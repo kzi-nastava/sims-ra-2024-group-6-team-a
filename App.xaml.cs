@@ -3,6 +3,7 @@ using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
 using BookingApp.View;
+using BookingApp.View.GuideView.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,12 @@ namespace BookingApp
         private static IServiceProvider _serviceProvider;
 
         public static IServiceProvider ServiceProvider => _serviceProvider;
-    
+
+        public static Dictionary<string, string> Languages = new Dictionary<string, string>
+        {
+            {"English", "en-US" },
+            {"Serbian", "sr-RS" }
+        };
 
         private void App_Startup(object sender, StartupEventArgs e)
         {
@@ -38,6 +44,13 @@ namespace BookingApp
             signInForm.Show();
 
         }
+
+        public void  ChangeLanguage(string language)
+        {
+            TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo(Languages[language]);
+        }
+
+
         private void ConfigureWindows(IServiceCollection services)
         {
             services.AddTransient<SignInForm>();

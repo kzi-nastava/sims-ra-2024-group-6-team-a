@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
+             xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
+
              mc:Ignorable="d" 
              Height="250" Width="950">
 
@@ -86,7 +88,7 @@
                 <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
                     <StackPanel VerticalAlignment="Center">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
-                        <Label   FontSize="8" Content="language" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                        <Label   FontSize="8" Content="{ns:Loc LanguageIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
                     <TextBlock FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"  Text="{Binding Language}"/>
                 </StackPanel>
@@ -97,14 +99,14 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\location.png"/>
-                        <Label   FontSize="8" Content="location" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                        <Label   FontSize="8" Content="{ns:Loc LocationIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
                     <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding Location}"/>
                 </Grid>
                 <StackPanel   Orientation="Horizontal" Grid.Column="2"  Grid.Row="1">
                     <StackPanel VerticalAlignment="Center">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\calendar.png"/>
-                        <Label   FontSize="8" Content="date" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                        <Label   FontSize="8" Content="{ns:Loc DateIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
                     <TextBlock FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" TextAlignment="Center" FontSize="20" x:Name="txtTourStart"  FontWeight="Bold" TextWrapping="Wrap" Text="{Binding TourStart,StringFormat=dd.MM.yyyy HH:mm}"/>
                 </StackPanel>
@@ -115,11 +117,11 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Cursor="Hand"  Orientation="Horizontal" Grid.Column="0">
                         <Image Width="20px" Height="20px"   Source="\Resources\Images\information.png" PreviewMouseDown="TourDetailsMouseDown"/>
-                        <TextBlock VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="Click here for more information" PreviewMouseDown="TourDetailsMouseDown" FontFamily="Yu Gothic UI Light"/>
+                        <TextBlock VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="{ns:Loc MoreInfoClick}" PreviewMouseDown="TourDetailsMouseDown" FontFamily="Yu Gothic UI Light"/>
                     </StackPanel>
                     <StackPanel Cursor="Hand" Margin="60 0 0 0" Orientation="Horizontal" Grid.Column="1">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\delete.png" PreviewMouseDown="DeleteTourMouseDown"/>
-                        <TextBlock VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="Click here to cancel Tour" PreviewMouseDown="DeleteTourMouseDown" FontFamily="Yu Gothic UI Light"/>
+                        <TextBlock VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="{ns:Loc CancelTourClick}" PreviewMouseDown="DeleteTourMouseDown" FontFamily="Yu Gothic UI Light"/>
                     </StackPanel>
                 </Grid>
             </Grid>
