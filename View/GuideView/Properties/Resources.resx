@@ -184,13 +184,13 @@
     <value>Kompleksni Zahtevi</value>
   </data>
   <data name="CreateRequestedTour" xml:space="preserve">
-    <value>Napravi Slozenu Turu</value>
+    <value>Napravi Slozeni Obilazak</value>
   </data>
   <data name="CreateTour" xml:space="preserve">
     <value>Napravi Obilazak</value>
   </data>
   <data name="CurrentCheckpoint" xml:space="preserve">
-    <value>Trenutna Kontrolna Tacka:</value>
+    <value>Trenutna Lokacija:</value>
   </data>
   <data name="DateIcon" xml:space="preserve">
     <value>datum</value>
@@ -231,11 +231,17 @@
   <data name="Grade" xml:space="preserve">
     <value>Ocena:</value>
   </data>
+  <data name="Guide" xml:space="preserve">
+    <value>Vodic</value>
+  </data>
   <data name="GuideRankMainPage" xml:space="preserve">
     <value />
   </data>
   <data name="GuidesKnowledge" xml:space="preserve">
     <value>Znanje vodica:</value>
+  </data>
+  <data name="Hey" xml:space="preserve">
+    <value>Hej</value>
   </data>
   <data name="Images" xml:space="preserve">
     <value>Slike</value>
@@ -277,13 +283,16 @@
     <value>Naziv:</value>
   </data>
   <data name="NextCheckpoint" xml:space="preserve">
-    <value>Sledeca Tacka</value>
+    <value>Sledeca Lokacija</value>
   </data>
   <data name="NumberOfFinishedTours" xml:space="preserve">
     <value>Broj obilazaka:</value>
   </data>
   <data name="NumberOfTourists" xml:space="preserve">
     <value>Broj Turista:</value>
+  </data>
+  <data name="OngoingTourMessage" xml:space="preserve">
+    <value>, postoji jedan obilazak koji idalje traje, ne mozes da pokrenes drugi obilazak dok prethodni nije zavrsen</value>
   </data>
   <data name="OtherTours" xml:space="preserve">
     <value>Ostale Obilasci</value>
@@ -341,6 +350,9 @@
   </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistika</value>
+  </data>
+  <data name="SuperGuide" xml:space="preserve">
+    <value>Super Vodic</value>
   </data>
   <data name="Test" xml:space="preserve">
     <value>tset</value>

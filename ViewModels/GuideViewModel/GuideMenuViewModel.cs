@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Net.NetworkInformation;
 using BookingApp.Domain.Model;
 using System.ComponentModel;
+using BookingApp.Resources;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
@@ -36,6 +37,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         public TourReviewsPage tourReviewPage;
         public TourRequestsPage tourRequestsPage;
 
+        public bool IsSuperGuide { get; set; }
         public GuideViewMenu MainWindow { get; set; }
 
         public GuideMenuViewModel(GuideViewMenu mainWindow,User user)
@@ -60,6 +62,8 @@ namespace BookingApp.ViewModels.GuideViewModel
         {
             GuideService.GetInstance().UpdateGuideDetails(LoggedUser);
             Guide = GuideService.GetInstance().GetByUserId(LoggedUser.Id);
+            IsSuperGuide = Guide.Rank == Enums.GuideRank.SuperGuide ? true : false;
+            IsSuperGuide = true;
         }
 
         public void ToursPageClick()

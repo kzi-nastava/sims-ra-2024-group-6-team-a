@@ -35,7 +35,7 @@
                 </StackPanel>
                 <TextBox Grid.Column="1" Background="Transparent" FontFamily="bold" FontSize="30" HorizontalAlignment="Left" 
              VerticalAlignment="Center" IsReadOnly="True" BorderThickness="0" 
-             Text="Hey" />
+             Text="{ns:Loc Hey}" />
 
                 <TextBox Grid.Column="1" Background="Transparent" FontFamily="bold" FontSize="30" HorizontalAlignment="Left" 
              VerticalAlignment="Center" IsReadOnly="True" BorderThickness="0"
@@ -44,7 +44,7 @@
                 <TextBox Grid.Column="1" FontFamily="bold" FontSize="30" HorizontalAlignment="Left" 
              VerticalAlignment="Center" IsReadOnly="True" BorderThickness="0" 
                          Background="Transparent"
-             Text=", you have one tour that is still running, you can't start other tours until the previous tour is finished." Margin="150,0,0,0"/>
+             Text="{ns:Loc OngoingTourMessage}" Margin="150,0,0,0"/>
             </Grid>
             <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" ItemsSource="{Binding SelectedTour}" >
                 <ItemsControl.ItemTemplate>

@@ -52,6 +52,7 @@ namespace BookingApp.ViewModels.GuideViewModel
                 }
             }
         }
+        public bool IsSuperGuide { get; set; }
 
         public AccountSettingsViewModel(AccountSettingsPage settingsWindow, User user)
         {
@@ -59,10 +60,9 @@ namespace BookingApp.ViewModels.GuideViewModel
             SettingsWindow = settingsWindow;
             Guide = GuideService.GetInstance().GetByUserId(LoggedUser.Id);
             GuideService.GetInstance().UpdateGuideDetails(LoggedUser);
-            Rank = Guide.Rank.ToString();
             SelectedLanguage = Guide.WebsiteLanguage;
             Languages =new ObservableCollection<string>() { "English", "Serbian" };
-
+            IsSuperGuide = Guide.Rank == Resources.Enums.GuideRank.SuperGuide ? true : false;
         }
 
         public void DeleteAccountClick()

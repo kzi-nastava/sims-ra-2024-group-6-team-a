@@ -75,7 +75,18 @@
             <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"  FontSize="30" Text="{Binding Guide.Surname}"/>
             <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" Text="{Binding Guide.NumberOfTours}"/>
             <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" Text="{Binding Guide.Grade,  StringFormat=N2}"/>
-            <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" Text="{Binding Rank}"/>
+            <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" >
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Text" Value="{ns:Loc Guide}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSuperGuide}" Value="True">
+                                <Setter Property="Text" Value="{ns:Loc SuperGuide}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
             <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" Text="{Binding Tour.Name}"/>
             <ComboBox Grid.Row="7" Grid.Column="1" Margin="0 15 100 15" HorizontalAlignment="Left" SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" />
 

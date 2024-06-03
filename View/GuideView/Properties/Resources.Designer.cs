@@ -259,7 +259,7 @@ namespace BookingApp.View.GuideView.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Napravi Slozenu Turu.
+        ///   Looks up a localized string similar to Napravi Slozeni Obilazak.
         /// </summary>
         internal static string CreateRequestedTour {
             get {
@@ -277,7 +277,7 @@ namespace BookingApp.View.GuideView.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trenutna Kontrolna Tacka:.
+        ///   Looks up a localized string similar to Trenutna Lokacija:.
         /// </summary>
         internal static string CurrentCheckpoint {
             get {
@@ -403,6 +403,15 @@ namespace BookingApp.View.GuideView.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vodic.
+        /// </summary>
+        internal static string Guide {
+            get {
+                return ResourceManager.GetString("Guide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         internal static string GuideRankMainPage {
@@ -421,7 +430,7 @@ namespace BookingApp.View.GuideView.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Hej.
         /// </summary>
         internal static string Hey {
             get {
@@ -547,7 +556,7 @@ namespace BookingApp.View.GuideView.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sledeca Tacka.
+        ///   Looks up a localized string similar to Sledeca Lokacija.
         /// </summary>
         internal static string NextCheckpoint {
             get {
@@ -570,6 +579,15 @@ namespace BookingApp.View.GuideView.Properties {
         internal static string NumberOfTourists {
             get {
                 return ResourceManager.GetString("NumberOfTourists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to , postoji jedan obilazak koji idalje traje, ne mozes da pokrenes drugi obilazak dok prethodni nije zavrsen.
+        /// </summary>
+        internal static string OngoingTourMessage {
+            get {
+                return ResourceManager.GetString("OngoingTourMessage", resourceCulture);
             }
         }
         
@@ -741,6 +759,15 @@ namespace BookingApp.View.GuideView.Properties {
         internal static string Statistics {
             get {
                 return ResourceManager.GetString("Statistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Super Vodic.
+        /// </summary>
+        internal static string SuperGuide {
+            get {
+                return ResourceManager.GetString("SuperGuide", resourceCulture);
             }
         }
         
