@@ -1,5 +1,6 @@
 ﻿using BookingApp.ApplicationServices;
 using BookingApp.Repository;
+using BookingApp.ViewModels.OwnerViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,69 +22,15 @@ namespace BookingApp.View
     /// </summary>
     public partial class ReviewGuest : Window
     {
-       
-        private int reservationId;
+
+        public ReviewGuestVM ViewModel {  get; set; }
         public ReviewGuest(int reservationId)
         {
-            DataContext = this;
+            ViewModel = new ReviewGuestVM(reservationId);
+            DataContext = ViewModel;
             InitializeComponent();
 
-            InitializeComboBoxes();
-
-           
-            this.reservationId = reservationId;
             CommentBox.MaxLength = 60;
-        }
-
-        private void InitializeComboBoxes()
-        {
-            for (int i = 1; i < 6; i++)
-            {
-                CleanGradeCombo.Items.Add(i);
-                RespectGradeCombo.Items.Add(i);
-            }
-
-        }
-
-
-        private void SaveGrade(object sender, RoutedEventArgs e)
-        {
-            if (CleanGradeCombo.SelectedItem != null && RespectGradeCombo.SelectedItem != null)
-            {
-                if (MessageBox.Show("Confirm review?", "Grade the guest", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                {
-                    
-                    GuestReviewService.GetInstance().Save(new Model.GuestReview(reservationId, CleanGradeCombo.SelectedIndex + 1, RespectGradeCombo.SelectedIndex + 1, CommentBox.Text));
-                    Close();
-                }
-
-            }
-            else
-            {
-                MessageBox.Show("Must fill all fields.","Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-            {
-                Close();
-            }
-            else if(e.Key == Key.C && !CommentBox.IsKeyboardFocused)
-            {
-
-                RespectGradeCombo.IsDropDownOpen = false;
-                CleanGradeCombo.IsDropDownOpen = true;
-                CleanGradeCombo.SelectedItem = 1;
-            }
-            else if(e.Key == Key.R && !CommentBox.IsKeyboardFocused) 
-            {
-                CleanGradeCombo.IsDropDownOpen = false;
-                RespectGradeCombo.IsDropDownOpen = true;
-                RespectGradeCombo.SelectedItem = 1;
-                
-            }
         }
     }
 

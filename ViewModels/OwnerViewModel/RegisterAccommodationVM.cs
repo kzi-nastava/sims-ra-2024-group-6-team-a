@@ -262,6 +262,23 @@ namespace BookingApp.ViewModels
                 intCancelationDays = 5;
             }
 
+            if(intMinReservation < 0)
+            {
+                MinReservation = "5";
+                intMinReservation = 5;
+            }    
+
+            if (intCancelationDays < 0)
+            {
+                CancelationDays = "5";
+                intCancelationDays = 5;
+            }
+
+            if(intMaxGuests < 0)
+            {
+                MaxGuests = "5";
+                intMaxGuests = 5;
+            }
             
             
                 if (MessageBox.Show("Confirm registration?", "Register", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
