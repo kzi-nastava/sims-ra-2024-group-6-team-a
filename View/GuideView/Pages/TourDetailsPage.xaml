@@ -154,14 +154,14 @@
                                 <ColumnDefinition Width="0.3*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="0.47*"/>
+                                <RowDefinition Height="0.7*"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Border Background="#F6F5F2" CornerRadius="8" Grid.Column="1"  BorderBrush="#F0EBE3" BorderThickness="2">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                                 </Border.Effect>
-                                <ListView Grid.Row="0" Grid.Column="1" x:Name="imageListBox" SelectionMode="Multiple" 
+                                <ListView  ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.Row="0" Grid.Column="1" x:Name="imageListBox" SelectionMode="Multiple" 
                 SelectionChanged="ChangeBigImage" SelectedItem="{Binding SelectedImage, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}"  >
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
@@ -190,7 +190,7 @@
                             </Button>
                             <Grid Grid.Row="1" Grid.Column="1" Margin="0 0 0 60" >
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1.7*"/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>

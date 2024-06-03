@@ -36,7 +36,7 @@
             <RowDefinition/>
             <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Create Tour" FontSize="60" FontWeight="Bold" />
+        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Create Requested Tour" FontSize="60" FontWeight="Bold" />
         <Grid Grid.Row="1" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.7*"/>
@@ -59,7 +59,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100 0 0 0" FontSize="25" FontWeight="Bold" >Name:</Label>
-                <TextBox x:Name="txtTourName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0 20 40 20"  TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = SelectedTour.Name, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox x:Name="txtTourName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0 20 40 20"  TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Tour.Name, UpdateSourceTrigger=PropertyChanged}" />
                 <Label Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="25" Margin="0 0 80 0" FontWeight="Bold"  >Location:</Label>
                 <Label Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="25" FontWeight="Bold" >Language:</Label>
                 <Label  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100 0 0 0"  FontSize="25" FontWeight="Bold"  >Duration:</Label>
