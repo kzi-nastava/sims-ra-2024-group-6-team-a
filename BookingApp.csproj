@@ -144,7 +144,8 @@
   <ItemGroup>
 
     <Content Include="Resources\Hci_Tutorijal(c).mp4">
-
+<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\account_settings.png">
 
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
