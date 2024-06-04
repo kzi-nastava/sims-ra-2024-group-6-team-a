@@ -6,7 +6,7 @@
              xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
 
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
-             mc:Ignorable="d" Height="250" Width="750">
+             mc:Ignorable="d" Height="250" Width="745">
 
     <UserControl.Resources>
         <Style TargetType="Border" x:Key="CardBorderStyle">
