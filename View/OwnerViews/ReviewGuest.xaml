@@ -25,11 +25,11 @@
 
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">
+        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="SlateBlue">
             Cleanliness:</TextBlock>
-        <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">
+        <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="SlateBlue">
             Respectfulness:</TextBlock>
-        <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Bonus Comment:</Label>
+        <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="SlateBlue">Bonus Comment:</Label>
         <ComboBox ItemsSource="{Binding Combo}" SelectedItem="{Binding CleanSelected}" Grid.Row="0" Grid.Column="1" Width="80" Height="20" x:Name="CleanGradeCombo"></ComboBox>
         <ComboBox ItemsSource="{Binding Combo}" SelectedItem="{Binding RespectSelected}" Grid.Row="1" Grid.Column="1" Width="80" Height="20" x:Name="RespectGradeCombo"></ComboBox>
         <TextBox Text="{Binding CommentBox}" TextWrapping="Wrap" x:Name ="CommentBox" Grid.Row="2" Grid.Column="1" FontSize="17" TextAlignment="Center" VerticalAlignment="Center" Height="120"></TextBox>

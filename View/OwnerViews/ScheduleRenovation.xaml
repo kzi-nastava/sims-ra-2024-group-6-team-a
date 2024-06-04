@@ -35,22 +35,22 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Orientation="Horizontal">
-            <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.Name}" Foreground="Blue"></TextBlock>
-            <TextBlock Margin="0,10,0,5" FontSize="20" Foreground="Blue">,</TextBlock>
-            <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.City}" Foreground="Blue"></TextBlock>
-            <TextBlock Margin="0,10,0,5" FontSize="20" Foreground="Blue">,</TextBlock>
-            <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.State}" Foreground="Blue"></TextBlock>
+            <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.Name}" Foreground="SlateBlue"></TextBlock>
+            <TextBlock Margin="0,10,0,5" FontSize="20" Foreground="SlateBlue">,</TextBlock>
+            <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.City}" Foreground="SlateBlue"></TextBlock>
+            <TextBlock Margin="0,10,0,5" FontSize="20" Foreground="SlateBlue">,</TextBlock>
+            <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.State}" Foreground="SlateBlue"></TextBlock>
         </StackPanel>
 
-        <TextBlock Grid.Row="1" Grid.Column="1" Margin="5,20,5,0" FontSize="20" Foreground="Blue"><Underline>S</Underline>tart Date</TextBlock>
-        <TextBlock Grid.Row="1" Grid.Column="3" Margin="5,20,5,0" FontSize="20" Foreground="Blue"><Underline>E</Underline>nd Date</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" Margin="5,20,5,0" FontSize="20" Foreground="SlateBlue"><Underline>S</Underline>tart Date</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="3" Margin="5,20,5,0" FontSize="20" Foreground="SlateBlue"><Underline>E</Underline>nd Date</TextBlock>
 
         <DatePicker x:Name="StartDatePicker" Grid.Row="2" Grid.Column="1" Height="40" Width="130" SelectedDate="{Binding StartDate, Mode=TwoWay}"></DatePicker>
         <DatePicker x:Name="EndDatePicker" Grid.Row="2" Grid.Column="3" Height="40" Width="130" SelectedDate="{Binding EndDate, Mode=TwoWay}"></DatePicker>
 
-        <TextBlock Grid.Row="3" Grid.Column="1" Margin="20,10,1,5" FontSize="20" Foreground="Blue">Duration:</TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="20,10,1,5" FontSize="20" Foreground="SlateBlue">Duration:</TextBlock>
         <TextBox x:Name="DurationPicker" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="-20,5,5,5" Text="{Binding Duration,Mode=TwoWay}"></TextBox>
-        <TextBlock Grid.Row="4" Grid.Column="1" Margin="20,10,1,5" FontSize="20" Foreground="Blue">Title:</TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="1" Margin="20,10,1,5" FontSize="20" Foreground="SlateBlue">Title:</TextBlock>
         <TextBox x:Name="TitleText" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Margin="-20,5,5,5"></TextBox>
         <Button Command="{Binding FindCommand}" Background="CornflowerBlue" Grid.Row="5" Grid.Column="2" FontSize="23" Margin="0,9,0,9">
             <TextBlock>

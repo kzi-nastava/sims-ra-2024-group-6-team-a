@@ -30,13 +30,13 @@
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,20,5,0" FontSize="20" Foreground="Blue"><Underline>S</Underline>tart Date</TextBlock>
-        <TextBlock Grid.Row="0" Grid.Column="3" Margin="5,20,5,0" FontSize="20" Foreground="Blue"><Underline>E</Underline>nd Date</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,20,5,0" FontSize="20" Foreground="SlateBlue"><Underline>S</Underline>tart Date</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="3" Margin="5,20,5,0" FontSize="20" Foreground="SlateBlue"><Underline>E</Underline>nd Date</TextBlock>
 
         <DatePicker x:Name="StartDatePicker" Grid.Row="1" Grid.Column="0" Height="40" Width="130" SelectedDate="{Binding StartDate, Mode=TwoWay}"></DatePicker>
             <DatePicker x:Name="EndDatePicker" Grid.Row="1" Grid.Column="3" Height="40" Width="130" SelectedDate="{Binding EndDate, Mode=TwoWay}"></DatePicker>
 
-        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextWrapping="Wrap" FontSize="14" Foreground="Blue">Choose the start and end date,and generate all reservations between those dates.</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextWrapping="Wrap" FontSize="14" Foreground="SlateBlue">Choose the start and end date,and generate all reservations between those dates.</TextBlock>
 
         <Button Background="CornflowerBlue" Command="{Binding GeneratePdfCommand}" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" FontSize="16" Margin="75,0,75,25">
             <TextBlock><Underline>G</Underline>enerate</TextBlock>

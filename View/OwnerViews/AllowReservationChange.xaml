@@ -58,14 +58,14 @@
             
             
             <StackPanel Orientation="Horizontal" Margin="3,10,3,10" HorizontalAlignment="center">
-                <Button Background="Bisque" Command="{Binding YesToChangeCommand}" CommandParameter="{Binding ElementName=CommentBox, Path=Text}">
+                <Button Background="LightBlue" Command="{Binding YesToChangeCommand}" CommandParameter="{Binding ElementName=CommentBox, Path=Text}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Images/yes.png" Width="40" Height="40"></Image>
                         <TextBlock FontSize="25" Margin="12,3,12,3" Foreground="DarkBlue">Yes</TextBlock>
                     </StackPanel>
 
                 </Button>
-                <Button Background="Bisque"  Command="{Binding NoToChangeCommand}" CommandParameter="{Binding ElementName=CommentBox, Path=Text}">
+                <Button Background="LightBlue"  Command="{Binding NoToChangeCommand}" CommandParameter="{Binding ElementName=CommentBox, Path=Text}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/Images/no.png" Width="40" Height="40"></Image>
                         <TextBlock FontSize="25" Margin="12,3,12,3" Foreground="DarkBlue">No</TextBlock>
