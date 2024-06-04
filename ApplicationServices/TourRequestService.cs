@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using static BookingApp.Resources.Enums;
 
 namespace BookingApp.ApplicationServices
@@ -46,6 +47,9 @@ namespace BookingApp.ApplicationServices
         {
             return _simpleRequestRepository.Save(request);
         }
+
+      
+
         private void SaveRequestGuests(int requestId, List<TourGuestDTO> guests, User loggedUser)
         {
             foreach (TourGuestDTO guest in guests)

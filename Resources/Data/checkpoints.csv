@@ -1,67 +1,7 @@
-1|Park Guell|1|False|1
-2|Camp Nou|1|False|1
-3|La Ramba|1|False|1
-4|Sea Beach|1|False|1
-43|Stadion|1|False|1
-44|Hotel|1|False|1
-45|Trg|1|False|1
-46|Plaza|1|False|1
-5|Park Guell|1|True|2
-6|Camp Nou|1|True|2
-7|La Ramba|1|True|2
-8|Sea Beach|1|True|2
-9|Park Guell|1|False|3
-10|Camp Nou|1|False|3
-11|La Ramba|1|False|3
-12|Sea Beach|1|False|3
-13|Park Guell|1|True|4
-14|Camp Nou|1|True|4
-15|La Ramba|1|True|4
-16|Sea Beach|1|True|4
-17|Quattro Canti|2|False|5
-18|Teatro Massimo|2|False|5
-19|Quattro Canti|2|False|6
-20|Teatro Massimo|2|False|6
-21|Quattro Canti|2|True|7
-22|Teatro Massimo|2|True|7
-23|Bagos|3|False|8
-24|Stari Futog|3|False|8
-25|Novi Futog|3|False|8
-26|Testic|4|True|9
-27|Testic|4|True|9
-28|Testic|4|True|9
-29|Jos 1 t est|5|False|10
-30|Jos 1 t est|5|False|10
-31|Jos 1 t est|5|False|10
-47|1|11|False|16
-48|2|11|False|16
-49|1|12|False|17
-50|2|12|False|17
-51|q|13|False|18
-52|qq|13|False|18
-53|a|14|False|19
-54|aa|14|False|19
-55|a|15|False|20
-56|aa|15|False|20
-57|a|16|False|21
-58|aa|16|False|21
-59|s|17|False|22
-60|s|17|False|22
-61||18|False|23
-62|s|18|False|23
-63|ss|18|False|23
-64|s|19|False|24
-65|s|19|False|24
-66|d|20|True|25
-67|dd|20|True|25
-68|ddd|20|True|25
-69|dddddddd|20|True|25
-70|Prvi check|21|True|26
-71|Drugi check|21|True|26
-72|Treci check|21|True|26
-73|Cetvrtdo check|21|False|26
-74|Peti check|21|False|26
-75|Sesti check|21|False|26
-76|Sedmi check|21|False|26
-77|ok|22|False|27
-78|kk|22|False|27
+1|Stef|1|False|1
+2|Stef|1|False|1
+3|Stef|1|False|1
+4|Stef|2|False|2
+5|Sterf|2|False|2
+6|Stef|3|False|3
+7|Stef|3|False|3

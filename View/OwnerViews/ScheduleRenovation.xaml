@@ -3,9 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.View.OwnerViews"
+        xmlns:local="clr-namespace:BookingApp.ViewModels.OwnerViewModel"
         mc:Ignorable="d"
-        Title="Schedule a renovation" Height="470" Width="400" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+        Title="Schedule a renovation" Height="470" Width="400" WindowStartupLocation="CenterScreen">
+
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+        <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding FindCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+        <KeyBinding Key="C" Modifiers="Ctrl" Command="{Binding ConfirmCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SelectStartDateCommand}" CommandParameter="{Binding ElementName=StartDatePicker}"/>
+        <KeyBinding Key="E" Modifiers="Ctrl" Command="{Binding SelectEndDateCommand}" CommandParameter="{Binding ElementName=EndDatePicker}"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
@@ -27,30 +35,30 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Orientation="Horizontal">
-            <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.Name}"></TextBlock>
-            <TextBlock Margin="0,10,0,5" FontSize="20">,</TextBlock>
-            <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.City}"></TextBlock>
-            <TextBlock Margin="0,10,0,5" FontSize="20">,</TextBlock>
-            <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.State}"></TextBlock>
+            <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.Name}" Foreground="SlateBlue"></TextBlock>
+            <TextBlock Margin="0,10,0,5" FontSize="20" Foreground="SlateBlue">,</TextBlock>
+            <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.City}" Foreground="SlateBlue"></TextBlock>
+            <TextBlock Margin="0,10,0,5" FontSize="20" Foreground="SlateBlue">,</TextBlock>
+            <TextBlock Margin="5,10,5,5" FontSize="20" Text="{Binding Accommodation.State}" Foreground="SlateBlue"></TextBlock>
         </StackPanel>
 
-        <TextBlock Grid.Row="1" Grid.Column="1" Margin="5,20,5,0" FontSize="20"><Underline>S</Underline>tart Date</TextBlock>
-        <TextBlock Grid.Row="1" Grid.Column="3" Margin="5,20,5,0" FontSize="20"><Underline>E</Underline>nd Date</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" Margin="5,20,5,0" FontSize="20" Foreground="SlateBlue"><Underline>S</Underline>tart Date</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="3" Margin="5,20,5,0" FontSize="20" Foreground="SlateBlue"><Underline>E</Underline>nd Date</TextBlock>
 
-        <DatePicker x:Name="StartDatePicker" Grid.Row="2" Grid.Column="1" Height="40" Width="130"></DatePicker>
-        <DatePicker x:Name="EndDatePicker" Grid.Row="2" Grid.Column="3" Height="40" Width="130"></DatePicker>
+        <DatePicker x:Name="StartDatePicker" Grid.Row="2" Grid.Column="1" Height="40" Width="130" SelectedDate="{Binding StartDate, Mode=TwoWay}"></DatePicker>
+        <DatePicker x:Name="EndDatePicker" Grid.Row="2" Grid.Column="3" Height="40" Width="130" SelectedDate="{Binding EndDate, Mode=TwoWay}"></DatePicker>
 
-        <TextBlock Grid.Row="3" Grid.Column="1" Margin="20,10,1,5" FontSize="20">Duration:</TextBlock>
-        <TextBox x:Name="DurationPicker" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="-20,5,5,5"></TextBox>
-        <TextBlock Grid.Row="4" Grid.Column="1" Margin="20,10,1,5" FontSize="20">Title:</TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="20,10,1,5" FontSize="20" Foreground="SlateBlue">Duration:</TextBlock>
+        <TextBox x:Name="DurationPicker" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="-20,5,5,5" Text="{Binding Duration,Mode=TwoWay}"></TextBox>
+        <TextBlock Grid.Row="4" Grid.Column="1" Margin="20,10,1,5" FontSize="20" Foreground="SlateBlue">Title:</TextBlock>
         <TextBox x:Name="TitleText" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Margin="-20,5,5,5"></TextBox>
-        <Button Click="Find_Click" Grid.Row="5" Grid.Column="2" FontSize="23" Margin="0,9,0,9">
+        <Button Command="{Binding FindCommand}" Background="CornflowerBlue" Grid.Row="5" Grid.Column="2" FontSize="23" Margin="0,9,0,9">
             <TextBlock>
                 <Underline>F</Underline>ind</TextBlock></Button>
 
-        <TextBlock x:Name="HelpBox" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" FontSize="14">Choose the start and end date,aswell as the duration,and press Find, so that the system can find a suitable renovation period.</TextBlock>
+        <TextBlock Foreground="Blue" Text="{Binding InfoBox}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" FontSize="14"></TextBlock>
 
-        <Button Click="Confirm_Click" Grid.Row="7" Grid.Column="2" FontSize="20" Margin="0,9,0,9">
+        <Button Background="CornflowerBlue" Command="{Binding ConfirmCommand}" Grid.Row="7" Grid.Column="2" FontSize="20" Margin="0,9,0,9">
             <TextBlock><Underline>C</Underline>onfirm</TextBlock></Button>
 
     </Grid>

@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="Resources\Hci_Tutorijal%28c%29.mp4" />
     <None Remove="Resources\Images\accommodations.png" />
+    <None Remove="Resources\Images\account_settings.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\approved.png" />
     <None Remove="Resources\Images\barcelona.jpg" />
@@ -141,7 +142,11 @@
   </ItemGroup>
 
   <ItemGroup>
+
     <Content Include="Resources\Hci_Tutorijal(c).mp4">
+
+    <Content Include="Resources\Images\account_settings.png">
+
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\add.png">
@@ -529,6 +534,21 @@
     <Resource Include="Resources\Images\present.png" />
     <Resource Include="Resources\Images\present2.png" />
     <Resource Include="Resources\Images\questionMark.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="View\GuideView\Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="View\GuideView\Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

@@ -8,17 +8,21 @@ using BookingApp.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Printing;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace BookingApp.ViewModels
 {
-    public class AccommodationMenuVM
+    public class AccommodationMenuVM : INotifyPropertyChanged
     {
-        public  ObservableCollection<AccommodationOwnerDTO> Accommodations { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ObservableCollection<AccommodationOwnerDTO> Accommodations { get; set; }
         public  ObservableCollection<GuestReviewDTO> GuestReviews { get; set; }
         public  ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
         public ObservableCollection<ReservationChangeDTO> ReservationChanges { get; set; }
@@ -31,8 +35,60 @@ namespace BookingApp.ViewModels
         public OwnerInfoDTO OwnerInfo { get; set; }
 
         public Owner Owner { get; set; }
-  
 
+        public string accommodationStatus;
+        public string AccommodationStatus
+        {
+            get { return accommodationStatus; }
+            set
+            {
+                if (accommodationStatus != value)
+                {
+                    accommodationStatus = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string reservationStatus;
+        public string ReservationStatus
+        {
+            get { return reservationStatus; }
+            set
+            {
+                if (reservationStatus != value)
+                {
+                    reservationStatus = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string reviewStatus;
+        public string ReviewStatus
+        {
+            get { return reviewStatus; }
+            set
+            {
+                if (reviewStatus != value)
+                {
+                    reviewStatus = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string changeStatus;
+        public string ChangeStatus
+        {
+            get { return changeStatus; }
+            set
+            {
+                if (changeStatus != value)
+                {
+                    changeStatus = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         bool existsNotReviewed = false;
         bool existsCanceled = false;
@@ -49,11 +105,18 @@ namespace BookingApp.ViewModels
             GuestReviews = new ObservableCollection<GuestReviewDTO>();
             Reservations = new ObservableCollection<ReservationOwnerDTO>();
             ReservationChanges = new ObservableCollection<ReservationChangeDTO>();
+            AccommodationStatus = "LightBlue";
 
             
             Update();
             EntryNotification();
  
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         }
 
         public void EntryNotification() 

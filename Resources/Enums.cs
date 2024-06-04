@@ -55,7 +55,8 @@ namespace BookingApp.Resources
         {
             Ready,
             Ongoing,
-            Finished
+            Finished,
+            Canceled
         }
         public enum RequestStatus
         {
@@ -75,6 +76,12 @@ namespace BookingApp.Resources
             Ordinary,
             Requested,
             Statistics
+        }
+
+        public enum GuideRank
+        {
+            Guide,
+            SuperGuide
         }
     }
 }

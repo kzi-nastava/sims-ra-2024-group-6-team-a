@@ -1,12 +1,13 @@
 ﻿<Page x:Class="BookingApp.View.GuideView.Pages.TourStatisticsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
       xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1080" d:DesignWidth="1920"
       Loaded="LoadStatistics"
       Title="TourStatisticsPage">
 
@@ -33,11 +34,26 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Label  Grid.Column="1" Content="The Most Visited Tour" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
-                <ComboBox SelectedItem="{Binding SelectedYear}" x:Name="datesBox" Grid.Column="2" HorizontalAlignment="Right"  VerticalAlignment="Center" Height="30" Width="120"/>
-                <Button Grid.Column="2" Content="Generate Statistics" Height="30" Width="120" />
+                <Label  Grid.Column="1" Content="{ns:Loc TheMostVisitedTour}" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
+                <Grid Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Background="#F6F5F2" CornerRadius="8"  Grid.Column="1" BorderBrush="#F0EBE3" BorderThickness="4">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+                        </Border.Effect>
+                        <ComboBox Background="{x:Null}"  SelectedItem="{Binding SelectedYear}" x:Name="datesBox" Grid.Column="2" HorizontalAlignment="Right"  VerticalAlignment="Center" Height="30" Width="120"/>
+                    </Border>
+                    <Border Background="#F6F5F2" CornerRadius="8"  Grid.Column="0" BorderBrush="#F0EBE3" BorderThickness="4" Margin="0 0 15 0">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+                        </Border.Effect>
+                        <Button Background="{x:Null}" BorderThickness="0" Grid.Column="2" Content="{ns:Loc GenerateStatistics}" FontFamily="Yu Gothic UI Light" FontSize="25" />
+                    </Border>
+                </Grid>
             </Grid>
-           
             <ItemsControl HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" ItemsSource ="{Binding MostVisitedTour}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -57,7 +73,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Label Content="Finished Tours" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
+                <Label Content="{ns:Loc FinishedTours}" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
                 <Image Margin="20 0 0 0" Width="50px" Height="50px" Source="\Resources\Images\finish_flag.png"/>
             </StackPanel>
             <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,0">

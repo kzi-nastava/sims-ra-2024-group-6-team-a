@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookingApp.View.GuideView.Pages"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d"
       Title="RequestedTourStatistics">
     <Grid>
@@ -18,77 +19,177 @@
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+        <Border Background="#F6F5F2" CornerRadius="0 8 8 0"   BorderBrush="#F0EBE3" BorderThickness="4">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+            </Border.Effect>
+            <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="25"  Content="Location:"/>
-                <ComboBox Grid.Column="3"  x:Name="locationComboBox" Height="37" Width="120" Margin="0 0 10 0" HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                  IsEditable="True"
-                  IsTextSearchEnabled="True"
-                  HorizontalContentAlignment="Center"
-                  VerticalContentAlignment="Center"
+                <Border Background="#F6F5F2"   Grid.Row="0" BorderBrush="#F0EBE3" BorderThickness="0 0 2 0">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+                    </Border.Effect>
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.5*"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="0.4*"/>
+                        </Grid.RowDefinitions>
+                        <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc Statistics}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label FontFamily="Yu Gothic UI Light" Margin="30 0 0 0" Grid.Row="0" Grid.ColumnSpan="2"  Content="{ns:Loc ParamsInfo}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <Label FontFamily="Yu Gothic UI Light" Grid.Row="1" Margin="50 0 0 0" Grid.Column="0"  Content="{ns:Loc Location}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <ComboBox Grid.Column="1" Grid.Row="1"  x:Name="locationComboBox" Height="50" Width="230" HorizontalAlignment="Left" VerticalAlignment="Center"
+                              IsEditable="True"
+                              IsTextSearchEnabled="True"
+                              HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Center"
+                              IsTextSearchCaseSensitive="False"
+                              ItemsSource="{Binding Locations}" Background="#F6F5F2" />
+                            <Label FontFamily="Yu Gothic UI Light" Grid.Row="2" Margin="50 0 0 0" Grid.Column="0"  Content="{ns:Loc Language}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <ComboBox Grid.Column="1" Grid.Row="3"  
+                              x:Name="languageComboBox"
+                                Height="50" Width="230"
+                                      IsEditable="True"
+                              HorizontalContentAlignment="Center"
+                              VerticalContentAlignment="Center"
+                                      HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              IsTextSearchEnabled="True"
+                              IsTextSearchCaseSensitive="False"
+                              ItemsSource="{Binding Languages}"  Grid.RowSpan="2"/>
+                          </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="2.5*"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Border  Background="#F6F5F2" CornerRadius="8"  Grid.Row="1" Grid.Column="1"  BorderBrush="#F0EBE3" BorderThickness="4">
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+                                </Border.Effect>
+                                <Button Background="Transparent" BorderThickness="0" Content="{ns:Loc Search}" FontSize="25"  Click="SearchButtonClick" Grid.Row="2" Grid.ColumnSpan="2" />
+                            </Border>
+                        </Grid>
 
-                  IsTextSearchCaseSensitive="False"
-                  ItemsSource="{Binding Locations}" Background="#F6F5F2" />
-                <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="25"  >Language:</Label>
-                <ComboBox Grid.Column="1" Grid.Row="1"  
-                  x:Name="languageComboBox"
-                  HorizontalAlignment="Left"
-                  Height="37" Width="120"
-                  IsEditable="True"
-                  HorizontalContentAlignment="Center"
-                  VerticalContentAlignment="Center"
-                  VerticalAlignment="Bottom"
-                  IsTextSearchEnabled="True"
-                  IsTextSearchCaseSensitive="False"
-                  ItemsSource="{Binding Languages}">
-                </ComboBox>
-                <Button Content="Search"  Click="SearchButtonClick" Grid.Row="2" Grid.ColumnSpan="2" Margin="250 60 250 60"/>
+                    </Grid>
+                </Border>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.4*"/>
+                    </Grid.RowDefinitions>
+                    <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="Filter" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox  VerticalContentAlignment="Center"
+          HorizontalContentAlignment="Center" Content="{ns:Loc OverallStats}" x:Name="overallCheckBox" Margin="50 0 0 0"  FontFamily="Yu Gothic UI Light" FontSize="30"  HorizontalAlignment="Left" Grid.Row="1" Grid.ColumnSpan="2"  VerticalAlignment="Center">
+                            <CheckBox.ToolTip>
+                                <ToolTip>
+                                    <StackPanel>
+                                        <TextBlock Text="If the Overall Statistics is checked, it is not possible to select a year, the graph for overall statistics is displayed"/>
+                                    </StackPanel>
+                                </ToolTip>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                        <Label FontFamily="Yu Gothic UI Light" Grid.Row="2" Margin="50 0 0 0" Grid.Column="0"  Content="{ns:Loc Year}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <ComboBox Grid.Column="2" Grid.Row="2"  x:Name="yearComboBox"   Height="50" Width="230"
+                         HorizontalAlignment="Left" VerticalAlignment="Center"
+                          IsEditable="True"
+                          IsTextSearchEnabled="True"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          IsTextSearchCaseSensitive="False"
+                          ItemsSource="{Binding Years}" Background="#F6F5F2" />
+
+                    </Grid>
+                    
+                    
+                    
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="2.5*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Border  Background="#F6F5F2" CornerRadius="8"  Grid.Row="1" Grid.Column="1"  BorderBrush="#F0EBE3" BorderThickness="4">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+                            </Border.Effect>
+                            <Button Background="Transparent" BorderThickness="0" Content="Filter" FontSize="25"  Click="SearchButtonClick" Grid.Row="2" Grid.ColumnSpan="2" />
+                        </Border>
+                    </Grid>
+                </Grid>
             </Grid>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="50"  >Filters</Label>
-                <CheckBox Content="Overall Statistics" x:Name="overallCheckBox"  FontSize="20" HorizontalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2"  VerticalAlignment="Bottom"/>
-                <Label Grid.Column="0" Grid.Row="2"  VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="25"  >Year</Label>
-                <ComboBox Grid.Column="2" Grid.Row="2"  x:Name="yearComboBox" Height="37" Width="120" Margin="0 0 10 0" HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                  IsEditable="True"
-                  IsTextSearchEnabled="True"
-                  HorizontalContentAlignment="Center"
-                  VerticalContentAlignment="Center"
-                  IsTextSearchCaseSensitive="False"
-                  ItemsSource="{Binding Years}" Background="#F6F5F2" />
-                <Button Content="Filter"  Click="SearchButtonClick" Grid.Row="3" Margin="200 20 200 20" Grid.ColumnSpan="2" />
-            </Grid>
-        </Grid>
+        </Border>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="0.7*"/>
             </Grid.RowDefinitions>
-            <lvc:CartesianChart x:Name="RequestedTourChart" Series="{Binding SeriesCollection}" LegendLocation="Right" >
-               
-            </lvc:CartesianChart>
+            <Border Grid.Column="2" Background="#F6F5F2" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+                </Border.Effect>
+                <lvc:CartesianChart x:Name="RequestedTourChart" Series="{Binding SeriesCollection}" LegendLocation="Right" >
+                </lvc:CartesianChart>
+            </Border>
+            <Grid Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="3.5*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border Grid.Column="1" Grid.Row="1" Background="#F6F5F2" CornerRadius="8"   BorderBrush="#F0EBE3" BorderThickness="4">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+                    </Border.Effect>
+                    <DataGrid Background="#F6F5F2" BorderThickness="0" AutoGenerateColumns="False" ItemsSource="{Binding DataGrid}" Margin="10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Month" Binding="{Binding Key}" Width="*" />
+                            <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

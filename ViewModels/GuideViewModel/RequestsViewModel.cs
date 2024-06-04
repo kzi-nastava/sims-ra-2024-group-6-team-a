@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Xml.Linq;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
@@ -107,6 +108,17 @@ namespace BookingApp.ViewModels.GuideViewModel
                 return;
             }
             Filter.Ending = DateOnly.MinValue;
+        }
+
+        public void Reset_Click()
+        {
+            Window.languageComboBox.SelectedIndex = -1;
+            Window.locationComboBox.SelectedIndex = -1;
+            Window.startDateComboBox.SelectedDate = null;
+            Window.endDateComboBox.SelectedDate = null;
+            Window.capacityBox.Value = 0;   
+            Filter = new RequestFilterDTO();
+            UpdateRequests();
         }
     }
 }

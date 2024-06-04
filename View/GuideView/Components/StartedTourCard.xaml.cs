@@ -1,4 +1,5 @@
 ﻿using BookingApp.ApplicationServices;
+using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Resources;
 using BookingApp.View.GuideView.Pages;
@@ -39,7 +40,7 @@ namespace BookingApp.View.GuideView.Components
             tourSchedule.TourActivity = Enums.TourActivity.Ongoing;
             TourScheduleService.GetInstance().Update(tourSchedule);
             LiveTour l = new LiveTour(Convert.ToInt32(textBoxId.Text));
-            (Window.GetWindow(this) as GuideViewMenu).MainFrame.Content = l;
+            (Window.GetWindow(this) as GuideViewMenu).LiveTourPageClick(Convert.ToInt32(textBoxId.Text));
 
         }
 

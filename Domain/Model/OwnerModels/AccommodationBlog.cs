@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookingApp.ApplicationServices;
 using BookingApp.Serializer;
 
 namespace BookingApp.Model
@@ -20,6 +21,7 @@ namespace BookingApp.Model
         public String Description { get; set; }
 
         public bool Reported { get; set; }
+        public string Popular { get; set; }
 
         public AccommodationBlog()
         {
@@ -54,6 +56,12 @@ namespace BookingApp.Model
             Title = values[5];
             Description = values[6];
             Reported = Boolean.Parse(values[7]);
+            Popular = "";
+            if(CommentService.GetInstance().IsBlogPopular(AccommodationId)) 
+            {
+                Popular = "This blog is popular!";
+            }
+
 
         }
 

@@ -7,7 +7,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="Your info" Height="700" Width="850" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+        Title="Your info" Height="700" Width="850" WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+    </Window.InputBindings>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="350"/>
@@ -21,54 +25,54 @@
         
             <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Name: </TextBlock>
-                    <TextBlock Text="{Binding Name}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
+                <TextBlock Foreground="SlateBlue" Margin="5,1,1,1" FontSize="20">Name: </TextBlock>
+                    <TextBlock Text="{Binding Name}" Foreground="SlateBlue" FontSize="20" Margin="3,1,1,1"></TextBlock>
             </StackPanel>
 
             
 
             
                 <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Surname: </TextBlock>
-                    <TextBlock Text="{Binding Surname}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
+                <TextBlock Foreground="SlateBlue" Margin="5,1,1,1" FontSize="20">Surname: </TextBlock>
+                    <TextBlock Text="{Binding Surname}" Foreground="SlateBlue" FontSize="20" Margin="3,1,1,1"></TextBlock>
                 </StackPanel>
 
                 
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Reservations: </TextBlock>
-                    <TextBlock Text="{Binding ReservationCount}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
+                <TextBlock Foreground="SlateBlue" Margin="5,1,1,1" FontSize="20">Reservations: </TextBlock>
+                    <TextBlock Text="{Binding ReservationCount}" Foreground="SlateBlue" FontSize="20" Margin="3,1,1,1"></TextBlock>
             </StackPanel>
 
             
             <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Accommodation count:</TextBlock>
-                <TextBlock Text="{Binding Accommodations}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
+                <TextBlock Foreground="SlateBlue" Margin="5,1,1,1" FontSize="20">Accommodation count:</TextBlock>
+                <TextBlock Text="{Binding Accommodations}" Foreground="SlateBlue" FontSize="20" Margin="3,1,1,1"></TextBlock>
             </StackPanel>
 
                 
                 <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Average Grade:</TextBlock>
-                    <TextBlock Text="{Binding Grade}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
+                <TextBlock Foreground="SlateBlue" Margin="5,1,1,1" FontSize="20">Average Grade:</TextBlock>
+                    <TextBlock Text="{Binding Grade}" Foreground="SlateBlue" FontSize="20" Margin="3,1,1,1"></TextBlock>
                 </StackPanel>
 
                 
 
                 <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Status:</TextBlock>
-                    <TextBlock Text="{Binding Status}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
+                <TextBlock Foreground="SlateBlue" Margin="5,1,1,1" FontSize="20">Status:</TextBlock>
+                    <TextBlock Text="{Binding Status}" Foreground="SlateBlue" FontSize="20" Margin="3,1,1,1"></TextBlock>
                 </StackPanel>
 
                
 
                 <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="Blue" Margin="5,1,1,1" FontSize="20">Review count:</TextBlock>
-                    <TextBlock Text="{Binding Ranking}" Foreground="Blue" FontSize="20" Margin="3,1,1,1"></TextBlock>
+                <TextBlock Foreground="SlateBlue" Margin="5,1,1,1" FontSize="20">Review count:</TextBlock>
+                    <TextBlock Text="{Binding Ranking}" Foreground="SlateBlue" FontSize="20" Margin="3,1,1,1"></TextBlock>
                 </StackPanel>
 
 
 
-            <TextBlock Foreground="Blue" Margin="0,75,0,0" FontSize="20" HorizontalAlignment="Center">Your reviews</TextBlock>
+            <TextBlock Foreground="SlateBlue" Margin="0,75,0,0" FontSize="20" HorizontalAlignment="Center">Your reviews</TextBlock>
 
 
         </StackPanel>
@@ -77,7 +81,7 @@
 
 
         <StackPanel  Grid.Row="0" Grid.Column="1">
-            <TextBlock HorizontalAlignment="Center" Foreground="Blue" FontSize="20" Margin="3,1,1,1">Cancelations</TextBlock>
+            <TextBlock HorizontalAlignment="Center" Foreground="SlateBlue" FontSize="20" Margin="3,1,1,1">Cancelations</TextBlock>
             <lvc:CartesianChart Series="{Binding Cancelations}" LegendLocation="Left" Width="490" Height="290" HorizontalAlignment="Center">
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis Title="Years" Labels="{Binding Labels}"></lvc:Axis>
@@ -88,7 +92,7 @@
 
 
         <StackPanel Grid.Column="1" Grid.Row="1">
-                <TextBlock HorizontalAlignment="Center" Foreground="Blue" FontSize="20" Margin="3,1,1,1">Reservations</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Foreground="SlateBlue" FontSize="20" Margin="3,1,1,1">Reservations</TextBlock>
                 <lvc:CartesianChart Series="{Binding Reservations}" LegendLocation="Left" Width="450" Height="320" HorizontalAlignment="Center">
                     <lvc:CartesianChart.AxisX>
                         <lvc:Axis Title="Years" Labels="{Binding Labels}"></lvc:Axis>

@@ -1,4 +1,5 @@
-﻿using BookingApp.Model;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Model;
 using BookingApp.View.GuideView.Pages;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public RequestsPage requestsPage;
         public RequestedTourStatistics statistics;
-
+        public ComplexTourRequestView complexTourRequest;
 
         public TourRequestsPage Window { get; set; }
         public TourRequestsViewModel(TourRequestsPage window, User user) 
@@ -26,6 +27,8 @@ namespace BookingApp.ViewModels.GuideViewModel
 
             requestsPage = new RequestsPage(LoggedUser);
             statistics = new RequestedTourStatistics(LoggedUser);
+            complexTourRequest = new ComplexTourRequestView(LoggedUser);
+
 
             RequestsClick();
 
@@ -44,6 +47,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         {
             ResetButtonColors();
             Window.btnComplexTours.Foreground = Brushes.Black;
+            Window.SecondFrame.Content = complexTourRequest;
 
 
         }
