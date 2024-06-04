@@ -508,6 +508,7 @@
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="QuestPDF" Version="2024.3.10" />
     <PackageReference Include="Syncfusion.Pdf.Wpf" Version="25.2.5" />
   </ItemGroup>
 

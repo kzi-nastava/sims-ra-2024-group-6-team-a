@@ -45,6 +45,12 @@ namespace BookingApp.ViewModels.TouristViewModel
             SelectImageCommand = new RelayCommand(Execute_SelectImageCommand);
             RemoveImageCommand = new RelayCommand(Execute_RemoveImageCommand);
             ImagesCollection = new ObservableCollection<ImageItemDTO>();
+            /*TourReviewDTO.PropertyChanged += (sender, e) =>
+            {
+
+                Validate();
+
+            };*/
         }
 
         private void Execute_SelectImageCommand(object sender)
@@ -114,7 +120,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             // Check if TourAttractionsGrade is within the valid range
             if (TourReviewDTO.TourAttractionsGrade < 1 || TourReviewDTO.TourAttractionsGrade > 5)
             {
-                ValidationErrors["TourAttractions"] = "Please, select a grade for Tour's attractions.";
+                ValidationErrors["TourAttractions"] = "Please, select a grade for tour's attractions.";
             }
 
             OnPropertyChanged(nameof(ValidationErrors));

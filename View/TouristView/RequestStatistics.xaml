@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="RequestStatistics" Height="560" Width="900"
         WindowStartupLocation="CenterOwner">
- 
+    
     <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -36,8 +36,10 @@
                     <ComboBox ItemsSource="{Binding Years}" Width="80" HorizontalAlignment="Left"
                               IsEditable="True"
                               SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-
                     </ComboBox>
+                          
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="10" Text="{Binding ValidationErrors[Year], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+
                     <Button Background="AntiqueWhite" Content="Show" Height="25" FontSize="15" FontWeight="Bold" Width="80" HorizontalAlignment="Left" Margin="0 10 0 0" Command="{Binding LoadYearStatisticsCommand}">
                         <Button.ToolTip>
                             <ToolTip>
@@ -67,10 +69,11 @@
                 <StackPanel Grid.Column="1" Margin="0 45 15 0">
                     <TextBlock FontSize="15" FontWeight="DemiBold" Margin="0 0 0 5">Chose year:</TextBlock>
                     <ComboBox ItemsSource="{Binding Years}" Width="80" HorizontalAlignment="Left"
-              IsEditable="True"
-              SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                IsEditable="True"
+                                SelectedItem="{Binding SelectedYearAvg, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                     </ComboBox>
+
                     <Button Background="AntiqueWhite" Content="Show" Height="25" FontSize="15" FontWeight="Bold" Width="80" HorizontalAlignment="Left" Margin="0 10 0 0" Command="{Binding LoadYearPeopleNumberCommand}">
                         <Button.ToolTip>
                             <ToolTip>

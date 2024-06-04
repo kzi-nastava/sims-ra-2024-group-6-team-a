@@ -124,7 +124,7 @@
                                                 <TextBlock Text="{Binding Duration}" FontStyle="Italic" FontSize="15"  VerticalAlignment="Center"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="90 0 0 5" >
-                                                <Button Content="Generate report" Margin="0 0 20 0" VerticalAlignment="Center" Width="125" Height="25" FontSize="15" Grid.Row="3" Background="AntiqueWhite" FontWeight="Bold">
+                                                <Button Command="{Binding DataContext.GenereateReportCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}" Content="Generate report" Margin="0 0 20 0" VerticalAlignment="Center" Width="125" Height="25" FontSize="15" Grid.Row="3" Background="AntiqueWhite" FontWeight="Bold">
                                                     <Button.ToolTip>
                                                         <ToolTip>
                                                             Click to generate report

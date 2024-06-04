@@ -1,0 +1,47 @@
+﻿<Window x:Class="BookingApp.View.TouristView.Profile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.View.TouristView"
+        WindowStartupLocation="CenterOwner"
+        mc:Ignorable="d"
+        Title="Profile" Height="420" Width="350">
+    <Grid Background="AliceBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image Height="80px" Width="100"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15 5 0 0" Grid.ColumnSpan="3" Grid.Column="0" Source="..\..\Resources\Images\profileG.png"/>
+        <Border BorderBrush="LightGray" BorderThickness="2" Margin="15 0 15 0" CornerRadius="8" Background="LightYellow" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+        <StackPanel Orientation="Vertical" >
+
+                <StackPanel  Orientation="Horizontal"  HorizontalAlignment="Center">
+                    <Label Margin="0 10 5 0" FontSize="15" FontWeight="DemiBold">Username:</Label>
+                    <TextBlock Margin="0 15 5 0" Text="{Binding LoggedUser.Username}" FontSize="15" FontWeight="DemiBold"></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Margin="0 10 5 0" FontSize="15" FontWeight="DemiBold">Name:</Label>
+                    <TextBlock  Margin="0 15 5 0" Text="{Binding tourist.Name}" FontSize="15" FontWeight="DemiBold"></TextBlock>
+            </StackPanel>
+            <StackPanel  Orientation="Horizontal"  HorizontalAlignment="Center">
+                <Label Margin="0 10 5 0" FontSize="15" FontWeight="DemiBold">Surname:</Label>
+                    <TextBlock  Margin="0 15 5 0" Text="{Binding tourist.Surname}" FontSize="15" FontWeight="DemiBold"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+        </Border>
+        <Button Click="Logout_Click" Height="30" Width="70" Grid.Row="3" HorizontalAlignment="Center" Grid.ColumnSpan="3" FontWeight="Bold" Background="AntiqueWhite" FontSize="15">Logout
+            <Button.ToolTip>
+                <ToolTip>
+                    Click to logout
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
+    </Grid>
+</Window>

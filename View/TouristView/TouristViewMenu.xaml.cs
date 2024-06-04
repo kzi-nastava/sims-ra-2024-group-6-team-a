@@ -8,13 +8,14 @@ using BookingApp.View.TouristView;
 using BookingApp.ApplicationServices;
 using BookingApp.Resources;
 using System.Linq;
+using BookingApp.Validation;
 
 namespace BookingApp.View
 {
     /// <summary>
     /// Interaction logic for TouristViewMenu.xaml
     /// </summary>
-    public partial class TouristViewMenu : Window, IObserver
+    public partial class TouristViewMenu : Window,  IObserver
     {
         public static ObservableCollection<TourTouristDTO> Tours { get; set; } = new ObservableCollection<TourTouristDTO>();
         public ObservableCollection<LanguageDTO> Languages { get; set; } = new ObservableCollection<LanguageDTO>();
@@ -67,7 +68,55 @@ namespace BookingApp.View
 
         public void Search_Click(object sender, RoutedEventArgs e)
         {
-            Update();
+            bool isValid = true;
+            if (locationComboBox.Text != string.Empty && !Locations.Any(l => l.LocationDisplayFormat == locationComboBox.Text))
+            {
+                locationError.Visibility = Visibility.Visible;
+                isValid = false;
+            }
+            else
+            {
+                locationError.Visibility = Visibility.Collapsed;
+            }
+
+            // Validate Language
+            if (languageComboBox.Text != string.Empty && !Languages.Any(l => l.LanguageDisplayFormat == languageComboBox.Text))
+            {
+                languageError.Visibility = Visibility.Visible;
+                isValid = false;
+            }
+            else
+            {
+                languageError.Visibility = Visibility.Collapsed;
+            }
+
+            // Validate Duration
+            if (durationBox.Value == null || durationBox.Value > 200)
+            {
+                durationError.Visibility = Visibility.Visible;
+                isValid = false;
+            }
+            else
+            {
+                durationError.Visibility = Visibility.Collapsed;
+            }
+
+            // Validate Capacity
+            if (capacityBox.Value == null || capacityBox.Value > 100)
+            {
+                capacityError.Visibility = Visibility.Visible;
+                isValid = false;
+            }
+            else
+            {
+                capacityError.Visibility = Visibility.Collapsed;
+            }
+
+            // Proceed with search if all inputs are valid
+            if (isValid)
+            {
+                Update();
+            }
         }
 
         private void ClearFilters()
@@ -76,6 +125,13 @@ namespace BookingApp.View
             languageComboBox.SelectedIndex = -1;
             durationBox.Value = 0;
             capacityBox.Value = 0;
+            languageComboBox.Text = string.Empty;
+            locationComboBox.Text = string.Empty;
+            Filter = new TourFilterDTO();
+            locationError.Visibility = Visibility.Collapsed;
+            languageError.Visibility = Visibility.Collapsed;
+            durationError.Visibility = Visibility.Collapsed;
+            capacityError.Visibility = Visibility.Collapsed;
         }
         private void ClearFilters_Click(object sender, RoutedEventArgs e)
         {
@@ -154,6 +210,13 @@ namespace BookingApp.View
             RequestStatistics statistics = new RequestStatistics(LoggedUser.Id);
             statistics.Owner = this;
             statistics.ShowDialog();
+        }
+
+        private void User_Click(object sender, RoutedEventArgs e)
+        {
+            Profile profileWindow = new Profile(LoggedUser);
+            profileWindow.Owner = this;
+            profileWindow.ShowDialog();
         }
 
         private void languageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

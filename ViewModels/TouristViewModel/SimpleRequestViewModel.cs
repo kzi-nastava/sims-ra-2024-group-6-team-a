@@ -2,6 +2,7 @@
 using BookingApp.Domain.Model;
 using BookingApp.DTOs;
 using BookingApp.Model;
+using BookingApp.Validation;
 using BookingApp.View;
 using BookingApp.View.TouristView;
 using System;
@@ -16,7 +17,7 @@ using System.Windows;
 
 namespace BookingApp.ViewModels.TouristViewModel
 {
-    public class SimpleRequestViewModel : INotifyPropertyChanged
+    public class SimpleRequestViewModel : ValidationBase, INotifyPropertyChanged
     {
         public static ObservableCollection<TourGuestDTO> TourGuests { get; set; } = new ObservableCollection<TourGuestDTO>();
         public ObservableCollection<LanguageDTO> Languages { get; set; } = new ObservableCollection<LanguageDTO>();
@@ -47,7 +48,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         }
 
         private int _selectedLanguageIndex = -1;
-        public int SelectedLanguageIndex
+       /* public int SelectedLanguageIndex
         {
             get { return _selectedLanguageIndex; }
             set
@@ -55,9 +56,34 @@ namespace BookingApp.ViewModels.TouristViewModel
                 _selectedLanguageIndex = value;
                 OnPropertyChanged(nameof(SelectedLanguageIndex));
             }
+        }*/
+        public int SelectedLanguageIndex
+        {
+            get { return _selectedLanguageIndex; }
+            set
+            {
+                _selectedLanguageIndex = value;
+                OnPropertyChanged(nameof(SelectedLanguageIndex));
+                if (_selectedLanguageIndex >= 0 && _selectedLanguageIndex < Languages.Count)
+                {
+                    SelectedRequest.LanguageId = Languages[_selectedLanguageIndex].Id;
+                }
+                else
+                {
+                    SelectedRequest.LanguageId = -1; // Invalid location
+                }
+            }
         }
-
         private int _selectedLocationIndex = -1;
+       /* public int SelectedLocationIndex
+        {
+            get { return _selectedLocationIndex; }
+            set
+            {
+                _selectedLocationIndex = value;
+                OnPropertyChanged(nameof(SelectedLocationIndex));
+            }
+        }*/
         public int SelectedLocationIndex
         {
             get { return _selectedLocationIndex; }
@@ -65,6 +91,14 @@ namespace BookingApp.ViewModels.TouristViewModel
             {
                 _selectedLocationIndex = value;
                 OnPropertyChanged(nameof(SelectedLocationIndex));
+                if (_selectedLocationIndex >= 0 && _selectedLocationIndex < Locations.Count)
+                {
+                    SelectedRequest.LocationId = Locations[_selectedLocationIndex].Id;
+                }
+                else
+                {
+                    SelectedRequest.LocationId = -1; // Invalid location
+                }
             }
         }
         private DateTime _start;
@@ -114,11 +148,18 @@ namespace BookingApp.ViewModels.TouristViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
+        private bool _isInputDataValid;
 
+        private bool _isTouristInfoValid;
+
+        private string beginDateInput { get; set; }
+        private string endDateInput { get; set; }
+        private string dateFormatPattern = @"^\d{4}-\d{2}-\d{2}$";
         public RelayCommand AddTouristInfoCommand { get; set; }
         public RelayCommand RemoveTouristCommand { get; set; }
         public RelayCommand SaveReservationCommand { get; set; }
         public RelayCommand CancelReservationCommand { get; set; }
+
         public SimpleRequestViewModel(User user)
         {
             LoggedUser = user;
@@ -127,7 +168,8 @@ namespace BookingApp.ViewModels.TouristViewModel
             RemoveTouristCommand = new RelayCommand(RemoveTourist);
             SaveReservationCommand = new RelayCommand(Execute_SaveReservationCommand);
             CancelReservationCommand = new RelayCommand(Execute_CancelReservationCommand);
-
+            _isInputDataValid = false;
+            _isTouristInfoValid = false;
             SetLanguages();
             SetLocations();
             AddUserInfo();
@@ -153,14 +195,22 @@ namespace BookingApp.ViewModels.TouristViewModel
         }
         private void Execute_SaveReservationCommand(object sender)
         {
+
             SelectedRequest.LocationId = SelectedLocationIndex + 1;
             SelectedRequest.LanguageId = SelectedLanguageIndex + 1;
             SelectedRequest.TouristId = LoggedUser.Id;
             SelectedRequest.Status = Resources.Enums.RequestStatus.Onhold;
             SelectedRequest.ComplexRequestId = -1;
-            TourRequestService.GetInstance().MakeTourRequest(SelectedRequest, TourGuests.ToList(), LoggedUser);
-            CustomMessageBox.Show("Request successfully created!");
-            CloseAction();
+            _isInputDataValid = true;
+            _isTouristInfoValid = false;
+            Validate();
+            if (IsValid)
+            {
+                TourRequestService.GetInstance().MakeTourRequest(SelectedRequest, TourGuests.ToList(), LoggedUser);
+                CustomMessageBox.Show("Request successfully created!");
+                CloseAction();
+            }
+            
         }
         private void Execute_CancelReservationCommand(object sender)
         {
@@ -169,8 +219,15 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         private void Execute_AddTouristInfoCommand(object sender)
         {
-            TourGuests.Add(new TourGuestDTO(Name, Age, Surname, -1));
-            ClearInputFields();
+            _isInputDataValid = false;
+            _isTouristInfoValid = true;
+            Validate();
+            if(IsValid)
+            {
+
+                TourGuests.Add(new TourGuestDTO(Name, Age, Surname, -1));
+                ClearInputFields();
+            }
         }
         private void ClearInputFields()
         {
@@ -184,5 +241,75 @@ namespace BookingApp.ViewModels.TouristViewModel
             TourGuests.Remove(touristToRemove);
         }
 
+        protected override void ValidateSelf()
+        {
+           
+            ValidationErrors.Clear();
+
+            if (_isTouristInfoValid)
+            {
+                if (string.IsNullOrWhiteSpace(Name))
+                    ValidationErrors[nameof(Name)] = "Name is required.";
+
+                if (string.IsNullOrWhiteSpace(Surname))
+                    ValidationErrors[nameof(Surname)] = "Surname is required.";
+
+                if (Age <= 0)
+                    ValidationErrors[nameof(Age)] = "Enter a valid age number.";
+            }
+
+
+            if (_isInputDataValid)
+            {
+               
+                if (SelectedRequest.LocationId == -1 || !Locations.Any(l => l.Id == SelectedRequest.LocationId))
+                {
+                    ValidationErrors["Location"] = "Please, select a valid location from the list.";
+                }
+
+                if (SelectedRequest.LanguageId == -1 || !Locations.Any(l => l.Id == SelectedRequest.LanguageId))
+                {
+                    ValidationErrors["Language"] = "Please, select a valid language from the list.";
+                }
+                if (string.IsNullOrWhiteSpace(SelectedRequest.Description))
+                {
+                    ValidationErrors["Description"] = "Description is required.";
+                }
+
+                if (SelectedRequest.Start > SelectedRequest.End)
+                {
+                    ValidationErrors["EndDate"] = "Invalid interval: end date must come after start.";
+                }
+
+                if (string.IsNullOrWhiteSpace(SelectedRequest.Start.ToString()) || SelectedRequest.Start == default)
+                {
+                    ValidationErrors["StartDate"] = "Start date is required.";
+                }
+
+                if (string.IsNullOrWhiteSpace(SelectedRequest.End.ToString()) || SelectedRequest.End == default)
+                {
+                    ValidationErrors["EndDate"] = "End date is required.";
+                }
+
+               
+
+              /*  DateTime beginDate;
+                bool isValidBeginDate = Enum.TryParse(endDateInput, out beginDate);
+                if (!isValidBeginDate)
+                {
+                    ValidationErrors["BeginDate"] = "BeginDate is not in correct format";
+                }
+
+                DateTime endDate;
+                bool isValidEndDate = Enum.TryParse(endDateInput, out endDate);
+                if (!isValidEndDate)
+                {
+                    ValidationErrors["EndDate"] = "EndDate is not in correct format";
+                }*/
+
+            }
+
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
     }
 }
