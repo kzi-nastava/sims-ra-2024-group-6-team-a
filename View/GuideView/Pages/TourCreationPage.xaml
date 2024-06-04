@@ -451,7 +451,7 @@
                         <Label Foreground="{DynamicResource Text}"  HorizontalContentAlignment="Center" FontSize="7" Content="{ns:Loc Remove}" Height="18" HorizontalAlignment="Center" Width="36" />
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="30 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" >
+                <StackPanel Orientation="Vertical" Margin="30 0 0 15" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" >
                     <ListBox Foreground="{DynamicResource Text}"  Background="#F6F5F2"   SelectedItem="{Binding SelectedCheckpoint, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding CheckpointsCollection}"  Width="424" Height="166" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -502,13 +502,13 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                 </Border.Effect>
-                <Button BorderThickness="0" Foreground="{DynamicResource Text}"  Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc CreateTour}" Click="CreateTourClick"/>
+                <Button BorderThickness="0" Foreground="{DynamicResource Text}"  Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="28" Content="{ns:Loc CreateTour}" Click="CreateTourClick" Margin="0,-4,0,0"/>
             </Border>
             <Border Background="{DynamicResource BorderBackground}" CornerRadius="8" Grid.Row="1" Grid.Column="2" Margin="10"   BorderThickness="4">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" ShadowDepth="0.5"  Opacity="0.3"/>
                 </Border.Effect>
-                <Button BorderThickness="0" Background="Transparent" Foreground="{DynamicResource Text}"  Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc Cancel}" Click="CancelCreationClick"/>
+                <Button BorderThickness="0" Background="Transparent" Foreground="{DynamicResource Text}"  Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="28" Content="{ns:Loc Cancel}" Click="CancelCreationClick"/>
             </Border>
         </Grid>
     </Grid>
