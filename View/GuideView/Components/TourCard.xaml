@@ -108,7 +108,6 @@
                 <Grid Grid.Column="0" Grid.Row="2" Margin="5 0 0 0" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Cursor="Hand" Orientation="Horizontal" Grid.Column="0">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\information.png" PreviewMouseDown="TourDetailsMouseDown"/>

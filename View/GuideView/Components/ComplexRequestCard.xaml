@@ -7,7 +7,7 @@
 
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
              mc:Ignorable="d" 
-             Height="250" Width="740">
+             Height="250" Width="730">
     <UserControl.Resources>
         <Style TargetType="Border" x:Key="CardBorderStyle">
             <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
@@ -77,12 +77,12 @@
             </StackPanel>
             <Grid Grid.Row="1" Grid.Column="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.7*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Height="20px" Width="20px"  HorizontalAlignment="Center" Source="\Resources\Images\capacity.png"/>
-                    <Label Foreground="{DynamicResource Text}"  FontSize="8" Content="{ns:Loc SegmentNumber}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="63" />
+                    <Label Foreground="{DynamicResource Text}"  FontSize="8" Content="{ns:Loc SegmentNumber}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="86" />
                 </StackPanel>
                 <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding NumberOfFragments}"/>
             </Grid>

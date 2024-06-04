@@ -109,7 +109,7 @@
                     </StackPanel>
                     <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" TextAlignment="Center"  FontSize="15" x:Name="txtTourStart"  TextWrapping="Wrap" Text="{Binding TourStart,StringFormat=dd.MM.yyyy HH:mm}"/>
                 </StackPanel>
-                <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
+                <Grid Margin="5 0 0 0" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
