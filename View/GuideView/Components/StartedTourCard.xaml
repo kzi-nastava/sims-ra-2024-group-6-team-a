@@ -106,16 +106,17 @@
                     </StackPanel>
                     <TextBlock Foreground="{DynamicResource CardText}" FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" TextAlignment="Center"  FontSize="20" x:Name="txtTourStart"  TextWrapping="Wrap" Text="{Binding TourStart,StringFormat=dd.MM.yyyy HH:mm}"/>
                 </StackPanel>
-                <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
+                <Grid Grid.Column="0" Margin="5 0 0 0" Grid.Row="2" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Cursor="Hand" Orientation="Horizontal" Grid.Column="0">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\information.png" PreviewMouseDown="TourDetailsMouseDown"/>
                         <TextBlock Foreground="{DynamicResource CardText}" FontFamily="Yu Gothic UI Light" VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="{ns:Loc MoreInfoClick}" PreviewMouseDown="TourDetailsMouseDown"/>
                     </StackPanel>
-                    <StackPanel Cursor="Hand" Margin="27 0 0 0" Orientation="Horizontal" Grid.Column="1">
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="1" Margin="14 0 0 0">
+                    <StackPanel Cursor="Hand" Orientation="Horizontal" Grid.Column="1">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\play.png" PreviewMouseDown="LiveTrackingMouseDown"/>
                         <TextBlock Foreground="{DynamicResource CardText}" FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" FontSize="20" TextWrapping="Wrap" Text="{ns:Loc LiveTourClick}" PreviewMouseDown="LiveTrackingMouseDown"/>
                     </StackPanel>
