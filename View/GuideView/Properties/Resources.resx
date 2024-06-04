@@ -157,7 +157,7 @@
     <value>Odustani</value>
   </data>
   <data name="CancelTourClick" xml:space="preserve">
-    <value>Pritisnite ovde za brisanje obilazaka</value>
+    <value>Brisanje obilazaka</value>
   </data>
   <data name="Capacity" xml:space="preserve">
     <value>Kapacitet:</value>
@@ -271,7 +271,7 @@
     <value>Svetla Tema</value>
   </data>
   <data name="LiveTourClick" xml:space="preserve">
-    <value>Pritisnite ovde za pracenje obilaska</value>
+    <value>Pracenje obilaska</value>
   </data>
   <data name="Location" xml:space="preserve">
     <value>Lokacija:</value>
@@ -283,7 +283,7 @@
     <value>Slike</value>
   </data>
   <data name="MoreInfoClick" xml:space="preserve">
-    <value>Pritisnite ovde za vise informacija</value>
+    <value>Vise informacija</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Naziv:</value>
@@ -352,7 +352,7 @@
     <value>Vodicev jezik:</value>
   </data>
   <data name="StartTourClick" xml:space="preserve">
-    <value>Pritisnite ovde da zapocnete obilazak</value>
+    <value>Zapocnete obilazak</value>
   </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistika</value>

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Above" xml:space="preserve">
-    <value>Above</value>
+    <value>Above 50 Years Old:</value>
   </data>
   <data name="Accept" xml:space="preserve">
     <value>Accept</value>
@@ -157,7 +157,7 @@
     <value>Cancel</value>
   </data>
   <data name="CancelTourClick" xml:space="preserve">
-    <value>Click here to cancel Tour</value>
+    <value>Cancel Tour</value>
   </data>
   <data name="Capacity" xml:space="preserve">
     <value>Capacity:</value>
@@ -271,7 +271,7 @@
     <value>Light Theme</value>
   </data>
   <data name="LiveTourClick" xml:space="preserve">
-    <value>Click here for tracking menu</value>
+    <value>Tracking Menu</value>
   </data>
   <data name="Location" xml:space="preserve">
     <value>Location:</value>
@@ -283,7 +283,7 @@
     <value>Images</value>
   </data>
   <data name="MoreInfoClick" xml:space="preserve">
-    <value>Click here for more information</value>
+    <value>More information</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name:</value>
@@ -337,7 +337,7 @@
     <value>Reviews</value>
   </data>
   <data name="ReviewShowClick" xml:space="preserve">
-    <value>Click here to check all reviews</value>
+    <value>Check all reviews</value>
   </data>
   <data name="Schedule" xml:space="preserve">
     <value>Realisation</value>
@@ -352,7 +352,7 @@
     <value>Guide's spoken language: </value>
   </data>
   <data name="StartTourClick" xml:space="preserve">
-    <value>Click here to start the Tour</value>
+    <value>Start the Tour</value>
   </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistics</value>

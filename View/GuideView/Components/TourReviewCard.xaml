@@ -7,7 +7,7 @@
 
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
              mc:Ignorable="d" 
-             Height="250" Width="950">
+             Height="250" Width="750">
 
     <UserControl.Resources>
         <Style TargetType="Border" x:Key="CardBorderStyle">
@@ -56,7 +56,7 @@
     </UserControl.Resources>
 
 
-    <Border Style="{StaticResource CardBorderStyle}" Background="{DynamicResource BorderBackground}" CornerRadius="8" Margin="10" Padding="10" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
+    <Border Style="{StaticResource CardBorderStyle}" Background="White" CornerRadius="8" Margin="10" Padding="10" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
         <Border.Effect>
             <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
         </Border.Effect>
@@ -89,7 +89,7 @@
                         <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
                         <Label Foreground="{DynamicResource Text}"  FontSize="8" Content="{ns:Loc LanguageIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
-                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" FontSize="20"  Text="{Binding Language}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" FontSize="15"  Text="{Binding Language}"/>
                 </StackPanel>
                 <Grid   Grid.Column="0" Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -100,14 +100,14 @@
                         <Image Width="20px" Height="20px" Source="\Resources\Images\location.png"/>
                         <Label Foreground="{DynamicResource Text}"  FontSize="8" Content="{ns:Loc LocationIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
-                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20"   Text="{Binding Location}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="15"   Text="{Binding Location}"/>
                 </Grid>
                 <StackPanel   Orientation="Horizontal" Grid.Column="2" Grid.Row="1">
                     <StackPanel VerticalAlignment="Center">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\calendar.png"/>
                         <Label Foreground="{DynamicResource Text}"  FontSize="8" Content="{ns:Loc DateIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
-                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" TextAlignment="Center"  FontSize="20" x:Name="txtTourStart"  TextWrapping="Wrap" Text="{Binding TourStart,StringFormat=dd.MM.yyyy HH:mm}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" TextAlignment="Center"  FontSize="15" x:Name="txtTourStart"  TextWrapping="Wrap" Text="{Binding TourStart,StringFormat=dd.MM.yyyy HH:mm}"/>
                 </StackPanel>
                 <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
                     <Grid.ColumnDefinitions>
@@ -116,7 +116,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Cursor="Hand" Orientation="Horizontal" Grid.Column="0">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\information.png" PreviewMouseDown="MoreInfoMouseDown"/>
-                        <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" VerticalAlignment="Center"  FontSize="20"  TextWrapping="Wrap" Text="{ns:Loc ReviewShowClick}" PreviewMouseDown="MoreInfoMouseDown"/>
+                        <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" VerticalAlignment="Center"  FontSize="15"  TextWrapping="Wrap" Text="{ns:Loc ReviewShowClick}" PreviewMouseDown="MoreInfoMouseDown"/>
                     </StackPanel>
                     <Grid Margin="30 0 0 0"  Grid.Column="1" Grid.Row="2">
                         <Grid.ColumnDefinitions>
@@ -124,7 +124,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Label  FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Column="0" Content="{ns:Loc Grade}" FontSize="25"/>
+                        <Label  FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" Grid.Column="0" Content="{ns:Loc Grade}" FontSize="20"/>
                         <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" Grid.Column="1" Margin="10 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"  FontStyle="Italic" Text="{Binding AvgGrade ,  StringFormat=N2}"/>
                         <Image Grid.Column="2" Width="40px" Height="40px" Source="\Resources\Images\star_normalan.png"/>
                     </Grid>
