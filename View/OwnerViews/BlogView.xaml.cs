@@ -29,30 +29,6 @@ namespace BookingApp.View.OwnerViews
             DataContext = ViewModel;
         }
 
-        private void ReportClick(object sender, RoutedEventArgs e)
-        {
-            ViewModel.Report();
-        }
 
-        private void ConfirmClick(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Are you sure?", "Post the comment?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                ViewModel.ConfirmComment(NewComment.Text);
-            }
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Escape) 
-            {
-                Close();
-            }
-            else if(e.Key == Key.Enter)
-            {
-                ViewModel.CommentDetailed();
-
-            }
-        }
     }
 }

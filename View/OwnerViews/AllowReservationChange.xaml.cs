@@ -31,36 +31,9 @@ namespace BookingApp.View
             InitializeComponent();
 
             vm = new AllowChangeVM(reservation);   
-            DataContext = vm.reservation;
+            DataContext = vm;
 
         }
-
-        private void YesClick(object sender, RoutedEventArgs e)
-        {
-            if(MessageBox.Show("Allow the reservation change","Are you sure?",MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                vm.YesToChange(CommentBox.Text);
-                Close();
-            }
-
-        }
-
-        private void NoClick(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Reject the reservation change", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                vm.NoToChange(CommentBox.Text);
-
-                Close();
-            }
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Escape) 
-            {
-                Close();
-            }
-        }
+    
     }
 }

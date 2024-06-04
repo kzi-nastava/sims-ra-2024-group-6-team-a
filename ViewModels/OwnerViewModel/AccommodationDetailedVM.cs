@@ -115,7 +115,15 @@ namespace BookingApp.ViewModels
         public AccommodationDetailedVM(List<Model.Image> images, ObservableCollection<ReservationOwnerDTO> Reservations,AccommodationOwnerDTO accommodation) 
         {
             this.Accommodation = accommodation;
-            this.MainImage = images[0].Path;
+            if(images.Count > 0)
+            {
+                this.MainImage = images[0].Path;
+
+            }
+            else
+            {
+                this.MainImage = ImageService.GetInstance().GetAll()[0].Path;
+            }
             Images = new ObservableCollection<ImageDTO>();
             Statistics = new ObservableCollection<AccommodationStatisticDTO>();
             Blogs = new ObservableCollection<AccommodationBlog>();

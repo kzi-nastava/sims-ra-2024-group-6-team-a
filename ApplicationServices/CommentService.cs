@@ -47,5 +47,27 @@ namespace BookingApp.ApplicationServices
         {
             return CommentRepository.GetByBlog(blog);
         }
+
+        public bool IsBlogPopular(int blog) 
+        {
+            int guestComs = 19;
+            int ownerComs = 9;
+            foreach(Comment comment in  CommentRepository.GetAll()) 
+            {
+                if(comment.BlogId == blog)
+                {
+                    if(comment.Status == "Owner")
+                        ownerComs++;
+                    else
+                        guestComs++;
+                }
+
+                if (guestComs >= 20 && ownerComs >= 10)
+                    return true;
+                    
+            }
+
+            return false;
+        }
     }
 }

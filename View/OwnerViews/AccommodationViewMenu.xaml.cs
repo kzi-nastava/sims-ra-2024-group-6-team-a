@@ -129,8 +129,12 @@ namespace BookingApp.View
 
         private void SelectFirstAccommodation()
         {
+            vm.AccommodationStatus = "LightBlue";
+            vm.ChangeStatus = "White";
+            vm.ReservationStatus = "White";
+            vm.ReviewStatus = "White";
 
-                vm.SelectedGuestReview = null;
+            vm.SelectedGuestReview = null;
                 vm.SelectedReservation = null;
                 vm.SelectedChange = null;
                 
@@ -143,8 +147,13 @@ namespace BookingApp.View
 
         private void SelectFirstReview()
         {
+            vm.AccommodationStatus = "White";
+            vm.ChangeStatus = "White";
+            vm.ReservationStatus = "White";
+            vm.ReviewStatus = "LightBlue";
 
-                vm.SelectedAccommodation = null;
+
+            vm.SelectedAccommodation = null;
                 vm.SelectedReservation = null;
                 vm.SelectedChange = null;
                 
@@ -157,8 +166,13 @@ namespace BookingApp.View
 
         private void SelectFirstReservation()
         {
- 
-                vm.SelectedGuestReview = null;
+            vm.AccommodationStatus = "White";
+            vm.ChangeStatus = "White";
+            vm.ReservationStatus = "LightBlue";
+            vm.ReviewStatus = "White";
+
+
+            vm.SelectedGuestReview = null;
                 vm.SelectedAccommodation = null;
                 vm.SelectedChange = null;
                 
@@ -172,8 +186,13 @@ namespace BookingApp.View
 
         private void SelectFirstResChange()
         {
+            vm.AccommodationStatus = "White";
+            vm.ChangeStatus = "LightBlue";
+            vm.ReservationStatus = "White";
+            vm.ReviewStatus = "White";
 
-                vm.SelectedGuestReview = null;
+
+            vm.SelectedGuestReview = null;
                 vm.SelectedAccommodation = null;
                 vm.SelectedReservation = null;
                 
@@ -218,6 +237,7 @@ namespace BookingApp.View
         {
 
             Tabs.SelectedItem = ReviewsTab;
+            vm.AccommodationStatus = "White";
 
             SelectFirstReview();
         }
@@ -225,6 +245,7 @@ namespace BookingApp.View
         private void SelectChanges(object sender, RoutedEventArgs e)
         {
             Tabs.SelectedItem = ReservationChangesTab;
+            vm.AccommodationStatus = "White";
 
             SelectFirstResChange();
         }

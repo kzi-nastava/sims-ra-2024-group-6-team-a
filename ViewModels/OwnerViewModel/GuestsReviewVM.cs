@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace BookingApp.ViewModels
 {
@@ -14,11 +16,14 @@ namespace BookingApp.ViewModels
         public int Correctness { get; set; }
         public string AdditionalComment { get; set; }
         public string RenovationRec {  get; set; }
+
+        public ICommand CloseWindowCommand { get; }
         public GuestsReviewVM(OwnerReview ownerReview) 
         {
             this.Cleanliness = ownerReview.Cleanliness;
             this.Correctness = ownerReview.Correctness;
             this.AdditionalComment = ownerReview.AditionalComment;
+            CloseWindowCommand = new RelayCommand(CloseWindow);
 
             if (ownerReview.Urgency == "Level5" && ownerReview.Urgency == "Level4")
                 this.RenovationRec = "The guest thinks that this accommodation must have a renovation urgently.";
@@ -29,5 +34,12 @@ namespace BookingApp.ViewModels
 
         }
 
+        private void CloseWindow(object parameter)
+        {
+            if (parameter is Window window)
+            {
+                window.Close();
+            }
+        }
     }
 }

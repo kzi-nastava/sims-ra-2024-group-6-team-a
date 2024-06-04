@@ -5,7 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.OwnerViews"
         mc:Ignorable="d"
-        Title="Generate PDF" Height="220" Width="320" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+        Title="Generate PDF" Height="220" Width="320" WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+        <KeyBinding Key="S" Command="{Binding SelectStartDateCommand}" CommandParameter="{Binding ElementName=StartDatePicker}"/>
+        <KeyBinding Key="E" Command="{Binding SelectEndDateCommand}" CommandParameter="{Binding ElementName=EndDatePicker}"/>
+        <KeyBinding Key="G" Command="{Binding GeneratePdfCommand}"/>
+
+
+    </Window.InputBindings>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"></ColumnDefinition>
@@ -23,14 +32,14 @@
         
         <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,20,5,0" FontSize="20"><Underline>S</Underline>tart Date</TextBlock>
     <TextBlock Grid.Row="0" Grid.Column="3" Margin="5,20,5,0" FontSize="20"><Underline>E</Underline>nd Date</TextBlock>
-            
-        <DatePicker x:Name="StartDatePicker" Grid.Row="1" Grid.Column="0" Height="40" Width="130"></DatePicker>
-        <DatePicker x:Name="EndDatePicker" Grid.Row="1" Grid.Column="3" Height="40" Width="130"></DatePicker>
+
+        <DatePicker x:Name="StartDatePicker" Grid.Row="1" Grid.Column="0" Height="40" Width="130" SelectedDate="{Binding StartDate, Mode=TwoWay}"></DatePicker>
+            <DatePicker x:Name="EndDatePicker" Grid.Row="1" Grid.Column="3" Height="40" Width="130" SelectedDate="{Binding EndDate, Mode=TwoWay}"></DatePicker>
 
         <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextWrapping="Wrap" FontSize="14">Choose the start and end date,and generate all reservations between those dates.</TextBlock>
 
-        <Button Click="Button_Click" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" FontSize="16" Margin="75,0,75,25">
-            <TextBlock>Generate</TextBlock>
+        <Button Command="{Binding GeneratePdfCommand}" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" FontSize="16" Margin="75,0,75,25">
+            <TextBlock><Underline>G</Underline>enerate</TextBlock>
         </Button>
 
     </Grid>

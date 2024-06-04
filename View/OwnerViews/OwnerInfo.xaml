@@ -7,7 +7,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="Your info" Height="700" Width="850" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
+        Title="Your info" Height="700" Width="850" WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+    </Window.InputBindings>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="350"/>
