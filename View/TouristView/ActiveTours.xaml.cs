@@ -32,6 +32,5 @@ namespace BookingApp.View.TouristView
             ActiveToursWindow = new ActiveToursViewModel( tourSchedule, user);
             DataContext = ActiveToursWindow;
         }
-
     }
 }

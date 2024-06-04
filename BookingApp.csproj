@@ -8,6 +8,7 @@
   </PropertyGroup>
 	
   <ItemGroup>
+    <None Remove="Resources\Hci_Tutorijal%28c%29.mp4" />
     <None Remove="Resources\Images\accommodations.png" />
     <None Remove="Resources\Images\account_settings.png" />
     <None Remove="Resources\Images\add.png" />
@@ -141,7 +142,11 @@
   </ItemGroup>
 
   <ItemGroup>
+
+    <Content Include="Resources\Hci_Tutorijal(c).mp4">
+
     <Content Include="Resources\Images\account_settings.png">
+
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\add.png">
@@ -512,6 +517,7 @@
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="QuestPDF" Version="2024.3.10" />
     <PackageReference Include="Syncfusion.Pdf.Wpf" Version="25.2.5" />
   </ItemGroup>
 

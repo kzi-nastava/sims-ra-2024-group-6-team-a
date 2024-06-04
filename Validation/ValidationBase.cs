@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using System.Windows.Controls;
 
 namespace BookingApp.Validation
 {
-    public abstract class ValidationBase : BindableBase
+    public abstract class ValidationBase : INotifyPropertyChanged
     {
         public ValidationErrors ValidationErrors { get; set; }
         public bool IsValid { get; private set; }
@@ -27,6 +28,13 @@ namespace BookingApp.Validation
             this.OnPropertyChanged("IsValid");
             this.OnPropertyChanged("ValidationErrors");
         }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
     }
 }
