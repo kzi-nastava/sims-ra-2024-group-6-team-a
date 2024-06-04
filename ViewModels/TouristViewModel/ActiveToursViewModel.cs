@@ -1,12 +1,16 @@
 ﻿using BookingApp.ApplicationServices;
+using BookingApp.Domain.Model;
 using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
 using BookingApp.View.TouristView;
+using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +25,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         public TourScheduleDTO SelectedTourSchedule { get; set; }
         public User LoggedUser { get; set; }
         public RelayCommand TrackKeypointCommand { get; set; }
+        public RelayCommand GenereateReportCommand { get; set; }
         public ActiveToursViewModel( TourScheduleDTO tourSchedule, User user)
         {
             
@@ -30,6 +35,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             FutureTours = new ObservableCollection<TourScheduleDTO>();
             SelectedTourSchedule = tourSchedule;
             TrackKeypointCommand = new RelayCommand(Execute_TrackKeypointCommand);
+            GenereateReportCommand = new RelayCommand(Execute_GenerateReportCommand);
             Update();
         }
 
@@ -61,6 +67,29 @@ namespace BookingApp.ViewModels.TouristViewModel
             KeypointsTracking keypointsTracking = new KeypointsTracking(tourSchedule);
             keypointsTracking.Owner = Application.Current.MainWindow;
             keypointsTracking.ShowDialog();
+        }
+
+
+
+        private void Execute_GenerateReportCommand(object parameter)
+        {
+            TourScheduleDTO tourSchedule = (TourScheduleDTO)parameter;
+            List<Checkpoint> checkpoints = CheckpointService.GetInstance().GetAllByTourScheduleId(tourSchedule.Id).ToList();
+            List<TourGuests> guests = TourGuestService.GetInstance().GetAllByTourId(tourSchedule.Id).ToList();
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            // Navigate up to the project root directory
+            string projectRoot = Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\..\"));
+            // Define the relative path from the project root
+            string relativePath = @"Resources\tourist-report.pdf";
+            // Combine the project root with the relative path
+            string fullPath = Path.Combine(projectRoot, relativePath);
+            TouristReportGenerator reportGenerator = new TouristReportGenerator(DateTime.Now, tourSchedule, LoggedUser,checkpoints, guests);
+            QuestPDF.Settings.License = LicenseType.Community;
+            reportGenerator.GeneratePdf(fullPath);
+
+            MessageBox.Show("PDF report generated successfully!");
+
+         
         }
     }
 }
