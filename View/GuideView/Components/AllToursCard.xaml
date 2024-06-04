@@ -93,7 +93,7 @@
                 </StackPanel>
                 <Grid   Grid.Column="0" Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="0.25*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -109,7 +109,7 @@
                     </StackPanel>
                     <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" TextAlignment="Center" FontSize="15" x:Name="txtTourStart"  FontWeight="Bold" TextWrapping="Wrap" Text="{Binding TourStart,StringFormat=dd.MM.yyyy HH:mm}"/>
                 </StackPanel>
-                <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
+                <Grid Margin="5 0 0 0" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -118,6 +118,8 @@
                         <Image  Width="20px" Height="20px"   Source="\Resources\Images\information.png" PreviewMouseDown="TourDetailsMouseDown"/>
                         <TextBlock Foreground="{DynamicResource Text}" VerticalAlignment="Center"  FontSize="15"  TextWrapping="Wrap" Text="{ns:Loc MoreInfoClick}" PreviewMouseDown="TourDetailsMouseDown" FontFamily="Yu Gothic UI Light"/>
                     </StackPanel>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="1">
                     <StackPanel Cursor="Hand" Margin="10 0 0 0" Orientation="Horizontal" Grid.Column="1">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\delete.png" PreviewMouseDown="DeleteTourMouseDown"/>
                         <TextBlock Foreground="{DynamicResource Text}" VerticalAlignment="Center"  FontSize="15"  TextWrapping="Wrap" Text="{ns:Loc CancelTourClick}" PreviewMouseDown="DeleteTourMouseDown" FontFamily="Yu Gothic UI Light"/>

@@ -89,7 +89,7 @@
                 </StackPanel>
                 <Grid   Grid.Column="0" Margin="0,2,0,2" Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="0.25*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -105,7 +105,7 @@
                     </StackPanel>
                     <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" VerticalAlignment="Center" TextAlignment="Center"  FontSize="15" x:Name="txtTourStart"  TextWrapping="Wrap" Text="{Binding TourStart,StringFormat=dd.MM.yyyy HH:mm}"/>
                 </StackPanel>
-                <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3">
+                <Grid Grid.Column="0" Grid.Row="2" Margin="5 0 0 0" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -114,7 +114,10 @@
                         <Image Width="20px" Height="20px" Source="\Resources\Images\information.png" PreviewMouseDown="TourDetailsMouseDown"/>
                         <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" VerticalAlignment="Center"  FontSize="15"  TextWrapping="Wrap" Text="{ns:Loc MoreInfoClick}" PreviewMouseDown="TourDetailsMouseDown"/>
                     </StackPanel>
-                    <StackPanel Cursor="Hand" Margin="20 0 0 0" Orientation="Horizontal" Grid.Column="1">
+                   
+                </Grid>
+                <Grid Margin="10 0 0 0" Grid.Row="2" Grid.Column="1">
+                    <StackPanel Cursor="Hand"  Orientation="Horizontal" Grid.Column="1">
                         <StackPanel.Style>
                             <Style TargetType="StackPanel">
                                 <Style.Triggers>

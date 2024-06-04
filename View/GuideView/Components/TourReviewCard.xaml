@@ -93,7 +93,7 @@
                 </StackPanel>
                 <Grid   Grid.Column="0" Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="0.25*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
