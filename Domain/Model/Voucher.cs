@@ -57,7 +57,7 @@ namespace BookingApp.Model
             ReceivingDate = received;
         }
 
-            public string[] ToCSV()
+        public string[] ToCSV()
         {
             string[] csvValues = { Id.ToString(), TouristName, TouristSurname, TouristBirth.ToString(),  IssuingDate.ToString(), UserId.ToString(), ReceivingDate.ToString()};
             return csvValues;

@@ -25,7 +25,7 @@ namespace BookingApp.View.Converters
                     case RequestStatus.Invalid:
                         return " / ";
                     case RequestStatus.Accepted:
-                        if (values[1] is DateTime date)
+                        if (values[1] is DateOnly date)
                         {
                             return date.ToString(); // Format date as needed
                         }

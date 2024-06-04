@@ -31,7 +31,6 @@ namespace BookingApp.View
             LoggedUser = user;
             VideoControl.Volume = 100;
             VideoControl.Height = 500;
-            //VideoControl.Play();
             Filter = new TourFilterDTO();
             Update();
             SetLanguages();
@@ -41,7 +40,6 @@ namespace BookingApp.View
         }
         private void VideoControl_MediaOpened(object sender, RoutedEventArgs e)
         {
-            // Pause the video as soon as it's loaded to prevent it from playing automatically
             VideoControl.Play();
             VideoControl.Pause();
         }
@@ -257,7 +255,6 @@ namespace BookingApp.View
         }
         private void VideoControl_Loaded(object sender, RoutedEventArgs e)
         {
-            // Load the media but do not start playing
             VideoControl.Stop();
         }
 

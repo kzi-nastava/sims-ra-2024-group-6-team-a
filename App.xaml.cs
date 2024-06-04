@@ -88,6 +88,7 @@ namespace BookingApp
             services.AddSingleton<ICommentRepository, CommentRepository>();
             services.AddSingleton<IComplexTourRequestRepository, ComplexTourRequestRepository>();
             services.AddSingleton<IForumsCommentRepository, ForumsCommentRepository>();
+            services.AddSingleton<IVisitedTourRepository, VisitedTourRepository>();
 
 }
 
@@ -129,6 +130,7 @@ namespace BookingApp
             services.AddSingleton<ForumsCommentService>();  
             services.AddSingleton<TourRequestService>();
             services.AddSingleton<ComplexTourRequestService>();
+            services.AddSingleton<VisitedTourService>();
 
         }
 
