@@ -286,6 +286,15 @@ namespace BookingApp.View.GuideView.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tamna Tema.
+        /// </summary>
+        internal static string DarkTheme {
+            get {
+                return ResourceManager.GetString("DarkTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to datum.
         /// </summary>
         internal static string DateIcon {
@@ -498,6 +507,15 @@ namespace BookingApp.View.GuideView.Properties {
         internal static string LastNameIcon {
             get {
                 return ResourceManager.GetString("LastNameIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Svetla Tema.
+        /// </summary>
+        internal static string LightTheme {
+            get {
+                return ResourceManager.GetString("LightTheme", resourceCulture);
             }
         }
         

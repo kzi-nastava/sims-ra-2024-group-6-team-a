@@ -8,18 +8,12 @@
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d"
       Title="RequestedTourStatistics">
-    <Grid>
-        <Grid.Background>
-            <RadialGradientBrush>
-                <GradientStop Color="#F6F5F2"  Offset="0.0"/>
-                <GradientStop Color="#F3D0D7" Offset="1.5"/>
-            </RadialGradientBrush>
-        </Grid.Background>
+    <Grid Background="{DynamicResource GradientBackground}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Border Background="#F6F5F2" CornerRadius="0 8 8 0"   BorderBrush="#F0EBE3" BorderThickness="4">
+        <Border Background="{DynamicResource BorderBackground}" CornerRadius="0 8 8 0"   BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
             </Border.Effect>
@@ -28,7 +22,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Border Background="#F6F5F2"   Grid.Row="0" BorderBrush="#F0EBE3" BorderThickness="0 0 2 0">
+                <Border Background="{DynamicResource BorderBackground}"   Grid.Row="0" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0 0 2 0">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                     </Border.Effect>
@@ -38,7 +32,7 @@
                             <RowDefinition/>
                             <RowDefinition Height="0.4*"/>
                         </Grid.RowDefinitions>
-                        <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc Statistics}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0" Foreground="{DynamicResource Text}"  Content="{ns:Loc Statistics}" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <Grid Grid.Row="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -49,17 +43,18 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label FontFamily="Yu Gothic UI Light" Margin="30 0 0 0" Grid.Row="0" Grid.ColumnSpan="2"  Content="{ns:Loc ParamsInfo}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            <Label FontFamily="Yu Gothic UI Light" Grid.Row="1" Margin="50 0 0 0" Grid.Column="0"  Content="{ns:Loc Location}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                            <ComboBox Grid.Column="1" Grid.Row="1"  x:Name="locationComboBox" Height="50" Width="230" HorizontalAlignment="Left" VerticalAlignment="Center"
+                            <Label FontFamily="Yu Gothic UI Light" Foreground="{DynamicResource Text}" Margin="30 0 0 0" Grid.Row="0" Grid.ColumnSpan="2"  Content="{ns:Loc ParamsInfo}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <Label FontFamily="Yu Gothic UI Light" Foreground="{DynamicResource Text}" Grid.Row="1" Margin="50 0 0 0" Grid.Column="0"  Content="{ns:Loc Location}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            <ComboBox Grid.Column="1" Grid.Row="1"   x:Name="locationComboBox" Height="50" Width="230" HorizontalAlignment="Left" VerticalAlignment="Center"
                               IsEditable="True"
                               IsTextSearchEnabled="True"
                               HorizontalContentAlignment="Center"
                               VerticalContentAlignment="Center"
                               IsTextSearchCaseSensitive="False"
-                              ItemsSource="{Binding Locations}" Background="#F6F5F2" />
-                            <Label FontFamily="Yu Gothic UI Light" Grid.Row="2" Margin="50 0 0 0" Grid.Column="0"  Content="{ns:Loc Language}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                              ItemsSource="{Binding Locations}" />
+                            <Label FontFamily="Yu Gothic UI Light" Foreground="{DynamicResource Text}" Grid.Row="2" Margin="50 0 0 0" Grid.Column="0"  Content="{ns:Loc Language}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                             <ComboBox Grid.Column="1" Grid.Row="3"  
+                                      
                               x:Name="languageComboBox"
                                 Height="50" Width="230"
                                       IsEditable="True"
@@ -82,7 +77,7 @@
                                 <RowDefinition Height="2.5*"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Border  Background="#F6F5F2" CornerRadius="8"  Grid.Row="1" Grid.Column="1"  BorderBrush="#F0EBE3" BorderThickness="4">
+                            <Border  Background="{DynamicResource BorderBackground}" CornerRadius="8"  Grid.Row="1" Grid.Column="1"  BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                                 </Border.Effect>
@@ -97,8 +92,9 @@
                         <RowDefinition Height="0.5*"/>
                         <RowDefinition/>
                         <RowDefinition Height="0.4*"/>
+                        
                     </Grid.RowDefinitions>
-                    <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="Filter" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Label FontFamily="Yu Gothic UI Light" Foreground="{DynamicResource Text}" Grid.Row="0" Grid.Column="0"  Content="Filter" FontSize="60" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -110,17 +106,17 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox  VerticalContentAlignment="Center"
-          HorizontalContentAlignment="Center" Content="{ns:Loc OverallStats}" x:Name="overallCheckBox" Margin="50 0 0 0"  FontFamily="Yu Gothic UI Light" FontSize="30"  HorizontalAlignment="Left" Grid.Row="1" Grid.ColumnSpan="2"  VerticalAlignment="Center">
+          HorizontalContentAlignment="Center" Content="{ns:Loc OverallStats}" Foreground="{DynamicResource Text}" x:Name="overallCheckBox" Margin="50 0 0 0"  FontFamily="Yu Gothic UI Light" FontSize="30"  HorizontalAlignment="Left" Grid.Row="1" Grid.ColumnSpan="2"  VerticalAlignment="Center">
                             <CheckBox.ToolTip>
                                 <ToolTip>
                                     <StackPanel>
-                                        <TextBlock Text="If the Overall Statistics is checked, it is not possible to select a year, the graph for overall statistics is displayed"/>
+                                        <TextBlock  Text="If the Overall Statistics is checked, it is not possible to select a year, the graph for overall statistics is displayed"/>
                                     </StackPanel>
                                 </ToolTip>
                             </CheckBox.ToolTip>
                         </CheckBox>
-                        <Label FontFamily="Yu Gothic UI Light" Grid.Row="2" Margin="50 0 0 0" Grid.Column="0"  Content="{ns:Loc Year}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                        <ComboBox Grid.Column="2" Grid.Row="2"  x:Name="yearComboBox"   Height="50" Width="230"
+                        <Label  Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" Grid.Row="2" Margin="50 0 0 0" Grid.Column="0"  Content="{ns:Loc Year}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <ComboBox Grid.Column="2" Grid.Row="2"   x:Name="yearComboBox"   Height="50" Width="230"
                          HorizontalAlignment="Left" VerticalAlignment="Center"
                           IsEditable="True"
                           IsTextSearchEnabled="True"
@@ -130,9 +126,6 @@
                           ItemsSource="{Binding Years}" Background="#F6F5F2" />
 
                     </Grid>
-                    
-                    
-                    
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -144,11 +137,11 @@
                             <RowDefinition Height="2.5*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Border  Background="#F6F5F2" CornerRadius="8"  Grid.Row="1" Grid.Column="1"  BorderBrush="#F0EBE3" BorderThickness="4">
+                        <Border  Background="{DynamicResource BorderBackground}" CornerRadius="8"  Grid.Row="1" Grid.Column="1"  BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
                             <Border.Effect>
                                 <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                             </Border.Effect>
-                            <Button Background="Transparent" BorderThickness="0" Content="Filter" FontSize="25"  Click="SearchButtonClick" Grid.Row="2" Grid.ColumnSpan="2" />
+                            <Button Background="Transparent" BorderThickness="0" Foreground="{DynamicResource Text}"  Content="Filter" FontSize="25"  Click="SearchButtonClick" Grid.Row="2" Grid.ColumnSpan="2" />
                         </Border>
                     </Grid>
                 </Grid>
@@ -159,7 +152,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="0.7*"/>
             </Grid.RowDefinitions>
-            <Border Grid.Column="2" Background="#F6F5F2" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+            <Border Grid.Column="2" Background="{DynamicResource BorderBackground}" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                 </Border.Effect>
@@ -178,11 +171,11 @@
                     <RowDefinition Height="3.5*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Border Grid.Column="1" Grid.Row="1" Background="#F6F5F2" CornerRadius="8"   BorderBrush="#F0EBE3" BorderThickness="4">
+                <Border Grid.Column="1" Grid.Row="1" Background="{DynamicResource BorderBackground}" CornerRadius="8"   BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
                     <Border.Effect>
-                        <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
+                        <DropShadowEffect ShadowDepth="0.5" Color="Black"  Opacity="0.3"/>
                     </Border.Effect>
-                    <DataGrid Background="#F6F5F2" BorderThickness="0" AutoGenerateColumns="False" ItemsSource="{Binding DataGrid}" Margin="10">
+                    <DataGrid Background="{DynamicResource BorderBackground}" BorderThickness="0" AutoGenerateColumns="False" ItemsSource="{Binding DataGrid}" Margin="10">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Month" Binding="{Binding Key}" Width="*" />
                             <DataGridTextColumn Header="Value" Binding="{Binding Value}" Width="*" />

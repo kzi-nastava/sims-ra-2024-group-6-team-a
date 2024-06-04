@@ -10,24 +10,18 @@
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="ComplexTourRequestView">
 
-    <Grid>
-        <Grid.Background>
-            <RadialGradientBrush>
-                <GradientStop Color="#F6F5F2"  Offset="0.0"/>
-                <GradientStop Color="#F3D0D7" Offset="1.5"/>
-            </RadialGradientBrush>
-        </Grid.Background>
+    <Grid Background="{DynamicResource GradientBackground}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Border BorderThickness="0,0,2,0" BorderBrush="Black">
+        <Border BorderThickness="0,0,2,0" BorderBrush="{DynamicResource ComplexRequestBorder}">
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.2*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc ComplexRequests}" FontSize="60" Margin="50 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0" Foreground="{DynamicResource Text}"  Content="{ns:Loc ComplexRequests}" FontSize="60" Margin="50 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" >
                     <ItemsControl HorizontalAlignment="Center" ItemsSource ="{Binding ComplexRequests}" >
                         <ItemsControl.ItemTemplate>
@@ -49,7 +43,7 @@
                 <RowDefinition Height="0.2*"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc TourFragments}" FontSize="60" Margin="50 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0" Foreground="{DynamicResource Text}"  Content="{ns:Loc TourFragments}" FontSize="60" Margin="50 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" >
                 <ItemsControl ItemsSource ="{Binding TourFragments}" >
                     <ItemsControl.ItemTemplate>

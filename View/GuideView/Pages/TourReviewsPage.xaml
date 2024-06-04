@@ -10,13 +10,8 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Loaded="LoadReview"
       Title="TourReviewsPage">
-    <Grid>
-        <Grid.Background>
-            <RadialGradientBrush>
-                <GradientStop Color="#F6F5F2"  Offset="0.0"/>
-                <GradientStop Color="#F3D0D7" Offset="1.5"/>
-            </RadialGradientBrush>
-        </Grid.Background>
+    <Grid Background="{DynamicResource GradientBackground}">
+       
         <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto" >
             <ItemsControl ItemsSource ="{Binding Tours}" >
                 <ItemsControl.ItemTemplate>

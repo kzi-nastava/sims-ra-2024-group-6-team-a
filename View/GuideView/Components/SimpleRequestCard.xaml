@@ -62,7 +62,7 @@
 
 
 
-    <Border Style="{StaticResource CardBorderStyle}" Background="#F6F5F2" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+    <Border Style="{StaticResource CardBorderStyle}" Background="{DynamicResource BorderBackground}" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -81,9 +81,9 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Image Width="20px" Height="20px" Source="\Resources\Images\location.png"/>
-                    <Label   FontSize="8" Content="{ns:Loc LocationIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                    <Label Foreground="{DynamicResource Text}"  FontSize="8" Content="{ns:Loc LocationIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                 </StackPanel>
-                <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding Location}"/>
+                <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding Location}"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0">
                 <Grid.ColumnDefinitions>
@@ -92,9 +92,9 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel VerticalAlignment="Center">
                     <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
-                    <Label   FontSize="7" Content="{ns:Loc LanguageIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                    <Label Foreground="{DynamicResource Text}"   FontSize="7" Content="{ns:Loc LanguageIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                 </StackPanel>
-                <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding Language}"/>
+                <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding Language}"/>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1">
                 <Grid.ColumnDefinitions>
@@ -103,9 +103,9 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel VerticalAlignment="Center">
                     <Image Width="20px" Height="20px" Source="\Resources\Images\calendar.png"/>
-                    <Label   FontSize="8" Content="{ns:Loc DateIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                    <Label Foreground="{DynamicResource Text}"  FontSize="8" Content="{ns:Loc DateIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                 </StackPanel>
-                <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"  >
+                <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"  >
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0:dd.MM.yyyy} - {1:dd.MM.yyyy}">
                             <Binding Path="Start"/>
@@ -121,9 +121,9 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Image Height="20px" Width="20px"  HorizontalAlignment="Center" Source="\Resources\Images\capacity.png"/>
-                    <Label   FontSize="8" Content="{ns:Loc TouristsIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="63" />
+                    <Label  Foreground="{DynamicResource Text}" FontSize="8" Content="{ns:Loc TouristsIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="63" />
                 </StackPanel>
-                <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding TouristNumber}"/>
+                <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding TouristNumber}"/>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>
@@ -132,10 +132,10 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Margin="0 30 0 0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Image Height="20px" Width="20px"  HorizontalAlignment="Center" Source="\Resources\Images\description.png"/>
-                    <Label   FontSize="8" Content="{ns:Loc DescriptionIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="63" />
+                    <Label Foreground="{DynamicResource Text}"  FontSize="8" Content="{ns:Loc DescriptionIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="63" />
                 </StackPanel>
                 <ScrollViewer Grid.Column="1" Grid.RowSpan="2" Margin="0 25 0 0"  VerticalScrollBarVisibility="Auto" >
-                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Left" TextAlignment="Left" TextWrapping="Wrap"  FontSize="25" Text="{Binding Description}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Left" TextAlignment="Left" TextWrapping="Wrap"  FontSize="25" Text="{Binding Description}"/>
                 </ScrollViewer>
             </Grid>
             <Grid Grid.RowSpan="2" Grid.Column="3">
@@ -149,15 +149,14 @@
                     <RowDefinition Height="23*"/>
                     <RowDefinition Height="38*"/>
                 </Grid.RowDefinitions>
-                <Border Background="#F6F5F2" CornerRadius="8"  Grid.Row="1"  BorderBrush="#F0EBE3" BorderThickness="4" Margin="0,0,1,0" Grid.Column="1">
+                <Border Background="{DynamicResource BorderBackground}" CornerRadius="8"  Grid.Row="1"  BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4" Margin="0,0,1,0" Grid.Column="1">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                     </Border.Effect>
-                    <Button Background="Transparent" BorderThickness="0" Click="AcceptRequestClick" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="20" Content="{ns:Loc Accept}"></Button>
+                    <Button Background="Transparent" Foreground="{DynamicResource Text}" BorderThickness="0" Click="AcceptRequestClick" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="20" Content="{ns:Loc Accept}"></Button>
                 </Border>
-                <TextBlock Grid.Column="1" Visibility="Collapsed" x:Name="txtRequestId" Text="{Binding Id}"  HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Height="0" Width="0"/>
-                <TextBlock Grid.Column="1" Visibility="Collapsed" x:Name="txtUserId" Text="{Binding UserId}"  HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Height="0" Margin="67,0,0,0" Width="0"/>
-
+                <TextBlock Foreground="{DynamicResource Text}" Grid.Column="1" Visibility="Collapsed" x:Name="txtRequestId" Text="{Binding Id}"  HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Height="0" Width="0"/>
+                <TextBlock Foreground="{DynamicResource Text}" Grid.Column="1" Visibility="Collapsed" x:Name="txtUserId" Text="{Binding UserId}"  HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Center" Height="0" Margin="67,0,0,0" Width="0"/>
             </Grid>
         </Grid>
     </Border>

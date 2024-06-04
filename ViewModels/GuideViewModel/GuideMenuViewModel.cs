@@ -20,8 +20,16 @@ using BookingApp.Resources;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
-    public class GuideMenuViewModel
+    public class GuideMenuViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
         public User LoggedUser { get; set; }
 
         public Guide Guide { get; set; }
@@ -39,6 +47,17 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public bool IsSuperGuide { get; set; }
         public GuideViewMenu MainWindow { get; set; }
+
+        private bool _isTours;
+        private bool _isReviews;
+        private bool _isStatistics;
+        private bool _isRequests;
+
+        public bool IsTours { get => _isTours; set { _isTours = value; OnPropertyChanged("IsTours"); } }
+        public bool IsReviews { get => _isReviews; set { _isReviews = value; OnPropertyChanged("IsReviews"); } }
+        public bool IsStatistics { get => _isStatistics; set { _isStatistics = value; OnPropertyChanged("IsStatistics"); } }
+        public bool IsRequests { get => _isRequests; set { _isRequests = value; OnPropertyChanged("IsRequests"); } }
+
 
         public GuideMenuViewModel(GuideViewMenu mainWindow,User user)
         {
@@ -69,7 +88,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         public void ToursPageClick()
         {
             ResetButtonColors();
-            MainWindow.btnTours.Foreground = Brushes.Black;
+            IsTours = true;
             MainWindow.MainFrame.Content = toursPage;
         }
        
@@ -77,15 +96,14 @@ namespace BookingApp.ViewModels.GuideViewModel
         public void TourStatisticsPageClick()
         {
             ResetButtonColors();
-            MainWindow.btnStatistics.Foreground = Brushes.Black;
-
+            IsStatistics = true;
             MainWindow.MainFrame.Content = tourStatisticsPage;
         }
 
         public void TourReviewsPageClick()
         {
             ResetButtonColors();
-            MainWindow.btnReviews.Foreground = Brushes.Black;
+            IsReviews = true;
             MainWindow.MainFrame.Content = tourReviewPage;
         }
 
@@ -93,18 +111,17 @@ namespace BookingApp.ViewModels.GuideViewModel
         {
 
             ResetButtonColors();
-            MainWindow.btnRequests.Foreground = Brushes.Black;
-
+            IsRequests = true;
             MainWindow.MainFrame.Content = tourRequestsPage;
 
         }
 
         private void ResetButtonColors()
         {
-            MainWindow.btnRequests.Foreground = Brushes.DarkGray;  
-            MainWindow.btnTours.Foreground = Brushes.DarkGray;
-            MainWindow.btnReviews.Foreground = Brushes.DarkGray;
-            MainWindow.btnStatistics.Foreground = Brushes.DarkGray;
+            IsRequests = false;
+            IsStatistics = false;
+            IsReviews = false;
+            IsTours = false;
         }
 
         public void LiveTourPageClick(int id) 

@@ -192,6 +192,9 @@
   <data name="CurrentCheckpoint" xml:space="preserve">
     <value>Trenutna Lokacija:</value>
   </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Tamna Tema</value>
+  </data>
   <data name="DateIcon" xml:space="preserve">
     <value>datum</value>
   </data>
@@ -263,6 +266,9 @@
   </data>
   <data name="LastNameIcon" xml:space="preserve">
     <value>prezime</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Svetla Tema</value>
   </data>
   <data name="LiveTourClick" xml:space="preserve">
     <value>Pritisnite ovde za pracenje obilaska</value>

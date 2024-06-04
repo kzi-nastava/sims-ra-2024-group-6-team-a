@@ -229,6 +229,7 @@ namespace BookingApp.ViewModels.GuideViewModel
         private void ChangeRequestStatus()
         {
             Request.Status = Enums.RequestStatus.Accepted;
+            Request.StartDate = DateOnly.FromDateTime(TourDatesCollection.First());
             Request = TourRequestService.GetInstance().Update(Request);
         }
         private TourReservation CreateReservation(TourSchedule tourSchedule)

@@ -30,8 +30,9 @@ namespace BookingApp.View.GuideView.Pages
         public ToursPage(User user)
         {
             InitializeComponent();
-            DataContext = ToursViewModel;
             ToursViewModel = new ToursViewModel(this,user);
+            DataContext = ToursViewModel;
+
         }
 
         public void LiveToursPageClick(object sender,EventArgs e)

@@ -11,43 +11,66 @@
       Title="ToursPage">
 
     <Page.Resources>
-        <Style  TargetType="TextBlock">
+        <Style x:Key="Todays" TargetType="TextBlock">
             <Setter Property="Foreground" Value="DarkGray"/>
-            
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsTodays}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource SelectedButton}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsTodays}" Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource NotSelectedButton}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="All" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="DarkGray"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsAll}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource SelectedButton}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsAll}" Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource NotSelectedButton}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="Create" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="DarkGray"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsCreate}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource SelectedButton}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsCreate}" Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource NotSelectedButton}"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </Page.Resources>
 
-    <Grid>
+    <Grid Background="{DynamicResource LinearBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.05*"/>
             <RowDefinition Height="0.95*"/>
         </Grid.RowDefinitions>
-        <Grid.Background>
-            <LinearGradientBrush>
-                <GradientStop Color="#F6F5F2"  Offset="0.3"/>
-                <GradientStop Color="#F3D0D7" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
-
+ 
         <Frame Grid.Row="1" x:Name="SecondFrame" NavigationUIVisibility="Hidden" />
-        <Border BorderThickness="0,0,0,2" BorderBrush="Black">
+        <Border BorderThickness="0,0,0,2" BorderBrush="{DynamicResource BorderBrush}">
 
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center"  Grid.Row="0">
                 <Button Background="Transparent" BorderThickness="0" Click="LiveToursPageClick">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="btnTodaysTours"  Text="{ns:Loc TodaysTours}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock Style="{StaticResource Todays}"  x:Name="btnTodaysTours"  Text="{ns:Loc TodaysTours}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
-                <TextBlock Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                <TextBlock Foreground="{DynamicResource Text}"  Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
                 <Button Background="Transparent" BorderThickness="0" Click="AllToursPageClick"  >
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="btnAllTours" Text="{ns:Loc AllTours}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock Style="{StaticResource All}"  x:Name="btnAllTours" Text="{ns:Loc AllTours}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
-                <TextBlock Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                <TextBlock Foreground="{DynamicResource Text}"  Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
                 <Button Background="Transparent" BorderThickness="0" Click="ShowCreateTourForm"  >
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="btnCreateTour" Text="{ns:Loc CreateTour}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock Style="{StaticResource Create}"   x:Name="btnCreateTour" Text="{ns:Loc CreateTour}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
             </StackPanel>

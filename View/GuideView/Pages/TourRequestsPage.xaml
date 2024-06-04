@@ -9,40 +9,64 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TourRequestsPage">
     <Page.Resources>
-        <Style  TargetType="TextBlock">
+        <Style x:Key="StatisticsTextBlock" TargetType="TextBlock">
             <Setter Property="Foreground" Value="DarkGray"/>
-
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsStatisticsSelected}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource SelectedButton}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsStatisticsSelected}" Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource NotSelectedButton}"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
+        <Style x:Key="ComplexText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="DarkGray"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsComplexToursSelected}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource SelectedButton}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsComplexToursSelected}" Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource NotSelectedButton}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="RequestText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="DarkGray"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsRequestsSelected}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource SelectedButton}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsRequestsSelected}" Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource NotSelectedButton}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
     </Page.Resources>
-    <Grid>
+    <Grid Background="{DynamicResource LinearBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.05*"/>
             <RowDefinition Height="0.95*"/>
         </Grid.RowDefinitions>
-        <Grid.Background>
-            <LinearGradientBrush>
-                <GradientStop Color="#F6F5F2"  Offset="0.3"/>
-                <GradientStop Color="#F3D0D7" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
         <Frame Grid.Row="1" x:Name="SecondFrame" NavigationUIVisibility="Hidden" />
-        <Border BorderThickness="0,0,0,2" BorderBrush="Black">
+        <Border BorderThickness="0,0,0,2" BorderBrush="{DynamicResource BorderBrush}">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center"  Grid.Row="0">
-                <Button Background="Transparent" BorderThickness="0" Click="RequestsClick">
+                <Button  Background="Transparent" BorderThickness="0" Click="RequestsClick">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="btnRequests"  Text="{ns:Loc Requests}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock  x:Name="btnRequests"   Style="{StaticResource RequestText}"  Text="{ns:Loc Requests}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
-                <TextBlock Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                <TextBlock Foreground="{DynamicResource Text}"  Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
                 <Button Background="Transparent" BorderThickness="0" Click="StatisticsClick"  >
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="btnRequestStatistics" Text="{ns:Loc Statistics}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock   x:Name="btnRequestStatistics" Style="{StaticResource StatisticsTextBlock}"   Text="{ns:Loc Statistics}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
-                <TextBlock Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
-                <Button Background="Transparent" BorderThickness="0" Click="ComplexTourClick"  >
+                <TextBlock Foreground="{DynamicResource Text}"  Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                <Button  Background="Transparent" BorderThickness="0" Click="ComplexTourClick"  >
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Name="btnComplexTours" Text="{ns:Loc ComplexTourRequests}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <TextBlock  x:Name="btnComplexTours"  Style="{StaticResource ComplexText}"  Text="{ns:Loc ComplexTourRequests}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
             </StackPanel>

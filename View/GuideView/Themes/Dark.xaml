@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+
+        <RadialGradientBrush x:Key="GradientBackground">
+        <GradientStop Color="#060615"  Offset="0.0"/>
+        <GradientStop Color="#949ae2" Offset="1.5"/>
+        </RadialGradientBrush>
+        <LinearGradientBrush x:Key="LinearBackground">
+        <GradientStop Color="#060615"  Offset="0.0"/>
+        <GradientStop Color="#949ae2" Offset="3.0"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="Text" Color="White"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="#9683EC"/>
+    <SolidColorBrush x:Key="BorderBackground" Color="#363B71"/>
+    <SolidColorBrush x:Key="ComplexRequestBorder" Color="#9683EC"/>
+        <SolidColorBrush x:Key="ListBoxBackground" Color="LightGray"/>
+        <SolidColorBrush x:Key="ListBoxBackgrnd" Color="White"/>
+        <SolidColorBrush x:Key="NotSelectedButton" Color="White"/>
+    <SolidColorBrush x:Key="SelectedButton" Color="#61d04e"/>
+    <SolidColorBrush x:Key="FinalHeaderBorder" Color="#9683EC"/>
+    <SolidColorBrush x:Key="CardText" Color="White"/>
+
+</ResourceDictionary>

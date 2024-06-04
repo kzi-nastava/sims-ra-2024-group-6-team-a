@@ -8,17 +8,11 @@
       xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
       Title="AlreadyStartedTour">
 
-    <Grid >
+    <Grid Background="{DynamicResource GradientBackground}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="2.1*"/>
         </Grid.RowDefinitions>
-        <Grid.Background>
-            <RadialGradientBrush>
-                <GradientStop Color="#F6F5F2"  Offset="0.0"/>
-                <GradientStop Color="#F3D0D7" Offset="1.5"/>
-            </RadialGradientBrush>
-        </Grid.Background>
         <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -31,17 +25,17 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Margin="20 0 0 0 " Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Image Width="70px" Height="70px" Source="\Resources\Images\important_notice.png"/>
-                    <Label FontSize="10" Content="{ns:Loc ImportantNotice}" Height="24" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="101" />
+                    <Label FontSize="10" Foreground="{DynamicResource Text}" Content="{ns:Loc ImportantNotice}" Height="24" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="101" />
                 </StackPanel>
-                <TextBox Grid.Column="1" Background="Transparent" FontFamily="bold" FontSize="30" HorizontalAlignment="Left" 
+                <TextBox Foreground="{DynamicResource Text}"  Grid.Column="1" Background="Transparent" FontFamily="bold" FontSize="30" HorizontalAlignment="Left" 
              VerticalAlignment="Center" IsReadOnly="True" BorderThickness="0" 
              Text="{ns:Loc Hey}" />
 
-                <TextBox Grid.Column="1" Background="Transparent" FontFamily="bold" FontSize="30" HorizontalAlignment="Left" 
+                <TextBox Grid.Column="1" Foreground="{DynamicResource Text}" Background="Transparent" FontFamily="bold" FontSize="30" HorizontalAlignment="Left" 
              VerticalAlignment="Center" IsReadOnly="True" BorderThickness="0"
              Text="{Binding LoggedUser.Username}" Margin="70,0,0,0"/>
 
-                <TextBox Grid.Column="1" FontFamily="bold" FontSize="30" HorizontalAlignment="Left" 
+                <TextBox Foreground="{DynamicResource Text}" Grid.Column="1" FontFamily="bold" FontSize="30" HorizontalAlignment="Left" 
              VerticalAlignment="Center" IsReadOnly="True" BorderThickness="0" 
                          Background="Transparent"
              Text="{ns:Loc OngoingTourMessage}" Margin="150,0,0,0"/>
@@ -64,8 +58,8 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Content="{ns:Loc OtherTours}" HorizontalAlignment="Center" FontSize="35"/>
-            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,0">
+            <Label Content="{ns:Loc OtherTours}" Foreground="{DynamicResource Text}" HorizontalAlignment="Center" FontSize="35"/>
+            <Border Grid.Row="1" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,1,0,0">
                 <ScrollViewer VerticalAlignment="Top" Grid.Column="2" Grid.Row="2"  VerticalScrollBarVisibility="Auto" >
                     <ItemsControl ItemsSource ="{Binding TodaysTours}" >
                         <ItemsControl.ItemTemplate>

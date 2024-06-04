@@ -9,13 +9,8 @@
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="AccountSettingsPage">
 
-    <Grid>
-        <Grid.Background>
-            <RadialGradientBrush>
-                <GradientStop Color="#F6F5F2"  Offset="0.0"/>
-                <GradientStop Color="#F3D0D7" Offset="1.5"/>
-            </RadialGradientBrush>
-        </Grid.Background>
+    <Grid Background="{DynamicResource LinearBackground}">
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition/>
@@ -26,7 +21,7 @@
             <RowDefinition/>
             <RowDefinition Height="0.3*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Column="1" FontFamily="Yu Gothic UI Light" Grid.Row="0"   Content="{ns:Loc AccountDetails}" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <Label Grid.Column="1" FontFamily="Yu Gothic UI Light" Grid.Row="0"  Foreground="{DynamicResource Text}" Content="{ns:Loc AccountDetails}" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Left"/>
         <Grid Grid.Column="1" Margin="40 0 0 0" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -44,38 +39,38 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="0">
                 <Image Width="20px" Height="20px" Source="\Resources\Images\information.png"/>
-                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc FirstName}"  FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Foreground="{DynamicResource Text}" Grid.Column="0"  Content="{ns:Loc FirstName}"  FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1">
                 <Image Width="20px" Height="20px" Source="\Resources\Images\information.png"/>
-                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc LastName}"  FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0" Foreground="{DynamicResource Text}"  Content="{ns:Loc LastName}"  FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2">
                 <Image Width="20px" Height="20px" Source="\Resources\Images\information.png"/>
-                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc NumberOfFinishedTours}"  FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0" Foreground="{DynamicResource Text}" Content="{ns:Loc NumberOfFinishedTours}"  FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="3">
                 <Image Width="20px" Height="20px" Source="\Resources\Images\information.png"/>
-                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc Grade}"  FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0" Foreground="{DynamicResource Text}"  Content="{ns:Loc Grade}"  FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="4">
                 <Image Width="20px" Height="20px" Source="\Resources\Images\information.png"/>
-                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc Rank}"  FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0" Foreground="{DynamicResource Text}"  Content="{ns:Loc Rank}"  FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </StackPanel>
-           
+
             <StackPanel Orientation="Horizontal" Grid.Row="6">
                 <Image Width="20px" Height="20px" Source="\Resources\Images\information.png"/>
-                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc Theme}"  FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0" Foreground="{DynamicResource Text}"  Content="{ns:Loc Theme}"  FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="7">
                 <Image Width="20px" Height="20px" Source="\Resources\Images\information.png"/>
-                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0"  Content="{ns:Loc WebsiteLanguage}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <Label FontFamily="Yu Gothic UI Light" Grid.Row="0" Grid.Column="0" Foreground="{DynamicResource Text}"  Content="{ns:Loc WebsiteLanguage}" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </StackPanel>
-            <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" Text="{Binding Guide.Name}"/>
-            <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"  FontSize="30" Text="{Binding Guide.Surname}"/>
-            <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" Text="{Binding Guide.NumberOfTours}"/>
-            <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" Text="{Binding Guide.Grade,  StringFormat=N2}"/>
-            <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" >
+            <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Foreground="{DynamicResource Text}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" Text="{Binding LoggedGuide.Name}"/>
+            <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Foreground="{DynamicResource Text}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold"  FontSize="30" Text="{Binding LoggedGuide.Surname}"/>
+            <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Foreground="{DynamicResource Text}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" Text="{Binding LoggedGuide.NumberOfTours}"/>
+            <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Foreground="{DynamicResource Text}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" Text="{Binding LoggedGuide.Grade,  StringFormat=N2}"/>
+            <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Foreground="{DynamicResource Text}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" >
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="Text" Value="{ns:Loc Guide}" />
@@ -88,8 +83,12 @@
                 </TextBlock.Style>
             </TextBlock>
             <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold" FontSize="30" Text="{Binding Tour.Name}"/>
-            <ComboBox Grid.Row="7" Grid.Column="1" Margin="0 15 100 15" HorizontalAlignment="Left" SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" />
+            <ComboBox Grid.Row="7" Margin="416,15,0,15" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" HorizontalAlignment="Left" SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" Grid.ColumnSpan="2" Width="209" />
+            <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+                <RadioButton x:Name="lightRadioButton" FontSize="25" VerticalContentAlignment="Center" FontFamily="Yu Gothic UI Light" Checked="LightModeChecked" Foreground="{DynamicResource Text}"  Content="{ns:Loc LightTheme}"  VerticalAlignment="Center"/>
+                <RadioButton x:Name="darkRadioButton" Margin="20 0 0 0" FontSize="25" VerticalContentAlignment="Center" FontFamily="Yu Gothic UI Light" Checked="DarkModeChecked" Foreground="{DynamicResource Text}"  Content="{ns:Loc DarkTheme}"  VerticalAlignment="Center"/>
 
+            </StackPanel>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.RowDefinitions>
@@ -102,11 +101,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Border Background="#F6F5F2" CornerRadius="8" Grid.Row="1" Grid.Column="1"  BorderBrush="#F0EBE3" BorderThickness="4">
+            <Border Background="{DynamicResource BorderBackground}" CornerRadius="8" Grid.Row="1" Grid.Column="1"  BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                 </Border.Effect>
-                <Button Grid.Row="1" Background="Transparent" Grid.Column="1" BorderThickness="0" Content="{ns:Loc QuitJob}" FontFamily="Yu Gothic UI Light" FontSize="30" Click="DeleteAccountClick"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="50"/>
+                <Button Grid.Row="1" Background="Transparent" Grid.Column="1" BorderThickness="0" Foreground="{DynamicResource Text}" Content="{ns:Loc QuitJob}" FontFamily="Yu Gothic UI Light" FontSize="30" Click="DeleteAccountClick"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="50"/>
             </Border>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="2">
@@ -120,11 +119,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Border Background="#F6F5F2" CornerRadius="8" Grid.Row="1" Grid.Column="1"  BorderBrush="#F0EBE3" BorderThickness="4">
+            <Border Background="{DynamicResource BorderBackground}" CornerRadius="8" Grid.Row="1" Grid.Column="1"  BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                 </Border.Effect>
-                <Button Grid.Row="1" Background="Transparent" Grid.Column="1" BorderThickness="0" Content="{ns:Loc GoBack}" FontFamily="Yu Gothic UI Light" FontSize="30" Click="GoBackButtonClick"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="50"/>
+                <Button Grid.Row="1" Background="Transparent" Foreground="{DynamicResource Text}" Grid.Column="1" BorderThickness="0" Content="{ns:Loc GoBack}" FontFamily="Yu Gothic UI Light" FontSize="30" Click="GoBackButtonClick"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="50"/>
             </Border>
         </Grid>
     </Grid>

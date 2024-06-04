@@ -28,8 +28,8 @@ namespace BookingApp.View.GuideView.Pages
         public TourRequestsPage(User user)
         {
             InitializeComponent();
-            DataContext = RequestsViewModel;
             RequestsViewModel = new TourRequestsViewModel(this, user);
+            DataContext = RequestsViewModel;
         }
 
 

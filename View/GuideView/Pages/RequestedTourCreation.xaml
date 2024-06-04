@@ -25,19 +25,13 @@
             <Setter Property="FontFamily" Value="Yu Gothic UI Light"/>
         </Style>
     </Page.Resources>
-    <Grid >
-        <Grid.Background>
-            <RadialGradientBrush>
-                <GradientStop Color="#F6F5F2"  Offset="0.0"/>
-                <GradientStop Color="#F3D0D7" Offset="1.5"/>
-            </RadialGradientBrush>
-        </Grid.Background>
+    <Grid Background="{DynamicResource GradientBackground}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="0.13*"/>
             <RowDefinition/>
             <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{ns:Loc CreateRequestedTour}" FontSize="60" FontWeight="Bold" />
+        <Label Grid.Row="0" Foreground="{DynamicResource Text}" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{ns:Loc CreateRequestedTour}" FontSize="60" FontWeight="Bold" />
         <Grid Grid.Row="1" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.7*"/>
@@ -59,22 +53,22 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100 0 0 0" FontSize="25" FontWeight="Bold" Content="{ns:Loc Name}" />
-                <TextBox x:Name="txtTourName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0 20 40 20"  TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Tour.Name, UpdateSourceTrigger=PropertyChanged}" />
-                <Label Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="25" Margin="0 0 80 0" FontWeight="Bold"  Content="{ns:Loc Location}" />
-                <Label Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="25" FontWeight="Bold" Content="{ns:Loc Language}"/>
-                <Label  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100 0 0 0"  FontSize="25" FontWeight="Bold" Content="{ns:Loc Duration}"  />
-                <Label Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="25" Margin="0 0 80 0" FontWeight="Bold" Content="{ns:Loc Capacity}" />
-                <TextBlock FontFamily="Yu Gothic UI Light"  TextWrapping="Wrap" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Location}"/>
+                <Label Foreground="{DynamicResource Text}" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100 0 0 0" FontSize="25" FontWeight="Bold" Content="{ns:Loc Name}" />
+                <TextBox Foreground="{DynamicResource Text}" x:Name="txtTourName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0 20 40 20"  TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Tour.Name, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Foreground="{DynamicResource Text}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="25" Margin="0 0 80 0" FontWeight="Bold"  Content="{ns:Loc Location}" />
+                <Label Foreground="{DynamicResource Text}" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="25" FontWeight="Bold" Content="{ns:Loc Language}"/>
+                <Label Foreground="{DynamicResource Text}" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="100 0 0 0"  FontSize="25" FontWeight="Bold" Content="{ns:Loc Duration}"  />
+                <Label Foreground="{DynamicResource Text}" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="25" Margin="0 0 80 0" FontWeight="Bold" Content="{ns:Loc Capacity}" />
+                <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light"  TextWrapping="Wrap" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Location}"/>
 
-                <TextBlock FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Language}"/>
-                <Label Grid.Column="4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="30 0 0 0" FontSize="25"  FontWeight="Bold" Content="{ns:Loc Tourists}"/>
+                <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Language}"/>
+                <Label Foreground="{DynamicResource Text}" Grid.Column="4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="30 0 0 0" FontSize="25"  FontWeight="Bold" Content="{ns:Loc Tourists}"/>
 
 
-                <ListBox  Background="#F6F5F2" Grid.Row="3" Margin="125 0 125 0"  Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2" ItemsSource="{Binding Tourists}"   >
+                <ListBox  Background="{DynamicResource ListBoxBackground}" Grid.Row="3" Margin="125 0 125 0"  Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2" ItemsSource="{Binding Tourists}"   >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock FontFamily="Yu Gothic UI Light" FontSize="20" >
+                            <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" FontSize="20" >
                                 <TextBlock.Text>
                                     <MultiBinding StringFormat="{}{0} {1}">
                                         <Binding Path="Name"/>
@@ -87,18 +81,18 @@
                 </ListBox>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Grid.Row="2" Margin="0 0 0 0" HorizontalAlignment="Left" Orientation="Horizontal">
-                    <xctk:IntegerUpDown  Minimum="0"  Background="#F6F5F2"   x:Name="txtTourDuration"  Text="{Binding Path = SelectedTour.Duration, UpdateSourceTrigger=PropertyChanged}"  Height="37" Width="80" />
-                    <Label Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20">h</Label>
+                    <xctk:IntegerUpDown Foreground="{DynamicResource Text}" Minimum="0"  Background="#F6F5F2"   x:Name="txtTourDuration"  Text="{Binding Path = SelectedTour.Duration, UpdateSourceTrigger=PropertyChanged}"  Height="37" Width="80" />
+                    <Label Grid.Column="0" Foreground="{DynamicResource Text}" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20">h</Label>
                 </StackPanel>
 
                 <StackPanel Grid.Column="3" VerticalAlignment="Center" Grid.Row="2" Orientation="Horizontal">
-                    <xctk:IntegerUpDown Background="#F6F5F2"  Minimum="0" Height="37" Width="80"  x:Name="txtTourCapacity" Text="{Binding Path = SelectedTour.Capacity, UpdateSourceTrigger=PropertyChanged}"  />
-                    <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="25" FontWeight="Bold" Content="{ns:Loc People}" />
+                    <xctk:IntegerUpDown Foreground="{DynamicResource Text}" Background="#F6F5F2"  Minimum="0" Height="37" Width="80"  x:Name="txtTourCapacity" Text="{Binding Path = SelectedTour.Capacity, UpdateSourceTrigger=PropertyChanged}"  />
+                    <Label Grid.Column="0" Foreground="{DynamicResource Text}" VerticalAlignment="Center" HorizontalAlignment="Left"  FontSize="25" FontWeight="Bold" Content="{ns:Loc People}" />
                 </StackPanel>
 
-                <Label Grid.Column="0" Margin="100 0 0 0" VerticalAlignment="Center" Grid.Row="3" FontSize="25" FontWeight="Bold" Content="{ns:Loc Description}" />
+                <Label Foreground="{DynamicResource Text}" Grid.Column="0" Margin="100 0 0 0" VerticalAlignment="Center" Grid.Row="3" FontSize="25" FontWeight="Bold" Content="{ns:Loc Description}" />
                 <ScrollViewer Margin="0 20 0 0" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Grid.RowSpan="3"  VerticalScrollBarVisibility="Auto" >
-                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Left" TextAlignment="Left" TextWrapping="Wrap"  FontSize="25" Text="{Binding Tour.Description}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Left" TextAlignment="Left" TextWrapping="Wrap"  FontSize="25" Text="{Binding Tour.Description}"/>
                 </ScrollViewer>
 
             </Grid>
@@ -113,68 +107,68 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Margin="50 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
-                    <Label   FontSize="25" FontWeight="Bold" Content="{ns:Loc Checkpoints}"/>
-                    <TextBox   x:Name="txtTourCheckpoints" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Checkpoint, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="194"/>
+                    <Label Foreground="{DynamicResource Text}"  FontSize="25" FontWeight="Bold" Content="{ns:Loc Checkpoints}"/>
+                    <TextBox  Foreground="{DynamicResource Text}" x:Name="txtTourCheckpoints" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Checkpoint, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="194"/>
                     <StackPanel  Orientation="Vertical" Margin="5 0 0 0" Height="33"  >
-                        <Button Click="AddCheckPointClick" Content="+" RenderTransformOrigin="-1.2,0.566" Height="19" Width="24"/>
-                        <Label   FontSize="7" Content="{ns:Loc Add}" Height="19" HorizontalAlignment="Center" Width="24" />
+                        <Button Foreground="{DynamicResource Text}" Click="AddCheckPointClick" Content="+" RenderTransformOrigin="-1.2,0.566" Height="19" Width="24"/>
+                        <Label Foreground="{DynamicResource Text}"  FontSize="7" Content="{ns:Loc Add}" Height="19" HorizontalAlignment="Center" Width="24" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="5 0 0 0" Height="33" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="33">
-                        <Button Grid.Column="1" Content="-" HorizontalAlignment="Left" Margin="5,0,0,0" Height="19" Width="23" Click="CheckpointRemoveClick"/>
-                        <Label  HorizontalContentAlignment="Center" FontSize="7" Content="{ns:Loc Remove}" Height="18" HorizontalAlignment="Center" Width="36" />
+                        <Button Foreground="{DynamicResource Text}" Grid.Column="1" Content="-" HorizontalAlignment="Left" Margin="5,0,0,0" Height="19" Width="23" Click="CheckpointRemoveClick"/>
+                        <Label Foreground="{DynamicResource Text}"  HorizontalContentAlignment="Center" FontSize="7" Content="{ns:Loc Remove}" Height="18" HorizontalAlignment="Center" Width="36" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
-                    <Label   FontSize="25" FontWeight="Bold" Content="{ns:Loc Dates}"/>
-                    <xctk:DateTimePicker Background="#F6F5F2"  x:Name="datePicker" Grid.Row="5"  Value="{Binding TourDate}" Format="Custom" FormatString="dd.MM.yyyy HH:mm" Grid.Column="1" RenderTransformOrigin="1.781,1.147" Width="247" Height="36"/>
+                    <Label Foreground="{DynamicResource Text}"  FontSize="25" FontWeight="Bold" Content="{ns:Loc Dates}"/>
+                    <xctk:DateTimePicker Foreground="{DynamicResource Text}" Background="#F6F5F2"  x:Name="datePicker" Grid.Row="5"  Value="{Binding TourDate}" Format="Custom" FormatString="dd.MM.yyyy HH:mm" Grid.Column="1" RenderTransformOrigin="1.781,1.147" Width="247" Height="36"/>
                     <StackPanel  Orientation="Vertical" Margin="5 0 0 0" Height="33"  >
-                        <Button  Content="+"  Grid.Column="1"  HorizontalAlignment="Left" Click="SelectDatesClick" Height="19" Width="23"/>
-                        <Label   FontSize="7" Content="{ns:Loc Add}" Height="19" HorizontalAlignment="Center" Width="24" />
+                        <Button Foreground="{DynamicResource Text}" Content="+"  Grid.Column="1"  HorizontalAlignment="Left" Click="SelectDatesClick" Height="19" Width="23"/>
+                        <Label Foreground="{DynamicResource Text}"  FontSize="7" Content="{ns:Loc Add}" Height="19" HorizontalAlignment="Center" Width="24" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="5 0 0 0" Height="33"  VerticalAlignment="Center" Width="33">
-                        <Button Content="-"  Height="19" Width="23" Click="RemoveDateClick"/>
-                        <Label  HorizontalContentAlignment="Center" FontSize="7" Content="{ns:Loc Remove}" Height="18" HorizontalAlignment="Center" Width="36" />
+                        <Button Foreground="{DynamicResource Text}" Content="-"  Height="19" Width="23" Click="RemoveDateClick"/>
+                        <Label Foreground="{DynamicResource Text}" HorizontalContentAlignment="Center" FontSize="7" Content="{ns:Loc Remove}" Height="18" HorizontalAlignment="Center" Width="36" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel  VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Grid.Column="2" Grid.Row="0">
-                    <Label  FontSize="25" FontWeight="Bold" Content="{ns:Loc Images}"/>
-                    <TextBox  Height="37" Width="194" x:Name="txtImageNumber" IsReadOnly="True" BorderThickness="0"  TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Images, UpdateSourceTrigger=PropertyChanged}"  />
+                    <Label Foreground="{DynamicResource Text}" FontSize="25" FontWeight="Bold" Content="{ns:Loc Images}"/>
+                    <TextBox Foreground="{DynamicResource Text}"  Height="37" Width="194" x:Name="txtImageNumber" IsReadOnly="True" BorderThickness="0"  TextAlignment="Center" VerticalContentAlignment="Center"  TextWrapping="Wrap" Text="{Binding Path = Images, UpdateSourceTrigger=PropertyChanged}"  />
                     <StackPanel  Orientation="Vertical" Margin="10 0 0 0" Height="33"  >
-                        <Button  Content="+"   Grid.Column="1"  HorizontalAlignment="Left" Click="SelectImagesClick" Height="19" Width="23"/>
-                        <Label   FontSize="7" Content="{ns:Loc Add}" Height="19" HorizontalAlignment="Center" Width="24" />
+                        <Button Foreground="{DynamicResource Text}"  Content="+"   Grid.Column="1"  HorizontalAlignment="Left" Click="SelectImagesClick" Height="19" Width="23"/>
+                        <Label Foreground="{DynamicResource Text}"  FontSize="7" Content="{ns:Loc Add}" Height="19" HorizontalAlignment="Center" Width="24" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="5 0 0 0" Height="33"  VerticalAlignment="Center" Width="33">
-                        <Button Content="-"  Height="19" Width="23" Click="ImageRemoveClick"/>
-                        <Label  HorizontalContentAlignment="Center" FontSize="7" Content="{ns:Loc Remove}" Height="18" HorizontalAlignment="Center" Width="36" />
+                        <Button Foreground="{DynamicResource Text}" Content="-"  Height="19" Width="23" Click="ImageRemoveClick"/>
+                        <Label  Foreground="{DynamicResource Text}" HorizontalContentAlignment="Center" FontSize="7" Content="{ns:Loc Remove}" Height="18" HorizontalAlignment="Center" Width="36" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="30 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" >
-                    <ListBox Background="#F6F5F2"   SelectedItem="{Binding SelectedCheckpoint, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding CheckpointsCollection}"  Width="424" Height="166" >
+                    <ListBox  Background="{DynamicResource BorderBackground}"   SelectedItem="{Binding SelectedCheckpoint, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding CheckpointsCollection}"  Width="424" Height="166" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock FontFamily="Yu Gothic UI Light" Text="{Binding}" />
+                                <TextBlock FontFamily="Yu Gothic UI Light" Foreground="{DynamicResource Text}" Text="{Binding}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Label FontSize="8" Content="{ns:Loc AddTourCheckpointInfo}" />
+                    <Label Foreground="{DynamicResource Text}" FontSize="8" Content="{ns:Loc AddTourCheckpointInfo}" />
                 </StackPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" >
-                    <ListBox Background="#F6F5F2"  SelectedItem="{Binding SelectedTourDate, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding TourDatesCollection, StringFormat=dd.MM.yyyy HH:mm}"  Height="162" Width="387">
+                    <ListBox  Background="{DynamicResource BorderBackground}"  SelectedItem="{Binding SelectedTourDate, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding TourDatesCollection, StringFormat=dd.MM.yyyy HH:mm}"  Height="162" Width="387">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock FontFamily="Yu Gothic UI Light" Text="{Binding}" />
+                                <TextBlock FontFamily="Yu Gothic UI Light" Foreground="{DynamicResource Text}" Text="{Binding}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Label FontSize="8" Content="{ns:Loc AddTourDateInfo}" Height="37"/>
+                    <Label FontSize="8" Foreground="{DynamicResource Text}" Content="{ns:Loc AddTourDateInfo}" Height="37"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" >
-                    <ListView  Background="#F6F5F2"  x:Name="imageListBox" SelectionMode="Multiple" SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}"  Height="162" Width="387">
+                    <ListView  Background="{DynamicResource BorderBackground}"  x:Name="imageListBox" SelectionMode="Multiple" SelectedItem="{Binding SelectedImageUrl, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ImagesCollection}"  Height="162" Width="387">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
                                     <Image Source="{Binding ImageSource}" Width="100" Height="100" Margin="5"/>
-                                    <TextBlock FontFamily="Yu Gothic UI Light" Text="{Binding ImageName}" HorizontalAlignment="Center"/>
+                                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" Text="{Binding ImageName}" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -184,7 +178,7 @@
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                     </ListView>
-                    <Label FontFamily="Yu Gothic UI Light" FontSize="8" Content="{ns:Loc AddTourImageInfo}" Height="37"/>
+                    <Label Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" FontSize="8" Content="{ns:Loc AddTourImageInfo}" Height="37"/>
                 </StackPanel>
             </Grid>
         </Grid>
@@ -195,17 +189,17 @@
                 <ColumnDefinition Width="0.4*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Border Background="#F6F5F2" CornerRadius="8" Grid.Row="1" Grid.Column="1" Margin="10"  BorderBrush="#F0EBE3" BorderThickness="4">
+            <Border Background="{DynamicResource BorderBackground}" CornerRadius="8" Grid.Row="1" Grid.Column="1" Margin="10"  BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                 </Border.Effect>
-                <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc CreateTour}" Click="CreateTourClick"/>
+                <Button BorderThickness="0" Foreground="{DynamicResource Text}" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc CreateTour}" Click="CreateTourClick"/>
             </Border>
-            <Border Background="#F6F5F2" CornerRadius="8" Grid.Row="1" Grid.Column="2" Margin="10"  BorderBrush="#F0EBE3" BorderThickness="4">
+            <Border Background="{DynamicResource BorderBackground}" CornerRadius="8" Grid.Row="1" Grid.Column="2" Margin="10"  BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                 </Border.Effect>
-                <Button BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc Cancel}" Click="CancelCreationClick"/>
+                <Button BorderThickness="0" Background="Transparent" Foreground="{DynamicResource Text}" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc Cancel}" Click="CancelCreationClick"/>
             </Border>
         </Grid>
     </Grid>

@@ -192,6 +192,9 @@
   <data name="CurrentCheckpoint" xml:space="preserve">
     <value>Current Checkpoint:</value>
   </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Dark Theme</value>
+  </data>
   <data name="DateIcon" xml:space="preserve">
     <value>date</value>
   </data>
@@ -264,6 +267,9 @@
   <data name="LastNameIcon" xml:space="preserve">
     <value>surname</value>
   </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Light Theme</value>
+  </data>
   <data name="LiveTourClick" xml:space="preserve">
     <value>Click here for tracking menu</value>
   </data>
@@ -283,7 +289,7 @@
     <value>Name:</value>
   </data>
   <data name="NextCheckpoint" xml:space="preserve">
-    <value>Next Checkpoint:</value>
+    <value>Next Checkpoint</value>
   </data>
   <data name="NumberOfFinishedTours" xml:space="preserve">
     <value>Number of Tours: </value>

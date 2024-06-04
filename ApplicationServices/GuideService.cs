@@ -188,7 +188,7 @@ namespace BookingApp.ApplicationServices
             return language;    
         }
 
-        public void DeleteGuide(Guide guide)
+        public bool DeleteGuide(Guide guide)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to delete your account?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -214,8 +214,10 @@ namespace BookingApp.ApplicationServices
                 }
                 GuideService.GetInstance().Delete(guide);
                 UserService.GetInstance().Delete(user);
-            }
 
+                return true;
+            }
+            return false;    
         }
 
 

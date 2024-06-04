@@ -11,14 +11,8 @@
       Loaded="LoadStatistics"
       Title="TourStatisticsPage">
 
-    
-    <Grid>
-        <Grid.Background>
-            <LinearGradientBrush>
-                <GradientStop Color="#F6F5F2"  Offset="0.3"/>
-                <GradientStop Color="#F3D0D7" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+
+    <Grid Background="{DynamicResource GradientBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="1.3*"/>
@@ -34,23 +28,23 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Label  Grid.Column="1" Content="{ns:Loc TheMostVisitedTour}" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
+                <Label Foreground="{DynamicResource Text}"  Grid.Column="1" Content="{ns:Loc TheMostVisitedTour}" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
                 <Grid Grid.Column="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Border Background="#F6F5F2" CornerRadius="8"  Grid.Column="1" BorderBrush="#F0EBE3" BorderThickness="4">
+                    <Border Background="{DynamicResource BorderBackground}" CornerRadius="8"  Grid.Column="1" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                         </Border.Effect>
-                        <ComboBox Background="{x:Null}"  SelectedItem="{Binding SelectedYear}" x:Name="datesBox" Grid.Column="2" HorizontalAlignment="Right"  VerticalAlignment="Center" Height="30" Width="120"/>
+                        <ComboBox Foreground="{DynamicResource Text}"  Background="{x:Null}"  SelectedItem="{Binding SelectedYear}" x:Name="datesBox" Grid.Column="2" HorizontalAlignment="Right"  VerticalAlignment="Center" Height="30" Width="120"/>
                     </Border>
-                    <Border Background="#F6F5F2" CornerRadius="8"  Grid.Column="0" BorderBrush="#F0EBE3" BorderThickness="4" Margin="0 0 15 0">
+                    <Border Background="{DynamicResource BorderBackground}" CornerRadius="8"  Grid.Column="0" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4" Margin="0 0 15 0">
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                         </Border.Effect>
-                        <Button Background="{x:Null}" BorderThickness="0" Grid.Column="2" Content="{ns:Loc GenerateStatistics}" FontFamily="Yu Gothic UI Light" FontSize="25" />
+                        <Button Foreground="{DynamicResource Text}"  Background="{x:Null}" BorderThickness="0" Grid.Column="2" Content="{ns:Loc GenerateStatistics}" FontFamily="Yu Gothic UI Light" FontSize="25" />
                     </Border>
                 </Grid>
             </Grid>
@@ -73,10 +67,10 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Label Content="{ns:Loc FinishedTours}" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
+                <Label Content="{ns:Loc FinishedTours}" Foreground="{DynamicResource Text}" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35"/>
                 <Image Margin="20 0 0 0" Width="50px" Height="50px" Source="\Resources\Images\finish_flag.png"/>
             </StackPanel>
-            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,0">
+            <Border Grid.Row="1" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,1,0,0">
                 <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" >
                     <ItemsControl ItemsSource ="{Binding FinishedTours}" >
                         <ItemsControl.ItemTemplate>

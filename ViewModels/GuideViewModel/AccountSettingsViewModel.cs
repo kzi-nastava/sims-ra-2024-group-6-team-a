@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
@@ -18,7 +19,7 @@ namespace BookingApp.ViewModels.GuideViewModel
     {
         public User LoggedUser { get; set; }
         
-        public Guide Guide { get; set; }
+        public Guide LoggedGuide { get; set; }
 
         public AccountSettingsPage SettingsWindow { get; set; }
 
@@ -58,17 +59,63 @@ namespace BookingApp.ViewModels.GuideViewModel
         {
             LoggedUser = user;
             SettingsWindow = settingsWindow;
-            Guide = GuideService.GetInstance().GetByUserId(LoggedUser.Id);
+            LoggedGuide = GuideService.GetInstance().GetByUserId(LoggedUser.Id);
             GuideService.GetInstance().UpdateGuideDetails(LoggedUser);
-            SelectedLanguage = Guide.WebsiteLanguage;
-            Languages =new ObservableCollection<string>() { "English", "Serbian" };
-            IsSuperGuide = Guide.Rank == Resources.Enums.GuideRank.SuperGuide ? true : false;
+            SelectedLanguage = LoggedGuide.WebsiteLanguage;
+            Languages = new ObservableCollection<string>() { "English", "Serbian" };
+            IsSuperGuide = LoggedGuide.Rank == Resources.Enums.GuideRank.SuperGuide ? true : false;          
+        }  
+
+      
+        private void SetThemeDark()
+        {
+            ResourceDictionary darkTheme = new ResourceDictionary
+            {
+                Source = new Uri("../../../View/GuideView/Themes/Dark.xaml", UriKind.Relative)
+            };
+
+            App.Current.Resources.MergedDictionaries.Clear();
+            App.Current.Resources.MergedDictionaries.Add(darkTheme);
         }
+
+        private void SetThemeLight()
+        {
+            ResourceDictionary darkTheme = new ResourceDictionary
+            {
+                Source = new Uri("../../../View/GuideView/Themes/Light.xaml", UriKind.Relative)
+            };
+
+            App.Current.Resources.MergedDictionaries.Clear();
+            App.Current.Resources.MergedDictionaries.Add(darkTheme);
+        }
+
+        public void LightModeChecked()
+        {
+            LoggedGuide.Theme = "Light";
+            GuideService.GetInstance().Update(LoggedGuide);
+            SetThemeLight();
+
+        }
+
+        public void DarkModeChecked()
+        {
+            LoggedGuide.Theme = "Dark";
+            GuideService.GetInstance().Update(LoggedGuide);
+            SetThemeDark(); 
+
+        }
+
+
 
         public void DeleteAccountClick()
         {
-            GuideService.GetInstance().DeleteGuide(Guide);
-            System.Windows.Application.Current.Shutdown();
+
+            bool IsAccountDeleted = GuideService.GetInstance().DeleteGuide(LoggedGuide);
+            if(IsAccountDeleted)
+            {
+                System.Windows.Application.Current.Shutdown();
+            }
+           
         }
         public void GoBackButtonClick() 
         {
@@ -76,10 +123,10 @@ namespace BookingApp.ViewModels.GuideViewModel
         }
         public void ChangeLanguage()
         {
-            Guide.WebsiteLanguage = SelectedLanguage;
-            GuideService.GetInstance().Update(Guide);
+            LoggedGuide.WebsiteLanguage = SelectedLanguage;
+            GuideService.GetInstance().Update(LoggedGuide);
             App app = (App)System.Windows.Application.Current;
-            app.ChangeLanguage(Guide.WebsiteLanguage);
+            app.ChangeLanguage(LoggedGuide.WebsiteLanguage);
 
 
         }

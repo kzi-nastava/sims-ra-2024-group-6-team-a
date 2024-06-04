@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:BookingApp.View.GuideView.Components"
              mc:Ignorable="d" 
              Height="230" Width="950">
-    <Border Background="#F6F5F2" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="#F0EBE3" BorderThickness="4">
+    <Border Background="{DynamicResource BorderBackground}" CornerRadius="8" Margin="10,10,10,10" Padding="10" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
         <Border.Effect>
             <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
         </Border.Effect>
@@ -23,7 +23,7 @@
 
             </Grid.RowDefinitions>
             <Grid Grid.Column="1" Grid.Row="0">
-                <TextBlock FontFamily="Yu Gothic UI Light" Margin="30 0 0 0" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Text="{Binding Name}" />
+                <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" Margin="30 0 0 0" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Text="{Binding Name}" />
             </Grid>
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.ColumnDefinitions>
@@ -43,9 +43,9 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\location.png"/>
-                        <Label   FontSize="8" Content="{ns:Loc LocationIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                        <Label Foreground="{DynamicResource Text}"  FontSize="8" Content="{ns:Loc LocationIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
-                    <TextBlock FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20"   Text="{Binding Location}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20"   Text="{Binding Location}"/>
                 </Grid>
 
                 <Grid  Grid.Column="0" Grid.Row="1">
@@ -55,9 +55,9 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
-                        <Label   FontSize="8" Content="{ns:Loc LanguageIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                        <Label Foreground="{DynamicResource Text}"  FontSize="8" Content="{ns:Loc LanguageIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
-                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20" Text="{Binding Language}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20" Text="{Binding Language}"/>
                 </Grid>
 
                 <Grid  Grid.Column="0" Grid.Row="2">
@@ -67,36 +67,36 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Image Height="20px" Width="20px"  HorizontalAlignment="Center" Source="\Resources\Images\capacity.png"/>
-                        <Label   FontSize="8" Content="{ns:Loc TouristsIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
+                        <Label Foreground="{DynamicResource Text}"  FontSize="8" Content="{ns:Loc TouristsIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                     </StackPanel>
-                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20" Text="{Binding TouristNumber}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"  FontSize="20" Text="{Binding TouristNumber}"/>
                 </Grid>
                 <Grid VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="0" FontSize="20" Text="{ns:Loc Below}"/>
-                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="20" FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Children}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" Grid.Column="0" FontSize="20" Text="{ns:Loc Below}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="20" FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Children}"/>
                 </Grid>
                 <Grid VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock FontFamily="Yu Gothic UI Light" FontSize="20"  Grid.Column="0" Text="{ns:Loc Between}"/>
-                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="20"  FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Adult}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" FontSize="20"  Grid.Column="0" Text="{ns:Loc Between}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="20"  FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Adult}"/>
                 </Grid>
                 <Grid VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock FontFamily="Yu Gothic UI Light" FontSize="20" Grid.Column="0" Text="{ns:Loc Above}"/>
-                    <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="20" FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Elderly}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" FontSize="20" Grid.Column="0" Text="{ns:Loc Above}"/>
+                    <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" Grid.Column="1" FontSize="20" FontStyle="Italic" TextWrapping="Wrap" Text="{Binding Elderly}"/>
                 </Grid>
             </Grid>
-            <Border Margin="7"  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"  CornerRadius="7" BorderBrush="#F0EBE3" BorderThickness="4">
+            <Border Margin="7"  Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"  CornerRadius="7" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
                 <Border.Background>
                     <ImageBrush ImageSource="{Binding Image}"  Stretch="Fill"/>
                 </Border.Background>

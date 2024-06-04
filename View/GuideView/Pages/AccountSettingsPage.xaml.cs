@@ -30,9 +30,26 @@ namespace BookingApp.View.GuideView.Pages
         public AccountSettingsPage(User user)
         {
             InitializeComponent();
+
             WindowViewModel = new AccountSettingsViewModel(this, user);
             DataContext = WindowViewModel;
+            SetActiveTheme();
         }
+
+        private void SetActiveTheme()
+        {
+            if (WindowViewModel.LoggedGuide.Theme == "Dark")
+            {
+                darkRadioButton.IsChecked = true;
+
+            }
+            else
+            {
+                lightRadioButton.IsChecked = true;
+            }
+
+        }
+
 
         public void DeleteAccountClick(object sender, RoutedEventArgs e)
         {
@@ -48,6 +65,16 @@ namespace BookingApp.View.GuideView.Pages
         {
             WindowViewModel.ChangeLanguage();
 
+        }
+        public void DarkModeChecked(object sender, RoutedEventArgs e)
+        {
+            WindowViewModel.DarkModeChecked();
+        }
+
+
+        public void LightModeChecked(object sender, RoutedEventArgs e)
+        {
+            WindowViewModel.LightModeChecked();
         }
     }
 }
