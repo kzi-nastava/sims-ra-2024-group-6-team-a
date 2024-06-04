@@ -9,6 +9,7 @@ using BookingApp.ApplicationServices;
 using BookingApp.Resources;
 using System.Linq;
 using BookingApp.Validation;
+using System;
 
 namespace BookingApp.View
 {
@@ -23,13 +24,14 @@ namespace BookingApp.View
         public TourScheduleDTO TourSchedule { get; set; }
         public User LoggedUser { get; set; }
         public TourFilterDTO Filter { get; set; }
-
         public TouristViewMenu(User user)
         {
             InitializeComponent();
             DataContext = this;
             LoggedUser = user;
-
+            VideoControl.Volume = 100;
+            VideoControl.Height = 500;
+            //VideoControl.Play();
             Filter = new TourFilterDTO();
             Update();
             SetLanguages();
@@ -37,6 +39,13 @@ namespace BookingApp.View
             TourRequestService.GetInstance().CheckRequestStatus();
             ComplexTourRequestService.GetInstance().CheckRequestStatus();
         }
+        private void VideoControl_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            // Pause the video as soon as it's loaded to prevent it from playing automatically
+            VideoControl.Play();
+            VideoControl.Pause();
+        }
+
 
         private void SetLanguages()
         {
@@ -79,7 +88,6 @@ namespace BookingApp.View
                 locationError.Visibility = Visibility.Collapsed;
             }
 
-            // Validate Language
             if (languageComboBox.Text != string.Empty && !Languages.Any(l => l.LanguageDisplayFormat == languageComboBox.Text))
             {
                 languageError.Visibility = Visibility.Visible;
@@ -90,7 +98,6 @@ namespace BookingApp.View
                 languageError.Visibility = Visibility.Collapsed;
             }
 
-            // Validate Duration
             if (durationBox.Value == null || durationBox.Value > 200)
             {
                 durationError.Visibility = Visibility.Visible;
@@ -101,7 +108,6 @@ namespace BookingApp.View
                 durationError.Visibility = Visibility.Collapsed;
             }
 
-            // Validate Capacity
             if (capacityBox.Value == null || capacityBox.Value > 100)
             {
                 capacityError.Visibility = Visibility.Visible;
@@ -112,7 +118,6 @@ namespace BookingApp.View
                 capacityError.Visibility = Visibility.Collapsed;
             }
 
-            // Proceed with search if all inputs are valid
             if (isValid)
             {
                 Update();
@@ -237,5 +242,24 @@ namespace BookingApp.View
             }
             Filter.Location = new LocationDTO();
         }
+        void PlayClick(object sender, EventArgs e)
+        {
+            VideoControl.Play();
+        }
+        void PauseClick(object sender, EventArgs e)
+        {
+            VideoControl.Pause();
+        }
+
+        void StopClick(object sender, EventArgs e)
+        {
+            VideoControl.Stop();
+        }
+        private void VideoControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Load the media but do not start playing
+            VideoControl.Stop();
+        }
+
     }
 }
