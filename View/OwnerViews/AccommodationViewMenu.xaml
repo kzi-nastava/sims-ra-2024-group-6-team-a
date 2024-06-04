@@ -177,16 +177,16 @@
                                         <Border  Grid.RowSpan ="4" Grid.Column="0" CornerRadius="1" BorderBrush="DarkTurquoise" BorderThickness="4">
                                             <Image Source="{Binding Image}"  Stretch="Fill"/>
                                         </Border>
-                                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding GuestName}" FontSize="18"></Label>
-                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Info}" FontSize="18" HorizontalAlignment="Right"></TextBlock>
+                                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding GuestName}" FontSize="26"  FontWeight="ExtraBold" FontStyle="Italic" Foreground="DarkSlateBlue"></Label>
+                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Info}" FontSize="18" HorizontalAlignment="Right" Foreground="Blue"></TextBlock>
 
                                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                                             <Image Source="/Resources/Images/location-ping.png"></Image>
-                                            <TextBlock Text="{Binding AccommodationName}" Margin="2,2,2,2"></TextBlock>
+                                            <TextBlock Text="{Binding AccommodationName}" Margin="2,2,2,2" FontSize="18" Foreground="Blue"></TextBlock>
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-                                            <TextBlock Text="{Binding Date}" Margin="5,2,2,2"></TextBlock>
+                                            <TextBlock Text="{Binding Date}" Margin="5,2,2,2" Foreground="Blue"></TextBlock>
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3">
