@@ -143,6 +143,11 @@ namespace BookingApp.View.GuideView.Pages
             foreach (TourGuests tourist in e.AddedItems)
             {
                 tourist.IsPresent = true;
+
+                if (tourist.UserTypeId != -1)
+                {                    
+                    VisitedTourService.GetInstance().Save(tourist.UserTypeId, SelectedTourSchedule.Id);
+                }
             }
         }
 
@@ -165,7 +170,9 @@ namespace BookingApp.View.GuideView.Pages
             MessageBoxResult result = MessageBox.Show("Are you sure you want to end the tour?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
+               
                 TourEndedNotificationClick();
+               
             }
         }
 
@@ -174,9 +181,8 @@ namespace BookingApp.View.GuideView.Pages
         {
             MessageBox.Show("Congratulations, the \" "+ SelectedTour.Name + "\" tour has been successfully completed.", "Tour Status", MessageBoxButton.OK, MessageBoxImage.Information);
             SelectedTourSchedule.TourActivity = Enums.TourActivity.Finished;
-            TourScheduleService.GetInstance().Update(SelectedTourSchedule);
-            
-                        
+            TourScheduleService.GetInstance().Update(SelectedTourSchedule);           
+            //RADI OVO, GORE PUCA NULL             
             GoBackIfPossible();
             TouristNotificationService.GetInstance().SendNotification(SelectedTourSchedule);
         }

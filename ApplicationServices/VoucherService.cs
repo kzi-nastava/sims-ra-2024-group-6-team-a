@@ -17,10 +17,6 @@ namespace BookingApp.ApplicationServices
     {
         private IVoucherRepository _voucherRepository;
 
-       /* public VoucherService()
-        {
-            _voucherRepository = new VoucherRepository();
-        }*/
         public VoucherService(IVoucherRepository voucherRepository)
         {
             _voucherRepository = voucherRepository;

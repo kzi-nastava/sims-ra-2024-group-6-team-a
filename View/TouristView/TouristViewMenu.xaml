@@ -223,7 +223,7 @@
                 <TextBlock FontWeight="DemiBold" FontSize="30" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Margin="0 20 0 0">Application tutorial</TextBlock>
 
                 <MediaElement VerticalAlignment="Stretch" Margin="0 0 0 120" Name="VideoControl" Height ="850" Grid.Row="1" Grid.RowSpan="2"
-                  Source=".\Resources\Hci_Tutorijal(c).mp4" LoadedBehavior="Manual" UnloadedBehavior="Close" Loaded="VideoControl_Loaded" MediaOpened="VideoControl_MediaOpened">
+                  Source=".\Resources\Hci_Tutorijal(c).mp4" LoadedBehavior="Manual" Loaded="VideoControl_Loaded" MediaOpened="VideoControl_MediaOpened">
                 </MediaElement>
                 <Button Grid.Row="2" Click="StopClick" FontWeight="Bold" Background="AntiqueWhite" Height="20" Width="45" VerticalAlignment="Bottom" Margin="0 0 140 5">Stop</Button>
                 <Button Grid.Row="2" Click="PlayClick" FontWeight="Bold" Background="AntiqueWhite" Height="20" Width="45" VerticalAlignment="Bottom" Margin="0 0 0 5">Play</Button>

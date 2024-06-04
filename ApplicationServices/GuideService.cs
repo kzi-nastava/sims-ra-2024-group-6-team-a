@@ -60,6 +60,10 @@ namespace BookingApp.ApplicationServices
            return _guideRepository.GetById(id);
         }
 
+        public Guide GeyByUserId(int userId)
+        {
+            return GetAll().Find(c => c.UserId == userId);
+        }
         public Guide GetByUserId(int id)
         {
             foreach(Guide guide in GetAll())

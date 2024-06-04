@@ -69,13 +69,13 @@ namespace BookingApp.ApplicationServices
             Save(reservation);
             SaveTourGuests(reservation.Id, guests, loggedUser);
             
-            if(tourist.Points == 5)
+           /*if(tourist.Points == 5)
             {
                 Voucher voucher= new Voucher(tourist.Name, tourist.Surname, tourist.Age, System.DateTime.Now.AddMonths(6),tourist.UserId, System.DateTime.Now);
                 VoucherService.GetInstance().Save(voucher);
                 TouristService.GetInstance().GetByTouristId(loggedUser.Id).Points = 0;
                 TouristService.GetInstance().Update(tourist);
-            }
+            }*/
             
         }
 
