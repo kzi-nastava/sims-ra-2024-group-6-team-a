@@ -158,7 +158,7 @@ namespace BookingApp.ViewModels
             CloseCommand = new RelayCommand(CloseWindow);
             RegisterCommand = new RelayCommand(Register);
             AddImagesCommand = new RelayCommand(AddImages);
-            RemoveImageCommand = new RelayCommand(RemoveImage, CanRemoveImage);
+            RemoveImageCommand = new RelayCommand(RemoveImage,CanRemoveImage);
             PickAccommodationCommand = new RelayCommand(PickAccommodation);
             PickCottageCommand = new RelayCommand(PickCottage);
             PickHouseCommand = new RelayCommand(PickHouse);
@@ -318,7 +318,7 @@ namespace BookingApp.ViewModels
             }
         }
 
-        private bool CanRemoveImage(object parameter)
+        private bool CanRemoveImage()
         {
             return SelectedImage != null;
         }
