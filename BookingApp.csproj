@@ -8,6 +8,7 @@
   </PropertyGroup>
 	
 	
+	
   <ItemGroup>
     <None Remove="Resources\Images\accommodations.png" />
     <None Remove="Resources\Images\account_settings.png" />

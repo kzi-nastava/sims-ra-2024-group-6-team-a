@@ -39,5 +39,10 @@ namespace BookingApp.View.GuideView.Pages
             DataContext = ReviewDetViewModel;
         }
 
+        private void HandleFakeReport(object sender, EventArgs e)
+        {
+            ReviewDetViewModel.Update();
+        }
+
     }
 }

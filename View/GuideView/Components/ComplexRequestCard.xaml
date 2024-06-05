@@ -81,7 +81,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Image Height="20px" Width="20px"  HorizontalAlignment="Center" Source="\Resources\Images\capacity.png"/>
+                    <Image Height="20px" Width="20px"  HorizontalAlignment="Center" Source="\Resources\Images\location.png"/>
                     <Label Foreground="{DynamicResource Text}"  FontSize="8" Content="{ns:Loc SegmentNumber}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="63" />
                 </StackPanel>
                 <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding NumberOfFragments}"/>
@@ -93,7 +93,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Image Width="20px" Height="20px" Source="\Resources\Images\location.png"/>
+                    <Image Width="20px" Height="20px" Source="\Resources\Images\profileG.png"/>
                     <Label Foreground="{DynamicResource Text}"  FontSize="8" Content="{ns:Loc FirstNameIcon}" Height="19" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                 </StackPanel>
                 <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding TouristName}"/>
@@ -111,7 +111,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel VerticalAlignment="Center">
-                    <Image Width="20px" Height="20px" Source="\Resources\Images\language.png"/>
+                    <Image Width="20px" Height="20px" Source="\Resources\Images\profileG.png"/>
                     <Label Foreground="{DynamicResource Text}"  FontSize="7" Content="{ns:Loc LastNameIcon}" Height="21" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="43" />
                 </StackPanel>
                 <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"  FontSize="20"   Text="{Binding TouristLastName}"/>

@@ -196,7 +196,7 @@ namespace BookingApp.View.GuideView.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrolna tacka:.
+        ///   Looks up a localized string similar to Lokacija.
         /// </summary>
         internal static string Checkpoint {
             get {
@@ -205,7 +205,7 @@ namespace BookingApp.View.GuideView.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kontrolne Tacke.
+        ///   Looks up a localized string similar to Lokacije.
         /// </summary>
         internal static string Checkpoints {
             get {

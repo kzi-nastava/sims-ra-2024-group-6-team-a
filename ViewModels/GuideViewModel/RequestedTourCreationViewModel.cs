@@ -312,7 +312,20 @@ namespace BookingApp.ViewModels.GuideViewModel
             SaveTourDatesAndCheckpoints(TourDatesCollection.ToList(), CheckpointsCollection.ToList());
 
             MessageBox.Show("Tour Added");
+            ClearFields();
         }
+
+        public void ClearFields()
+        {
+            Window.txtTourName.Clear();
+            Window.txtTourDuration.Value = 1;
+            Window.txtTourCapacity.Value = 1;
+            CheckpointsCollection.Clear();
+            TourDatesCollection.Clear();
+            ImagesCollection.Clear();
+            Tourists.Clear();
+        }
+
         private void ChangeRequestStatus()
         {
             Request.Status = Enums.RequestStatus.Accepted;

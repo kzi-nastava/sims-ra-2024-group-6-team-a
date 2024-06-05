@@ -472,7 +472,7 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="30 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" >
-                    <ListBox Foreground="{DynamicResource Text}"    SelectedItem="{Binding SelectedCheckpoint, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding CheckpointsCollection}"  Width="424" Height="166" >
+                    <ListBox    SelectedItem="{Binding SelectedCheckpoint, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding CheckpointsCollection}"  Width="424" Height="166" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock   FontFamily="Yu Gothic UI Light" Text="{Binding}" />

@@ -163,10 +163,10 @@
     <value>Kapacitet:</value>
   </data>
   <data name="Checkpoint" xml:space="preserve">
-    <value>Kontrolna tacka:</value>
+    <value>Lokacija</value>
   </data>
   <data name="Checkpoints" xml:space="preserve">
-    <value>Kontrolne Tacke</value>
+    <value>Lokacije</value>
   </data>
   <data name="CheckpointTableInfo" xml:space="preserve">
     <value>Tabela ispod sadrzi listu svih kontrolnih tacaka.Zatamnjene tacke predstavljaju tacke koje su zavrsene</value>

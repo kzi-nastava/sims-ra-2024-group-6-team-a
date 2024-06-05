@@ -280,7 +280,6 @@ namespace BookingApp.ViewModels.GuideViewModel
 
 
 
-
             return !string.IsNullOrEmpty(Window.txtTourName.Text)
                 && !string.IsNullOrEmpty(Window.txtTourCapacity.Text)
                 && !string.IsNullOrEmpty(Window.txtTourDescription.Text)
@@ -344,8 +343,23 @@ namespace BookingApp.ViewModels.GuideViewModel
             OnSomethingHappened(EventArgs.Empty);
 
             MessageBox.Show("Tour Added");
+            ClearFields();
         }
 
+        public void ClearFields()
+        {
+            Window.txtTourName.Clear();
+            Window.locationComboBox.SelectedIndex = -1;
+            Window.languageComboBox.SelectedIndex = -1;
+            Window.languageRadioButton.IsChecked = false;
+            Window.locationRadioButton.IsChecked = false;
+            Window.txtTourDuration.Value = 1;
+            Window.txtTourCapacity.Value = 1;
+            Window.txtTourDescription.Clear();
+            CheckpointsCollection.Clear();
+            TourDatesCollection.Clear();
+            ImagesCollection.Clear();
+        }
         public void CheckRadioButtonsStatus()
         {
             if(Window.locationRadioButton.IsChecked == true)
