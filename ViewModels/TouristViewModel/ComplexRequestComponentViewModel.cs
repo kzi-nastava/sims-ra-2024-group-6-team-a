@@ -103,7 +103,7 @@ namespace BookingApp.ViewModels.TouristViewModel
                 }
                 else
                 {
-                    SelectedRequest.LanguageId = -1; // Invalid location
+                    SelectedRequest.LanguageId = -1; 
                 }
             }
         }
@@ -122,7 +122,7 @@ namespace BookingApp.ViewModels.TouristViewModel
                 }
                 else
                 {
-                    SelectedRequest.LocationId = -1; // Invalid location
+                    SelectedRequest.LocationId = -1; 
                 }
             }
         }
@@ -272,22 +272,6 @@ namespace BookingApp.ViewModels.TouristViewModel
                 {
                     ValidationErrors["EndDate"] = "End date is required.";
                 }
-
-
-
-                /*  DateTime beginDate;
-                  bool isValidBeginDate = Enum.TryParse(endDateInput, out beginDate);
-                  if (!isValidBeginDate)
-                  {
-                      ValidationErrors["BeginDate"] = "BeginDate is not in correct format";
-                  }
-
-                  DateTime endDate;
-                  bool isValidEndDate = Enum.TryParse(endDateInput, out endDate);
-                  if (!isValidEndDate)
-                  {
-                      ValidationErrors["EndDate"] = "EndDate is not in correct format";
-                  }*/
 
             }
 

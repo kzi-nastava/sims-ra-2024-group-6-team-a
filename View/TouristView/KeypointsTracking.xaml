@@ -84,7 +84,7 @@
 
                     <!-- Right navigation button -->
                     <Button Grid.Column="2" Height="50" BorderBrush="LightYellow" Content="&gt;" FontWeight="Bold" FontSize="30" Background="LightYellow" Width="30" Command="{Binding ScrollRightCommand}"/>
-                    <TextBlock Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="10" FontSize="12" FontStyle="Italic">*Note: Currently active checkpoint is colored differently</TextBlock>
+                    <TextBlock Grid.ColumnSpan="3" VerticalAlignment="Bottom" Margin="35 10 10 10" FontSize="12" FontStyle="Italic">*Note: Currently active checkpoint is colored differently</TextBlock>
                 </Grid>
                
             </Border>

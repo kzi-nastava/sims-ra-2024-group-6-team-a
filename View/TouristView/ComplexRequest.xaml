@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         mc:Ignorable="d"
-        Title="ComplexRequest" Height="682" Width="800"
+        Title="ComplexRequest" Height="682" Width="800" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
     <Grid Background="AliceBlue">
         <Grid.RowDefinitions>
@@ -31,12 +31,12 @@
             </Button.ToolTip>
         </Button>
         <TextBlock TextDecorations="Underline" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="20 0 0 0" FontSize="20">Complex tour destinations:</TextBlock>
-        <Border Grid.Row="2" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="20 0 20 0" BorderBrush="Black" BorderThickness="1" Background="LightYellow">
+        <Border x:Name="name" Grid.Row="2" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="20 0 20 0" BorderBrush="Black" BorderThickness="1" Background="LightYellow">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding SimpleRequests}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="White" Padding="5" CornerRadius="8" Margin="20 10 20 10" BorderBrush="LightGray" BorderThickness="2" Height="140">
+                        <Border x:Name="name2" Background="White" Padding="5" CornerRadius="8" Margin="20 10 20 10" BorderBrush="LightGray" BorderThickness="2" Height="140">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -48,7 +48,17 @@
                                     <RowDefinition/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock FontWeight="Bold" FontSize="15" Grid.Column="1" Margin="0 5 5 0">Description:</TextBlock>
+                                    <StackPanel Grid.Column="1" Margin="0 5 5 0" Orientation="Horizontal">
+                                        <TextBlock FontWeight="Bold" FontSize="15" Width="Auto">Description:</TextBlock>
+                                        <Button Background="White" Command="{Binding DataContext.RemoveRequestCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}" BorderBrush="White" Height="20" Width="15"  FontWeight="Bold" VerticalAlignment="Top" Margin="235 0 10 10">X
+                                            <Button.ToolTip>
+                                                <ToolTip>
+                                                    Click to remove request
+                                                </ToolTip>
+                                            </Button.ToolTip>
+                                        </Button>
+                                    </StackPanel>
+         
                                     <Border Grid.Column="1"  Grid.RowSpan="4" BorderBrush="DarkSlateGray" Margin="0 30 10 5" Background="GhostWhite" BorderThickness="1">
                                         <TextBlock Margin="10,5,0,0" Text="{Binding Description}" ></TextBlock>
                                     </Border>

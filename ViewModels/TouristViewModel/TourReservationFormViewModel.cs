@@ -16,18 +16,6 @@ namespace BookingApp.ViewModels.TouristViewModel
     public class TourReservationFormViewModel : ValidationBase, INotifyPropertyChanged
     {
         public TourReservationDTO TourReservationDTO { get; set; }
-        private int _guestNumber;
-        public int GuestNumber
-        {
-            get { return _guestNumber;}
-            set{
-                if (value != _guestNumber)
-                {
-                    _guestNumber = value;
-                    OnPropertyChanged("GuestNumber");
-                }
-            }
-        }
         private string _name;
         public string Name
         {
@@ -130,14 +118,14 @@ namespace BookingApp.ViewModels.TouristViewModel
            
             AddTouristInfoCommand = new RelayCommand(Execute_AddTouristInfoCommand);
             RemoveTouristCommand = new RelayCommand(RemoveTourist);
-            SaveReservationCommand = new RelayCommand(Execute_SaveReservationCommand/*, Save_canExecute*/);
+            SaveReservationCommand = new RelayCommand(Execute_SaveReservationCommand);
             UseVoucherCommand = new RelayCommand(Execute_UseVoucherCommand);
             RemoveVoucherCommand = new RelayCommand(Execute_RemoveVoucherCommand);
             CancelReservationCommand = new RelayCommand(Execute_CancelReservationCommand);
 
             foreach (var tourSchedule in TourScheduleService.GetInstance().GetAll())
             {
-                if (tourSchedule.TourId == selectedTour.Id)
+                if (tourSchedule.TourId == selectedTour.Id && tourSchedule.TourActivity == Resources.Enums.TourActivity.Ready)
                 {
                     TourSchedules.Add(new TourScheduleDTO(tourSchedule));
                 }
@@ -162,15 +150,14 @@ namespace BookingApp.ViewModels.TouristViewModel
 
             if (result != MessageBoxResult.Yes)
                 return;
-
+            if (result == MessageBoxResult.Yes)
+            {
+                CloseAction?.Invoke();
+            }
         }
         private void Execute_RemoveVoucherCommand(object parameter)
         {
             Voucher = null;
-        }
-        private bool Save_canExecute()
-        {
-            return TourSchedule != null; 
         }
         private void Execute_SaveReservationCommand(object sender)
         {
@@ -189,7 +176,7 @@ namespace BookingApp.ViewModels.TouristViewModel
                     return;
                 }
 
-                if (TourSchedule.CurrentFreeSpace >= GuestNumber && TourSchedule.Activity != Resources.Enums.TourActivity.Finished)
+                if (TourSchedule.CurrentFreeSpace >= TourGuests.Count() && TourSchedule.Activity != Resources.Enums.TourActivity.Finished)
                 {
                     Tourist tourist = TouristService.GetInstance().GetByTouristId(LoggedUser.Id);
                     tourist.Points++;
@@ -202,8 +189,7 @@ namespace BookingApp.ViewModels.TouristViewModel
                         voucher.Id = Voucher.Id;
                         VoucherService.GetInstance().Delete(voucher);
                     }
-
-                    CustomMessageBox.Show("Tour Booked successfully!");
+                    MessageBox.Show("Tour Booked successfully!");
                     CloseAction();
                     return;
                 }

@@ -36,7 +36,7 @@
             <TextBlock FontSize="20"  HorizontalAlignment="Left" FontWeight="DemiBold" VerticalAlignment="Center" Margin="0, 0, 0, 5">Location:</TextBlock>
             <ComboBox  Margin="70 10 0 10" Width="150" IsEditable="True" SelectedIndex="{Binding SelectedLocationIndex, Mode=TwoWay}" ItemsSource="{Binding Locations}" DisplayMemberPath="LocationDisplayFormat" VerticalAlignment="Center"></ComboBox>
         </StackPanel>
-        <TextBlock Margin="173 5 0 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" FontSize="10" Text="{Binding ValidationErrors[Location], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+        <TextBlock Margin="173 0 0 5" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" FontSize="10" Text="{Binding ValidationErrors[Location], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
         <Grid Grid.RowSpan="2" Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="27.226"/>
@@ -52,7 +52,7 @@
             <TextBlock FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0, 0, 0, 5">Language:</TextBlock>
             <ComboBox x:Name="locationComboBox" Margin="60 10 0 10" Width="120" IsEditable="True" SelectedIndex="{Binding SelectedLanguageIndex, Mode=TwoWay}" ItemsSource="{Binding Languages}" DisplayMemberPath="LanguageDisplayFormat" VerticalAlignment="Center"></ComboBox>
         </StackPanel>
-        <TextBlock Margin="174 0 0 0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" FontSize="10" Text="{Binding ValidationErrors[Language], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+        <TextBlock Margin="174 0 0 5" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" FontSize="10" Text="{Binding ValidationErrors[Language], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
 
         <Grid Grid.Row="5" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -83,15 +83,15 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Margin="25 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="0" FontSize="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ValidationErrors[Name], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+                <TextBlock Margin="38 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="0" FontSize="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ValidationErrors[Name], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
                 <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" Margin="10 10 10 10">Name:</TextBlock>
                 <TextBox Text="{Binding Name}" Grid.Column="1" Grid.ColumnSpan="2" Height="30" Width="120" Margin="0 0 30 0"></TextBox>
                 <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" Margin="10">Surname:</TextBlock>
                 <TextBox Text="{Binding Surname}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="30" Margin="0 0 30 0" Width="120"></TextBox>
-                <TextBlock Margin="25 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="1" FontSize="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ValidationErrors[Surname], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+                <TextBlock Margin="38 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="1" FontSize="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ValidationErrors[Surname], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
                 <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" FontWeight="DemiBold" FontSize="15">Age:</TextBlock>
                 <TextBox Text="{Binding Age}" Grid.Column="1" Grid.Row="2" Height="30" Width="50" Margin="20 0 0 0" ></TextBox>
-                <TextBlock Margin="25 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="2" FontSize="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ValidationErrors[Age], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+                <TextBlock Margin="38 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="2" FontSize="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ValidationErrors[Age], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
                 <Button Background="AntiqueWhite" Command="{Binding AddTouristInfoCommand}" Content="+" Width="25" Height="30" FontSize="20" FontWeight="Bold" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0">
                     <Button.ToolTip>
                         <ToolTip>

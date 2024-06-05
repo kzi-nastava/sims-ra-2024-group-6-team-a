@@ -128,6 +128,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         public RelayCommand LoadYearStatisticsCommand { get; set; }
         public RelayCommand LoadGeneralPeopleNumberCommand { get; set; }
         public RelayCommand LoadYearPeopleNumberCommand { get; set; }
+
         public RequestStatisticsViewModel(int userId)
         {
             UserId = userId;

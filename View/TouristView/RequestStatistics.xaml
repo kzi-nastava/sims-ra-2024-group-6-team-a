@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="RequestStatistics" Height="560" Width="900"
+        Title="RequestStatistics" Height="560" Width="900" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
     
     <Grid Background="AliceBlue">
@@ -34,7 +34,7 @@
                 <StackPanel Grid.Column="1"  Grid.Row="1" Margin="30 10 0 0">
                     <TextBlock FontSize="15" FontWeight="DemiBold" Margin="0 0 0 5">Chose year:</TextBlock>
                     <ComboBox ItemsSource="{Binding Years}" Width="80" HorizontalAlignment="Left"
-                              IsEditable="True"
+                              IsEditable="False" 
                               SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     </ComboBox>
                           
@@ -69,7 +69,7 @@
                 <StackPanel Grid.Column="1" Margin="0 45 15 0">
                     <TextBlock FontSize="15" FontWeight="DemiBold" Margin="0 0 0 5">Chose year:</TextBlock>
                     <ComboBox ItemsSource="{Binding Years}" Width="80" HorizontalAlignment="Left"
-                                IsEditable="True"
+                                IsEditable="False"
                                 SelectedItem="{Binding SelectedYearAvg, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                     </ComboBox>

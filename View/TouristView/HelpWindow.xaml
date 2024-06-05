@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         mc:Ignorable="d"
-        Title="HelpWindow" Height="450" Width="800" ResizeMode="NoResize"> 
-    <Grid>
-        <Border BorderBrush="Black" BorderThickness="1" Padding="10" Background="LightYellow">
+        Title="HelpWindow" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterOwner"> 
+    <Grid Background="AliceBlue">
+        <Border BorderBrush="Black" BorderThickness="1" Margin="15" Padding="10" Background="LightYellow">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
             <Grid Background="LightYellow">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -31,24 +32,28 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Welcome to Booking App!" Margin="10,10,0,0" FontSize="16" FontWeight="Bold" />
-                <TextBlock Grid.Row="1" Text="This application allows you to easily and quickly book tours for travel around the world." Margin="10,10,0,0" />
-                <TextBlock Grid.Row="2" Text="To reserve a tour, first search for available tours by clicking 'Search'." Margin="10,10,0,0" />
-                <TextBlock Grid.Row="3" Text="Once you find a tour you like, click on 'Book Now' and enter your details." Margin="10,10,0,0" />
-                <TextBlock Grid.Row="4" Text="If you have any questions, please feel free to contact us on info@bookingapp.com." Margin="10,10,0,10" />
-                <TextBlock Grid.Row="5" Text="To search properly, enter keywords that describe the tour you want." Margin="10,10,0,0" />
-                <TextBlock Grid.Row="6" Text="If you can't find the specific tour you're looking for, check if you entered the keywords correctly.." Margin="10,10,0,0" />
-                <TextBlock Grid.Row="7" Text="Frequently asked questions (FAQ):" Margin="10,10,0,0" />
-                <TextBlock Grid.Row="8" Text="1.Do I need to register to use the app?" Margin="10,10,0,0" />
-                <TextBlock Grid.Row="9" Text="2. No, the app does not directly support credit card payments." Margin="10,10,0,0" />
-                <TextBlock Grid.Row="10" Text="3. Can I book a tour in a foreign language? Yes, you can book a tour in any language supported by the app." Margin="10,10,0,10" />
-                <TextBlock Grid.Row="11" Text="4. Does the app offer the possibility of canceling reservations? No, the app does not currently offer the possibility of canceling reservations." Margin="10,10,0,0" />
-                <TextBlock Grid.Row="12" Text="5. Da li aplikacija nudi mogućnost promene rezervacija? Da, aplikacija nudi mogućnost promene rezervacija do određenog datuma." Margin="10,10,0,10" />
-                <TextBlock Grid.Row="13" Text="6. Da li aplikacija nudi mogućnost ocene tura koje sam rezervisao? Da, nakon završetka ture, možete oceniti turu i ostaviti komentar." Margin="10,10,0,0" />
-                <TextBlock Grid.Row="14" Text="7. Da li aplikacija nudi mogućnost čuvanja omiljenih tura? Da, možete sačuvati ture koje vam se sviđaju kako biste ih lakše pronašli u budućnosti." Margin="10,10,0,10" />
-                <TextBlock Grid.Row="15" Text="8. Da li aplikacija nudi mogućnost prilagođavanja pretrage? Da, možete prilagoditi pretragu prema datumu putovanja, ceni, dužini trajanja i drugim kriterijumima." Margin="10,10,0,0" />
-                <TextBlock Grid.Row="16" Text="9. Da li aplikacija nudi mogućnost deljenja tura sa prijateljima? Da, možete deliti ture sa prijateljima putem e-pošte ili društvenih mreža." Margin="10,10,0,10" />
+                <TextBlock Grid.Row="0" Text="Welcome to Booking App!" Margin="10,10,0,0" FontSize="25" FontWeight="Bold" />
+                    <TextBlock FontSize="15" Grid.Row="1" Text="This application allows you to easily and quickly book tours for travel around the world." Margin="10,10,0,0" />
+                    <TextBlock FontSize="15" Grid.Row="2" Text="To reserve a tour, first search for available tours by clicking 'Search'." Margin="10,10,0,0" />
+                    <TextBlock FontSize="15" Grid.Row="3" Text="Once you find a tour you like, click on 'Book Now' and enter your details." Margin="10,10,0,0" />
+                    <TextBlock FontSize="15" Grid.Row="4" Text="If you have any questions, please feel free to contact us on info@bookingapp.com." Margin="10,10,0,10" />
+                    <TextBlock FontSize="15"  Grid.Row="5" Text="To search properly, enter keywords that describe the tour you want." Margin="10,10,0,0" />
+                    <TextBlock FontSize="15" Grid.Row="6" Text="If you can't find the specific tour you're looking for, check if you entered the keywords correctly.." Margin="10,10,0,0" />
+                    <TextBlock  Grid.Row="7" Text="Frequently asked questions (FAQ):" Margin="10,20,0,20" FontSize="20" FontWeight="Bold" />
+                    <TextBlock FontSize="15" Grid.Row="8" FontWeight="DemiBold" Text="1.Do I need to register to use the app?" Margin="10,10,0,0" />
+                    <TextBlock FontSize="15" Grid.Row="9" Text="Yes, in order to use it you need to have account." Margin="10,10,0,10" />
+                    <TextBlock FontSize="15" Grid.Row="10" FontWeight="DemiBold" Text="2. Can I book a tour in a foreign language?" Margin="10"/>
+                    <TextBlock FontSize="15" Grid.Row="11" Text="Yes, you can book a tour in any language supported by our services." Margin="10,0,0,10" />
+                    <TextBlock FontSize="15" Grid.Row="12" FontWeight="DemiBold" Text="3. Does the app offer the possibility of canceling reservations?" Margin="10"></TextBlock>
+                    <TextBlock FontSize="15" Grid.Row="13" Text=" No, the app does not currently offer the possibility of canceling reservations." Margin="10,0,0,10" />
+                    <TextBlock Grid.Row="14" FontSize="15" FontWeight="DemiBold" Text="5. Does the app offer opportunity to rate a tour once it's finished?" Margin="10,10,0,0" />
+                    <TextBlock FontSize="15" Grid.Row="15" Text="Yes, after tour finishing, you may leave your rate." Margin="10,10,0,10" />
+                    <TextBlock FontSize="15" Grid.Row="16" FontWeight="DemiBold" Text="6. Does the app offer oportunity to save my favourite tours?" Margin="10"></TextBlock>
+                    <TextBlock FontSize="15" Grid.Row="17" Text=" Unfourtunately, no. This feature isn't provided yet." Margin="10,0 ,0,10" />
+                    <TextBlock FontSize="15" Grid.Row="18" FontWeight="DemiBold" Text="7. Does the app offer ability to costumize my search?" Margin="10,10,0,0" />
+                <TextBlock FontSize="15" Grid.Row="19" Text="Yes! You are free to use filters and find  tour you are searching for." Margin="10,10,0,10" />
             </Grid>
+            </ScrollViewer>
         </Border>
     </Grid>
 </Window>

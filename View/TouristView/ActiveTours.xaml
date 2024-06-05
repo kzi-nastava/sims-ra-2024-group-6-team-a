@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         mc:Ignorable="d"
-        Title="ActiveTours" Height="582" Width="750" ResizeMode="NoResize"
+        Title="ActiveTours" Height="584" Width="750" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
     <Grid Background="AliceBlue">
         <Grid.RowDefinitions>
@@ -53,7 +53,7 @@
                                                 <TextBlock Text="{Binding Duration}" FontStyle="Italic" FontSize="15"  VerticalAlignment="Center"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="6" Margin="5 0 0 5" >
-                                                <Button Content="Generate report" Margin="0 0 20 0" Height="25" FontSize="15" VerticalAlignment="Center" Width="125" Grid.Row="3" Background="AntiqueWhite" FontWeight="Bold">
+                                                <Button Command="{Binding DataContext.GenereateReportCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}" Content="Generate report" Margin="0 0 20 0" Height="25" FontSize="15" VerticalAlignment="Center" Width="125" Grid.Row="3" Background="AntiqueWhite" FontWeight="Bold">
                                                     <Button.ToolTip>
                                                         <ToolTip>
                                                             Click to generate report

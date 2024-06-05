@@ -45,12 +45,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             SelectImageCommand = new RelayCommand(Execute_SelectImageCommand);
             RemoveImageCommand = new RelayCommand(Execute_RemoveImageCommand);
             ImagesCollection = new ObservableCollection<ImageItemDTO>();
-            /*TourReviewDTO.PropertyChanged += (sender, e) =>
-            {
-
-                Validate();
-
-            };*/
+        
         }
 
         private void Execute_SelectImageCommand(object sender)
@@ -98,7 +93,7 @@ namespace BookingApp.ViewModels.TouristViewModel
                 TourReviewService.GetInstance().MakeReview(TourReviewDTO);
 
                 SaveImages();
-                CustomMessageBox.Show("Tour successfully rated!");
+                MessageBox.Show("Tour successfully rated!");
                 CloseAction();
             }
             
@@ -111,13 +106,10 @@ namespace BookingApp.ViewModels.TouristViewModel
                 ValidationErrors["GuideKnowledge"] = "Please, select a grade for Guide's knowledge.";
             }
 
-            // Check if GuideLanguageGrade is within the valid range
             if (TourReviewDTO.GuideLanguageGrade < 1 || TourReviewDTO.GuideLanguageGrade > 5)
             {
                 ValidationErrors["GuideLanguage"] = "Please, select a grade for Guide's spoken language.";
             }
-
-            // Check if TourAttractionsGrade is within the valid range
             if (TourReviewDTO.TourAttractionsGrade < 1 || TourReviewDTO.TourAttractionsGrade > 5)
             {
                 ValidationErrors["TourAttractions"] = "Please, select a grade for tour's attractions.";

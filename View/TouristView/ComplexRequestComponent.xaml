@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BookingApp.View.TouristView"         
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="ComplexRequestComponent" Height="630" Width="800"
+        Title="ComplexRequestComponent" Height="630" Width="800" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <Style TargetType="DatePicker">

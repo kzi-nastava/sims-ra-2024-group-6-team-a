@@ -48,15 +48,6 @@ namespace BookingApp.ViewModels.TouristViewModel
         }
 
         private int _selectedLanguageIndex = -1;
-       /* public int SelectedLanguageIndex
-        {
-            get { return _selectedLanguageIndex; }
-            set
-            {
-                _selectedLanguageIndex = value;
-                OnPropertyChanged(nameof(SelectedLanguageIndex));
-            }
-        }*/
         public int SelectedLanguageIndex
         {
             get { return _selectedLanguageIndex; }
@@ -70,20 +61,11 @@ namespace BookingApp.ViewModels.TouristViewModel
                 }
                 else
                 {
-                    SelectedRequest.LanguageId = -1; // Invalid location
+                    SelectedRequest.LanguageId = -1; 
                 }
             }
         }
         private int _selectedLocationIndex = -1;
-       /* public int SelectedLocationIndex
-        {
-            get { return _selectedLocationIndex; }
-            set
-            {
-                _selectedLocationIndex = value;
-                OnPropertyChanged(nameof(SelectedLocationIndex));
-            }
-        }*/
         public int SelectedLocationIndex
         {
             get { return _selectedLocationIndex; }
@@ -97,7 +79,7 @@ namespace BookingApp.ViewModels.TouristViewModel
                 }
                 else
                 {
-                    SelectedRequest.LocationId = -1; // Invalid location
+                    SelectedRequest.LocationId = -1;
                 }
             }
         }
@@ -154,7 +136,6 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         private string beginDateInput { get; set; }
         private string endDateInput { get; set; }
-        private string dateFormatPattern = @"^\d{4}-\d{2}-\d{2}$";
         public RelayCommand AddTouristInfoCommand { get; set; }
         public RelayCommand RemoveTouristCommand { get; set; }
         public RelayCommand SaveReservationCommand { get; set; }
@@ -207,7 +188,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             if (IsValid)
             {
                 TourRequestService.GetInstance().MakeTourRequest(SelectedRequest, TourGuests.ToList(), LoggedUser);
-                CustomMessageBox.Show("Request successfully created!");
+                MessageBox.Show("Request successfully created!");
                 CloseAction();
             }
             
@@ -264,12 +245,12 @@ namespace BookingApp.ViewModels.TouristViewModel
                
                 if (SelectedRequest.LocationId == -1 || !Locations.Any(l => l.Id == SelectedRequest.LocationId))
                 {
-                    ValidationErrors["Location"] = "Please, select a valid location from the list.";
+                    ValidationErrors["Location"] = "Select valid location from the list.";
                 }
 
                 if (SelectedRequest.LanguageId == -1 || !Locations.Any(l => l.Id == SelectedRequest.LanguageId))
                 {
-                    ValidationErrors["Language"] = "Please, select a valid language from the list.";
+                    ValidationErrors["Language"] = "Select valid language from the list.";
                 }
                 if (string.IsNullOrWhiteSpace(SelectedRequest.Description))
                 {
@@ -290,22 +271,6 @@ namespace BookingApp.ViewModels.TouristViewModel
                 {
                     ValidationErrors["EndDate"] = "End date is required.";
                 }
-
-               
-
-              /*  DateTime beginDate;
-                bool isValidBeginDate = Enum.TryParse(endDateInput, out beginDate);
-                if (!isValidBeginDate)
-                {
-                    ValidationErrors["BeginDate"] = "BeginDate is not in correct format";
-                }
-
-                DateTime endDate;
-                bool isValidEndDate = Enum.TryParse(endDateInput, out endDate);
-                if (!isValidEndDate)
-                {
-                    ValidationErrors["EndDate"] = "EndDate is not in correct format";
-                }*/
 
             }
 
