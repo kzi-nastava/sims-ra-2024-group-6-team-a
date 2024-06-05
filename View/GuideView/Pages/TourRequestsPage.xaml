@@ -52,19 +52,19 @@
         <Frame Grid.Row="1" x:Name="SecondFrame" NavigationUIVisibility="Hidden" />
         <Border BorderThickness="0,0,0,2" BorderBrush="{DynamicResource BorderBrush}">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center"  Grid.Row="0">
-                <Button  Background="Transparent" BorderThickness="0" Click="RequestsClick">
+                <Button  Background="Transparent" BorderThickness="0" Command="{Binding RequestsCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock  x:Name="btnRequests"   Style="{StaticResource RequestText}"  Text="{ns:Loc Requests}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
                 <TextBlock Foreground="{DynamicResource Text}"  Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
-                <Button Background="Transparent" BorderThickness="0" Click="StatisticsClick"  >
+                <Button Background="Transparent" BorderThickness="0" Command="{Binding StatisticsCommand}"  >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock   x:Name="btnRequestStatistics" Style="{StaticResource StatisticsTextBlock}"   Text="{ns:Loc Statistics}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
                 <TextBlock Foreground="{DynamicResource Text}"  Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
-                <Button  Background="Transparent" BorderThickness="0" Click="ComplexTourClick"  >
+                <Button  Background="Transparent" BorderThickness="0" Command="{Binding ComplexTourCommand}"  >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock  x:Name="btnComplexTours"  Style="{StaticResource ComplexText}"  Text="{ns:Loc ComplexTourRequests}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>

@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace BookingApp.ViewModels.GuideViewModel
@@ -44,8 +45,17 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public ToursPage Window {  get; set; }
 
+
+        public ICommand LiveToursPageCommand { get; }
+        public ICommand AllToursPageCommand { get; }
+        public ICommand ShowCreateTourFormCommand { get; }
+
         public ToursViewModel(ToursPage window,User user)
         {
+            LiveToursPageCommand = new RelayCommand(LiveTourPage);
+            AllToursPageCommand = new RelayCommand(AllToursPageClick);
+            ShowCreateTourFormCommand = new RelayCommand(ShowCreateTourForm);
+
             LoggedUser = user;
             this.Window = window;
 
@@ -54,6 +64,11 @@ namespace BookingApp.ViewModels.GuideViewModel
             allToursPage = new AllToursPage(LoggedUser);
             LiveToursPageClick();
 
+        }
+
+        public void LiveTourPage(object obj) 
+        {
+            LiveToursPageClick();
         }
 
         public void LiveToursPageClick()
@@ -75,14 +90,14 @@ namespace BookingApp.ViewModels.GuideViewModel
             }
         }
         
-        public void AllToursPageClick()
+        public void AllToursPageClick(object obj)
         {
             ResetButtonColors();
             IsAll = true;
 
             Window.SecondFrame.Content = allToursPage;
         }
-        public void ShowCreateTourForm()
+        public void ShowCreateTourForm(object obj)
         {
             ResetButtonColors();
             IsCreate = true;    

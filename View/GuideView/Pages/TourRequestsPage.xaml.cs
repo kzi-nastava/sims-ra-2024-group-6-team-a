@@ -31,23 +31,7 @@ namespace BookingApp.View.GuideView.Pages
             RequestsViewModel = new TourRequestsViewModel(this, user);
             DataContext = RequestsViewModel;
         }
-
-
-        public void RequestsClick(object sender, RoutedEventArgs e)
-        {
-
-            RequestsViewModel.RequestsClick();
-        }
-
-        public void ComplexTourClick(object sender, RoutedEventArgs e)
-        {
-            RequestsViewModel.ComplexTourClick();
-        }
-
-        public void StatisticsClick(object sender, RoutedEventArgs e)
-        {
-            RequestsViewModel.StatisticsClick();
-        }
+  
 
     }
 }

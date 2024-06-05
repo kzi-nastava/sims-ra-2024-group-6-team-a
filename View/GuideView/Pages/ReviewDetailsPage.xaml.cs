@@ -37,41 +37,7 @@ namespace BookingApp.View.GuideView.Pages
             InitializeComponent();
             ReviewDetViewModel = new ReviewDetailsViewModel(this,tourScheduleId);
             DataContext = ReviewDetViewModel;
-            Update();
         }
 
-        private void Update()
-        {
-            ReviewDetViewModel.Update();
-        }
-
-        private string GetUsername(int userId)
-        {
-            return ReviewDetViewModel.GetUsername(userId);
-
-        }
-        private List<Model.Image> GetAllImages(int tourShceduleId)
-        {
-            return ReviewDetViewModel.GetAllImages(tourShceduleId);
-        }
-
-        private int GetFirstUsersCheckpointId(int tourShceduleId, int userId)
-        {
-            return ReviewDetViewModel.GetFirstUsersCheckpointId(tourShceduleId, userId);
-        }
-        private Checkpoint GetCheckpointById(int checkpointId) 
-        { 
-            return ReviewDetViewModel.GetCheckpointById(checkpointId);
-        }
-
-        private void HandleFakeReport(object sender, EventArgs e)
-        {
-            Update();
-        }
-
-        private void GoBackClick(object sender, EventArgs e)
-        {
-            NavigationService.GoBack();
-        }
     }
 }

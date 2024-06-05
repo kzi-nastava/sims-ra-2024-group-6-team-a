@@ -35,22 +35,6 @@ namespace BookingApp.View.GuideView.Pages
 
         }
 
-        public void LiveToursPageClick(object sender,EventArgs e)
-        {
-            ToursViewModel.LiveToursPageClick();
-        }
-       
-
-        public void AllToursPageClick(object sender, EventArgs e)
-        {
-            ToursViewModel.AllToursPageClick();
-        }
-
-        public void ShowCreateTourForm(object sender, EventArgs e)
-        {
-            ToursViewModel.ShowCreateTourForm();
-
-        }
         public void LoadTodaysTours(object sender, EventArgs e)
         {
             ToursViewModel.LiveToursPageClick();

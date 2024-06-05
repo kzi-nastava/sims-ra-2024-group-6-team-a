@@ -81,7 +81,7 @@
                                 <Border.Effect>
                                     <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                                 </Border.Effect>
-                                <Button Background="Transparent" BorderThickness="0" Content="{ns:Loc Search}" FontSize="25"  Click="SearchButtonClick" Grid.Row="2" Grid.ColumnSpan="2" />
+                                <Button Background="Transparent" Foreground="{DynamicResource Text}" BorderThickness="0" Content="{ns:Loc Search}" FontSize="25" Command="{Binding SearchCommand}" Grid.Row="2" Grid.ColumnSpan="2" />
                             </Border>
                         </Grid>
 
@@ -141,7 +141,7 @@
                             <Border.Effect>
                                 <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                             </Border.Effect>
-                            <Button Background="Transparent" BorderThickness="0" Foreground="{DynamicResource Text}"  Content="Filter" FontSize="25"  Click="SearchButtonClick" Grid.Row="2" Grid.ColumnSpan="2" />
+                            <Button Background="Transparent" BorderThickness="0" Foreground="{DynamicResource Text}"  Content="Filter" FontSize="25" Command="{Binding SearchCommand}" Grid.Row="2" Grid.ColumnSpan="2" />
                         </Border>
                     </Grid>
                 </Grid>

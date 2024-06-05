@@ -56,19 +56,19 @@
         <Border BorderThickness="0,0,0,2" BorderBrush="{DynamicResource AlreadyStartedTourBorder}">
 
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center"  Grid.Row="0">
-                <Button Background="Transparent" BorderThickness="0" Click="LiveToursPageClick">
+                <Button Background="Transparent" BorderThickness="0" Command="{Binding LiveToursPageCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource Todays}"  x:Name="btnTodaysTours"  Text="{ns:Loc TodaysTours}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
                 <TextBlock Foreground="{DynamicResource Text}"  Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
-                <Button Background="Transparent" BorderThickness="0" Click="AllToursPageClick"  >
+                <Button Background="Transparent" BorderThickness="0" Command="{Binding AllToursPageCommand}"  >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource All}"  x:Name="btnAllTours" Text="{ns:Loc AllTours}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>
                 </Button>
                 <TextBlock Foreground="{DynamicResource Text}"  Text="|" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
-                <Button Background="Transparent" BorderThickness="0" Click="ShowCreateTourForm"  >
+                <Button Background="Transparent" BorderThickness="0" Command="{Binding ShowCreateTourFormCommand}"  >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource Create}"   x:Name="btnCreateTour" Text="{ns:Loc CreateTour}" FontSize="20" VerticalAlignment="Center" Margin="5,0,0,0" />
                     </StackPanel>

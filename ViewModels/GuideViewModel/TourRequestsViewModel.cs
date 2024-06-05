@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace BookingApp.ViewModels.GuideViewModel
@@ -63,11 +64,18 @@ namespace BookingApp.ViewModels.GuideViewModel
             }
         }
 
-
+        public ICommand RequestsCommand { get; }
+        public ICommand ComplexTourCommand { get; }
+        public ICommand StatisticsCommand { get; }
 
         public TourRequestsPage Window { get; set; }
         public TourRequestsViewModel(TourRequestsPage window, User user) 
         {
+
+            RequestsCommand = new RelayCommand(RequestsClickCommand);
+            ComplexTourCommand = new RelayCommand(ComplexTourClick);
+            StatisticsCommand = new RelayCommand(StatisticsClick);
+
             LoggedUser = user;
             this.Window = window;
 
@@ -78,9 +86,12 @@ namespace BookingApp.ViewModels.GuideViewModel
             RequestsClick();
 
         }
+        private void RequestsClickCommand(object obj)
+        {
+            RequestsClick();
+        }
 
-
-        public void StatisticsClick()
+        public void StatisticsClick(object obj)
         {
             ResetButtonColors();
             IsStatisticsSelected = true;
@@ -88,7 +99,7 @@ namespace BookingApp.ViewModels.GuideViewModel
 
 
         }
-        public void ComplexTourClick()
+        public void ComplexTourClick(object obj)
         {
             ResetButtonColors();
             IsComplexToursSelected = true;

@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace BookingApp.ViewModels.GuideViewModel
@@ -36,11 +37,13 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public ReviewDetailsPage Window {  get; set; }
 
+        public ICommand GoBackCommand { get; set; }
+
         public ReviewDetailsViewModel(ReviewDetailsPage window,int tourScheduleId)
         {
-           
 
-           
+            GoBackCommand = new RelayCommand(GoBack);
+            this.Window = window;
             Reviews = new ObservableCollection<TourReviewDTO>();
             this.tourScheduleId = tourScheduleId;
 
@@ -48,6 +51,10 @@ namespace BookingApp.ViewModels.GuideViewModel
            
             Update();
         }
+        public void GoBack(object obj)
+        {
+            Window.NavigationService.GoBack();
+        }   
 
         public void LoadTourData(int tourScheduleId)
         {

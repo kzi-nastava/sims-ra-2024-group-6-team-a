@@ -15,6 +15,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Xceed.Wpf.Toolkit.Primitives;
 
 namespace BookingApp.ViewModels.GuideViewModel
@@ -36,11 +37,14 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public ObservableCollection<KeyValuePair<string, int>> DataGrid { get; set; }
 
+        public ICommand SearchCommand { get; }
 
         public RequestedTourStatisticsViewModel(RequestedTourStatistics window, User user)
         {
             this.Window = window;
-            LoggedUser = user; 
+            LoggedUser = user;
+            SearchCommand = new RelayCommand(SearchButton);
+
             InitializeLanguages();
             InitializeLocations();
             InitializeYears();
@@ -80,6 +84,11 @@ namespace BookingApp.ViewModels.GuideViewModel
             {
                 Locations.Add(location.City + " , " + location.State);
             }
+        }
+        
+        private void SearchButton(object obj)
+        {
+            SearchButtonClick();
         }
 
         public void SearchButtonClick()

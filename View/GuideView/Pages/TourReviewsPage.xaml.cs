@@ -40,29 +40,12 @@ namespace BookingApp.View.GuideView.Pages
             InitializeComponent();
             ReviewViewModel = new TourReviewsViewModel(this, mainFrame, user);
             DataContext = ReviewViewModel;
-            Update();
         }
 
-
-        public void Update()
-        {
-            ReviewViewModel.Update();
-
-        }
-
-        public double CalculateAvgGrade(int tourScheduleId) 
-        {
-           return ReviewViewModel.CalculateAvgGrade(tourScheduleId);
-        }
-
-        public Model.Image GetFirstTourImage(int tourId)
-        {
-            return ReviewViewModel.GetFirstTourImage(tourId);
-        }
 
         private void LoadReview(object sender, RoutedEventArgs e)
         {
-            Update();
+            ReviewViewModel.Update();
         }
     }
 }

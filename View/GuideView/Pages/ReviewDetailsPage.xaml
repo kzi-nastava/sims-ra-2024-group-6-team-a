@@ -67,7 +67,7 @@
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                     </Border.Effect>
-                    <Button Foreground="{DynamicResource Text}" BorderThickness="0" Background="Transparent"  FontFamily="Yu Gothic UI Light" FontSize="25" Content="{ns:Loc GoBack}" Click="GoBackClick"/>
+                    <Button Foreground="{DynamicResource Text}" BorderThickness="0" Background="Transparent"  FontFamily="Yu Gothic UI Light" FontSize="25" Content="{ns:Loc GoBack}" Command="{Binding GoBackCommand}"/>
                 </Border>
             </Grid>
         </Border>

@@ -32,12 +32,5 @@ namespace BookingApp.View.GuideView.Pages
             DataContext = StatisticsViewModel;
         }
 
-        
-       
-
-        private void SearchButtonClick(object sender, RoutedEventArgs e)
-        {
-            StatisticsViewModel.SearchButtonClick();
-        }
     }
 }
