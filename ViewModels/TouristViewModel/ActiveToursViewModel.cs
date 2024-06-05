@@ -10,6 +10,7 @@ using QuestPDF.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -73,23 +74,33 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         private void Execute_GenerateReportCommand(object parameter)
         {
+            Tourist tourist = TouristService.GetInstance().GetByTouristId(LoggedUser.Id);
             TourScheduleDTO tourSchedule = (TourScheduleDTO)parameter;
             List<Checkpoint> checkpoints = CheckpointService.GetInstance().GetAllByTourScheduleId(tourSchedule.Id).ToList();
             List<TourGuests> guests = TourGuestService.GetInstance().GetAllByTourId(tourSchedule.Id).ToList();
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            // Navigate up to the project root directory
             string projectRoot = Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\..\"));
-            // Define the relative path from the project root
-            string relativePath = @"Resources\tourist-report.pdf";
-            // Combine the project root with the relative path
+            string relativePath = @$"Resources\tourist-report{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}.pdf";
             string fullPath = Path.Combine(projectRoot, relativePath);
-            TouristReportGenerator reportGenerator = new TouristReportGenerator(DateTime.Now, tourSchedule, LoggedUser,checkpoints, guests);
+            TouristReportGenerator reportGenerator = new TouristReportGenerator(DateTime.Now, tourSchedule, tourist,checkpoints, guests);
             QuestPDF.Settings.License = LicenseType.Community;
             reportGenerator.GeneratePdf(fullPath);
 
-            MessageBox.Show("PDF report generated successfully!");
-
-         
+            if (System.Windows.MessageBox.Show("Do you want to view your report right away?", "PDF Report", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo(fullPath) { UseShellExecute = true });
+                }
+                catch (Exception ex)
+                {
+                    
+                }
+            }
+            else
+            {        
+                MessageBox.Show("PDF report generated successfully!");
+            }
         }
     }
 }

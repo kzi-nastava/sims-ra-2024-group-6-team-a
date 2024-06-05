@@ -96,7 +96,7 @@ namespace BookingApp.View
                 languageError.Visibility = Visibility.Collapsed;
             }
 
-            if (durationBox.Value == null || durationBox.Value > 200)
+            if (durationBox.Value == null || durationBox.Value > 200 || durationBox.Value < 0)
             {
                 durationError.Visibility = Visibility.Visible;
                 isValid = false;
@@ -106,7 +106,7 @@ namespace BookingApp.View
                 durationError.Visibility = Visibility.Collapsed;
             }
 
-            if (capacityBox.Value == null || capacityBox.Value > 100)
+            if (capacityBox.Value == null || capacityBox.Value > 100 || capacityBox.Value < 0)
             {
                 capacityError.Visibility = Visibility.Visible;
                 isValid = false;
@@ -194,7 +194,9 @@ namespace BookingApp.View
         private void Help_Click(object sender, RoutedEventArgs e)
         {
             HelpWindow help = new HelpWindow();
+            help.Owner = this;
             help.ShowDialog();
+           
         }
         private void MakeRequest_Click(object sender, RoutedEventArgs e)
         {

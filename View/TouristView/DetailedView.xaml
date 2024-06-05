@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View.TouristView"
         mc:Ignorable="d"
-        Title="DetailedView" Height="600" Width="860" 
+        Title="DetailedView" Height="600" Width="860" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
         
     <Grid Background="AliceBlue">
