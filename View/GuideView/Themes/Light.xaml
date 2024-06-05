@@ -21,5 +21,6 @@
     <SolidColorBrush x:Key="SelectedButton" Color="Black"/>
     <SolidColorBrush x:Key="FinalHeaderBorder" Color="Black"/>
     <SolidColorBrush x:Key="CardText" Color="Black"/>
+    <SolidColorBrush x:Key="AlreadyStartedTourBorder" Color="Black"/>
 
 </ResourceDictionary>

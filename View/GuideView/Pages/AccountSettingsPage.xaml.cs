@@ -51,16 +51,7 @@ namespace BookingApp.View.GuideView.Pages
         }
 
 
-        public void DeleteAccountClick(object sender, RoutedEventArgs e)
-        {
-            WindowViewModel.DeleteAccountClick();
-        }
-        public void GoBackButtonClick(object sender, RoutedEventArgs e)
-        {
-            WindowViewModel.GoBackButtonClick();
-        }
-
-      
+        
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             WindowViewModel.ChangeLanguage();

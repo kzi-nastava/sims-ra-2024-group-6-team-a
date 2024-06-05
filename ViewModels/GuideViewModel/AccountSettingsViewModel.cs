@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
@@ -55,8 +56,17 @@ namespace BookingApp.ViewModels.GuideViewModel
         }
         public bool IsSuperGuide { get; set; }
 
+
+        public ICommand DeleteAccountCommand { get; }
+        public ICommand GoBackCommand { get; }
+
+
         public AccountSettingsViewModel(AccountSettingsPage settingsWindow, User user)
         {
+            DeleteAccountCommand = new RelayCommand(DeleteAccountClick);
+            GoBackCommand = new RelayCommand(GoBackButtonClick);
+
+            
             LoggedUser = user;
             SettingsWindow = settingsWindow;
             LoggedGuide = GuideService.GetInstance().GetByUserId(LoggedUser.Id);
@@ -107,7 +117,7 @@ namespace BookingApp.ViewModels.GuideViewModel
 
 
 
-        public void DeleteAccountClick()
+        public void DeleteAccountClick(object obj)
         {
 
             bool IsAccountDeleted = GuideService.GetInstance().DeleteGuide(LoggedGuide);
@@ -117,7 +127,7 @@ namespace BookingApp.ViewModels.GuideViewModel
             }
            
         }
-        public void GoBackButtonClick() 
+        public void GoBackButtonClick(object obj) 
         {
             SettingsWindow.NavigationService.GoBack();
         }

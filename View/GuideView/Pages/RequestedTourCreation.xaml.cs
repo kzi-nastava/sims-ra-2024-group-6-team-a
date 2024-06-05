@@ -34,6 +34,11 @@ namespace BookingApp.View.GuideView.Pages
             DataContext = CreationViewModel;
         }
 
+        private void DurationTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            CreationViewModel.DurationTextBox_PreviewTextInput(sender, e);
+        }
+
         private void AddCheckPointClick(object sender, EventArgs e)
         {
 

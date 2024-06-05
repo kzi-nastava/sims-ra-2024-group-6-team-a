@@ -53,7 +53,7 @@
         </Grid.RowDefinitions>
  
         <Frame Grid.Row="1" x:Name="SecondFrame" NavigationUIVisibility="Hidden" />
-        <Border BorderThickness="0,0,0,2" BorderBrush="{DynamicResource BorderBrush}">
+        <Border BorderThickness="0,0,0,2" BorderBrush="{DynamicResource AlreadyStartedTourBorder}">
 
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center"  Grid.Row="0">
                 <Button Background="Transparent" BorderThickness="0" Click="LiveToursPageClick">

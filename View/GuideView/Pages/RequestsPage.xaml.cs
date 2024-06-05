@@ -63,5 +63,12 @@ namespace BookingApp.View.GuideView.Pages
         {
             RequestsViewModel.Reset_Click();
         }
+
+        private void capacityBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            RequestsViewModel.capacityBox_PreviewTextInput(sender, e);
+        }
+
+      
     }
 }

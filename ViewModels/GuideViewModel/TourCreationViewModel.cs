@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using System.Windows;
 using System.ComponentModel;
 using BookingApp.View.GuideView.Pages;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
@@ -100,6 +102,8 @@ namespace BookingApp.ViewModels.GuideViewModel
             ImagesCollection = new ObservableCollection<ImageItemDTO>();
             TourDatesCollection = new ObservableCollection<DateTime>();
             Window.datePicker.FormatString = "dd.MM.yyyy HH:mm";
+            Window.datePicker.Minimum = DateTime.Now;
+
             Window.imageListBox.ItemsSource = ImagesCollection;
 
         }
@@ -136,12 +140,23 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public void AddCheckPointClick()
         {
-
+            if (String.IsNullOrWhiteSpace(Window.txtTourCheckpoints.Text))
+            {
+                Window.txtCheckpointAddValidation.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                Window.txtCheckpointAddValidation.Visibility = Visibility.Collapsed;
+            }
+            
             CheckpointsCollection.Add(checkpoint);
             Window.txtTourCheckpoints.Clear();
         }
 
         
+
+
 
 
         public void SelectImagesClick()
@@ -165,6 +180,17 @@ namespace BookingApp.ViewModels.GuideViewModel
         public void SelectDatesClick()
         {
             DateTime time;
+
+            if(String.IsNullOrWhiteSpace(Window.datePicker.Text))
+            {
+                Window.txtDatePickerValidation.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                Window.txtDatePickerValidation.Visibility = Visibility.Collapsed;
+            }
+
             DateTime.TryParse(Window.datePicker.Text, out time);
             TourDatesCollection.Add(time);
             Window.datePicker.Text = "";
@@ -176,17 +202,116 @@ namespace BookingApp.ViewModels.GuideViewModel
             TourDatesCollection.Remove(SelectedDate);
         }
 
-        bool IsDataValid()
+        public bool IsDataValid()
         {
+            if(String.IsNullOrWhiteSpace(Window.txtTourName.Text))
+            {
+                Window.txtTourNameValidation.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtTourNameValidation.Visibility = Visibility.Collapsed;
+            }
+            if(Window.locationComboBox.SelectedIndex == -1 && Window.locationRadioButton.IsChecked==false)
+            {
+                Window.txtLocationValidation.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtLocationValidation.Visibility = Visibility.Collapsed;
+            }
+            if(Window.languageComboBox.SelectedIndex == -1 && Window.languageRadioButton.IsChecked == false)
+            {
+                Window.txtLanguageValidation.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtLanguageValidation.Visibility = Visibility.Collapsed;
+            }
+            if(String.IsNullOrEmpty(Window.txtTourDuration.Text))
+            {
+                Window.txtDurationValidation.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtDurationValidation.Visibility = Visibility.Collapsed;
+            }
+            if (String.IsNullOrEmpty(Window.txtTourCapacity.Text))
+            {
+                Window.txtTourCapacityValidation.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtTourCapacityValidation.Visibility = Visibility.Collapsed;
+            }
+            if (String.IsNullOrEmpty(Window.txtTourDescription.Text))
+            {
+                Window.txtTourDecsriptionValidation.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtTourDecsriptionValidation.Visibility = Visibility.Collapsed;
+            }
+
+            if (CheckpointsCollection.Count() < 2)
+            {
+                Window.txtCheckpointTableValidation.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtCheckpointTableValidation.Visibility = Visibility.Collapsed;
+            }
+            if(TourDatesCollection.Count() < 1)
+            {
+                Window.txtDateTableValidation.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtDateTableValidation.Visibility = Visibility.Collapsed;
+            }
+            if(ImagesCollection.Count() < 1 )
+            {
+                Window.txtImageTable.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtImageTable.Visibility = Visibility.Collapsed;
+            }
+
+
+
+
             return !string.IsNullOrEmpty(Window.txtTourName.Text)
                 && !string.IsNullOrEmpty(Window.txtTourCapacity.Text)
                 && !string.IsNullOrEmpty(Window.txtTourDescription.Text)
+                && !string.IsNullOrEmpty(Window.txtTourDuration.Text)
                 && CheckpointsCollection.Count >= 2
                 && ImagesCollection.Count >= 1
                 && TourDatesCollection.Count >= 1;
 
 
         }
+
+        private bool IsTextAllowed(string text)
+        {
+            // Only allow numeric input
+            Regex regex = new Regex("^[0-9]+$");
+            return regex.IsMatch(text);
+        }
+
+        internal void DurationTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        internal void DurationTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
         public void CreateTourClick()
         {
             if (!IsDataValid())

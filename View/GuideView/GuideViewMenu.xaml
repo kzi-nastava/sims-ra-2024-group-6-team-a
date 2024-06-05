@@ -54,10 +54,9 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-
         <ContextMenu x:Key="AccountSettingsMenu">
-            <MenuItem Header="Account Settings" Click="AccountSettings_Click"/>
-            <MenuItem Header="Log Out" Click="LogOut_Click"/>
+            <MenuItem Header="Account Settings" Command="{Binding AccountSettingsCommand}"/>
+            <MenuItem Header="Log Out" Command="{Binding LogOutCommand}"/>
         </ContextMenu>
     </Window.Resources>
 
@@ -110,36 +109,36 @@
                                     <Image Source="/Resources/Images/account_settings.png" Width="40" Height="40" />
                                 </StackPanel>
                             </MenuItem.Header>
-                            <MenuItem Click="AccountSettings_Click" Header="Account Details"></MenuItem>
-                            <MenuItem Click="LogOut_Click" Header="Log Out"></MenuItem>
+                            <MenuItem Command="{Binding AccountSettingsCommand}" Header="Account Details"></MenuItem>
+                            <MenuItem Command="{Binding LogOutCommand}" Header="Log Out"></MenuItem>
                         </MenuItem>
                     </Menu>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="0">
-                    <Button Click="ToursPageClick" Background="Transparent" BorderThickness="0" Width="100" Height="68"  Margin="30 0 0 0" >
+                    <Button Command="{Binding ToursPageCommand}" Background="Transparent" BorderThickness="0" Width="100" Height="68"  Margin="30 0 0 0" >
                     <Image Source="/Resources/Images/logo.png" Width="100" Height="68" />
                 </Button>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" >
-                    <Button Background="Transparent" BorderThickness="0" Click="ToursPageClick"  >
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding ToursPageCommand}"  >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="btnTours" Style="{StaticResource Tours}" Text="{ns:Loc Tours}"  FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                     <TextBlock Text="|" FontSize="30" VerticalAlignment="Center" Margin="10,0,10,0"/>
-                    <Button  Background="Transparent" BorderThickness="0" Click="TourReviewsPageClick" >
+                    <Button  Background="Transparent" BorderThickness="0" Command="{Binding TourReviewsPageCommand}" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="btnReviews" Style="{StaticResource Reviews}"  Text="{ns:Loc Reviews}" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                     <TextBlock Text="|" FontSize="30" VerticalAlignment="Center" Margin="10,0,10,0"/>
-                    <Button  Background="Transparent" BorderThickness="0" Click="TourStatisticsPageClick" >
+                    <Button  Background="Transparent" BorderThickness="0" Command="{Binding TourStatisticsPageCommand}" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="btnStatistics" Style="{StaticResource Statistics}" Text="{ns:Loc Statistics}" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                     <TextBlock Text="|" FontSize="30" VerticalAlignment="Center" Margin="10,0,10,0"/>
-                    <Button  Background="Transparent" BorderThickness="0" Click="TourRequestsPageClick" >
+                    <Button  Background="Transparent" BorderThickness="0" Command="{Binding TourRequestsPageCommand}" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="btnRequests" Style="{StaticResource Requests}" Text="{ns:Loc TourRequests}" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>

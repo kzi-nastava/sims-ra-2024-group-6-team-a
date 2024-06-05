@@ -134,13 +134,13 @@
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                     </Border.Effect>
-                    <Button BorderThickness="0" Foreground="{DynamicResource Text}" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc EndTour}" Click="TourEndedClick"/>
+                    <Button BorderThickness="0" Foreground="{DynamicResource Text}" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="23" Content="{ns:Loc EndTour}" Click="TourEndedClick"/>
                 </Border>
                 <Border Background="{DynamicResource BorderBackground}" CornerRadius="8" Grid.Column="2" Margin="20,20,20,20" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                     </Border.Effect>
-                    <Button BorderThickness="0" Foreground="{DynamicResource Text}" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc GoBack}" Click="GoBackClick"/>
+                    <Button BorderThickness="0" Foreground="{DynamicResource Text}" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="23" Content="{ns:Loc GoBack}" Click="GoBackClick"/>
                 </Border>
             </Grid>
         </Grid>

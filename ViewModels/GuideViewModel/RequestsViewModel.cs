@@ -11,9 +11,11 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Xml.Linq;
 
 namespace BookingApp.ViewModels.GuideViewModel
@@ -108,6 +110,18 @@ namespace BookingApp.ViewModels.GuideViewModel
                 return;
             }
             Filter.Ending = DateOnly.MinValue;
+        }
+
+        private bool IsTextAllowed(string text)
+        {
+            // Only allow numeric input
+            Regex regex = new Regex("^[0-9]+$");
+            return regex.IsMatch(text);
+        }
+
+        internal void capacityBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
         }
 
         public void Reset_Click()

@@ -178,7 +178,7 @@ namespace BookingApp.View.GuideView.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pritisnite ovde za brisanje obilazaka.
+        ///   Looks up a localized string similar to Pritisnite ovde za brisanje .
         /// </summary>
         internal static string CancelTourClick {
             get {
@@ -520,7 +520,7 @@ namespace BookingApp.View.GuideView.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pritisnite ovde za pracenje obilaska.
+        ///   Looks up a localized string similar to Pritisnite za pracenje obilaska.
         /// </summary>
         internal static string LiveTourClick {
             get {
@@ -763,7 +763,7 @@ namespace BookingApp.View.GuideView.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pritisnite ovde da zapocnete obilazak.
+        ///   Looks up a localized string similar to Zapocnite Obilazak.
         /// </summary>
         internal static string StartTourClick {
             get {

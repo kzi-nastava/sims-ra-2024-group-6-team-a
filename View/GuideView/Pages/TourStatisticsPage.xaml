@@ -10,8 +10,7 @@
       d:DesignHeight="1080" d:DesignWidth="1920"
       Loaded="LoadStatistics"
       Title="TourStatisticsPage">
-
-
+  
     <Grid Background="{DynamicResource GradientBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -38,13 +37,13 @@
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                         </Border.Effect>
-                        <ComboBox Foreground="{DynamicResource Text}"  Background="{x:Null}"  SelectedItem="{Binding SelectedYear}" x:Name="datesBox" Grid.Column="2" HorizontalAlignment="Right"  VerticalAlignment="Center" Height="30" Width="120"/>
+                        <ComboBox FontSize="25" FontFamily="Yu Gothic UI Light" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="{x:Null}"  SelectedItem="{Binding SelectedYear}" x:Name="datesBox" Grid.Column="2" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  />
                     </Border>
                     <Border Background="{DynamicResource BorderBackground}" CornerRadius="8"  Grid.Column="0" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4" Margin="0 0 15 0">
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                         </Border.Effect>
-                        <Button Foreground="{DynamicResource Text}"  Background="{x:Null}" BorderThickness="0" Grid.Column="2" Content="{ns:Loc GenerateStatistics}" FontFamily="Yu Gothic UI Light" FontSize="25" />
+                        <Button Foreground="{DynamicResource Text}"  Background="{x:Null}" BorderThickness="0" Grid.Column="2" Content="{ns:Loc GenerateStatistics}" FontFamily="Yu Gothic UI Light" Command="{Binding GeneratePDFCommand}" FontSize="25" />
                     </Border>
                 </Grid>
             </Grid>

@@ -42,43 +42,10 @@ namespace BookingApp.View
         }
 
 
-        private void ToursPageClick(object sender, RoutedEventArgs e)
-        {
-            MainWindowViewModel.ToursPageClick();
-        }
 
-
-        private void TourStatisticsPageClick(object sender, EventArgs e)
-        {
-            MainWindowViewModel.TourStatisticsPageClick();
-        }
-
-       private void TourReviewsPageClick(object sender, EventArgs e)
-        {
-            MainWindowViewModel.TourReviewsPageClick();
-        }
-
-
-
-        private void TourRequestsPageClick(object sender, RoutedEventArgs e)
-        {
-            MainWindowViewModel.TourRequestsPageClick();
-        }
-
-        public void LiveTourPageClick(int id) 
+        public void LiveTourPageClick(int id)
         {
             MainWindowViewModel.LiveTourPageClick(id);
-        }
-
-
-        private void AccountSettings_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindowViewModel.AccountSettings_Click();    
-        }
-
-        private void LogOut_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindowViewModel.LogOut_Click();
         }
 
     }

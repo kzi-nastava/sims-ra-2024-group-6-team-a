@@ -17,6 +17,7 @@ using System.Net.NetworkInformation;
 using BookingApp.Domain.Model;
 using System.ComponentModel;
 using BookingApp.Resources;
+using System.Windows.Input;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
@@ -59,12 +60,25 @@ namespace BookingApp.ViewModels.GuideViewModel
         public bool IsRequests { get => _isRequests; set { _isRequests = value; OnPropertyChanged("IsRequests"); } }
 
 
+        public ICommand ToursPageCommand { get; }
+        public ICommand TourStatisticsPageCommand { get; }
+        public ICommand TourReviewsPageCommand { get; }
+        public ICommand TourRequestsPageCommand { get; }
+        public ICommand LiveTourPageCommand { get; }
+        public ICommand AccountSettingsCommand { get; }
+        public ICommand LogOutCommand { get; }
+
         public GuideMenuViewModel(GuideViewMenu mainWindow,User user)
         {
-            
 
-            
-            
+            ToursPageCommand = new RelayCommand(ToursPageClick);
+            TourStatisticsPageCommand = new RelayCommand(TourStatisticsPageClick);
+            TourReviewsPageCommand = new RelayCommand(TourReviewsPageClick);
+            TourRequestsPageCommand = new RelayCommand(TourRequestsPageClick);
+            AccountSettingsCommand = new RelayCommand(AccountSettings_Click);
+            LogOutCommand = new RelayCommand(LogOut_Click);
+
+
             LoggedUser = user;
             MainWindow = mainWindow;
             InitializeGuide();
@@ -72,42 +86,45 @@ namespace BookingApp.ViewModels.GuideViewModel
             tourReviewPage = new TourReviewsPage(mainFrame, LoggedUser);
             toursPage = new ToursPage(LoggedUser);
             tourRequestsPage = new TourRequestsPage(LoggedUser);
-            accountSettingsPage = new AccountSettingsPage(LoggedUser);  
+            accountSettingsPage = new AccountSettingsPage(LoggedUser);
 
 
-            ToursPageClick();
+            TourPageShow();
         }
         public void InitializeGuide() 
         {
             GuideService.GetInstance().UpdateGuideDetails(LoggedUser);
             Guide = GuideService.GetInstance().GetByUserId(LoggedUser.Id);
             IsSuperGuide = Guide.Rank == Enums.GuideRank.SuperGuide ? true : false;
-            IsSuperGuide = true;
         }
 
-        public void ToursPageClick()
+        public void ToursPageClick(object obj)
         {
             ResetButtonColors();
+
+            TourPageShow();
+        }
+       public void TourPageShow()
+        {
             IsTours = true;
             MainWindow.MainFrame.Content = toursPage;
         }
-       
 
-        public void TourStatisticsPageClick()
+        public void TourStatisticsPageClick(object obj)
         {
             ResetButtonColors();
             IsStatistics = true;
             MainWindow.MainFrame.Content = tourStatisticsPage;
         }
 
-        public void TourReviewsPageClick()
+        public void TourReviewsPageClick(object obj)
         {
             ResetButtonColors();
             IsReviews = true;
             MainWindow.MainFrame.Content = tourReviewPage;
         }
 
-        public void TourRequestsPageClick() 
+        public void TourRequestsPageClick(object obj)
         {
 
             ResetButtonColors();
@@ -124,15 +141,16 @@ namespace BookingApp.ViewModels.GuideViewModel
             IsTours = false;
         }
 
-        public void LiveTourPageClick(int id) 
-        { 
+        public void LiveTourPageClick(int id)
+        {
             toursPage.SecondFrame.Content = new LiveTour(id);
         }
-        public void LogOut_Click()
+
+        public void LogOut_Click(object obj)
         {
             MainWindow.Close();
         }
-        public void AccountSettings_Click()
+        public void AccountSettings_Click(object obj)
         {
             MainWindow.MainFrame.Content = accountSettingsPage;
         }   

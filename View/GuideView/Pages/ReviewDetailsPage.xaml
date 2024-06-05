@@ -30,7 +30,7 @@
         </ScrollViewer>
         <Border Grid.Column="2" Background="{DynamicResource BorderBackground}" CornerRadius="8"  Padding="10" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
             <Border.Effect>
-                <DropShadowEffect ShadowDepth="0.5" Color="{DynamicResource ComplexRequestBorder}" Opacity="0.3"/>
+                <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
             </Border.Effect>
             <Grid Grid.Column="1" Margin="40 40 40 40">
                 <Grid.ColumnDefinitions>
@@ -63,11 +63,11 @@
                 <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Language}"/>
                 <TextBlock Foreground="{DynamicResource Text}" FontFamily="Yu Gothic UI Light" TextWrapping="Wrap" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center"  FontSize="25" Text="{Binding Tour.Duration}"/>
 
-                <Border Background="{DynamicResource BorderBackground}" CornerRadius="8" Grid.Row="6" Margin="15 15 15 15" Grid.Column="1"  BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
+                <Border Background="{DynamicResource BorderBackground}" CornerRadius="8" Grid.Row="6"  Grid.Column="1"  BorderBrush="{DynamicResource BorderBrush}" BorderThickness="4">
                     <Border.Effect>
-                        <DropShadowEffect ShadowDepth="0.5" Color="{DynamicResource ComplexRequestBorder}" Opacity="0.3"/>
+                        <DropShadowEffect ShadowDepth="0.5" Color="Black" Opacity="0.3"/>
                     </Border.Effect>
-                    <Button Foreground="{DynamicResource Text}" BorderThickness="0" Background="Transparent" Grid.Row="1" Grid.Column="1" FontFamily="Yu Gothic UI Light" FontSize="30" Content="{ns:Loc GoBack}" Click="GoBackClick"/>
+                    <Button Foreground="{DynamicResource Text}" BorderThickness="0" Background="Transparent"  FontFamily="Yu Gothic UI Light" FontSize="25" Content="{ns:Loc GoBack}" Click="GoBackClick"/>
                 </Border>
             </Grid>
         </Border>

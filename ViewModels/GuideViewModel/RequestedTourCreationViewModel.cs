@@ -18,6 +18,8 @@ using System.Windows;
 using System.Windows.Controls;
 using BookingApp.Resources;
 using System.Windows.Navigation;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
 
 namespace BookingApp.ViewModels.GuideViewModel
 {
@@ -138,6 +140,15 @@ namespace BookingApp.ViewModels.GuideViewModel
 
         public void AddCheckPointClick()
         {
+            if (String.IsNullOrWhiteSpace(Window.txtTourCheckpoints.Text))
+            {
+                Window.txtCheckpointAddValidation.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                Window.txtCheckpointAddValidation.Visibility = Visibility.Collapsed;
+            }
 
             CheckpointsCollection.Add(checkpoint);
             Window.txtTourCheckpoints.Clear();
@@ -164,10 +175,23 @@ namespace BookingApp.ViewModels.GuideViewModel
         public void SelectDatesClick()
         {
             DateTime time;
+
+            if (String.IsNullOrWhiteSpace(Window.datePicker.Text))
+            {
+                Window.txtDatePickerValidation.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                Window.txtDatePickerValidation.Visibility = Visibility.Collapsed;
+            }
+
+
             DateTime.TryParse(Window.datePicker.Text, out time);
             if (CheckDateConditions(time))
             {
                 TourDatesCollection.Add(time);
+                Window.addTourButton.IsEnabled = false;
             }
             else
             {
@@ -199,15 +223,78 @@ namespace BookingApp.ViewModels.GuideViewModel
         {
             DateTime SelectedDate = SelectedTourDate;
             TourDatesCollection.Remove(SelectedDate);
+            Window.addTourButton.IsEnabled = true;
+
         }
 
         bool IsDataValid()
         {
-            return CheckpointsCollection.Count >= 2
-                && ImagesCollection.Count >= 1
-                && TourDatesCollection.Count == 1;
+       
+            if (String.IsNullOrEmpty(Window.txtTourDuration.Text))
+            {
+                Window.txtDurationValidation.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtDurationValidation.Visibility = Visibility.Collapsed;
+            }
+            if (String.IsNullOrEmpty(Window.txtTourCapacity.Text))
+            {
+                Window.txtTourCapacityValidation.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtTourCapacityValidation.Visibility = Visibility.Collapsed;
+            }
+
+            if (CheckpointsCollection.Count() < 2)
+            {
+                Window.txtCheckpointTableValidation.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtCheckpointTableValidation.Visibility = Visibility.Collapsed;
+            }
+            if (TourDatesCollection.Count() != 1)
+            {
+                Window.txtDateTableValidation.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtDateTableValidation.Visibility = Visibility.Collapsed;
+            }
+            if (ImagesCollection.Count() < 1)
+            {
+                Window.txtImageTable.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Window.txtImageTable.Visibility = Visibility.Collapsed;
+            }
+
+
+
+            return      !string.IsNullOrEmpty(Window.txtTourCapacity.Text)
+                       && !string.IsNullOrEmpty(Window.txtTourDuration.Text)
+                       && CheckpointsCollection.Count >= 2
+                       && ImagesCollection.Count >= 1
+                       && TourDatesCollection.Count == 1;
         }
-      
+
+
+        private bool IsTextAllowed(string text)
+        {
+            // Only allow numeric input
+            Regex regex = new Regex("^[1-9][0-9]+$");
+            return regex.IsMatch(text);
+        }
+
+        internal void DurationTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+
         public void CreateTourClick()
         {
             if (!IsDataValid())
