@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using static BookingApp.Resources.Enums;
 
 namespace BookingApp.ApplicationServices
@@ -46,6 +47,9 @@ namespace BookingApp.ApplicationServices
         {
             return _simpleRequestRepository.Save(request);
         }
+
+      
+
         private void SaveRequestGuests(int requestId, List<TourGuestDTO> guests, User loggedUser)
         {
             foreach (TourGuestDTO guest in guests)
@@ -56,7 +60,7 @@ namespace BookingApp.ApplicationServices
         }
         public void MakeTourRequest(SimpleRequestDTO request, List<TourGuestDTO> guests, User user)
         {
-            TourRequest simpleRequest = new TourRequest(request.locationId, request.languageId, request.Description, request.Start, request.End, request.TouristId, request.Status);
+            TourRequest simpleRequest = new TourRequest(request.locationId, request.languageId, request.Description, request.Start, request.End, request.TouristId, request.Status, request.ComplexRequestId);
             Save(simpleRequest);
             SaveRequestGuests(simpleRequest.Id, guests, user);
         }
@@ -77,6 +81,11 @@ namespace BookingApp.ApplicationServices
         public TourRequest Update(TourRequest request)
         {
             return _simpleRequestRepository.Update(request);
+        }
+
+        public List<TourRequest> GetAllByComplexRequest(int complexRequestId)
+        {
+            return GetAll().Where(r => r.ComplexRequestId == complexRequestId).ToList();
         }
         public TourRequest GetById(int id)
         {

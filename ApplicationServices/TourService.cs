@@ -102,7 +102,23 @@ namespace BookingApp.ApplicationServices
         }
         public List<Tour> GetFiltered(TourFilterDTO filter)
         {
-            List<Tour> allTours = GetAllForUser();
+            List<Tour> allTours = new List<Tour>();
+
+            foreach(var tour in GetAllForUser())
+            {
+                if(GuideService.GetInstance().GetByUserId(tour.GuideId).Rank == Enums.GuideRank.SuperGuide)
+                {
+                    allTours.Add(tour);
+                }
+            }
+
+            foreach (var tour in GetAllForUser())
+            {
+                if (GuideService.GetInstance().GetByUserId(tour.GuideId).Rank != Enums.GuideRank.SuperGuide)
+                {
+                    allTours.Add(tour);
+                }
+            }
 
             if (filter.isEmpty())
                 return allTours;

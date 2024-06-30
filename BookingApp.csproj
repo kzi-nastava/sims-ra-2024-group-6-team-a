@@ -8,7 +8,9 @@
   </PropertyGroup>
 	
   <ItemGroup>
+    <None Remove="Resources\Hci_Tutorijal%28c%29.mp4" />
     <None Remove="Resources\Images\accommodations.png" />
+    <None Remove="Resources\Images\account_settings.png" />
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\approved.png" />
     <None Remove="Resources\Images\barcelona.jpg" />
@@ -34,6 +36,7 @@
     <None Remove="Resources\Images\finish_flag.png" />
     <None Remove="Resources\Images\forum.png" />
     <None Remove="Resources\Images\fourArrow.png" />
+    <None Remove="Resources\Images\fraud.png" />
     <None Remove="Resources\Images\futog.jpg" />
     <None Remove="Resources\Images\gift.png" />
     <None Remove="Resources\Images\gift2.png" />
@@ -45,6 +48,7 @@
     <None Remove="Resources\Images\habbo1.jpg" />
     <None Remove="Resources\Images\habbo2.jpg" />
     <None Remove="Resources\Images\halfStar.png" />
+    <None Remove="Resources\Images\helpG.png" />
     <None Remove="Resources\Images\home.png" />
     <None Remove="Resources\Images\horizonti1.jpg" />
     <None Remove="Resources\Images\horizonti10.jpg" />
@@ -85,10 +89,12 @@
     <None Remove="Resources\Images\palermo.jpeg" />
     <None Remove="Resources\Images\palermo.jpg" />
     <None Remove="Resources\Images\pdfFile.png" />
+    <None Remove="Resources\Images\pdf_report.png" />
     <None Remove="Resources\Images\people.png" />
     <None Remove="Resources\Images\pet.png" />
     <None Remove="Resources\Images\phoneG.png" />
     <None Remove="Resources\Images\play.png" />
+    <None Remove="Resources\Images\playVideo.png" />
     <None Remove="Resources\Images\plus.png" />
     <None Remove="Resources\Images\pluss.png" />
     <None Remove="Resources\Images\present.png" />
@@ -137,6 +143,14 @@
   </ItemGroup>
 
   <ItemGroup>
+
+    <Content Include="Resources\Hci_Tutorijal(c).mp4">
+<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\account_settings.png">
+
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -194,6 +208,9 @@
     <Content Include="Resources\Images\fourArrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\fraud.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\gmail.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -201,6 +218,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\halfStar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\helpG.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\important_notice.png">
@@ -245,6 +265,9 @@
     <Content Include="Resources\Images\pdfFile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\pdf_report.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\people.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -254,6 +277,7 @@
     <Content Include="Resources\Images\phoneG.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\playVideo.png" />
     <Resource Include="Resources\Images\bluee.png" />
     <Resource Include="Resources\Images\pluss.png" />
     <Content Include="Resources\Images\profile.png">
@@ -496,6 +520,8 @@
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="QuestPDF" Version="2024.3.10" />
+    <PackageReference Include="Syncfusion.Pdf.Wpf" Version="25.2.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -511,6 +537,21 @@
     <Resource Include="Resources\Images\present.png" />
     <Resource Include="Resources\Images\present2.png" />
     <Resource Include="Resources\Images\questionMark.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="View\GuideView\Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="View\GuideView\Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

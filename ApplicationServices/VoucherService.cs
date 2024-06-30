@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.RepositoryInterfaces;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,10 +17,6 @@ namespace BookingApp.ApplicationServices
     {
         private IVoucherRepository _voucherRepository;
 
-       /* public VoucherService()
-        {
-            _voucherRepository = new VoucherRepository();
-        }*/
         public VoucherService(IVoucherRepository voucherRepository)
         {
             _voucherRepository = voucherRepository;
@@ -32,6 +30,10 @@ namespace BookingApp.ApplicationServices
         public void Delete(Voucher voucher)
         {
             _voucherRepository.Delete(voucher);
+        }
+        public void Save(Voucher voucher)
+        {
+            _voucherRepository.Save(voucher);
         }
 
         public List<Voucher> GetAllByUser(User user)
@@ -47,6 +49,7 @@ namespace BookingApp.ApplicationServices
             }
             return vouchers;
         }
+
         public void SaveAllGuests(List<TourGuests> guests)
         {
 

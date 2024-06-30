@@ -58,5 +58,10 @@ namespace BookingApp.View.GuideView.Pages
         {
             RequestsViewModel.DatePickerEnding_SelectedDateChanged();
         }
+
+        public void Reset_Click(object sender, RoutedEventArgs e)
+        {
+            RequestsViewModel.Reset_Click();
+        }
     }
 }

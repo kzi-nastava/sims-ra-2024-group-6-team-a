@@ -1,5 +1,6 @@
 ﻿using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Model;
+using BookingApp.Observer;
 using BookingApp.Serializer;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,5 +39,13 @@ namespace BookingApp.Repository
             return _users.Find(c => c.Id == id);
         }
 
+
+        public void Delete(User user)
+        {
+            _users = _serializer.FromCSV(FilePath);
+            User found = _users.Find(x => x.Id == user.Id);
+            _users.Remove(found);
+            _serializer.ToCSV(FilePath, _users);
+        }
     }
 }

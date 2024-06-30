@@ -17,6 +17,21 @@ namespace BookingApp.ApplicationServices
             return App.ServiceProvider.GetRequiredService<TourGuestService>();
         }
 
+        public List <TourGuests> GetAllByRequestId(int requestId)   
+        {
+
+            List<TourGuests> tourGuests = new List<TourGuests>();
+
+            foreach (TourGuests t in GetAll())
+            {
+                if (t.RequestId == requestId)
+                {
+                    tourGuests.Add(t);
+                }   
+            }
+            return tourGuests;
+        }
+
 
         public TourGuests Update(TourGuests guest)
         {

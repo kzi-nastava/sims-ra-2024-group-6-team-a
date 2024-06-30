@@ -90,6 +90,10 @@ namespace BookingApp.ApplicationServices
             return _imageRepository.GetByEntity(id, type);
         }
 
+        public List<Image> GetAll()
+        {
+            return _imageRepository.GetAll();
+        }
         public void Delete(Image Image)
         {
             _imageRepository.Delete(Image);

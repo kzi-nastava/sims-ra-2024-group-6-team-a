@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
-        Title="Review the guest" Height="350" Width="400" WindowStartupLocation="CenterScreen" Keyboard.KeyDown="Window_KeyDown">
-    <Grid>
+        Title="Review the guest" Height="350" Width="400" WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+        
+
+    </Window.InputBindings>
+            <Grid>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"></ColumnDefinition>
@@ -20,26 +25,14 @@
 
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">
-            <Underline>C</Underline>leanliness:</TextBlock>
-        <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">
-            <Underline>R</Underline>espectfulness:</TextBlock>
-        <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="Blue">Bonus Comment:</Label>
-        <ComboBox Grid.Row="0" Grid.Column="1" Width="80" Height="20" x:Name="CleanGradeCombo"></ComboBox>
-        <ComboBox Grid.Row="1" Grid.Column="1" Width="80" Height="20" x:Name="RespectGradeCombo"></ComboBox>
-        <TextBox TextWrapping="Wrap" x:Name ="CommentBox" Grid.Row="2" Grid.Column="1" FontSize="17" TextAlignment="Center" VerticalAlignment="Center" Height="120"></TextBox>
-        <TextBlock IsHitTestVisible="False" Text="Eg. Guest manners and details.." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray" Grid.Row="2" Grid.Column="1"  >
-            <TextBlock.Style>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Text, ElementName=CommentBox}" Value="">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
-        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="SaveGrade"  Background="CornflowerBlue" Width="115">Rate</Button>
+        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="SlateBlue">
+            Cleanliness:</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="SlateBlue">
+            Respectfulness:</TextBlock>
+        <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="right" FontSize="18" Foreground="SlateBlue">Bonus Comment:</Label>
+        <ComboBox ItemsSource="{Binding Combo}" SelectedItem="{Binding CleanSelected}" Grid.Row="0" Grid.Column="1" Width="80" Height="20" x:Name="CleanGradeCombo"></ComboBox>
+        <ComboBox ItemsSource="{Binding Combo}" SelectedItem="{Binding RespectSelected}" Grid.Row="1" Grid.Column="1" Width="80" Height="20" x:Name="RespectGradeCombo"></ComboBox>
+        <TextBox Text="{Binding CommentBox}" TextWrapping="Wrap" x:Name ="CommentBox" Grid.Row="2" Grid.Column="1" FontSize="17" TextAlignment="Center" VerticalAlignment="Center" Height="120"></TextBox>
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding ConfirmCommand}"  Background="CornflowerBlue" Width="115">Rate</Button>
     </Grid>
 </Window>

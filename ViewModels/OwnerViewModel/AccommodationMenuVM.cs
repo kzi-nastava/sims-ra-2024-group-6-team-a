@@ -8,17 +8,21 @@ using BookingApp.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Printing;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace BookingApp.ViewModels
 {
-    public class AccommodationMenuVM
+    public class AccommodationMenuVM : INotifyPropertyChanged
     {
-        public  ObservableCollection<AccommodationOwnerDTO> Accommodations { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ObservableCollection<AccommodationOwnerDTO> Accommodations { get; set; }
         public  ObservableCollection<GuestReviewDTO> GuestReviews { get; set; }
         public  ObservableCollection<ReservationOwnerDTO> Reservations { get; set; }
         public ObservableCollection<ReservationChangeDTO> ReservationChanges { get; set; }
@@ -31,11 +35,64 @@ namespace BookingApp.ViewModels
         public OwnerInfoDTO OwnerInfo { get; set; }
 
         public Owner Owner { get; set; }
-  
 
+        public string accommodationStatus;
+        public string AccommodationStatus
+        {
+            get { return accommodationStatus; }
+            set
+            {
+                if (accommodationStatus != value)
+                {
+                    accommodationStatus = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string reservationStatus;
+        public string ReservationStatus
+        {
+            get { return reservationStatus; }
+            set
+            {
+                if (reservationStatus != value)
+                {
+                    reservationStatus = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string reviewStatus;
+        public string ReviewStatus
+        {
+            get { return reviewStatus; }
+            set
+            {
+                if (reviewStatus != value)
+                {
+                    reviewStatus = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string changeStatus;
+        public string ChangeStatus
+        {
+            get { return changeStatus; }
+            set
+            {
+                if (changeStatus != value)
+                {
+                    changeStatus = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         bool existsNotReviewed = false;
         bool existsCanceled = false;
+        bool existsBlog = false;
 
         public AccommodationMenuVM(Owner owner)
         {
@@ -48,6 +105,7 @@ namespace BookingApp.ViewModels
             GuestReviews = new ObservableCollection<GuestReviewDTO>();
             Reservations = new ObservableCollection<ReservationOwnerDTO>();
             ReservationChanges = new ObservableCollection<ReservationChangeDTO>();
+            AccommodationStatus = "LightBlue";
 
             
             Update();
@@ -55,19 +113,43 @@ namespace BookingApp.ViewModels
  
         }
 
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        }
+
         public void EntryNotification() 
         {
-            if(existsCanceled && existsNotReviewed)
+            if(existsCanceled && existsNotReviewed && existsBlog)
+            {
+                MessageBox.Show("You have cancelled reservations,unreviewed guests and new blogs!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (existsNotReviewed && existsBlog)
+            {
+                MessageBox.Show("You have unreviewed guests and new blogs!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (existsCanceled && existsBlog)
+            {
+                MessageBox.Show("You have cancelled reservations and new blogs!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if(existsCanceled && existsNotReviewed) 
             {
                 MessageBox.Show("You have cancelled reservations and unreviewed guests!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else if (existsNotReviewed)
-            {
-                MessageBox.Show("You have unreviewed guests!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else if (existsCanceled)
+            else if( existsCanceled) 
             {
                 MessageBox.Show("You have cancelled reservations!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+            else if(existsBlog)
+            {
+                MessageBox.Show("You have new blogs!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+            else if(existsNotReviewed)
+            {
+                MessageBox.Show("You have unreviewed guests!", "Notice!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -100,6 +182,9 @@ namespace BookingApp.ViewModels
                 AddChangedReservations(a);
 
                 Accommodations.Add(new AccommodationOwnerDTO(a, LocationService.GetInstance().GetByAccommodation(a), imagePath));
+
+                if(!existsBlog)
+                    existsBlog = AccommodationBlogService.GetInstance().ExistsBlogWithinAccommodation(a);
             }
 
             OwnerService.GetInstance().UpdateOwnerStatus(Owner);

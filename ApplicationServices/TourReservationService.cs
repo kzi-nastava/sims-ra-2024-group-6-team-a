@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.RepositoryInterfaces;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.DTOs;
 using BookingApp.Model;
 using Microsoft.Extensions.DependencyInjection;
@@ -61,12 +62,21 @@ namespace BookingApp.ApplicationServices
 
         public void MakeReservation(TourScheduleDTO tourScheduleDTO, User loggedUser, List<TourGuestDTO> guests)
         {
-
+            Tourist tourist = TouristService.GetInstance().GetByTouristId(loggedUser.Id);
             TourReservation reservation = new TourReservation(guests.Count(), tourScheduleDTO.Id, tourScheduleDTO.TourId, loggedUser.Id);
 
             UpdateCurrentGuestNumber(tourScheduleDTO.Id, reservation.GuestNumber);
             Save(reservation);
             SaveTourGuests(reservation.Id, guests, loggedUser);
+            
+           /*if(tourist.Points == 5)
+            {
+                Voucher voucher= new Voucher(tourist.Name, tourist.Surname, tourist.Age, System.DateTime.Now.AddMonths(6),tourist.UserId, System.DateTime.Now);
+                VoucherService.GetInstance().Save(voucher);
+                TouristService.GetInstance().GetByTouristId(loggedUser.Id).Points = 0;
+                TouristService.GetInstance().Update(tourist);
+            }*/
+            
         }
 
         public List<TourReservation> GetAllByUser(User user) 

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using LiveCharts.Defaults;
+using BookingApp.Validation;
+using System.Windows.Input;
 
 namespace BookingApp.ViewModels.TouristViewModel
 {
@@ -88,7 +90,22 @@ namespace BookingApp.ViewModels.TouristViewModel
                 }
             }
         }
-
+        private int _selectedYearAvg;
+        public int SelectedYearAvg
+        {
+            get
+            {
+                return _selectedYearAvg;
+            }
+            set
+            {
+                if (_selectedYearAvg != value)
+                {
+                    _selectedYearAvg = value;
+                    OnPropertyChanged(nameof(SelectedYearAvg));
+                }
+            }
+        }
         private double _averageNumber;
         public double AverageNumber
         {
@@ -111,6 +128,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         public RelayCommand LoadYearStatisticsCommand { get; set; }
         public RelayCommand LoadGeneralPeopleNumberCommand { get; set; }
         public RelayCommand LoadYearPeopleNumberCommand { get; set; }
+
         public RequestStatisticsViewModel(int userId)
         {
             UserId = userId;
@@ -198,19 +216,22 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         private void Execute_LoadGeneralStatisticsCommand(object obj)
         {
-            LoadAllTimePieChart();
+            
+                LoadAllTimePieChart();
         }
         private void Execute_LoadYearsStatisticsCommand(object obj)
         {
-            LoadSelectedYearPieChart();
+                LoadSelectedYearPieChart();
         }
         private void Execute_LoadGeneralPeopleNumberCommand(object obj)
         {
-            AverageNumber = TourRequestService.GetInstance().GetAverageAccepetedPeople(UserId);
+            
+                AverageNumber = TourRequestService.GetInstance().GetAverageAccepetedPeople(UserId);
         }
         private void Execute_LoadYearPeopleNumberCommand(object obj)
         {
-            AverageNumber = TourRequestService.GetInstance().GetAverageAccepetedPeopleByYear(UserId, SelectedYear);
+                AverageNumber = TourRequestService.GetInstance().GetAverageAccepetedPeopleByYear(UserId, SelectedYearAvg);
         }
+        
     }
 }

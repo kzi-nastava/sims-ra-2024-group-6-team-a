@@ -47,6 +47,15 @@ namespace BookingApp.Model
             UserId = userId;
             ReceivingDate = received;
         }
+        public Voucher(string touristName, string touristSurname, int touristBirth, DateTime issuingDate, int userId, DateTime received)
+        {
+            TouristName = touristName;
+            TouristSurname = touristSurname;
+            TouristBirth = touristBirth;
+            IssuingDate = issuingDate;
+            UserId = userId;
+            ReceivingDate = received;
+        }
 
         public string[] ToCSV()
         {

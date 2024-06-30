@@ -14,7 +14,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" FontSize="30" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="10">No free space on selected tour! Chose alternative:</TextBlock>
+        <TextBlock Grid.Row="0" FontSize="30" FontWeight="DemiBold" HorizontalAlignment="Left" Margin="27 8 10 12">No free space on selected tour! Chose alternative:</TextBlock>
+        <TextBlock VerticalAlignment="Bottom" Margin="27 8 0 0" FontStyle="Italic">*Note: Those are same location alternative tours</TextBlock>
         <Border BorderBrush="Black" BorderThickness="1" Grid.Row="2" CornerRadius="1" Margin="27,5,27,8" Background="LightYellow">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid Grid.Row="2">

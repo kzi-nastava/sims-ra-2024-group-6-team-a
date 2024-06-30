@@ -80,6 +80,10 @@ namespace BookingApp.View
             {
                 Close_Click(sender,e);
             }
+            else if(e.Key == Key.P)
+            {
+                Pdf_Click(sender,e);
+            }
         }
 
         public void SelectFirstReservation()
@@ -149,6 +153,15 @@ namespace BookingApp.View
             }
         }
 
+        private void Pdf_Click(object sender, RoutedEventArgs e)
+        {
+            GeneratePdfView pdf = new GeneratePdfView(ViewModel.Accommodation.Id);
+            pdf.ShowDialog();
+            ViewModel.Update();
+            
+        }
+
+
         private void RenovationsList_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -163,6 +176,18 @@ namespace BookingApp.View
                         }
                     }
                 }
+            }
+        }
+
+        private void BlogList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (Tabs.SelectedItem == BlogsTab && ViewModel.SelectedBlog != null)
+                {
+                    ViewModel.OpenBlog();
+                }
+
             }
         }
     }

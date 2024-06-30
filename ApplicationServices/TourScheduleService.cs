@@ -47,6 +47,25 @@ namespace BookingApp.ApplicationServices
             return _scheduleRepository.GetAll();
         }
 
+        public List<TourSchedule> GetAllByUser(User user) 
+        { 
+            List <Tour> tours = TourService.GetInstance().GetAllByUser(user);
+            List<TourSchedule> schedules = new List<TourSchedule>();    
+            foreach (Tour tour in tours)
+            {
+                foreach(TourSchedule schedule in GetAll())
+                {
+                    if(schedule.TourId == tour.Id)
+                    {
+                        schedules.Add(schedule);
+                    }
+                }
+            }
+
+            return schedules;
+        }
+
+
         public List<TourSchedule> GetOngoingSchedulesByUser(User user)
         {
             List<TourSchedule> tours = new List<TourSchedule>();

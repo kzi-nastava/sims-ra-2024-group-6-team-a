@@ -1,0 +1,360 @@
+﻿    <Page x:Class="BookingApp.View.GuestViews.HelpView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.View.GuestViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="540" d:DesignWidth="410"
+      Title="HelpView">
+    
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+       
+        <Grid>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="470"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0" Background="LightGray" >
+                <TextBlock FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="Black" FontWeight="Bold" Margin="0,0,0,0" >Help</TextBlock>
+            </Grid>
+            <Separator  VerticalAlignment="Bottom" Background="Black"></Separator>
+
+                <ScrollViewer Grid.Row="1"  HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
+            <Grid Grid.Row="1" >
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" BorderBrush=" white" BorderThickness="3">
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Accommodations" Foreground=" white" HorizontalAlignment="Center" FontSize="30" FontWeight="Bold"></TextBlock>
+                            <Expander Grid.Row="1" Header=" Showing all accommodations" FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1"  Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ When the guest logs into the application, a list of all accommodations appears." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="∙ Accommodation under renovation will be marked separately and reservations will not be possible." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+
+                                    </Grid>
+                                </Border>
+                            </Expander>
+                            <Expander Grid.Row="2" Header=" Reservation accommodations" FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1"  Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ By clicking on the 'reserve' button, the page related to the reservation of the given accommodation opens." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="∙ The guest needs to enter the number of guests, the number of days and the start and end date of the period, then the algorithm selects the available periods for the given accommodation." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="2" HorizontalAlignment="Left" Text="∙ By clicking on a  date and then on the 'reserve' button, you have successfully created a reservation." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+
+                                    </Grid>
+                                </Border>
+                            </Expander>
+                            <Expander Grid.Row="3" Header=" Showing additionally photos" FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1"  Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ By clicking on the 'more photos' button, the pictures for the selected accommodation are displayed." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+
+                                    </Grid>
+                                </Border>
+                            </Expander>
+
+                        </Grid>
+                    </Border>
+                    <Border Grid.Row="1" BorderBrush=" white" BorderThickness="3">
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="My profile" Foreground=" white" HorizontalAlignment="Center" FontSize="30" FontWeight="Bold"></TextBlock>
+                            <Expander Grid.Row="1" Header=" Profile " FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1" Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ When the my profile page is opened, personal information from the guest is displayed." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+
+                                    </Grid>
+                                </Border>
+                            </Expander>
+                            <Expander Grid.Row="2" Header=" Super guest " FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1" Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ The data header shows whether the guest is a super guest as well as the number of bonus points." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="∙ The maximum number of bonus points is five and bonus points are reduced when booking." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="2" HorizontalAlignment="Left" Text="∙ You can become a super guest by having a minimum of 10 reservations in the previous year." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+
+                                    </Grid>
+                                </Border>
+                            </Expander>
+                            <Expander Grid.Row="3" Header=" Ratings " FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1" Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ Depending on the average rating of the guest received from the owner, a certain number of stars will be displayed ." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="∙ The minimum grade is one and the maximum is five." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+
+                                    </Grid>
+                                </Border>
+                            </Expander>
+                        </Grid>
+                    </Border>
+                    <Border Grid.Row="2" BorderBrush=" white" BorderThickness="3">
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="My reservations" Foreground=" white" HorizontalAlignment="Center" FontSize="30" FontWeight="Bold"></TextBlock>
+                            <Expander Grid.Row="1" Header=" My reservations" FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1" Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ By clicking on the 'My reservations' button, a page showing all my reservations opens." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="∙ By clicking on the 'see more' button, a more detailed view of the reservation opens." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                    </Grid>
+                                </Border>
+                            </Expander>
+
+                            <Expander Grid.Row="2" Header=" Cancelation reservation" FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1"  Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ By clicking the cancel reservation button, the reservation is canceled if the cancellation period has not passed ." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+
+                                    </Grid>
+                                </Border>
+                            </Expander>
+                            <Expander Grid.Row="3" Header=" Move the reservation" FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1"  Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ By clicking on the move reservation button, the user enters the start and end date of the reservation." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="∙ Then by clicking on the move reservation button the request is sent to the owner." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="2" HorizontalAlignment="Left" Text="∙ Send a request, the owner can approve or reject it, and this is checked in the 'My Requests' section." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+
+                                    </Grid>
+                                </Border>
+                            </Expander>
+                            <Expander Grid.Row="4" Header=" Rate owner and reservation" FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1"  Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ The owner and reservations can be evaluated five days after the reservation is completed." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="∙ The guest fills in several fields, cleanliness, correctness of the owner and an additional comment, and optionally adds pictures." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="2" HorizontalAlignment="Left" Text="∙ In the continuation of the review, the guest leaves a recommendation for renovation by entering information about the condition of the accommodation and how much renovation is necessary, i.e. the level of urgency of the renovation." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+
+                                    </Grid>
+                                </Border>
+                            </Expander>
+                        </Grid>
+                    </Border>
+                    <Border Grid.Row="3" BorderBrush=" white" BorderThickness="3">
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text=" My requests" Foreground=" white" HorizontalAlignment="Center" FontSize="30" FontWeight="Bold"></TextBlock>
+                            <Expander Grid.Row="1" Header=" Check requests" FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1"  Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ In the section 'My requests' you can see a list of requests that the owner has approved or rejected, the request can also be pending." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="∙ When the request is rejected or approved, you can click the 'seen' button, thereby notifying the owner that you have seen the status of the request." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                    </Grid>
+                                </Border>
+                            </Expander>
+
+                        </Grid>
+                    </Border>
+                    <Border Grid.Row="4" BorderBrush=" white" BorderThickness="3">
+                        <Grid Grid.Row="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="My ratings" Foreground=" white" HorizontalAlignment="Center" FontSize="30" FontWeight="Bold"></TextBlock>
+                            <Expander Grid.Row="1" Header=" Check ratings" FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1"  Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ From the menu select the rubric of my ratings and my ratings are displayed." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="∙ Above the table with my ratings is written the average rating, which is the average rating of all average ratings from the reservation." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                    </Grid>
+                                </Border>
+                            </Expander>
+
+                        </Grid>
+                    </Border>
+                    <Border Grid.Row="5" BorderBrush=" white" BorderThickness="3">
+                        <Grid Grid.Row="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text=" Forums" Foreground=" white" HorizontalAlignment="Center" FontSize="30" FontWeight="Bold"></TextBlock>
+
+
+                            <Expander Grid.Row="1" Header=" Show forums" FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1"  Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ Clicking the 'Forum' button displays all forums." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="∙ Forums that have more than 20 comments from a guest who has been there will be shown as very important." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                    </Grid>
+                                </Border>
+                            </Expander>
+                            <Expander Grid.Row="2" Header=" Create new forum" FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1"  Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ By clicking the button 'create new forum', the form for entering a New Forum opens." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="∙ The guest chooses the location where he wants to start the forum as well as the initial questions to be answered." FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                    </Grid>
+                                </Border>
+                            </Expander>
+                            <Expander Grid.Row="3" Header=" Create new comment of forum" FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1"  Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ Clicking on the button open this forum opens a detailed view of the Forum with its comments" FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="∙ The comment will be marked separately if the guest was at that location" FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="2" HorizontalAlignment="Left" Text="∙ A new comment on the selected forum is added by clicking the button create a new comment" FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="3" HorizontalAlignment="Left" Text="∙ A form is opened in which the comment should be filled" FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                    </Grid>
+                                </Border>
+                            </Expander>
+                        </Grid>
+                    </Border>
+                    <Border Grid.Row="6" BorderBrush=" white" BorderThickness="3">
+                        <Grid Grid.Row="6">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Wherever/Whenever" Foreground=" white" HorizontalAlignment="Center" FontSize="30" FontWeight="Bold"></TextBlock>
+
+
+                            <Expander Grid.Row="1" Header=" Create reservation" FontSize="22"  Margin="10, 0, 0, 0" FontWeight="SemiBold" HorizontalAlignment="Left" Foreground=" white">
+                                <Border BorderBrush=" white" BorderThickness="1"  Background="DarkSlateGray" Padding="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="∙ Choose a section from the menu'Wherever/Whenever' and this opens the page for filling out the form" FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="∙ The user fills in the form in which he selects the starting and ending dates of the reservation, the number of people and the number of days" FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                        <TextBlock Grid.Row="2" HorizontalAlignment="Left" Text="∙ The system finds available accommodation for the selected period and by clicking the 'reserve' button you reserve the reservation" FontSize="16" FontWeight="SemiBold" MaxWidth="320" TextWrapping="Wrap" Foreground=" white"></TextBlock>
+                                    </Grid>
+                                </Border>
+                            </Expander> 
+                        </Grid>
+                    </Border>
+            </Grid>
+                </ScrollViewer>
+            </Grid>
+    </ScrollViewer>
+</Page>

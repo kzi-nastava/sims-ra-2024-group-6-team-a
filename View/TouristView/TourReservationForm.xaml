@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
         mc:Ignorable="d"
+        xmlns:converters="clr-namespace:BookingApp.View.Converters"
         Title="Tour Reservation Form" Height="650" Width="850" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullConverter"/>
+    </Window.Resources>
 
     <Grid Background="AliceBlue">
         <Grid.ColumnDefinitions>
@@ -34,37 +38,40 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="190"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="140"/>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="135"/>
+                    <ColumnDefinition Width="65"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock  FontSize="20" VerticalAlignment="Center" Margin="20 10 0 10" Grid.Column="0" FontWeight="DemiBold">Tour name:</TextBlock>
-                <TextBlock TextWrapping="Wrap" Text="{Binding TourTouristDTO.Name}" FontStyle="Italic" VerticalAlignment="Center" Margin="20 10 10 8" Grid.Column="1" FontSize="15"></TextBlock>
+                <TextBlock TextWrapping="Wrap" Text="{Binding TourTouristDTO.Name}" FontStyle="Italic" VerticalAlignment="Center" Margin="15 10 0 8" Grid.Column="1" FontSize="20"></TextBlock>
                 
-                <TextBlock  FontSize="20" VerticalAlignment="Center" Margin="20 10 0 10" Grid.Column="2" HorizontalAlignment="Left" FontWeight="DemiBold">Location:</TextBlock>
-                <TextBlock   TextWrapping="Wrap" Grid.Column="3" VerticalAlignment="Center" FontStyle="Italic" Margin="10 10 10 8" FontSize="15">
+                <TextBlock  FontSize="20" VerticalAlignment="Center" Margin="25 10 0 10" Grid.Column="2" HorizontalAlignment="Left" FontWeight="DemiBold">Location:</TextBlock>
+                <TextBlock   TextWrapping="Wrap" Grid.Column="3" VerticalAlignment="Center" FontStyle="Italic" Margin="5 10 5 8" FontSize="20">
                      <Run Text="{Binding TourTouristDTO.State}"/>
                      <Run Text="," />
                      <Run Text="{Binding TourTouristDTO.City}"  />      
                 </TextBlock>
                 
-                <TextBlock  FontSize="20" VerticalAlignment="Center" Margin="0 10 10 10" Grid.Column="4" FontWeight="DemiBold" HorizontalAlignment="Left">Max capacity:</TextBlock>
-                <TextBlock  Grid.Column="5" VerticalAlignment="Center" Text="{Binding TourTouristDTO.Capacity}" FontStyle="Italic" Margin="10 10 20 8" FontSize="16"></TextBlock>
+                <TextBlock FontSize="20" VerticalAlignment="Center" Margin="0 10 0 10" Grid.Column="4" FontWeight="DemiBold" >Max capacity:</TextBlock>
+                <TextBlock  Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding TourTouristDTO.Capacity}" FontStyle="Italic" Margin="0 10 15 8" FontSize="20"></TextBlock>
 
             </Grid>
             
         </Border>
+
         <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="10" FontSize="22" FontWeight="DemiBold" Grid.Row="3">Chose date and time:</TextBlock>
-        <ListView x:Name="sch" Grid.RowSpan="2" Margin="0 20 50 0" Width="Auto" ItemsSource="{Binding TourSchedules}" SelectedItem="{Binding TourSchedule, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1">
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="5" FontSize="10" Grid.Column="1" Text="{Binding ValidationErrors[Date], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+        <ListView Background="LightYellow" x:Name="sch" Grid.RowSpan="2" Margin="0 20 50 0" Width="Auto" ItemsSource="{Binding TourSchedules}" SelectedItem="{Binding TourSchedule, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="1">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Tour Schedule" DisplayMemberBinding="{Binding TourScheduleDisplay}" Width="218"/>
+                    <GridViewColumn Header="Tour schedules" DisplayMemberBinding="{Binding TourScheduleDisplay}" Width="218"/>
                 </GridView>
             </ListView.View>
         </ListView>
+        
         <TextBlock FontSize="22" FontWeight="DemiBold" Grid.Column="0" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10 10 10 5">Enter tourist info:</TextBlock>
         <TextBlock FontSize="22" FontWeight="DemiBold" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="145 10 10 5">Registered tourists:</TextBlock>
         <TextBlock Grid.Row="5" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="12" Margin="0 10 20 0">Current capacity:</TextBlock>
@@ -91,14 +98,20 @@
 
                 <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" Margin="10">Name:</TextBlock>
                 <TextBox Text="{Binding Name}" Grid.Column="1" Grid.ColumnSpan="2" Height="30" Width="120"></TextBox>
+                <TextBlock Margin="25 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="0" FontSize="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ValidationErrors[Name], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+
                 <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" Margin="10">Surname:</TextBlock>
                 <TextBox Text="{Binding Surname}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="30" Width="120"></TextBox>
+                <TextBlock Margin="25 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="1" FontSize="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ValidationErrors[Surname], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+
                 <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" FontWeight="DemiBold" FontSize="15">Age:</TextBlock>
                 <TextBox Text="{Binding Age}" Grid.Column="1" Grid.Row="2" Height="30" Width="50" Margin="20 0 0 0" ></TextBox>
+                <TextBlock Margin="25 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="2" FontSize="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ValidationErrors[Age], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+
                 <Button Background="AntiqueWhite" Command="{Binding AddTouristInfoCommand}" Content="+" FontWeight="DemiBold" FontSize="20" Width="25" Height="30" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0">
                     <Button.ToolTip>
                         <ToolTip>
-                            Add tourist info
+                            Click to add tourist info
                         </ToolTip>
                     </Button.ToolTip>
                 </Button>
@@ -106,7 +119,7 @@
             
         </Border>
 
-        <DataGrid x:Name="TouristsDataGrid" Grid.Row="6" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="120 5 75 10 " CanUserAddRows="False" AutoGenerateColumns="False"  Width="315" ItemsSource="{Binding TourGuests, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+        <DataGrid Background="LightYellow" x:Name="TouristsDataGrid" Grid.Row="6" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="120 5 75 10 " CanUserAddRows="False" AutoGenerateColumns="False"  Width="315" ItemsSource="{Binding TourGuests, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="95"/>
                 <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="95"/>
@@ -119,7 +132,7 @@
                             CommandParameter="{Binding}" HorizontalAlignment="Center">
                                 <Button.ToolTip>
                                     <ToolTip>
-                                        Remove tourist
+                                        Click to remove tourist
                                     </ToolTip>
                                 </Button.ToolTip>
                             </Button>
@@ -132,23 +145,32 @@
         <Button Background="AntiqueWhite" Width="120" Height="30" Content="Cancel" FontSize="15" FontWeight="Bold" Command="{Binding CancelReservationCommand}" Margin="0,10,50,10" Grid.Column="0" Grid.Row="10" VerticalAlignment="Center" Grid.ColumnSpan="2">
             <Button.ToolTip>
                 <ToolTip>
-                    Cancel reservation
+                    Click to cancel reservation
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Background="AntiqueWhite" Width="120" Height="30" FontSize="15" FontWeight="Bold" Content="Confirm" Command="{Binding SaveReservationCommand}" Margin="0,10,50,10" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" Grid.ColumnSpan="2">
+        <Button  Background="AntiqueWhite" Width="120" Height="30" FontSize="15" FontWeight="Bold" Content="Confirm" Command="{Binding SaveReservationCommand}" Margin="0,10,50,10" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" Grid.ColumnSpan="2">
             <Button.ToolTip>
                 <ToolTip>
-                    Save reservation
+                    Click to confirm reservation
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-        <Button Background="AntiqueWhite" Width="100" Height="25" FontSize="13" FontWeight="DemiBold" Content="Use voucher?" Command="{Binding UseVoucherCommand}" Margin="0,10,50,0" Grid.Column="1" Grid.Row="9" VerticalAlignment="Bottom"  Grid.ColumnSpan="2">
+        <Button Background="AntiqueWhite" Visibility="{Binding Voucher, Converter={StaticResource NullConverter}, ConverterParameter=Reverse}" Width="100" Height="25" FontSize="13" FontWeight="DemiBold" Content="Use voucher?" Command="{Binding UseVoucherCommand}" Margin="0,10,50,0" Grid.Column="1" Grid.Row="9" VerticalAlignment="Bottom"  Grid.ColumnSpan="2">
             <Button.ToolTip>
                 <ToolTip>
-                    Use voucher
+                    Click to use voucher
                 </ToolTip>
             </Button.ToolTip>
+            
+        </Button>
+        <Button Background="AntiqueWhite" Visibility="{Binding Voucher, Converter={StaticResource NullConverter}}" Width="110" Height="25" FontSize="13" FontWeight="DemiBold" Content="Remove voucher" Command="{Binding RemoveVoucherCommand}" Margin="0,10,50,0" Grid.Column="1" Grid.Row="9" VerticalAlignment="Bottom"  Grid.ColumnSpan="2">
+            <Button.ToolTip>
+                <ToolTip>
+                    Click to remove voucher
+                </ToolTip>
+            </Button.ToolTip>
+
         </Button>
     </Grid>
 

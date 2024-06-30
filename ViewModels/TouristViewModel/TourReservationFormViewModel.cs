@@ -9,24 +9,13 @@ using System.Windows;
 using System.ComponentModel;
 using BookingApp.Domain.Model;
 using System;
+using BookingApp.Validation;
 
 namespace BookingApp.ViewModels.TouristViewModel
 {
-    public class TourReservationFormViewModel : INotifyPropertyChanged
+    public class TourReservationFormViewModel : ValidationBase, INotifyPropertyChanged
     {
         public TourReservationDTO TourReservationDTO { get; set; }
-        private int _guestNumber;
-        public int GuestNumber
-        {
-            get { return _guestNumber;}
-            set{
-                if (value != _guestNumber)
-                {
-                    _guestNumber = value;
-                    OnPropertyChanged("GuestNumber");
-                }
-            }
-        }
         private string _name;
         public string Name
         {
@@ -50,8 +39,23 @@ namespace BookingApp.ViewModels.TouristViewModel
 
         public TourTouristDTO TourTouristDTO { get; set; }
         public User LoggedUser { get; set; }
-        public TourScheduleDTO TourSchedule { get; set; }
-        public VouchersDTO Voucher { get; set; }
+
+        private VouchersDTO? _voucher;
+        public VouchersDTO? Voucher { 
+            get
+            {
+                return _voucher;
+            }
+
+            set
+            {
+                if(_voucher != value)
+                {
+                    _voucher = value;
+                    OnPropertyChanged("Voucher");
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -62,6 +66,42 @@ namespace BookingApp.ViewModels.TouristViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
+
+        private TourScheduleDTO _tourSchedule;
+        public TourScheduleDTO TourSchedule
+        {
+            get => _tourSchedule;
+            set
+            {
+                if (_tourSchedule != value)
+                {
+                    _tourSchedule = value;
+                    OnPropertyChanged(nameof(TourSchedule));
+                    OnPropertyChanged(nameof(IsButtonEnabled));
+                }
+            }
+        }
+        private bool _isScheduleSelected;
+
+        public bool IsScheduleSelected
+        {
+            get => _isScheduleSelected;
+            set
+            {
+                if (_isScheduleSelected != value)
+                {
+                    _isScheduleSelected = value;
+                    OnPropertyChanged(nameof(IsScheduleSelected));
+                }
+            }
+        }
+
+
+        private bool _isScheduleValid;
+
+        private bool _isTouristInfoValid;
+
+        public bool IsButtonEnabled => IsScheduleSelected;
         public ObservableCollection<TourScheduleDTO> TourSchedules { get; set; } = new ObservableCollection<TourScheduleDTO>();
         public ObservableCollection<TourGuestDTO> TourGuests { get; set; } = new ObservableCollection<TourGuestDTO>();
         public RelayCommand AddTouristInfoCommand { get; set; }
@@ -69,6 +109,7 @@ namespace BookingApp.ViewModels.TouristViewModel
         public RelayCommand SaveReservationCommand { get; set; }
         public RelayCommand CancelReservationCommand { get; set; }
         public RelayCommand UseVoucherCommand { get; set; }
+        public RelayCommand RemoveVoucherCommand { get; set; }
         public Action CloseAction { get; set; }
 
         public TourReservationFormViewModel(User user, TourTouristDTO selectedTour)
@@ -79,18 +120,20 @@ namespace BookingApp.ViewModels.TouristViewModel
             RemoveTouristCommand = new RelayCommand(RemoveTourist);
             SaveReservationCommand = new RelayCommand(Execute_SaveReservationCommand);
             UseVoucherCommand = new RelayCommand(Execute_UseVoucherCommand);
+            RemoveVoucherCommand = new RelayCommand(Execute_RemoveVoucherCommand);
             CancelReservationCommand = new RelayCommand(Execute_CancelReservationCommand);
 
             foreach (var tourSchedule in TourScheduleService.GetInstance().GetAll())
             {
-                if (tourSchedule.TourId == selectedTour.Id)
+                if (tourSchedule.TourId == selectedTour.Id && tourSchedule.TourActivity == Resources.Enums.TourActivity.Ready)
                 {
                     TourSchedules.Add(new TourScheduleDTO(tourSchedule));
                 }
             }
             TourTouristDTO = selectedTour;
             TourReservationDTO = new TourReservationDTO();
-
+            _isScheduleValid = false;
+            _isTouristInfoValid = false;
             AddUserInfo();
         }
 
@@ -107,35 +150,78 @@ namespace BookingApp.ViewModels.TouristViewModel
 
             if (result != MessageBoxResult.Yes)
                 return;
-
+            if (result == MessageBoxResult.Yes)
+            {
+                CloseAction?.Invoke();
+            }
+        }
+        private void Execute_RemoveVoucherCommand(object parameter)
+        {
+            Voucher = null;
         }
         private void Execute_SaveReservationCommand(object sender)
         {
             Voucher voucher = new Voucher();
-            
-            if (TourReservationService.GetInstance().IsFullyBooked(TourSchedule.Id))
+            _isScheduleValid = true;
+            _isTouristInfoValid = false;
+            Validate();
+            if (IsValid)
             {
-                SameLocationToursWindow sameLocationTours = new SameLocationToursWindow(TourSchedule, LoggedUser);
-                sameLocationTours.Owner = Application.Current.MainWindow;
-                sameLocationTours.ShowDialog();
-               
-                return;
-            }
-
-            if (TourSchedule.CurrentFreeSpace >= GuestNumber && TourSchedule.Activity != Resources.Enums.TourActivity.Finished)
-            {
-                TourReservationService.GetInstance().MakeReservation(TourSchedule, LoggedUser, TourGuests.ToList());
-                if (Voucher != null)
+                if (TourReservationService.GetInstance().IsFullyBooked(TourSchedule.Id))
                 {
-                    voucher.Id = Voucher.Id;
-                    VoucherService.GetInstance().Delete(voucher);
+                    SameLocationToursWindow sameLocationTours = new SameLocationToursWindow(TourSchedule, LoggedUser);
+                    sameLocationTours.Owner = Application.Current.MainWindow;
+                    sameLocationTours.ShowDialog();
+
+                    return;
                 }
-                CloseAction();
-                return;
+
+                if (TourSchedule.CurrentFreeSpace >= TourGuests.Count() && TourSchedule.Activity != Resources.Enums.TourActivity.Finished)
+                {
+                    Tourist tourist = TouristService.GetInstance().GetByTouristId(LoggedUser.Id);
+                    tourist.Points++;
+                    TouristService.GetInstance().Update(tourist);
+
+                    TourReservationService.GetInstance().MakeReservation(TourSchedule, LoggedUser, TourGuests.ToList());
+
+                    if (Voucher != null)
+                    {
+                        voucher.Id = Voucher.Id;
+                        VoucherService.GetInstance().Delete(voucher);
+                    }
+                    MessageBox.Show("Tour Booked successfully!");
+                    CloseAction();
+                    return;
+                }
+
+                AvailableSpaceMessage();
+            }
+        }
+
+        protected override void ValidateSelf()
+        {
+            ValidationErrors.Clear();
+
+            if (_isScheduleValid)
+            {
+                if (TourSchedule == null)
+                    ValidationErrors["Date"] = "Date selecting is required.";
             }
 
-            AvailableSpaceMessage();
+            
+            if (_isTouristInfoValid)
+            {
+                if (string.IsNullOrWhiteSpace(Name))
+                    ValidationErrors[nameof(Name)] = "Name is required.";
 
+                if (string.IsNullOrWhiteSpace(Surname))
+                    ValidationErrors[nameof(Surname)] = "Surname is required.";
+
+                if (Age <= 0)
+                    ValidationErrors[nameof(Age)] = "Enter a valid age number.";
+            }
+
+            OnPropertyChanged(nameof(ValidationErrors));
         }
         private void Execute_CancelReservationCommand(object sender)
         {
@@ -143,8 +229,15 @@ namespace BookingApp.ViewModels.TouristViewModel
         }
         private void Execute_AddTouristInfoCommand(object sender)
         {
-            TourGuests.Add(new TourGuestDTO(Name, Age, Surname, -1));
-            ClearInputFields();
+            _isScheduleValid = false; 
+            _isTouristInfoValid = true;
+
+            Validate();
+            if (IsValid)
+            {
+                TourGuests.Add(new TourGuestDTO(Name, Age, Surname, -1));
+                ClearInputFields();
+            }
         }
         private void ClearInputFields()
         {

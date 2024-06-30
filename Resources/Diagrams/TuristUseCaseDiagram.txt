@@ -1,0 +1,80 @@
+Kreiranje kompleksnog zahtjeva:
+
+-preduslovi: Turista ima nalog i prijavljen je
+-posljedice: Kompleksna tura je kreirana
+-osnovni tok izvrsavanja:
+1. Turista otvara prozor sa formom za unos podataka za slozenu turu
+2.[Ukljuci: Kreiranje obicne ture]
+3.Turista oznacava da je zavrsio kreiranje slozene ture izborom 'Confirm' [Alternativni tok B]
+4.Kompleksna tura je kreirana i obavjestava se sistem [Alternativni tok C]
+5. Slucaj koriscenja se zavrsava
+
+[Alternativni tok B]
+1.Turista je odlucio da ipak ne zeli da kreira slozenu turu klikom na dugme 'Cancel'
+2.Sistem pita da li je turista siguran da zeli da otkaze kreiranje slozene ture?
+3.Turista potvrdjuje 
+4.Kompleksna tura nije kreirana 
+5.slucaj koriscenja se zavrsava
+
+[Alternativni tok C]
+1.Sistem je utvrdio da nisu kreirane minimalno dvije obicne ture
+2.Kompleksna tura nije kreirana 
+3. Slucaj koriscenja se zavrsava
+
+
+
+Kreiranje obicne ture:
+-preduslovi: Turista je vec otvorio dijalog za kreiranje kompleksnog zahtjeva
+-posljedice: Obicna tura (!kao komponenta) je kreirana
+-osnovni tok izvrsavanja:
+1. Turista otvara prozor za kreiranje obicne ture, komponente slozene
+2.Turista popunjava formu podacima
+3.Turista oznacava da je zavrsio izborom opcije 'Confirm' [Alternativni tok A]
+4.Slucaj koriscenja se zavrsava i korisniku se prikazuje forma za kompleksnu turu
+
+[Alternativni tok A]
+1.Turista je odlucio da otkaze turu izborom 'Cancel'
+2.Sistem pita da li je turista siguran da zeli da otkaze kreiranje obicne ture?
+3.Turista potvrdjuje 
+4.Slucaj koriscenja se zavrsava i turisti se prikazuje forma za kompleksne ture
+
+------------------------------------------------------------------------------------------------------------------
+
+Prikaz djelimicno prihvacenih zahtjeva u okviru kompleksnog:
+
+-preduslovi: Turista ima nalog i prijavljen je i kreirao je kompleksni zahtjev
+-posljedica: Svi zahtjevi su prikazani.
+-osnovni tok izvrsavanja:
+1.Turista otvara prozor sa svim slozenim zahtjevima za ture
+2.Sistem provjerava da li postoje nevazeci ili skroz prihvaceni zahtjevi i oznacava ih
+3.Sistem prikazuje informacije o statusu slozenih tura.
+4.Turista bira obicnu turu cije informacije zeli da vidi
+5.Sistem prikazuje informacije 
+6. Slucaj koriscenja se zavrsava
+
+-------------------------------------------------------------------
+
+Osvajanje vaucera:
+
+-preduslov: turista prisustvovao na pet tura u intervalu od godinu dana
+-posljedica: turista dobija vaucer koji traje 6 mjeseci i koji moze iskoristiti kada rezervise turu
+-osnovni tok izvrsavanja:
+1.Sistem provjerava da li je turista otisao na pet tura u intervalu od godinu dana
+2.Sistem kreira vaucer i on se dodaje u listu svih vaucera korisnika[Alternativan tok A]
+3.Turista moze da vidi svoj osvojeni vaucer u listi svojih vaucera 
+4.Slucaj koriscenja je zavrsen
+
+[Alternativan tok A]
+1.Sistem je utvrdio da korisnik nije otisao na 5 tura u intervalu od godinu dana
+2.Vaucer se nece kreirati 
+3.Slucaj koriscenja je zavrsen
+
+
+
+
+
+
+
+
+
+

@@ -28,6 +28,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
         public NavigationService NavService { get; set; }
         public ForumView forumView { get; set; }
         public RelayCommand CreateCommand { get; set; }
+        public RelayCommand OpenThisForumCommand { get; set; }
         public RelayCommand CreateForumCommand { get; set; }
 
         public ForumViewModel(Guest guest, NavigationService navigation)
@@ -38,6 +39,7 @@ namespace BookingApp.ViewModels.GuestsViewModel
             this.locations = new List<String>();
 
             CreateCommand = new RelayCommand(Execute_CreateCommand);
+            OpenThisForumCommand = new RelayCommand(Execute_OpenThisForumCommand);
             CreateForumCommand = new RelayCommand(Execute_CreateForumCommand);
             AddLocations();
             Update();
@@ -51,9 +53,10 @@ namespace BookingApp.ViewModels.GuestsViewModel
         }
         public void Update() { 
             foreach (var forum in ForumService.GetInstance().GetAll()) {
+                Enums.ReservationChangeStatus status = ForumsCommentService.GetInstance().CheckSuperForum(forum.Id);
                 string username = UserService.GetInstance().GetUsername(forum.UserId);
                 Location location = LocationService.GetInstance().GetById(forum.LocationId);
-                Forums.Add(new ForumsDTO(username,location,forum));
+                Forums.Add(new ForumsDTO(username,location,forum, status));
             }
         }
         public void Execute_CreateCommand(object obj)
@@ -63,6 +66,11 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 button.ContextMenu.PlacementTarget = button;
                 button.ContextMenu.IsOpen = true;
             }
+        }  
+        public void Execute_OpenThisForumCommand(object obj)
+        {
+            ForumsDTO forumsDTO = obj as ForumsDTO;
+            NavService.Navigate(new ViewForumView(forumsDTO, Guest, NavService));
         }    
         public void Execute_CreateForumCommand(object obj)
         {

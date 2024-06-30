@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookingApp.View.TouristView"
+        xmlns:local="clr-namespace:BookingApp.View.TouristView"        
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="SimpleRequest" Height="670" Width="800" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
@@ -30,24 +31,29 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock FontSize="33" FontWeight="DemiBold" Margin="20 10 10 10" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">Simple tour request:</TextBlock>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="20 15 10 10">
-            <TextBlock FontSize="20"  HorizontalAlignment="Left" FontWeight="DemiBold" VerticalAlignment="Center">Location:</TextBlock>
-            <ComboBox  Margin="70 0 0 0" Width="150" IsEditable="True" SelectedIndex="{Binding SelectedLocationIndex, Mode=TwoWay}" ItemsSource="{Binding Locations}" DisplayMemberPath="LocationDisplayFormat" VerticalAlignment="Center"></ComboBox>
+        <TextBlock FontSize="33" FontWeight="DemiBold" Margin="20 10 10 10" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">Simple tour request form:</TextBlock>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="20 0 10 10">
+            <TextBlock FontSize="20"  HorizontalAlignment="Left" FontWeight="DemiBold" VerticalAlignment="Center" Margin="0, 0, 0, 5">Location:</TextBlock>
+            <ComboBox  Margin="70 10 0 10" Width="150" IsEditable="True" SelectedIndex="{Binding SelectedLocationIndex, Mode=TwoWay}" ItemsSource="{Binding Locations}" DisplayMemberPath="LocationDisplayFormat" VerticalAlignment="Center"></ComboBox>
         </StackPanel>
+        <TextBlock Margin="173 0 0 5" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" FontSize="10" Text="{Binding ValidationErrors[Location], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
         <Grid Grid.RowSpan="2" Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="27.226"/>
                 <ColumnDefinition Width="122.774"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock FontSize="20" Margin="20,10,0,0" FontWeight="DemiBold" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">Desription:</TextBlock>
-            <TextBox Text="{Binding SelectedRequest.Description}" TextWrapping="Wrap" Background="LightYellow" Grid.Column="2" Margin="20,10,40,10" BorderBrush="Black" BorderThickness="1"/>
+            <TextBlock Margin="20 0 40 0" Grid.Column="2" VerticalAlignment="Bottom" FontSize="10" Text="{Binding ValidationErrors[Description], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+
+            <TextBlock FontSize="20" Margin="20,5,0,10" FontWeight="DemiBold" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2">Desription:</TextBlock>
+            <TextBox Text="{Binding SelectedRequest.Description}" TextWrapping="Wrap" Background="LightYellow" Grid.Column="2" Margin="20,10,40,15" BorderBrush="Black" BorderThickness="1"/>
         </Grid>
-        <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="20 10 10 10">
-            <TextBlock FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Center">Language:</TextBlock>
-            <ComboBox x:Name="locationComboBox" Margin="60 0 0 0" Width="120" IsEditable="True" SelectedIndex="{Binding SelectedLanguageIndex, Mode=TwoWay}" ItemsSource="{Binding Languages}" DisplayMemberPath="LanguageDisplayFormat" VerticalAlignment="Center"></ComboBox>
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2" Margin="20 0 10 10">
+            <TextBlock FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0, 0, 0, 5">Language:</TextBlock>
+            <ComboBox x:Name="locationComboBox" Margin="60 10 0 10" Width="120" IsEditable="True" SelectedIndex="{Binding SelectedLanguageIndex, Mode=TwoWay}" ItemsSource="{Binding Languages}" DisplayMemberPath="LanguageDisplayFormat" VerticalAlignment="Center"></ComboBox>
         </StackPanel>
+        <TextBlock Margin="174 0 0 5" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" FontSize="10" Text="{Binding ValidationErrors[Language], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+
         <Grid Grid.Row="5" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
@@ -55,10 +61,14 @@
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <TextBlock Margin="13 0 0 0" Grid.Column="1" VerticalAlignment="Bottom" FontSize="10" Text="{Binding ValidationErrors[StartDate], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+
             <TextBlock Margin="20 10 10 10" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Center">From date:</TextBlock>
-            <DatePicker SelectedDate="{Binding Start, Mode=OneWayToSource}" BorderBrush="AliceBlue" Grid.Column="1" Width="120" HorizontalAlignment="Left" Margin="10 20 10 10"></DatePicker>
-            <TextBlock  Margin="20 10 0 10" FontSize="20" Grid.Column="2" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Center">To date:</TextBlock>
-            <DatePicker SelectedDate="{Binding End, Mode=OneWayToSource}" BorderBrush="AliceBlue" Grid.Column="3" Width="120" HorizontalAlignment="Left" Margin="0 20 10 10"></DatePicker>
+            <DatePicker DisplayDateStart="{x:Static sys:DateTime.Now}" SelectedDate="{Binding Start, Mode=OneWayToSource}" BorderBrush="AliceBlue" Grid.Column="1" Width="120" HorizontalAlignment="Left" Margin="10 20 10 10"></DatePicker>
+            <TextBlock Margin="20 10 0 10" FontSize="20" Grid.Column="2" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Center">To date:</TextBlock>
+            <TextBlock Margin="3 0 0 0" Grid.Column="3" VerticalAlignment="Bottom" FontSize="10" Text="{Binding ValidationErrors[EndDate], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
+
+            <DatePicker DisplayDateStart="{Binding Start}" SelectedDate="{Binding End, Mode=OneWayToSource}" BorderBrush="AliceBlue" Grid.Column="3" Width="120" HorizontalAlignment="Left" Margin="0 20 10 10"></DatePicker>
         </Grid>
         <TextBlock Grid.Column="0" Grid.Row="6" FontWeight="DemiBold" Margin="20 10 10 0" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom">Enter tourist info:</TextBlock>
         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.RowSpan="3" Grid.Row="7" Margin="20 10 40 10" Background="LightYellow">
@@ -73,24 +83,26 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-
+                <TextBlock Margin="38 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="0" FontSize="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ValidationErrors[Name], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
                 <TextBlock Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" Margin="10 10 10 10">Name:</TextBlock>
                 <TextBox Text="{Binding Name}" Grid.Column="1" Grid.ColumnSpan="2" Height="30" Width="120" Margin="0 0 30 0"></TextBox>
                 <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" Margin="10">Surname:</TextBlock>
                 <TextBox Text="{Binding Surname}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="30" Margin="0 0 30 0" Width="120"></TextBox>
+                <TextBlock Margin="38 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="1" FontSize="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ValidationErrors[Surname], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
                 <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10" FontWeight="DemiBold" FontSize="15">Age:</TextBlock>
                 <TextBox Text="{Binding Age}" Grid.Column="1" Grid.Row="2" Height="30" Width="50" Margin="20 0 0 0" ></TextBox>
+                <TextBlock Margin="38 0 0 0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="2" FontSize="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ValidationErrors[Age], UpdateSourceTrigger=PropertyChanged }" Foreground="Red"/>
                 <Button Background="AntiqueWhite" Command="{Binding AddTouristInfoCommand}" Content="+" Width="25" Height="30" FontSize="20" FontWeight="Bold" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0">
                     <Button.ToolTip>
                         <ToolTip>
-                            Add tourist info
+                            Click to add tourist info
                         </ToolTip>
                     </Button.ToolTip>
                 </Button>
             </Grid>
         </Border>
         <TextBlock FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontWeight="DemiBold" Grid.Column="1" Grid.Row="6" Margin="20 0 0 0">Registered tourists:</TextBlock>
-        <DataGrid x:Name="TouristsDataGrid" Grid.Row="7" Grid.RowSpan="3" Grid.Column="1"   Margin="-25 10 0 10 " CanUserAddRows="False" AutoGenerateColumns="False"  Width="330" ItemsSource="{Binding TourGuests, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+        <DataGrid Background="LightYellow" x:Name="TouristsDataGrid" Grid.Row="7" Grid.RowSpan="3" Grid.Column="1"   Margin="-25 10 0 10 " CanUserAddRows="False" AutoGenerateColumns="False"  Width="330" ItemsSource="{Binding TourGuests, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="100"/>
                 <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="100"/>
@@ -103,7 +115,7 @@
                             CommandParameter="{Binding}" HorizontalAlignment="Center">
                                 <Button.ToolTip>
                                     <ToolTip>
-                                        Remove tourist
+                                        Click to remove tourist
                                     </ToolTip>
                                 </Button.ToolTip>
                             </Button>
@@ -115,14 +127,14 @@
         <Button Grid.Column="0" Grid.Row="10" FontSize="15" Height="25" Width="100" Content="Cancel" Background="AntiqueWhite" FontWeight="Bold" VerticalAlignment="Center" Command="{Binding CancelReservationCommand}">
             <Button.ToolTip>
                 <ToolTip>
-                    Cancel reservation
+                    Click to cancel reservation
                 </ToolTip>
             </Button.ToolTip>
         </Button>
         <Button Command="{Binding SaveReservationCommand}" Grid.Column="1" FontSize="15" Grid.Row="10" Height="25" Width="100" Content="Confirm" Background="AntiqueWhite" FontWeight="Bold" VerticalAlignment="Center">
             <Button.ToolTip>
                 <ToolTip>
-                    Save reservation
+                    Click to confirm reservation
                 </ToolTip>
             </Button.ToolTip>
         </Button>

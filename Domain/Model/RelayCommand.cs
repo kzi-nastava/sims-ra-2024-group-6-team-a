@@ -11,10 +11,10 @@ namespace BookingApp.Model
     public class RelayCommand : ICommand
     {
         readonly Action<object> _execute;
-        readonly Predicate<object> _canExecute;
+        readonly Func<bool> _canExecute;
 
         public RelayCommand(Action<object> execute) : this(execute, null) { }
-        public RelayCommand(Action<Object> execute, Predicate<object> canExecute)
+        public RelayCommand(Action<Object> execute, Func<bool> canExecute)
         {
             if (execute == null)
                 throw new Exception("execute");
@@ -24,7 +24,7 @@ namespace BookingApp.Model
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute(parameter);
+            return _canExecute == null || _canExecute();
         }
 
         public event EventHandler CanExecuteChanged
@@ -36,6 +36,11 @@ namespace BookingApp.Model
         public void Execute(object parameter)
         {
             _execute(parameter);
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
         }
 
     }

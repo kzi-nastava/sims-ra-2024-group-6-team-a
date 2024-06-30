@@ -19,13 +19,15 @@ using System.Windows.Shapes;
 using BookingApp.Observer;
 using BookingApp.Resources;
 using BookingApp.ApplicationServices;
+using BookingApp.Domain.Model;
+using System.ComponentModel;
 
 namespace BookingApp.View.GuideView.Pages
 {
     /// <summary>
     /// Interaction logic for LiveTour.xaml
     /// </summary>
-    public partial class LiveTour : Page
+    public partial class LiveTour : Page, INotifyPropertyChanged
     {
 
 
@@ -39,8 +41,30 @@ namespace BookingApp.View.GuideView.Pages
         public Tour SelectedTour { get; set; }
         public TourSchedule SelectedTourSchedule { get; set; }
         public Location SelectedLocation { get; set; }
+        public Language SelectedLanguage {  get; set; }
 
-       
+        private Checkpoint _selectedCheckpoint;
+        public Checkpoint SelectedCheckpoint
+        {
+            get { return _selectedCheckpoint; }
+            set
+            {
+                if (_selectedCheckpoint != value)
+                {
+                    _selectedCheckpoint = value;
+                    OnPropertyChanged(nameof(SelectedCheckpoint));
+                }
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public int TouristNumber {  get; set; }
+
         public LiveTour(int tourScheduleId)
         {
             InitializeComponent();
@@ -54,9 +78,12 @@ namespace BookingApp.View.GuideView.Pages
             SelectedTourSchedule = TourScheduleService.GetInstance().GetById(tourScheduleId);
             SelectedTour = TourService.GetInstance().GetById(SelectedTourSchedule.TourId);
             SelectedLocation = LocationService.GetInstance().GetById(SelectedTour.LocationId);
-
+            SelectedLanguage = LanguageService.GetInstance().GetById(SelectedTour.LocationId);
             UpdateCheckpoints();
+            SelectedCheckpoint  = Checkpoints.FirstOrDefault(checkpoint => !checkpoint.IsReached);;
             UpdateGuests();
+            TouristNumber = TourGuests.Count;
+
 
         }
 
@@ -65,10 +92,8 @@ namespace BookingApp.View.GuideView.Pages
             Checkpoints.Clear();
             foreach (Checkpoint checkpoint in CheckpointService.GetInstance().GetAllByTourScheduleId(SelectedTourSchedule.Id))
             {
-
                 Checkpoints.Add(checkpoint);
             }
-            Checkpoints.ElementAt(0).IsReached = true;
         }
 
         public void UpdateGuests()
@@ -82,37 +107,57 @@ namespace BookingApp.View.GuideView.Pages
         }
 
 
-        private void CheckpointCheckBox_Checked(object sender, RoutedEventArgs e)
+        private void NextCheckpointClick(object sender, RoutedEventArgs e)
         {
-            Checkpoint selectedCheckpoint = (sender as CheckBox).DataContext as Checkpoint;
-            CheckBox checkbox = sender as CheckBox;
-
-
-            DisableCheckbox(checkbox, e);
-
-            MarkCheckpointReached(selectedCheckpoint);
-
             
-
-            UpdateTourGuests(selectedCheckpoint);
-            HasTourEnded(selectedCheckpoint, sender, e);
+            UpdateTourGuests();
+            MarkCheckpointReached();
         }
 
-        private void MarkCheckpointReached(Checkpoint checkpoint)
+        private void MarkCheckpointReached()
         {
-            checkpoint.IsReached = true;
-            CheckpointService.GetInstance().Update(checkpoint);
+            int currentIndex = Checkpoints.IndexOf(SelectedCheckpoint);
+
+
+            SelectedCheckpoint.IsReached = true;
+            CheckpointService.GetInstance().Update(SelectedCheckpoint);
+            UpdateCheckpoints();
+
+            if (currentIndex + 1 >= Checkpoints.Count)
+            {
+                TourEndedNotificationClick();
+                return;
+            }
+
+            SelectedCheckpoint = Checkpoints[currentIndex + 1];
+            
         }
 
+        private void TourGuestsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach (TourGuests tourist in e.RemovedItems)
+            {
+                tourist.IsPresent = false;
+            }
 
+            foreach (TourGuests tourist in e.AddedItems)
+            {
+                tourist.IsPresent = true;
 
-        private void UpdateTourGuests(Checkpoint selectedCheckpoint)
+                if (tourist.UserTypeId != -1)
+                {                    
+                    VisitedTourService.GetInstance().Save(tourist.UserTypeId, SelectedTourSchedule.Id);
+                }
+            }
+        }
+
+        private void UpdateTourGuests()
         {
             foreach (var tourist in TourGuests)
             {
                 if (tourist.IsPresent)
                 {
-                    tourist.CheckpointId = selectedCheckpoint.Id;
+                    tourist.CheckpointId = SelectedCheckpoint.Id;
                     TourGuestService.GetInstance().Update(tourist);
                 }
             }
@@ -120,34 +165,24 @@ namespace BookingApp.View.GuideView.Pages
 
         }
 
-
-        private void DisableCheckbox(CheckBox checkbox, RoutedEventArgs e)
+        private void TourEndedClick(object sender, RoutedEventArgs e)
         {
-            if (checkbox != null && checkbox.IsChecked == true)
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to end the tour?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
             {
-                checkbox.IsEnabled = false;
-                e.Handled = true;
+               
+                TourEndedNotificationClick();
+               
             }
         }
 
-        private void HasTourEnded(Checkpoint selectedCheckpoint,object sender,RoutedEventArgs e)
-        {
-            if (Checkpoints.Last() == selectedCheckpoint)
-            {
-                TourEndedNotificationClick(sender, e);
-                //TouristNotificationService.GetInstance().SendNotification(SelectedTourSchedule);
-            }
-        }
 
-      
-
-        private void TourEndedNotificationClick(object sender, RoutedEventArgs e)
+        private void TourEndedNotificationClick()
         {
-            MessageBox.Show("Tour ended.", "Tour Status", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Congratulations, the \" "+ SelectedTour.Name + "\" tour has been successfully completed.", "Tour Status", MessageBoxButton.OK, MessageBoxImage.Information);
             SelectedTourSchedule.TourActivity = Enums.TourActivity.Finished;
-            TourScheduleService.GetInstance().Update(SelectedTourSchedule);
-            
-                        
+            TourScheduleService.GetInstance().Update(SelectedTourSchedule);           
+            //RADI OVO, GORE PUCA NULL             
             GoBackIfPossible();
             TouristNotificationService.GetInstance().SendNotification(SelectedTourSchedule);
         }
@@ -159,6 +194,11 @@ namespace BookingApp.View.GuideView.Pages
             LiveToursPage liveToursPage = new LiveToursPage(UserService.GetInstance().GetById(SelectedTour.GuideId));
                 NavigationService.Navigate(liveToursPage);
             
+        }
+
+        public void GoBackClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
 
     }

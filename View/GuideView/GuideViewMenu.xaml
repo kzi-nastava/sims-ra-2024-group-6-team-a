@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookingApp.View"
+        xmlns:ns ="clr-namespace:BookingApp.View.GuideView.Localization"
         xmlns:components="clr-namespace:BookingApp.View.GuideView.Components"
          mc:Ignorable="d"
         Title="Guide" WindowState="Maximized" d:DesignHeight="1080" d:DesignWidth="1920" >
@@ -12,6 +13,10 @@
         <Style  TargetType="TextBlock">
             <Setter Property="Foreground" Value="DarkGray"/>
         </Style>
+        <ContextMenu x:Key="AccountSettingsMenu">
+            <MenuItem Header="Account Settings" Click="AccountSettings_Click"/>
+            <MenuItem Header="Log Out" Click="LogOut_Click"/>
+        </ContextMenu>
     </Window.Resources>
 
     <Grid>
@@ -32,6 +37,49 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <StackPanel Margin="0 0 20 0" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Right">
+                    <StackPanel Orientation="Vertical">
+                   <TextBlock FontFamily="Yu Gothic UI Light"
+                   Grid.Column="1"
+                   TextWrapping="Wrap"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="Black"
+                   TextAlignment="Left"
+                   VerticalAlignment="Center">      
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="Guide.Name"/>
+                                    <Binding Path="Guide.Surname"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock FontFamily="Yu Gothic UI Light" Grid.Column="1" TextWrapping="Wrap" 
+                         FontSize="20" VerticalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="{ns:Loc Guide}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSuperGuide}" Value="True">
+                                            <Setter Property="Text" Value="{ns:Loc SuperGuide}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                    <Menu FlowDirection="RightToLeft"  Background="{x:Null}" VerticalAlignment="Center">
+                        <MenuItem>
+                            <MenuItem.Header>
+                                <StackPanel>
+                                    <Image Source="/Resources/Images/account_settings.png" Width="40" Height="40" />
+                                </StackPanel>
+                            </MenuItem.Header>
+                            <MenuItem Click="AccountSettings_Click" Header="Account Details"></MenuItem>
+                            <MenuItem Click="LogOut_Click" Header="Log Out"></MenuItem>
+                        </MenuItem>
+                    </Menu>
+                </StackPanel>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="0">
                     <Button Click="ToursPageClick" Background="Transparent" BorderThickness="0" Width="100" Height="68"  Margin="30 0 0 0" >
                     <Image Source="/Resources/Images/logo.png" Width="100" Height="68" />
@@ -40,25 +88,25 @@
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" >
                     <Button Background="Transparent" BorderThickness="0" Click="ToursPageClick"  >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="btnTours" Text="Tours"  FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock x:Name="btnTours" Text="{ns:Loc Tours}"  FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                     <TextBlock Text="|" FontSize="30" VerticalAlignment="Center" Margin="10,0,10,0"/>
                     <Button  Background="Transparent" BorderThickness="0" Click="TourReviewsPageClick" >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="btnReviews"  Text="Reviews" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock x:Name="btnReviews"  Text="{ns:Loc Reviews}" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                     <TextBlock Text="|" FontSize="30" VerticalAlignment="Center" Margin="10,0,10,0"/>
                     <Button  Background="Transparent" BorderThickness="0" Click="TourStatisticsPageClick" >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="btnStatistics"  Text="Statistics" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock x:Name="btnStatistics"  Text="{ns:Loc Statistics}" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                     <TextBlock Text="|" FontSize="30" VerticalAlignment="Center" Margin="10,0,10,0"/>
                     <Button  Background="Transparent" BorderThickness="0" Click="TourRequestsPageClick" >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="btnRequests" Text="Tour Requests" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            <TextBlock x:Name="btnRequests" Text="{ns:Loc TourRequests}" FontSize="30" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
                 </StackPanel>

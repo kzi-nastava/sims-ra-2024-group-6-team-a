@@ -34,6 +34,7 @@ namespace BookingApp.DTOs
             State = location.State;
             Image = imagePath;
             Duration = _tourRepository.GetById(TourId).Duration;
+            Description = _tourRepository.GetById(TourId).Description;
         }
 
         private string _image;
@@ -130,6 +131,22 @@ namespace BookingApp.DTOs
             }
         }
 
+        private string _description;
+        public string Description
+        {
+            get
+            {
+                return _description;
+            }
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    OnPropertyChanged("Description");
+                }
+            }
+        }
         private int _tourId;
         public int TourId
         {
@@ -235,6 +252,8 @@ namespace BookingApp.DTOs
                 }
             }
         }
+
+        public bool HasValue { get; internal set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
             protected virtual void OnPropertyChanged(string name)

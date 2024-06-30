@@ -14,23 +14,41 @@ using System.Threading.Tasks;
 using System.Windows.Navigation;
 using System.Windows;
 using BookingApp.ApplicationServices;
+using System.Windows.Controls;
 
 namespace BookingApp.ViewModels.GuestsViewModel
 {
-    public class GuestMyReservationsViewModel
+    public class GuestMyReservationsViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<ReservationGuestDTO> Reservations { get; set; }
         public Guest Guest { get; set; }
+        public GuestMyReservationsView ReservationView { get; set; }
+
         public NavigationService NavService { get; set; }
         public RelayCommand SeeMoreCommand { get; set; }
-        public GuestMyReservationsViewModel(Guest guest, NavigationService navigation)
+        public RelayCommand CreateCommand { get; set; }
+        public RelayCommand FirstDateCommand { get; set; }
+
+        public GuestMyReservationsViewModel(Guest guest, GuestMyReservationsView reservationView, NavigationService navigation)
         {
             Guest = guest;
+            ReservationView = reservationView;
+
             Reservations = new ObservableCollection<ReservationGuestDTO>();
             SeeMoreCommand = new RelayCommand(Execute_SeeMoreCommand);
+            FirstDateCommand = new RelayCommand(Execute_FirstDateCommand);
+            CreateCommand = new RelayCommand(Execute_CreateCommand);
+
             NavService = navigation;
             Update();
         }
+        public void Execute_FirstDateCommand(object obj)
+        {
+            ReservationView.LastDatePicker.IsEnabled = true;
+            DateTime? firstDatePicekr = ReservationView.FirstDatePicker.SelectedDate;
+            if (firstDatePicekr.HasValue) ReservationView.LastDatePicker.DisplayDateStart = firstDatePicekr.Value.AddDays(1);
+        }
+
         public void Update()
         {
             Reservations.Clear();
@@ -47,10 +65,23 @@ namespace BookingApp.ViewModels.GuestsViewModel
                 Reservations.Add(new ReservationGuestDTO(Guest, reservation, accommodation, location, image.Path));
             }
         }
+        public void Execute_CreateCommand(object obj)
+        {
+            if (obj is Button button)
+            {
+                button.ContextMenu.PlacementTarget = button;
+                button.ContextMenu.IsOpen = true;
+            }
+        }
         private void Execute_SeeMoreCommand(object obj)
         {
             ReservationGuestDTO reservationGuestDTO = obj as ReservationGuestDTO;
             NavService.Navigate(new ReservationSeeMoreView(reservationGuestDTO, Guest, NavService));
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

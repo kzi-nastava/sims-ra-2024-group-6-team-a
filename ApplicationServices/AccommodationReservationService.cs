@@ -1,4 +1,5 @@
-﻿using BookingApp.Domain.RepositoryInterfaces;
+﻿using BookingApp.Domain.Model;
+using BookingApp.Domain.RepositoryInterfaces;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.RepositoryInterfaces;
@@ -60,7 +61,17 @@ namespace BookingApp.ApplicationServices
                     numberOfReservation++;
             return numberOfReservation;
         }
-
+        public Enums.ReservationChangeStatus CheckGuest(int userId, int locationId)
+        {
+            Enums.ReservationChangeStatus status = ReservationChangeStatus.Accepted;
+            int guestId = GuestService.GetInstance().GetGuestIDByUseId(userId);
+            foreach (AccommodationReservation reservation in GetActiveReservationsByGuest(guestId)) { 
+                if(LocationService.GetInstance().GetByAccommodation(AccommodationService.GetInstance().GetByReservationId(reservation.AccommodationId)).Id == locationId )
+                    status = ReservationChangeStatus.Pending;
+            }
+            return  status;
+        }
+        
 
         public List<AccommodationReservation> GetByAccommodationId(int accommodationId)
         {
@@ -83,9 +94,7 @@ namespace BookingApp.ApplicationServices
             foreach (AccommodationReservation reservation in GetAll())
             {
                 if (reservation.GuestId == guestId && reservation.Status == ReservationStatus.Active)
-                {
                     guestReservations.Add(reservation);
-                }
             }
             return guestReservations;
         }

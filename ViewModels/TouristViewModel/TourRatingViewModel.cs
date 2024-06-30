@@ -3,6 +3,7 @@ using BookingApp.DTOs;
 using BookingApp.Model;
 using BookingApp.Repository;
 using BookingApp.Resources;
+using BookingApp.Validation;
 using BookingApp.View.TouristView;
 using Microsoft.Win32;
 using System;
@@ -20,7 +21,7 @@ using System.Windows.Media.Imaging;
 
 namespace BookingApp.ViewModels.TouristViewModel
 {
-    public class TourRatingViewModel : INotifyPropertyChanged
+    public class TourRatingViewModel :  ValidationBase, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public TourScheduleDTO SelectedTour { get; set; }
@@ -44,6 +45,7 @@ namespace BookingApp.ViewModels.TouristViewModel
             SelectImageCommand = new RelayCommand(Execute_SelectImageCommand);
             RemoveImageCommand = new RelayCommand(Execute_RemoveImageCommand);
             ImagesCollection = new ObservableCollection<ImageItemDTO>();
+        
         }
 
         private void Execute_SelectImageCommand(object sender)
@@ -83,12 +85,38 @@ namespace BookingApp.ViewModels.TouristViewModel
             TourReviewDTO.TouristId = LoggedUser.Id;
           
             TourReviewDTO.IsValid = true;
-            TourReviewService.GetInstance().MakeReview(TourReviewDTO);
 
-            SaveImages();
-            CloseAction();
+            Validate();
+
+            if (IsValid)
+            {
+                TourReviewService.GetInstance().MakeReview(TourReviewDTO);
+
+                SaveImages();
+                MessageBox.Show("Tour successfully rated!");
+                CloseAction();
+            }
+            
         }
 
+        protected override void ValidateSelf()
+        {
+            if (TourReviewDTO.GuideKnowledgeGrade < 1 || TourReviewDTO.GuideKnowledgeGrade > 5)
+            {
+                ValidationErrors["GuideKnowledge"] = "Please, select a grade for Guide's knowledge.";
+            }
+
+            if (TourReviewDTO.GuideLanguageGrade < 1 || TourReviewDTO.GuideLanguageGrade > 5)
+            {
+                ValidationErrors["GuideLanguage"] = "Please, select a grade for Guide's spoken language.";
+            }
+            if (TourReviewDTO.TourAttractionsGrade < 1 || TourReviewDTO.TourAttractionsGrade > 5)
+            {
+                ValidationErrors["TourAttractions"] = "Please, select a grade for tour's attractions.";
+            }
+
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
         private void Execute_CancleRateCommand(object sender)
         {
             CloseAction();
